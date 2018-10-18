@@ -1,0 +1,20 @@
+<svg ref:svgLayout data-layout-index="{layoutI}" data-layout="Svg" width="{$width + $padding.left + $padding.right}" height="{$height + $padding.bottom + $padding.top}" style="{opts.zIndex ? `z-index:${opts.zIndex};` : ''}">
+	{#if opts.defs}
+		<svelte:component this='{opts.defs}' opts='{opts.opts || {}}'/>
+	{/if}
+	<g transform="translate({$padding.left}, {$padding.top})">
+		{#each layers as layer}
+			<g>
+				<svelte:component this='{layer.component}' opts='{layer.opts || {}}'/>
+			</g>
+		{/each}
+	</g>
+</svg>
+
+<style>
+	ref:svgLayout {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+</style>

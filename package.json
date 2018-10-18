@@ -1,0 +1,44 @@
+{
+  "name": "layercake",
+  "version": "0.1.0",
+  "description": "a framework for mostly-reusable graphics with svelte",
+  "module": "src/layercake.js",
+  "dependencies": {
+    "d3-scale": "^2.1.0"
+  },
+  "peerDependencies": {
+    "svelte": "2.x"
+  },
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "esm": "^3.0.84",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha --require esm test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhkeller/layercake.git"
+  },
+  "keywords": [
+    "layercake",
+    "sveltejs",
+    "graphics",
+    "dataviz",
+    "data visualization",
+    "dessert",
+    "cake"
+  ],
+  "author": "Michael Keller",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mhkeller/layercake/issues"
+  },
+  "homepage": "https://github.com/mhkeller/layercake#readme"
+}

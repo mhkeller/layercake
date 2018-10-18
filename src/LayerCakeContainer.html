@@ -1,0 +1,16 @@
+<div ref:chartContainer class="layercake-chart-container" bind:clientWidth=$containerWidth bind:clientHeight=$containerHeight>
+	{#each $layouts as layout, i}
+		<svelte:component this='{layout.type}' layoutI='{i}' layers='{layout.layers}' opts='{layout.opts || {}}'/>
+	{/each}
+</div>
+
+<style>
+	:global(.layercake-chart-container),
+	:global(.layercake-chart-container *) {
+		box-sizing: border-box;
+	}
+	ref:chartContainer {
+		width: 100%;
+		height: 100%;
+	}
+</style>

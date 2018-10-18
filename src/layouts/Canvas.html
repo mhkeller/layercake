@@ -1,0 +1,35 @@
+<canvas ref:canvasLayout data-layout-index="{layoutI}" data-layout-type="Canvas" style="top:{$padding.top}px; left:{$padding.left}px; width:{$width}px; height:{$height}px;{opts.zIndex ? `z-index:${opts.zIndex};` : ''}">
+</canvas>
+
+<style>
+	ref:canvasLayout{
+		position: absolute;
+	}
+</style>
+
+<script>
+import omit from '../utils/omit.js';
+
+export default {
+	oncreate () {
+		const { layers, opts } = this.get();
+		const canvas = this.refs.canvasLayout;
+		const ctx = canvas.getContext('2d', omit(opts, ['zIndex']));
+		const components = layers.map(layer => {
+			const Component = layer.component;
+			const comp = new Component({
+				data: {canvas, ctx, opts: layer.opts},
+				store: this.store,
+				target: canvas,
+				cakeRoot: this.root // TODO, document why we're setting cakeRoot
+			});
+			return comp;
+		});
+		this.store.on('update', () => {
+			components.forEach(comp => {
+				comp.set({canvas, ctx});
+			});
+		});
+	}
+};
+</script>

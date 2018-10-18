@@ -1,0 +1,50 @@
+<canvas ref:webglLayout data-layout-index="{layoutI}" data-layout-type="Webgl" style="top:{$padding.top}px; left:{$padding.left}px; width:{$width}px; height:{$height}px;{opts.zIndex ? `z-index:${opts.zIndex};` : ''}">
+</canvas>
+
+<style>
+	ref:webglLayout{
+		position: absolute;
+	}
+</style>
+
+<script>
+import omit from '../utils/omit.js';
+
+export default {
+	oncreate () {
+		const { layers, opts } = this.get();
+		const canvas = this.refs.webglLayout;
+		let testGl;
+		let webglCtx;
+
+		const contextOptions = omit(opts, ['zIndex']);
+
+		// Try to find a working webgl context
+		const contexts = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'];
+		for (var j = 0; j < contexts.length; j++) {
+			testGl = canvas.getContext(contexts[j], contextOptions);
+			if (testGl) {
+				webglCtx = testGl;
+				break;
+			}
+		}
+		const gl = webglCtx || null;
+
+		const components = layers.map(layer => {
+			const Component = layer.component;
+			const comp = new Component({
+				data: { canvas, gl, opts: layer.opts },
+				store: this.store,
+				target: canvas,
+				cakeRoot: this.root // TODO, document why we're setting cakeRoot
+			});
+			return comp;
+		});
+		this.store.on('update', () => {
+			components.forEach(comp => {
+				comp.set({ canvas, gl });
+			});
+		});
+	}
+};
+</script>

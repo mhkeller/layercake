@@ -1,0 +1,18 @@
+<div ref:htmlLayout data-layout-index="{layoutI}" data-layout-type="Html" style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;{opts.zIndex ? `z-index:${opts.zIndex};` : ''}">
+	{#each layers as layer}
+		<div ref:htmlLayer>
+			<svelte:component this='{layer.component}' opts='{layer.opts || {}}'/>
+		</div>
+	{/each}
+</div>
+
+<style>
+	ref:htmlLayout,
+	ref:htmlLayer {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+</style>

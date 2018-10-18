@@ -15,11 +15,11 @@ export default function calcExtents (data, fields) {
 	let val;
 	let s;
 
-	for (i = 0; i < fl; i++) {
-		extents[fields[i].field] = [Infinity, -Infinity];
-	}
-
 	if (fl) {
+		for (i = 0; i < fl; i++) {
+			const firstRow = fields[i].accessor(data[0]);
+			extents[fields[i].field] = Array.isArray(firstRow) ? firstRow : [firstRow, firstRow];
+		}
 		const dl = data.length;
 		for (i = 0; i < dl; i++) {
 			for (j = 0; j < fl; j++) {
@@ -48,6 +48,8 @@ export default function calcExtents (data, fields) {
 				}
 			}
 		}
+	} else {
+		return null;
 	}
 	return extents;
 };

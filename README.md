@@ -43,6 +43,8 @@ myCake
 
 ## Install
 
+LayerCake lives in your devDependencies alongside Svelte, which is lists as a peerDependency.
+
 ```sh
-npm install layercake
+npm install --save-dev layercake
 ```

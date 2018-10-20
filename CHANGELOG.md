@@ -1,6 +1,16 @@
 Changelog
 ===
 
+# 0.2.0
+
+> 2018-10-20
+
+Add `uniques` as a helper export.
+
+* Add `src/lib/uniques.js` and tests
+  * [b4c768c067ab4680ee3267aa912a34ea0f0d64b4](https://github.com/mhkeller/layercake/commit/b4c768c067ab4680ee3267aa912a34ea0f0d64b4)
+  * [11a38d046cd65d2524fe915f0387ca475ac0568d](https://github.com/mhkeller/layercake/commit/11a38d046cd65d2524fe915f0387ca475ac0568d)
+
 # 0.1.2
 
 > 2018-10-18

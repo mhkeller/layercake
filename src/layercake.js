@@ -20,6 +20,7 @@ import omit from './utils/omit.js';
 export {default as newDiv} from './lib/newDiv.js';
 export {default as scaleCanvas} from './lib/scaleCanvas.js';
 export {default as flatten} from './lib/flatten.js';
+export {default as uniques} from './lib/uniques.js';
 export { calcExtents };
 
 /* --------------------------------------------

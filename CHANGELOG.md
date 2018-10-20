@@ -1,6 +1,15 @@
 Changelog
 ===
 
+# 0.3.0
+
+> 2018-10-20
+
+Change the default behavior of `uniques` since most frequently we'll want it to transform.
+
+* Default to true, change tests
+  * [bf8ead913f0a9c30657dff40ad34f3875987e484](https://github.com/mhkeller/layercake/commit/bf8ead913f0a9c30657dff40ad34f3875987e484)
+
 # 0.2.0
 
 > 2018-10-20

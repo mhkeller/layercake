@@ -13,23 +13,22 @@ const tests = [
 	{
 		args: [
 			[{x: 1, b: 2}, {x: 1, b: 3}, {x: 2, b: 4}],
-			'x'
+			'x',
+			false
 		],
 		expected: [{x: 1, b: 2}, {x: 2, b: 4}]
 	},
 	{
 		args: [
 			[{x: 1, b: 2}, {x: 1, b: 3}, {x: 2, b: 4}],
-			'x',
-			true
+			'x'
 		],
 		expected: [1, 2]
 	},
 	{
 		args: [
 			[{x: 1, b: 2}, {x: 1, b: 3}, {x: 2, b: 4}],
-			d => d.x,
-			true
+			d => d.x
 		],
 		expected: [1, 2]
 	}

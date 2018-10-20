@@ -1,4 +1,4 @@
-export default function uniques (list, iteratee, transform = false) {
+export default function uniques (list, iteratee, transform = true) {
 	if (!Array.isArray(list)) {
 		console.error('LayerCake error: Input value to `uniques` must be a list.');
 		return null;

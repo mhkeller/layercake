@@ -1,3 +1,10 @@
+/* --------------------------------------------
+ *
+ * Calculate uniqe values from a list with an optional iterator string or function
+ * By default return the transformed value if iteratee exists
+ *
+ * --------------------------------------------
+ */
 export default function uniques (list, iteratee, transform = true) {
 	if (!Array.isArray(list)) {
 		console.error('LayerCake error: Input value to `uniques` must be a list.');

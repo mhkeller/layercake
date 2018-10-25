@@ -1,6 +1,15 @@
 Changelog
 ===
 
+# Next version
+
+> Not yet on npm
+
+So far...
+
+* Add warning if scale does not support `.nice()`
+  * [158b4f6cb035ccc0288bb2b38aa7541a8ae869e0](https://github.com/mhkeller/layercake/commit/158b4f6cb035ccc0288bb2b38aa7541a8ae869e0)
+
 # 0.3.0
 
 > 2018-10-20

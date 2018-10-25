@@ -207,7 +207,11 @@ export default class LayerCakeStore extends Store {
 					}
 
 					if (settings[`${s}Nice`] === true) {
-						scale.nice();
+						if (typeof scale.nice === 'function') {
+							scale.nice();
+						} else {
+							console.error(`Layer Cake warning: You set \`${s}Nice: true\` but the ${s}Scale does not have a \`.nice\` method. Ignoring...`);
+						}
 					}
 
 					if (settings.rRange) {

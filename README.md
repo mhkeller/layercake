@@ -48,3 +48,7 @@ LayerCake lives in your `devDependencies` alongside Svelte, which it lists as a 
 ```sh
 npm install --save-dev layercake
 ```
+
+## License
+
+MIT

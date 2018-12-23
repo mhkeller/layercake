@@ -2,6 +2,7 @@
   "name": "layercake",
   "version": "0.3.0",
   "description": "a framework for mostly-reusable graphics with svelte",
+  "main": "src/layercake.js",
   "module": "src/layercake.js",
   "dependencies": {
     "d3-scale": "^2.1.0"

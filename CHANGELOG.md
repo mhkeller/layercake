@@ -7,6 +7,8 @@ Changelog
 
 Some small things
 
+* Add `main` field to package.json. Closes [#6](https://github.com/mhkeller/layercake/issues/6).
+  * [e3305a9b1b66c5e25fbbae4a73948d12d0757819](https://github.com/mhkeller/layercake/commit/e3305a9b1b66c5e25fbbae4a73948d12d0757819)
 * Add warning if scale does not support `.nice()`
   * [158b4f6cb035ccc0288bb2b38aa7541a8ae869e0](https://github.com/mhkeller/layercake/commit/158b4f6cb035ccc0288bb2b38aa7541a8ae869e0)
 

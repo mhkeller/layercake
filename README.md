@@ -49,6 +49,10 @@ LayerCake lives in your `devDependencies` alongside Svelte, which it lists as a 
 npm install --save-dev layercake
 ```
 
+## Using in your project
+
+It currently only exports an ES6 module since I've been using it in the basic Svelte and Sapper templates. But if you have another setup or other ideas about how this library could work in your project flow [let me know on this issue](https://github.com/mhkeller/layercake/issues/6).
+
 ## License
 
 MIT

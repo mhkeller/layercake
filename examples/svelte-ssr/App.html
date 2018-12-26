@@ -10,6 +10,9 @@
 	import AxisY from "./AxisY.html";
 	import Line from "./Line.html";
 
+	// Is Browser
+	const isBrowser = typeof window !== 'undefined';
+
 	// Create layer cake store
 	const cakeData = [
 	  { cake: 1, score: 10 },
@@ -18,12 +21,13 @@
 	  { cake: 4, score: 11 }
 	];
 	const exampleCake = new LayerCake({
-	  data: cakeData,
+		data: cakeData,
+		padding: { top: 10, left: 10, right: 10, bottom: 10 },
 	  x: "cake",
 	  y: "score",
 	  width: 500,
 	  height: 400,
-	  ssr: true
+	  ssr: !isBrowser
 	}).svgLayers([
 	  { component: AxisX, opts: {} },
 	  { component: AxisY, opts: {} },

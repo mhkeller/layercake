@@ -29,17 +29,20 @@ export { calcExtents };
 export default class LayerCakeStore extends Store {
 	constructor (config) {
 		/* --------------------------------------------
-		 * Set border box so padding works correctly
+		 * Set border box so padding works correctly. In SSR mode,
+		 * there's no need to set this.
 		 */
-		config.target.style['box-sizing'] = 'border-box';
+		if (!config.ssr) {
+			config.target.style['box-sizing'] = 'border-box';
+		}
 
 		/* --------------------------------------------
 		 * Main values
 		 */
 		const coreValues = {
 			data: config.data,
-			containerWidth: config.target.clientWidth,
-			containerHeight: config.target.clientHeight,
+			containerWidth: config.width || config.target.clientWidth,
+			containerHeight: config.height || config.target.clientHeight,
 			layouts: [],
 			target: config.target,
 			custom: config.custom || {}
@@ -121,10 +124,16 @@ export default class LayerCakeStore extends Store {
 	}
 
 	computeValues (settings, originalSettings) {
-		this.compute('padding', ['target', 'containerWidth', 'containerHeight'], target => {
+		this.compute('padding', ['target', 'containerWidth', 'containerHeight', 'ssr'], (target, containerWidth, containerHeight, ssr) => {
 			const defaultPadding = {top: 0, right: 0, bottom: 0, left: 0};
 			let hasPadding = false;
 			const padding = {};
+
+			if (ssr) {
+				// TODO: Can padding be defined in config if it's a computed
+				// value?
+				return defaultPadding;
+			}
 
 			const styles = window.getComputedStyle(target);
 			Object.keys(defaultPadding).forEach(p => {

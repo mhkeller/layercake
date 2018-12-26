@@ -1,0 +1,27 @@
+<path class='path-line' d='{path}' style="stroke: {opts.stroke || '#ab00d6'};"></path>
+<style>
+	.path-line {
+	  fill: none;
+	  stroke-linejoin: round;
+	  stroke-linecap: round;
+	  stroke-width: 2;
+	}
+</style>
+
+<script>
+	export default {
+	  namespace: "svg",
+	  computed: {
+	    path: ({ $data, $xGet, $yGet }) => {
+	      return (
+	        "M" +
+	        $data
+	          .map((d, i) => {
+	            return $xGet(d) + "," + $yGet(d);
+	          })
+	          .join("L")
+	      );
+	    }
+	  }
+	};
+</script>

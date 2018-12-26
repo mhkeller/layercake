@@ -1,0 +1,42 @@
+<!-- Manually set box-sizing -->
+<div class="chart-continer" ref:chart style="box-sizing: border-box;">
+	<LayerCakeContainer />
+</div>
+
+<script>
+	import LayerCake from "../../src/layercake.js";
+	import LayerCakeContainer from "../../src/LayerCakeContainer.html";
+	import AxisX from "./AxisX.html";
+	import Line from "./Line.html";
+
+	// Create layer cake store
+	const cakeData = [
+	  { cake: 1, score: 10 },
+	  { cake: 2, score: 8 },
+	  { cake: 3, score: 7 },
+	  { cake: 4, score: 11 }
+	];
+	const exampleCake = new LayerCake({
+	  data: cakeData,
+	  x: "cake",
+	  y: "score",
+	  width: 500,
+	  height: 400,
+	  ssr: true
+	}).svgLayers([
+	  { component: AxisX, opts: {} },
+	  // { component: AxisY, opts: {} },
+	  { component: Line, opts: {} }
+	  // { component: Area, opts: {} }
+	]);
+
+	export default {
+	  components: {
+	    LayerCakeContainer
+	  },
+
+	  store: () => {
+	    return exampleCake;
+	  }
+	};
+</script>

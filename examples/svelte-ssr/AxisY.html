@@ -1,0 +1,34 @@
+<g class='axis y-axis' transform='translate(-{$padding.left}, 0)'>
+	{#each $yScale.ticks(opts.ticks || opts.tickNumber || 5) as tick, i}
+		<g class='tick tick-{tick}' transform='translate(0, {$yScale(tick)})'>
+			{#if opts.gridlines !== false}
+				<line x2='100%'></line>
+			{/if}
+			<text y='-4'>{opts.formatTick ? opts.formatTick(tick) : tick}</text>
+		</g>
+	{/each}
+</g>
+
+<style>
+	.tick {
+	  font-size: 0.725em;
+	  font-weight: 200;
+	}
+	.tick line {
+	  stroke: #aaa;
+	  stroke-dasharray: 2;
+	}
+	.tick text {
+	  fill: #666;
+	  text-anchor: start;
+	}
+	.tick.tick-0 line {
+	  stroke-dasharray: 0;
+	}
+</style>
+
+<script>
+	export default {
+	  namespace: "svg"
+	};
+</script>

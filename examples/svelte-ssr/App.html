@@ -7,6 +7,7 @@
 	import LayerCake from "../../src/layercake.js";
 	import LayerCakeContainer from "../../src/LayerCakeContainer.html";
 	import AxisX from "./AxisX.html";
+	import AxisY from "./AxisY.html";
 	import Line from "./Line.html";
 
 	// Create layer cake store
@@ -25,9 +26,8 @@
 	  ssr: true
 	}).svgLayers([
 	  { component: AxisX, opts: {} },
-	  // { component: AxisY, opts: {} },
+	  { component: AxisY, opts: {} },
 	  { component: Line, opts: {} }
-	  // { component: Area, opts: {} }
 	]);
 
 	export default {

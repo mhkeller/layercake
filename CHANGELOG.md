@@ -1,6 +1,16 @@
 Changelog
 ===
 
+# 0.3.2
+
+> 2019-03-13
+
+Update dependencies to fix minor lodash security problem
+
+* Update lodash
+  * [7e1109615a28f825be12eeb22dbf15d752b38263](https://github.com/mhkeller/layercake/commit/7e1109615a28f825be12eeb22dbf15d752b38263)
+
+
 # 0.3.1
 
 > 2018-12-23

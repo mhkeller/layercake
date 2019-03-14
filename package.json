@@ -11,7 +11,7 @@
     "svelte": "2.x"
   },
   "devDependencies": {
-    "eslint": "^5.1.0",
+    "eslint": "^5.15.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-node": "^7.0.1",

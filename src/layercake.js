@@ -192,10 +192,11 @@ export default class LayerCakeStore extends Store {
 					if (domains === null) {
 						return null;
 					}
+					// TODO, DRYer and more explicit version of what ranges are defined as, including fallbacks
 					const defaultRanges = {
-						x: settings.reverseX ? [width, 0] : [0, width],
-						y: settings.reverseY ? [height, 0] : [0, height],
-						r: [1, 25]
+						x: settings.reverseX ? [width, 0] : typeof settings.xRange === 'function' ? settings.xRange({ width, height }) : [0, width],
+						y: settings.reverseY ? [height, 0] : typeof settings.yRange === 'function' ? settings.yRange({ width, height }) : [0, height],
+						r: !settings.rRange ? [1, 25] : typeof settings.rRange === 'function' ? settings.rRange({ width, height }) : settings.rRange
 					};
 					const scale = settings[thisScale] ? settings[thisScale].copy() : defaultScales[s]();
 					scale
@@ -212,10 +213,6 @@ export default class LayerCakeStore extends Store {
 						} else {
 							console.error(`Layer Cake warning: You set \`${s}Nice: true\` but the ${s}Scale does not have a \`.nice\` method. Ignoring...`);
 						}
-					}
-
-					if (settings.rRange) {
-						scale.range(settings.rRange);
 					}
 
 					return scale;

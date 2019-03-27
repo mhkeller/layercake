@@ -7,6 +7,7 @@ import Canvas from './layouts/Canvas.html';
 import Webgl from './layouts/Webgl.html';
 
 import defaultScales from './settings/defaultScales.js';
+import getDefaultRange from './settings/getDefaultRange.js';
 import calcExtents from './lib/calcExtents.js';
 import getActiveKeys from './utils/getActiveKeys.js';
 import partialDomain from './utils/partialDomain.js';
@@ -192,13 +193,11 @@ export default class LayerCakeStore extends Store {
 					if (domains === null) {
 						return null;
 					}
-					// TODO, DRYer and more explicit version of what ranges are defined as, including fallbacks
-					const defaultRanges = {
-						x: settings.reverseX ? [width, 0] : typeof settings.xRange === 'function' ? settings.xRange({ width, height }) : [0, width],
-						y: settings.reverseY ? [height, 0] : typeof settings.yRange === 'function' ? settings.yRange({ width, height }) : [0, height],
-						r: !settings.rRange ? [1, 25] : typeof settings.rRange === 'function' ? settings.rRange({ width, height }) : settings.rRange
-					};
+
+					const defaultRanges = getDefaultRange(s, settings, width, height);
+
 					const scale = settings[thisScale] ? settings[thisScale].copy() : defaultScales[s]();
+
 					scale
 						.domain(partialDomain(domains[s], thisDoughmain)) // on creation, `thisDoughmain` will already have any nulls filled in but if we set it via the store it might not, so rerun it through partialDomain
 						.range(defaultRanges[s]);

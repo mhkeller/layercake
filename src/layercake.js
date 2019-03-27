@@ -194,13 +194,13 @@ export default class LayerCakeStore extends Store {
 						return null;
 					}
 
-					const defaultRanges = getDefaultRange(s, settings, width, height);
+					const defaultRange = getDefaultRange(s, settings, width, height);
 
 					const scale = settings[thisScale] ? settings[thisScale].copy() : defaultScales[s]();
 
 					scale
 						.domain(partialDomain(domains[s], thisDoughmain)) // on creation, `thisDoughmain` will already have any nulls filled in but if we set it via the store it might not, so rerun it through partialDomain
-						.range(defaultRanges[s]);
+						.range(defaultRange);
 
 					if (settings[`${s}Padding`]) {
 						scale.domain(padScale(scale, settings[`${s}Padding`]));

@@ -1,6 +1,19 @@
 Changelog
 ===
 
+# 0.4.0
+
+> 2019-03-26
+
+Add custom ranges and some more tests
+
+* Add custom ranges for x, y and r scales
+  * [06e0ba69fefcad0862f4a2e1cfd1ce8284f30da6](https://github.com/mhkeller/layercake/commit/06e0ba69fefcad0862f4a2e1cfd1ce8284f30da6)
+  * [0e7f5888fb78801a8a93a97e6ba424117db81a81](https://github.com/mhkeller/layercake/commit/0e7f5888fb78801a8a93a97e6ba424117db81a81)
+  * [7bd8bb4527c4a72077db75ce9d4152a442b3128e](https://github.com/mhkeller/layercake/commit/7bd8bb4527c4a72077db75ce9d4152a442b3128e)
+* Add test for calcExtent when the accessor returns an array
+  * [b903113570d6447024a565c160a442dd54090ef4](https://github.com/mhkeller/layercake/commit/b903113570d6447024a565c160a442dd54090ef4)
+
 # 0.3.2
 
 > 2019-03-13

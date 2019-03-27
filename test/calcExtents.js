@@ -31,6 +31,12 @@ const tests = [
 			{x: [-4, 0], y: [1, 6]}, {x: [-5, 1], y: [2, 7]}, {x: [-3, 2], y: [3, 8]}, {x: [-2, 3], y: [4, 9]}, {x: [-1, 4], y: [5, 10]}
 		], [{field: 'x', accessor: d => d.x}, {field: 'y', accessor: d => d.y}]],
 		expected: {x: [-5, 4], y: [1, 10]}
+	},
+	{
+		args: [[
+			{start: 0, end: 1}, {start: -10000, end: 0}
+		], [{field: 'y', accessor: d => [d.start, d.end]}]],
+		expected: {y: [-10000, 1]}
 	}
 ];
 

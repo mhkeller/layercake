@@ -5,8 +5,8 @@ import { key } from './key.js';
 
 let container;
 let myStore;
-export let width;
-export let height;
+let width;
+let height;
 
 onMount(() => {
 	myStore = createStore(container);
@@ -33,7 +33,6 @@ setContext(key, {
 <div
 	bind:this={container}
 	class="layercake-container"
-	style="height: {height}; width: {width}"
 >
 	<slot></slot>
 </div>

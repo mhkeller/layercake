@@ -17,16 +17,14 @@ onMount(() => {
 	// height = container.clientHeight;
 	console.log('container', container);
 	myStore = context.getStore();
-	console.log('my sore', myStore);
+	console.log('my store', myStore);
 
 	width = myStore.width;
 	height = myStore.height;
-
 });
 </script>
 
 <svg
-	width={myStore.$width}
 >
 	<slot></slot>
 </svg>

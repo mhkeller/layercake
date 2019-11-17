@@ -1,7 +1,20 @@
 <script>
-// console.log(__globals);
+import { getContext, onMount } from 'svelte';
 import LayerCake from '../LayerCake/LayerCake.svelte';
 import Svg from '../LayerCake/Svg.svelte';
+import { key } from '../LayerCake/key.js';
+
+// onMount(() => {
+// 	const context = getContext(key);
+// 	console.log(context);
+// })
+const data = [
+	{x: 0, y: 0},
+	{x: 10, y: 20},
+	{x: 15, y: 15},
+	{x: 12, y: 10},
+	{x: 5, y: 10},
+]
 </script>
 
 <style>
@@ -16,7 +29,16 @@ import Svg from '../LayerCake/Svg.svelte';
 </style>
 
 <div id="my-container">
-	<LayerCake>
-		<Svg/>
+	<LayerCake
+		x={'x'}
+		y={'y'}
+		data={data}
+		reverseY={false}
+	>
+		<Svg>
+<!-- 			{#each context.data as row, i}
+				<line x1="0" y1="80" x2="100" y2="{10 * i}" stroke="black" />
+			{/each}
+ -->		</Svg>
 	</LayerCake>
 </div>

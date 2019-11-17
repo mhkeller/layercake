@@ -1,23 +1,296 @@
 <script>
-import { setContext, onMount } from 'svelte';
-import { createStore } from './layercake-store.js';
+import { setContext } from 'svelte';
+import { writable, get } from 'svelte/store';
 import { key } from './key.js';
 
-let container;
-let myStore;
-let width;
-let height;
+import calcExtents from './lib/calcExtents.js';
+import omit from './utils/omit.js';
+import makeAccessor from './utils/makeAccessor.js';
+import partialDomain from './utils/partialDomain.js';
+import setContextEl from './utils/setContextEl.js';
+import getDefaultRanges from './settings/getDefaultRanges.js';
+import defaultScales from './settings/defaultScales.js';
 
-onMount(() => {
-	myStore = createStore(container);
-	console.log('lol', myStore);
+export let x;
+export let y;
+export let r;
+export let data = [];
+export let custom = {};
+
+export let activeGetters = [];
+export let xDomain = null;
+export let yDomain = null;
+export let rDomain = null;
+export let xNice = null;
+export let yNice = null;
+export let rNice = null;
+export let reverseX = false;
+export let reverseY = true;
+export let xPadding = null;
+export let yPadding = null;
+export let rPadding = null;
+export let xScale = null;
+export let yScale = null;
+export let rScale = null;
+export let rRange = null;
+export let flatData;
+
+let container;
+let target = {};
+$: if (container) {
+	target = container.parentNode;
+}
+
+const keys = [
+	{ dimension: 'x', fn: x },
+	{ dimension: 'y', fn: y },
+	{ dimension: 'r', fn: r }
+];
+
+const activeKeys = keys.filter(k => k.fn);
+const config = {
+	data,
+	xDomain,
+	yDomain,
+	rDomain,
+	xNice,
+	yNice,
+	rNice,
+	reverseX,
+	reverseY,
+	xPadding,
+	yPadding,
+	rPadding,
+	xScale,
+	yScale,
+	rScale,
+	rRange,
+	flatData
+};
+
+/* --------------------------------------------
+ * Main values
+ */
+const coreValues = {
+	data: config.data,
+	containerWidth: target.clientWidth,
+	containerHeight: target.clientHeight,
+	layouts: [],
+	target: target,
+	custom: config.custom || {}
+};
+
+/* --------------------------------------------
+ * Preserve a copy of our passed in settings before we modify them
+ * Return this to the user's store so they can reference things if need be
+ * This is mostly an escape-hatch
+ */
+const originalSettings = Object.assign({}, config);
+
+const settings = Object.assign({
+	activeGetters: [],
+	activeKeys
+}, config);
+
+/* --------------------------------------------
+ * Make accessors for every active key
+ */
+activeKeys.forEach(k => {
+	settings[k.dimension] = makeAccessor(k.fn);
+	settings.activeGetters.push({ dimension: k.dimension, get: settings[k.dimension] });
 });
+
+if (settings.data) {
+	settings.flatData = settings.flatData || settings.data;
+	settings.domains = calcExtents(settings.flatData, settings.activeKeys.map(k => {
+		return {
+			field: k.dimension,
+			accessor: settings[k.dimension]
+		};
+	}));
+
+	settings.activeKeys.forEach(k => {
+		if (settings.domains) {
+			const thisDomain = `${k.dimension}Domain`;
+			settings[thisDomain] = partialDomain(settings.domains[k.dimension], originalSettings[thisDomain]);
+		}
+	});
+}
+
+/* --------------------------------------------
+ * We're going to add everything in settings and config onto our store
+ * except for a few that are computed down below, so omit this from what gets
+ * sent to super
+ */
+const computedValues = [
+	...settings.activeKeys.map(k => `${k.dimension}Scale`),
+	'rRange'
+];
+
+/* --------------------------------------------
+ * Assign these values to the store
+ */
+const contextToSet = Object.assign(omit(settings, computedValues), coreValues, { originalSettings });
 
 setContext(key, {
-	getStore: () => createStore(container),
-	getContainer: () => container
+	...contextToSet,
+	originalSettings
 });
+
+const containerWidth = writable(1);
+const containerHeight = writable(1);
+
+contextToSet.containerWidth = containerWidth;
+contextToSet.containerHeight = containerHeight;
+
+/* --------------------------------------------
+ * Derive padding
+ */
+let padding = {};
+$: (target, containerWidth, containerHeight, setPadding());
+function setPadding () {
+	const defaultPadding = {top: 0, right: 0, bottom: 0, left: 0};
+	let hasPadding = false;
+
+	// const styles = window.getComputedStyle(target);
+	// Object.keys(defaultPadding).forEach(p => {
+	// 	const val = +styles.getPropertyValue(`padding-${p}`).replace('px', '') || 0;
+	// 	padding[p] = val;
+	// 	if (val) hasPadding = true;
+	// });
+	if (hasPadding === false) {
+		padding = Object.assign(defaultPadding, settings.padding || {});
+	}
+	setContextEl('padding', padding);
+}
+
+$: (containerWidth, containerHeight, padding, setBox());
+
+/* --------------------------------------------
+ * Set box
+ */
+let box = {};
+function setBox () {
+	const b = {};
+	console.log(padding, containerWidth, containerHeight);
+	b.top = padding.top;
+	b.right = get(containerWidth) - padding.right;
+	b.bottom = get(containerHeight) - padding.bottom;
+	b.left = padding.left;
+	b.width = b.right - b.left;
+	b.height = b.bottom - b.top;
+	box = b;
+	console.log(box);
+	setContextEl('box', box);
+}
+
+/* --------------------------------------------
+ * Set dimensions
+ */
+let width = 1;
+$: (box, setWidth());
+function setWidth () {
+	width = box.width;
+	setContextEl('width', width);
+}
+let height = 1;
+$: (box, setHeight());
+function setHeight () {
+	height = box.height;
+	setContextEl('height', height);
+}
+
+/* --------------------------------------------
+ * Update flatData
+ */
+$: (flatData, updateFlatData());
+function updateFlatData () {
+	setContextEl('flatData', flatData);
+}
+
+let domains;
+/* --------------------------------------------
+ * Update domains
+ */
+$: if (data) (data, flatData, updateDomains());
+
+function updateDomains () {
+	domains = calcExtents(settings.flatData, activeKeys.map(k => {
+		return {
+			field: k.dimension,
+			accessor: settings[k.dimension]
+		};
+	}));
+
+	activeKeys.forEach(k => {
+		const thisDomain = `${k.dimension}Domain`;
+		const d = partialDomain(domains[k.dimension], originalSettings[thisDomain]);
+		setContextEl(thisDomain, d);
+	});
+	setContextEl('domains', domains);
+}
+
+/* --------------------------------------------
+ * Update scales
+ */
+$: if (x) (width, height, domains, xScale, updateScale({ name: 'x', accessor: settings.x, scale: settings.xScale }));
+$: if (y) (width, height, domains, yScale, updateScale({ name: 'y', accessor: settings.y, scale: settings.yScale }));
+$: if (r) (width, height, domains, rScale, updateScale({ name: 'r', accessor: settings.r, scale: settings.rScale }));
+function updateScale (d) {
+	const s = d.name;
+	const acc = d.accessor;
+	const thisScale = `${s}Scale`;
+	const thisDoughmain = domains[s];
+	if (domains === null) {
+		setContextEl(thisScale, null);
+		return;
+	}
+
+	console.log(width, height, settings.width, settings.height);
+	const defaultRange = getDefaultRanges(s, settings, settings.width, settings.height);
+
+	const scale = settings[thisScale] ? settings[thisScale].copy() : defaultScales[s]();
+
+	scale
+		.domain(partialDomain(domains[s], thisDoughmain)) // on creation, `thisDoughmain` will already have any nulls filled in but if we set it via the store it might not, so rerun it through partialDomain
+		.range(defaultRange);
+
+	if (settings[`${s}Padding`]) {
+		scale.domain(scale, settings[`${s}Padding`]);
+		// scale.domain(padScale(scale, settings[`${s}Padding`]));
+	}
+
+	if (settings[`${s}Nice`] === true) {
+		if (typeof scale.nice === 'function') {
+			scale.nice();
+		} else {
+			console.error(`Layer Cake warning: You set \`${s}Nice: true\` but the ${s}Scale does not have a \`.nice\` method. Ignoring...`);
+		}
+	}
+
+	setContextEl(thisScale, scale);
+
+	const getter = `${s}Get`;
+	const getterFn = q => {
+		const val = acc(q);
+		console.log(q, val, scale(val));
+		if (Array.isArray(val)) {
+			return val.map(v => scale(v));
+		}
+		return scale(val);
+	};
+	setContextEl(getter, getterFn);
+}
 </script>
+
+<div
+	bind:this={container}
+	bind:clientWidth={$containerWidth}
+	bind:clientHeight={$containerHeight}
+	class="layercake-container"
+>
+	<slot></slot>
+</div>
 
 <style>
 	:global(.layercake-container),
@@ -29,10 +302,3 @@ setContext(key, {
 		height: 100%;
 	}
 </style>
-
-<div
-	bind:this={container}
-	class="layercake-container"
->
-	<slot></slot>
-</div>

@@ -1,6 +1,6 @@
 <script>
 import { setContext } from 'svelte';
-import { writable, get } from 'svelte/store';
+import { writable, derived, get } from 'svelte/store';
 import { key } from './key.js';
 
 import calcExtents from './lib/calcExtents.js';
@@ -132,25 +132,19 @@ const computedValues = [
  */
 const contextToSet = Object.assign(omit(settings, computedValues), coreValues, { originalSettings });
 
-setContext(key, {
-	...contextToSet,
-	originalSettings
-});
-
 const containerWidth = writable(1);
 const containerHeight = writable(1);
 
-contextToSet.containerWidth = containerWidth;
-contextToSet.containerHeight = containerHeight;
+// contextToSet.containerWidth = containerWidth;
+// contextToSet.containerHeight = containerHeight;
 
 /* --------------------------------------------
  * Derive padding
  */
-let padding = {};
-$: (target, containerWidth, containerHeight, setPadding());
-function setPadding () {
+const padding = derived([containerWidth, containerHeight], ([$a, $b]) => {
 	const defaultPadding = {top: 0, right: 0, bottom: 0, left: 0};
 	let hasPadding = false;
+	let padding = {};
 
 	// const styles = window.getComputedStyle(target);
 	// Object.keys(defaultPadding).forEach(p => {
@@ -161,72 +155,64 @@ function setPadding () {
 	if (hasPadding === false) {
 		padding = Object.assign(defaultPadding, settings.padding || {});
 	}
-	setContextEl('padding', padding);
-}
-
-$: (containerWidth, containerHeight, padding, setBox());
+	return padding;
+});
 
 /* --------------------------------------------
- * Set box
+ * Derive box from containerWidth, containerHeight and padding
  */
-let box = {};
-function setBox () {
+const box = derived([containerWidth, containerHeight, padding], ([$w, $h, $p]) => {
 	const b = {};
-	console.log(padding, containerWidth, containerHeight);
-	b.top = padding.top;
-	b.right = get(containerWidth) - padding.right;
-	b.bottom = get(containerHeight) - padding.bottom;
-	b.left = padding.left;
+	b.top = $p.top;
+	b.right = $w - $p.right;
+	b.bottom = $h - $p.bottom;
+	b.left = $p.left;
 	b.width = b.right - b.left;
 	b.height = b.bottom - b.top;
-	box = b;
-	console.log(box);
-	setContextEl('box', box);
-}
+	return box;
+});
 
 /* --------------------------------------------
- * Set dimensions
+ * Derive dimensions
  */
-let width = 1;
-$: (box, setWidth());
-function setWidth () {
-	width = box.width;
-	setContextEl('width', width);
-}
-let height = 1;
-$: (box, setHeight());
-function setHeight () {
-	height = box.height;
-	setContextEl('height', height);
-}
+const width = derived([box], $box => {
+	return box.width;
+});
+
+const height = derived([box], $box => {
+	return box.height;
+});
 
 /* --------------------------------------------
- * Update flatData
- */
-$: (flatData, updateFlatData());
-function updateFlatData () {
-	setContextEl('flatData', flatData);
-}
-
-let domains;
-/* --------------------------------------------
- * Update domains
+ * Derive domains
  */
 $: if (data) (data, flatData, updateDomains());
+let domains;
+if (data) {
+	domains = derived([data, flatData], ($d, $fd) => {
+		return calcExtents($fd, activeKeys.map(k => {
+			return {
+				field: k.dimension,
+				accessor: settings[k.dimension]
+			};
+		}));
+	});
 
-function updateDomains () {
-	domains = calcExtents(settings.flatData, activeKeys.map(k => {
-		return {
-			field: k.dimension,
-			accessor: settings[k.dimension]
-		};
-	}));
-
+	/* --------------------------------------------
+	 * Take any partial domain directives into account to figure out what domain the user wants
+	 */
+	const filledDomains = {};
 	activeKeys.forEach(k => {
 		const thisDomain = `${k.dimension}Domain`;
 		const d = partialDomain(domains[k.dimension], originalSettings[thisDomain]);
-		setContextEl(thisDomain, d);
+		filledDomains[thisDomain] = d;
 	});
+
+}
+
+function updateDomains () {
+	domains =
+
 	setContextEl('domains', domains);
 }
 

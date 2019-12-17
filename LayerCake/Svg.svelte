@@ -2,24 +2,19 @@
 import { getContext } from 'svelte';
 
 const {
-	data,
 	containerWidth,
 	containerHeight,
 	padding,
 	width,
-	height,
-	xGet,
-	yGet
+	height
 } = getContext('LayerCake');
 
 </script>
-
-<p>container width is {$containerWidth}</p>
-<p>width is {$width}</p>
-<p>container height is {$containerHeight}</p>
-<p>height is {$height}</p>
-
-<svg width={$containerWidth} height={$containerHeight}>
+<svg
+	class="lyrck-svg"
+	width={$containerWidth}
+	height={$containerHeight}
+>
 	<g transform="translate({$padding.left}, {$padding.top})">
 		<slot></slot>
 	</g>

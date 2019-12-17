@@ -9,8 +9,8 @@ import getDefaultRange from './settings/getDefaultRange.js';
 import defaultScales from './settings/defaultScales.js';
 import padScale from './utils/padScale.js';
 
-export let containerWidth;
-export let containerHeight;
+export let containerWidth = 1;
+export let containerHeight = 100;
 export { containerWidth as width };
 export { containerHeight as height };
 

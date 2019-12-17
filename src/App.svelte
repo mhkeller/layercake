@@ -1,7 +1,11 @@
 <script>
-import { getContext } from 'svelte';
 import LayerCake from '../LayerCake/LayerCake.svelte';
 import Svg from '../LayerCake/Svg.svelte';
+
+import Dots from './Dots.svelte';
+
+let width;
+let height;
 
 const data = [
 	{ x: 0, y: 0 },
@@ -10,6 +14,8 @@ const data = [
 	{ x: 12, y: 10 },
 	{ x: 5, y: 10 }
 ];
+
+const padding = { top: 10, right: 10, bottom: 10, left: 10,  };
 </script>
 
 <style>
@@ -20,17 +26,18 @@ const data = [
 	}
 </style>
 
-<div id="my-container">
+<div id="my-container" bind:clientWidth={width} bind:clientHeight={height}>
 	<LayerCake
+		{width}
+		{height}
 		x={'x'}
 		y={'y'}
 		data={data}
 		reverseY={false}
+		{padding}
 	>
 		<Svg>
-<!-- 			{#each context.data as row, i}
-				<line x1="0" y1="80" x2="100" y2="{10 * i}" stroke="black" />
-			{/each}
- -->		</Svg>
+			<Dots/>
+		</Svg>
 	</LayerCake>
 </div>

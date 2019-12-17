@@ -2,43 +2,52 @@
 import { setContext } from 'svelte';
 import { writable, derived } from 'svelte/store';
 
-import calcExtents from './lib/calcExtents.js';
-import omit from './utils/omit.js';
 import makeAccessor from './utils/makeAccessor.js';
+import calcExtents from './lib/calcExtents.js';
 import partialDomain from './utils/partialDomain.js';
-import setContextEl from './utils/setContextEl.js';
-import getDefaultRanges from './settings/getDefaultRanges.js';
+import getDefaultRange from './settings/getDefaultRange.js';
 import defaultScales from './settings/defaultScales.js';
+import padScale from './utils/padScale.js';
 
+export let containerWidth;
+export let containerHeight;
+export { containerWidth as width };
+export { containerHeight as height };
+
+/* --------------------------------------------
+ * Core values
+ */
 export let x;
 export let y;
 export let r;
-export let data = [];
 export let custom = {};
+export let data = [];
 
-export let activeGetters = [];
-export let xDomain = null;
-export let yDomain = null;
-export let rDomain = null;
-export let xNice = null;
-export let yNice = null;
-export let rNice = null;
-export let reverseX = false;
-export let reverseY = true;
-export let xPadding = null;
-export let yPadding = null;
-export let rPadding = null;
-export let xScale = null;
-export let yScale = null;
-export let rScale = null;
-export let rRange = null;
+/* --------------------------------------------
+ * Settings
+ * Values that computed properties are based on and that
+ * can be easily extended from config values
+ *
+ * Add the core values to the end of this object
+ */
+export let xDomain;
+export let yDomain;
+export let rDomain;
+export let xNice;
+export let yNice;
+export let rNice;
+export let reverseX;
+export let reverseY;
+export let xPadding;
+export let yPadding;
+export let rPadding;
+export let xScale;
+export let yScale;
+export let rScale;
+export let rRange;
+export let padding = {};
+
 export let flatData;
-
-let container;
-let target = {};
-$: if (container) {
-	target = container.parentNode;
-}
 
 const keys = [
 	{ dimension: 'x', fn: x },
@@ -46,12 +55,9 @@ const keys = [
 	{ dimension: 'r', fn: r }
 ];
 
-const activeKeys = keys.filter(k => k.fn);
-
-console.log(activeKeys);
-
-const config = {
-	data,
+const settings = {
+	activeKeys: keys.filter(k => k.fn),
+	activeGetters: [],
 	xDomain,
 	yDomain,
 	rDomain,
@@ -67,44 +73,31 @@ const config = {
 	yScale,
 	rScale,
 	rRange,
-	flatData
-};
+	padding,
 
-/* --------------------------------------------
- * Main values
- */
-const coreValues = {
-	data: config.data,
-	containerWidth: target.clientWidth,
-	containerHeight: target.clientHeight,
-	layouts: [],
-	target,
-	custom: config.custom || {}
+	containerWidth,
+	containerHeight,
+	data,
+	custom
 };
 
 /* --------------------------------------------
  * Preserve a copy of our passed in settings before we modify them
- * Return this to the user's store so they can reference things if need be
+ * Return this to the user's context so they can reference things if need be
  * This is mostly an escape-hatch
  */
-const originalSettings = { ...config };
-
-const settings = {
-	activeGetters: [],
-	activeKeys,
-	...config
-};
+const originalSettings = { ...settings };
 
 /* --------------------------------------------
  * Make accessors for every active key
  */
-activeKeys.forEach(k => {
+settings.activeKeys.forEach(k => {
 	settings[k.dimension] = makeAccessor(k.fn);
 	settings.activeGetters.push({ dimension: k.dimension, get: settings[k.dimension] });
 });
 
 if (settings.data) {
-	settings.flatData = settings.flatData || settings.data;
+	settings.flatData = flatData || settings.data;
 	settings.domains = calcExtents(settings.flatData, settings.activeKeys.map(k => {
 		return {
 			field: k.dimension,
@@ -113,16 +106,16 @@ if (settings.data) {
 	}));
 
 	settings.activeKeys.forEach(k => {
-		if (settings.domains) {
-			const thisDomain = `${k.dimension}Domain`;
-			settings[thisDomain] = partialDomain(settings.domains[k.dimension],
-				originalSettings[thisDomain]);
-		}
+		const thisDomain = `${k.dimension}Domain`;
+		settings[thisDomain] = partialDomain(
+			settings.domains[k.dimension],
+			originalSettings[thisDomain]
+		);
 	});
 }
 
 /* --------------------------------------------
- * We're going to add everything in settings and config onto our store
+ * We're going to add everything in settings and config onto the context
  * except for a few that are computed down below, so omit this from what gets
  * sent to super
  */
@@ -131,152 +124,141 @@ const computedValues = [
 	'rRange'
 ];
 
-/* --------------------------------------------
- * Assign these values to the store
- */
-const contextToSet = Object.assign(omit(settings, computedValues), coreValues, { originalSettings });
+const context = {
+	originalSettings
+};
 
-const containerWidth = writable(1);
-const containerHeight = writable(1);
-
-// contextToSet.containerWidth = containerWidth;
-// contextToSet.containerHeight = containerHeight;
-
-/* --------------------------------------------
- * Derive padding
- */
-const padding = derived([containerWidth, containerHeight], ([$a, $b]) => {
-	const defaultPadding = {top: 0, right: 0, bottom: 0, left: 0};
-	let hasPadding = false;
-	let padding = {};
-
-	// const styles = window.getComputedStyle(target);
-	// Object.keys(defaultPadding).forEach(p => {
-	// 	const val = +styles.getPropertyValue(`padding-${p}`).replace('px', '') || 0;
-	// 	padding[p] = val;
-	// 	if (val) hasPadding = true;
-	// });
-	if (hasPadding === false) {
-		padding = Object.assign(defaultPadding, settings.padding || {});
+Object.keys(settings).forEach(s => {
+	if (!computedValues.includes(s)) {
+		context[s] = writable(settings[s]);
 	}
-	return padding;
 });
+
+// $: context.originalSettings.set(originalSettings);
+$: context.containerWidth.set(containerWidth);
+$: context.containerHeight.set(containerHeight);
+$: context.activeKeys.set(settings.activeKeys);
+$: context.activeGetters.set(settings.activeGetters);
+$: context.xDomain.set(settings.xDomain);
+$: context.yDomain.set(settings.yDomain);
+$: context.rDomain.set(settings.rDomain);
+$: context.xNice.set(xNice);
+$: context.yNice.set(yNice);
+$: context.rNice.set(rNice);
+$: context.reverseX.set(reverseX);
+$: context.reverseY.set(reverseY);
+$: context.xPadding.set(xPadding);
+$: context.yPadding.set(yPadding);
+$: context.rPadding.set(rPadding);
+$: if (context.x) context.x.set(settings.x);
+$: if (context.y) context.y.set(settings.y);
+$: if (context.r) context.r.set(settings.r);
+$: context.data.set(data);
+$: context.custom.set(custom);
+$: context.flatData.set(flatData);
+$: context.domains.set(settings.domains);
 
 /* --------------------------------------------
- * Derive box from containerWidth, containerHeight and padding
+ * This should be updated whenever width and height changes
+ * since the padding may update based on media queries
+ * TODO, add ability to take padding from css padding
  */
-const box = derived([containerWidth, containerHeight, padding], ([$w, $h, $p]) => {
-	const b = {};
-	b.top = $p.top;
-	b.right = $w - $p.right;
-	b.bottom = $h - $p.bottom;
-	b.left = $p.left;
-	b.width = b.right - b.left;
-	b.height = b.bottom - b.top;
-	return box;
+context.padding = derived([context.containerWidth, context.containerHeight], () => {
+	const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
+	return Object.assign(defaultPadding, settings.padding);
 });
 
-/* --------------------------------------------
- * Derive dimensions
- */
-const width = derived([box], $box => {
-	return box.width;
+context.box = derived(
+	[context.containerWidth, context.containerHeight, context.padding],
+	([$containerWidth, $containerHeight, $padding]) => {
+		const b = {};
+		b.top = $padding.top;
+		b.right = $containerWidth - $padding.right;
+		b.bottom = $containerHeight - $padding.bottom;
+		b.left = $padding.left;
+		b.width = b.right - b.left;
+		b.height = b.bottom - b.top;
+		return b;
+	}
+);
+
+context.width = derived([context.box], ([$box]) => {
+	return $box.width;
 });
 
-const height = derived([box], $box => {
-	return box.height;
+context.height = derived([context.box], ([$box]) => {
+	return $box.height;
 });
 
-/* --------------------------------------------
- * Derive domains
- */
-$: if (data) (data, flatData, updateDomains());
-let domains;
-if (data) {
-	domains = derived([data, flatData], ($d, $fd) => {
-		return calcExtents($fd, activeKeys.map(k => {
-			return {
-				field: k.dimension,
-				accessor: settings[k.dimension]
-			};
-		}));
-	});
+if (settings.data) {
+	// TODO, figure out how best to update domains if the data has changed
 
 	/* --------------------------------------------
-	 * Take any partial domain directives into account to figure out what domain the user wants
+	 * Compute every scale we have an accessor for
 	 */
-	const filledDomains = {};
-	activeKeys.forEach(k => {
-		const thisDomain = `${k.dimension}Domain`;
-		const d = partialDomain(domains[k.dimension], originalSettings[thisDomain]);
-		filledDomains[thisDomain] = d;
+	settings.activeKeys.forEach(k => {
+		const thisScale = `${k.dimension}Scale`;
+		context[thisScale] = derived(
+			[context.box, context.domains, context[`${k.dimension}Domain`]],
+			([$box, $domains, $thisDoughmain]) => {
+				if ($domains === null) {
+					return null;
+				}
+
+				const defaultRange = getDefaultRange(k.dimension, settings, $box.width, $box.height);
+
+				const scale = settings[thisScale]
+					? settings[thisScale].copy()
+					: defaultScales[k.dimension]();
+
+				/* --------------------------------------------
+				 * On creation, `thisDoughmain` will already have any nulls filled in
+				 * But if we set it via the context it might not, so rerun it through partialDomain
+				 */
+				scale
+					.domain(partialDomain($domains[k.dimension], $thisDoughmain))
+					.range(defaultRange);
+
+				if (settings[`${k.dimension}Padding`]) {
+					scale.domain(padScale(scale, settings[`${k.dimension}Padding`]));
+				}
+
+				if (settings[`${k.dimension}Nice`] === true) {
+					if (typeof scale.nice === 'function') {
+						scale.nice();
+					} else {
+						console.error(`Layer Cake warning: You set \`${k.dimension}Nice: true\` but the ${k.dimension}Scale does not have a \`.nice\` method. Ignoring...`);
+					}
+				}
+
+				return scale;
+			}
+		);
+
+		/* --------------------------------------------
+		 * Compute a shorthand function to get the value and convert it using its scale
+		 * exposed as `xGet`, `yGet` or `rGet`.
+		 */
+		const getter = `${k.dimension}Get`;
+		context[getter] = derived(
+			[context[k.dimension], context[thisScale]],
+			([$acc, $scaler]) => {
+				return d => {
+					const val = $acc(d);
+					if (Array.isArray(val)) {
+						return val.map(v => $scaler(v));
+					}
+					return $scaler(val);
+				};
+			}
+		);
 	});
-
 }
 
-function updateDomains () {
-	// domains =
-
-	setContextEl('domains', domains);
-}
-
-/* --------------------------------------------
- * Update scales
- */
-$: if (x) (width, height, domains, xScale, updateScale({ name: 'x', accessor: settings.x, scale: settings.xScale }));
-$: if (y) (width, height, domains, yScale, updateScale({ name: 'y', accessor: settings.y, scale: settings.yScale }));
-$: if (r) (width, height, domains, rScale, updateScale({ name: 'r', accessor: settings.r, scale: settings.rScale }));
-function updateScale (d) {
-	const s = d.name;
-	const acc = d.accessor;
-	const thisScale = `${s}Scale`;
-	const thisDoughmain = domains[s];
-	if (domains === null) {
-		setContextEl(thisScale, null);
-		return;
-	}
-
-	console.log(width, height, settings.width, settings.height);
-	const defaultRange = getDefaultRanges(s, settings, settings.width, settings.height);
-
-	const scale = settings[thisScale] ? settings[thisScale].copy() : defaultScales[s]();
-
-	scale
-		.domain(partialDomain(domains[s], thisDoughmain)) // on creation, `thisDoughmain` will already have any nulls filled in but if we set it via the store it might not, so rerun it through partialDomain
-		.range(defaultRange);
-
-	if (settings[`${s}Padding`]) {
-		scale.domain(scale, settings[`${s}Padding`]);
-		// scale.domain(padScale(scale, settings[`${s}Padding`]));
-	}
-
-	if (settings[`${s}Nice`] === true) {
-		if (typeof scale.nice === 'function') {
-			scale.nice();
-		} else {
-			console.error(`Layer Cake warning: You set \`${s}Nice: true\` but the ${s}Scale does not have a \`.nice\` method. Ignoring...`);
-		}
-	}
-
-	setContextEl(thisScale, scale);
-
-	const getter = `${s}Get`;
-	const getterFn = q => {
-		const val = acc(q);
-		console.log(q, val, scale(val));
-		if (Array.isArray(val)) {
-			return val.map(v => scale(v));
-		}
-		return scale(val);
-	};
-	setContextEl(getter, getterFn);
-}
+setContext('LayerCake', context);
 </script>
 
 <div
-	bind:this={container}
-	bind:clientWidth={$containerWidth}
-	bind:clientHeight={$containerHeight}
 	class="layercake-container"
 >
 	<slot></slot>

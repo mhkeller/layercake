@@ -1,19 +1,26 @@
 <script>
 import { getContext } from 'svelte';
 
-const context = getContext('LayerCake');
-console.log(context);
+const {
+	data,
+	containerWidth,
+	containerHeight,
+	padding,
+	width,
+	height,
+	xGet,
+	yGet
+} = getContext('LayerCake');
+
 </script>
 
-<!-- <p>width is {$width}</p>
+<p>container width is {$containerWidth}</p>
+<p>width is {$width}</p>
+<p>container height is {$containerHeight}</p>
 <p>height is {$height}</p>
- -->
-<svg>
-	<g>
-		{#each context.data as row}
-			<circle cx="{context.xGet(row)}" cy="{context.yGet(row)}" r="5" fill="black" />
-		{/each}
 
+<svg width={$containerWidth} height={$containerHeight}>
+	<g transform="translate({$padding.left}, {$padding.top})">
 		<slot></slot>
 	</g>
 </svg>

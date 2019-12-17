@@ -27,7 +27,7 @@ export default function padScale (scale, padding) {
 
 	const paddedDomain = doughmain.slice();
 	const pl = padding.length;
-	for (let i = 0; i < pl; i++) {
+	for (let i = 0; i < pl; i += 1) {
 		const sign = i === 0 ? -1 : 1;
 		const isTime = Object.prototype.toString.call(doughmain[i]) === '[object Date]';
 

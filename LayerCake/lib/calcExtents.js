@@ -1,7 +1,9 @@
 /* --------------------------------------------
  *
  * Calculate the extents of desired fields
- * Returns an object like `{x: [0, 10], y: [-10, 10]}` if `fields` is `[{field:'x', accessor: d => d.x}, {field:'y', accessor: d => d.y}]`
+ * Returns an object like:
+ * `{x: [0, 10], y: [-10, 10]}` if `fields` is
+ * `[{field:'x', accessor: d => d.x}, {field:'y', accessor: d => d.y}]`
  *
  * --------------------------------------------
  */
@@ -16,19 +18,19 @@ export default function calcExtents (data, fields) {
 	let s;
 
 	if (fl) {
-		for (i = 0; i < fl; i++) {
+		for (i = 0; i < fl; i += 1) {
 			const firstRow = fields[i].accessor(data[0]);
 			extents[fields[i].field] = Array.isArray(firstRow) ? firstRow : [firstRow, firstRow];
 		}
 		const dl = data.length;
-		for (i = 0; i < dl; i++) {
-			for (j = 0; j < fl; j++) {
+		for (i = 0; i < dl; i += 1) {
+			for (j = 0; j < fl; j += 1) {
 				f = fields[j];
 				val = f.accessor(data[i]);
 				s = f.field;
 				if (Array.isArray(val)) {
 					const vl = val.length;
-					for (let k = 0; k < vl; k++) {
+					for (let k = 0; k < vl; k += 1) {
 						if (val[k] !== undefined) {
 							if (val[k] < extents[s][0]) {
 								extents[s][0] = val[k];

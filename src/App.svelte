@@ -1,27 +1,19 @@
 <script>
-import { getContext, onMount } from 'svelte';
+import { getContext } from 'svelte';
 import LayerCake from '../LayerCake/LayerCake.svelte';
 import Svg from '../LayerCake/Svg.svelte';
-import { key } from '../LayerCake/key.js';
 
-// onMount(() => {
-// 	const context = getContext(key);
-// 	console.log(context);
-// })
 const data = [
-	{x: 0, y: 0},
-	{x: 10, y: 20},
-	{x: 15, y: 15},
-	{x: 12, y: 10},
-	{x: 5, y: 10},
-]
+	{ x: 0, y: 0 },
+	{ x: 10, y: 20 },
+	{ x: 15, y: 15 },
+	{ x: 12, y: 10 },
+	{ x: 5, y: 10 }
+];
 </script>
 
 <style>
-	h1 {
-		color: purple;
-	}
-	#my-container{
+	#my-container {
 		width: 100%;
 		height: 200px;
 		background: #f0c;

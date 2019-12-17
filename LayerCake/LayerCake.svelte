@@ -1,7 +1,6 @@
 <script>
 import { setContext } from 'svelte';
-import { writable, derived, get } from 'svelte/store';
-import { key } from './key.js';
+import { writable, derived } from 'svelte/store';
 
 import calcExtents from './lib/calcExtents.js';
 import omit from './utils/omit.js';
@@ -48,6 +47,9 @@ const keys = [
 ];
 
 const activeKeys = keys.filter(k => k.fn);
+
+console.log(activeKeys);
+
 const config = {
 	data,
 	xDomain,
@@ -76,7 +78,7 @@ const coreValues = {
 	containerWidth: target.clientWidth,
 	containerHeight: target.clientHeight,
 	layouts: [],
-	target: target,
+	target,
 	custom: config.custom || {}
 };
 
@@ -85,12 +87,13 @@ const coreValues = {
  * Return this to the user's store so they can reference things if need be
  * This is mostly an escape-hatch
  */
-const originalSettings = Object.assign({}, config);
+const originalSettings = { ...config };
 
-const settings = Object.assign({
+const settings = {
 	activeGetters: [],
-	activeKeys
-}, config);
+	activeKeys,
+	...config
+};
 
 /* --------------------------------------------
  * Make accessors for every active key
@@ -112,7 +115,8 @@ if (settings.data) {
 	settings.activeKeys.forEach(k => {
 		if (settings.domains) {
 			const thisDomain = `${k.dimension}Domain`;
-			settings[thisDomain] = partialDomain(settings.domains[k.dimension], originalSettings[thisDomain]);
+			settings[thisDomain] = partialDomain(settings.domains[k.dimension],
+				originalSettings[thisDomain]);
 		}
 	});
 }
@@ -211,7 +215,7 @@ if (data) {
 }
 
 function updateDomains () {
-	domains =
+	// domains =
 
 	setContextEl('domains', domains);
 }

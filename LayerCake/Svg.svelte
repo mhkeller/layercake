@@ -1,8 +1,7 @@
 <script>
 import { getContext } from 'svelte';
-import { key } from './key.js';
 
-const context = getContext(key);
+const context = getContext('LayerCake');
 console.log(context);
 </script>
 

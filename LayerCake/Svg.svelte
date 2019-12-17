@@ -4,9 +4,7 @@ import { getContext } from 'svelte';
 const {
 	containerWidth,
 	containerHeight,
-	padding,
-	width,
-	height
+	padding
 } = getContext('LayerCake');
 
 </script>

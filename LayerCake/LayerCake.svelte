@@ -134,7 +134,6 @@ Object.keys(settings).forEach(s => {
 	}
 });
 
-// $: context.originalSettings.set(originalSettings);
 $: context.containerWidth.set(containerWidth);
 $: context.containerHeight.set(containerHeight);
 $: context.activeKeys.set(settings.activeKeys);

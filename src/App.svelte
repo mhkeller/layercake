@@ -1,7 +1,5 @@
 <script>
-import LayerCake from '../LayerCake/LayerCake.svelte';
-import Svg from '../LayerCake/Svg.svelte';
-import Html from '../LayerCake/Html.svelte';
+import { LayerCake, Svg, Html } from '../LayerCake';
 
 import Dots from './Dots.svelte';
 import HtmlDots from './HtmlDots.svelte';
@@ -41,8 +39,10 @@ const padding = { top: 10, right: 10, bottom: 10, left: 10,  };
 		<Svg>
 			<Dots/>
 		</Svg>
+
 		<Html>
 			<HtmlDots/>
 		</Html>
+
 	</LayerCake>
 </div>

@@ -1,8 +1,8 @@
 {
   "name": "layercake",
   "version": "1.0.0",
-  "main": "src/layercake.js",
-  "module": "src/layercake.js",
+  "main": "src/index.js",
+  "module": "src/index.js",
   "devDependencies": {
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",

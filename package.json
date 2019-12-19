@@ -1,6 +1,8 @@
 {
-  "name": "svelte-app",
+  "name": "layercake",
   "version": "1.0.0",
+  "main": "src/layercake.js",
+  "module": "src/layercake.js",
   "devDependencies": {
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -13,11 +15,13 @@
     "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^4.0.4",
-    "svelte": "^3.0.0"
+    "sirv-cli": "^0.4.5"
   },
   "dependencies": {
-    "d3-scale": "^3.2.0",
-    "sirv-cli": "^0.4.4"
+    "d3-scale": "^3.2.0"
+  },
+  "peerDependencies": {
+    "svelte": "^3.16.5"
   },
   "scripts": {
     "build": "rollup -c",

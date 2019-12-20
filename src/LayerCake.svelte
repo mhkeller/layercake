@@ -9,10 +9,8 @@ import getDefaultRange from './settings/getDefaultRange.js';
 import defaultScales from './settings/defaultScales.js';
 import padScale from './utils/padScale.js';
 
-export let containerWidth = 1;
-export let containerHeight = 100;
-export { containerWidth as width };
-export { containerHeight as height };
+export let containerWidth = 320;
+export let containerHeight = 250;
 
 /* --------------------------------------------
  * Core values
@@ -256,6 +254,8 @@ setContext('LayerCake', context);
 
 <div
 	class="layercake-container"
+	bind:clientWidth={containerWidth}
+	bind:clientHeight={containerHeight}
 >
 	<slot></slot>
 </div>

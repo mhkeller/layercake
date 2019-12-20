@@ -17,7 +17,7 @@
 
 <canvas
 	bind:this={canvasElement}
-	class="lyrck-canvas"
+	class="layerake-layout-canvas"
 	width={$width}
 	height={$height}
 	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;"

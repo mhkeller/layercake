@@ -10,7 +10,7 @@ const {
 </script>
 
 <div
-	class="lyrck-html"
+	class="layercake-layout-html"
 	width={$width}
 	height={$height}
 	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;"

@@ -9,7 +9,7 @@ const {
 
 </script>
 <svg
-	class="lyrck-svg"
+	class="layercake-layout-svg"
 	width={$containerWidth}
 	height={$containerHeight}
 >

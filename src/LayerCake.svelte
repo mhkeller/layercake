@@ -37,7 +37,7 @@ export let xNice;
 export let yNice;
 export let rNice;
 export let reverseX;
-export let reverseY;
+export let reverseY = true;
 export let xPadding;
 export let yPadding;
 export let rPadding;
@@ -107,10 +107,7 @@ if (settings.data) {
 
 	settings.activeKeys.forEach(k => {
 		const thisDomain = `${k.dimension}Domain`;
-		settings[thisDomain] = partialDomain(
-			settings.domains[k.dimension],
-			originalSettings[thisDomain]
-		);
+		settings[thisDomain] = partialDomain(settings.domains[k.dimension], originalSettings[thisDomain]);
 	});
 }
 

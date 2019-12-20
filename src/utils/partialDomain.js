@@ -11,7 +11,6 @@ export default function partialDomain (doughmain, directive) {
 			}
 			return d;
 		});
-	} else {
-		return doughmain;
 	}
+	return doughmain;
 }

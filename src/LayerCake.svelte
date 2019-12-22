@@ -217,8 +217,6 @@
 						scale.domain(padScale(scale, settings[`${k.dimension}Padding`]));
 					}
 
-					window.qqq = scale;
-
 					if (settings[`${k.dimension}Nice`] === true) {
 						if (typeof scale.nice === 'function') {
 							scale.nice();

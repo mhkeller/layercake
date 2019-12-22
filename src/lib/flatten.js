@@ -14,4 +14,4 @@ export default function flatten (arr) {
 		return flat;
 	}
 	return arr;
-};
+}

@@ -214,7 +214,10 @@
 						.range(defaultRange);
 
 					if (settings[`${k.dimension}Padding`]) {
+						console.log('adjusting by', settings[`${k.dimension}Padding`]);
+						console.log('old', scale.domain());
 						scale.domain(padScale(scale, settings[`${k.dimension}Padding`]));
+						console.log('new', scale.domain());
 					}
 
 					if (settings[`${k.dimension}Nice`] === true) {

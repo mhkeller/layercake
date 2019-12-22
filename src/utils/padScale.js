@@ -23,7 +23,7 @@ export default function padScale (scale, padding) {
 	const range = scale.range();
 	const doughmainExtent = doughmain[1] - doughmain[0];
 
-	const w = range[1] - range[0];
+	const w = Math.abs(range[1] - range[0]);
 
 	const paddedDomain = doughmain.slice();
 	const pl = padding.length;

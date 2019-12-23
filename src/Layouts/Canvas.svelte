@@ -1,5 +1,7 @@
 <script>
-	import { getContext, onMount } from 'svelte';
+	import { getContext, onMount, setContext } from 'svelte';
+	import { writable } from 'svelte/store';
+	import scaleCanvas from '../lib/scaleCanvas.js';
 
 	let canvasElement;
 
@@ -9,19 +11,26 @@
 		padding
 	} = getContext('LayerCake');
 
+	let ctx;
+
+	const context = {
+		ctx: writable({})
+	};
 
 	onMount(() => {
-		const ctx = canvasElement.getContext('2d');
+		ctx = canvasElement.getContext('2d');
+		scaleCanvas(canvasElement, ctx, $width, $height);
 	});
+
+	$: context.ctx.set(ctx);
+	setContext('ctx', context);
 </script>
 
 <canvas
 	bind:this={canvasElement}
 	class="layerake-layout-canvas"
-	width={$width}
-	height={$height}
-	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;"
+	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;"
 
 >
-
 </canvas>
+<slot></slot>

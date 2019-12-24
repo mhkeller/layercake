@@ -82,9 +82,14 @@
 	/* --------------------------------------------
 	 * Preserve a copy of our passed in settings before we modify them
 	 * Return this to the user's context so they can reference things if need be
+	 * Add the active keys since those aren't on our settings object.
 	 * This is mostly an escape-hatch
 	 */
 	const originalSettings = { ...settings };
+
+	settings.activeKeys.forEach(k => {
+		originalSettings[k.dimension] = k.fn;
+	})
 
 	/* --------------------------------------------
 	 * Make accessors for every active key
@@ -120,7 +125,7 @@
 	];
 
 	const context = {
-		originalSettings
+		originalSettings: writable(originalSettings)
 	};
 
 	Object.keys(settings).forEach(s => {

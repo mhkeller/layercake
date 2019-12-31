@@ -13,7 +13,6 @@
 		padding
 	} = getContext('LayerCake');
 
-
 	const context = {
 		gl: writable({})
 	};

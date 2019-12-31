@@ -4,6 +4,8 @@
 	import scaleCanvas from '../lib/scaleCanvas.js';
 
 	let canvasElement;
+	let testGl;
+	let gl;
 
 	const {
 		width,
@@ -11,24 +13,32 @@
 		padding
 	} = getContext('LayerCake');
 
-	let ctx;
 
 	const context = {
-		ctx: writable({})
+		gl: writable({})
 	};
 
 	onMount(() => {
-		ctx = canvasElement.getContext('2d');
-		scaleCanvas(canvasElement, ctx, $width, $height);
+		/* --------------------------------------------
+		 * Try to find a working webgl context
+		 */
+		const contexts = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'];
+		for (var j = 0; j < contexts.length; j++) {
+			testGl = canvas.getContext(contexts[j], contextOptions);
+			if (testGl) {
+				gl = testGl;
+				break;
+			}
+		}
 	});
 
-	$: context.ctx.set(ctx);
-	setContext('ctx', context);
+	$: context.gl.set(gl);
+	setContext('gl', context);
 </script>
 
 <canvas
 	bind:this={canvasElement}
-	class="layerake-layout-canvas"
+	class="layerake-layout-webgl"
 	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;"
 ></canvas>
 <slot></slot>

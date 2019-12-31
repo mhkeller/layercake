@@ -99,8 +99,14 @@
 		settings.activeGetters.push({ dimension: k.dimension, get: settings[k.dimension] });
 	});
 
-	if (settings.data) {
-		settings.flatData = flatData || settings.data;
+	if (data || flatData) {
+		computeDomains();
+	}
+
+	$: (data, flatData, computeDomains())
+
+	function computeDomains() {
+		settings.flatData = flatData || data;
 		settings.domains = calcExtents(settings.flatData, settings.activeKeys.map(k => {
 			return {
 				field: k.dimension,
@@ -154,7 +160,7 @@
 	$: if (context.r) context.r.set(settings.r);
 	$: context.data.set(data);
 	$: context.custom.set(custom);
-	$: context.flatData.set(flatData);
+	$: context.flatData.set(settings.flatData);
 	$: context.domains.set(settings.domains);
 
 	/* --------------------------------------------

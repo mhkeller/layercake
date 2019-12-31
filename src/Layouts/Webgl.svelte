@@ -1,11 +1,12 @@
 <script>
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
-	import scaleCanvas from '../lib/scaleCanvas.js';
 
 	let canvasElement;
 	let testGl;
 	let gl;
+
+	export let contextOptions;
 
 	const {
 		width,
@@ -14,7 +15,8 @@
 	} = getContext('LayerCake');
 
 	const context = {
-		gl: writable({})
+		gl: writable({}),
+		canvas: writable({})
 	};
 
 	onMount(() => {
@@ -22,8 +24,8 @@
 		 * Try to find a working webgl context
 		 */
 		const contexts = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'];
-		for (var j = 0; j < contexts.length; j++) {
-			testGl = canvas.getContext(contexts[j], contextOptions);
+		for (let j = 0; j < contexts.length; j++) {
+			testGl = canvasElement.getContext(contexts[j], contextOptions);
 			if (testGl) {
 				gl = testGl;
 				break;
@@ -32,12 +34,14 @@
 	});
 
 	$: context.gl.set(gl);
+	// $: context.canvas.set(canvasElement);
 	setContext('gl', context);
+
 </script>
 
 <canvas
 	bind:this={canvasElement}
-	class="layerake-layout-webgl"
-	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;"
+	class="layercake-layout-webgl"
+	style="width:100%;height:100%;top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;"
 ></canvas>
 <slot></slot>

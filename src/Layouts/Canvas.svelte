@@ -28,7 +28,7 @@
 
 <canvas
 	bind:this={canvasElement}
-	class="layerake-layout-canvas"
-	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;"
+	class="layercake-layout-canvas"
+	style="width:100%;height:100%;top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;"
 ></canvas>
 <slot></slot>

@@ -53,7 +53,7 @@
 		{ dimension: 'r', fn: r }
 	];
 
-	const settings = {
+	$: settings = {
 		activeKeys: keys.filter(k => k.fn),
 		activeGetters: [],
 		xDomain,
@@ -80,72 +80,32 @@
 	};
 
 	/* --------------------------------------------
-	 * Also update these values when they change
-	 */
-	$: settings.xDomain = xDomain;
-	$: settings.yDomain = yDomain;
-	$: settings.rDomain = rDomain;
-	// $: settings.xNice = xNice;
-	// $: settings.yNice = yNice;
-	// $: settings.rNice = rNice;
-	// $: settings.reverseX = reverseX;
-	// $: settings.reverseY = reverseY;
-	// $: settings.xPadding = xPadding;
-	// $: settings.yPadding = yPadding;
-	// $: settings.rPadding = rPadding;
-	// $: settings.xScale = xScale;
-	// $: settings.yScale = yScale;
-	// $: settings.rScale = rScale;
-	// $: settings.rRange = rRange;
-	// $: settings.padding = padding;
-
-	// $: settings.containerWidth = containerWidth;
-	// $: settings.containerHeight = containerHeight;
-	// $: settings.data = data;
-	// $: settings.custom = custom;
-
-	/* --------------------------------------------
 	 * Preserve a copy of our passed in settings before we modify them
 	 * Return this to the user's context so they can reference things if need be
 	 * Add the active keys since those aren't on our settings object.
 	 * This is mostly an escape-hatch
 	 */
-	let originalSettings = { ...settings };
-
 	$: originalSettings = { ...settings };
 
-	settings.activeKeys.forEach(k => {
-		originalSettings[k.dimension] = k.fn;
-	})
+	// $: settings.activeKeys.forEach(k => {
+	// 	originalSettings[k.dimension] = k.fn;
+	// });
 
 	/* --------------------------------------------
 	 * Make accessors for every active key
 	 */
-	settings.activeKeys.forEach(k => {
-		settings[k.dimension] = makeAccessor(k.fn);
-		settings.activeGetters.push({ dimension: k.dimension, get: settings[k.dimension] });
-	});
+	$: {
+		settings.activeKeys.forEach(k => {
+			settings[k.dimension] = makeAccessor(k.fn);
+			settings.activeGetters.push({ field: k.dimension, accessor: settings[k.dimension] });
+		});
 
-	if (data || flatData) {
-		computeDomains();
-	}
-
-	$: (xDomain, yDomain, data, flatData, computeDomains())
-
-	function computeDomains() {
-		// console.log('computing domain');
 		settings.flatData = flatData || data;
-		settings.domains = calcExtents(settings.flatData, settings.activeKeys.map(k => {
-			return {
-				field: k.dimension,
-				accessor: settings[k.dimension]
-			};
-		}));
+		settings.domains = calcExtents(settings.flatData, settings.activeGetters);
 
 		settings.activeKeys.forEach(k => {
 			const thisDomain = `${k.dimension}Domain`;
-			settings[thisDomain] = partialDomain(settings.domains[k.dimension], originalSettings[thisDomain]);
-			// console.log(thisDomain + ' set to', settings[thisDomain]);
+			settings[thisDomain] = partialDomain(settings.domains[k.dimension], settings[thisDomain]);
 		});
 	}
 
@@ -154,20 +114,22 @@
 	 * except for a few that are computed down below, so omit this from what gets
 	 * sent to super
 	 */
-	const computedValues = [
+	$: computedValues = [
 		...settings.activeKeys.map(k => `${k.dimension}Scale`),
 		'rRange'
 	];
 
-	const context = {
+	$: context = {
 		originalSettings: writable(originalSettings)
 	};
 
-	Object.keys(settings).forEach(s => {
-		if (!computedValues.includes(s)) {
-			context[s] = writable(settings[s]);
-		}
-	});
+	$: {
+		Object.keys(settings).forEach(s => {
+			if (!computedValues.includes(s)) {
+				context[s] = writable(settings[s]);
+			}
+		});
+	}
 
 	$: context.containerWidth.set(containerWidth);
 	$: context.containerHeight.set(containerHeight);
@@ -197,106 +159,108 @@
 	 * since the padding may update based on media queries
 	 * TODO, add ability to take padding from css padding
 	 */
-	context.padding = derived([context.containerWidth, context.containerHeight], () => {
-		const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
-		return Object.assign(defaultPadding, settings.padding);
-	});
-
-	context.box = derived(
-		[context.containerWidth, context.containerHeight, context.padding],
-		([$containerWidth, $containerHeight, $padding]) => {
-			const b = {};
-			b.top = $padding.top;
-			b.right = $containerWidth - $padding.right;
-			b.bottom = $containerHeight - $padding.bottom;
-			b.left = $padding.left;
-			b.width = b.right - b.left;
-			b.height = b.bottom - b.top;
-			if (b.width < 0 && b.height < 0) {
-				console.error('[LayerCake] Target div has negative width and height. Did you forget to set a width or height on the container?');
-			} else if (b.width < 0) {
-				console.error('[LayerCake] Target div has a negative width. Did you forget to set that CSS on the container?');
-			} else if (b.height < 0) {
-				console.error('[LayerCake] Target div has negative height. Did you forget to set that CSS on the container?');
-			}
-			return b;
-		}
-	);
-
-	context.width = derived([context.box], ([$box]) => {
-		return $box.width;
-	});
-
-	context.height = derived([context.box], ([$box]) => {
-		return $box.height;
-	});
-
-	if (settings.data) {
-		/* --------------------------------------------
-		 * Compute every scale we have an accessor for
-		 */
-		settings.activeKeys.forEach(k => {
-			const thisScale = `${k.dimension}Scale`;
-			context[thisScale] = derived(
-				[context.box, context.domains, context[`${k.dimension}Domain`]],
-				([$box, $domains, $thisDoughmain]) => {
-					if ($domains === null) {
-						return null;
-					}
-
-					// console.log('recalculating scales');
-
-					const defaultRange = getDefaultRange(k.dimension, settings, $box.width, $box.height);
-
-					const scale = settings[thisScale]
-						? settings[thisScale].copy()
-						: defaultScales[k.dimension]();
-
-					/* --------------------------------------------
-					 * On creation, `thisDoughmain` will already have any nulls filled in
-					 * But if we set it via the context it might not, so rerun it through partialDomain
-					 */
-					scale
-						.domain(partialDomain($domains[k.dimension], $thisDoughmain))
-						.range(defaultRange);
-
-					if (settings[`${k.dimension}Padding`]) {
-						scale.domain(padScale(scale, settings[`${k.dimension}Padding`]));
-					}
-
-					if (settings[`${k.dimension}Nice`] === true) {
-						if (typeof scale.nice === 'function') {
-							scale.nice();
-						} else {
-							console.error(`Layer Cake warning: You set \`${k.dimension}Nice: true\` but the ${k.dimension}Scale does not have a \`.nice\` method. Ignoring...`);
-						}
-					}
-
-					return scale;
-				}
-			);
-
-			/* --------------------------------------------
-			 * Compute a shorthand function to get the value and convert it using its scale
-			 * exposed as `xGet`, `yGet` or `rGet`.
-			 */
-			const getter = `${k.dimension}Get`;
-			context[getter] = derived(
-				[context[k.dimension], context[thisScale]],
-				([$acc, $scaler]) => {
-					return d => {
-						const val = $acc(d);
-						if (Array.isArray(val)) {
-							return val.map(v => $scaler(v));
-						}
-						return $scaler(val);
-					};
-				}
-			);
+	$: {
+		context.padding = derived([context.containerWidth, context.containerHeight], () => {
+			const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
+			return Object.assign(defaultPadding, settings.padding);
 		});
+
+		context.box = derived(
+			[context.containerWidth, context.containerHeight, context.padding],
+			([$containerWidth, $containerHeight, $padding]) => {
+				const b = {};
+				b.top = $padding.top;
+				b.right = $containerWidth - $padding.right;
+				b.bottom = $containerHeight - $padding.bottom;
+				b.left = $padding.left;
+				b.width = b.right - b.left;
+				b.height = b.bottom - b.top;
+				if (b.width < 0 && b.height < 0) {
+					console.error('[LayerCake] Target div has negative width and height. Did you forget to set a width or height on the container?');
+				} else if (b.width < 0) {
+					console.error('[LayerCake] Target div has a negative width. Did you forget to set that CSS on the container?');
+				} else if (b.height < 0) {
+					console.error('[LayerCake] Target div has negative height. Did you forget to set that CSS on the container?');
+				}
+				return b;
+			}
+		);
+
+		context.width = derived([context.box], ([$box]) => {
+			return $box.width;
+		});
+
+		context.height = derived([context.box], ([$box]) => {
+			return $box.height;
+		});
+
+		if (settings.data) {
+			/* --------------------------------------------
+			 * Compute every scale we have an accessor for
+			 */
+			settings.activeKeys.forEach(k => {
+				const thisScale = `${k.dimension}Scale`;
+				context[thisScale] = derived(
+					[context.box, context.domains, context[`${k.dimension}Domain`]],
+					([$box, $domains, $thisDoughmain]) => {
+						if ($domains === null) {
+							return null;
+						}
+
+						// console.log('recalculating scales');
+
+						const defaultRange = getDefaultRange(k.dimension, settings, $box.width, $box.height);
+
+						const scale = settings[thisScale]
+							? settings[thisScale].copy()
+							: defaultScales[k.dimension]();
+
+						/* --------------------------------------------
+						 * On creation, `thisDoughmain` will already have any nulls filled in
+						 * But if we set it via the context it might not, so rerun it through partialDomain
+						 */
+						scale
+							.domain(partialDomain($domains[k.dimension], $thisDoughmain))
+							.range(defaultRange);
+
+						if (settings[`${k.dimension}Padding`]) {
+							scale.domain(padScale(scale, settings[`${k.dimension}Padding`]));
+						}
+
+						if (settings[`${k.dimension}Nice`] === true) {
+							if (typeof scale.nice === 'function') {
+								scale.nice();
+							} else {
+								console.error(`Layer Cake warning: You set \`${k.dimension}Nice: true\` but the ${k.dimension}Scale does not have a \`.nice\` method. Ignoring...`);
+							}
+						}
+
+						return scale;
+					}
+				);
+
+				/* --------------------------------------------
+				 * Compute a shorthand function to get the value and convert it using its scale
+				 * exposed as `xGet`, `yGet` or `rGet`.
+				 */
+				const getter = `${k.dimension}Get`;
+				context[getter] = derived(
+					[context[k.dimension], context[thisScale]],
+					([$acc, $scaler]) => {
+						return d => {
+							const val = $acc(d);
+							if (Array.isArray(val)) {
+								return val.map(v => $scaler(v));
+							}
+							return $scaler(val);
+						};
+					}
+				);
+			});
+		}
 	}
 
-	setContext('LayerCake', context);
+	$: setContext('LayerCake', context);
 </script>
 
 <div

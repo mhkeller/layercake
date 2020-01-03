@@ -9,8 +9,8 @@
 	import defaultScales from './settings/defaultScales.js';
 	import padScale from './utils/padScale.js';
 
-	export let containerWidth = 320;
-	export let containerHeight = 250;
+	export let containerWidth = 345;
+	export let containerHeight = 140;
 
 	/* --------------------------------------------
 	 * Core values
@@ -80,12 +80,39 @@
 	};
 
 	/* --------------------------------------------
+	 * Also update these values when they change
+	 */
+	$: settings.xDomain = xDomain;
+	$: settings.yDomain = yDomain;
+	$: settings.rDomain = rDomain;
+	// $: settings.xNice = xNice;
+	// $: settings.yNice = yNice;
+	// $: settings.rNice = rNice;
+	// $: settings.reverseX = reverseX;
+	// $: settings.reverseY = reverseY;
+	// $: settings.xPadding = xPadding;
+	// $: settings.yPadding = yPadding;
+	// $: settings.rPadding = rPadding;
+	// $: settings.xScale = xScale;
+	// $: settings.yScale = yScale;
+	// $: settings.rScale = rScale;
+	// $: settings.rRange = rRange;
+	// $: settings.padding = padding;
+
+	// $: settings.containerWidth = containerWidth;
+	// $: settings.containerHeight = containerHeight;
+	// $: settings.data = data;
+	// $: settings.custom = custom;
+
+	/* --------------------------------------------
 	 * Preserve a copy of our passed in settings before we modify them
 	 * Return this to the user's context so they can reference things if need be
 	 * Add the active keys since those aren't on our settings object.
 	 * This is mostly an escape-hatch
 	 */
-	const originalSettings = { ...settings };
+	let originalSettings = { ...settings };
+
+	$: originalSettings = { ...settings };
 
 	settings.activeKeys.forEach(k => {
 		originalSettings[k.dimension] = k.fn;
@@ -103,9 +130,10 @@
 		computeDomains();
 	}
 
-	$: (data, flatData, computeDomains())
+	$: (xDomain, yDomain, data, flatData, computeDomains())
 
 	function computeDomains() {
+		// console.log('computing domain');
 		settings.flatData = flatData || data;
 		settings.domains = calcExtents(settings.flatData, settings.activeKeys.map(k => {
 			return {
@@ -117,6 +145,7 @@
 		settings.activeKeys.forEach(k => {
 			const thisDomain = `${k.dimension}Domain`;
 			settings[thisDomain] = partialDomain(settings.domains[k.dimension], originalSettings[thisDomain]);
+			// console.log(thisDomain + ' set to', settings[thisDomain]);
 		});
 	}
 
@@ -203,8 +232,6 @@
 	});
 
 	if (settings.data) {
-		// TODO, figure out how best to update domains if the data has changed
-
 		/* --------------------------------------------
 		 * Compute every scale we have an accessor for
 		 */
@@ -216,6 +243,8 @@
 					if ($domains === null) {
 						return null;
 					}
+
+					// console.log('recalculating scales');
 
 					const defaultRange = getDefaultRange(k.dimension, settings, $box.width, $box.height);
 

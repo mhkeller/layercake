@@ -220,7 +220,12 @@
 	// $: console.log('padding', context.padding);
 
 
-
+	context.xScale = derived([context.box, context.domains, context.xDomain], ([$box, $domains, $thisDomain]) => {
+		if ($domains === null) {
+			return null;
+		}
+		// const defaultRange = getDefaultRange('x', settings, $box.width, $box.height);
+	});
 
 	// 	if (settings.data) {
 	// 		/* --------------------------------------------

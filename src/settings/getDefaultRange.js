@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 const getRange = {
-	x: (settings, width, height) => {
+	x: (width, height, reverseX, reverseY) => {
 		return settings.reverseX
 			? [width, 0]
 			: typeof settings.xRange === 'function'

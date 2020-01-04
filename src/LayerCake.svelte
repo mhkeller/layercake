@@ -124,9 +124,9 @@
 	const _extents = writable();
 	$: _extents.set(calcExtents($_flatData, $_activeGetters));
 
-	$: _xDomain.set(partialDomain($_extents.x, xDomain));
-	$: _yDomain.set(partialDomain($_extents.y, yDomain));
-	$: _rDomain.set(partialDomain($_extents.r, rDomain));
+	$: _xDomain.set($_extents ? partialDomain($_extents.x, xDomain) : null);
+	$: _yDomain.set($_extents ? partialDomain($_extents.y, yDomain) : null);
+	$: _rDomain.set($_extents ? partialDomain($_extents.r, rDomain) : null);
 
 	// $: console.log('x', $_xDomain);
 	// $: console.log('y', $_yDomain);
@@ -150,10 +150,14 @@
 		x: _x,
 		y: _y,
 		r: _r,
+		xScale: _xScale,
+		yScale: _yScale,
+		rScale: _rScale,
 		data: writable(data),
 		custom: writable(custom),
 		flatData: _flatData,
-		extents: _extents
+		extents: _extents,
+		originalSettings: writable({})
 	};
 
 	$: context.containerWidth.set(containerWidth);
@@ -176,6 +180,7 @@
 	// $: if (context.r) context.r.set(settings.r);
 	$: context.data.set(data);
 	$: context.custom.set(custom);
+	$: context.originalSettings.set(originalSettings);
 	// $: context.flatData.set(settings.flatData);
 	// $: context.domains.set(settings.domains);
 
@@ -217,81 +222,77 @@
 		});
 	}
 
-	// $: console.log('padding', context.padding);
+	console.log('here');
+	$: {
+		console.log('therere');
+		/* --------------------------------------------
+		 * Compute every scale we have an accessor for
+		 */
+		$_activeGetters.forEach(k => {
+			console.log('here');
+			const thisScale = `${k.field}Scale`;
+			console.log(thisScale, 'adsfas');
+			context[thisScale] = derived([context[thisScale], context.box, context.extents, context[`${k.field}Domain`], context[`${k.field}Padding`], context[`${k.field}Nice`]], ([$scaler, $box, $extents, $thisDoughmain, $thisPadding, $thisNice]) => {
+				console.log('c');
+				if ($extents === null) {
+					return null;
+				}
+
+				console.log('a');
+				// const defaultRange = getDefaultRange(k.field, settings, $box.width, $box.height);
+				const defaultRange = [0, $box.width];
+
+				// const scale = $scaler
+				// 	? settings[thisScale].copy()
+				// 	: defaultScales[k.field]();
+
+				const scale = $scaler.copy();
 
 
-	context.xScale = derived([context.box, context.domains, context.xDomain], ([$box, $domains, $thisDomain]) => {
-		if ($domains === null) {
-			return null;
-		}
-		// const defaultRange = getDefaultRange('x', settings, $box.width, $box.height);
-	});
+				/* --------------------------------------------
+				 * On creation, `thisDoughmain` will already have any nulls filled in
+				 * But if we set it via the context it might not, so rerun it through partialDomain
+				 */
+				scale
+					.domain(partialDomain($extents[k.field], $thisDoughmain))
+					.range(defaultRange);
 
-	// 	if (settings.data) {
-	// 		/* --------------------------------------------
-	// 		 * Compute every scale we have an accessor for
-	// 		 */
-	// 		settings.activeKeys.forEach(k => {
-	// 			const thisScale = `${k.dimension}Scale`;
-	// 			context[thisScale] = derived(
-	// 				[context.box, context.domains, context[`${k.dimension}Domain`]],
-	// 				([$box, $domains, $thisDoughmain]) => {
-	// 					if ($domains === null) {
-	// 						return null;
-	// 					}
+				if ($thisPadding) {
+					scale.domain(padScale(scale, $thisPadding));
+				}
 
-	// 					// console.log('recalculating scales');
+				if ($thisNice === true) {
+					if (typeof scale.nice === 'function') {
+						scale.nice();
+					} else {
+						console.error(`Layer Cake warning: You set \`${k.field}Nice: true\` but the ${k.field}Scale does not have a \`.nice\` method. Ignoring...`);
+					}
+				}
 
-	// 					const defaultRange = getDefaultRange(k.dimension, settings, $box.width, $box.height);
+				console.log(scale);
 
-	// 					const scale = settings[thisScale]
-	// 						? settings[thisScale].copy()
-	// 						: defaultScales[k.dimension]();
+				return scale;
+			});
 
-	// 					/* --------------------------------------------
-	// 					 * On creation, `thisDoughmain` will already have any nulls filled in
-	// 					 * But if we set it via the context it might not, so rerun it through partialDomain
-	// 					 */
-	// 					scale
-	// 						.domain(partialDomain($domains[k.dimension], $thisDoughmain))
-	// 						.range(defaultRange);
-
-	// 					if (settings[`${k.dimension}Padding`]) {
-	// 						scale.domain(padScale(scale, settings[`${k.dimension}Padding`]));
-	// 					}
-
-	// 					if (settings[`${k.dimension}Nice`] === true) {
-	// 						if (typeof scale.nice === 'function') {
-	// 							scale.nice();
-	// 						} else {
-	// 							console.error(`Layer Cake warning: You set \`${k.dimension}Nice: true\` but the ${k.dimension}Scale does not have a \`.nice\` method. Ignoring...`);
-	// 						}
-	// 					}
-
-	// 					return scale;
-	// 				}
-	// 			);
-
-	// 			/* --------------------------------------------
-	// 			 * Compute a shorthand function to get the value and convert it using its scale
-	// 			 * exposed as `xGet`, `yGet` or `rGet`.
-	// 			 */
-	// 			const getter = `${k.dimension}Get`;
-	// 			context[getter] = derived(
-	// 				[context[k.dimension], context[thisScale]],
-	// 				([$acc, $scaler]) => {
-	// 					return d => {
-	// 						const val = $acc(d);
-	// 						if (Array.isArray(val)) {
-	// 							return val.map(v => $scaler(v));
-	// 						}
-	// 						return $scaler(val);
-	// 					};
-	// 				}
-	// 			);
-	// 		});
-	// 	}
-	// }
+			/* --------------------------------------------
+			 * Compute a shorthand function to get the value and convert it using its scale
+			 * exposed as `xGet`, `yGet` or `rGet`.
+			 */
+			const getter = `${k.field}Get`;
+			context[getter] = derived(
+				[context[k.field], context[thisScale]],
+				([$acc, $scaler]) => {
+					return d => {
+						const val = $acc(d);
+						if (Array.isArray(val)) {
+							return val.map(v => $scaler(v));
+						}
+						return $scaler(val);
+					};
+				}
+			);
+		});
+	}
 
 	$: setContext('LayerCake', context);
 </script>

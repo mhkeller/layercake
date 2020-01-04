@@ -30,6 +30,9 @@
         "object-curly-newline": ["error", { "consistent": true }],
         "import/first": 0,
         "import/extensions": 0,
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+        "no-underscore-dangle": 0,
+        "camelcase": 0,
+        "max-len": 0
     }
 }

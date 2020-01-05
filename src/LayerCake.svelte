@@ -6,7 +6,7 @@
 	import calcExtents from './lib/calcExtents.js';
 	import partialDomain from './utils/partialDomain.js';
 	import getDefaultRange from './settings/getDefaultRange.js';
-	import { xDefault, yDefault, rDefault } from './settings/defaultScales.js';
+	import defaultScales from './settings/defaultScales.js';
 	import padScale from './utils/padScale.js';
 
 	export let containerWidth = 345;
@@ -44,9 +44,9 @@
 	export let xPadding = [0, 0];
 	export let yPadding = [0, 0];
 	export let rPadding = [0, 0];
-	export let xScale = xDefault();
-	export let yScale = yDefault();
-	export let rScale = rDefault();
+	export let xScale = defaultScales.x;
+	export let yScale = defaultScales.y;
+	export let rScale = defaultScales.r;
 	export let rRange;
 	export let padding = {};
 
@@ -81,20 +81,23 @@
 		xDomain,
 		yDomain,
 		rDomain,
-		xNice: $_xNice,
-		yNice: $_yNice,
-		rNice: $_rNice,
-		reverseX: $_reverseX,
-		reverseY: $_reverseY,
-		xPadding: $_xPadding,
-		yPadding: $_yPadding,
-		rPadding: $_rPadding,
-		xScale: $_xScale,
-		yScale: $_yScale,
-		rScale: $_rScale,
-		rRange: $_rRange,
-		padding: $_padding,
-		flatData: $_flatData
+		x,
+		y,
+		r
+		// xNice: $_xNice,
+		// yNice: $_yNice,
+		// rNice: $_rNice,
+		// reverseX: $_reverseX,
+		// reverseY: $_reverseY,
+		// xPadding: $_xPadding,
+		// yPadding: $_yPadding,
+		// rPadding: $_rPadding,
+		// xScale: $_xScale,
+		// yScale: $_yScale,
+		// rScale: $_rScale,
+		// rRange: $_rRange,
+		// padding: $_padding,
+		// flatData: $_flatData
 	};
 
 
@@ -150,9 +153,6 @@
 		x: _x,
 		y: _y,
 		r: _r,
-		xScale: _xScale,
-		yScale: _yScale,
-		rScale: _rScale,
 		data: writable(data),
 		custom: writable(custom),
 		flatData: _flatData,
@@ -222,76 +222,63 @@
 		});
 	}
 
-	console.log('here');
-	$: {
-		console.log('therere');
-		/* --------------------------------------------
-		 * Compute every scale we have an accessor for
-		 */
-		$_activeGetters.forEach(k => {
-			console.log('here');
-			const thisScale = `${k.field}Scale`;
-			console.log(thisScale, 'adsfas');
-			context[thisScale] = derived([context[thisScale], context.box, context.extents, context[`${k.field}Domain`], context[`${k.field}Padding`], context[`${k.field}Nice`]], ([$scaler, $box, $extents, $thisDoughmain, $thisPadding, $thisNice]) => {
-				console.log('c');
-				if ($extents === null) {
-					return null;
-				}
+	function createScale (which) {
+		return function scaleCreator ([$scale, $limit, $extents, $domain, $padding, $nice, $reverse]) {
+			if ($extents === null) {
+				return null;
+			}
 
-				console.log('a');
-				// const defaultRange = getDefaultRange(k.field, settings, $box.width, $box.height);
-				const defaultRange = [0, $box.width];
+			const defaultRange = $reverse === true ? [$limit, 0] : [which === 'r' ? 1 : 0, $limit];
 
-				// const scale = $scaler
-				// 	? settings[thisScale].copy()
-				// 	: defaultScales[k.field]();
-
-				const scale = $scaler.copy();
-
-
-				/* --------------------------------------------
-				 * On creation, `thisDoughmain` will already have any nulls filled in
-				 * But if we set it via the context it might not, so rerun it through partialDomain
-				 */
-				scale
-					.domain(partialDomain($extents[k.field], $thisDoughmain))
-					.range(defaultRange);
-
-				if ($thisPadding) {
-					scale.domain(padScale(scale, $thisPadding));
-				}
-
-				if ($thisNice === true) {
-					if (typeof scale.nice === 'function') {
-						scale.nice();
-					} else {
-						console.error(`Layer Cake warning: You set \`${k.field}Nice: true\` but the ${k.field}Scale does not have a \`.nice\` method. Ignoring...`);
-					}
-				}
-
-				console.log(scale);
-
-				return scale;
-			});
+			const scale = $scale === defaultScales[which] ? $scale() : $scale.copy();
 
 			/* --------------------------------------------
-			 * Compute a shorthand function to get the value and convert it using its scale
-			 * exposed as `xGet`, `yGet` or `rGet`.
+			 * On creation, `$domain` will already have any nulls filled in
+			 * But if we set it via the context it might not, so rerun it through partialDomain
 			 */
-			const getter = `${k.field}Get`;
-			context[getter] = derived(
-				[context[k.field], context[thisScale]],
-				([$acc, $scaler]) => {
-					return d => {
-						const val = $acc(d);
-						if (Array.isArray(val)) {
-							return val.map(v => $scaler(v));
-						}
-						return $scaler(val);
-					};
+			scale
+				.domain(partialDomain($extents[which], $domain))
+				.range(defaultRange);
+
+			if ($padding) {
+				scale.domain(padScale(scale, $padding));
+			}
+
+			if ($nice === true) {
+				if (typeof scale.nice === 'function') {
+					scale.nice();
+				} else {
+					console.error(`Layer Cake warning: You set \`${which}Nice: true\` but the ${which}Scale does not have a \`.nice\` method. Ignoring...`);
 				}
-			);
-		});
+			}
+
+			return scale;
+		};
+	}
+
+	function createGetter ([$acc, $scale]) {
+		return d => {
+			const val = $acc(d);
+			if (Array.isArray(val)) {
+				return val.map(v => $scale(v));
+			}
+			return $scale(val);
+		};
+	}
+
+	$: if (x) {
+		context.xScale = derived([_xScale, context.width, context.extents, context.xDomain, context.xPadding, context.xNice, context.reverseX], createScale('x'));
+		context.xGet = derived([_x, context.xScale], createGetter);
+	}
+
+	$: if (y) {
+		context.yScale = derived([_yScale, context.height, context.extents, context.yDomain, context.yPadding, context.yNice, context.reverseY], createScale('y'));
+		context.yGet = derived([_y, context.yScale], createGetter);
+	}
+
+	$: if (r) {
+		context.rScale = derived([_rScale, writable(25), context.extents, context.rDomain, context.rPadding, context.rNice, writable(false)], createScale('y'));
+		context.rGet = derived([_r, context.rScale], createGetter);
 	}
 
 	$: setContext('LayerCake', context);

@@ -119,54 +119,29 @@
 	 * Calculate domains by taking the extent of the data
 	 * and filling that in with anything set by the user
 	 */
-	const _extents = writable();
+	$: console.log('f', $_flatData);
+
+	console.log(calcExtents($_flatData, $_activeGetters));
+
+	const _extents = writable(calcExtents($_flatData, $_activeGetters));
+	$: console.log('e', $_extents);
 	$: _extents.set(calcExtents($_flatData, $_activeGetters));
 
-	$: _xDomain.set($_extents ? partialDomain($_extents.x, xDomain) : null);
-	$: _yDomain.set($_extents ? partialDomain($_extents.y, yDomain) : null);
-	$: _rDomain.set($_extents ? partialDomain($_extents.r, rDomain) : null);
+	$: _xDomain.set($_extents ? partialDomain($_extents.x, xDomain) : xDomain);
+	$: _yDomain.set($_extents ? partialDomain($_extents.y, yDomain) : yDomain);
+	$: _rDomain.set($_extents ? partialDomain($_extents.r, rDomain) : rDomain);
 
 	/* --------------------------------------------
 	 * Set up derived properties
 	 *
 	 * TODO, add ability to take padding from css padding
 	 */
-
-	const context = {
-		containerWidth: _containerWidth,
-		containerHeight: _containerHeight,
-		x: _x,
-		y: _y,
-		r: _r,
-		custom: _custom,
-		data: _data,
-		xNice: _xNice,
-		yNice: _yNice,
-		rNice: _rNice,
-		reverseX: _reverseX,
-		reverseY: _reverseY,
-		xPadding: _xPadding,
-		yPadding: _yPadding,
-		rPadding: _rPadding,
-		xScale: _xScale,
-		yScale: _yScale,
-		rScale: _rScale,
-		rRange: _rRange,
-		padding: _padding,
-		flatData: _flatData,
-		extents: _extents,
-		xDomain: _xDomain,
-		yDomain: _yDomain,
-		rDomain: _rDomain,
-		originalSettings: writable(originalSettings)
-	};
-
-	$: context.padding = derived([context.containerWidth, context.containerHeight], () => {
+	const __padding = derived([_containerWidth, _containerHeight, _padding], ([$containerWidth, $containerHeight, $padding]) => {
 		const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
-		return Object.assign(defaultPadding, $_padding);
+		return Object.assign(defaultPadding, $padding);
 	});
 
-	$: context.box = derived([context.containerWidth, context.containerHeight, context.padding], ([$containerWidth, $containerHeight, $padding]) => {
+	const _box = derived([_containerWidth, _containerHeight, __padding], ([$containerWidth, $containerHeight, $padding]) => {
 		const b = {};
 		b.top = $padding.top;
 		b.right = $containerWidth - $padding.right;
@@ -184,22 +159,25 @@
 		return b;
 	});
 
-	$: context.width = derived([context.box], ([$box]) => {
+	const _width = derived([_box], ([$box]) => {
 		return $box.width;
 	});
 
-	$: context.height = derived([context.box], ([$box]) => {
+	const _height = derived([_box], ([$box]) => {
 		return $box.height;
 	});
 
 	function createScale (which) {
 		return function scaleCreator ([$scale, $limit, $extents, $domain, $padding, $nice, $reverse]) {
 			if ($extents === null) {
+				console.log('returning null', which);
+
 				return null;
 			}
 
 			const defaultRange = $reverse === true ? [$limit, 0] : [which === 'r' ? 1 : 0, $limit];
 
+			// if (!$scale) throw new Error(3);
 			const scale = $scale === defaultScales[which] ? $scale() : $scale.copy();
 
 			/* --------------------------------------------
@@ -213,6 +191,8 @@
 			if ($padding) {
 				scale.domain(padScale(scale, $padding));
 			}
+
+			console.log(which, scale.range());
 
 			if ($nice === true) {
 				if (typeof scale.nice === 'function') {
@@ -236,20 +216,46 @@
 		};
 	}
 
-	$: if (x) {
-		context.xScale = derived([_xScale, context.width, context.extents, context.xDomain, context.xPadding, context.xNice, context.reverseX], createScale('x'));
-		context.xGet = derived([_x, context.xScale], createGetter);
-	}
+	const __xScale = derived([_xScale, _width, _extents, _xDomain, _xPadding, _xNice, _reverseX], createScale('x'));
+	const _xGet = derived([_x, __xScale], createGetter);
 
-	$: if (y) {
-		context.yScale = derived([_yScale, context.height, context.extents, context.yDomain, context.yPadding, context.yNice, context.reverseY], createScale('y'));
-		context.yGet = derived([_y, context.yScale], createGetter);
-	}
+	const __yScale = derived([_yScale, _height, _extents, _yDomain, _yPadding, _yNice, _reverseY], createScale('y'));
+	const _yGet = derived([_y, __yScale], createGetter);
 
-	$: if (r) {
-		context.rScale = derived([_rScale, writable(25), context.extents, context.rDomain, context.rPadding, context.rNice, writable(false)], createScale('y'));
-		context.rGet = derived([_r, context.rScale], createGetter);
-	}
+	const __rScale = derived([_rScale, writable(25), _extents, _rDomain, _rPadding, _rNice, writable(false)], createScale('y'));
+	const _rGet = derived([_r, __rScale], createGetter);
+
+	const context = {
+		containerWidth: _containerWidth,
+		containerHeight: _containerHeight,
+		x: _x,
+		y: _y,
+		r: _r,
+		custom: _custom,
+		data: _data,
+		xNice: _xNice,
+		yNice: _yNice,
+		rNice: _rNice,
+		reverseX: _reverseX,
+		reverseY: _reverseY,
+		xPadding: _xPadding,
+		yPadding: _yPadding,
+		rPadding: _rPadding,
+		rRange: _rRange,
+		padding: __padding,
+		flatData: _flatData,
+		extents: _extents,
+		xDomain: _xDomain,
+		yDomain: _yDomain,
+		rDomain: _rDomain,
+		originalSettings: writable(originalSettings),
+		xScale: __xScale,
+		xGet: _xGet,
+		yScale: __yScale,
+		yGet: _yGet,
+		rScale: __rScale,
+		rGet: _rGet
+	};
 
 	$: setContext('LayerCake', context);
 </script>

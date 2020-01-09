@@ -134,9 +134,6 @@
 	const __xDomain = derived([__extents, _xDomain], calcDomain('x'));
 	const __yDomain = derived([__extents, _yDomain], calcDomain('y'));
 	const __rDomain = derived([__extents, _rDomain], calcDomain('r'));
-	// const _xDomain = derived($_extents ? partialDomain($_extents.x, xDomain) : xDomain);
-	// const _yDomain = derived($_extents ? partialDomain($_extents.y, yDomain) : yDomain);
-	// const _rDomain = derived($_extents ? partialDomain($_extents.r, rDomain) : rDomain);
 
 	/* --------------------------------------------
 	 * Set up derived properties

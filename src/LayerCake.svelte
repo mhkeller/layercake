@@ -47,7 +47,7 @@
 	 * Add the active keys since those aren't on our settings object.
 	 * This is mostly an escape-hatch
 	 */
-	const originalSettings = {}
+	const originalSettings = {};
 	$: if (xDomain) originalSettings.xDomain = xDomain;
 	$: if (yDomain) originalSettings.yDomain = yDomain;
 	$: if (rDomain) originalSettings.rDomain = rDomain;
@@ -89,7 +89,9 @@
 	$: _x.set(makeAccessor(x));
 	$: _y.set(makeAccessor(y));
 	$: _r.set(makeAccessor(r));
-
+	$: _xDomain.set(xDomain);
+	$: _yDomain.set(yDomain);
+	$: _rDomain.set(rDomain);
 	$: _custom.set(custom);
 	$: _data.set(data);
 	$: _xNice.set(xNice);
@@ -107,36 +109,41 @@
 	$: _padding.set(padding);
 	$: _flatData.set(flatData || data);
 
-	const _activeGetters = writable();
-
-	$: _activeGetters.set([
-		{ field: 'x', accessor: $_x },
-		{ field: 'y', accessor: $_y },
-		{ field: 'r', accessor: $_r }
-	].filter(d => d.accessor));
+	const __activeGetters = derived([_x, _y, _r], ([$x, $y, $r]) => {
+		return [
+			{ field: 'x', accessor: $x },
+			{ field: 'y', accessor: $y },
+			{ field: 'r', accessor: $r }
+		].filter(d => d.accessor);
+	});
 
 	/* --------------------------------------------
 	 * Calculate domains by taking the extent of the data
 	 * and filling that in with anything set by the user
 	 */
-	$: console.log('f', $_flatData);
+	const __extents = derived([_flatData, __activeGetters], ([$flatData, $activeGetters]) => {
+		return calcExtents($flatData, $activeGetters);
+	});
 
-	console.log(calcExtents($_flatData, $_activeGetters));
+	function calcDomain (which) {
+		return function domainCalc ([$extents, $domain]) {
+			return $extents ? partialDomain($extents[which], $domain) : $domain;
+		};
+	}
 
-	const _extents = writable(calcExtents($_flatData, $_activeGetters));
-	$: console.log('e', $_extents);
-	$: _extents.set(calcExtents($_flatData, $_activeGetters));
-
-	$: _xDomain.set($_extents ? partialDomain($_extents.x, xDomain) : xDomain);
-	$: _yDomain.set($_extents ? partialDomain($_extents.y, yDomain) : yDomain);
-	$: _rDomain.set($_extents ? partialDomain($_extents.r, rDomain) : rDomain);
+	const __xDomain = derived([__extents, _xDomain], calcDomain('x'));
+	const __yDomain = derived([__extents, _yDomain], calcDomain('y'));
+	const __rDomain = derived([__extents, _rDomain], calcDomain('r'));
+	// const _xDomain = derived($_extents ? partialDomain($_extents.x, xDomain) : xDomain);
+	// const _yDomain = derived($_extents ? partialDomain($_extents.y, yDomain) : yDomain);
+	// const _rDomain = derived($_extents ? partialDomain($_extents.r, rDomain) : rDomain);
 
 	/* --------------------------------------------
 	 * Set up derived properties
 	 *
 	 * TODO, add ability to take padding from css padding
 	 */
-	const __padding = derived([_containerWidth, _containerHeight, _padding], ([$containerWidth, $containerHeight, $padding]) => {
+	const __padding = derived([_padding, _containerWidth, _containerHeight], ([$padding]) => {
 		const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
 		return Object.assign(defaultPadding, $padding);
 	});
@@ -170,14 +177,11 @@
 	function createScale (which) {
 		return function scaleCreator ([$scale, $limit, $extents, $domain, $padding, $nice, $reverse]) {
 			if ($extents === null) {
-				console.log('returning null', which);
-
 				return null;
 			}
 
 			const defaultRange = $reverse === true ? [$limit, 0] : [which === 'r' ? 1 : 0, $limit];
 
-			// if (!$scale) throw new Error(3);
 			const scale = $scale === defaultScales[which] ? $scale() : $scale.copy();
 
 			/* --------------------------------------------
@@ -191,8 +195,6 @@
 			if ($padding) {
 				scale.domain(padScale(scale, $padding));
 			}
-
-			console.log(which, scale.range());
 
 			if ($nice === true) {
 				if (typeof scale.nice === 'function') {
@@ -216,16 +218,18 @@
 		};
 	}
 
-	const __xScale = derived([_xScale, _width, _extents, _xDomain, _xPadding, _xNice, _reverseX], createScale('x'));
+	const __xScale = derived([_xScale, _width, __extents, __xDomain, _xPadding, _xNice, _reverseX], createScale('x'));
 	const _xGet = derived([_x, __xScale], createGetter);
 
-	const __yScale = derived([_yScale, _height, _extents, _yDomain, _yPadding, _yNice, _reverseY], createScale('y'));
+	const __yScale = derived([_yScale, _height, __extents, __yDomain, _yPadding, _yNice, _reverseY], createScale('y'));
 	const _yGet = derived([_y, __yScale], createGetter);
 
-	const __rScale = derived([_rScale, writable(25), _extents, _rDomain, _rPadding, _rNice, writable(false)], createScale('y'));
+	const __rScale = derived([_rScale, writable(25), __extents, __rDomain, _rPadding, _rNice, writable(false)], createScale('y'));
 	const _rGet = derived([_r, __rScale], createGetter);
 
-	const context = {
+	$: context = {
+		width: _width,
+		height: _height,
 		containerWidth: _containerWidth,
 		containerHeight: _containerHeight,
 		x: _x,
@@ -244,10 +248,10 @@
 		rRange: _rRange,
 		padding: __padding,
 		flatData: _flatData,
-		extents: _extents,
-		xDomain: _xDomain,
-		yDomain: _yDomain,
-		rDomain: _rDomain,
+		extents: __extents,
+		xDomain: __xDomain,
+		yDomain: __yDomain,
+		rDomain: __rDomain,
 		originalSettings: writable(originalSettings),
 		xScale: __xScale,
 		xGet: _xGet,

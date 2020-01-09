@@ -12,27 +12,17 @@
 	export let containerWidth = 345;
 	export let containerHeight = 140;
 
-	// export let foo = undefined;
-
-	// const foo_store = writable();
-	// $: foo_store.set(foo == null ? calculate_foo() : foo);
-
 	/* --------------------------------------------
-	 * Core values
+	 * Parameters
+	 * Values that computed properties are based on and that
+	 * can be easily extended from config values
+	 *
 	 */
 	export let x;
 	export let y;
 	export let r;
 	export let custom = {};
 	export let data = [];
-
-	/* --------------------------------------------
-	 * Parameters
-	 * Values that computed properties are based on and that
-	 * can be easily extended from config values
-	 *
-	 * Add the core values to the end of this object
-	 */
 	export let xDomain;
 	export let yDomain;
 	export let rDomain;
@@ -41,35 +31,15 @@
 	export let rNice = false;
 	export let reverseX = false;
 	export let reverseY = true;
-	export let xPadding = [0, 0];
-	export let yPadding = [0, 0];
-	export let rPadding = [0, 0];
+	export let xPadding;
+	export let yPadding;
+	export let rPadding;
 	export let xScale = defaultScales.x;
 	export let yScale = defaultScales.y;
 	export let rScale = defaultScales.r;
 	export let rRange;
 	export let padding = {};
-
 	export let flatData;
-
-	const _xDomain = writable();
-	const _yDomain = writable();
-	const _rDomain = writable();
-	const _xNice = writable(xNice);
-	const _yNice = writable(yNice);
-	const _rNice = writable(rNice);
-	const _reverseX = writable(reverseX);
-	const _reverseY = writable(reverseY);
-	const _xPadding = writable(xPadding);
-	const _yPadding = writable(yPadding);
-	const _rPadding = writable(rPadding);
-	const _xScale = writable(xScale);
-	const _yScale = writable(yScale);
-	const _rScale = writable(rScale);
-	const _rRange = writable(rRange);
-	const _padding = writable(padding);
-
-	const _flatData = writable(flatData || data);
 
 	/* --------------------------------------------
 	 * Preserve a copy of our passed in settings before we modify them
@@ -77,40 +47,65 @@
 	 * Add the active keys since those aren't on our settings object.
 	 * This is mostly an escape-hatch
 	 */
-	$: originalSettings = {
-		xDomain,
-		yDomain,
-		rDomain,
-		x,
-		y,
-		r
-		// xNice: $_xNice,
-		// yNice: $_yNice,
-		// rNice: $_rNice,
-		// reverseX: $_reverseX,
-		// reverseY: $_reverseY,
-		// xPadding: $_xPadding,
-		// yPadding: $_yPadding,
-		// rPadding: $_rPadding,
-		// xScale: $_xScale,
-		// yScale: $_yScale,
-		// rScale: $_rScale,
-		// rRange: $_rRange,
-		// padding: $_padding,
-		// flatData: $_flatData
-	};
-
+	const originalSettings = {}
+	$: if (xDomain) originalSettings.xDomain = xDomain;
+	$: if (yDomain) originalSettings.yDomain = yDomain;
+	$: if (rDomain) originalSettings.rDomain = rDomain;
+	$: if (x) originalSettings.x = x;
+	$: if (y) originalSettings.y = y;
+	$: if (r) originalSettings.r = r;
 
 	/* --------------------------------------------
-	 * Our main accessors
+	 * Make store versions of each parameter
+	 *
 	 */
+	const _containerWidth = writable();
+	const _containerHeight = writable();
 	const _x = writable();
 	const _y = writable();
 	const _r = writable();
+	const _custom = writable();
+	const _data = writable();
+	const _xDomain = writable();
+	const _yDomain = writable();
+	const _rDomain = writable();
+	const _xNice = writable();
+	const _yNice = writable();
+	const _rNice = writable();
+	const _reverseX = writable();
+	const _reverseY = writable();
+	const _xPadding = writable();
+	const _yPadding = writable();
+	const _rPadding = writable();
+	const _xScale = writable();
+	const _yScale = writable();
+	const _rScale = writable();
+	const _rRange = writable();
+	const _padding = writable();
+	const _flatData = writable();
 
+	$: _containerWidth.set(containerWidth);
+	$: _containerHeight.set(containerHeight);
 	$: _x.set(makeAccessor(x));
 	$: _y.set(makeAccessor(y));
 	$: _r.set(makeAccessor(r));
+
+	$: _custom.set(custom);
+	$: _data.set(data);
+	$: _xNice.set(xNice);
+	$: _yNice.set(yNice);
+	$: _rNice.set(rNice);
+	$: _reverseX.set(reverseX);
+	$: _reverseY.set(reverseY);
+	$: _xPadding.set(xPadding);
+	$: _yPadding.set(yPadding);
+	$: _rPadding.set(rPadding);
+	$: _xScale.set(xScale);
+	$: _yScale.set(yScale);
+	$: _rScale.set(rScale);
+	$: _rRange.set(rRange);
+	$: _padding.set(padding);
+	$: _flatData.set(flatData || data);
 
 	const _activeGetters = writable();
 
@@ -131,17 +126,20 @@
 	$: _yDomain.set($_extents ? partialDomain($_extents.y, yDomain) : null);
 	$: _rDomain.set($_extents ? partialDomain($_extents.r, rDomain) : null);
 
-	// $: console.log('x', $_xDomain);
-	// $: console.log('y', $_yDomain);
-	// $: console.log('r', $_rDomain);
+	/* --------------------------------------------
+	 * Set up derived properties
+	 *
+	 * TODO, add ability to take padding from css padding
+	 */
 
 	const context = {
-		containerWidth: writable(containerWidth),
-		containerHeight: writable(containerHeight),
-		activeGetters: _activeGetters,
-		xDomain: _xDomain,
-		yDomain: _yDomain,
-		rDomain: _rDomain,
+		containerWidth: _containerWidth,
+		containerHeight: _containerHeight,
+		x: _x,
+		y: _y,
+		r: _r,
+		custom: _custom,
+		data: _data,
 		xNice: _xNice,
 		yNice: _yNice,
 		rNice: _rNice,
@@ -150,77 +148,49 @@
 		xPadding: _xPadding,
 		yPadding: _yPadding,
 		rPadding: _rPadding,
-		x: _x,
-		y: _y,
-		r: _r,
-		data: writable(data),
-		custom: writable(custom),
+		xScale: _xScale,
+		yScale: _yScale,
+		rScale: _rScale,
+		rRange: _rRange,
+		padding: _padding,
 		flatData: _flatData,
 		extents: _extents,
-		originalSettings: writable({})
+		xDomain: _xDomain,
+		yDomain: _yDomain,
+		rDomain: _rDomain,
+		originalSettings: writable(originalSettings)
 	};
 
-	$: context.containerWidth.set(containerWidth);
-	$: context.containerHeight.set(containerHeight);
-	// $: context.activeKeys.set(settings.activeKeys);
-	// $: context.activeGetters.set(settings.activeGetters);
-	// $: context.xDomain.set(settings.xDomain);
-	// $: context.yDomain.set(settings.yDomain);
-	// $: context.rDomain.set(settings.rDomain);
-	// $: context.xNice.set(xNice);
-	// $: context.yNice.set(yNice);
-	// $: context.rNice.set(rNice);
-	// $: context.reverseX.set(reverseX);
-	// $: context.reverseY.set(reverseY);
-	// $: context.xPadding.set(xPadding);
-	// $: context.yPadding.set(yPadding);
-	// $: context.rPadding.set(rPadding);
-	// $: if (context.x) context.x.set(settings.x);
-	// $: if (context.y) context.y.set(settings.y);
-	// $: if (context.r) context.r.set(settings.r);
-	$: context.data.set(data);
-	$: context.custom.set(custom);
-	$: context.originalSettings.set(originalSettings);
-	// $: context.flatData.set(settings.flatData);
-	// $: context.domains.set(settings.domains);
+	$: context.padding = derived([context.containerWidth, context.containerHeight], () => {
+		const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
+		return Object.assign(defaultPadding, $_padding);
+	});
 
-	/* --------------------------------------------
-	 * This should be updated whenever width and height changes
-	 * since the padding may update based on media queries
-	 * TODO, add ability to take padding from css padding
-	 */
-	$: {
-		context.padding = derived([context.containerWidth, context.containerHeight], () => {
-			const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
-			return Object.assign(defaultPadding, $_padding);
-		});
+	$: context.box = derived([context.containerWidth, context.containerHeight, context.padding], ([$containerWidth, $containerHeight, $padding]) => {
+		const b = {};
+		b.top = $padding.top;
+		b.right = $containerWidth - $padding.right;
+		b.bottom = $containerHeight - $padding.bottom;
+		b.left = $padding.left;
+		b.width = b.right - b.left;
+		b.height = b.bottom - b.top;
+		if (b.width < 0 && b.height < 0) {
+			console.error('[LayerCake] Target div has negative width and height. Did you forget to set a width or height on the container?');
+		} else if (b.width < 0) {
+			console.error('[LayerCake] Target div has a negative width. Did you forget to set that CSS on the container?');
+		} else if (b.height < 0) {
+			console.error('[LayerCake] Target div has negative height. Did you forget to set that CSS on the container?');
+		}
+		return b;
+	});
 
-		context.box = derived([context.containerWidth, context.containerHeight, context.padding], ([$containerWidth, $containerHeight, $padding]) => {
-			const b = {};
-			b.top = $padding.top;
-			b.right = $containerWidth - $padding.right;
-			b.bottom = $containerHeight - $padding.bottom;
-			b.left = $padding.left;
-			b.width = b.right - b.left;
-			b.height = b.bottom - b.top;
-			if (b.width < 0 && b.height < 0) {
-				console.error('[LayerCake] Target div has negative width and height. Did you forget to set a width or height on the container?');
-			} else if (b.width < 0) {
-				console.error('[LayerCake] Target div has a negative width. Did you forget to set that CSS on the container?');
-			} else if (b.height < 0) {
-				console.error('[LayerCake] Target div has negative height. Did you forget to set that CSS on the container?');
-			}
-			return b;
-		});
+	$: context.width = derived([context.box], ([$box]) => {
+		return $box.width;
+	});
 
-		context.width = derived([context.box], ([$box]) => {
-			return $box.width;
-		});
-
-		context.height = derived([context.box], ([$box]) => {
-			return $box.height;
-		});
-	}
+	$: context.height = derived([context.box], ([$box]) => {
+		return $box.height;
+	});
 
 	function createScale (which) {
 		return function scaleCreator ([$scale, $limit, $extents, $domain, $padding, $nice, $reverse]) {

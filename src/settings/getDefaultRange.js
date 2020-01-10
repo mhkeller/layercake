@@ -1,28 +1,24 @@
 /* eslint-disable no-nested-ternary */
-const getRange = {
-	x: (width, height, reverseX, reverseY) => {
-		return settings.reverseX
+export default {
+	x: (width, height, reverse, range) => {
+		return reverse
 			? [width, 0]
-			: typeof settings.xRange === 'function'
-				? settings.xRange({ width, height })
-				: (settings.xRange || [0, width]);
+			: typeof range === 'function'
+				? range({ width, height })
+				: (range || [0, width]);
 	},
-	y: (settings, width, height) => {
-		return settings.reverseY
+	y: (width, height, reverse, range) => {
+		return reverse
 			? [height, 0]
-			: typeof settings.yRange === 'function'
-				? settings.yRange({ width, height })
-				: (settings.yRange || [0, height]);
+			: typeof range === 'function'
+				? range({ width, height })
+				: (range || [0, height]);
 	},
-	r: (settings, width, height) => {
-		return !settings.rRange
-			? [1, 25]
-			: typeof settings.rRange === 'function'
-				? settings.rRange({ width, height })
-				: settings.rRange;
+	r: (width, height, reverse, range) => {
+		return !range
+			? reverse ? [25, 1] : [1, 25]
+			: typeof range === 'function'
+				? range({ width, height })
+				: range;
 	}
 };
-
-export default function getDefaultRange (s, settings, width, height) {
-	return getRange[s](settings, width, height);
-}

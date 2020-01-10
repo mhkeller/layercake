@@ -4,11 +4,9 @@
 
 	import makeAccessor from './utils/makeAccessor.js';
 	import calcExtents from './lib/calcExtents.js';
-	// import partialDomain from './utils/partialDomain.js';
 	import calcDomain from './helpers/calcDomain.js';
 	import createScale from './helpers/createScale.js';
 	import createGetter from './helpers/createGetter.js';
-	// import getDefaultRange from './settings/getDefaultRange.js';
 	import defaultScales from './settings/defaultScales.js';
 
 	export let containerWidth = 345;
@@ -31,14 +29,17 @@
 	export let xNice = false;
 	export let yNice = false;
 	export let rNice = false;
-	export let reverseX = false;
-	export let reverseY = true;
+	export let xReverse = false;
+	export let yReverse = true;
+	export let rReverse = false;
 	export let xPadding;
 	export let yPadding;
 	export let rPadding;
 	export let xScale = defaultScales.x;
 	export let yScale = defaultScales.y;
 	export let rScale = defaultScales.r;
+	export let xRange;
+	export let yRange;
 	export let rRange;
 	export let padding = {};
 	export let flatData;
@@ -74,14 +75,17 @@
 	const _xNice = writable();
 	const _yNice = writable();
 	const _rNice = writable();
-	const _reverseX = writable();
-	const _reverseY = writable();
+	const _xReverse = writable();
+	const _yReverse = writable();
+	const _rReverse = writable();
 	const _xPadding = writable();
 	const _yPadding = writable();
 	const _rPadding = writable();
 	const _xScale = writable();
 	const _yScale = writable();
 	const _rScale = writable();
+	const _xRange = writable();
+	const _yRange = writable();
 	const _rRange = writable();
 	const _padding = writable();
 	const _flatData = writable();
@@ -99,14 +103,17 @@
 	$: _xNice.set(xNice);
 	$: _yNice.set(yNice);
 	$: _rNice.set(rNice);
-	$: _reverseX.set(reverseX);
-	$: _reverseY.set(reverseY);
+	$: _xReverse.set(xReverse);
+	$: _yReverse.set(yReverse);
+	$: _rReverse.set(rReverse);
 	$: _xPadding.set(xPadding);
 	$: _yPadding.set(yPadding);
 	$: _rPadding.set(rPadding);
 	$: _xScale.set(xScale);
 	$: _yScale.set(yScale);
 	$: _rScale.set(rScale);
+	$: _xRange.set(xRange);
+	$: _yRange.set(yRange);
 	$: _rRange.set(rRange);
 	$: _padding.set(padding);
 	$: _flatData.set(flatData || data);
@@ -166,13 +173,13 @@
 	const yDomain_d = derived([extents_d, _yDomain], calcDomain('y'));
 	const rDomain_d = derived([extents_d, _rDomain], calcDomain('r'));
 
-	const xScale_d = derived([_xScale, width_d, extents_d, xDomain_d, _xPadding, _xNice, _reverseX], createScale('x'));
+	const xScale_d = derived([_xScale, extents_d, xDomain_d, _xPadding, _xNice, _xReverse, width_d, height_d, _xRange], createScale('x'));
 	const xGet_d = derived([_x, xScale_d], createGetter);
 
-	const yScale_d = derived([_yScale, height_d, extents_d, yDomain_d, _yPadding, _yNice, _reverseY], createScale('y'));
+	const yScale_d = derived([_yScale, extents_d, yDomain_d, _yPadding, _yNice, _yReverse, width_d, height_d, _yRange], createScale('y'));
 	const yGet_d = derived([_y, yScale_d], createGetter);
 
-	const rScale_d = derived([_rScale, writable(25), extents_d, rDomain_d, _rPadding, _rNice, writable(false)], createScale('y'));
+	const rScale_d = derived([_rScale, extents_d, rDomain_d, _rPadding, _rNice, _rReverse, width_d, height_d, _rRange], createScale('r'));
 	const rGet_d = derived([_r, rScale_d], createGetter);
 
 	$: context = {
@@ -188,8 +195,9 @@
 		xNice: _xNice,
 		yNice: _yNice,
 		rNice: _rNice,
-		reverseX: _reverseX,
-		reverseY: _reverseY,
+		xReverse: _xReverse,
+		yReverse: _yReverse,
+		rReverse: _rReverse,
 		xPadding: _xPadding,
 		yPadding: _yPadding,
 		rPadding: _rPadding,

@@ -1,7 +1,7 @@
 import partialDomain from '../utils/partialDomain.js';
 
-export default	function calcDomain (which) {
+export default	function calcDomain (s) {
 	return function domainCalc ([$extents, $domain]) {
-		return $extents ? partialDomain($extents[which], $domain) : $domain;
+		return $extents ? partialDomain($extents[s], $domain) : $domain;
 	};
 }

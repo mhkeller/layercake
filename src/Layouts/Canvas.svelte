@@ -19,7 +19,7 @@
 
 	onMount(() => {
 		ctx = canvasElement.getContext('2d');
-		scaleCanvas(canvasElement, ctx, $width, $height);
+		scaleCanvas(ctx, $width, $height);
 	});
 
 	$: context.ctx.set(ctx);

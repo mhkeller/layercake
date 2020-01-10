@@ -18,22 +18,22 @@ export default function padScale (scale, padding) {
 		return scale.domain();
 	}
 
-	const doughmain = scale.domain();
+	const domain = scale.domain();
 
 	const range = scale.range();
-	const doughmainExtent = doughmain[1] - doughmain[0];
+	const domainExtent = domain[1] - domain[0];
 
 	const w = Math.abs(range[1] - range[0]);
 
-	const paddedDomain = doughmain.slice();
+	const paddedDomain = domain.slice();
 	const pl = padding.length;
 	for (let i = 0; i < pl; i += 1) {
 		const sign = i === 0 ? -1 : 1;
-		const isTime = Object.prototype.toString.call(doughmain[i]) === '[object Date]';
+		const isTime = Object.prototype.toString.call(domain[i]) === '[object Date]';
 
 		const perc = padding[i] / w;
-		const paddingAdjuster = doughmainExtent * perc;
-		const d = (isTime ? doughmain[i].getTime() : doughmain[i]);
+		const paddingAdjuster = domainExtent * perc;
+		const d = (isTime ? domain[i].getTime() : domain[i]);
 		const adjustedDomain = d + paddingAdjuster * sign;
 		paddedDomain[i] = isTime ? new Date(adjustedDomain) : adjustedDomain;
 	}

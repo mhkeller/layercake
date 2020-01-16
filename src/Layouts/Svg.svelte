@@ -1,17 +1,22 @@
 <script>
-import { getContext } from 'svelte';
+	import { getContext } from 'svelte';
 
-const {
-	containerWidth,
-	containerHeight,
-	padding
-} = getContext('LayerCake');
+	export let zIndex;
+	let zIndexStyle = '';
 
+	$: zIndexStyle = typeof zIndex === 'number' ? `z-index:${zIndex};` : '';
+
+	const {
+		containerWidth,
+		containerHeight,
+		padding
+	} = getContext('LayerCake');
 </script>
 <svg
 	class="layercake-layout-svg"
 	width={$containerWidth}
 	height={$containerHeight}
+	style="{zIndexStyle}"
 >
 	<g transform="translate({$padding.left}, {$padding.top})">
 		<slot></slot>

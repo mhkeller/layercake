@@ -1,11 +1,16 @@
 <script>
-import { getContext } from 'svelte';
+	import { getContext } from 'svelte';
 
-const {
-	width,
-	height,
-	padding
-} = getContext('LayerCake');
+	export let zIndex;
+	let zIndexStyle = '';
+
+	$: zIndexStyle = typeof zIndex === 'number' ? `z-index:${zIndex};` : '';
+
+	const {
+		width,
+		height,
+		padding
+	} = getContext('LayerCake');
 
 </script>
 
@@ -13,7 +18,7 @@ const {
 	class="layercake-layout-html"
 	width={$width}
 	height={$height}
-	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;"
+	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;{zIndexStyle}"
 >
 	<slot></slot>
 </div>

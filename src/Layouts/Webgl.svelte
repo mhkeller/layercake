@@ -2,11 +2,14 @@
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
+	export let contextOptions;
+	export let zIndex;
 	let canvasElement;
 	let testGl;
 	let gl;
+	let zIndexStyle = '';
 
-	export let contextOptions;
+	$: zIndexStyle = typeof zIndex === 'number' ? `z-index:${zIndex};` : '';
 
 	const {
 		width,
@@ -42,6 +45,6 @@
 <canvas
 	bind:this={canvasElement}
 	class="layercake-layout-webgl"
-	style="width:100%;height:100%;top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;"
+	style="width:100%;height:100%;top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;{zIndexStyle}"
 ></canvas>
 <slot></slot>

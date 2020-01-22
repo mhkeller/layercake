@@ -7,7 +7,7 @@
 	let canvasElement;
 	let zIndexStyle = '';
 
-	$: zIndexStyle = typeof zIndex === 'number' ? `z-index:${zIndex};` : '';
+	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
 
 	const {
 		width,

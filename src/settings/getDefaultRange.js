@@ -14,6 +14,13 @@ export default {
 				? range({ width, height })
 				: (range || [0, height]);
 	},
+	z: (width, height, reverse, range) => {
+		return reverse
+			? [height, 0]
+			: typeof range === 'function'
+				? range({ width, height })
+				: (range || [0, height]);
+	},
 	r: (width, height, reverse, range) => {
 		return !range
 			? reverse ? [25, 1] : [1, 25]

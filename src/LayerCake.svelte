@@ -183,6 +183,7 @@
 	const rGet_d = derived([_r, rScale_d], createGetter);
 
 	$: context = {
+		activeGetters: activeGetters_d,
 		width: width_d,
 		height: height_d,
 		containerWidth: _containerWidth,

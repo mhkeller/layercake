@@ -3,7 +3,7 @@
 	import { writable } from 'svelte/store';
 	import scaleCanvas from '../lib/scaleCanvas.js';
 
-	export let zIndex;
+	export let zIndex = undefined;
 	let canvasElement;
 	let zIndexStyle = '';
 

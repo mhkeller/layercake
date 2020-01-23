@@ -3,7 +3,7 @@
 	import { writable } from 'svelte/store';
 
 	export let contextOptions;
-	export let zIndex;
+	export let zIndex = undefined;
 	let canvasElement;
 	let testGl;
 	let gl;

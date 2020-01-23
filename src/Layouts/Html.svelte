@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	export let zIndex;
+	export let zIndex = undefined;
 	let zIndexStyle = '';
 
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';

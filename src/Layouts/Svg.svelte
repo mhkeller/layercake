@@ -6,11 +6,7 @@
 
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
 
-	const {
-		containerWidth,
-		containerHeight,
-		padding
-	} = getContext('LayerCake');
+	const { containerWidth, containerHeight, padding } = getContext('LayerCake');
 </script>
 <svg
 	class="layercake-layout-svg"

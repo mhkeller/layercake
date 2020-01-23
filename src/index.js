@@ -1,8 +1,8 @@
 export { default as LayerCake } from './LayerCake.svelte';
-export { default as Html } from './Layouts/Html.svelte';
-export { default as Svg } from './Layouts/Svg.svelte';
-export { default as Canvas } from './Layouts/Canvas.svelte';
-export { default as Webgl } from './Layouts/Webgl.svelte';
+export { default as Html } from './layouts/Html.svelte';
+export { default as Svg } from './layouts/Svg.svelte';
+export { default as Canvas } from './layouts/Canvas.svelte';
+export { default as WebGL } from './layouts/WebGL.svelte';
 
 export { default as scaleCanvas } from './lib/scaleCanvas.js';
 export { default as flatten } from './lib/flatten.js';

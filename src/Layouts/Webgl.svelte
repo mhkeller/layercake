@@ -11,11 +11,7 @@
 
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
 
-	const {
-		width,
-		height,
-		padding
-	} = getContext('LayerCake');
+	const { width, height, padding } = getContext('LayerCake');
 
 	const context = {
 		gl: writable({}),

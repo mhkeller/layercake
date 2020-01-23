@@ -12,8 +12,8 @@
 	export let width;
 	export let height;
 
-	export let containerWidth = width || 100;
-	export let containerHeight = height || 100;
+	export let containerWidth = width || 350;
+	export let containerHeight = height || 250;
 
 	/* --------------------------------------------
 	 * Parameters

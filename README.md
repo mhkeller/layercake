@@ -14,44 +14,44 @@ Layer Cake  [<img src="https://github.com/mhkeller/layercake-examples/raw/master
 
 ```html
 <script>
-	import { LayerCake, Svg, Html, Canvas } from 'layercake';
+  import { LayerCake, Svg, Html, Canvas } from 'layercake';
 
-	import AxisX from './components/AxisX.svelte';
-	import AxisY from './components/AxisY.svelte';
-	import Line from './components/Line.svelte';
-	import Scatter from './components/Scatter.svelte';
-	import Labels from './components/Labels.svelte';
+  import AxisX from './components/AxisX.svelte';
+  import AxisY from './components/AxisY.svelte';
+  import Line from './components/Line.svelte';
+  import Scatter from './components/Scatter.svelte';
+  import Labels from './components/Labels.svelte';
 
-	const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }];
+  const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }];
 </script>
 
 <style>
-	.chart-container {
-		width: 100%;
-		height: 500px;
-	}
+  .chart-container {
+    width: 100%;
+    height: 500px;
+  }
 </style>
 
 <div class="chart-container">
-	<LayerCake
-		x='x'
-		y='y'
-		{data}
-	>
-		<Svg>
-			<AxisX/>
-			<AxisY/>
-			<Line color='#f0c'/>
-		</Svg>
+  <LayerCake
+    x='x'
+    y='y'
+    {data}
+  >
+    <Svg>
+      <AxisX/>
+      <AxisY/>
+      <Line color='#f0c'/>
+    </Svg>
 
-		<Canvas>
-			<Scatter color='#0fc'/>
-		</Canvas>
+    <Canvas>
+      <Scatter color='#0fc'/>
+    </Canvas>
 
-		<Html>
-			<Labels/>
-		</Html>
-	</LayerCake>
+    <Html>
+      <Labels/>
+    </Html>
+  </LayerCake>
 </div>
 ```
 

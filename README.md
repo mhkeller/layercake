@@ -1,15 +1,68 @@
-LayerCake 3
+Layer Cake  [<img src="https://github.com/mhkeller/layercake-examples/raw/master/static/layercake-logo-500x400.png" width="115" align="right" alt="layercake-logo">](https://mhkeller.github.io/layercake)
 ===
 
-> Work in progress
+> a framework for mostly-reusable graphics with [svelte](https://github.com/sveltejs/svelte)
 
-A svelte three version of the [layercake.graphics](https://layercake.graphics) library.
+[![Travis (.org) branch](https://img.shields.io/travis/mhkeller/layercake/master.svg?style=flat-square)](https://travis-ci.org/mhkeller/layercake) [![npm version](https://img.shields.io/npm/v/layercake.svg?style=flat-square)](https://npmjs.org/package/layercake)
 
-### Dev
+ 🍰 [See examples](https://layercake.graphics)
+ 🍰 [Read the guide](https://layercake.graphics/guide)
+ 🍰 [API docs](https://layercake.graphics/guide#layercake-props)
+ 🍰
 
-```sh
-npm install
-npm run dev
+## Example
+
+```html
+<script>
+	import { LayerCake, Svg, Html, Canvas } from 'layercake';
+
+	import AxisX from './components/AxisX.svelte';
+	import AxisY from './components/AxisY.svelte';
+	import Line from './components/Line.svelte';
+	import Scatter from './components/Scatter.svelte';
+	import Labels from './components/Labels.svelte';
+
+	const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }];
+</script>
+
+<style>
+	.chart-container {
+		width: 100%;
+		height: 500px;
+	}
+</style>
+
+<div class="chart-container">
+	<LayerCake
+		x='x'
+		y='y'
+		{data}
+	>
+		<Svg>
+			<AxisX/>
+			<AxisY/>
+			<Line color='#f0c'/>
+		</Svg>
+
+		<Canvas>
+			<Scatter color='#0fc'/>
+		</Canvas>
+
+		<Html>
+			<Labels/>
+		</Html>
+	</LayerCake>
+</div>
 ```
 
-Visit [localhost:5000](http://localhost:5000).
+## Install
+
+LayerCake lives in your `devDependencies` alongside Svelte, which it lists as a `peerDependency`.
+
+```sh
+npm install --save-dev layercake
+```
+
+## License
+
+MIT

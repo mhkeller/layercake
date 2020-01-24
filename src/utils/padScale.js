@@ -9,10 +9,10 @@
  */
 export default function padScale (scale, padding) {
 	if (typeof scale.range !== 'function') {
-		throw new Error('Scale `.range` must be a function');
+		throw new Error('Scale method `range` must be a function');
 	}
 	if (typeof scale.domain !== 'function') {
-		throw new Error('Scale `.domain` must be a function');
+		throw new Error('Scale method `domain` must be a function');
 	}
 	if (!Array.isArray(padding)) {
 		return scale.domain();

@@ -8,6 +8,7 @@
 	import createScale from './helpers/createScale.js';
 	import createGetter from './helpers/createGetter.js';
 	import defaultScales from './settings/defaultScales.js';
+	import defaultReverses from './settings/defaultReverses.js';
 
 	export let width = undefined;
 	export let height = undefined;
@@ -35,10 +36,10 @@
 	export let yNice = false;
 	export let zNice = false;
 	export let rNice = false;
-	export let xReverse = false;
-	export let yReverse = true;
-	export let zReverse = false;
-	export let rReverse = false;
+	export let xReverse = defaultReverses.x;
+	export let yReverse = defaultReverses.y;
+	export let zReverse = defaultReverses.z;
+	export let rReverse = defaultReverses.r;
 	export let xPadding = undefined;
 	export let yPadding = undefined;
 	export let zPadding = undefined;

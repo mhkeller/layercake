@@ -9,8 +9,8 @@
 	import createGetter from './helpers/createGetter.js';
 	import defaultScales from './settings/defaultScales.js';
 
-	export let width;
-	export let height;
+	export let width = undefined;
+	export let height = undefined;
 
 	export let containerWidth = width || 350;
 	export let containerHeight = height || 250;
@@ -21,16 +21,16 @@
 	 * can be easily extended from config values
 	 *
 	 */
-	export let x;
-	export let y;
-	export let z;
-	export let r;
+	export let x = undefined;
+	export let y = undefined;
+	export let z = undefined;
+	export let r = undefined;
 	export let custom = {};
 	export let data = [];
-	export let xDomain;
-	export let yDomain;
-	export let zDomain;
-	export let rDomain;
+	export let xDomain = undefined;
+	export let yDomain = undefined;
+	export let zDomain = undefined;
+	export let rDomain = undefined;
 	export let xNice = false;
 	export let yNice = false;
 	export let zNice = false;
@@ -39,20 +39,20 @@
 	export let yReverse = true;
 	export let zReverse = false;
 	export let rReverse = false;
-	export let xPadding;
-	export let yPadding;
-	export let zPadding;
-	export let rPadding;
+	export let xPadding = undefined;
+	export let yPadding = undefined;
+	export let zPadding = undefined;
+	export let rPadding = undefined;
 	export let xScale = defaultScales.x;
 	export let yScale = defaultScales.y;
 	export let zScale = defaultScales.y;
 	export let rScale = defaultScales.r;
-	export let xRange;
-	export let yRange;
-	export let zRange;
-	export let rRange;
+	export let xRange = undefined;
+	export let yRange = undefined;
+	export let zRange = undefined;
+	export let rRange = undefined;
 	export let padding = {};
-	export let flatData;
+	export let flatData = undefined;
 
 	/* --------------------------------------------
 	 * Preserve a copy of our passed in settings before we modify them

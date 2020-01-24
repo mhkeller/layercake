@@ -1,11 +1,21 @@
 Changelog
 ===
 
+# 2.0.0
+
+> 2020-01-23
+
+The Tres Leches edition. Complete rewrite to use Svelte 3! It's now a component based interface and is a lot more intuitive to compose graphics. The API options are pretty much the same. Some notable changes:
+
+1. reverse range functions are now `xReverse` instead of `reverseX`
+2. There's an added z-scale to give more options. Examples in the works.
+3. Domain padding is fixed per https://github.com/mhkeller/layercake/issues/11
+
 # 1.0.2
 
 > 2020-01-23
 
-Push to 1.0 so that past versions are stable. Prepare for launch of version 2.0.
+Push to 1.x so that past versions are stable. Prepare for launch of version 2.x. Archive this branch at https://github.com/mhkeller/v1.layercake.
 
 # 0.4.0
 

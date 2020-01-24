@@ -1,6 +1,6 @@
 {
   "name": "layercake",
-  "version": "0.4.0",
+  "version": "1.0.1",
   "description": "a framework for mostly-reusable graphics with svelte",
   "main": "src/layercake.js",
   "module": "src/layercake.js",

@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 2.0.1
+
+> 2020-01-26
+
+Add back the 1.x dot files, including an `.npmignore`
+  * [289852f861b35415c509469b181c43dab50e3411](https://github.com/mhkeller/layercake/commit/289852f861b35415c509469b181c43dab50e3411)
+  * [483ed60ab49e7c5b3d1ac5b331801126f330334c](https://github.com/mhkeller/layercake/commit/483ed60ab49e7c5b3d1ac5b331801126f330334c)
+
 # 2.0.0
 
 > 2020-01-23

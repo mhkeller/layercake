@@ -272,12 +272,13 @@
 </div>
 
 <style>
-	:global(.layercake-container),
-	:global(.layercake-container *) {
+	.layercake-container,
+	.layercake-container :global(*) {
 		box-sizing: border-box;
 	}
 	.layercake-container {
 		width: 100%;
 		height: 100%;
+		position: relative;
 	}
 </style>

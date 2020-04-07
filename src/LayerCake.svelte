@@ -115,6 +115,7 @@
 	const _rRange = writable();
 	const _padding = writable();
 	const _flatData = writable();
+	const _originalSettings = writable(originalSettings);
 
 	$: _containerWidth.set(containerWidth);
 	$: _containerHeight.set(containerHeight);
@@ -251,7 +252,8 @@
 		yDomain: yDomain_d,
 		zDomain: zDomain_d,
 		rDomain: rDomain_d,
-		originalSettings: writable(originalSettings),
+		originalSettings: _originalSettings, // Keep this for legacy compatibility
+		config: _originalSettings,
 		xScale: xScale_d,
 		xGet: xGet_d,
 		yScale: yScale_d,

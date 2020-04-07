@@ -12,9 +12,11 @@
 <svg
 	viewBox="0 0 100 100"
 	preserveAspectRatio="none"
-	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;{zIndexStyle}"
+	style="top: {$padding.top}px; right:0px; bottom:0px; left:{$padding.left}px;width:calc(100% - {($padding.left + $padding.right)}px);height:calc(100% - {($padding.top + $padding.bottom)}px);'{zIndexStyle}"
 >
-	<slot></slot>
+	<g transform="translate({$padding.left}px, {$padding.top}px)">
+		<slot></slot>
+	</g>
 </svg>
 
 <style>

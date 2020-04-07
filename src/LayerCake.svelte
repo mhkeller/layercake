@@ -10,11 +10,13 @@
 	import defaultScales from './settings/defaultScales.js';
 	import defaultReverses from './settings/defaultReverses.js';
 
+	export let ssr = false;
+
 	export let width = undefined;
 	export let height = undefined;
 
-	export let containerWidth = width || 350;
-	export let containerHeight = height || 250;
+	export let containerWidth = width || 100;
+	export let containerHeight = height || 100;
 
 	/* --------------------------------------------
 	 * Parameters
@@ -263,13 +265,15 @@
 	$: setContext('LayerCake', context);
 </script>
 
-<div
-	class="layercake-container"
-	bind:clientWidth={containerWidth}
-	bind:clientHeight={containerHeight}
->
-	<slot></slot>
-</div>
+{#if (ssr === true || typeof window !== 'undefined')}
+	<div
+		class="layercake-container"
+		bind:clientWidth={containerWidth}
+		bind:clientHeight={containerHeight}
+	>
+		<slot></slot>
+	</div>
+{/if}
 
 <style>
 	.layercake-container,

@@ -29,7 +29,7 @@ export default function createScale (s) {
 			if (typeof scale.nice === 'function') {
 				scale.nice();
 			} else {
-				console.error(`Layer Cake warning: You set \`${s}Nice: true\` but the ${s}Scale does not have a \`.nice\` method. Ignoring...`);
+				console.error(`[Layer Cake] You set \`${s}Nice: true\` but the ${s}Scale does not have a \`.nice\` method. Ignoring...`);
 			}
 		}
 

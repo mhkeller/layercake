@@ -7,6 +7,7 @@
 	import calcDomain from './helpers/calcDomain.js';
 	import createScale from './helpers/createScale.js';
 	import createGetter from './helpers/createGetter.js';
+	import getRange from './helpers/getRange.js';
 	import defaultScales from './settings/defaultScales.js';
 	import defaultReverses from './settings/defaultReverses.js';
 
@@ -221,6 +222,11 @@
 	const rScale_d = derived([_rScale, extents_d, rDomain_d, _rPadding, _rNice, _rReverse, width_d, height_d, _rRange], createScale('r'));
 	const rGet_d = derived([_r, rScale_d], createGetter);
 
+	const xRange_d = derived([xScale_d], getRange);
+	const yRange_d = derived([yScale_d], getRange);
+	const zRange_d = derived([zScale_d], getRange);
+	const rRange_d = derived([rScale_d], getRange);
+
 	$: context = {
 		activeGetters: activeGetters_d,
 		width: width_d,
@@ -252,6 +258,10 @@
 		yDomain: yDomain_d,
 		zDomain: zDomain_d,
 		rDomain: rDomain_d,
+		xRange: xRange_d,
+		yRange: yRange_d,
+		zRange: zRange_d,
+		rRange: rRange_d,
 		originalSettings: _originalSettings, // Keep this for legacy compatibility
 		config: _originalSettings,
 		xScale: xScale_d,

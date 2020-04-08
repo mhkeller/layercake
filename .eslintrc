@@ -33,6 +33,7 @@
         "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
         "no-underscore-dangle": 0,
         "camelcase": 0,
-        "max-len": 0
+				"max-len": 0,
+				"no-console": 0
     }
 }

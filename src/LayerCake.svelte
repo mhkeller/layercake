@@ -12,6 +12,7 @@
 	import defaultReverses from './settings/defaultReverses.js';
 
 	export let ssr = false;
+	export let pointerEvents = true;
 
 	export let width = undefined;
 	export let height = undefined;
@@ -280,6 +281,7 @@
 {#if (ssr === true || typeof window !== 'undefined')}
 	<div
 		class="layercake-container"
+		style="{pointerEvents === false ? 'pointer-events:none;' : ''}"
 		bind:clientWidth={containerWidth}
 		bind:clientHeight={containerHeight}
 	>

@@ -13,6 +13,7 @@
 
 	export let ssr = false;
 	export let pointerEvents = true;
+	export let position = 'relative';
 
 	export let width = undefined;
 	export let height = undefined;
@@ -281,7 +282,7 @@
 {#if (ssr === true || typeof window !== 'undefined')}
 	<div
 		class="layercake-container"
-		style="{pointerEvents === false ? 'pointer-events:none;' : ''}"
+		style="position:{position};{position === 'absolute' ? 'top:0;left:0;' : ''}{pointerEvents === false ? 'pointer-events:none;' : ''}'}"
 		bind:clientWidth={containerWidth}
 		bind:clientHeight={containerHeight}
 	>
@@ -297,8 +298,5 @@
 	.layercake-container {
 		width: 100%;
 		height: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
 	}
 </style>

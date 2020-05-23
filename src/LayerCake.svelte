@@ -229,10 +229,13 @@
 	const zRange_d = derived([zScale_d], getRange);
 	const rRange_d = derived([rScale_d], getRange);
 
+	const aspectRatio_d = derived([width_d, height_d], ([$width, $height]) => $width / $height);
+
 	$: context = {
 		activeGetters: activeGetters_d,
 		width: width_d,
 		height: height_d,
+		aspectRatio: aspectRatio_d,
 		containerWidth: _containerWidth,
 		containerHeight: _containerHeight,
 		x: _x,
@@ -286,7 +289,11 @@
 		bind:clientWidth={containerWidth}
 		bind:clientHeight={containerHeight}
 	>
-		<slot></slot>
+		<slot
+			width={$width_d}
+			height={$height_d}
+			aspectRatio={$aspectRatio_d}
+		></slot>
 	</div>
 {/if}
 

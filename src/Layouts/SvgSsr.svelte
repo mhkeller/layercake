@@ -2,6 +2,7 @@
 	import { getContext } from 'svelte';
 
 	export let zIndex = undefined;
+	export let viewBox = '0 0 100 100';
 	let zIndexStyle = '';
 
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
@@ -10,7 +11,7 @@
 </script>
 
 <svg
-	viewBox="0 0 100 100"
+	{viewBox}
 	preserveAspectRatio="none"
 	style="top: {$padding.top}px; right:0px; bottom:0px; left:{$padding.left}px;width:calc(100% - {($padding.left + $padding.right)}px);height:calc(100% - {($padding.top + $padding.bottom)}px);{zIndexStyle}"
 >

@@ -234,6 +234,8 @@
 
 	const aspectRatio_d = derived([width_d, height_d], ([$width, $height]) => $width / $height);
 
+	$: console.log($aspectRatio_d, $width_d, $height_d)
+
 	$: context = {
 		activeGetters: activeGetters_d,
 		width: width_d,
@@ -289,7 +291,11 @@
 {#if (ssr === true || typeof window !== 'undefined')}
 	<div
 		class="layercake-container"
-		style="position:{position};{position === 'absolute' ? 'top:0;left:0;' : ''}{pointerEvents === false ? 'pointer-events:none;' : ''}'}"
+		style="
+			position:{position};
+			{position === 'absolute' ? 'top:0;left:0;' : ''}
+			{pointerEvents === false ? 'pointer-events:none;' : ''}
+		"
 		bind:clientWidth={containerWidth}
 		bind:clientHeight={containerHeight}
 	>

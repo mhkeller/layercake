@@ -234,8 +234,6 @@
 
 	const aspectRatio_d = derived([width_d, height_d], ([$width, $height]) => $width / $height);
 
-	$: console.log($aspectRatio_d, $width_d, $height_d)
-
 	$: context = {
 		activeGetters: activeGetters_d,
 		width: width_d,

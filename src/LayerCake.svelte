@@ -14,7 +14,8 @@
 	export let ssr = false;
 	export let pointerEvents = true;
 	export let position = 'relative';
-	export let percentScale = false;
+	export let percentRange = false;
+	export let aspectRatio = undefined;
 
 	export let width = undefined;
 	export let height = undefined;
@@ -85,7 +86,8 @@
 	 * Make store versions of each parameter
 	 * Prefix these with `_` to keep things organized
 	 */
-	const _percentScale = writable();
+	const _aspectRatio = writable();
+	const _percentRange = writable();
 	const _containerWidth = writable();
 	const _containerHeight = writable();
 	const _x = writable();
@@ -122,7 +124,8 @@
 	const _flatData = writable();
 	const _originalSettings = writable(originalSettings);
 
-	$: _percentScale.set(percentScale);
+	$: _aspectRatio.set(aspectRatio);
+	$: _percentRange.set(percentRange);
 	$: _containerWidth.set(containerWidth);
 	$: _containerHeight.set(containerHeight);
 	$: _x.set(makeAccessor(x));
@@ -215,16 +218,16 @@
 	const zDomain_d = derived([extents_d, _zDomain], calcDomain('z'));
 	const rDomain_d = derived([extents_d, _rDomain], calcDomain('r'));
 
-	const xScale_d = derived([_xScale, extents_d, xDomain_d, _xPadding, _xNice, _xReverse, width_d, height_d, _xRange, _percentScale], createScale('x'));
+	const xScale_d = derived([_xScale, extents_d, xDomain_d, _xPadding, _xNice, _xReverse, width_d, height_d, _xRange, _percentRange], createScale('x'));
 	const xGet_d = derived([_x, xScale_d], createGetter);
 
-	const yScale_d = derived([_yScale, extents_d, yDomain_d, _yPadding, _yNice, _yReverse, width_d, height_d, _yRange, _percentScale], createScale('y'));
+	const yScale_d = derived([_yScale, extents_d, yDomain_d, _yPadding, _yNice, _yReverse, width_d, height_d, _yRange, _percentRange], createScale('y'));
 	const yGet_d = derived([_y, yScale_d], createGetter);
 
-	const zScale_d = derived([_zScale, extents_d, zDomain_d, _zPadding, _zNice, _zReverse, width_d, height_d, _zRange, _percentScale], createScale('z'));
+	const zScale_d = derived([_zScale, extents_d, zDomain_d, _zPadding, _zNice, _zReverse, width_d, height_d, _zRange, _percentRange], createScale('z'));
 	const zGet_d = derived([_z, zScale_d], createGetter);
 
-	const rScale_d = derived([_rScale, extents_d, rDomain_d, _rPadding, _rNice, _rReverse, width_d, height_d, _rRange, _percentScale], createScale('r'));
+	const rScale_d = derived([_rScale, extents_d, rDomain_d, _rPadding, _rNice, _rReverse, width_d, height_d, _rRange, _percentRange], createScale('r'));
 	const rGet_d = derived([_r, rScale_d], createGetter);
 
 	const xRange_d = derived([xScale_d], getRange);
@@ -232,13 +235,15 @@
 	const zRange_d = derived([zScale_d], getRange);
 	const rRange_d = derived([rScale_d], getRange);
 
-	const aspectRatio_d = derived([width_d, height_d], ([$width, $height]) => $width / $height);
+	const aspectRatio_d = derived([_aspectRatio, width_d, height_d], ([$aspectRatio, $width, $height]) => {
+		return $width / $height;
+	});
 
 	$: context = {
 		activeGetters: activeGetters_d,
 		width: width_d,
 		height: height_d,
-		percentScale: _percentScale,
+		percentRange: _percentRange,
 		aspectRatio: aspectRatio_d,
 		containerWidth: _containerWidth,
 		containerHeight: _containerHeight,
@@ -301,7 +306,7 @@
 			width={$width_d}
 			height={$height_d}
 			aspectRatio={$aspectRatio_d}
-			percentScale={_percentScale}
+			percentRange={_percentRange}
 			containerWidth={$_containerWidth}
 			containerHeight={$_containerHeight}
 		></slot>

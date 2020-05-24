@@ -1,8 +1,8 @@
 /* eslint-disable no-nested-ternary */
-function calcBaseRange(s, width, height, reverse, percentScale) {
+function calcBaseRange(s, width, height, reverse, percentRange) {
 	let min;
 	let max;
-	if (percentScale === true) {
+	if (percentRange === true) {
 		min = 0;
 		max = 100;
 	} else {
@@ -12,9 +12,9 @@ function calcBaseRange(s, width, height, reverse, percentScale) {
 	return reverse === true ? [max, min] : [min, max];
 }
 
-export default function getDefaultRange(s, width, height, reverse, range, percentScale) {
+export default function getDefaultRange(s, width, height, reverse, range, percentRange) {
 	return !range
-		? calcBaseRange(s, width, height, reverse, percentScale)
+		? calcBaseRange(s, width, height, reverse, percentRange)
 		: typeof range === 'function'
 			? range({ width, height })
 			: range;

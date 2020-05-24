@@ -28,7 +28,7 @@ const tests = [
 	{ args: ['r', w, h, !defaultReverses.r], expected: [25, 1] },
 
 	/* --------------------------------------------
-	 * Set percent scale
+	 * Set percent range
 	 */
 	{ args: ['x', w, h, defaultReverses.x, null, true], expected: [0, 100] },
 	{ args: ['y', w, h, defaultReverses.y, null, true], expected: [100, 0] },
@@ -36,7 +36,7 @@ const tests = [
 	{ args: ['r', w, h, defaultReverses.r, null, true], expected: [0, 100] },
 
 	/* --------------------------------------------
-	 * Reverse percent scale
+	 * Reverse percent range
 	 */
 	{ args: ['x', w, h, !defaultReverses.x, null, true], expected: [100, 0] },
 	{ args: ['y', w, h, !defaultReverses.y, null, true], expected: [0, 100] },
@@ -52,7 +52,7 @@ const tests = [
 	{ args: ['r', w, h, false, [-100, 100]], expected: [-100, 100] },
 
 	/* --------------------------------------------
-	 * Manual default overrides percentScale = true
+	 * Manual default overrides percentRange = true
 	 */
 	{ args: ['x', w, h, false, [-100, 100], true], expected: [-100, 100] },
 	{ args: ['y', w, h, false, [-100, 100], true], expected: [-100, 100] },

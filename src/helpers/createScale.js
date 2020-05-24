@@ -4,12 +4,12 @@ import padScale from '../utils/padScale.js';
 import getDefaultRange from '../settings/getDefaultRange.js';
 
 export default function createScale (s) {
-	return function scaleCreator ([$scale, $extents, $domain, $padding, $nice, $reverse, $width, $height, $range, percentScale]) {
+	return function scaleCreator ([$scale, $extents, $domain, $padding, $nice, $reverse, $width, $height, $range, $percentScale]) {
 		if ($extents === null) {
 			return null;
 		}
 
-		const defaultRange = getDefaultRange(s, $width, $height, $reverse, $range, percentScale);
+		const defaultRange = getDefaultRange(s, $width, $height, $reverse, $range, $percentScale);
 
 		const scale = $scale === defaultScales[s] ? $scale() : $scale.copy();
 

@@ -28,12 +28,36 @@ const tests = [
 	{ args: ['r', w, h, !defaultReverses.r], expected: [25, 1] },
 
 	/* --------------------------------------------
+	 * Set percent scale
+	 */
+	{ args: ['x', w, h, defaultReverses.x, null, true], expected: [0, 100] },
+	{ args: ['y', w, h, defaultReverses.y, null, true], expected: [100, 0] },
+	{ args: ['z', w, h, defaultReverses.z, null, true], expected: [0, 100] },
+	{ args: ['r', w, h, defaultReverses.r, null, true], expected: [0, 100] },
+
+	/* --------------------------------------------
+	 * Reverse percent scale
+	 */
+	{ args: ['x', w, h, !defaultReverses.x, null, true], expected: [100, 0] },
+	{ args: ['y', w, h, !defaultReverses.y, null, true], expected: [0, 100] },
+	{ args: ['z', w, h, !defaultReverses.z, null, true], expected: [100, 0] },
+	{ args: ['r', w, h, !defaultReverses.r, null, true], expected: [100, 0] },
+
+	/* --------------------------------------------
 	 * Set a manual default
 	 */
 	{ args: ['x', w, h, false, [-100, 100]], expected: [-100, 100] },
 	{ args: ['y', w, h, false, [-100, 100]], expected: [-100, 100] },
 	{ args: ['z', w, h, false, [-100, 100]], expected: [-100, 100] },
 	{ args: ['r', w, h, false, [-100, 100]], expected: [-100, 100] },
+
+	/* --------------------------------------------
+	 * Manual default overrides percentScale = true
+	 */
+	{ args: ['x', w, h, false, [-100, 100], true], expected: [-100, 100] },
+	{ args: ['y', w, h, false, [-100, 100], true], expected: [-100, 100] },
+	{ args: ['z', w, h, false, [-100, 100], true], expected: [-100, 100] },
+	{ args: ['r', w, h, false, [-100, 100], true], expected: [-100, 100] },
 
 	/* --------------------------------------------
 	 * Set a manual default, with reverse true, which should have no effect

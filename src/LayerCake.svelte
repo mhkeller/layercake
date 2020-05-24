@@ -14,6 +14,7 @@
 	export let ssr = false;
 	export let pointerEvents = true;
 	export let position = 'relative';
+	export let percentScale = false;
 
 	export let width = undefined;
 	export let height = undefined;
@@ -212,16 +213,16 @@
 	const zDomain_d = derived([extents_d, _zDomain], calcDomain('z'));
 	const rDomain_d = derived([extents_d, _rDomain], calcDomain('r'));
 
-	const xScale_d = derived([_xScale, extents_d, xDomain_d, _xPadding, _xNice, _xReverse, width_d, height_d, _xRange], createScale('x'));
+	const xScale_d = derived([_xScale, extents_d, xDomain_d, _xPadding, _xNice, _xReverse, width_d, height_d, _xRange, percentScale], createScale('x'));
 	const xGet_d = derived([_x, xScale_d], createGetter);
 
-	const yScale_d = derived([_yScale, extents_d, yDomain_d, _yPadding, _yNice, _yReverse, width_d, height_d, _yRange], createScale('y'));
+	const yScale_d = derived([_yScale, extents_d, yDomain_d, _yPadding, _yNice, _yReverse, width_d, height_d, _yRange, percentScale], createScale('y'));
 	const yGet_d = derived([_y, yScale_d], createGetter);
 
-	const zScale_d = derived([_zScale, extents_d, zDomain_d, _zPadding, _zNice, _zReverse, width_d, height_d, _zRange], createScale('z'));
+	const zScale_d = derived([_zScale, extents_d, zDomain_d, _zPadding, _zNice, _zReverse, width_d, height_d, _zRange, percentScale], createScale('z'));
 	const zGet_d = derived([_z, zScale_d], createGetter);
 
-	const rScale_d = derived([_rScale, extents_d, rDomain_d, _rPadding, _rNice, _rReverse, width_d, height_d, _rRange], createScale('r'));
+	const rScale_d = derived([_rScale, extents_d, rDomain_d, _rPadding, _rNice, _rReverse, width_d, height_d, _rRange, percentScale], createScale('r'));
 	const rGet_d = derived([_r, rScale_d], createGetter);
 
 	const xRange_d = derived([xScale_d], getRange);
@@ -290,9 +291,50 @@
 		bind:clientHeight={containerHeight}
 	>
 		<slot
+			activeGetters={$activeGetters_d}
 			width={$width_d}
 			height={$height_d}
 			aspectRatio={$aspectRatio_d}
+			containerWidth={$_containerWidth}
+			containerHeight={$_containerHeight}
+			x={$_x}
+			y={$_y}
+			z={$_z}
+			r={$_r}
+			custom={$_custom}
+			data={$_data}
+			xNice={$_xNice}
+			yNice={$_yNice}
+			zNice={$_zNice}
+			rNice={$_rNice}
+			xReverse={$_xReverse}
+			yReverse={$_yReverse}
+			zReverse={$_zReverse}
+			rReverse={$_rReverse}
+			xPadding={$_xPadding}
+			yPadding={$_yPadding}
+			zPadding={$_zPadding}
+			rPadding={$_rPadding}
+			padding={$padding_d}
+			flatData={$_flatData}
+			extents={$extents_d}
+			xDomain={$xDomain_d}
+			yDomain={$yDomain_d}
+			zDomain={$zDomain_d}
+			rDomain={$rDomain_d}
+			xRange={$xRange_d}
+			yRange={$yRange_d}
+			zRange={$zRange_d}
+			rRange={$rRange_d}
+			config={$_originalSettings}
+			xScale={$xScale_d}
+			xGet={$xGet_d}
+			yScale={$yScale_d}
+			yGet={$yGet_d}
+			zScale={$zScale_d}
+			zGet={$zGet_d}
+			rScale={$rScale_d}
+			rGet={$rGet_d}
 		></slot>
 	</div>
 {/if}

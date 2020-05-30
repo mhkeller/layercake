@@ -2,17 +2,20 @@
 	import { getContext } from 'svelte';
 
 	export let zIndex = undefined;
-	let zIndexStyle = '';
+	export let pointerEvents = undefined;
 
+	let zIndexStyle = '';
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
 
-	const { padding } = getContext('LayerCake');
+	let pointerEventsStyle = '';
+	$: pointerEventsStyle = pointerEvents === false ? 'pointer-events:none;' : '';
 
+	const { padding } = getContext('LayerCake');
 </script>
 
 <div
 	class="layercake-layout-html"
-	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;{zIndexStyle}"
+	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;{zIndexStyle}{pointerEventsStyle}"
 >
 	<slot></slot>
 </div>

@@ -4,6 +4,7 @@
 
 	export let contextOptions;
 	export let zIndex = undefined;
+	export let pointerEvents = undefined;
 
 	let canvasElement;
 	let testGl;

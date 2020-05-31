@@ -296,7 +296,7 @@
 		class="layercake-container"
 		style="
 			position:{position};
-			{position === 'absolute' ? 'top:0;left:0;' : ''}
+			{position === 'absolute' ? 'top:0;right:0;bottom:0;left:0;' : ''}
 			{pointerEvents === false ? 'pointer-events:none;' : ''}
 		"
 		bind:clientWidth={containerWidth}

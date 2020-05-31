@@ -15,7 +15,6 @@
 	export let pointerEvents = true;
 	export let position = 'relative';
 	export let percentRange = false;
-	export let aspectRatio = undefined;
 
 	export let width = undefined;
 	export let height = undefined;
@@ -86,7 +85,6 @@
 	 * Make store versions of each parameter
 	 * Prefix these with `_` to keep things organized
 	 */
-	const _aspectRatio = writable();
 	const _percentRange = writable();
 	const _containerWidth = writable();
 	const _containerHeight = writable();
@@ -124,7 +122,6 @@
 	const _flatData = writable();
 	const _originalSettings = writable(originalSettings);
 
-	$: _aspectRatio.set(aspectRatio);
 	$: _percentRange.set(percentRange);
 	$: _containerWidth.set(containerWidth);
 	$: _containerHeight.set(containerHeight);
@@ -235,7 +232,7 @@
 	const zRange_d = derived([zScale_d], getRange);
 	const rRange_d = derived([rScale_d], getRange);
 
-	const aspectRatio_d = derived([_aspectRatio, width_d, height_d], ([$aspectRatio, $width, $height]) => {
+	const aspectRatio_d = derived([width_d, height_d], ([$aspectRatio, $width, $height]) => {
 		return $width / $height;
 	});
 

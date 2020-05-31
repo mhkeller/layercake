@@ -4,6 +4,7 @@
 	export let viewBox = '0 0 100 100';
 	export let zIndex = undefined;
 	export let pointerEvents = undefined;
+	export let fixedAspectRatio = undefined;
 
 	let zIndexStyle = '';
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
@@ -12,6 +13,10 @@
 	$: pointerEventsStyle = pointerEvents === false ? 'pointer-events:none;' : '';
 
 	const { padding } = getContext('LayerCake');
+
+	$: if (fixedAspectRatio) {
+		viewBox = `0 0 100 ${100 / fixedAspectRatio}`
+	}
 </script>
 
 <svg

@@ -2,7 +2,7 @@
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	export let contextOptions;
+	export let contextOptions = undefined;
 	export let zIndex = undefined;
 	export let pointerEvents = undefined;
 

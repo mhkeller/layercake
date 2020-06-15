@@ -28,7 +28,7 @@
 	});
 
 	$: context.ctx.set(ctx);
-	setContext('ctx', context);
+	setContext('canvas', context);
 </script>
 
 <canvas

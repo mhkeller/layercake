@@ -302,7 +302,6 @@
 			width={$width_d}
 			height={$height_d}
 			aspectRatio={$aspectRatio_d}
-			percentRange={_percentRange}
 			containerWidth={$_containerWidth}
 			containerHeight={$_containerHeight}
 		></slot>

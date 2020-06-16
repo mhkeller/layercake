@@ -5,8 +5,24 @@ Changelog
 
 > Not yet on npm
 
-A number of neat features including support for server-side rendering, the new `raise` helper for better SVG helpers, aspect ratios, viewbox options, allowing a cake to be `position: absolute;`, use the term `config` instead of `originalSettings`
+A number of neat features including support for server-side rendering, the new `raise` helper for better SVG helpers, defaulting to `position: relative` for `layercake-container`, aspect ratios, viewbox options, allowing a cake to be `position: absolute;`, use the prop `config` instead of `originalSettings` and expose range arrays as props.
   * [cb35d277aef34a32d8f811c563b9c62f9366c86a](https://github.com/mhkeller/layercake/commit/cb35d277aef34a32d8f811c563b9c62f9366c86a)
+  * [9f93db589eb10b73c4fe4044ef45a8b1e594db56](https://github.com/mhkeller/layercake/commit/9f93db589eb10b73c4fe4044ef45a8b1e594db56)
+  * [fb454b8d328aa2407e0df057ad0e7d2b6a5bb5bc](https://github.com/mhkeller/layercake/commit/fb454b8d328aa2407e0df057ad0e7d2b6a5bb5bc)
+  * [c46fae42ebc44a14d89e265ebe8d7dc8b18f0fa7](https://github.com/mhkeller/layercake/commit/c46fae42ebc44a14d89e265ebe8d7dc8b18f0fa7)
+  * [fd9e3e1b7ddb28f57f39355f59c74d98d29a1999](https://github.com/mhkeller/layercake/commit/fd9e3e1b7ddb28f57f39355f59c74d98d29a1999)
+  * [df01f6a420f459a70cedb3a65997b5f2589e0259](https://github.com/mhkeller/layercake/commit/df01f6a420f459a70cedb3a65997b5f2589e0259)
+  * [44c546c15b751da2a674749ce7d3f9cc56cff3fa](https://github.com/mhkeller/layercake/commit/44c546c15b751da2a674749ce7d3f9cc56cff3fa)
+  * [4396eb6dd3be33d58d3a343c04a319af69404956](https://github.com/mhkeller/layercake/commit/4396eb6dd3be33d58d3a343c04a319af69404956)
+  * [0871e9b725a0994a1e880e804166a08f08dafc11](https://github.com/mhkeller/layercake/commit/0871e9b725a0994a1e880e804166a08f08dafc11)
+  * [b37dbcd1d1e8016d330d733eeafc7de15e4202ee](https://github.com/mhkeller/layercake/commit/b37dbcd1d1e8016d330d733eeafc7de15e4202ee)
+  * [dfe35d986e4062baf5a07610574d78bf6aaad287](https://github.com/mhkeller/layercake/commit/dfe35d986e4062baf5a07610574d78bf6aaad287)
+  * [5d36bff218a3c0be11cdd8167d45495e3350fc1d](https://github.com/mhkeller/layercake/commit/5d36bff218a3c0be11cdd8167d45495e3350fc1d)
+  * [ca001628c158216f71a6d62c1c2499e620575b4d](https://github.com/mhkeller/layercake/commit/ca001628c158216f71a6d62c1c2499e620575b4d)
+  * [bd18a5a51996ce0123b368e54f86f39068ef60de](https://github.com/mhkeller/layercake/commit/bd18a5a51996ce0123b368e54f86f39068ef60de)
+  * [7f586d8c82dd231f24979e6df504bac04cf49270](https://github.com/mhkeller/layercake/commit/7f586d8c82dd231f24979e6df504bac04cf49270)
+  * [ae6de4a55635199fd972334364d6855258920e5d](https://github.com/mhkeller/layercake/commit/ae6de4a55635199fd972334364d6855258920e5d)
+  * [5224ecb7cb32b8c4104b0be79f88bb51c1218edf](https://github.com/mhkeller/layercake/commit/5224ecb7cb32b8c4104b0be79f88bb51c1218edf)
 
 #### Breaking changes
 
@@ -15,6 +31,9 @@ Rename WebGL component's `contextOptions` prop to `contextAttributes` to reflect
 
 Access the `ctx` object off of the Canvas component as `const ctx = getContext('canvas')` instead of `const ctx = getContext('ctx')`, which was a little confusing.
   * [0b0198575a5758bfce9cbd37c22f3b8509c5d96f](https://github.com/mhkeller/layercake/commit/0b0198575a5758bfce9cbd37c22f3b8509c5d96f)
+
+Rename `originalSettings` to `config`
+  * [651ce7cbf2bbf4da380244fa2d8d5bcb707ad4fd](https://github.com/mhkeller/layercake/commit/651ce7cbf2bbf4da380244fa2d8d5bcb707ad4fd)
 
 
 # 2.0.1

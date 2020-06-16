@@ -3,7 +3,7 @@ Changelog
 
 # 3.0.0
 
-> Not yet on npm
+> 2020-06-15
 
 A number of neat features including support for server-side rendering, the new `raise` helper for better SVG helpers, defaulting to `position: relative` for `layercake-container`, aspect ratios, viewbox options, allowing a cake to be `position: absolute;`, adds a defs slot to svg layout components, use the prop `config` instead of `originalSettings` and expose range arrays as props.
   * [cb35d277aef34a32d8f811c563b9c62f9366c86a](https://github.com/mhkeller/layercake/commit/cb35d277aef34a32d8f811c563b9c62f9366c86a)

@@ -298,7 +298,7 @@
 		bind:clientWidth={containerWidth}
 		bind:clientHeight={containerHeight}
 	>
-		< slot
+		<slot
 			width={$width_d}
 			height={$height_d}
 			aspectRatio={$aspectRatio_d}

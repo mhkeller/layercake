@@ -1,6 +1,22 @@
 Changelog
 ===
 
+# 3.0.0
+
+> Not yet on npm
+
+A number of neat features including support for server-side rendering, the new `raise` helper for better SVG helpers, aspect ratios, viewbox options, allowing a cake to be `position: absolute;`, use the term `config` instead of `originalSettings`
+  * [cb35d277aef34a32d8f811c563b9c62f9366c86a](https://github.com/mhkeller/layercake/commit/cb35d277aef34a32d8f811c563b9c62f9366c86a)
+
+#### Breaking changes
+
+Rename WebGL component's `contextOptions` prop to `contextAttributes` to reflect the WebGL documentation.
+  * [007c2747a2caed77f3046f1dd7cbae2e850b3992](https://github.com/mhkeller/layercake/commit/007c2747a2caed77f3046f1dd7cbae2e850b3992)
+
+Access the `ctx` object off of the Canvas component as `const ctx = getContext('canvas')` instead of `const ctx = getContext('ctx')`, which was a little confusing.
+  * [0b0198575a5758bfce9cbd37c22f3b8509c5d96f](https://github.com/mhkeller/layercake/commit/0b0198575a5758bfce9cbd37c22f3b8509c5d96f)
+
+
 # 2.0.1
 
 > 2020-01-26

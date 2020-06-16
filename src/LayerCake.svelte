@@ -67,19 +67,19 @@
 	 * Add the active keys since those aren't on our settings object.
 	 * This is mostly an escape-hatch
 	 */
-	const originalSettings = {};
-	$: if (x) originalSettings.x = x;
-	$: if (y) originalSettings.y = y;
-	$: if (z) originalSettings.z = z;
-	$: if (r) originalSettings.r = r;
-	$: if (xDomain) originalSettings.xDomain = xDomain;
-	$: if (yDomain) originalSettings.yDomain = yDomain;
-	$: if (zDomain) originalSettings.zDomain = zDomain;
-	$: if (rDomain) originalSettings.rDomain = rDomain;
-	$: if (xRange) originalSettings.xRange = xRange;
-	$: if (yRange) originalSettings.yRange = yRange;
-	$: if (zRange) originalSettings.zRange = zRange;
-	$: if (rRange) originalSettings.rRange = rRange;
+	const config = {};
+	$: if (x) config.x = x;
+	$: if (y) config.y = y;
+	$: if (z) config.z = z;
+	$: if (r) config.r = r;
+	$: if (xDomain) config.xDomain = xDomain;
+	$: if (yDomain) config.yDomain = yDomain;
+	$: if (zDomain) config.zDomain = zDomain;
+	$: if (rDomain) config.rDomain = rDomain;
+	$: if (xRange) config.xRange = xRange;
+	$: if (yRange) config.yRange = yRange;
+	$: if (zRange) config.zRange = zRange;
+	$: if (rRange) config.rRange = rRange;
 
 	/* --------------------------------------------
 	 * Make store versions of each parameter
@@ -120,7 +120,7 @@
 	const _rRange = writable();
 	const _padding = writable();
 	const _flatData = writable();
-	const _originalSettings = writable(originalSettings);
+	const _config = writable(config);
 
 	$: _percentRange.set(percentRange);
 	$: _containerWidth.set(containerWidth);
@@ -273,8 +273,7 @@
 		yRange: yRange_d,
 		zRange: zRange_d,
 		rRange: rRange_d,
-		originalSettings: _originalSettings, // Keep this for legacy compatibility
-		config: _originalSettings,
+		config: _config,
 		xScale: xScale_d,
 		xGet: xGet_d,
 		yScale: yScale_d,

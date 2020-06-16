@@ -2,7 +2,7 @@
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	export let contextOptions = undefined;
+	export let contextAttributes = undefined;
 	export let zIndex = undefined;
 	export let pointerEvents = undefined;
 
@@ -29,7 +29,7 @@
 		 */
 		const contexts = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'];
 		for (let j = 0; j < contexts.length; j++) {
-			testGl = canvasElement.getContext(contexts[j], contextOptions);
+			testGl = canvasElement.getContext(contexts[j], contextAttributes);
 			if (testGl) {
 				gl = testGl;
 				break;

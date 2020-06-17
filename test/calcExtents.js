@@ -16,6 +16,36 @@ const tests = [
 	},
 	{
 		args: [[
+			{}, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
+		], [{ field: 'x', accessor: d => d.x }]],
+		expected: { x: [0, 4] }
+	},
+	{
+		args: [[
+			{ x: null }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
+		], [{ field: 'x', accessor: d => d.x }]],
+		expected: { x: [0, 4] }
+	},
+	{
+		args: [[
+			{ x: 'd' / 1 }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
+		], [{ field: 'x', accessor: d => d.x }]],
+		expected: { x: [0, 4] }
+	},
+	{
+		args: [[
+			{ x: NaN }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
+		], [{ field: 'x', accessor: d => d.x }]],
+		expected: { x: [0, 4] }
+	},
+	{
+		args: [[
+			{ x: Number.NaN }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
+		], [{ field: 'x', accessor: d => d.x }]],
+		expected: { x: [0, 4] }
+	},
+	{
+		args: [[
 			{ x: '2010-01-04' }, { x: '2010-01-02' }, { x: '2010-01-04' }, { x: '2010-01-05' }, { x: '2010-01-06' }
 		], [{ field: 'x', accessor: d => d.x }]],
 		expected: { x: ['2010-01-02', '2010-01-06'] }

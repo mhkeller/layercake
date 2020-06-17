@@ -1,5 +1,3 @@
-import canBeZero from '../utils/canBeZero.js';
-
 /* --------------------------------------------
  *
  * Calculate the extents of desired fields

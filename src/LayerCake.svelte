@@ -59,6 +59,7 @@
 	export let zRange = undefined;
 	export let rRange = undefined;
 	export let padding = {};
+	export let extents = {};
 	export let flatData = undefined;
 
 	/* --------------------------------------------
@@ -120,6 +121,7 @@
 	const _rRange = writable();
 	const _padding = writable();
 	const _flatData = writable();
+	const _extents = writable();
 	const _config = writable(config);
 
 	$: _percentRange.set(percentRange);
@@ -156,6 +158,7 @@
 	$: _zRange.set(zRange);
 	$: _rRange.set(rRange);
 	$: _padding.set(padding);
+	$: _extents.set(extents);
 	$: _flatData.set(flatData || data);
 
 	/* --------------------------------------------
@@ -206,8 +209,8 @@
 	 * Calculate extents by taking the extent of the data
 	 * and filling that in with anything set by the user
 	 */
-	const extents_d = derived([_flatData, activeGetters_d], ([$flatData, $activeGetters]) => {
-		return calcExtents($flatData, $activeGetters);
+	const extents_d = derived([_flatData, activeGetters_d, _extents], ([$flatData, $activeGetters, $extents]) => {
+		return { ...calcExtents($flatData, $activeGetters), ...$extents };
 	});
 
 	const xDomain_d = derived([extents_d, _xDomain], calcDomain('x'));

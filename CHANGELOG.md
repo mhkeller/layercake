@@ -3,9 +3,9 @@ Changelog
 
 # 3.1.0
 
-> Not yet on npm
+> 2020-06-17
 
-Ignore `null` and `NaN` values when calculating extents in addition to `undefined` and create the `extents` `<LayerCake>` prop that allows for manually setting extents.
+Create the `extents` `<LayerCake>` prop that allows for manually setting extents. This also includes a patch to ignore `null` and `NaN` values when calculating extents in addition to `undefined`. This patch shouldn't be a breaking change since the chart would not have worked if you had those values in your data.
   * [8cb8f34ae448f6adbe78a1d4e0feb90b39f9fa18](https://github.com/mhkeller/layercake/commit/8cb8f34ae448f6adbe78a1d4e0feb90b39f9fa18)
   * [16d17c674f5337b11df5f54371d97c08b575bc71](https://github.com/mhkeller/layercake/commit/16d17c674f5337b11df5f54371d97c08b575bc71)
 

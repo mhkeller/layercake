@@ -1,6 +1,13 @@
 Changelog
 ===
 
+# 3.0.1
+
+> Not yet on npm
+
+Ignore `null` and `NaN` values when calculating extents in addition to `undefined.
+  * [8cb8f34ae448f6adbe78a1d4e0feb90b39f9fa18](https://github.com/mhkeller/layercake/commit/8cb8f34ae448f6adbe78a1d4e0feb90b39f9fa18)
+
 # 3.0.0
 
 > 2020-06-15

@@ -6,9 +6,9 @@ const name = 'filterObject';
 
 const tests = [
 	{ args: [{}], expected: {} },
-	{ args: [{x: null, y: undefined}], expected: { x: null } },
-	{ args: [{x: 'a', y: undefined, z: undefined}], expected: { x: 'a' } },
-	{ args: [{x: 'a', y: 'b', z: undefined}], expected: { x: 'a', y: 'b' } },
+	{ args: [{ x: null, y: undefined }], expected: { x: null } },
+	{ args: [{ x: 'a', y: undefined, z: undefined }], expected: { x: 'a' } },
+	{ args: [{ x: 'a', y: 'b', z: undefined }], expected: { x: 'a', y: 'b' } },
 ];
 
 describe(name, () => {

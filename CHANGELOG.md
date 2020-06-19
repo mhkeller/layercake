@@ -1,6 +1,13 @@
 Changelog
 ===
 
+# 3.1.1
+
+> 2020-06-19
+
+Remove `undefined` fields passed into `extents` prop.
+  * [a43c463d16b1835d6f816fc5bda7770a0d0fd018](https://github.com/mhkeller/layercake/commit/a43c463d16b1835d6f816fc5bda7770a0d0fd018)
+
 # 3.1.0
 
 > 2020-06-17

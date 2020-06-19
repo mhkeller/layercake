@@ -3,6 +3,7 @@
 	import { writable, derived } from 'svelte/store';
 
 	import makeAccessor from './utils/makeAccessor.js';
+	import filterObject from './utils/filterObject.js';
 	import calcExtents from './lib/calcExtents.js';
 	import calcDomain from './helpers/calcDomain.js';
 	import createScale from './helpers/createScale.js';
@@ -158,7 +159,7 @@
 	$: _zRange.set(zRange);
 	$: _rRange.set(rRange);
 	$: _padding.set(padding);
-	$: _extents.set(extents);
+	$: _extents.set(filterObject(extents));
 	$: _flatData.set(flatData || data);
 
 	/* --------------------------------------------

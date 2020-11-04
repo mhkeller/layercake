@@ -10,8 +10,6 @@
 import getPadFunctions from '../helpers/getPadFunctions.js';
 
 export default function padScale (scale, padding) {
-	console.log('padding', padding);
-
 	if (typeof scale.range !== 'function') {
 		throw new Error('Scale method `range` must be a function');
 	}
@@ -22,7 +20,7 @@ export default function padScale (scale, padding) {
 		return scale.domain();
 	}
 
-	const { lift, ground, scaleType } = getPadFunctions(scale);
+	const { lift, ground } = getPadFunctions(scale);
 
 	const domain = scale.domain().map(lift);
 

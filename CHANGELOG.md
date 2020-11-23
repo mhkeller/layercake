@@ -7,7 +7,7 @@ Changelog
 
 This changes how scale padding works by a) correcting the calculation so that it's actually accurate (before it was off by a little bit for small amounts and a lot for large amounts) and b) adds support so you can use padding for non-linear scales (log, power, symlog etc.).
 
-It's a breaking change but only if you're using `xPadding`, `yPadding` or `zPadding` and even then, it will likely only adjust by a few pixels.
+It's a breaking change but only if you're using `xPadding`, `yPadding` or `zPadding` and even then, it will likely only adjust by a few pixels. Closes [#17](https://github.com/mhkeller/layercake/issues/17).
 
 * [89f317c09ac046e10ac354e521241e6a4f6245ed](https://github.com/mhkeller/layercake/commit/89f317c09ac046e10ac354e521241e6a4f6245ed)
 * [796911d5de2e944ac5180299020457211f3e8958](https://github.com/mhkeller/layercake/commit/796911d5de2e944ac5180299020457211f3e8958)

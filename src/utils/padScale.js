@@ -4,7 +4,7 @@
  * the min/max by taking the desired difference
  * in pixels and converting it to units of data.
  * Returns an array that you can set as the new domain.
- * Padding contributed by @veltman, lift and ground functions from vega
+ * Padding contributed by @veltman
  *
  * --------------------------------------------
  */

@@ -3,7 +3,7 @@ Changelog
 
 # 4.0.1
 
-> 2020 11-23
+> 2020-11-23
 
 The `layouts` folder got renamed to `Layouts`. Fix that so imports don't get confused.
 

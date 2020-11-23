@@ -1,6 +1,15 @@
 Changelog
 ===
 
+# 4.0.1
+
+> 2020 11-23
+
+The `layouts` folder got renamed to `Layouts`. Fix that so imports don't get confused.
+
+* [72a3782ede0e443a280a31a6a3ca9dccfac58cd6](https://github.com/mhkeller/layercake/commit/72a3782ede0e443a280a31a6a3ca9dccfac58cd6)
+* [9cb501e55b5b19af663f295d443ca4c1d5aef155](https://github.com/mhkeller/layercake/commit/9cb501e55b5b19af663f295d443ca4c1d5aef155)
+
 # 4.0.0
 
 > 2020-11-22

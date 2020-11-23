@@ -3,7 +3,7 @@ Changelog
 
 # 4.0.0
 
-> Not yet on npm
+> 2020-11-22
 
 This changes how scale padding works by a) correcting the calculation so that it's actually accurate (before it was off by a little bit for small amounts and a lot for large amounts) and b) adds support so you can use padding for non-linear scales (log, power, symlog etc.).
 

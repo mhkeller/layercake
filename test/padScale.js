@@ -16,33 +16,33 @@ badScaleMissingRange.domain = () => {};
 
 const tests = [
 	{ name: 'linear undefined padding', args: [scaleLinear()], expected: [0, 1] },
-	{ name: 'linear no padding', args: [scaleLinear(), [0, 0]] },
-	{ name: 'linear', args: [scaleLinear().domain([-100, 100]), [0, 0]] },
-	{ name: 'linear negative domain', args: [scaleLinear().domain([-100, 100]).range([0, 100]), [0, 10]] },
+	{ name: 'linear no padding', args: [scaleLinear(), [0, 0]], expected: [0, 1] },
+	{ name: 'linear', args: [scaleLinear().domain([-100, 100]), [0, 0]], expected: [-100, 100] },
+	{ name: 'linear negative domain', args: [scaleLinear().domain([-100, 100]).range([0, 100]), [0, 10]], expected: [-100, 122.22222222222223] },
 
-	{ name: 'linear bump min', args: [scaleLinear().domain([0, 100]).range([0, 100]), [10, 0]] },
-	{ name: 'linear bump max', args: [scaleLinear().domain([0, 100]).range([0, 100]), [0, 10]] },
-	{ name: 'linear bump both', args: [scaleLinear().domain([0, 100]).range([0, 100]), [10, 10]] },
+	{ name: 'linear bump min', args: [scaleLinear().domain([0, 100]).range([0, 100]), [10, 0]], expected: [-11.11111111111111, 100] },
+	{ name: 'linear bump max', args: [scaleLinear().domain([0, 100]).range([0, 100]), [0, 10]], expected: [0, 111.11111111111111] },
+	{ name: 'linear bump both', args: [scaleLinear().domain([0, 100]).range([0, 100]), [10, 10]], expected: [-12.5, 112.5] },
 
-	{ name: 'log bump min', args: [scaleLog().domain([1, 100]).range([0, 100]), [10, 0]] },
-	{ name: 'log bump max', args: [scaleLog().domain([1, 100]).range([0, 100]), [0, 10]] },
-	{ name: 'log bump both', args: [scaleLog().domain([1, 100]).range([0, 100]), [10, 10]] },
+	{ name: 'log bump min', args: [scaleLog().domain([1, 100]).range([0, 100]), [10, 0]], expected: [0.5994842503189409, 100.00000000000004] },
+	{ name: 'log bump max', args: [scaleLog().domain([1, 100]).range([0, 100]), [0, 10]], expected: [1, 166.810053720006] },
+	{ name: 'log bump both', args: [scaleLog().domain([1, 100]).range([0, 100]), [10, 10]], expected: [0.5623413251903491, 177.82794100389242] },
 
-	{ name: 'pow bump min', args: [scalePow().domain([1, 100]).range([0, 100]), [10, 0]] },
-	{ name: 'pow bump max', args: [scalePow().domain([1, 100]).range([0, 100]), [0, 10]] },
-	{ name: 'pow bump both', args: [scalePow().domain([1, 100]).range([0, 100]), [10, 10]] },
+	{ name: 'pow bump min', args: [scalePow().domain([1, 100]).range([0, 100]), [10, 0]], expected: [-10, 100] },
+	{ name: 'pow bump max', args: [scalePow().domain([1, 100]).range([0, 100]), [0, 10]], expected: [1, 111] },
+	{ name: 'pow bump both', args: [scalePow().domain([1, 100]).range([0, 100]), [10, 10]], expected: [-11.375, 112.375] },
 
-	{ name: 'sqrt bump min', args: [scaleSqrt().domain([1, 100]).range([0, 100]), [10, 0]] },
-	{ name: 'sqrt bump max', args: [scaleSqrt().domain([1, 100]).range([0, 100]), [0, 10]] },
-	{ name: 'sqrt bump both', args: [scaleSqrt().domain([1, 100]).range([0, 100]), [10, 10]] },
+	{ name: 'sqrt bump min', args: [scaleSqrt().domain([1, 100]).range([0, 100]), [10, 0]], expected: [0, 100] },
+	{ name: 'sqrt bump max', args: [scaleSqrt().domain([1, 100]).range([0, 100]), [0, 10]], expected: [1, 121] },
+	{ name: 'sqrt bump both', args: [scaleSqrt().domain([1, 100]).range([0, 100]), [10, 10]], expected: [-0.015625, 123.765625] },
 
-	{ name: 'symlog bump min', args: [scaleSymlog().domain([1, 100]).range([0, 100]), [10, 0]] },
-	{ name: 'symlog bump max', args: [scaleSymlog().domain([1, 100]).range([0, 100]), [0, 10]] },
-	{ name: 'symlog bump both', args: [scaleSymlog().domain([1, 100]).range([0, 100]), [10, 10]] },
+	{ name: 'symlog bump min', args: [scaleSymlog().domain([1, 100]).range([0, 100]), [10, 0]], expected: [0.2935267017032884, 100.00000000000003] },
+	{ name: 'symlog bump max', args: [scaleSymlog().domain([1, 100]).range([0, 100]), [0, 10]], expected: [1, 155.1622189429957] },
+	{ name: 'symlog bump both', args: [scaleSymlog().domain([1, 100]).range([0, 100]), [10, 10]], expected: [0.2249505961681577, 163.90460973029315] },
 
-	{ name: 'time change min', args: [scaleTime().domain([new Date(Date.UTC(2010, 0, 1)), new Date(Date.UTC(2010, 11, 31))]).range([0, 100]), [10, 0]] },
-	{ name: 'time change max', args: [scaleTime().domain([new Date(Date.UTC(2010, 0, 1)), new Date(Date.UTC(2010, 11, 31))]).range([0, 100]), [0, 10]] },
-	{ name: 'time change both', args: [scaleTime().domain([new Date(Date.UTC(2010, 0, 1)), new Date(Date.UTC(2010, 11, 31))]).range([0, 100]), [10, 10]] },
+	{ name: 'time change min', args: [scaleTime().domain([new Date(Date.UTC(2010, 0, 1)), new Date(Date.UTC(2010, 11, 31))]).range([0, 100]), [10, 0]], expected: [new Date('2009-11-21T13:20:00.000Z'), new Date('2010-12-31T00:00:00.000Z')] },
+	{ name: 'time change max', args: [scaleTime().domain([new Date(Date.UTC(2010, 0, 1)), new Date(Date.UTC(2010, 11, 31))]).range([0, 100]), [0, 10]], expected: [new Date('2010-01-01T00:00:00.000Z'), new Date('2011-02-09T10:40:00.000Z')] },
+	{ name: 'time change both', args: [scaleTime().domain([new Date(Date.UTC(2010, 0, 1)), new Date(Date.UTC(2010, 11, 31))]).range([0, 100]), [10, 10]], expected: [new Date('2009-11-16T12:00:00.000Z'), new Date('2011-02-14T12:00:00.000Z')] },
 
 ];
 
@@ -95,6 +95,11 @@ describe(name, () => {
 
 				const diffMaxValue = originalMaxValue - paddedMaxValue;
 				assert.deepStrictEqual(diffMaxValue.toFixed(5), padding[1].toFixed(5));
+
+				/* --------------------------------------------
+				 * Test the domain
+				 */
+				assert.deepStrictEqual(paddedScale.domain(), test.expected);
 			});
 		});
 	});

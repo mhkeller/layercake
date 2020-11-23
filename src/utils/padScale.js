@@ -4,7 +4,8 @@
  * the min/max by taking the desired difference
  * in pixels and converting it to units of data.
  * Returns an array that you can set as the new domain.
- * Padding contributed by @veltman
+ * Padding contributed by @veltman.
+ * See here for discussion of transforms: https://github.com/d3/d3-scale/issues/150
  *
  * --------------------------------------------
  */
@@ -34,8 +35,7 @@ export default function padScale (scale, padding) {
 	const paddingLeft = padding[0] || 0;
 	const paddingRight = padding[1] || 0;
 
-	// Math.abs() to properly handle reversed scales
-	const step = (d2 - d1) / (Math.abs(r2 - r1) - paddingLeft - paddingRight);
+	const step = (d2 - d1) / (Math.abs(r2 - r1) - paddingLeft - paddingRight); // Math.abs() to properly handle reversed scales
 
 	return [d1 - paddingLeft * step, paddingRight * step + d2].map(d => {
 		return isTime ? ground(new Date(d)) : ground(d);

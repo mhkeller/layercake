@@ -34,8 +34,6 @@ export default function padScale (scale, padding) {
 	const paddingLeft = padding[0] || 0;
 	const paddingRight = padding[1] || 0;
 
-	console.log(d1, d2);
-
 	// Math.abs() to properly handle reversed scales
 	const step = (d2 - d1) / (Math.abs(r2 - r1) - paddingLeft - paddingRight);
 

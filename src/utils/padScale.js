@@ -4,6 +4,7 @@
  * the min/max by taking the desired difference
  * in pixels and converting it to units of data.
  * Returns an array that you can set as the new domain.
+ * Padding contributed by @veltman, lift and ground functions from vega
  *
  * --------------------------------------------
  */
@@ -22,27 +23,23 @@ export default function padScale (scale, padding) {
 
 	const { lift, ground } = getPadFunctions(scale);
 
-	const domain = scale.domain().map(lift);
+	const d0 = scale.domain()[0];
 
-	const range = scale.range();
-	const domainExtent = domain[1] - domain[0];
+	const isTime = Object.prototype.toString.call(d0) === '[object Date]';
 
-	const w = Math.abs(range[1] - range[0]);
+	const [d1, d2] = scale.domain().map(d => {
+		return isTime ? lift(d.getTime()) : lift(d);
+	});
+	const [r1, r2] = scale.range();
+	const paddingLeft = padding[0] || 0;
+	const paddingRight = padding[1] || 0;
 
-	const paddedDomain = scale.domain().slice();
+	console.log(d1, d2);
 
-	const pl = padding.length;
-	for (let i = 0; i < pl; i += 1) {
-		const sign = i === 0 ? -1 : 1;
-		const isTime = Object.prototype.toString.call(domain[i]) === '[object Date]';
+	// Math.abs() to properly handle reversed scales
+	const step = (d2 - d1) / (Math.abs(r2 - r1) - paddingLeft - paddingRight);
 
-		const perc = padding[i] / w;
-		const paddingAdjuster = domainExtent * perc;
-
-		const d = (isTime ? domain[i].getTime() : domain[i]);
-		const adjustedDomain = ground(d + paddingAdjuster * sign);
-		paddedDomain[i] = isTime ? new Date(adjustedDomain) : adjustedDomain;
-	}
-
-	return paddedDomain;
+	return [d1 - paddingLeft * step, paddingRight * step + d2].map(d => {
+		return isTime ? ground(new Date(d)) : ground(d);
+	});
 }

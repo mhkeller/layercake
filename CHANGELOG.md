@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 4.0.2
+
+> 2020-11-23
+
+Add a warning if you're trying to use domain padding and you have a domain or range that isn't an array with two items.
+
+* [1443c6d766dd900cbcaf4567846cbcdbb788f488](https://github.com/mhkeller/layercake/commit/1443c6d766dd900cbcaf4567846cbcdbb788f488)
+
 # 4.0.1
 
 > 2020-11-23

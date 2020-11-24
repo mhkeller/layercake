@@ -11,6 +11,14 @@ Layer Cake  [<img src="https://github.com/mhkeller/layercake-examples/raw/master
  🍰 [Starter template](https://github.com/mhkeller/layercake-template)
  🍰
 
+## Install
+
+Layer Cake lives in your `devDependencies` alongside Svelte, which it lists as a `peerDependency`.
+
+```sh
+npm install --save-dev layercake
+```
+
 ## Example
 
 ```html
@@ -54,14 +62,6 @@ Layer Cake  [<img src="https://github.com/mhkeller/layercake-examples/raw/master
     </Html>
   </LayerCake>
 </div>
-```
-
-## Install
-
-Layer Cake lives in your `devDependencies` alongside Svelte, which it lists as a `peerDependency`.
-
-```sh
-npm install --save-dev layercake
 ```
 
 ## License

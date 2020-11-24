@@ -22,6 +22,13 @@ export default function padScale (scale, padding) {
 		return scale.domain();
 	}
 
+	if (scale.domain().length !== 2) {
+		console.warn('[LayerCake] The scale is expected to have a domain of length 2 to use padding. Are you sure you want to use padding? Your scale\'s domain is:', scale.domain());
+	}
+	if (scale.range().length !== 2) {
+		console.warn('[LayerCake] The scale is expected to have a range of length 2 to use padding. Are you sure you want to use padding? Your scale\'s range is:', scale.range());
+	}
+
 	const { lift, ground } = getPadFunctions(scale);
 
 	const d0 = scale.domain()[0];

@@ -3,7 +3,7 @@
  * any null values with ones from our measured extents
  * otherwise, return the measured extent
  */
-export default function partialDomain (domain, directive) {
+export default function partialDomain (domain = [], directive) {
 	if (Array.isArray(directive) === true) {
 		return directive.map((d, i) => {
 			if (d === null) {

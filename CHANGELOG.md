@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 4.0.3
+
+> 2020-11-27
+
+Fixes an issue where it would throw an error if you set a manual domain and `data` was an empty array.
+
+* [1e3106d6bb050b05cba391e730190ca73ca598b3](https://github.com/mhkeller/layercake/commit/1e3106d6bb050b05cba391e730190ca73ca598b3)
+
 # 4.0.2
 
 > 2020-11-23

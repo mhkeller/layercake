@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 4.0.4
+
+> 2021-02-22
+
+Also issue a warning if container dimensions are zero, not just negative.
+
+* [e798e9cf0069d14a0f3d55403882b96f98baf2f1](https://github.com/mhkeller/layercake/commit/e798e9cf0069d14a0f3d55403882b96f98baf2f1)
+
 # 4.0.3
 
 > 2020-11-27

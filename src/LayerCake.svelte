@@ -188,12 +188,11 @@
 		b.left = $padding.left;
 		b.width = b.right - b.left;
 		b.height = b.bottom - b.top;
-		if (b.width < 0 && b.height < 0) {
-			console.error('[LayerCake] Target div has negative width and height. Did you forget to set a width or height on the container?');
-		} else if (b.width < 0) {
-			console.error('[LayerCake] Target div has a negative width. Did you forget to set that CSS on the container?');
-		} else if (b.height < 0) {
-			console.error('[LayerCake] Target div has negative height. Did you forget to set that CSS on the container?');
+		if (b.width <= 0) {
+			console.error('[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?');
+		}
+		if (b.height <= 0) {
+			console.error('[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?');
 		}
 		return b;
 	});

@@ -20,7 +20,6 @@
 
 	const context = {
 		gl: writable({})
-		// canvas: writable({})
 	};
 
 	onMount(() => {
@@ -38,9 +37,7 @@
 	});
 
 	$: context.gl.set(gl);
-	// $: context.canvas.set(canvasElement);
 	setContext('gl', context);
-
 </script>
 
 <canvas

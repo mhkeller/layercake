@@ -35,6 +35,9 @@ npm install --save-dev layercake
 </script>
 
 <style>
+  /* Set dimensions on the parent.
+     The <LayerCake> component will expand to fill it.
+   */
   .chart-container {
     width: 100%;
     height: 500px;

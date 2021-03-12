@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	let svg;
+	export let svg;
 	export let fixedAspectRatio = 1;
 	export let viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
 	export let zIndex = undefined;

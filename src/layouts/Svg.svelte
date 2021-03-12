@@ -1,8 +1,8 @@
 <script>
 	import { getContext } from 'svelte';
 
-	let svg;
-	let g;
+	export let svg;
+	export let g;
 	export let viewBox = undefined;
 	export let zIndex = undefined;
 	export let pointerEvents = undefined;

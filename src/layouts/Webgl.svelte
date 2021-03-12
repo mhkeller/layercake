@@ -6,9 +6,9 @@
 	export let zIndex = undefined;
 	export let pointerEvents = undefined;
 
-	let canvasElement;
+	export let canvas;
 	let testGl;
-	let gl;
+	export let gl;
 
 	let zIndexStyle = '';
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
@@ -16,7 +16,7 @@
 	let pointerEventsStyle = '';
 	$: pointerEventsStyle = pointerEvents === false ? 'pointer-events:none;' : '';
 
-	const { width, height, padding } = getContext('LayerCake');
+	const { padding } = getContext('LayerCake');
 
 	const context = {
 		gl: writable({})
@@ -28,7 +28,7 @@
 		 */
 		const contexts = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'];
 		for (let j = 0; j < contexts.length; j++) {
-			testGl = canvasElement.getContext(contexts[j], contextAttributes);
+			testGl = canvas.getContext(contexts[j], contextAttributes);
 			if (testGl) {
 				gl = testGl;
 				break;
@@ -41,8 +41,8 @@
 </script>
 
 <canvas
-	bind:this={canvasElement}
+	bind:this={canvas}
 	class="layercake-layout-webgl"
 	style="width:100%;height:100%;top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;{zIndexStyle}{pointerEventsStyle}"
 ></canvas>
-<slot></slot>
+<slot {canvas} {gl}></slot>

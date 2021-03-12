@@ -6,7 +6,8 @@
 	export let zIndex = undefined;
 	export let pointerEvents = undefined;
 
-	let canvasElement;
+	export let canvas;
+	export let ctx;
 
 	let zIndexStyle = '';
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
@@ -16,14 +17,12 @@
 
 	const { width, height, padding } = getContext('LayerCake');
 
-	let ctx;
-
 	const context = {
 		ctx: writable({})
 	};
 
 	onMount(() => {
-		ctx = canvasElement.getContext('2d');
+		ctx = canvas.getContext('2d');
 		scaleCanvas(ctx, $width, $height);
 	});
 
@@ -32,8 +31,8 @@
 </script>
 
 <canvas
-	bind:this={canvasElement}
+	bind:this={canvas}
 	class="layercake-layout-canvas"
 	style="width:100%;height:100%;top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;{zIndexStyle}{pointerEventsStyle}"
 ></canvas>
-<slot></slot>
+<slot {canvas} {ctx}></slot>

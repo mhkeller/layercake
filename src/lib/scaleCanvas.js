@@ -3,31 +3,14 @@
  * http://www.html5rocks.com/en/tutorials/canvas/hidpi/
  */
 export default function (ctx, width, height) {
-	const devicePixelRatio = window.devicePixelRatio || 1;
+	const dpr = window.devicePixelRatio || 1;
 
-	const backingStoreRatio = (
-		ctx.webkitBackingStorePixelRatio ||
-		ctx.mozBackingStorePixelRatio ||
-		ctx.msBackingStorePixelRatio ||
-		ctx.oBackingStorePixelRatio ||
-		ctx.backingStorePixelRatio || 1
-	);
+	ctx.canvas.width = width * dpr;
+	ctx.canvas.height = height * dpr;
 
-	const ratio = devicePixelRatio / backingStoreRatio;
+	ctx.canvas.style.width = `${width}px`;
+	ctx.canvas.style.height = `${height}px`;
 
-	if (devicePixelRatio !== backingStoreRatio) {
-		ctx.canvas.width = width * ratio;
-		ctx.canvas.height = height * ratio;
-
-		ctx.canvas.style.width = width + 'px';
-		ctx.canvas.style.height = height + 'px';
-	} else {
-		ctx.canvas.width = width;
-		ctx.canvas.height = height;
-		ctx.canvas.style.width = '';
-		ctx.canvas.style.height = '';
-	}
-
-	ctx.scale(ratio, ratio);
+	ctx.scale(dpr, dpr);
 	return { width: ctx.canvas.width, height: ctx.canvas.height };
 }

@@ -23,6 +23,8 @@
 	export let containerWidth = width || 100;
 	export let containerHeight = height || 100;
 
+	export let element = undefined;
+
 	/* --------------------------------------------
 	 * Parameters
 	 * Values that computed properties are based on and that
@@ -292,6 +294,7 @@
 
 {#if (ssr === true || typeof window !== 'undefined')}
 	<div
+		bind:this={element}
 		class="layercake-container"
 		style="
 			position:{position};
@@ -302,6 +305,7 @@
 		bind:clientHeight={containerHeight}
 	>
 		<slot
+			{element}
 			width={$width_d}
 			height={$height_d}
 			aspectRatio={$aspectRatio_d}

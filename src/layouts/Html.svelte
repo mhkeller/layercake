@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	export let div;
+	export let element = undefined;
 	export let zIndex = undefined;
 	export let pointerEvents = undefined;
 
@@ -15,11 +15,11 @@
 </script>
 
 <div
-	bind:this={div}
+	bind:this={element}
 	class="layercake-layout-html"
 	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;{zIndexStyle}{pointerEventsStyle}"
 >
-	<slot {div}></slot>
+	<slot {element}></slot>
 </div>
 
 <style>

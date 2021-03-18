@@ -1,8 +1,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	export let svg;
-	export let g;
+	export let element = undefined;
 	export let viewBox = undefined;
 	export let zIndex = undefined;
 	export let pointerEvents = undefined;
@@ -16,7 +15,7 @@
 	const { containerWidth, containerHeight, padding } = getContext('LayerCake');
 </script>
 <svg
-	bind:this={svg}
+	bind:this={element}
 	class="layercake-layout-svg"
 	{viewBox}
 	width={$containerWidth}
@@ -26,8 +25,8 @@
 	<defs>
 		<slot name="defs"></slot>
 	</defs>
-	<g bind:this={g} class="layercake-layout-svg_g" transform="translate({$padding.left}, {$padding.top})">
-		<slot {svg} {g}></slot>
+	<g class="layercake-layout-svg_g" transform="translate({$padding.left}, {$padding.top})">
+		<slot {element}></slot>
 	</g>
 </svg>
 

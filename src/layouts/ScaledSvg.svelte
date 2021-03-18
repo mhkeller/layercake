@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	export let svg;
+	export let element = undefined;
 	export let fixedAspectRatio = 1;
 	export let viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
 	export let zIndex = undefined;
@@ -17,7 +17,7 @@
 </script>
 
 <svg
-	bind:this={svg}
+	bind:this={element}
 	{viewBox}
 	preserveAspectRatio="none"
 	style="top: {$padding.top}px; right:0px; bottom:0px; left:{$padding.left}px;width:calc(100% - {($padding.left + $padding.right)}px);height:calc(100% - {($padding.top + $padding.bottom)}px);{zIndexStyle}{pointerEventsStyle}"
@@ -26,7 +26,7 @@
 		<slot name="defs"></slot>
 	</defs>
 
-	<slot {svg}></slot>
+	<slot {element}></slot>
 </svg>
 
 <style>

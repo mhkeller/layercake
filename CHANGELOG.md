@@ -1,6 +1,17 @@
 Changelog
 ===
 
+# 4.1.0
+
+> 2021-03-17
+
+Export the layout component elements and any canvas contexts as bindable variables and also as slot props. It also updates the `scaleCanvas` component to no longer need the deprecated `backingPixelStore` value.
+
+* [ce4b5a4ade801d97e37e0626003ae7a457102cfc](https://github.com/mhkeller/layercake/commit/ce4b5a4ade801d97e37e0626003ae7a457102cfc)
+* [8de7732247d5bfc6c29ec53c45c27dd344644b59](https://github.com/mhkeller/layercake/commit/8de7732247d5bfc6c29ec53c45c27dd344644b59)
+* [97c6094fb47cb455790cb9f561a410f12c00d857](https://github.com/mhkeller/layercake/commit/97c6094fb47cb455790cb9f561a410f12c00d857)
+* [9350d3f7d6541973af09e7fb19b390bfcadb633f](https://github.com/mhkeller/layercake/commit/9350d3f7d6541973af09e7fb19b390bfcadb633f)
+
 # 4.0.4
 
 > 2021-02-22

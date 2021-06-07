@@ -68,6 +68,12 @@ const tests = [
 			{ start: 0, end: 1 }, { start: -10000, end: 0 }
 		], [{ field: 'y', accessor: d => [d.start, d.end] }]],
 		expected: { y: [-10000, 1] }
+	},
+	{
+		args: [[
+			{ start: 0, end: 1 }, { start: -10000, end: 0 }
+		], {'y': d => [d.start, d.end]}],
+		expected: { y: [-10000, 1] }
 	}
 ];
 

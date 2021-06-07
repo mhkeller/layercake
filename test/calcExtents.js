@@ -5,9 +5,9 @@ import calcExtents from '../src/lib/calcExtents.js';
 const name = 'calcExtents';
 
 const tests = [
-	{ args: [[]], expected: null },
-	{ args: [{}], expected: null },
-	{ args: [[0, 1, 2], []], expected: null },
+	{ args: [[]], expected: {} },
+	{ args: [{}], expected: {} },
+	{ args: [[0, 1, 2], []], expected: {} },
 	{
 		args: [[
 			{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }

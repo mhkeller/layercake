@@ -8,54 +8,72 @@
  * --------------------------------------------
  */
 export default function calcExtents (data, fields) {
-	if (!Array.isArray(data) || data.length === 0) return null;
+	if (!Array.isArray(data) || data.length === 0) return {};
 	const extents = {};
-	const fl = fields.length;
-	let i;
-	let j;
-	let f;
-	let val;
-	let s;
 
-	if (fl) {
-		for (i = 0; i < fl; i += 1) {
-			const firstRow = fields[i].accessor(data[0]);
-			if (firstRow === undefined || firstRow === null || Number.isNaN(firstRow) === true) {
-				extents[fields[i].field] = [Infinity, -Infinity];
-			} else {
-				extents[fields[i].field] = Array.isArray(firstRow) ? firstRow : [firstRow, firstRow];
-			}
-		}
-		const dl = data.length;
-		for (i = 0; i < dl; i += 1) {
-			for (j = 0; j < fl; j += 1) {
-				f = fields[j];
-				val = f.accessor(data[i]);
-				s = f.field;
-				if (Array.isArray(val)) {
-					const vl = val.length;
-					for (let k = 0; k < vl; k += 1) {
-						if (val[k] !== undefined && val[k] !== null && Number.isNaN(val[k]) === false) {
-							if (val[k] < extents[s][0]) {
-								extents[s][0] = val[k];
-							}
-							if (val[k] > extents[s][1]) {
-								extents[s][1] = val[k];
-							}
-						}
-					}
-				} else if (val !== undefined && val !== null && Number.isNaN(val) === false) {
-					if (val < extents[s][0]) {
-						extents[s][0] = val;
-					}
-					if (val > extents[s][1]) {
-						extents[s][1] = val;
-					}
-				}
-			}
-		}
-	} else {
-		return null;
-	}
+	if (Array.isArray(fields)) {
+	    // Old API using array for `fields`
+        const fl = fields.length;
+
+        let fieldsObj = {};
+        fields.forEach(f => {
+            fieldsObj[f.field] = f.accessor;
+        });
+        fields = fieldsObj;
+    }
+
+    const dl = data.length;
+    for (let s in fields) {
+        let accessor = fields[s];
+        extents[s] = [null, null];
+        for (let i = 0; i < dl; i += 1) {
+            let val = accessor(data[i]);
+            if (Array.isArray(val)) {
+                extents[s][0] = min([extents[s][0], min(val)]);
+                extents[s][1] = max([extents[s][1], max(val)]);
+            } else {
+                extents[s][0] = min([extents[s][0], val]);
+                extents[s][1] = max([extents[s][1], val]);
+            }
+        }
+    }
+
 	return extents;
 }
+
+/* --------------------------------------------
+ *
+ * Calculate the minimum value of array arr.
+ * Returns the minimum value or all non-undefined, non-null, non-NaN values
+ * in the array; if no such value exists, null is returned.
+ *
+ * --------------------------------------------
+ */
+function min(arr) {
+	let result = null;
+	arr.forEach(val => {
+		if (val !== undefined && val !== null && !Number.isNaN(val)) {
+			result = result === null || val < result ? val : result;
+		}
+	});
+	return result;
+}
+
+/* --------------------------------------------
+ *
+ * Calculate the maximum value of array arr.
+ * Returns the maximum value or all non-undefined, non-null, non-NaN values
+ * in the array; if no such value exists, null is returned.
+ *
+ * --------------------------------------------
+ */
+function max(arr) {
+	let result = null;
+	arr.forEach(val => {
+		if (val !== undefined && val !== null && !Number.isNaN(val)) {
+			result = result === null || val > result ? val : result;
+		}
+	});
+	return result;
+}
+

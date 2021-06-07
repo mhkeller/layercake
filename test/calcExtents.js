@@ -8,6 +8,7 @@ const tests = [
 	{ args: [[]], expected: {} },
 	{ args: [{}], expected: {} },
 	{ args: [[0, 1, 2], []], expected: {} },
+	{ args: [[undefined, null, NaN], [{ field: 'x', accessor: d => d }]], expected: { x: [null, null] } },
 	{
 		args: [[
 			{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }

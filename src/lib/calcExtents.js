@@ -3,7 +3,10 @@
  * Calculate the extents of desired fields
  * Returns an object like:
  * `{x: [0, 10], y: [-10, 10]}` if `fields` is
+ * `{'x': d => d.x, 'y': d => d.y}`
+ * or
  * `[{field:'x', accessor: d => d.x}, {field:'y', accessor: d => d.y}]`
+ * The first form for `fields` is recommended.
  *
  * --------------------------------------------
  */

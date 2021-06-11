@@ -9,31 +9,31 @@
  */
 export default function calcExtents (data, fields) {
 	if (!Array.isArray(data)) {
-	    throw new TypeError("The first argument of calcExtents() must be an array.");
-    }
+		throw new TypeError("The first argument of calcExtents() must be an array.");
+	}
 
 	if (Array.isArray(fields)) {
-	    throw new TypeError("The second argument of calcExtents() must be an " +
-            "object with field names as keys as accessor functions as values.");
-    }
+		throw new TypeError("The second argument of calcExtents() must be an " +
+			"object with field names as keys as accessor functions as values.");
+	}
 
 	const extents = {};
 
-    const dl = data.length;
-    for (let s in fields) {
-        let accessor = fields[s];
-        extents[s] = [null, null];
-        for (let i = 0; i < dl; i += 1) {
-            let val = accessor(data[i]);
-            if (Array.isArray(val)) {
-                extents[s][0] = min([extents[s][0], min(val)]);
-                extents[s][1] = max([extents[s][1], max(val)]);
-            } else {
-                extents[s][0] = min([extents[s][0], val]);
-                extents[s][1] = max([extents[s][1], val]);
-            }
-        }
-    }
+	const dl = data.length;
+	for (let s in fields) {
+		let accessor = fields[s];
+		extents[s] = [null, null];
+		for (let i = 0; i < dl; i += 1) {
+			let val = accessor(data[i]);
+			if (Array.isArray(val)) {
+				extents[s][0] = min([extents[s][0], min(val)]);
+				extents[s][1] = max([extents[s][1], max(val)]);
+			} else {
+				extents[s][0] = min([extents[s][0], val]);
+				extents[s][1] = max([extents[s][1], val]);
+			}
+		}
+	}
 
 	return extents;
 }
@@ -48,12 +48,12 @@ export default function calcExtents (data, fields) {
  */
 function min(arr) {
 	let result = null;
-    for (let i = 0; i < arr.length; i += 1) {
-        let val = arr[i];
+	for (let i = 0; i < arr.length; i += 1) {
+		let val = arr[i];
 		if (val !== undefined && val !== null && !Number.isNaN(val)) {
 			result = result === null || val < result ? val : result;
 		}
-    }
+	}
 	return result;
 }
 
@@ -67,8 +67,8 @@ function min(arr) {
  */
 function max(arr) {
 	let result = null;
-    for (let i = 0; i < arr.length; i += 1) {
-        let val = arr[i];
+	for (let i = 0; i < arr.length; i += 1) {
+		let val = arr[i];
 		if (val !== undefined && val !== null && !Number.isNaN(val)) {
 			result = result === null || val > result ? val : result;
 		}

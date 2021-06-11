@@ -48,11 +48,12 @@ export default function calcExtents (data, fields) {
  */
 function min(arr) {
 	let result = null;
-	arr.forEach(val => {
+    for (let i = 0; i < arr.length; i += 1) {
+        let val = arr[i];
 		if (val !== undefined && val !== null && !Number.isNaN(val)) {
 			result = result === null || val < result ? val : result;
 		}
-	});
+    }
 	return result;
 }
 
@@ -66,11 +67,11 @@ function min(arr) {
  */
 function max(arr) {
 	let result = null;
-	arr.forEach(val => {
+    for (let i = 0; i < arr.length; i += 1) {
+        let val = arr[i];
 		if (val !== undefined && val !== null && !Number.isNaN(val)) {
 			result = result === null || val > result ? val : result;
 		}
-	});
+	}
 	return result;
 }
-

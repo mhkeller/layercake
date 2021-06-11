@@ -80,11 +80,11 @@ const tests = [
 describe(name, () => {
 	tests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
-			it(`should not modify args ${JSON.stringify(test.expected)}`, () => {
-				const argsBeforeCall = test.args;
+			it(`should not modify data passed to calcExtent()`, () => {
+				const dataBeforeCall = test.args[0];
 				calcExtents(...test.args);
-				const argsAfterCall = test.args;
-				assert.deepStrictEqual(argsBeforeCall, argsAfterCall);
+				const dataAfterCall = test.args[0];
+				assert.deepStrictEqual(dataBeforeCall, dataAfterCall);
 			});
 		});
 		describe(JSON.stringify(test.args), () => {

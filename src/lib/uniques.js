@@ -13,17 +13,15 @@ export default function uniques (list, iteratee, transform = true) {
 	const ll = list.length;
 	const iterater = typeof iteratee === 'function';
 	const key = typeof iteratee !== 'undefined';
-	const seen = [];
+	const seen = new Set();
 	const result = [];
 	for (let i = 0; i < ll; i += 1) {
 		const d = list[i];
 		const computed = iterater ? iteratee(d) : key === true ? d[iteratee] : d;
-		if (!seen.includes(computed)) {
-			seen.push(computed);
-			if (transform === false) {
-				result.push(d);
-			}
+		if (!seen.has(computed)) {
+			seen.add(computed);
+			result.push(transform ? computed : d);
 		}
 	}
-	return transform === false ? result : seen;
+	return result;
 }

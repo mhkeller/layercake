@@ -72,7 +72,7 @@ const tests = [
 
 const errorTests = [
 	{
-	    // Old-style API with array of objects as second argument
+		// Old-style API with array of objects as second argument
 		args: [[
 			{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
 		], [{ field: 'x', accessor: d => d.x }]],

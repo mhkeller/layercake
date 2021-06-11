@@ -4,26 +4,20 @@
  * Returns an object like:
  * `{x: [0, 10], y: [-10, 10]}` if `fields` is
  * `{'x': d => d.x, 'y': d => d.y}`
- * or
- * `[{field:'x', accessor: d => d.x}, {field:'y', accessor: d => d.y}]`
- * The first form for `fields` is recommended.
  *
  * --------------------------------------------
  */
 export default function calcExtents (data, fields) {
-	if (!Array.isArray(data) || data.length === 0) return {};
-	const extents = {};
+	if (!Array.isArray(data)) {
+	    throw new TypeError("The first argument of calcExtents() must be an array.");
+    }
 
 	if (Array.isArray(fields)) {
-	    // Old API using array for `fields`
-        const fl = fields.length;
-
-        let fieldsObj = {};
-        fields.forEach(f => {
-            fieldsObj[f.field] = f.accessor;
-        });
-        fields = fieldsObj;
+	    throw new TypeError("The second argument of calcExtents() must be an " +
+            "object with field names as keys as accessor functions as values.");
     }
+
+	const extents = {};
 
     const dl = data.length;
     for (let s in fields) {

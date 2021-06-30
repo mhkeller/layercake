@@ -5,11 +5,15 @@ Changelog
 
 > Not yet on npm
 
-A few tweaks to the helper functions. Breaking change:
+Breaking change: The API to `calcExtents` now takes an object instead of an array of objects. See [this issue](https://github.com/mhkeller/layercake/issues/44) for more info.
 
-* The API to `calcExtents` now takes an object instead of an array of objects. See [this issue](https://github.com/mhkeller/layercake/issues/44) for more info.
+# 4.1.1
 
-* [b7f77ad8d6f84201e6d0ee9a0712d0440b321d62](https://github.com/mhkeller/layercake/commit/b7f77ad8d6f84201e6d0ee9a0712d0440b321d62) Thanks to @jtrim-ons for [this PR](https://github.com/mhkeller/layercake/pull/47).
+> 2020-06-29
+
+Thanks to @jtrim-ons for [this PR](https://github.com/mhkeller/layercake/pull/47), the uniques calculation now uses a Set to test for uniqueness, which is much faster. [Issue #46](https://github.com/mhkeller/layercake/issues/46).
+
+* [b7f77ad8d6f84201e6d0ee9a0712d0440b321d62](https://github.com/mhkeller/layercake/commit/b7f77ad8d6f84201e6d0ee9a0712d0440b321d62)
 
 # 4.1.0
 

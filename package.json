@@ -1,6 +1,6 @@
 {
   "name": "layercake",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "scripts": {
     "test": "mocha --require esm test/*.js"
   },

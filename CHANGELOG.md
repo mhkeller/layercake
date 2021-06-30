@@ -1,6 +1,16 @@
 Changelog
 ===
 
+# 5.0.0
+
+> Not yet on npm
+
+A few tweaks to the helper functions. Breaking change:
+
+* The API to `calcExtents` now takes an object instead of an array of objects. See [this issue](https://github.com/mhkeller/layercake/issues/44) for more info.
+
+* [b7f77ad8d6f84201e6d0ee9a0712d0440b321d62](https://github.com/mhkeller/layercake/commit/b7f77ad8d6f84201e6d0ee9a0712d0440b321d62) Thanks to @jtrim-ons for [this PR](https://github.com/mhkeller/layercake/pull/47).
+
 # 4.1.0
 
 > 2021-03-17

@@ -12,22 +12,22 @@ const tests = [
 	{ args: [['a', 1, 'b', 1]], expected: ['a', 1, 'b'] },
 	{
 		args: [
-			[{x: 1, b: 2}, {x: 1, b: 3}, {x: 2, b: 4}],
+			[{ x: 1, b: 2 }, { x: 1, b: 3 }, { x: 2, b: 4 }],
 			'x',
 			false
 		],
-		expected: [{x: 1, b: 2}, {x: 2, b: 4}]
+		expected: [{ x: 1, b: 2 }, { x: 2, b: 4 }]
 	},
 	{
 		args: [
-			[{x: 1, b: 2}, {x: 1, b: 3}, {x: 2, b: 4}],
+			[{ x: 1, b: 2 }, { x: 1, b: 3 }, { x: 2, b: 4 }],
 			'x'
 		],
 		expected: [1, 2]
 	},
 	{
 		args: [
-			[{x: 1, b: 2}, {x: 1, b: 3}, {x: 2, b: 4}],
+			[{ x: 1, b: 2 }, { x: 1, b: 3 }, { x: 2, b: 4 }],
 			d => d.x
 		],
 		expected: [1, 2]

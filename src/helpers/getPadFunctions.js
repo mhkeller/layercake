@@ -1,5 +1,5 @@
 import findScaleType from './findScaleType.js';
-import identity from './identity.js';
+import identity from '../utils/identity.js';
 
 function log(sign) {
 	return x => Math.log(sign * x);

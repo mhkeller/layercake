@@ -5,7 +5,6 @@ import calcExtents from '../src/lib/calcExtents.js';
 const name = 'calcExtents';
 
 const tests = [
-	{ args: [[]], expected: {} },
 	{ args: [[0, 1, 2], {}], expected: {} },
 	{ args: [[undefined, null, NaN], { x: d => d }], expected: { x: [null, null] } },
 	{
@@ -72,6 +71,10 @@ const tests = [
 
 const errorTests = [
 	{
+		args: [[]],
+		expected: /^TypeError: The second argument of calcExtents\(\) must be an object with field names as keys as accessor functions as values.$/
+	},
+	{
 		// Old-style API with array of objects as second argument
 		args: [[
 			{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
@@ -84,10 +87,12 @@ const errorTests = [
 describe(name, () => {
 	tests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
-			it(`should not modify data passed to calcExtent()`, () => {
+			it('should not modify data passed to calcExtent()', () => {
 				const dataBeforeCall = test.args[0];
+				console.log('before', dataBeforeCall);
 				calcExtents(...test.args);
 				const dataAfterCall = test.args[0];
+				console.log('after', dataAfterCall);
 				assert.deepStrictEqual(dataBeforeCall, dataAfterCall);
 			});
 		});

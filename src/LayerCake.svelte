@@ -169,12 +169,20 @@
 	 * Suffix these with `_d`
 	 */
 	const activeGetters_d = derived([_x, _y, _z, _r], ([$x, $y, $z, $r]) => {
-		return [
-			{ field: 'x', accessor: $x },
-			{ field: 'y', accessor: $y },
-			{ field: 'z', accessor: $z },
-			{ field: 'r', accessor: $r }
-		].filter(d => d.accessor);
+		const obj = {};
+		if ($x) {
+			obj.x = $x;
+		}
+		if ($y) {
+			obj.y = $y;
+		}
+		if ($z) {
+			obj.z = $z;
+		}
+		if ($r) {
+			obj.r = $r;
+		}
+		return obj;
 	});
 
 	const padding_d = derived([_padding, _containerWidth, _containerHeight], ([$padding]) => {
@@ -212,7 +220,7 @@
 	 * and filling that in with anything set by the user
 	 */
 	const extents_d = derived([_flatData, activeGetters_d, _extents], ([$flatData, $activeGetters, $extents]) => {
-		return { ...calcExtents($flatData, $activeGetters.filter(d => !$extents[d.field])), ...$extents };
+		return { ...calcExtents($flatData, filterObject($activeGetters, $extents)), ...$extents };
 	});
 
 	const xDomain_d = derived([extents_d, _xDomain], calcDomain('x'));

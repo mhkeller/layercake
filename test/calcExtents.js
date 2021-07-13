@@ -89,10 +89,8 @@ describe(name, () => {
 		describe(JSON.stringify(test.args), () => {
 			it('should not modify data passed to calcExtent()', () => {
 				const dataBeforeCall = test.args[0];
-				console.log('before', dataBeforeCall);
 				calcExtents(...test.args);
 				const dataAfterCall = test.args[0];
-				console.log('after', dataAfterCall);
 				assert.deepStrictEqual(dataBeforeCall, dataAfterCall);
 			});
 		});

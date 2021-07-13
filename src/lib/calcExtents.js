@@ -19,7 +19,7 @@ export default function calcExtents (data, fields) {
 
 	if (
 		Array.isArray(fields)
-		|| typeof fields === 'undefined'
+		|| fields === undefined
 		|| fields === null
 	) {
 		throw new TypeError('The second argument of calcExtents() must be an '

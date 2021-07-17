@@ -31,12 +31,15 @@ export default function calcExtents (data, fields) {
 	let s;
 	let acc;
 
-	const dl = data.length;
 	for (j = 0; j < kl; j += 1) {
-		s = keys[j];
-		extents[s] = [null, null];
-		acc = fields[s];
-		for (i = 0; i < dl; i += 1) {
+		extents[keys[j]] = [null, null];
+	}
+
+	const dl = data.length;
+	for (i = 0; i < dl; i += 1) {
+		for (j = 0; j < kl; j += 1) {
+			s = keys[j];
+			acc = fields[s];
 			val = acc(data[i]);
 			if (Array.isArray(val)) {
 				const vl = val.length;

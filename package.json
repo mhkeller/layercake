@@ -2,10 +2,11 @@
   "name": "layercake",
   "version": "4.1.0",
   "scripts": {
-    "test": "mocha --require esm test/*.js"
+    "test": "mocha --require esm test/calcExtents.js"
   },
   "main": "src/index.js",
   "module": "src/index.js",
+	"type": "module",
   "devDependencies": {
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",

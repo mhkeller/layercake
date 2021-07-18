@@ -1,8 +1,10 @@
 /* --------------------------------------------
  *
  * Calculate the extents of desired fields
- * For example:
+ * For example, a fields object like this:
  * `{'x': d => d.x, 'y': d => d.y}`
+ * For data like this:
+ * [{ x: 0, y: -10 }, { x: 10, y: 0 }, { x: 5, y: 10 }]
  * Returns an object like:
  * `{ x: [0, 10], y: [-10, 10] }`
  *

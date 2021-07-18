@@ -8,12 +8,10 @@
  * --------------------------------------------
  */
 export default function calcExtents (data, fields) {
-	// console.log('a', performance.now());
 	if (!Array.isArray(data)) {
 		throw new TypeError('The first argument of calcExtents() must be an array.');
 	}
 
-	// console.log('b', performance.now());
 	if (
 		Array.isArray(fields)
 		|| fields === undefined
@@ -25,28 +23,21 @@ export default function calcExtents (data, fields) {
 
 	const extents = {};
 
-	// console.log('c', performance.now());
-	const keys = ['x'];
-	// console.log('d', performance.now());
+	const keys = Object.keys(fields);
 	const kl = keys.length;
 	let i;
 	let j;
 	let val;
 	let s;
 	let acc;
-	// console.log('e', performance.now());
 
 	const dl = data.length;
-	// console.log('f', performance.now());
-	for (j = 0; j < kl; j += 1) {
-		// console.log('g', performance.now());
-		s = keys[j];
+	for (i = 0; i < kl; i += 1) {
+		s = keys[i];
 		extents[s] = [null, null];
 		acc = fields[s];
-		// console.log('h', performance.now());
-		for (i = 0; i < dl; i += 1) {
-			// console.log('i', performance.now());
-			val = acc(data[i]);
+		for (j = 0; j < dl; j += 1) {
+			val = acc(data[j]);
 			if (Array.isArray(val)) {
 				const vl = val.length;
 				for (let k = 0; k < vl; k += 1) {
@@ -60,14 +51,10 @@ export default function calcExtents (data, fields) {
 					}
 				}
 			} else if (val !== undefined && val !== null && Number.isNaN(val) === false) {
-				// console.log('j', performance.now());
 				if (extents[s][0] === null || val < extents[s][0]) {
-					// console.log('k', performance.now());
 					extents[s][0] = val;
 				}
-				// console.log('l', performance.now());
 				if (extents[s][1] === null || val > extents[s][1]) {
-					// console.log('m', performance.now());
 					extents[s][1] = val;
 				}
 			}

@@ -6,7 +6,6 @@
   },
   "main": "src/index.js",
   "module": "src/index.js",
-	"type": "module",
   "devDependencies": {
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",

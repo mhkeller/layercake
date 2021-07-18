@@ -27,9 +27,10 @@ export default function calcExtents (data, fields) {
 	const kl = keys.length;
 	let i;
 	let j;
-	let val;
+	let k;
 	let s;
 	let acc;
+	let val;
 
 	const dl = data.length;
 	for (i = 0; i < kl; i += 1) {
@@ -40,7 +41,7 @@ export default function calcExtents (data, fields) {
 			val = acc(data[j]);
 			if (Array.isArray(val)) {
 				const vl = val.length;
-				for (let k = 0; k < vl; k += 1) {
+				for (k = 0; k < vl; k += 1) {
 					if (val[k] !== undefined && val[k] !== null && Number.isNaN(val[k]) === false) {
 						if (extents[s][0] === null || val[k] < extents[s][0]) {
 							extents[s][0] = val[k];

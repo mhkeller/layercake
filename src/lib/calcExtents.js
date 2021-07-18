@@ -1,9 +1,10 @@
 /* --------------------------------------------
  *
  * Calculate the extents of desired fields
+ * For example:
+ * `{'x': d => d.x, 'y': d => d.y}`
  * Returns an object like:
- * `{x: [0, 10], y: [-10, 10]}` if `fields` is
- * `[{field:'x', accessor: d => d.x}, {field:'y', accessor: d => d.y}]`
+ * `{ x: [0, 10], y: [-10, 10] }`
  *
  * --------------------------------------------
  */

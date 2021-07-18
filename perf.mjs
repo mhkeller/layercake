@@ -9,17 +9,18 @@ for (let i = 0; i < 1000000; i += 1) {
 	data.push({ x: i });
 }
 
+console.time('new');
+calcExtents(data, { x: d => d.x });
+console.timeEnd('new');
+
 console.time('original');
-calcExtentsOriginal(data, { x: d => d.x });
+calcExtentsOriginal(data, [{ field: 'x', accessor: d => d.x }]);
 console.timeEnd('original');
 
 console.time('jtrim');
 calcExtentsJtrim(data, { x: d => d.x });
 console.timeEnd('jtrim');
 
-console.time('new');
-calcExtents(data, { x: d => d.x });
-console.timeEnd('new');
 
 console.time('new-1');
 calcExtents1(data, { x: d => d.x });

@@ -2,7 +2,7 @@
   "name": "layercake",
   "version": "4.1.0",
   "scripts": {
-    "test": "mocha --require esm test/calcExtents.js"
+    "test": "mocha --require esm test/*.js"
   },
   "main": "src/index.js",
   "module": "src/index.js",

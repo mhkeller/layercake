@@ -32,37 +32,41 @@ export default function calcExtents (data, fields) {
 	let j;
 	let k;
 	let s;
+	let min;
+	let max;
 	let acc;
 	let val;
 
 	const dl = data.length;
 	for (i = 0; i < kl; i += 1) {
 		s = keys[i];
-		extents[s] = [null, null];
 		acc = fields[s];
+		min = null;
+		max = null;
 		for (j = 0; j < dl; j += 1) {
 			val = acc(data[j]);
 			if (Array.isArray(val)) {
 				const vl = val.length;
 				for (k = 0; k < vl; k += 1) {
 					if (val[k] !== undefined && val[k] !== null && Number.isNaN(val[k]) === false) {
-						if (extents[s][0] === null || val[k] < extents[s][0]) {
-							extents[s][0] = val[k];
+						if (min === null || val[k] < min) {
+							min = val[k];
 						}
-						if (extents[s][1] === null || val[k] > extents[s][1]) {
-							extents[s][1] = val[k];
+						if (max === null || val[k] > max) {
+							max = val[k];
 						}
 					}
 				}
 			} else if (val !== undefined && val !== null && Number.isNaN(val) === false) {
-				if (extents[s][0] === null || val < extents[s][0]) {
-					extents[s][0] = val;
+				if (min === null || val < min) {
+					min = val;
 				}
-				if (extents[s][1] === null || val > extents[s][1]) {
-					extents[s][1] = val;
+				if (max === null || val > max) {
+					max = val;
 				}
 			}
 		}
+		extents[s] = [min, max];
 	}
 
 	return extents;

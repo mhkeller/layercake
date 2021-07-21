@@ -7,6 +7,33 @@ Changelog
 
 Breaking change: The API to `calcExtents` now takes an object instead of an array of objects. See [this issue](https://github.com/mhkeller/layercake/issues/44) for more info. Many thanks to @jtrim-ons for taking the initiative on this!
 
+This shouldn't change much since this is mostly an internal function. If you've used the example components for the Small Multiples or Timeplot graphics, [take a look here](https://github.com/mhkeller/layercake.graphics/pull/35/files) on how to update those components to conform with the new API.
+
+The old API took an array of objects for the `fields` variable like this:
+
+```js
+[
+  {
+  { field: 'x', accessor: d.myX },
+  { field: 'y', accessor: d.myY },
+  { field: 'z', accessor: d.myZ },
+  { field: 'r', accessor: d.myR }
+]
+```
+
+Now it takes an object like this:
+
+```js
+{
+  x: d.myX,
+  y: d.myY,
+  z: d.myZ,
+  r: d.myR
+}
+```
+
+The function returns the same object as before.
+
 * [fc12cd57cda64f29cd00c688bd55a4348c66f32e](https://github.com/mhkeller/layercake/commit/fc12cd57cda64f29cd00c688bd55a4348c66f32e)
 
 # 4.1.1

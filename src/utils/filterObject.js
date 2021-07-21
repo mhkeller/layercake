@@ -30,8 +30,9 @@ function fromEntries(iter) {
 	return obj;
 }
 
-export default function filterObject (obj) {
+export default function filterObject (obj, comparisonObj = {}) {
 	return fromEntries(Object.entries(obj).filter(([key, value]) => {
-		return value !== undefined;
+		return value !== undefined
+			&& comparisonObj[key] === undefined;
 	}));
 }

@@ -9,6 +9,9 @@ const tests = [
 	{ args: [{ x: null, y: undefined }], expected: { x: null } },
 	{ args: [{ x: 'a', y: undefined, z: undefined }], expected: { x: 'a' } },
 	{ args: [{ x: 'a', y: 'b', z: undefined }], expected: { x: 'a', y: 'b' } },
+	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: 10 }], expected: { y: 'b' } },
+	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: false }], expected: { y: 'b' } },
+	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: undefined }], expected: { x: 'a', y: 'b' } },
 ];
 
 describe(name, () => {

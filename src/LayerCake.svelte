@@ -220,7 +220,12 @@
 	 * and filling that in with anything set by the user
 	 */
 	const extents_d = derived([_flatData, activeGetters_d, _extents], ([$flatData, $activeGetters, $extents]) => {
-		return { ...calcExtents($flatData, filterObject($activeGetters, $extents)), ...$extents };
+		const getters = filterObject($activeGetters, $extents);
+		if (Object.keys(getters).length > 0) {
+			return { ...calcExtents($flatData, getters), ...$extents };
+		} else {
+			return {};
+		}
 	});
 
 	const xDomain_d = derived([extents_d, _xDomain], calcDomain('x'));

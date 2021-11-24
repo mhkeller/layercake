@@ -1,6 +1,12 @@
 Changelog
 ===
 
+# 5.0.1
+
+> 2021-11-24
+
+A minor internal change where `calcExtents` is only called when there are active keys. This change preempts an error where a `zGet` function was optionally called in the Map component. Because `zGet` existed in the component, the library was running this bit of code. The `calcExtents` resulted in an error because the data was a geojson object, not an array. Adding this check will allow components that don't necessarily use getters to include references to those functions so they are more reusable.
+
 # 5.0.0
 
 > 2021-06-20

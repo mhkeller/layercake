@@ -1,6 +1,13 @@
 Changelog
 ===
 
+# 5.0.2
+
+> 2021-12-08
+
+PR from @benmccann to add `type: "module"` in package.json to modernize and rename master branch to main.
+  * [d4d110943e18c2bc3397d418ad56243ce4b0f8e6](https://github.com/mhkeller/layercake/commit/d4d110943e18c2bc3397d418ad56243ce4b0f8e6)
+
 # 5.0.1
 
 > 2021-11-24

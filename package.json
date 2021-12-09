@@ -1,11 +1,12 @@
 {
   "name": "layercake",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "scripts": {
     "test": "mocha --require esm test/*.js"
   },
   "license": "MIT",
-  "main": "src/index.js",
+  "type": "module",
+	"main": "src/index.js",
   "module": "src/index.js",
   "devDependencies": {
     "eslint": "^6.1.0",

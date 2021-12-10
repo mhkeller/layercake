@@ -1,4 +1,43 @@
 <script>
+	/**
+		Layer Cake component
+		@param {Array|Object} [data]
+		@param {Boolean} [ssr=false]
+		@param {Boolean} [percentRange=false]
+		@param {String} [position='relative']
+		@param {{top: Number, right: Number, bottom: Number, left: Number}} [padding]
+		@param {Accessor} [x]
+		@param {Accessor} [y]
+		@param {Accessor} [r]
+		@param {Accessor} [z]
+		@param {D3Scale} [xScale]
+		@param {D3Scale} [yScale]
+		@param {D3Scale} [rScale]
+		@param {D3Scale} [zScale]
+		@param {[min: Number, max: Number]} [xDomain]
+		@param {[min: Number, max: Number]} [yDomain]
+		@param {[min: Number, max: Number]} [rDomain]
+		@param {[min: Number, max: Number]} [zDomain]
+		@param {Boolean} [xReverse=false]
+		@param {Boolean} [yReverse=true]
+		@param {Boolean} [zReverse=false]
+		@param {Boolean} [rReverse=false]
+		@param {Function|[min: Number, max: Number]} [xRange]
+		@param {Function|[min: Number, max: Number]} [yRange]
+		@param {Function|[min: Number, max: Number]} [zRange]
+		@param {Function|[min: Number, max: Number]} [rRange]
+		@param {[leftPixels: Number, rightPixels: Number]} [xPadding]
+		@param {[leftPixels: Number, rightPixels: Number]} [yPadding]
+		@param {[leftPixels: Number, rightPixels: Number]} [rPadding]
+		@param {[leftPixels: Number, rightPixels: Number]} [zPadding]
+		@param {Boolean} [xNice=false]
+		@param {Boolean} [yNice=false]
+		@param {Boolean} [zNice=false]
+		@param {Boolean} [rNice=false]
+		@param {{x: [min: Number, max: Number], y: [min: Number, max: Number], z: [min: Number, max: Number], z: [min: Number, max: Number]}} [extents]
+		@param {Array} [flatData]
+		@param {Object} [custom]
+	*/
 	import { setContext } from 'svelte';
 	import { writable, derived } from 'svelte/store';
 

@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import makeAccessor from '../src/utils/makeAccessor.js';
+import makeAccessor from '../src/lib/utils/makeAccessor.js';
 
 const name = 'makeAccessor';
 

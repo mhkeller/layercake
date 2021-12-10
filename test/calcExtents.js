@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import calcExtents from '../src/lib/calcExtents.js';
+import calcExtents from '../src/lib/lib/calcExtents.js';
 
 const name = 'calcExtents';
 

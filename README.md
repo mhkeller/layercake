@@ -1,73 +1,38 @@
-Layer Cake  [<img src="https://github.com/mhkeller/layercake-examples/raw/master/static/layercake-logo-500x400.png" width="115" align="right" alt="layercake-logo">](https://mhkeller.github.io/layercake)
-===
+# create-svelte
 
-> a framework for mostly-reusable graphics with [svelte](https://github.com/sveltejs/svelte)
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
 
-[![Travis (.org) branch](https://img.shields.io/travis/mhkeller/layercake/master.svg?style=flat-square)](https://travis-ci.org/mhkeller/layercake) [![npm version](https://img.shields.io/npm/v/layercake.svg?style=flat-square)](https://npmjs.org/package/layercake)
+## Creating a project
 
- 🍰 [See examples](https://layercake.graphics)
- 🍰 [Read the guide](https://layercake.graphics/guide)
- 🍰 [API docs](https://layercake.graphics/guide#layercake-props)
- 🍰 [Component gallery](https://layercake.graphics/components)
- 🍰 [Starter template](https://github.com/mhkeller/layercake-template)
- 🍰
+If you're seeing this, you've probably already done this step. Congrats!
 
-## Install
+```bash
+# create a new project in the current directory
+npm init svelte@next
 
-Layer Cake lives in your `devDependencies` alongside Svelte, which it lists as a `peerDependency`.
-
-```sh
-npm install --save-dev layercake
+# create a new project in my-app
+npm init svelte@next my-app
 ```
 
-## Example
+> Note: the `@next` is temporary
 
-```html
-<script>
-  import { LayerCake, Svg, Html, Canvas } from 'layercake';
+## Developing
 
-  import AxisX from './components/AxisX.svelte';
-  import AxisY from './components/AxisY.svelte';
-  import Line from './components/Line.svelte';
-  import Scatter from './components/Scatter.svelte';
-  import Labels from './components/Labels.svelte';
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-  const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }];
-</script>
+```bash
+npm run dev
 
-<style>
-  /* Set dimensions on the parent.
-     The <LayerCake> component will expand to fill it.
-   */
-  .chart-container {
-    width: 100%;
-    height: 500px;
-  }
-</style>
-
-<div class="chart-container">
-  <LayerCake
-    x='x'
-    y='y'
-    {data}
-  >
-    <Svg>
-      <AxisX/>
-      <AxisY/>
-      <Line color='#f0c'/>
-    </Svg>
-
-    <Canvas>
-      <Scatter color='#0fc'/>
-    </Canvas>
-
-    <Html>
-      <Labels/>
-    </Html>
-  </LayerCake>
-</div>
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-## License
+## Building
 
-MIT
+Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
+
+```bash
+npm run build
+```
+
+> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.

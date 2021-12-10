@@ -1,4 +1,11 @@
 <script>
+	/**
+		SVG layout component
+		@param {Number} [zIndex] The layer's z-index.
+		@param {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer.
+		@param {Element} [element] The layer's `<svg>` tag. Useful for bindings.
+		@param {String} [viewBox] A string passed to the viewBox property on the `<svg>` tag.
+	*/
 	import { getContext } from 'svelte';
 
 	export let element = undefined;

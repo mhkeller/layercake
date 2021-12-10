@@ -1,11 +1,19 @@
 <script>
+	/**
+		SVG layout component
+		@param {Number} [zIndex] The layer's z-index.
+		@param {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer.
+		@param {Element} [element] The layer's `<svg>` tag. Useful for bindings.
+		@param {Number} [fixedAspectRatio=1`] A number to set the aspect ratio onto the viewBox.
+		@param {String} [viewBox=`0 0 100 ${100 / fixedAspectRatio}`] A string passed to the viewBox property on the `<svg>` tag.
+	*/
 	import { getContext } from 'svelte';
 
+	export let zIndex = undefined;
+	export let pointerEvents = undefined;
 	export let element = undefined;
 	export let fixedAspectRatio = 1;
 	export let viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
-	export let zIndex = undefined;
-	export let pointerEvents = undefined;
 
 	let zIndexStyle = '';
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';

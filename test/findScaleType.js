@@ -1,7 +1,7 @@
 /* globals describe it */
 import * as assert from 'assert';
 import { scaleLinear, scaleLog, scaleSymlog, scalePow, scaleIdentity, scaleTime, scaleRadial, scaleSqrt } from 'd3-scale';
-import findScaleType from '../src/helpers/findScaleType.js';
+import findScaleType from '../src/lib/helpers/findScaleType.js';
 
 const name = 'findScaleType';
 

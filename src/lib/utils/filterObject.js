@@ -1,9 +1,9 @@
-/* --------------------------------------------
- *
- * Remove undefined fields from an object
- *
- * --------------------------------------------
- */
+/**
+	Remove undefined fields from an object
+	@param {object} obj The object to filter
+	@param {object} [comparisonObj={}] TK
+	@returns {object}
+*/
 
 // From Object.fromEntries polyfill https://github.com/tc39/proposal-object-from-entries/blob/master/polyfill.js#L1
 function fromEntries(iter) {

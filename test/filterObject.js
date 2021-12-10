@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import filterObject from '../src/utils/filterObject.js';
+import filterObject from '../src/lib/utils/filterObject.js';
 
 const name = 'filterObject';
 

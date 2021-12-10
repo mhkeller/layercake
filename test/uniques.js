@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import uniques from '../src/lib/uniques.js';
+import uniques from '../src/lib/lib/uniques.js';
 
 const name = 'uniques';
 

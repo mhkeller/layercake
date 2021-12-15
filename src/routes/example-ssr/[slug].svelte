@@ -1,20 +1,28 @@
 <script context="module">
-	export async function preload({ params, query }) {
-		// the `slug` parameter is available because
-		// this file is called [slug].svelte
-		const res = await this.fetch(`example-ssr/${params.slug}.json`);
+	export async function load({ page, fetch }) {
+		const url = `${page.params.slug}.json`;
+		const res = await fetch(url);
 		const data = await res.json();
 
 		if (res.status === 200) {
-			return { slug: params.slug, data, active: 'index' };
+			return {
+				props: {
+					slug: page.params.slug,
+					data,
+					active: 'index'
+				}
+			};
 		} else {
-			this.error(res.status, data.message);
+			return {
+				status: res.status,
+				error: new Error(`Could not load ${url}: ${data.message}`)
+			}
 		}
 	}
 </script>
 
 <script>
-	import marked from 'marked';
+	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
 	import DownloadBtn from '../../site-components/DownloadBtn.svelte';
@@ -26,6 +34,11 @@
 
 	import examples from '../_examples_ssr.js';
 
+	const md = new MarkdownIt({
+		html: true,
+		linkfify: true
+	});
+
 	export let slug;
 	export let data;
 
@@ -33,7 +46,7 @@
 
 	const renderer = new marked.Renderer();
 	function markdownToHtml (text) {
-		return marked(text, { renderer });
+		return marked.marked(text, { renderer });
 	}
 
 	function highlight (str, title) {

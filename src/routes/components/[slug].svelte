@@ -1,21 +1,30 @@
 <script context="module">
-	export async function preload({ params, query }) {
+	export async function load({ page, fetch }) {
 		// the `slug` parameter is available because
 		// this file is called [slug].svelte
-		const { slug } = params;
-		const res = await this.fetch(`components/${slug}.json`);
+		const { slug } = page.params;
+		const url = `${slug}.json`;
+		const res = await fetch(url);
 		const data = await res.json();
 
 		if (res.status === 200) {
-			return { slug, data };
+			return {
+				props: {
+					slug,
+					data
+				}
+			}
 		} else {
-			this.error(res.status, data.message);
+			return {
+				status: res.status,
+				error: new Error(`Could not load ${url}: ${data.message}`)
+			}
 		}
 	}
 </script>
 
 <script>
-	import marked from 'marked';
+	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
 	import DownloadComponentBtn from '../../site-components/DownloadComponentBtn.svelte';
@@ -24,15 +33,22 @@
 
 	import components from '../_components.js';
 
+	const md = new MarkdownIt({
+		html: true,
+		linkfify: true
+	});
+
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
 	export let slug;
 	export let data;
 
-	const renderer = new marked.Renderer();
+	// console.log(Object.keys(marked)); .
+
+	// const renderer = new marked.Renderer();
 	function markdownToHtml (text) {
-		return marked(text, { renderer });
+		return md.render(text);
 	}
 
 	function highlight (str, slug) {
@@ -79,10 +95,13 @@
 		return `<center>${str}</center>`;
 	}
 
-	const jsdocTable = `|Param|Default|Required|Description|
-|-----|-------|--------|-----------|
-${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(d.type)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`).join('\n')}
-	`;
+	const jsdocTableHeader = `|Param|Default|Required|Description|
+|-----|-------|--------|-----------|`;
+
+
+	const jsdocTableBody= `${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(d.type)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`).join('\n')}`;
+
+	const jsdocTable = data.jsdocParsed.tags.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
 
 	function copyToClipboard () {
 		const text = pages[0].contents;
@@ -150,12 +169,13 @@ ${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDef
 		width: calc(100% - 80px);
 	}
 
-	#used-in :global(a:hover),
+	#used-in a,
 	.dek :global(p a) {
 		color: #ff3e00;
 		text-decoration: none;
 	}
 
+	#used-in a:hover,
 	.dek :global(p a:hover) {
 		text-decoration: underline;
 	}
@@ -247,11 +267,21 @@ ${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDef
 		width: 100%;
 	}
 	#params-table {
-		margin-bottom: 21px;
+		margin-top: 25px;
+		margin-bottom: 35px;
+	}
+
+	#used-in h3 {
+		margin-bottom: 0;
+	}
+
+	#used-in ul {
+		margin: 8px 0 21px 0;
 	}
 
 	#params-table :global(table) {
 		border-collapse: collapse;
+		width: 100%;
 	}
 	#params-table :global(thead tr) {
 		background: #f6f8fa;
@@ -273,6 +303,14 @@ ${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDef
 	}
 	#params-table :global(td) {
 		border: 1px solid #ddd;
+	}
+
+	#params-table :global(a) {
+		color: #ff3e00;
+		text-decoration: none;
+	}
+	#params-table :global(a:hover) {
+		text-decoration: underline;
 	}
 
 	@media (max-width: 750px) {
@@ -332,7 +370,7 @@ ${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDef
 					{/if}
 					<ul>
 						{#each group.matches as link}
-							<li><a href="{link}" rel="prefetch">{link.split('/').pop()}</a></li>
+							<li><a href="{link}" sveltekit:prefetch>{link.split('/').pop()}</a></li>
 						{/each}
 					</ul>
 				{/if}

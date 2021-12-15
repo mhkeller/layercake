@@ -1,0 +1,1 @@
+A scatter plot with an `scaleBand` for the y-scale to bucket them by day and a `scaleTime` for the x-scale. The only real fancy part of this plot is modifying the input data to be in "seconds since start of day" and generating the `yDomain` as *every* day between the min and max values, not just days for which we have values. This lets us see days in between that have no data.

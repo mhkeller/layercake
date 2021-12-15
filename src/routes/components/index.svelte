@@ -127,7 +127,7 @@
 				<div class="subgroup-blocks">
 					{#each items as item}
 						<div class="component-block">
-							<div class="component-name" ><span><a href="/components/{item.slug}" rel=prefetch>{item.name || formatName(item.slug)}</a></span> {@html item.classes.map(d => `<span class="label ${d}">${d.replace('percent-', '%-')}</span>`).join('')}</div>
+							<div class="component-name" ><span><a href="/components/{item.slug}" sveltekit:prefetch>{item.name || formatName(item.slug)}</a></span> {@html item.classes.map(d => `<span class="label ${d}">${d.replace('percent-', '%-')}</span>`).join('')}</div>
 							<div class="block-container">
 								{#if item.component}
 									<svelte:component this={item.component}/>

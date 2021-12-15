@@ -11,22 +11,23 @@ function cleanMain (str) {
 	return cleaned;
 }
 
-export function get(req, res, next) {
+export async function get({ params }) {
 	// the `slug` parameter is available because
 	// this file is called [slug].json.js
-	const { slug } = req.params;
+	const { slug } = params;
 
 	const componentPath = `src/components/${slug}`;
 
 	if (!existsSync(componentPath)) {
-		res.writeHead(404, {
-			'Content-Type': 'application/json'
-		});
-
-		res.end(JSON.stringify({
-			message: `Not found: ${slug}`
-		}));
-		return;
+		return {
+			status: 404,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: {
+				message: `Not found: ${slug}`
+			}
+		};
 	}
 
 	const component = readFileSync(componentPath, 'utf-8');
@@ -79,9 +80,11 @@ export function get(req, res, next) {
 		jsdocParsed
 	};
 
-	res.writeHead(200, {
-		'Content-Type': 'application/json'
-	});
-
-	res.end(JSON.stringify(response));
+	return {
+		status: 200,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: response
+	};
 }

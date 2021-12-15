@@ -49,22 +49,23 @@ function getComponentPaths (example) {
 	return [];
 }
 
-export function get(req, res, next) {
+export async function get({ params }) {
 	// the `slug` parameter is available because
 	// this file is called [slug].json.js
-	const { slug } = req.params;
+	const { slug } = params;
 
 	const examplePath = `src/routes/_examples_ssr/${slug}.svelte`;
 
 	if (!fs.existsSync(examplePath)) {
-		res.writeHead(404, {
-			'Content-Type': 'application/json'
-		});
-
-		res.end(JSON.stringify({
-			message: `Not found: ${slug}`
-		}));
-		return;
+		return {
+			status: 404,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: {
+				message: `Not found: ${slug}`
+			}
+		};
 	}
 
 	const example = fs.readFileSync(examplePath, 'utf-8');
@@ -140,9 +141,11 @@ export function get(req, res, next) {
 		jsons,
 	};
 
-	res.writeHead(200, {
-		'Content-Type': 'application/json'
-	});
-
-	res.end(JSON.stringify(response));
+	return {
+		status: 200,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: response
+	};
 }

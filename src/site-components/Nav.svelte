@@ -1,5 +1,6 @@
 <script>
-	import { goto, stores } from '@sapper/app';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	import GuideContents from '../site-components/GuideContents.svelte';
 	import examples from '../routes/_examples.js';
@@ -9,7 +10,6 @@
 	export let sections;
 	let slug = '';
 
-	const { page } = stores();
 	$: path = $page.path;
 	$: slug = path.replace(/\/$/, '').split('/').pop();
 	$: type = path.split('/')[1];
@@ -302,7 +302,7 @@
 <div class='{open ? "open" : "closed"} mousecatcher' on:click="{() => open = false}"></div>
 <div class='container'>
 	<span class="menu-link {open ? "menu-open" : "menu-closed"}" on:click='{toggleOpen}'>{open ? 'Close' : 'Menu'}</span>
-	<a href='.' rel=prefetch class='logo'>Layer Cake</a>
+	<a href='.' sveltekit:prefetch class='logo'>Layer Cake</a>
 </div>
 
 <ul class="dropdown">
@@ -326,8 +326,8 @@
 
 <nav bind:this={nav} class='{open ? "open" : "closed"}'>
 	<ul class='primary'>
-		<li><a rel='prefetch' class='{segment === "components" ? "active" : ""}' href='components' on:click='{() => open = false}'>Component gallery</a></li>
-		<li><a rel='prefetch' class='{segment === "guide" ? "active" : ""}' href='guide' on:click='{() => open = false}'>Guide</a></li>
+		<li><a sveltekit:prefetch class='{segment === "components" ? "active" : ""}' href='components' on:click='{() => open = false}'>Component gallery</a></li>
+		<li><a sveltekit:prefetch class='{segment === "guide" ? "active" : ""}' href='guide' on:click='{() => open = false}'>Guide</a></li>
 		<li><a href='https://github.com/mhkeller/layercake'>GitHub</a></li>
 	</ul>
 

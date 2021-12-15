@@ -104,9 +104,9 @@
 	export let zRange = undefined;
 	/** @type {[min: Number, max: Number]|Function} [rRange] Override the default y range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides rReverse. */
 	export let rRange = undefined;
-	/** @type {{top: Number, right: Number, bottom: Number, left: Number}} [padding={}] */
+	/** @type {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}] */
 	export let padding = {};
-	/** @type {{ x: [min: Number, max: Number], y: [min: Number, max: Number], r: [min: Number, max: Number], z: [min: Number, max: Number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */
+	/** @type {{ x?: [min: Number, max: Number], y?: [min: Number, max: Number], r?: [min: Number, max: Number], z?: [min: Number, max: Number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */
 	export let extents = {};
 	/** @type {Array} [flatData=data] A flat version of data. */
 	export let flatData = undefined;

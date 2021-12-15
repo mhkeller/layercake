@@ -18,10 +18,7 @@ const config = {
 		target: '#svelte',
 		package: {
 			exports: (filepath) => {
-				if (filepath.endsWith('.d.ts')) return false;
-				return !filepath.includes('utils')
-					&& !filepath.includes('helpers')
-					&& !filepath.includes('settings')
+				return filepath.endsWith('index.js')
 			}
 		}
 	}

@@ -21,6 +21,18 @@ const config = {
 				return filepath.endsWith('index.js')
 			}
 		}
+		// vite: {
+  	// 	optimizeDeps: {
+  	// 	  include: [
+		// 			'd3-scale',
+		// 			'd3-array',
+		// 			'd3-format',
+		// 			'd3-interpolate',
+		// 			'd3-time',
+		// 			'd3-time-format'
+		// 		]
+		//   }
+		// }
 	}
 };
 

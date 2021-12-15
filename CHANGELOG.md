@@ -5,8 +5,9 @@ Changelog
 
 > 2021-12-14
 
-Fix an extra argument that was causing the `aspectRatio` context val to be `NaN`.
+Fix an extra argument that was causing the `aspectRatio` context val to be `NaN`. PR [#55](https://github.com/mhkeller/layercake/pull/55) from @techniq to add `"svelte": "src/index.js"` to package.json, fixes [#54](https://github.com/mhkeller/layercake/issues/54).
   * [ed7e53b672b9e1ddcaf334dad283d6a547552e6a](https://github.com/mhkeller/layercake/commit/ed7e53b672b9e1ddcaf334dad283d6a547552e6a)
+  * [ef975738a0d2c8513e3164d218027c3c3c5fc84f](https://github.com/mhkeller/layercake/commit/ef975738a0d2c8513e3164d218027c3c3c5fc84f)
 
 # 5.0.2
 

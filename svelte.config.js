@@ -1,12 +1,7 @@
 import { normalizePath } from 'vite';
 import path from 'path';
 import adapter from '@sveltejs/adapter-auto';
-
-const internalDirs = [
-	'helpers',
-	'settings',
-	'utils'
-]
+import dsv from '@rollup/plugin-dsv';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -15,13 +10,23 @@ const config = {
 		adapter: adapter(),
 
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
+		target: 'body',
 		package: {
 			exports: (filepath) => {
 				return filepath.endsWith('index.js')
 			}
+		},
+
+		vite: {
+			plugins: [
+				dsv()
+			],
+			resolve: {
+				alias: {
+					'layercake': [path.resolve('src/lib')]
+				}
+			}
 		}
-		// vite: {
   	// 	optimizeDeps: {
   	// 	  include: [
 		// 			'd3-scale',

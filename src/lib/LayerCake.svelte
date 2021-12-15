@@ -29,9 +29,9 @@
 	/** @type {Number} [height=containerHeight] Override container height. */
 	export let height = undefined;
 
-	/** @type {Number} [containerWidth] The bound container width. */
+	/** @type {Number} [containerWidth=100] The bound container width. */
 	export let containerWidth = width || 100;
-	/** @type {Number} [containerHeight] The bound container height. */
+	/** @type {Number} [containerHeight=100] The bound container height. */
 	export let containerHeight = height || 100;
 
 	/**	@type {Element} [element] The layercake-container `<div>` tag. Useful for bindings. */
@@ -96,13 +96,13 @@
 	export let zScale = defaultScales.y;
 	/** @type {Function} [rScale=d3.scaleSqrt] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let rScale = defaultScales.r;
-	/** @type {Function|[min: Number, max: Number]} [xRange] Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides xReverse. */
+	/** @type {[min: Number, max: Number]|Function} [xRange] Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides xReverse. */
 	export let xRange = undefined;
-	/** @type {Function|[min: Number, max: Number]} [xRange] Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides yReverse. */
+	/** @type {[min: Number, max: Number]|Function} [xRange] Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides yReverse. */
 	export let yRange = undefined;
-	/** @type {Function|[min: Number, max: Number]} [zRange] Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides zReverse. */
+	/** @type {[min: Number, max: Number]|Function} [zRange] Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides zReverse. */
 	export let zRange = undefined;
-	/** @type {Function|[min: Number, max: Number]} [rRange] Override the default y range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides rReverse. */
+	/** @type {[min: Number, max: Number]|Function} [rRange] Override the default y range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides rReverse. */
 	export let rRange = undefined;
 	/** @type {{top: Number, right: Number, bottom: Number, left: Number}} [padding={}] */
 	export let padding = {};
@@ -141,7 +141,6 @@
 	const _percentRange = writable();
 
 	const _containerWidth = writable();
-
 	const _containerHeight = writable();
 	const _x = writable();
 	const _y = writable();

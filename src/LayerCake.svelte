@@ -250,7 +250,7 @@
 	const zRange_d = derived([zScale_d], getRange);
 	const rRange_d = derived([rScale_d], getRange);
 
-	const aspectRatio_d = derived([width_d, height_d], ([$aspectRatio, $width, $height]) => {
+	const aspectRatio_d = derived([width_d, height_d], ([$width, $height]) => {
 		return $width / $height;
 	});
 

@@ -1,7 +1,7 @@
 /**
 	Remove undefined fields from an object
-	@param {object} obj The object to filter
-	@param {object} [comparisonObj={}] TK
+	@type {object} obj The object to filter
+	@type {object} [comparisonObj={}] TK
 	@returns {object}
 */
 

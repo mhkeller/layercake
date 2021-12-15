@@ -1,11 +1,11 @@
 <script>
 	/**
 		WebGL layout component
-		@param {Number} [zIndex] The layer's z-index.
-		@param {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer.
-		@param {Element} [element] The `<canvas>` tag. Useful for bindings.
-		@param {Object} [context] The `<canvas>`'s WebGL context. Useful for bindings.
-		@param {Object} [contextAttributes] The second argument passed to canvas.getContext. See the WebGL docs [for more info](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext).
+		@type {Number} [zIndex] The layer's z-index.
+		@type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer.
+		@type {Element} [element] The `<canvas>` tag. Useful for bindings.
+		@type {Object} [context] The `<canvas>`'s WebGL context. Useful for bindings.
+		@type {Object} [contextAttributes] The second argument passed to canvas.getContext. See the WebGL docs [for more info](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext).
 	*/
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';

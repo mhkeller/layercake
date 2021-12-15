@@ -1,42 +1,6 @@
 <script>
 	/**
 		Layer Cake component
-		@param {Array|Object} [data]
-		@param {Boolean} [ssr=false]
-		@param {Boolean} [percentRange=false]
-		@param {String} [position='relative']
-		@param {{top: Number, right: Number, bottom: Number, left: Number}} [padding]
-		@param {Accessor} [x]
-		@param {Accessor} [y]
-		@param {Accessor} [r]
-		@param {Accessor} [z]
-		@param {D3Scale} [xScale]
-		@param {D3Scale} [yScale]
-		@param {D3Scale} [rScale]
-		@param {D3Scale} [zScale]
-		@param {[min: Number, max: Number]} [xDomain]
-		@param {[min: Number, max: Number]} [yDomain]
-		@param {[min: Number, max: Number]} [rDomain]
-		@param {[min: Number, max: Number]} [zDomain]
-		@param {Boolean} [xReverse=false]
-		@param {Boolean} [yReverse=true]
-		@param {Boolean} [zReverse=false]
-		@param {Boolean} [rReverse=false]
-		@param {Function|[min: Number, max: Number]} [xRange]
-		@param {Function|[min: Number, max: Number]} [yRange]
-		@param {Function|[min: Number, max: Number]} [zRange]
-		@param {Function|[min: Number, max: Number]} [rRange]
-		@param {[leftPixels: Number, rightPixels: Number]} [xPadding]
-		@param {[leftPixels: Number, rightPixels: Number]} [yPadding]
-		@param {[leftPixels: Number, rightPixels: Number]} [rPadding]
-		@param {[leftPixels: Number, rightPixels: Number]} [zPadding]
-		@param {Boolean} [xNice=false]
-		@param {Boolean} [yNice=false]
-		@param {Boolean} [zNice=false]
-		@param {Boolean} [rNice=false]
-		@param {{x: [min: Number, max: Number], y: [min: Number, max: Number], z: [min: Number, max: Number], z: [min: Number, max: Number]}} [extents]
-		@param {Array} [flatData]
-		@param {Object} [custom]
 	*/
 	import { setContext } from 'svelte';
 	import { writable, derived } from 'svelte/store';
@@ -51,17 +15,26 @@
 	import defaultScales from './settings/defaultScales.js';
 	import defaultReverses from './settings/defaultReverses.js';
 
+	/** @type {Boolean} [ssr=false] Whether this chart should be rendered server side. */
 	export let ssr = false;
+	/** @type {Boolean} [pointerEvents=true] Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction. */
 	export let pointerEvents = true;
+	/** @type {String} [position='relative'] Determine the positioning of the wrapper div. Set this to `'absolute'` when you want to stack cakes. */
 	export let position = 'relative';
+	/** @type {Boolean} [percentRange=false] Sets all scale ranges to `[0, 100]`*/
 	export let percentRange = false;
 
+	/** @type {Number} [width=containerWidth] Override the container width. */
 	export let width = undefined;
+	/** @type {Number} [height=containerHeight] Override container height. */
 	export let height = undefined;
 
+	/** @type {Number} [containerWidth] The bound container width. */
 	export let containerWidth = width || 100;
+	/** @type {Number} [containerHeight] The bound container height. */
 	export let containerHeight = height || 100;
 
+	/**	@type {Element} [element] The layercake-container `<div>` tag. Useful for bindings. */
 	export let element = undefined;
 
 	/* --------------------------------------------
@@ -70,39 +43,76 @@
 	 * can be easily extended from config values
 	 *
 	 */
+
+	/** @type {String|Function|Number|[String|Function|Number]} x The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of strings, functions or numbers. This property gets converted to a function when you access it through the context. */
 	export let x = undefined;
+	/** @type {String|Function|Number|[String|Function|Number]} y The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of strings, functions or numbers. This property gets converted to a function when you access it through the context. */
 	export let y = undefined;
+	/** @type {String|Function|Number|[String|Function|Number]} z The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of strings, functions or numbers. This property gets converted to a function when you access it through the context. */
 	export let z = undefined;
+	/** @type {String|Function|Number|[String|Function|Number]} r The r accessor. The key in each row of data that corresponds to the r-field. This can be a string, an accessor function, a number or an array of strings, functions or numbers. This property gets converted to a function when you access it through the context. */
 	export let r = undefined;
-	export let custom = {};
+
+	/** @type {Array|Object} [data=[]] */
 	export let data = [];
+
+	/** @type {[min: Number, max: Number]} [xDomain] Set a min or max. If you want to inherit the value from the data's extent, set that value to `null`. */
 	export let xDomain = undefined;
+	/** @type {[min: Number, max: Number]} [yDomain] Set a min or max. If you want to inherit the value from the data's extent, set that value to `null`.*/
 	export let yDomain = undefined;
+	/** @type {[min: Number, max: Number]} [zDomain] Set a min or max. If you want to inherit the value from the data's extent, set that value to `null`. */
 	export let zDomain = undefined;
+	/** @type {[min: Number, max: Number]} [rDomain] Set a min or max. If you want to inherit the value from the data's extent, set that value to `null`. */
 	export let rDomain = undefined;
+	/** @type {Boolean} [xNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. */
 	export let xNice = false;
+	/** @type {Boolean} [yNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the y domain. */
 	export let yNice = false;
+	/** @type {Boolean} [zNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the z domain. */
 	export let zNice = false;
+	/** @type {Boolean} [rNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the r domain. */
 	export let rNice = false;
+	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
 	export let xReverse = defaultReverses.x;
+	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]`. Ignored if you set the yRange prop. */
 	export let yReverse = defaultReverses.y;
+	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
 	export let zReverse = defaultReverses.z;
+	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`.Ignored if you set the rRange prop. */
 	export let rReverse = defaultReverses.r;
+	/** @type {[leftPixels: Number, rightPixels: Number]} [xPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let xPadding = undefined;
+	/** @type {[leftPixels: Number, rightPixels: Number]} [yPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let yPadding = undefined;
+	/** @type {[leftPixels: Number, rightPixels: Number]} [zPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let zPadding = undefined;
+	/** @type {[leftPixels: Number, rightPixels: Number]} [rPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let rPadding = undefined;
+	/** @type {Function} [xScale=d3.scaleLinear] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let xScale = defaultScales.x;
+	/** @type {Function} [yScale=d3.scaleLinear] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let yScale = defaultScales.y;
+	/** @type {Function} [zScale=d3.scaleLinear] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let zScale = defaultScales.y;
+	/** @type {Function} [rScale=d3.scaleSqrt] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let rScale = defaultScales.r;
+	/** @type {Function|[min: Number, max: Number]} [xRange] Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides xReverse. */
 	export let xRange = undefined;
+	/** @type {Function|[min: Number, max: Number]} [xRange] Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides yReverse. */
 	export let yRange = undefined;
+	/** @type {Function|[min: Number, max: Number]} [zRange] Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides zReverse. */
 	export let zRange = undefined;
+	/** @type {Function|[min: Number, max: Number]} [rRange] Override the default y range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides rReverse. */
 	export let rRange = undefined;
+	/** @type {{top: Number, right: Number, bottom: Number, left: Number}} [padding={}] */
 	export let padding = {};
+	/** @type {{ x: [min: Number, max: Number], y: [min: Number, max: Number], r: [min: Number, max: Number], z: [min: Number, max: Number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */
 	export let extents = {};
+	/** @type {Array} [flatData=data] A flat version of data. */
 	export let flatData = undefined;
+
+	/** @type {Object} custom */
+	export let custom = {};
 
 	/* --------------------------------------------
 	 * Preserve a copy of our passed in settings before we modify them
@@ -129,7 +139,9 @@
 	 * Prefix these with `_` to keep things organized
 	 */
 	const _percentRange = writable();
+
 	const _containerWidth = writable();
+
 	const _containerHeight = writable();
 	const _x = writable();
 	const _y = writable();

@@ -1,10 +1,10 @@
 <script>
 	/**
 		Canvas layout component
-		@param {Number} [zIndex] The layer's z-index.
-		@param {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer.
-		@param {Element} [element] The `<canvas>` tag. Useful for bindings.
-		@param {Object} [context] The `<canvas>`'s 2d context. Useful for bindings.
+		@type {Number} [zIndex] The layer's z-index.
+		@type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer.
+		@type {Element} [element] The `<canvas>` tag. Useful for bindings.
+		@type {Object} [context] The `<canvas>`'s 2d context. Useful for bindings.
 	*/
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';

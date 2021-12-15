@@ -1,6 +1,6 @@
 /**
 	An identity function
-	@param {*} d The value to return.
+	@type {*} d The value to return.
 	@returns {*}
 */
 export default function identity (d) {

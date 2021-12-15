@@ -8,6 +8,7 @@
   "type": "module",
   "main": "src/index.js",
   "module": "src/index.js",
+	"svelte": "src/index.js",
   "devDependencies": {
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",

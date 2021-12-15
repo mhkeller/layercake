@@ -1,6 +1,13 @@
 Changelog
 ===
 
+# 5.0.3
+
+> 2021-12-14
+
+Fix an extra argument that was causing the `aspectRatio` context val to be `NaN`.
+  * [ed7e53b672b9e1ddcaf334dad283d6a547552e6a](https://github.com/mhkeller/layercake/commit/ed7e53b672b9e1ddcaf334dad283d6a547552e6a)
+
 # 5.0.2
 
 > 2021-12-08

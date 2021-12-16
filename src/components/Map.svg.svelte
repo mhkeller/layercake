@@ -46,6 +46,7 @@
 <g
 	class="map-group"
 	on:mouseout={(e) => dispatch('mouseout')}
+	on:blur={(e) => dispatch('mouseout')}
 >
 	{#each features as feature}
 		<path
@@ -55,6 +56,7 @@
 			stroke-width={strokeWidth}
 			d="{geoPathFn(feature)}"
 			on:mouseover={(e) => dispatch('mousemove', { e, props: feature.properties })}
+			on:focus={(e) => dispatch('mousemove', { e, props: feature.properties })}
 			on:mousemove={handleMousemove(feature)}
 		></path>
 	{/each}

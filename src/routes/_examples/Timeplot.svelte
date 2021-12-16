@@ -75,7 +75,6 @@
 			<ScatterSvg
 				{r}
 				fill={'rgba(255, 204, 0, 0.75)'}
-				dy={scale => scale.bandwidth() / 2}
 			/>
 		</Svg>
 

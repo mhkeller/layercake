@@ -21,7 +21,7 @@
 		<div
 			class="circle"
 			style="
-				left: {$xGet(d)+ ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}%;
+				left: {$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}%;
 				top: {$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}%;
 				width: {r * 2}px;
 				height: {r * 2}px;

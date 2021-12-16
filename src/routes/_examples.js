@@ -21,7 +21,7 @@ import Sankey from './_examples/Sankey.svelte';
 import Brush from './_examples/Brush.svelte';
 import SyncedBrush from './_examples/SyncedBrush.svelte';
 import Beeswarm from './_examples/Beeswarm.svelte';
-// import BeeswarmForce from './_examples/BeeswarmForce.svelte';
+import BeeswarmForce from './_examples/BeeswarmForce.svelte';
 import CirclePackForce from './_examples/CirclePackForce.svelte';
 
 export default [
@@ -48,7 +48,7 @@ export default [
 	{ replPath: '4e7a8affd4724d03b33493c85e50471c?version=3.30.0', title: 'Brush', slug: 'Brush', component: Brush },
 	{ replPath: '0eaf387a0a564971865fb6176f959940?version=3.30.0', title: 'Synced brush', slug: 'SyncedBrush', component: SyncedBrush },
 	{ replPath: '132d2c81c3f841a0be0162443b008a92?version=3.35.0', title: 'Beeswarm', slug: 'Beeswarm', component: Beeswarm },
-	// { replPath: '9d0e23f494f645b4a9623c46474462f6?version=3.30.0', title: 'Beeswarm, force layout', slug: 'BeeswarmForce', component: BeeswarmForce },
+	{ replPath: '9d0e23f494f645b4a9623c46474462f6?version=3.30.0', title: 'Beeswarm, force layout', slug: 'BeeswarmForce', component: BeeswarmForce },
 	// { replPath: '', title: 'Force-directed graph', slug: 'ForceDirectedGraph', component: ForceDirectedGraph },
 	{ replPath: '1879eb5e27f74784a69b65a11844f373?version=3.35.0', title: 'Circle pack, force layout', slug: 'CirclePackForce', component: CirclePackForce },
 ];

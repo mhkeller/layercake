@@ -188,8 +188,6 @@
 	<title>Layer Cake</title>
 	<meta name="og:title" content="Layer Cake">
 	<meta name="twitter:title" content="Layer Cake">
-	<link rel='stylesheet' href='hljs.css'>
-
 </svelte:head>
 
 <div class="main">

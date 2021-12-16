@@ -340,8 +340,6 @@
 	<title>LayerCake - Guide</title>
 	<meta name="og:title" content="Layer Cake — Guide">
 	<meta name="twitter:title" content="Layer Cake — Guide">
-
-	<link rel='stylesheet' href='hljs.css'>
 </svelte:head>
 
 <sidebar>

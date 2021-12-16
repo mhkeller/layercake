@@ -269,7 +269,6 @@
 
 <svelte:head>
 	<title>{example.title}</title>
-	<link rel='stylesheet' href='hljs.css'>
 </svelte:head>
 
 <div class="main">

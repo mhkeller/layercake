@@ -14,8 +14,8 @@ import Bar from './_components/Bar.svelte';
 import BarStacked from './_components/BarStacked.svelte';
 import Beeswarm from './_components/Beeswarm.svelte';
 import BeeswarmHtml from './_components/Beeswarm.html.svelte';
-// import BeeswarmForce from './_components/BeeswarmForce.svelte';
-// import BeeswarmForceHtml from './_components/BeeswarmForce.html.svelte';
+import BeeswarmForce from './_components/BeeswarmForce.svelte';
+import BeeswarmForceHtml from './_components/BeeswarmForce.html.svelte';
 import Brush from './_components/Brush.svelte';
 import Calendar from './_components/Calendar.svelte';
 import CirclePack from './_components/CirclePack.svelte';
@@ -73,8 +73,8 @@ export default [
 			{ slug: 'BarStacked.svelte', component: BarStacked },
 			{ slug: 'Beeswarm.svelte', component: Beeswarm },
 			{ slug: 'Beeswarm.html.svelte', component: BeeswarmHtml },
-			// { slug: 'BeeswarmForce.svelte', component: BeeswarmForce },
-			// { slug: 'BeeswarmForce.html.svelte', component: BeeswarmForceHtml },
+			{ slug: 'BeeswarmForce.svelte', component: BeeswarmForce },
+			{ slug: 'BeeswarmForce.html.svelte', component: BeeswarmForceHtml },
 			{ slug: 'CalendarMonth.svelte', component: Calendar },
 			{ slug: 'CirclePack.html.svelte', component: CirclePack },
 			{ slug: 'CirclePackForce.svelte', component: CirclePackForce },

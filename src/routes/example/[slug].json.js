@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-console.log('yoo');
 
 function getComponentJsPaths (example) {
 	return example.match(/\.\.\/.+\.js/gm);

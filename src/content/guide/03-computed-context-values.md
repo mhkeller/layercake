@@ -156,11 +156,9 @@ Same as [xRange](/guide#xrange-1) above but for the r domain.
 
 ### xGet(d: `Object`)
 
-Often you want to get the x value from a row in your data and scale it like so: `$xScale($x(d))`.
+Often you want to get the x value from a row in your data and scale it like so: `$xScale($x(d))`. Avoid that confusing syntax with this function like so `$xGet(d)`.
 
-This function is shorthand for doing just that. Why use this? Hard coding key names into your components makes them less reusable. By using the [x](/guide#x), [y](/guide#y), [z](/guide#z) and [z](/guide#z) accessors, you can use the same component across projects. Or, you can use the same component to render different fields from one dataset across separate charts in the same project, say using small multiples. You can use the same component and just alter the accessor.
-
-Using `xGet` also helps you avoid the confusing syntax of having a function wrap another function, like in the above example with `$xScale($x(d))`.
+Why use this? Hard coding key names into your components makes them less reusable. By using the [x](/guide#x), [y](/guide#y), [z](/guide#z) and [z](/guide#z) accessors, you can use the same component across projects. Or, you can use the same component to render different fields from one dataset across separate charts in the same project, say using small multiples. You can use the same component and just alter the accessor.
 
 Here are a few examples to show how it working and what it's equivalent to:
 

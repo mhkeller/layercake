@@ -7,6 +7,9 @@ import dsv from '@rollup/plugin-dsv';
 const config = {
 	root: normalizePath(path.resolve('./')),
 	kit: {
+		// serviceWorker: {
+		// 	register: false
+		// },
 		adapter: adapter(),
 
 		// hydrate the <div id="svelte"> element in src/app.html

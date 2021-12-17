@@ -2,17 +2,32 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	import GuideContents from '../site-components/GuideContents.svelte';
+	// import GuideContents from '../site-components/GuideContents.svelte';
 	import examples from '../routes/_examples.js';
 	import examplesSsr from '../routes/_examples_ssr.js';
 
-	export let segment;
 	export let sections;
-	let slug = '';
 
-	$: path = $page.path;
-	$: slug = path.replace(/\/$/, '').split('/').pop();
-	$: type = path.split('/')[1];
+	let slug = '';
+	let path;
+	let type;
+
+	$: isServiceWorker = $page.path === '/service-worker.js';
+
+	let segment;
+
+	$: if (!isServiceWorker) {
+		path = $page.path;
+		type = path.split('/')[1];
+		segment = `/${path.replace('/', '')}`;
+		slug = path.replace(/\/$/, '').split('/').pop();
+		console.log('path', path, path.split('/'), path.split('/')[1]);
+		console.log('type', type);
+		console.log('segment', segment);
+		console.log('slug', slug);
+	}
+
+	// $: console.log('segment', segment)
 
 	let basePath = '/';
 	let open = false;
@@ -23,6 +38,7 @@
 
 	function loadPage () {
 		open = false;
+		console.log('this value', this.value);
 		goto(this.value || '/');
 	}
 
@@ -279,6 +295,11 @@
 			content: '';
 		}
 
+		.primary li a.active {
+			color: #ff3e00;
+			pointer-events: none;
+		}
+
 		.secondary {
 			display: none;
 		}
@@ -302,23 +323,29 @@
 <div class='{open ? "open" : "closed"} mousecatcher' on:click="{() => open = false}"></div>
 <div class='container'>
 	<span class="menu-link {open ? "menu-open" : "menu-closed"}" on:click='{toggleOpen}'>{open ? 'Close' : 'Menu'}</span>
-	<a href='.' sveltekit:prefetch class='logo'>Layer Cake</a>
+	<a href='/' sveltekit:prefetch class='logo'>Layer Cake</a>
 </div>
 
 <ul class="dropdown">
 	<li>
 		<!-- svelte-ignore a11y-no-onchange -->
-		<select on:change={loadPage} value="{$page.path}">
-			<option selected="{slug === ''}" value="">All</option>
+		<select on:change={loadPage} bind:value="{segment}">
+			{#if segment === '/components'}
+				<option value="/components" disabled>Select...</option>
+			{/if}
+			{#if segment === '/guide'}
+				<option value="/guide" disabled>Select...</option>
+			{/if}
+			<option value="/">All</option>
 			<option class="header" disabled></option>
 			<option class="header" disabled>Client-side</option>
 			{#each examples.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
-				<option value="example/{example.slug}" selected="{type === 'example' && slug === example.slug}">{slimName(example.title)}</option>
+				<option value="/example/{example.slug}">{slimName(example.title)}</option>
 			{/each}
 			<option class="header" disabled></option>
 			<option class="header" disabled>Server-side</option>
 			{#each examplesSsr.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
-				<option value="example-ssr/{example.slug}" selected="{type === 'example-ssr' && slug === example.slug}">{slimName(example.title)}</option>
+				<option value="/example-ssr/{example.slug}" >{slimName(example.title)}</option>
 			{/each}
 		</select>
 	</li>
@@ -326,12 +353,12 @@
 
 <nav bind:this={nav} class='{open ? "open" : "closed"}'>
 	<ul class='primary'>
-		<li><a sveltekit:prefetch class='{segment === "components" ? "active" : ""}' href='components' on:click='{() => open = false}'>Component gallery</a></li>
-		<li><a sveltekit:prefetch class='{segment === "guide" ? "active" : ""}' href='guide' on:click='{() => open = false}'>Guide</a></li>
+		<li><a sveltekit:prefetch class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'>Component gallery</a></li>
+		<li><a sveltekit:prefetch class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
 		<li><a href='https://github.com/mhkeller/layercake'>GitHub</a></li>
 	</ul>
 
 	<div class='secondary'>
-		<GuideContents {sections} bind:open={open} />
+		<!-- <GuideContents {sections} bind:open={open} /> -->
 	</div>
 </nav>

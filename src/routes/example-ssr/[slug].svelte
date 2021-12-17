@@ -44,9 +44,8 @@
 
 	export let active = 'index';
 
-	const renderer = new marked.Renderer();
 	function markdownToHtml (text) {
-		return marked.marked(text, { renderer });
+		return md.render(text, { renderer });
 	}
 
 	function highlight (str, title) {

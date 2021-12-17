@@ -18,20 +18,24 @@
 	 */
 	const xKey = 'month';
 	const yKey = 'value';
-	const zKey = 'key';
+	const zKey = 'fruit';
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
 
 	const parseDate = timeParse('%Y-%m-%d');
 
+	/* --------------------------------------------
+	 * Create a "long" format that is a grouped series of data points
+	 * Layer Cake uses this data structure and the key names
+	 * set in xKey, yKey and zKey to map your data into each scale.
+	 */
 	const dataLong = seriesNames.map(key => {
 		return {
-			key,
+			[zKey]: key,
 			values: data.map(d => {
 				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey]; // Conditional required for sapper
 				return {
-					key,
 					[yKey]: +d[key],
 					[xKey]: d[xKey]
 				};
@@ -39,8 +43,11 @@
 		};
 	});
 
-	// Make a flat array of the `values` of our nested series
-	// we can pluck the `value` field from each item in the array to measure extents
+	/* --------------------------------------------
+	 * Make a flat array of the `values` of our nested series
+	 * we can pluck the field set from `yKey` from each item
+	 * in the array to measure the full extents
+	 */
 	const flatten = data => data.reduce((memo, group) => {
 		return memo.concat(group.values);
 	}, []);

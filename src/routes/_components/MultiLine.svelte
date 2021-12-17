@@ -13,7 +13,7 @@
 	 */
 	const xKey = 'month';
 	const yKey = 'value';
-	const zKey = 'key';
+	const zKey = 'fruit';
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
@@ -22,11 +22,10 @@
 
 	const dataLong = seriesNames.map(key => {
 		return {
-			key,
+			[zKey]: key,
 			values: data.map(d => {
 				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey]; // Conditional required for sapper
 				return {
-					key,
 					[yKey]: +d[key],
 					[xKey]: d[xKey]
 				};

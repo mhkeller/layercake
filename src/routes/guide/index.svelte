@@ -1,8 +1,20 @@
 <script context="module">
-	export async function preload({ params, query }) {
-		return this.fetch(`api/guide`).then(r => r.json()).then(sections => {
-			return { sections };
-		});
+	export async function load({ fetch }) {
+		const res = await fetch('guide.json');
+		const data = await res.json();
+
+		if (res.status === 200) {
+			return {
+				props: {
+					sections: data
+				}
+			};
+		} else {
+			return {
+				status: res.status,
+				error: new Error(`Could not load ${url}`)
+			}
+		}
 	}
 </script>
 

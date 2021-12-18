@@ -12,6 +12,9 @@
 	let path;
 	let type;
 
+	// I was getting a weird artifact of a service-worker.js
+	// being requested. it's fixed now but keep this for
+	// good measure
 	$: isServiceWorker = $page.path === '/service-worker.js';
 
 	let segment;

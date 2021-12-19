@@ -222,13 +222,33 @@
 			padding-bottom: 2em;
 	}
 
+	.short-name {
+		display: none;
+	}
+
 	.secondary :global(.guide-toc > li) {
 		margin-bottom: 1.5em !important;
 	}
 
-	@media (max-width: 450px) {
+	@media (max-width: 800px) {
 		.dropdown select {
 			max-width: 60px;
+		}
+		.wide-name {
+			display: none;
+		}
+		.short-name {
+			display: block;
+		}
+	}
+	.dropdown select {
+		position: relative;
+		top: -2px;
+	}
+	@media (max-width: 400px) {
+		.dropdown select {
+			position: relative;
+			top: -3px;
 		}
 	}
 	@media (max-width: 500px) {
@@ -377,7 +397,7 @@
 
 <nav bind:this={nav} class='{open ? "open" : "closed"}'>
 	<ul class='primary'>
-		<li><a sveltekit:prefetch class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'>Component gallery</a></li>
+		<li><a sveltekit:prefetch class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'><span class="wide-name">Component gallery</span><span class="short-name">Components</span></a></li>
 		<li><a sveltekit:prefetch class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
 		<li><a id="github-link" href='https://github.com/mhkeller/layercake'> </a></li>
 	</ul>

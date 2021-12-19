@@ -363,7 +363,7 @@
 		<section id='{section.slug}'>
 			<h2>
 				{section.metadata.title}
-				<small><a href='https://github.com/mhkeller/layercake-examples/edit/master/src/content/guide/{section.file}' target="_blank" rel="nofollow">edit this section</a></small>
+				<small><a href='https://github.com/mhkeller/layercake/edit/master/src/content/guide/{section.file}' target="_blank" rel="nofollow">edit this section</a></small>
 			</h2>
 			{@html section.html}
 		</section>

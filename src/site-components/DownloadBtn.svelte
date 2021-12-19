@@ -33,7 +33,6 @@
 		const cacheBust = new Date().getTime();
 		const files = await (await window.fetch(`/svelte-app.json?${cacheBust}`)).json();
 		const depsLookup = await (await window.fetch(`/deps.json?${cacheBust}`)).json();
-
 		if (imports.length > 0) {
 			const idx = files.findIndex(({ path }) => path === 'package.json');
 			const pkg = JSON.parse(files[idx].data);
@@ -56,16 +55,17 @@
 			files[idx].data = JSON.stringify(pkg, null, '  ');
 		}
 
-		files.push(...data.components.map(component => ({ path: `src/${component.title.replace('./', '')}`, data: component.contents })));
-		files.push(...data.modules.map(mod => ({ path: `src/${mod.title.replace('./', '')}`, data: mod.contents })));
-		files.push(...data.componentModules.map(mod => ({ path: `src/${mod.title.replace('../', '')}`, data: mod.contents })));
-		files.push(...data.componentComponents.map(mod => ({ path: `src/${mod.title}`, data: mod.contents })));
-		files.push(...data.csvs.map(mod => ({ path: `src/${mod.title.replace('../', '')}`, data: mod.contents })));
-		files.push(...data.jsons.map(mod => ({ path: `src/${mod.title.replace('../', '')}`, data: mod.contents })));
+		files.push(...data.components.map(component => ({ path: `src/routes/${component.title.replace('./', '')}`, data: component.contents })));
+		files.push(...data.modules.map(mod => ({ path: `src/routes/${mod.title.replace('./', '')}`, data: mod.contents })));
+		files.push(...data.componentModules.map(mod => ({ path: `src/routes/${mod.title.replace('../', '')}`, data: mod.contents })));
+		files.push(...data.componentComponents.map(mod => ({ path: `src/routes/${mod.title}`, data: mod.contents })));
+		files.push(...data.csvs.map(mod => ({ path: `src/routes/${mod.title.replace('../', '')}`, data: mod.contents })));
+		files.push(...data.jsons.map(mod => ({ path: `src/routes/${mod.title.replace('../', '')}`, data: mod.contents })));
 		files.push({
-			path: `src/App.svelte`,
+			path: `src/routes/index.svelte`,
 			data: data.main.contents
 		});
+		console.log('here');
 		const filteredFiles = uniques(files.filter(Boolean), 'path', false);
 		downloadBlob(toAuto(filteredFiles), `layercake-${ssr ? 'ssr-' : ''}${slug}.zip`);
 		downloading = false;

@@ -12,6 +12,10 @@
 	data.forEach(d => {
 		d[yKey] = +d[yKey];
 	});
+
+	function logEvent(d) {
+		console.log('dispatched event', d, d.detail);
+	}
 </script>
 
 <style>
@@ -35,7 +39,10 @@
 		data={data}
 	>
 		<Svg>
-			<Voronoi stroke='#000'/>
+			<Voronoi
+				stroke='#000'
+				on:voronoi-mouseover={logEvent}
+			/>
 		</Svg>
 	</LayerCake>
 </div>

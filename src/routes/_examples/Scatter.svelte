@@ -20,6 +20,10 @@
 	const r = 3;
 	const padding = 10;
 	const color = '#fff';
+
+	function logEvent(d) {
+		console.log('dispatched event', d, d.detail);
+	}
 </script>
 
 <style>
@@ -63,7 +67,9 @@
 				{r}
 				fill={color}
 			/>
-			<Voronoi/>
+			<Voronoi
+				on:voronoi-mouseover={logEvent}
+			/>
 		</Svg>
 	</LayerCake>
 </div>

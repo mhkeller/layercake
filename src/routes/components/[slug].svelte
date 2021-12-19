@@ -27,7 +27,7 @@
 	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
-	import DownloadComponentBtn from '../../site-components/DownloadComponentBtn.svelte';
+	import DownloadComponentBtn from '../_site-components/DownloadComponentBtn.svelte';
 	import hljsDefineSvelte from '../../modules/hljsDefineSvelte.js';
 	// import cleanTitle from '../../modules/cleanTitle.js';
 
@@ -44,9 +44,6 @@
 	export let slug;
 	export let data;
 
-	// console.log(Object.keys(marked)); .
-
-	// const renderer = new marked.Renderer();
 	function markdownToHtml (text) {
 		return md.render(text);
 	}
@@ -337,7 +334,6 @@
 
 <svelte:head>
 	<title>{component.slug} component</title>
-	<link rel='stylesheet' href='hljs.css'>
 </svelte:head>
 
 <div class="main">

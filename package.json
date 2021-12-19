@@ -14,6 +14,7 @@
   "devDependencies": {
     "@rollup/plugin-dsv": "^2.0.2",
     "@sveltejs/adapter-auto": "^1.0.0-next.3",
+    "@sveltejs/adapter-static": "^1.0.0-next.22",
     "@sveltejs/kit": "next",
     "cookie": "^0.4.1",
     "d3-collection": "^1.0.7",

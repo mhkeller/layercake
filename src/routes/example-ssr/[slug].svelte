@@ -25,7 +25,7 @@
 	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
-	import DownloadBtn from '../../site-components/DownloadBtn.svelte';
+	import DownloadBtn from '../_site-components/DownloadBtn.svelte';
 	import hljsDefineSvelte from '../../modules/hljsDefineSvelte.js';
 	import cleanTitle from '../../modules/cleanTitle.js';
 
@@ -45,7 +45,7 @@
 	export let active = 'index';
 
 	function markdownToHtml (text) {
-		return md.render(text, { renderer });
+		return md.render(text);
 	}
 
 	function highlight (str, title) {
@@ -279,7 +279,6 @@
 
 <svelte:head>
 	<title>{example.title}</title>
-	<link rel='stylesheet' href='hljs.css'>
 </svelte:head>
 
 <div class="main" data-label="Server-side">

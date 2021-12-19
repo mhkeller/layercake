@@ -20,7 +20,7 @@
 
 <script>
 	import { afterUpdate } from 'svelte';
-	import GuideContents from '../../site-components/GuideContents.svelte';
+	import GuideContents from '../_site-components/GuideContents.svelte';
 
 	export let sections;
 
@@ -131,10 +131,6 @@
 
 	section :global(.code-block) {
 		position: relative;
-	}
-
-	section :global(.code-block).named {
-		/* padding: 20px 0 0 0; */
 	}
 
 	section :global(.filename) {

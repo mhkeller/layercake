@@ -1,16 +1,17 @@
 import { normalizePath } from 'vite';
 import path from 'path';
-import adapter from '@sveltejs/adapter-auto';
 import dsv from '@rollup/plugin-dsv';
+import adapter from '@sveltejs/adapter-static';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	root: normalizePath(path.resolve('./')),
 	kit: {
-		// serviceWorker: {
-		// 	register: false
-		// },
-		adapter: adapter(),
+		adapter: adapter({
+			// default options are shown
+			pages: 'docs',
+			fallback: null
+		}),
 
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: 'body',

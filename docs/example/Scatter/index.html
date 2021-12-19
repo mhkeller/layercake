@@ -1,0 +1,437 @@
+<!DOCTYPE html> <html lang=en> <head> <meta charset=utf-8> <meta content="Layer Cake" name=description> <meta content="width=device-width,initial-scale=1" name=viewport> <meta content=#ff3e00 name=theme-color> <link href=/layercake-logo-100.png rel=icon type=image/png> <meta content=https://layercake.graphics property=og:site_name> <meta content=article property=og:type> <meta content=summary_large_image name=twitter:card> <meta content=https://layercake.graphics/layercake-logo-1200.png property=og:image> <meta content="A framework for mostly-reusable graphics with svelte" property=og:description> <meta content="A framework for mostly-reusable graphics with svelte" name=description> <meta content="layercake, graphics, svelte, graphics framework, svelte graphics framework, data viz, data visualization, reusable, mostly-reusable" name=keywords> <meta content=https://layercake.graphics property=og:url> <link href=https://layercake.graphics/favicon.png rel="shortcut icon" type=image/png> <meta content=https://layercake.graphics name=twitter:site> <meta content=https://layercake.graphics/layercake-logo-1200.png name=twitter:image> <title>Scatter (svg + canvas + voronoi)</title> <link href=/_app/start-65102c1c.js rel=modulepreload> <link href=/_app/chunks/vendor-1f8923b3.js rel=modulepreload> <link href=/_app/chunks/singletons-12a22614.js rel=modulepreload> <link href=/_app/pages/__layout.svelte-dd0c3232.js rel=modulepreload> <link href=/_app/chunks/GuideContents-aab09d1f.js rel=modulepreload> <link href=/_app/chunks/_examples-939f38a9.js rel=modulepreload> <link href=/_app/chunks/Brush.html-a62bf58f.js rel=modulepreload> <link href=/_app/chunks/dots-7dc173c5.js rel=modulepreload> <link href=/_app/chunks/pointsFour-ad3813a0.js rel=modulepreload> <link href=/_app/chunks/_examples_ssr-7c49e039.js rel=modulepreload> <link href=/_app/chunks/ClevelandDotPlot.percent-range.html-5f8c77ed.js rel=modulepreload> <link href=/_app/pages/example/_slug_.svelte-105f59ca.js rel=modulepreload> <link href=/_app/chunks/cleanTitle-baf2d548.js rel=modulepreload> <link href=/_app/chunks/downloadBlob-73ede60f.js rel=modulepreload> <link href=/_app/chunks/hljsDefineSvelte-bd0b92b8.js rel=modulepreload> <link href=/_app/assets/start-61d1577b.css rel=stylesheet> <link href=/_app/assets/pages/__layout.svelte-018a56ef.css rel=stylesheet> <link href=/_app/assets/GuideContents-1848e154.css rel=stylesheet> <link href=/_app/assets/_examples-998eb4dc.css rel=stylesheet> <link href=/_app/assets/Brush.html-f5d06c93.css rel=stylesheet> <link href=/_app/assets/dots-d212bdb6.css rel=stylesheet> <link href=/_app/assets/_examples_ssr-92b79465.css rel=stylesheet> <link href=/_app/assets/ClevelandDotPlot.percent-range.html-1e347309.css rel=stylesheet> <link href=/_app/assets/pages/example/_slug_.svelte-05adeb3d.css rel=stylesheet> <link href=/_app/assets/cleanTitle-6421f29e.css rel=stylesheet> <script type=module> import { start } from "/_app/start-65102c1c.js";
+			start({
+				target: document.querySelector("body"),
+				paths: {"base":"","assets":""},
+				session: {},
+				host: location.host,
+				route: true,
+				spa: false,
+				trailing_slash: "never",
+				hydrate: {
+					status: 200,
+					error: null,
+					nodes: [
+						import("/_app/pages/__layout.svelte-dd0c3232.js"),
+						import("/_app/pages/example/_slug_.svelte-105f59ca.js")
+					],
+					page: {
+						host: location.host, // TODO this is redundant
+						path: "\u002Fexample\u002FScatter",
+						query: new URLSearchParams(""),
+						params: {slug:"Scatter"}
+					}
+				}
+			}); </script> </head> <body> <div id=svelte> <div class="svelte-1dclgaf closed mousecatcher"></div> <div class="svelte-1dclgaf container"><span class="svelte-1dclgaf menu-closed menu-link">Menu</span> <a class="svelte-1dclgaf logo" href=/ sveltekit:prefetch>Layer Cake</a></div> <ul class="svelte-1dclgaf dropdown"><li class=svelte-1dclgaf> <select class=svelte-1dclgaf><option value=/ >All<option value="" class="svelte-1dclgaf header" disabled><option value=Client-side class="svelte-1dclgaf header" disabled>Client-side<option value=/example/Bar>Bar<option value=/example/Beeswarm>Beeswarm<option value=/example/BeeswarmForce>Beeswarm, force layout<option value=/example/Brush>Brush<option value=/example/Calendar>Calendar<option value=/example/CirclePack>Circle pack<option value=/example/CirclePackForce>Circle pack, force layout<option value=/example/ClevelandDotPlot>Cleveland dot plot<option value=/example/Column>Column annotated<option value=/example/Histogram>Histogram<option value=/example/Line>Line + area<option value=/example/MapSvg>Map<option value=/example/MapLayered>Multilayer map<option value=/example/MultiLine>Multiline<option value=/example/CirclePackNested>Nested circle pack<option value=/example/Radar>Radar chart<option value=/example/Sankey>Sankey<option value=/example/Scatter>Scatter<option value=/example/SmallMultiples>Small multiples<option value=/example/AreaStacked>Stacked area<option value=/example/BarStacked>Stacked bar<option value=/example/ColumnStacked>Stacked column<option value=/example/SyncedBrush>Synced brush<option value=/example/Timeplot>Time of day plot<option value=/example/ScatterWebgl>WebGL Scatter<option value="" class="svelte-1dclgaf header" disabled><option value=Server-side class="svelte-1dclgaf header" disabled>Server-side<option value=/example-ssr/Bar>Bar<option value=/example-ssr/Brush>Brush<option value=/example-ssr/Calendar>Calendar<option value=/example-ssr/ClevelandDotPlot>Cleveland dot plot<option value=/example-ssr/Column>Column annotated<option value=/example-ssr/Histogram>Histogram<option value=/example-ssr/Line>Line + area<option value=/example-ssr/MapSvg>Map<option value=/example-ssr/MapLayered>Multilayer map<option value=/example-ssr/MultiLine>Multiline<option value=/example-ssr/Scatter>Scatter<option value=/example-ssr/SmallMultiples>Small multiples<option value=/example-ssr/AreaStacked>Stacked area<option value=/example-ssr/BarStacked>Stacked bar<option value=/example-ssr/ColumnStacked>Stacked column<option value=/example-ssr/SyncedBrush>Synced brush<option value=/example-ssr/Timeplot>Time of day plot<option value=/example-ssr/ScatterWebgl>WebGL Scatter</select></ul> <nav class="svelte-1dclgaf closed"><ul class="svelte-1dclgaf primary"><li class=svelte-1dclgaf><a class=svelte-1dclgaf href=/components sveltekit:prefetch><span class="svelte-1dclgaf wide-name">Component gallery</span><span class="svelte-1dclgaf short-name">Components</span></a></li> <li class=svelte-1dclgaf><a class=svelte-1dclgaf href=/guide sveltekit:prefetch>Guide</a></li> <li class=svelte-1dclgaf><a class=svelte-1dclgaf href=https://github.com/mhkeller/layercake id=github-link></a></ul> <div class="svelte-1dclgaf secondary"><ul class="guide-toc svelte-7hddv0"></ul></div></nav> <main> <div class="svelte-m4suor main"><h1>Scatter (svg + canvas + voronoi)<a class="svelte-m4suor edit-repl" href="https://svelte.dev/repl/d9a9c151058d4e3eb74a4eed60eabb54?version=3.17.3" rel=nofollow target=_blank>Edit</a></h1> <div class="svelte-m4suor chart-hero"><div class="chart-container svelte-xrhe6m"></div></div> <div class="svelte-m4suor download"><button class="icon svelte-1gef78k" style=background-image:url(/icons/download.svg) title="download zip file">Download      </button></div> <div class=svelte-m4suor id=pages><ul class=svelte-m4suor id=page-nav><li class="svelte-m4suor tab active">index.svelte<li class="svelte-m4suor tab">./components/Scatter.svg.svelte<li class="svelte-m4suor tab">./components/Scatter.canvas.svelte<li class="svelte-m4suor tab">./components/Voronoi.svelte<li class="svelte-m4suor tab">./components/AxisX.svelte<li class="svelte-m4suor tab">./components/AxisY.svelte<li class="svelte-m4suor tab">./data/points.csv</ul> <div class=svelte-m4suor id=contents-container><div class="svelte-m4suor copy"></div> <div class=contents style=display:block><pre class=svelte-m4suor><span class=language-xml><span class=hljs-tag>&lt;<span class=hljs-name>script</span>></span></span><span class=language-javascript>
+  <span class=hljs-keyword>import</span> { <span class="hljs-title class_">LayerCake</span>, <span class="hljs-title class_">Svg</span>, <span class="hljs-title class_">Canvas</span> } <span class=hljs-keyword>from</span> <span class=hljs-string>'layercake'</span>;
+
+  <span class=hljs-keyword>import</span> <span class="hljs-title class_">ScatterSvg</span> <span class=hljs-keyword>from</span> <span class=hljs-string>'./components/Scatter.svg.svelte'</span>;
+  <span class=hljs-keyword>import</span> <span class="hljs-title class_">ScatterCanvas</span> <span class=hljs-keyword>from</span> <span class=hljs-string>'./components/Scatter.canvas.svelte'</span>;
+  <span class=hljs-keyword>import</span> <span class="hljs-title class_">Voronoi</span> <span class=hljs-keyword>from</span> <span class=hljs-string>'./components/Voronoi.svelte'</span>;
+  <span class=hljs-keyword>import</span> <span class="hljs-title class_">Axis</span>X <span class=hljs-keyword>from</span> <span class=hljs-string>'./components/AxisX.svelte'</span>;
+  <span class=hljs-keyword>import</span> <span class="hljs-title class_">Axis</span>Y <span class=hljs-keyword>from</span> <span class=hljs-string>'./components/AxisY.svelte'</span>;
+
+  <span class=hljs-comment>// This example loads csv data as json using @rollup/plugin-dsv</span>
+  <span class=hljs-keyword>import</span> data <span class=hljs-keyword>from</span> <span class=hljs-string>'./data/points.csv'</span>;
+
+  <span class=hljs-keyword>const</span> xKey = <span class=hljs-string>'myX'</span>;
+  <span class=hljs-keyword>const</span> yKey = <span class=hljs-string>'myY'</span>;
+
+  data.<span class="hljs-title function_">forEach</span>(<span class=hljs-function><span class=hljs-params>d</span> =></span> {
+    d[yKey] = +d[yKey];
+  });
+
+  <span class=hljs-keyword>const</span> r = <span class=hljs-number>3</span>;
+  <span class=hljs-keyword>const</span> padding = <span class=hljs-number>10</span>;
+  <span class=hljs-keyword>const</span> color = <span class=hljs-string>'#fff'</span>;
+</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>script</span>></span>
+
+<span class=hljs-tag>&lt;<span class=hljs-name>style</span>></span></span><span class=language-css>
+  <span class=hljs-comment>/*
+    The wrapper div needs to have an explicit width and height in CSS.
+    It can also be a flexbox child or CSS grid element.
+    The point being it needs dimensions since the &lt;LayerCake> element will
+    expand to fill it.
+  */</span>
+  <span class=hljs-selector-class>.chart-container</span> {
+    <span class=hljs-attribute>width</span>: <span class=hljs-number>100%</span>;
+    <span class=hljs-attribute>height</span>: <span class=hljs-number>100%</span>;
+  }
+</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>style</span>></span>
+
+<span class=hljs-tag>&lt;<span class=hljs-name>div</span> <span class=hljs-attr>class</span>=<span class=hljs-string>"chart-container"</span>></span>
+  <span class=hljs-tag>&lt;<span class=hljs-name>LayerCake</span>
+    <span class=hljs-attr>padding</span>=</span></span><span class=language-javascript>{{ <span class=hljs-attr>top</span>: <span class=hljs-number>10</span>, <span class=hljs-attr>right</span>: <span class=hljs-number>5</span>, <span class=hljs-attr>bottom</span>: <span class=hljs-number>20</span>, <span class=hljs-attr>left</span>: <span class=hljs-number>25</span> }}</span><span class=language-xml><span class=hljs-tag>
+    <span class=hljs-attr>x</span>=</span></span><span class=language-javascript>{xKey}</span><span class=language-xml><span class=hljs-tag>
+    <span class=hljs-attr>y</span>=</span></span><span class=language-javascript>{yKey}</span><span class=language-xml><span class=hljs-tag>
+    <span class=hljs-attr>xPadding</span>=</span></span><span class=language-javascript>{[padding, padding]}</span><span class=language-xml><span class=hljs-tag>
+    <span class=hljs-attr>yPadding</span>=</span></span><span class=language-javascript>{[padding, padding]}</span><span class=language-xml><span class=hljs-tag>
+    <span class=hljs-attr>data</span>=</span></span><span class=language-javascript>{data}</span><span class=language-xml><span class=hljs-tag>
+  ></span>
+    <span class=hljs-tag>&lt;<span class=hljs-name>Svg</span>></span>
+      <span class=hljs-tag>&lt;<span class=hljs-name>AxisX</span>/></span>
+      <span class=hljs-tag>&lt;<span class=hljs-name>AxisY</span>
+        <span class=hljs-attr>ticks</span>=</span></span><span class=language-javascript>{<span class=hljs-number>4</span>}</span><span class=language-xml><span class=hljs-tag>
+      /></span>
+    <span class=hljs-tag>&lt;/<span class=hljs-name>Svg</span>></span>
+
+    <span class=hljs-tag>&lt;<span class=hljs-name>Canvas</span>></span>
+      <span class=hljs-tag>&lt;<span class=hljs-name>ScatterCanvas</span>
+        <span class=hljs-attr>r</span>=</span></span><span class=language-javascript>{r * <span class=hljs-number>1.5</span>}</span><span class=language-xml><span class=hljs-tag>
+        <span class=hljs-attr>fill</span>=</span></span><span class=language-javascript>{<span class=hljs-string>'#0cf'</span>}</span><span class=language-xml><span class=hljs-tag>
+      /></span>
+    <span class=hljs-tag>&lt;/<span class=hljs-name>Canvas</span>></span>
+
+    <span class=hljs-tag>&lt;<span class=hljs-name>Svg</span>></span>
+      <span class=hljs-tag>&lt;<span class=hljs-name>ScatterSvg</span>
+        </span></span><span class=language-javascript>{r}</span><span class=language-xml><span class=hljs-tag>
+        <span class=hljs-attr>fill</span>=</span></span><span class=language-javascript>{color}</span><span class=language-xml><span class=hljs-tag>
+      /></span>
+      <span class=hljs-tag>&lt;<span class=hljs-name>Voronoi</span>/></span>
+    <span class=hljs-tag>&lt;/<span class=hljs-name>Svg</span>></span>
+  <span class=hljs-tag>&lt;/<span class=hljs-name>LayerCake</span>></span>
+<span class=hljs-tag>&lt;/<span class=hljs-name>div</span>></span></span></pre> </div><div class=contents style=display:none><pre class=svelte-m4suor><span class=language-xml><span class=hljs-tag>&lt;<span class=hljs-name>script</span>></span></span><span class=language-javascript>
+  <span class=hljs-comment>/**
+    Generates an SVG scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [r=5] – The circle's radius.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>String</span>} [fill='#0cf'] – The circle's fill color.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>String</span>} [stroke='#000'] – The circle's stroke color.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [strokeWidth=1] – The circle's stroke width.
+  */</span>
+  <span class=hljs-keyword>import</span> { getContext } <span class=hljs-keyword>from</span> <span class=hljs-string>'svelte'</span>;
+
+  <span class=hljs-keyword>const</span> { data, xGet, yGet, xScale, yScale } = <span class="hljs-title function_">getContext</span>(<span class=hljs-string>'LayerCake'</span>);
+
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> r = <span class=hljs-number>5</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> fill = <span class=hljs-string>'#0cf'</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> stroke = <span class=hljs-string>'#000'</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> strokeWidth = <span class=hljs-number>0</span>;
+</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>script</span>></span>
+
+<span class=hljs-tag>&lt;<span class=hljs-name>g</span> <span class=hljs-attr>class</span>=<span class=hljs-string>"scatter-group"</span>></span>
+  </span><span class=language-javascript>{</span><span class=hljs-keyword>#each</span><span class=language-javascript> $data <span class=hljs-keyword>as</span> d}</span><span class=language-xml>
+    <span class=hljs-tag>&lt;<span class=hljs-name>circle</span>
+      <span class=hljs-attr>cx</span>=</span></span><span class=language-javascript>{$xGet(d) + ($xScale.<span class=hljs-property>bandwidth</span> ? $xScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span> : <span class=hljs-number>0</span>)}</span><span class=language-xml><span class=hljs-tag>
+      <span class=hljs-attr>cy</span>=</span></span><span class=language-javascript>{$yGet(d) + ($yScale.<span class=hljs-property>bandwidth</span> ? $yScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span> : <span class=hljs-number>0</span>)}</span><span class=language-xml><span class=hljs-tag>
+      </span></span><span class=language-javascript>{r}</span><span class=language-xml><span class=hljs-tag>
+      </span></span><span class=language-javascript>{fill}</span><span class=language-xml><span class=hljs-tag>
+      </span></span><span class=language-javascript>{stroke}</span><span class=language-xml><span class=hljs-tag>
+      <span class=hljs-attr>stroke-width</span>=</span></span><span class=language-javascript>{strokeWidth}</span><span class=language-xml><span class=hljs-tag>
+    /></span>
+  </span><span class=language-javascript>{</span><span class=hljs-keyword>/each</span><span class=language-javascript>}</span><span class=language-xml>
+<span class=hljs-tag>&lt;/<span class=hljs-name>g</span>></span></span></pre> </div><div class=contents style=display:none><pre class=svelte-m4suor><span class=language-xml><span class=hljs-tag>&lt;<span class=hljs-name>script</span>></span></span><span class=language-javascript>
+  <span class=hljs-comment>/**
+    Generates a canvas scatter plot.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [r=5] – The circle's radius.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>String</span>} [fill='#0cf'] – The circle's fill color.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>String</span>} [stroke='#000'] – The circle's stroke color.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [strokeWidth=1] – The circle's stroke width.
+  */</span>
+  <span class=hljs-keyword>import</span> { getContext } <span class=hljs-keyword>from</span> <span class=hljs-string>'svelte'</span>;
+  <span class=hljs-keyword>import</span> { scaleCanvas } <span class=hljs-keyword>from</span> <span class=hljs-string>'layercake'</span>;
+
+  <span class=hljs-keyword>const</span> { data, xGet, yGet, width, height } = <span class="hljs-title function_">getContext</span>(<span class=hljs-string>'LayerCake'</span>);
+
+  <span class=hljs-keyword>const</span> { ctx } = <span class="hljs-title function_">getContext</span>(<span class=hljs-string>'canvas'</span>);
+
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> r = <span class=hljs-number>5</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> fill = <span class=hljs-string>'#0cf'</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> stroke = <span class=hljs-string>'#000'</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> strokeWidth = <span class=hljs-number>1</span>;
+</span><span class=hljs-keyword>
+  $: </span><span class=language-javascript>{
+    <span class=hljs-keyword>if</span> ($ctx) {
+      <span class=hljs-comment>/* --------------------------------------------
+       * If you were to have multiple canvas layers
+       * maybe for some artistic layering purposes
+       * put these reset functions in the first layer, not each one
+       * since they should only run once per update
+       */</span>
+      <span class="hljs-title function_">scaleCanvas</span>($ctx, $width, $height);
+      $ctx.<span class="hljs-title function_">clearRect</span>(<span class=hljs-number>0</span>, <span class=hljs-number>0</span>, $width, $height);
+
+      <span class=hljs-comment>/* --------------------------------------------
+       * Draw our scatterplot
+       */</span>
+      $data.<span class="hljs-title function_">forEach</span>(<span class=hljs-function><span class=hljs-params>d</span> =></span> {
+        $ctx.<span class="hljs-title function_">beginPath</span>();
+        $ctx.<span class="hljs-title function_">arc</span>($xGet(d), $yGet(d), r, <span class=hljs-number>0</span>, <span class=hljs-number>2</span> * <span class="hljs-title class_">Math</span>.<span class=hljs-property>PI</span>, <span class=hljs-literal>false</span>);
+        $ctx.<span class=hljs-property>lineWidth</span> = strokeWidth;
+        $ctx.<span class=hljs-property>strokeStyle</span> = stroke;
+        $ctx.<span class="hljs-title function_">stroke</span>();
+        $ctx.<span class=hljs-property>fillStyle</span> = fill;
+        $ctx.<span class="hljs-title function_">fill</span>();
+      });
+    }
+  }
+</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>script</span>></span></span></pre> </div><div class=contents style=display:none><pre class=svelte-m4suor><span class=language-xml><span class=hljs-tag>&lt;<span class=hljs-name>script</span>></span></span><span class=language-javascript>
+  <span class=hljs-comment>/**
+    Generates a voronoi layer using [d3-delauney](https://github.com/d3/d3-delauney).
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>String</span>} [stroke=undefined] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
+  */</span>
+  <span class=hljs-keyword>import</span> { getContext } <span class=hljs-keyword>from</span> <span class=hljs-string>'svelte'</span>;
+  <span class=hljs-keyword>import</span> { uniques } <span class=hljs-keyword>from</span> <span class=hljs-string>'layercake'</span>;
+  <span class=hljs-keyword>import</span> { <span class="hljs-title class_">Delaunay</span> } <span class=hljs-keyword>from</span> <span class=hljs-string>'d3-delaunay'</span>;
+
+  <span class=hljs-keyword>const</span> { data, xGet, yGet, width, height } = <span class="hljs-title function_">getContext</span>(<span class=hljs-string>'LayerCake'</span>);
+
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> stroke = <span class=hljs-literal>undefined</span>;
+
+  <span class=hljs-keyword>function</span> <span class="hljs-title function_">log</span> (point) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(point, point.<span class=hljs-property>data</span>);
+  }
+</span><span class=hljs-keyword>
+  $: </span><span class=language-javascript>points = $data.<span class="hljs-title function_">map</span>(<span class=hljs-function><span class=hljs-params>d</span> =></span> {
+    <span class=hljs-keyword>const</span> point = [$xGet(d), $yGet(d)];
+    point.<span class=hljs-property>data</span> = d;
+    <span class=hljs-keyword>return</span> point;
+  });
+</span><span class=hljs-keyword>
+  $: </span><span class=language-javascript>uniquePoints = <span class="hljs-title function_">uniques</span>(points, <span class=hljs-function><span class=hljs-params>d</span> =></span> d.<span class="hljs-title function_">join</span>(), <span class=hljs-literal>false</span>);
+</span><span class=hljs-keyword>
+  $: </span><span class=language-javascript>voronoi = <span class="hljs-title class_">Delaunay</span>.<span class="hljs-title function_">from</span>(points).<span class="hljs-title function_">voronoi</span>([<span class=hljs-number>0</span>, <span class=hljs-number>0</span>, $width, $height]);
+</span><span class=language-xml>
+<span class=hljs-tag>&lt;/<span class=hljs-name>script</span>></span>
+
+<span class=hljs-tag>&lt;<span class=hljs-name>style</span>></span></span><span class=language-css>
+  <span class=hljs-selector-class>.voronoi-cell</span> {
+    fill: none;
+    stroke: none;
+    <span class=hljs-attribute>pointer-events</span>: all;
+  }
+
+  <span class=hljs-comment>/* Useful to testing but you'll want to disable this for production */</span>
+  <span class=hljs-selector-class>.voronoi-cell</span><span class=hljs-selector-pseudo>:hover</span> {
+    stroke: <span class=hljs-number>#000</span>;
+  }
+</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>style</span>></span>
+
+</span><span class=language-javascript>{</span><span class=hljs-keyword>#each</span><span class=language-javascript> uniquePoints <span class=hljs-keyword>as</span> point, i}</span><span class=language-xml>
+  <span class=hljs-tag>&lt;<span class=hljs-name>path</span>
+    <span class=hljs-attr>style</span>=<span class=hljs-string>"</span></span></span><span class=language-javascript>{stroke ? <span class=hljs-string>`stroke:<span class=hljs-subst>${stroke}</span>;`</span> : <span class=hljs-string>''</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>"</span>
+    <span class=hljs-attr>class</span>=<span class=hljs-string>"voronoi-cell"</span>
+    <span class=hljs-attr>d</span>=</span></span><span class=language-javascript>{voronoi.<span class="hljs-title function_">renderCell</span>(i)}</span><span class=language-xml><span class=hljs-tag>
+    <span class=hljs-attr>on:mouseover</span>=<span class=hljs-string>"</span></span></span><span class=language-javascript>{<span class="hljs-title function_">log</span>(point)}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>"</span>
+    <span class=hljs-attr>on:focus</span>=<span class=hljs-string>"</span></span></span><span class=language-javascript>{<span class="hljs-title function_">log</span>(point)}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>"</span>
+  ></span><span class=hljs-tag>&lt;/<span class=hljs-name>path</span>></span>
+</span><span class=language-javascript>{</span><span class=hljs-keyword>/each</span><span class=language-javascript>}</span></pre> </div><div class=contents style=display:none><pre class=svelte-m4suor><span class=language-xml><span class=hljs-tag>&lt;<span class=hljs-name>script</span>></span></span><span class=language-javascript>
+  <span class=hljs-comment>/**
+    Generates an SVG x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Boolean</span>} [gridlines=true] – Extend lines from the ticks into the chart space
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Boolean</span>} [tickMarks=false] – Show a vertical mark for each tick.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Boolean</span>} [baseline=false] – Show a solid line at the bottom.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Boolean</span>} [snapTicks=false] – Instead of centering the text on the first and the last items, align them to the edges of the chart.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Function</span>} [formatTick=d => d] – A function that passes the current tick value and expects a nicely formatted value in return.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number|Array|Function</span>} [ticks] – If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [xTick=0] – TK
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [yTick=16] – The distance from the baseline to place each tick value.
+  */</span>
+  <span class=hljs-keyword>import</span> { getContext } <span class=hljs-keyword>from</span> <span class=hljs-string>'svelte'</span>;
+
+  <span class=hljs-keyword>const</span> { width, height, xScale, yRange } = <span class="hljs-title function_">getContext</span>(<span class=hljs-string>'LayerCake'</span>);
+
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> gridlines = <span class=hljs-literal>true</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> tickMarks = <span class=hljs-literal>false</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> baseline = <span class=hljs-literal>false</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> snapTicks = <span class=hljs-literal>false</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> <span class="hljs-title function_">formatTick</span> = d => d;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> ticks = <span class=hljs-literal>undefined</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> xTick = <span class=hljs-number>0</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> yTick = <span class=hljs-number>16</span>;
+</span><span class=hljs-keyword>
+  $: </span><span class=language-javascript>isBandwidth = <span class=hljs-keyword>typeof</span> $xScale.<span class=hljs-property>bandwidth</span> === <span class=hljs-string>'function'</span>;
+</span><span class=hljs-keyword>
+  $: </span><span class=language-javascript>tickVals = <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(ticks) ? ticks :
+    isBandwidth ?
+      $xScale.<span class="hljs-title function_">domain</span>() :
+      <span class=hljs-keyword>typeof</span> ticks === <span class=hljs-string>'function'</span> ?
+        <span class="hljs-title function_">ticks</span>($xScale.<span class="hljs-title function_">ticks</span>()) :
+          $xScale.<span class="hljs-title function_">ticks</span>(ticks);
+
+  <span class=hljs-keyword>function</span> <span class="hljs-title function_">textAnchor</span>(<span class=hljs-params>i</span>) {
+    <span class=hljs-keyword>if</span> (snapTicks === <span class=hljs-literal>true</span>) {
+      <span class=hljs-keyword>if</span> (i === <span class=hljs-number>0</span>) {
+        <span class=hljs-keyword>return</span> <span class=hljs-string>'start'</span>;
+      }
+      <span class=hljs-keyword>if</span> (i === tickVals.<span class=hljs-property>length</span> - <span class=hljs-number>1</span>) {
+        <span class=hljs-keyword>return</span> <span class=hljs-string>'end'</span>;
+      }
+    }
+    <span class=hljs-keyword>return</span> <span class=hljs-string>'middle'</span>;
+  }
+</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>script</span>></span>
+
+<span class=hljs-tag>&lt;<span class=hljs-name>g</span> <span class=hljs-attr>class</span>=<span class=hljs-string>'axis x-axis'</span> <span class=hljs-attr>class:snapTicks</span>></span>
+  </span><span class=language-javascript>{</span><span class=hljs-keyword>#each</span><span class=language-javascript> tickVals <span class=hljs-keyword>as</span> tick, i}</span><span class=language-xml>
+    <span class=hljs-tag>&lt;<span class=hljs-name>g</span> <span class=hljs-attr>class</span>=<span class=hljs-string>'tick tick-</span></span></span><span class=language-javascript>{ i }</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span> <span class=hljs-attr>transform</span>=<span class=hljs-string>'translate(</span></span></span><span class=language-javascript>{$xScale(tick)}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>,</span></span></span><span class=language-javascript>{$yRange[<span class=hljs-number>0</span>]}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>)'</span>></span>
+      </span><span class=language-javascript>{</span><span class=hljs-keyword>#if</span><span class=language-javascript> gridlines !== <span class=hljs-literal>false</span>}</span><span class=language-xml>
+        <span class=hljs-tag>&lt;<span class=hljs-name>line</span> <span class=hljs-attr>class</span>=<span class=hljs-string>"gridline"</span> <span class=hljs-attr>y1</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{$height * -<span class=hljs-number>1</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span> <span class=hljs-attr>y2</span>=<span class=hljs-string>'0'</span> <span class=hljs-attr>x1</span>=<span class=hljs-string>'0'</span> <span class=hljs-attr>x2</span>=<span class=hljs-string>'0'</span>></span><span class=hljs-tag>&lt;/<span class=hljs-name>line</span>></span>
+      </span><span class=language-javascript>{</span><span class=hljs-keyword>/if</span><span class=language-javascript>}</span><span class=language-xml>
+      </span><span class=language-javascript>{</span><span class=hljs-keyword>#if</span><span class=language-javascript> tickMarks === <span class=hljs-literal>true</span>}</span><span class=language-xml>
+        <span class=hljs-tag>&lt;<span class=hljs-name>line</span> <span class=hljs-attr>class</span>=<span class=hljs-string>"tick-mark"</span> <span class=hljs-attr>y1</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{<span class=hljs-number>0</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span> <span class=hljs-attr>y2</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{<span class=hljs-number>6</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span> <span class=hljs-attr>x1</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{xTick || isBandwidth ? $xScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span> : <span class=hljs-number>0</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span> <span class=hljs-attr>x2</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{xTick || isBandwidth ? $xScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span> : <span class=hljs-number>0</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span>></span><span class=hljs-tag>&lt;/<span class=hljs-name>line</span>></span>
+      </span><span class=language-javascript>{</span><span class=hljs-keyword>/if</span><span class=language-javascript>}</span><span class=language-xml>
+      <span class=hljs-tag>&lt;<span class=hljs-name>text</span>
+        <span class=hljs-attr>x</span>=<span class=hljs-string>"</span></span></span><span class=language-javascript>{xTick || isBandwidth ? $xScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span> : <span class=hljs-number>0</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>"</span>
+        <span class=hljs-attr>y</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{yTick}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span>
+        <span class=hljs-attr>dx</span>=<span class=hljs-string>''</span>
+        <span class=hljs-attr>dy</span>=<span class=hljs-string>''</span>
+        <span class=hljs-attr>text-anchor</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{<span class="hljs-title function_">textAnchor</span>(i)}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span>></span></span><span class=language-javascript>{<span class="hljs-title function_">formatTick</span>(tick)}</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>text</span>></span>
+    <span class=hljs-tag>&lt;/<span class=hljs-name>g</span>></span>
+  </span><span class=language-javascript>{</span><span class=hljs-keyword>/each</span><span class=language-javascript>}</span><span class=language-xml>
+  </span><span class=language-javascript>{</span><span class=hljs-keyword>#if</span><span class=language-javascript> baseline === <span class=hljs-literal>true</span>}</span><span class=language-xml>
+    <span class=hljs-tag>&lt;<span class=hljs-name>line</span> <span class=hljs-attr>class</span>=<span class=hljs-string>"baseline"</span> <span class=hljs-attr>y1</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{$height + <span class=hljs-number>0.5</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span> <span class=hljs-attr>y2</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{$height + <span class=hljs-number>0.5</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span> <span class=hljs-attr>x1</span>=<span class=hljs-string>'0'</span> <span class=hljs-attr>x2</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{$width}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span>></span><span class=hljs-tag>&lt;/<span class=hljs-name>line</span>></span>
+  </span><span class=language-javascript>{</span><span class=hljs-keyword>/if</span><span class=language-javascript>}</span><span class=language-xml>
+<span class=hljs-tag>&lt;/<span class=hljs-name>g</span>></span>
+
+<span class=hljs-tag>&lt;<span class=hljs-name>style</span>></span></span><span class=language-css>
+  <span class=hljs-selector-class>.tick</span> {
+    <span class=hljs-attribute>font-size</span>: .<span class=hljs-number>725em</span>;
+    <span class=hljs-attribute>font-weight</span>: <span class=hljs-number>200</span>;
+  }
+
+  line,
+  <span class=hljs-selector-class>.tick</span> line {
+    stroke: <span class=hljs-number>#aaa</span>;
+    stroke-dasharray: <span class=hljs-number>2</span>;
+  }
+
+  <span class=hljs-selector-class>.tick</span> text {
+    fill: <span class=hljs-number>#666</span>;
+  }
+
+  <span class=hljs-selector-class>.tick</span> <span class=hljs-selector-class>.tick-mark</span>,
+  <span class=hljs-selector-class>.baseline</span> {
+    stroke-dasharray: <span class=hljs-number>0</span>;
+  }
+  <span class=hljs-comment>/* This looks slightly better */</span>
+  <span class=hljs-selector-class>.axis</span><span class=hljs-selector-class>.snapTicks</span> <span class=hljs-selector-class>.tick</span><span class=hljs-selector-pseudo>:last-child</span> text {
+    <span class=hljs-attribute>transform</span>: <span class=hljs-built_in>translateX</span>(<span class=hljs-number>3px</span>);
+  }
+  <span class=hljs-selector-class>.axis</span><span class=hljs-selector-class>.snapTicks</span> <span class=hljs-selector-class>.tick</span><span class=hljs-selector-class>.tick-0</span> text {
+    <span class=hljs-attribute>transform</span>: <span class=hljs-built_in>translateX</span>(-<span class=hljs-number>3px</span>);
+  }
+</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>style</span>></span></span></pre> </div><div class=contents style=display:none><pre class=svelte-m4suor><span class=language-xml><span class=hljs-tag>&lt;<span class=hljs-name>script</span>></span></span><span class=language-javascript>
+  <span class=hljs-comment>/**
+    Generates an HTML y-axis.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Boolean</span>} [gridlines=true] – Extend lines from the ticks into the chart space
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Boolean</span>} [tickMarks=false] – Show a vertical mark for each tick.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Function</span>} [formatTick=d => d] – A function that passes the current tick value and expects a nicely formatted value in return.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number|Array|Function</span>} [ticks=4] – If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [xTick=0] – How far over to position the text marker.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [dxTick=0] – Any optional value passed to the `dx` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [yTick=0] – How far up and down to position the text marker.
+    <span class=hljs-doctag>@type</span> {<span class=hljs-type>Number</span>} [dyTick=0] – Any optional value passed to the `dy` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.
+  */</span>
+  <span class=hljs-keyword>import</span> { getContext } <span class=hljs-keyword>from</span> <span class=hljs-string>'svelte'</span>;
+
+  <span class=hljs-keyword>const</span> { padding, xRange, yScale } = <span class="hljs-title function_">getContext</span>(<span class=hljs-string>'LayerCake'</span>);
+
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> gridlines = <span class=hljs-literal>true</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> tickMarks = <span class=hljs-literal>false</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> <span class="hljs-title function_">formatTick</span> = d => d;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> ticks = <span class=hljs-number>4</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> xTick = <span class=hljs-number>0</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> yTick = <span class=hljs-number>0</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> dxTick = <span class=hljs-number>0</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> dyTick = -<span class=hljs-number>4</span>;
+  <span class=hljs-keyword>export</span> <span class=hljs-keyword>let</span> textAnchor = <span class=hljs-string>'start'</span>;
+</span><span class=hljs-keyword>
+  $: </span><span class=language-javascript>isBandwidth = <span class=hljs-keyword>typeof</span> $yScale.<span class=hljs-property>bandwidth</span> === <span class=hljs-string>'function'</span>;
+</span><span class=hljs-keyword>
+  $: </span><span class=language-javascript>tickVals = <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(ticks) ? ticks :
+    isBandwidth ?
+      $yScale.<span class="hljs-title function_">domain</span>() :
+      <span class=hljs-keyword>typeof</span> ticks === <span class=hljs-string>'function'</span> ?
+        <span class="hljs-title function_">ticks</span>($yScale.<span class="hljs-title function_">ticks</span>()) :
+          $yScale.<span class="hljs-title function_">ticks</span>(ticks);
+</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>script</span>></span>
+
+<span class=hljs-tag>&lt;<span class=hljs-name>g</span> <span class=hljs-attr>class</span>=<span class=hljs-string>'axis y-axis'</span> <span class=hljs-attr>transform</span>=<span class=hljs-string>'translate(</span></span></span><span class=language-javascript>{-$padding.<span class=hljs-property>left</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>, 0)'</span>></span>
+  </span><span class=language-javascript>{</span><span class=hljs-keyword>#each</span><span class=language-javascript> tickVals <span class=hljs-keyword>as</span> tick}</span><span class=language-xml>
+    <span class=hljs-tag>&lt;<span class=hljs-name>g</span> <span class=hljs-attr>class</span>=<span class=hljs-string>'tick tick-</span></span></span><span class=language-javascript>{tick}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span> <span class=hljs-attr>transform</span>=<span class=hljs-string>'translate(</span></span></span><span class=language-javascript>{$xRange[<span class=hljs-number>0</span>] + (isBandwidth ? $padding.<span class=hljs-property>left</span> : <span class=hljs-number>0</span>)}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>, </span></span></span><span class=language-javascript>{$yScale(tick)}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>)'</span>></span>
+      </span><span class=language-javascript>{</span><span class=hljs-keyword>#if</span><span class=language-javascript> gridlines !== <span class=hljs-literal>false</span>}</span><span class=language-xml>
+        <span class=hljs-tag>&lt;<span class=hljs-name>line</span>
+          <span class=hljs-attr>class</span>=<span class=hljs-string>"gridline"</span>
+          <span class=hljs-attr>x2</span>=<span class=hljs-string>'100%'</span>
+          <span class=hljs-attr>y1</span>=</span></span><span class=language-javascript>{yTick + (isBandwidth ? ($yScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span>) : <span class=hljs-number>0</span>)}</span><span class=language-xml><span class=hljs-tag>
+          <span class=hljs-attr>y2</span>=</span></span><span class=language-javascript>{yTick + (isBandwidth ? ($yScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span>) : <span class=hljs-number>0</span>)}</span><span class=language-xml><span class=hljs-tag>
+        ></span><span class=hljs-tag>&lt;/<span class=hljs-name>line</span>></span>
+      </span><span class=language-javascript>{</span><span class=hljs-keyword>/if</span><span class=language-javascript>}</span><span class=language-xml>
+      </span><span class=language-javascript>{</span><span class=hljs-keyword>#if</span><span class=language-javascript> tickMarks === <span class=hljs-literal>true</span>}</span><span class=language-xml>
+        <span class=hljs-tag>&lt;<span class=hljs-name>line</span>
+          <span class=hljs-attr>class</span>=<span class=hljs-string>'tick-mark'</span>
+          <span class=hljs-attr>x1</span>=<span class=hljs-string>'0'</span>
+          <span class=hljs-attr>x2</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{isBandwidth ? -<span class=hljs-number>6</span> : <span class=hljs-number>6</span>}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span>
+          <span class=hljs-attr>y1</span>=</span></span><span class=language-javascript>{yTick + (isBandwidth ? ($yScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span>) : <span class=hljs-number>0</span>)}</span><span class=language-xml><span class=hljs-tag>
+          <span class=hljs-attr>y2</span>=</span></span><span class=language-javascript>{yTick + (isBandwidth ? ($yScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span>) : <span class=hljs-number>0</span>)}</span><span class=language-xml><span class=hljs-tag>
+        ></span><span class=hljs-tag>&lt;/<span class=hljs-name>line</span>></span>
+      </span><span class=language-javascript>{</span><span class=hljs-keyword>/if</span><span class=language-javascript>}</span><span class=language-xml>
+      <span class=hljs-tag>&lt;<span class=hljs-name>text</span>
+        <span class=hljs-attr>x</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{xTick}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span>
+        <span class=hljs-attr>y</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{yTick + (isBandwidth ? $yScale.<span class="hljs-title function_">bandwidth</span>() / <span class=hljs-number>2</span> : <span class=hljs-number>0</span>)}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span>
+        <span class=hljs-attr>dx</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{isBandwidth ? -<span class=hljs-number>9</span> : dxTick}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span>
+        <span class=hljs-attr>dy</span>=<span class=hljs-string>'</span></span></span><span class=language-javascript>{isBandwidth ? <span class=hljs-number>4</span> : dyTick}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>'</span>
+        <span class=hljs-attr>style</span>=<span class=hljs-string>"text-anchor:</span></span></span><span class=language-javascript>{isBandwidth ? <span class=hljs-string>'end'</span> : textAnchor}</span><span class=language-xml><span class=hljs-tag><span class=hljs-string>;"</span>
+      ></span></span><span class=language-javascript>{<span class="hljs-title function_">formatTick</span>(tick)}</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>text</span>></span>
+    <span class=hljs-tag>&lt;/<span class=hljs-name>g</span>></span>
+  </span><span class=language-javascript>{</span><span class=hljs-keyword>/each</span><span class=language-javascript>}</span><span class=language-xml>
+<span class=hljs-tag>&lt;/<span class=hljs-name>g</span>></span>
+
+<span class=hljs-tag>&lt;<span class=hljs-name>style</span>></span></span><span class=language-css>
+  <span class=hljs-selector-class>.tick</span> {
+    <span class=hljs-attribute>font-size</span>: .<span class=hljs-number>725em</span>;
+    <span class=hljs-attribute>font-weight</span>: <span class=hljs-number>200</span>;
+  }
+
+  <span class=hljs-selector-class>.tick</span> line {
+    stroke: <span class=hljs-number>#aaa</span>;
+  }
+  <span class=hljs-selector-class>.tick</span> <span class=hljs-selector-class>.gridline</span> {
+    stroke-dasharray: <span class=hljs-number>2</span>;
+  }
+
+  <span class=hljs-selector-class>.tick</span> text {
+    fill: <span class=hljs-number>#666</span>;
+  }
+
+  <span class=hljs-selector-class>.tick</span><span class=hljs-selector-class>.tick-0</span> line {
+    stroke-dasharray: <span class=hljs-number>0</span>;
+  }
+</span><span class=language-xml><span class=hljs-tag>&lt;/<span class=hljs-name>style</span>></span></span></pre> </div><div class=contents style=display:none><pre class=svelte-m4suor>myX,myY
+1979,7.19
+1980,7.83
+1981,7.24
+1982,7.44
+1983,7.51
+1984,7.1
+1985,6.91
+1986,7.53
+1987,7.47
+1988,7.48
+1989,7.03
+1990,6.23
+1991,6.54
+1992,7.54
+1993,6.5
+1994,7.18
+1995,6.12
+1996,7.87
+1997,6.73
+1998,6.55
+1999,6.23
+2000,6.31
+2001,6.74
+2002,5.95
+2003,6.13
+2004,6.04
+2005,5.56
+2006,5.91
+2007,4.29
+2008,4.72
+2009,5.38
+2010,4.92
+2011,4.61
+2012,3.62
+2013,5.35
+2014,5.28
+2015,4.63
+2016,4.72</pre> </div></div></div></div></main> <script type=application/json data-type=svelte-data data-url=Scatter.json>{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"main\":{\"title\":\"index.svelte\",\"contents\":\"\u003Cscript\u003E\\n  import { LayerCake, Svg, Canvas } from 'layercake';\\n\\n  import ScatterSvg from '.\u002Fcomponents\u002FScatter.svg.svelte';\\n  import ScatterCanvas from '.\u002Fcomponents\u002FScatter.canvas.svelte';\\n  import Voronoi from '.\u002Fcomponents\u002FVoronoi.svelte';\\n  import AxisX from '.\u002Fcomponents\u002FAxisX.svelte';\\n  import AxisY from '.\u002Fcomponents\u002FAxisY.svelte';\\n\\n  \u002F\u002F This example loads csv data as json using @rollup\u002Fplugin-dsv\\n  import data from '.\u002Fdata\u002Fpoints.csv';\\n\\n  const xKey = 'myX';\\n  const yKey = 'myY';\\n\\n  data.forEach(d =\u003E {\\n    d[yKey] = +d[yKey];\\n  });\\n\\n  const r = 3;\\n  const padding = 10;\\n  const color = '#fff';\\n\u003C\u002Fscript\u003E\\n\\n\u003Cstyle\u003E\\n  \u002F*\\n    The wrapper div needs to have an explicit width and height in CSS.\\n    It can also be a flexbox child or CSS grid element.\\n    The point being it needs dimensions since the \u003CLayerCake\u003E element will\\n    expand to fill it.\\n  *\u002F\\n  .chart-container {\\n    width: 100%;\\n    height: 100%;\\n  }\\n\u003C\u002Fstyle\u003E\\n\\n\u003Cdiv class=\\\"chart-container\\\"\u003E\\n  \u003CLayerCake\\n    padding={{ top: 10, right: 5, bottom: 20, left: 25 }}\\n    x={xKey}\\n    y={yKey}\\n    xPadding={[padding, padding]}\\n    yPadding={[padding, padding]}\\n    data={data}\\n  \u003E\\n    \u003CSvg\u003E\\n      \u003CAxisX\u002F\u003E\\n      \u003CAxisY\\n        ticks={4}\\n      \u002F\u003E\\n    \u003C\u002FSvg\u003E\\n\\n    \u003CCanvas\u003E\\n      \u003CScatterCanvas\\n        r={r * 1.5}\\n        fill={'#0cf'}\\n      \u002F\u003E\\n    \u003C\u002FCanvas\u003E\\n\\n    \u003CSvg\u003E\\n      \u003CScatterSvg\\n        {r}\\n        fill={color}\\n      \u002F\u003E\\n      \u003CVoronoi\u002F\u003E\\n    \u003C\u002FSvg\u003E\\n  \u003C\u002FLayerCake\u003E\\n\u003C\u002Fdiv\u003E\"},\"dek\":\"\",\"components\":[{\"title\":\".\u002Fcomponents\u002FScatter.svg.svelte\",\"contents\":\"\u003Cscript\u003E\\n  \u002F**\\n    Generates an SVG scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https:\u002F\u002Flayercake.graphics\u002Fexample\u002FTimeplot) for an example.\\n    @type {Number} [r=5] – The circle's radius.\\n    @type {String} [fill='#0cf'] – The circle's fill color.\\n    @type {String} [stroke='#000'] – The circle's stroke color.\\n    @type {Number} [strokeWidth=1] – The circle's stroke width.\\n  *\u002F\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');\\n\\n  export let r = 5;\\n  export let fill = '#0cf';\\n  export let stroke = '#000';\\n  export let strokeWidth = 0;\\n\u003C\u002Fscript\u003E\\n\\n\u003Cg class=\\\"scatter-group\\\"\u003E\\n  {#each $data as d}\\n    \u003Ccircle\\n      cx={$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() \u002F 2 : 0)}\\n      cy={$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() \u002F 2 : 0)}\\n      {r}\\n      {fill}\\n      {stroke}\\n      stroke-width={strokeWidth}\\n    \u002F\u003E\\n  {\u002Feach}\\n\u003C\u002Fg\u003E\"},{\"title\":\".\u002Fcomponents\u002FScatter.canvas.svelte\",\"contents\":\"\u003Cscript\u003E\\n  \u002F**\\n    Generates a canvas scatter plot.\\n    @type {Number} [r=5] – The circle's radius.\\n    @type {String} [fill='#0cf'] – The circle's fill color.\\n    @type {String} [stroke='#000'] – The circle's stroke color.\\n    @type {Number} [strokeWidth=1] – The circle's stroke width.\\n  *\u002F\\n  import { getContext } from 'svelte';\\n  import { scaleCanvas } from 'layercake';\\n\\n  const { data, xGet, yGet, width, height } = getContext('LayerCake');\\n\\n  const { ctx } = getContext('canvas');\\n\\n  export let r = 5;\\n  export let fill = '#0cf';\\n  export let stroke = '#000';\\n  export let strokeWidth = 1;\\n\\n  $: {\\n    if ($ctx) {\\n      \u002F* --------------------------------------------\\n       * If you were to have multiple canvas layers\\n       * maybe for some artistic layering purposes\\n       * put these reset functions in the first layer, not each one\\n       * since they should only run once per update\\n       *\u002F\\n      scaleCanvas($ctx, $width, $height);\\n      $ctx.clearRect(0, 0, $width, $height);\\n\\n      \u002F* --------------------------------------------\\n       * Draw our scatterplot\\n       *\u002F\\n      $data.forEach(d =\u003E {\\n        $ctx.beginPath();\\n        $ctx.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);\\n        $ctx.lineWidth = strokeWidth;\\n        $ctx.strokeStyle = stroke;\\n        $ctx.stroke();\\n        $ctx.fillStyle = fill;\\n        $ctx.fill();\\n      });\\n    }\\n  }\\n\u003C\u002Fscript\u003E\"},{\"title\":\".\u002Fcomponents\u002FVoronoi.svelte\",\"contents\":\"\u003Cscript\u003E\\n  \u002F**\\n    Generates a voronoi layer using [d3-delauney](https:\u002F\u002Fgithub.com\u002Fd3\u002Fd3-delauney).\\n    @type {String} [stroke=undefined] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.\\n  *\u002F\\n  import { getContext } from 'svelte';\\n  import { uniques } from 'layercake';\\n  import { Delaunay } from 'd3-delaunay';\\n\\n  const { data, xGet, yGet, width, height } = getContext('LayerCake');\\n\\n  export let stroke = undefined;\\n\\n  function log (point) {\\n    console.log(point, point.data);\\n  }\\n\\n  $: points = $data.map(d =\u003E {\\n    const point = [$xGet(d), $yGet(d)];\\n    point.data = d;\\n    return point;\\n  });\\n\\n  $: uniquePoints = uniques(points, d =\u003E d.join(), false);\\n\\n  $: voronoi = Delaunay.from(points).voronoi([0, 0, $width, $height]);\\n\\n\u003C\u002Fscript\u003E\\n\\n\u003Cstyle\u003E\\n  .voronoi-cell {\\n    fill: none;\\n    stroke: none;\\n    pointer-events: all;\\n  }\\n\\n  \u002F* Useful to testing but you'll want to disable this for production *\u002F\\n  .voronoi-cell:hover {\\n    stroke: #000;\\n  }\\n\u003C\u002Fstyle\u003E\\n\\n{#each uniquePoints as point, i}\\n  \u003Cpath\\n    style=\\\"{stroke ? `stroke:${stroke};` : ''}\\\"\\n    class=\\\"voronoi-cell\\\"\\n    d={voronoi.renderCell(i)}\\n    on:mouseover=\\\"{log(point)}\\\"\\n    on:focus=\\\"{log(point)}\\\"\\n  \u003E\u003C\u002Fpath\u003E\\n{\u002Feach}\"},{\"title\":\".\u002Fcomponents\u002FAxisX.svelte\",\"contents\":\"\u003Cscript\u003E\\n  \u002F**\\n    Generates an SVG x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.\\n    @type {Boolean} [gridlines=true] – Extend lines from the ticks into the chart space\\n    @type {Boolean} [tickMarks=false] – Show a vertical mark for each tick.\\n    @type {Boolean} [baseline=false] – Show a solid line at the bottom.\\n    @type {Boolean} [snapTicks=false] – Instead of centering the text on the first and the last items, align them to the edges of the chart.\\n    @type {Function} [formatTick=d =\u003E d] – A function that passes the current tick value and expects a nicely formatted value in return.\\n    @type {Number|Array|Function} [ticks] – If this is a number, it passes that along to the [d3Scale.ticks](https:\u002F\u002Fgithub.com\u002Fd3\u002Fd3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.\\n    @type {Number} [xTick=0] – TK\\n    @type {Number} [yTick=16] – The distance from the baseline to place each tick value.\\n  *\u002F\\n  import { getContext } from 'svelte';\\n\\n  const { width, height, xScale, yRange } = getContext('LayerCake');\\n\\n  export let gridlines = true;\\n  export let tickMarks = false;\\n  export let baseline = false;\\n  export let snapTicks = false;\\n  export let formatTick = d =\u003E d;\\n  export let ticks = undefined;\\n  export let xTick = 0;\\n  export let yTick = 16;\\n\\n  $: isBandwidth = typeof $xScale.bandwidth === 'function';\\n\\n  $: tickVals = Array.isArray(ticks) ? ticks :\\n    isBandwidth ?\\n      $xScale.domain() :\\n      typeof ticks === 'function' ?\\n        ticks($xScale.ticks()) :\\n          $xScale.ticks(ticks);\\n\\n  function textAnchor(i) {\\n    if (snapTicks === true) {\\n      if (i === 0) {\\n        return 'start';\\n      }\\n      if (i === tickVals.length - 1) {\\n        return 'end';\\n      }\\n    }\\n    return 'middle';\\n  }\\n\u003C\u002Fscript\u003E\\n\\n\u003Cg class='axis x-axis' class:snapTicks\u003E\\n  {#each tickVals as tick, i}\\n    \u003Cg class='tick tick-{ i }' transform='translate({$xScale(tick)},{$yRange[0]})'\u003E\\n      {#if gridlines !== false}\\n        \u003Cline class=\\\"gridline\\\" y1='{$height * -1}' y2='0' x1='0' x2='0'\u003E\u003C\u002Fline\u003E\\n      {\u002Fif}\\n      {#if tickMarks === true}\\n        \u003Cline class=\\\"tick-mark\\\" y1='{0}' y2='{6}' x1='{xTick || isBandwidth ? $xScale.bandwidth() \u002F 2 : 0}' x2='{xTick || isBandwidth ? $xScale.bandwidth() \u002F 2 : 0}'\u003E\u003C\u002Fline\u003E\\n      {\u002Fif}\\n      \u003Ctext\\n        x=\\\"{xTick || isBandwidth ? $xScale.bandwidth() \u002F 2 : 0}\\\"\\n        y='{yTick}'\\n        dx=''\\n        dy=''\\n        text-anchor='{textAnchor(i)}'\u003E{formatTick(tick)}\u003C\u002Ftext\u003E\\n    \u003C\u002Fg\u003E\\n  {\u002Feach}\\n  {#if baseline === true}\\n    \u003Cline class=\\\"baseline\\\" y1='{$height + 0.5}' y2='{$height + 0.5}' x1='0' x2='{$width}'\u003E\u003C\u002Fline\u003E\\n  {\u002Fif}\\n\u003C\u002Fg\u003E\\n\\n\u003Cstyle\u003E\\n  .tick {\\n    font-size: .725em;\\n    font-weight: 200;\\n  }\\n\\n  line,\\n  .tick line {\\n    stroke: #aaa;\\n    stroke-dasharray: 2;\\n  }\\n\\n  .tick text {\\n    fill: #666;\\n  }\\n\\n  .tick .tick-mark,\\n  .baseline {\\n    stroke-dasharray: 0;\\n  }\\n  \u002F* This looks slightly better *\u002F\\n  .axis.snapTicks .tick:last-child text {\\n    transform: translateX(3px);\\n  }\\n  .axis.snapTicks .tick.tick-0 text {\\n    transform: translateX(-3px);\\n  }\\n\u003C\u002Fstyle\u003E\"},{\"title\":\".\u002Fcomponents\u002FAxisY.svelte\",\"contents\":\"\u003Cscript\u003E\\n  \u002F**\\n    Generates an HTML y-axis.\\n    @type {Boolean} [gridlines=true] – Extend lines from the ticks into the chart space\\n    @type {Boolean} [tickMarks=false] – Show a vertical mark for each tick.\\n    @type {Function} [formatTick=d =\u003E d] – A function that passes the current tick value and expects a nicely formatted value in return.\\n    @type {Number|Array|Function} [ticks=4] – If this is a number, it passes that along to the [d3Scale.ticks](https:\u002F\u002Fgithub.com\u002Fd3\u002Fd3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.\\n    @type {Number} [xTick=0] – How far over to position the text marker.\\n    @type {Number} [dxTick=0] – Any optional value passed to the `dx` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.\\n    @type {Number} [yTick=0] – How far up and down to position the text marker.\\n    @type {Number} [dyTick=0] – Any optional value passed to the `dy` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.\\n  *\u002F\\n  import { getContext } from 'svelte';\\n\\n  const { padding, xRange, yScale } = getContext('LayerCake');\\n\\n  export let gridlines = true;\\n  export let tickMarks = false;\\n  export let formatTick = d =\u003E d;\\n  export let ticks = 4;\\n  export let xTick = 0;\\n  export let yTick = 0;\\n  export let dxTick = 0;\\n  export let dyTick = -4;\\n  export let textAnchor = 'start';\\n\\n  $: isBandwidth = typeof $yScale.bandwidth === 'function';\\n\\n  $: tickVals = Array.isArray(ticks) ? ticks :\\n    isBandwidth ?\\n      $yScale.domain() :\\n      typeof ticks === 'function' ?\\n        ticks($yScale.ticks()) :\\n          $yScale.ticks(ticks);\\n\u003C\u002Fscript\u003E\\n\\n\u003Cg class='axis y-axis' transform='translate({-$padding.left}, 0)'\u003E\\n  {#each tickVals as tick}\\n    \u003Cg class='tick tick-{tick}' transform='translate({$xRange[0] + (isBandwidth ? $padding.left : 0)}, {$yScale(tick)})'\u003E\\n      {#if gridlines !== false}\\n        \u003Cline\\n          class=\\\"gridline\\\"\\n          x2='100%'\\n          y1={yTick + (isBandwidth ? ($yScale.bandwidth() \u002F 2) : 0)}\\n          y2={yTick + (isBandwidth ? ($yScale.bandwidth() \u002F 2) : 0)}\\n        \u003E\u003C\u002Fline\u003E\\n      {\u002Fif}\\n      {#if tickMarks === true}\\n        \u003Cline\\n          class='tick-mark'\\n          x1='0'\\n          x2='{isBandwidth ? -6 : 6}'\\n          y1={yTick + (isBandwidth ? ($yScale.bandwidth() \u002F 2) : 0)}\\n          y2={yTick + (isBandwidth ? ($yScale.bandwidth() \u002F 2) : 0)}\\n        \u003E\u003C\u002Fline\u003E\\n      {\u002Fif}\\n      \u003Ctext\\n        x='{xTick}'\\n        y='{yTick + (isBandwidth ? $yScale.bandwidth() \u002F 2 : 0)}'\\n        dx='{isBandwidth ? -9 : dxTick}'\\n        dy='{isBandwidth ? 4 : dyTick}'\\n        style=\\\"text-anchor:{isBandwidth ? 'end' : textAnchor};\\\"\\n      \u003E{formatTick(tick)}\u003C\u002Ftext\u003E\\n    \u003C\u002Fg\u003E\\n  {\u002Feach}\\n\u003C\u002Fg\u003E\\n\\n\u003Cstyle\u003E\\n  .tick {\\n    font-size: .725em;\\n    font-weight: 200;\\n  }\\n\\n  .tick line {\\n    stroke: #aaa;\\n  }\\n  .tick .gridline {\\n    stroke-dasharray: 2;\\n  }\\n\\n  .tick text {\\n    fill: #666;\\n  }\\n\\n  .tick.tick-0 line {\\n    stroke-dasharray: 0;\\n  }\\n\u003C\u002Fstyle\u003E\"}],\"modules\":[],\"componentModules\":[],\"componentComponents\":[],\"csvs\":[{\"title\":\".\u002Fdata\u002Fpoints.csv\",\"contents\":\"myX,myY\\n1979,7.19\\n1980,7.83\\n1981,7.24\\n1982,7.44\\n1983,7.51\\n1984,7.1\\n1985,6.91\\n1986,7.53\\n1987,7.47\\n1988,7.48\\n1989,7.03\\n1990,6.23\\n1991,6.54\\n1992,7.54\\n1993,6.5\\n1994,7.18\\n1995,6.12\\n1996,7.87\\n1997,6.73\\n1998,6.55\\n1999,6.23\\n2000,6.31\\n2001,6.74\\n2002,5.95\\n2003,6.13\\n2004,6.04\\n2005,5.56\\n2006,5.91\\n2007,4.29\\n2008,4.72\\n2009,5.38\\n2010,4.92\\n2011,4.61\\n2012,3.62\\n2013,5.35\\n2014,5.28\\n2015,4.63\\n2016,4.72\"}],\"jsons\":[]}"}</script> </div> 

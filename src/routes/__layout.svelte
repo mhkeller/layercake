@@ -2,7 +2,7 @@
 	import '../app.css';
 	import '../hljs.css';
 
-	import Nav from '../site-components/Nav.svelte';
+	import Nav from './_site-components/Nav.svelte';
 </script>
 
 

@@ -25,7 +25,7 @@
 	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
-	import DownloadBtn from '../../site-components/DownloadBtn.svelte';
+	import DownloadBtn from '../_site-components/DownloadBtn.svelte';
 	import hljsDefineSvelte from '../../modules/hljsDefineSvelte.js';
 	import cleanTitle from '../../modules/cleanTitle.js';
 

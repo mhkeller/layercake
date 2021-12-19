@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	// import GuideContents from '../site-components/GuideContents.svelte';
+	import GuideContents from '../site-components/GuideContents.svelte';
 	import examples from '../routes/_examples.js';
 	import examplesSsr from '../routes/_examples_ssr.js';
 
@@ -24,10 +24,6 @@
 		type = path.split('/')[1];
 		segment = `/${path.replace('/', '')}`;
 		slug = path.replace(/\/$/, '').split('/').pop();
-		console.log('path', path, path.split('/'), path.split('/')[1]);
-		console.log('type', type);
-		console.log('segment', segment);
-		console.log('slug', slug);
 	}
 
 	// $: console.log('segment', segment)
@@ -317,6 +313,22 @@
 			transform: none;
 		}
 
+		#github-link {
+			width: 20px;
+			background: url(/static/github-logo.svg);
+			background-repeat: no-repeat;
+			position: relative;
+			top: 3px;
+		}
+
+		#github-link:hover:after {
+			content: ' ';
+			position: absolute;
+			width: 20px;
+			bottom: -3px;
+			border-top: 1px solid #000;
+		}
+
 		option.header {
 			font-weight: bold;
 		}
@@ -358,10 +370,10 @@
 	<ul class='primary'>
 		<li><a sveltekit:prefetch class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'>Component gallery</a></li>
 		<li><a sveltekit:prefetch class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
-		<li><a href='https://github.com/mhkeller/layercake'>GitHub</a></li>
+		<li><a id="github-link" href='https://github.com/mhkeller/layercake'></a></li>
 	</ul>
 
 	<div class='secondary'>
-		<!-- <GuideContents {sections} bind:open={open} /> -->
+		<GuideContents {sections} bind:open={open} />
 	</div>
 </nav>

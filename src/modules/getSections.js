@@ -51,7 +51,7 @@ function getHash (str) {
 
 export const demos = new Map();
 
-export default function () {
+export default function (opts = { returnHtml: true }) {
 	const store = {};
 	return fs
 		.readdirSync(`src/content/guide`)
@@ -184,7 +184,7 @@ export default function () {
 			}
 
 			return {
-				html: html.replace(/@@(\d+)/g, (m, id) => hashes[id] || m),
+				html: opts.returnHtml === true ? html.replace(/@@(\d+)/g, (m, id) => hashes[id] || m) : null,
 				metadata,
 				subsections,
 				slug: file.replace(/^\d+-/, '').replace(/\.md$/, ''),

@@ -2,7 +2,7 @@
 	import { toAuto } from 'do-not-zip';
 	import { uniques } from 'layercake';
 
-	import downloadBlob from '../modules/downloadBlob.js';
+	import downloadBlob from '../../modules/downloadBlob.js';
 
 	export let data;
 	export let slug;

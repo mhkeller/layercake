@@ -26,8 +26,8 @@ export async function handle({ request, resolve }) {
   if (prerendering && response.headers['content-type'] === 'text/html') {
 		response.body = minify(response.body, minification_options);
   }
-	console.log('req', Object.keys(request), request.path);
-	console.log('handling3', Object.keys(response), response.body);
+	// console.log('req', Object.keys(request), request.path);
+	// console.log('handling3', Object.keys(response), response.body);
 
   return response;
 }

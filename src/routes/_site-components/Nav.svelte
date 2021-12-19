@@ -1,26 +1,3 @@
-<script context="module">
-	// import { mode } from '$app/env';
-
-	export async function load({ fetch }) {
-		const res = await fetch(`http://localhost:3000/api/guide-sections.json`);
-		const data = await res.json();
-
-		console.log('data', data)
-
-		if (res.status === 200) {
-			return {
-				props: {
-					sections: data
-				}
-			};
-		} else {
-			return {
-				status: res.status,
-				error: new Error(`Could not load ${url}: ${data.message}`)
-			}
-		}
-	}
-</script>
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -30,8 +7,6 @@
 	import examplesSsr from '../_examples_ssr.js';
 
 	export let sections;
-
-	$: console.log('sect', sections)
 
 	let slug = '';
 	let path;
@@ -62,7 +37,6 @@
 
 	function loadPage () {
 		open = false;
-		console.log('this value', this.value);
 		goto(this.value || '/');
 	}
 
@@ -235,8 +209,9 @@
 	}
 
 	.secondary {
-			font-family: Helvetica, sans-serif;
-			padding-bottom: 2em;
+		font-family: Helvetica, sans-serif;
+		padding-bottom: 2em;
+		margin-top: 28px;
 	}
 
 	.short-name {

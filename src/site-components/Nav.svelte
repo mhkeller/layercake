@@ -1,3 +1,11 @@
+<script context="module">
+	export async function load({ params, fetch }) {
+		return fetch(`api/guide-sections`).then(r => r.json()).then(sections => {
+			// return { props: { sections: [] } };
+			return { props: { sections } };
+		});
+	}
+</script>
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -316,7 +324,7 @@
 		#github-link {
 			width: 22px;
 			height: 2px;
-			background: url(/static/github-logo.svg);
+			background: url(/github-logo.svg);
 			background-repeat: no-repeat;
 			position: relative;
 			top: 4px;
@@ -371,7 +379,7 @@
 	<ul class='primary'>
 		<li><a sveltekit:prefetch class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'>Component gallery</a></li>
 		<li><a sveltekit:prefetch class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
-		<li><a id="github-link" href='https://github.com/mhkeller/layercake'></a></li>
+		<li><a id="github-link" href='https://github.com/mhkeller/layercake'> </a></li>
 	</ul>
 
 	<div class='secondary'>

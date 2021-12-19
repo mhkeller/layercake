@@ -314,11 +314,12 @@
 		}
 
 		#github-link {
-			width: 20px;
+			width: 22px;
+			height: 2px;
 			background: url(/static/github-logo.svg);
 			background-repeat: no-repeat;
 			position: relative;
-			top: 3px;
+			top: 4px;
 		}
 
 		#github-link:hover:after {

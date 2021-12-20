@@ -37,13 +37,12 @@
 		}
 	},
 	"include": [
-		"src/_components/*.svelte",
-		"src/_components_ssr/*.svelte",
-		"src/_examples/*.svelte",
-		"src/_examples_ssr/*.svelte",
-		"src/_examples_ssr/*.svelte",
-		"src/lib/lib/*.js",
-		"src/lib/lib/layouts/*.svelte",
-		"src/lib/*.svelte"
+		"src/**/*.d.ts",
+		"src/**/*.js",
+		"src/**/*.ts",
+		"src/**/*.svelte"
+	],
+	"exclude": [
+		"./src/data/*",
 	]
 }

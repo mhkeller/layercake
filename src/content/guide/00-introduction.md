@@ -16,6 +16,11 @@ Layer Cake is more about having a system to organize your own custom components 
 
 > Layer Cake uses D3 scales. See more in the [xScale](/guide#xscale), [yScale](/guide#yscale), [zScale](/guide#zscale) and [rScale](/guide#rscale) sections of the [Layer Cake Props API](/guide#layercake-props).
 
+### Key Concepts
+
+1. Layer components exist inside your own project. Layer Cake doesn't have any built-in concept of what a bar chart or column chart is, for example. It is a tool to give you scales and empty containers to draw on.
+2. Layer Cake needs a flat array of objects to measure the extents of your data. In most cases, what you pass in to the `data` prop is already a flat array of objects. In some cases, though, like [multi-series line](/example/MultiLine) charts or [maps](/example/MapSvg), your data needs to take on a more complex shape. In these instances, pass in a flat array of objects to the [`flatData`](/guide#flatdata) prop and your accessors will be called on each object in order to calculate your scale extents.
+
 ### Getting started
 
 Install Layer Cake in your `devDependencies` alongside Svelte.

@@ -171,6 +171,7 @@
 		box-sizing: border-box;
 	}
 
+	#dek a code,
 	#dek a {
 		color: #ff3e00;
 		text-decoration: none;

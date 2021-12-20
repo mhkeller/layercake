@@ -2,14 +2,17 @@ import { normalizePath } from 'vite';
 import path from 'path';
 import adapter from '@sveltejs/adapter-auto';
 import dsv from '@rollup/plugin-dsv';
+import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	root: normalizePath(path.resolve('./')),
+
+	preprocess: preprocess(),
+
 	kit: {
 		adapter: adapter(),
 
-		// hydrate the <div id="svelte"> element in src/app.html
 		target: 'body',
 		package: {
 			exports: (filepath) => {

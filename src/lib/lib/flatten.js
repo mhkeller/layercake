@@ -1,6 +1,6 @@
 /**
 	Flatten arrays of arrays one level deep
-	@type {array} list The list to flatten.
+	@param {array} list The list to flatten.
 	@returns {array}
 */
 export default function flatten (list) {

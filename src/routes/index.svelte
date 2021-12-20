@@ -1,59 +1,74 @@
 <script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
-<script>
 	import hljs from 'highlight.js';
-	import examples from './_examples.js';
-	import examplesSsr from './_examples_ssr.js';
 	import hljsDefineSvelte from '../modules/hljsDefineSvelte.js';
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
-
 	hljsDefineSvelte(hljs);
 
-	const codeExample = `<script>
-	// The library provides a main wrapper component
-	// and a bunch empty layout components...
-	import { LayerCake, Svg, Html, Canvas } from 'layercake';
+	export const prerender = true;
 
-	// ...that you fill with your own chart components,
-	// that live inside your project and which you
-	// can copy and paste from here as starting points.
-	chunk
+	export async function load() {
+		const codebase = `<script>
+			// The library provides a main wrapper component
+			// and a bunch empty layout components...
+			import { LayerCake, Svg, Html, Canvas } from 'layercake';
 
-	const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }];
-<\/script>
+			// ...that you fill with your own chart components,
+			// that live inside your project and which you
+			// can copy and paste from here as starting points.
+			import AxisX from './components/AxisX.svelte';
+			import AxisY from './components/AxisY.svelte';
+			import Line from './components/Line.svelte';
+			import Scatter from './components/Scatter.svelte';
+			import Labels from './components/Labels.svelte';
 
-<style>
-	.chart-container {
-		width: 100%;
-		height: 500px;
+			const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }];
+		<\/script>
+
+		<style>
+			.chart-container {
+				width: 100%;
+				height: 500px;
+			}
+		</style>
+
+		<div class="chart-container">
+			<LayerCake
+				x='x'
+				y='y'
+				{data}
+			>
+				<Svg>
+					<AxisX/>
+					<AxisY/>
+					<Line color='#f0c'/>
+				</Svg>
+
+				<Canvas>
+					<Scatter color='#0fc'/>
+				</Canvas>
+
+				<Html>
+					<Labels/>
+				</Html>
+			</LayerCake>
+		</div>`.trim().replace(/\t/g, '  ');
+
+		const codeExample = hljs.highlight(codebase, { language: 'svelte' }).value;
+
+		return {
+			props: {
+				codeExample
+			}
+		}
 	}
-</style>
+</script>
 
-<div class="chart-container">
-	<LayerCake
-		x='x'
-		y='y'
-		{data}
-	>
-		<Svg>
-			<AxisX/>
-			<AxisY/>
-			<Line color='#f0c'/>
-		</Svg>
+<script>
+	import examples from './_examples.js';
+	import examplesSsr from './_examples_ssr.js';
 
-		<Canvas>
-			<Scatter color='#0fc'/>
-		</Canvas>
-
-		<Html>
-			<Labels/>
-		</Html>
-	</LayerCake>
-</div>`.trim().replace(/\t/g, '  ');
-
+	export let codeExample;
 </script>
 
 <style>
@@ -210,7 +225,7 @@
 	</div>
 
 	<div class="code-example">
-		<pre>{@html hljs.highlight(codeExample.replace('chunk', `import AxisX from './components/AxisX.svelte';\n  import AxisY from './components/AxisY.svelte';\n  import Line from './components/Line.svelte';\n  import Scatter from './components/Scatter.svelte';\n  import Labels from './components/Labels.svelte';`), { language: 'svelte' }).value}</pre>
+		<pre>{@html codeExample }</pre>
 	</div>
 
 	<div id="gallery">

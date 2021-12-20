@@ -6,8 +6,8 @@
 	[{ x: 0, y: -10 }, { x: 10, y: 0 }, { x: 5, y: 10 }]
 	Returns an object like:
 	`{ x: [0, 10], y: [-10, 10] }`
-	@type {Array<Object>} data A flat array of objects.
-	@type {Object} fields An object containing `x`, `y`, `r` or `z` keys that equal an accessor function.
+	@param {Array<Object>} data A flat array of objects.
+	@param {Object} fields An object containing `x`, `y`, `r` or `z` keys that equal an accessor function.
 	@returns {Object} An object with the same structure as `fields` but instead of an accessor, each key contains an array of a min and a max.
 */
 export default function calcExtents (data, fields) {

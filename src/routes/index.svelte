@@ -210,7 +210,7 @@
 	</div>
 
 	<div class="code-example">
-		<pre>{@html hljs.highlight(codeExample.replace('chunk', `import AxisX from './components/AxisX.svelte';\n  import AxisY from './components/AxisY.svelte';\n  import Line from './components/Line.svelte';\n  import Scatter from './components/Scatter.svelte';\n  import Labels from './components/Labels.svelte';`), { language: 'svelte' }).value}</pre>
+		<pre>{@html hljs.highlight(codeExample.replace('chunk', `import AxisX from './components/AxisX.svelte';\n  import AxisY from './components/AxisY.svelte';\n  import Line from './components/Line.svelte';\n  import Scatter from './components/Scatter.svelte';\n  import Labels from './components/Labels.svelte';`).replace(' *{}', '').replace('}\n\n', '}\n'), { language: 'svelte' }).value}</pre>
 	</div>
 
 	<div id="gallery">

@@ -1,9 +1,9 @@
 <script>
 	/**
 		Generates a voronoi layer using [d3-delauney](https://github.com/d3/d3-delauney).
-		@type {String} [stroke=undefined] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
+		@type {String} [stroke=undefined] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
 	*/
-	import { getContext } from 'svelte';
+	import { getContext, createEventDispatcher } from 'svelte';
 	import { uniques } from 'layercake';
 	import { Delaunay } from 'd3-delaunay';
 
@@ -11,8 +11,11 @@
 
 	export let stroke = undefined;
 
+	let dispatcher = createEventDispatcher();
+
 	function log (point) {
 		console.log(point, point.data);
+		dispatcher('voronoi-mouseover', point);
 	}
 
 	$: points = $data.map(d => {
@@ -23,7 +26,7 @@
 
 	$: uniquePoints = uniques(points, d => d.join(), false);
 
-	$: voronoi = Delaunay.from(points).voronoi([0, 0, $width, $height]);
+	$: voronoi = Delaunay.from(uniquePoints).voronoi([0, 0, $width, $height]);
 
 </script>
 
@@ -32,11 +35,13 @@
 		fill: none;
 		stroke: none;
 		pointer-events: all;
+		outline: none;
 	}
 
 	/* Useful to testing but you'll want to disable this for production */
 	.voronoi-cell:hover {
 		stroke: #000;
+		stroke-width: 2px;
 	}
 </style>
 
@@ -45,7 +50,7 @@
 		style="{stroke ? `stroke:${stroke};` : ''}"
 		class="voronoi-cell"
 		d={voronoi.renderCell(i)}
-		on:mouseover="{log(point)}"
-		on:focus="{log(point)}"
+		on:mouseover="{() => { log(point) }}"
+		on:focus="{() => { log(point) }}"
 	></path>
 {/each}

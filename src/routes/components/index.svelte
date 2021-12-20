@@ -119,6 +119,12 @@
 <div id="container" bind:this={container}>
 	<h2>Components</h2>
 
+	<div id="dek">
+		<p>Because Layer Cake doesn't come with any pre-built components, here are a few options to get you started. These are meant to serve as starting points for many common chart types. They have a few built-in options to be flexible for handling different scenarios so they can be reused as much as possible. For example, the <a href="/components/Scatter.svg.svelte" sveltekit:prefetch target="_blank">Scatter</a> components support both linear and ordinal scales so you can use them in configurations like a regular <a href="/example/Scatter" sveltekit:prefetch target="_blank">Scatter plot</a> but also charts like the <a href="/example/Timeplot" sveltekit:prefetch target="_blank">Time of Day</a> plot where the y-scale is made up of groups.</p>
+
+		<p>Some componens have HTML, SVG and Canvas versions and those marked as <span class="label percent-range">%-range</span> are optimized to be used server-side with the <a href="/guide#percentrange"><code>percentRange={true}</code></a> prop.</p>
+	</div>
+
 	{#each componentGroups as componentGroup}
 		<h3 id="{slugify(componentGroup.name)}">{componentGroup.name}</h3>
 		<div class="component-blocks">
@@ -163,6 +169,18 @@
 		margin-top: -7rem;
 		padding: 7em 0 2em 2em;
 		box-sizing: border-box;
+	}
+
+	#dek a {
+		color: #ff3e00;
+		text-decoration: none;
+	}
+	#dek a:hover {
+		text-decoration: underline;
+	}
+
+	#dek {
+		width: 80%;
 	}
 
 	sidebar ul {
@@ -242,6 +260,10 @@
 	}
 
 	@media (max-width: 1150px) {
+
+		#dek {
+			width: 95%;
+		}
 		.component-block {
 			width: 43%;
 		}
@@ -283,6 +305,7 @@
 		white-space: nowrap;
 	}
 
+	span.label,
 	.component-blocks :global(.label) {
 		padding: 0 4px;
 		display: inline-block;
@@ -306,6 +329,7 @@
 		color: #fff;
 	}
 
+	span.label.percent-range,
 	.component-blocks :global(.label.percent-range) {
 		background-color: #c0f;
 		color: #fff;

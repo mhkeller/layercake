@@ -1,8 +1,8 @@
 import { normalizePath } from 'vite';
 import path from 'path';
-import adapter from '@sveltejs/adapter-auto';
 import dsv from '@rollup/plugin-dsv';
 import preprocess from 'svelte-preprocess';
+import adapter from '@sveltejs/adapter-static';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,7 +11,11 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({
+			// default options are shown
+			pages: 'docs',
+			fallback: null
+		}),
 
 		target: 'body',
 		package: {

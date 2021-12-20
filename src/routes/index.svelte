@@ -13,8 +13,13 @@
 	hljsDefineSvelte(hljs);
 
 	const codeExample = `<script>
+	// The library provides a main wrapper component
+	// and a bunch empty layout components...
 	import { LayerCake, Svg, Html, Canvas } from 'layercake';
 
+	// ...that you fill with your own chart components,
+	// that live inside your project and which you
+	// can copy and paste from here as starting points.
 	chunk
 
 	const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }];
@@ -198,6 +203,8 @@
 
 	<div id="dek">
 		<p>Layer Cake is a graphics framework for <a href="https://svelte.dev" target="_blank" rel="noopener">Svelte</a>. It uses the measurements of your target div and your data extents to create scales that <span class="strong">stay synced</span> on layout changes. Use these scales to organize multiple, <span class="strong">mostly-reusable Svelte components</span>, whether they be SVG, HTML, Canvas or WebGL. Since they all share the same coordinate space, you can build your graphic one layer at a time. It can also be used to easily create <span class="strong">responsive graphics server-side</span> that <a href="#server-side">work without JavaScript</a>.</p>
+
+		<p>Unlike other libraries, <a href="/components" sveltekit:prefetch>chart components</a> live <span class="strong">inside your project</span>, so you have complete control for <span class="strong">customization</span>.</p>
 
 		<p>Read the <a href="guide" sveltekit:prefetch>guide</a>, try the <a href="https://github.com/mhkeller/layercake-template" target="_blank" rel="nofollow">starter template</a> or check out <a href="components" sveltekit:prefetch>example components</a>. See the examples below and even edit them live. Here's a sample of what the code looks like:</p>
 	</div>

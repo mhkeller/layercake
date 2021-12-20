@@ -1,14 +1,26 @@
 <script context="module">
-	export async function preload({ params, query }) {
-		return this.fetch(`api/guide`).then(r => r.json()).then(sections => {
-			return { sections };
-		});
+	export async function load({ fetch }) {
+		const res = await fetch('guide.json');
+		const data = await res.json();
+
+		if (res.status === 200) {
+			return {
+				props: {
+					sections: data
+				}
+			};
+		} else {
+			return {
+				status: res.status,
+				error: new Error(`Could not load ${url}`)
+			}
+		}
 	}
 </script>
 
 <script>
 	import { afterUpdate } from 'svelte';
-	import GuideContents from '../../site-components/GuideContents.svelte';
+	import GuideContents from '../_site-components/GuideContents.svelte';
 
 	export let sections;
 
@@ -119,10 +131,6 @@
 
 	section :global(.code-block) {
 		position: relative;
-	}
-
-	section :global(.code-block).named {
-		/* padding: 20px 0 0 0; */
 	}
 
 	section :global(.filename) {
@@ -351,7 +359,7 @@
 		<section id='{section.slug}'>
 			<h2>
 				{section.metadata.title}
-				<small><a href='https://github.com/mhkeller/layercake-examples/edit/master/src/content/guide/{section.file}' target="_blank" rel="nofollow">edit this section</a></small>
+				<small><a href='https://github.com/mhkeller/layercake/edit/master/src/content/guide/{section.file}' target="_blank" rel="nofollow">edit this section</a></small>
 			</h2>
 			{@html section.html}
 		</section>

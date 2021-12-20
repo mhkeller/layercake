@@ -156,20 +156,45 @@ Same as [xRange](/guide#xrange-1) above but for the r domain.
 
 ### xGet(d: `Object`)
 
-Often you want to get the x value from a row in your data and scale it like so: `$xScale($x(d))`. This function is shorthand for doing just that. Super handy!
+Often you want to get the x value from a row in your data and scale it like so: `$xScale($x(d))`. Avoid that confusing syntax with this function like so `$xGet(d)`.
 
-Here's an example from a simple SVG line path generator:
+Why use this? Hard coding key names into your components makes them less reusable. By using the [x](/guide#x), [y](/guide#y), [z](/guide#z) and [z](/guide#z) accessors, you can use the same component across projects. Or, you can use the same component to render different fields from one dataset across separate charts in the same project, say using small multiples. You can use the same component and just alter the accessor.
 
-```js
+Here are a few examples to show how it working and what it's equivalent to:
+
+```html
+<script>
 import { getContext } from 'svelte';
 
-const { data, xGet, yGet } = getContext('LayerCake');
+const { data, x, xScale, xGet } = getContext('LayerCake');
 
-$: path=  'M' + $data
-  .map(d => {
-    return $xGet(d) + ',' + $yGet(d);
-  })
-  .join('L');
+// data === [{ myX: 'hello', myY: 'hi }];
+</script>
+
+{#each data as d}
+  <!-- These are equivalent: -->
+  d.myX === $x(d);
+  $xScale(d.myX) === $xScale($x(d)) === $xGet(d);
+{/each}
+```
+
+Here's an example from a simple scatter plot:
+
+```html
+<script>
+  import { getContext } from 'svelte';
+
+  const { data, xGet, yGet } = getContext('LayerCake');
+</script>
+
+{#each $data as d}
+  <circle
+    cx={$xGet(d)}
+    cy={$yGet(d)}
+    r="5"
+    fill="#000"
+  />
+{/each}
 ```
 
 ### yGet(d: `Object`)

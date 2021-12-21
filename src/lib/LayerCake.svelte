@@ -44,16 +44,16 @@
 	 *
 	 */
 
-	/** @type {String|Function|Number|String[]|Function[]|Number[]} x The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of any one of them. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|Array} x The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of any combination. This property gets converted to a function when you access it through the context. */
 	export let x = undefined;
-	/** @type {String|Function|Number|String[]|Function[]|Number[]} y The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of any one of them. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|Array} y The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of any combination. This property gets converted to a function when you access it through the context. */
 	export let y = undefined;
-	/** @type {String|Function|Number|String[]|Function[]|Number[]} z The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of any one of them. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|Array} z The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of any combination. This property gets converted to a function when you access it through the context. */
 	export let z = undefined;
-	/** @type {String|Function|Number|String[]|Function[]|Number[]} r The r accessor. The key in each row of data that corresponds to the r-field. This can be a string, an accessor function, a number or an array of any one of them. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|Array} r The r accessor. The key in each row of data that corresponds to the r-field. This can be a string, an accessor function, a number or an array of any combination. This property gets converted to a function when you access it through the context. */
 	export let r = undefined;
 
-	/** @type {Array|Object} [data=[]] */
+	/** @type {Array|Object} [data=[]] If `data` is not a flat array of objects and you want to use any of the scales, set a flat version of the data via the `flatData` prop. */
 	export let data = [];
 
 	/** @type {[min: Number, max: Number]} [xDomain] Set a min or max. If you want to inherit the value from the data's extent, set that value to `null`. */
@@ -93,25 +93,26 @@
 	/** @type {Function} [yScale=d3.scaleLinear] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let yScale = defaultScales.y;
 	/** @type {Function} [zScale=d3.scaleLinear] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
-	export let zScale = defaultScales.y;
+	export let zScale = defaultScales.z;
 	/** @type {Function} [rScale=d3.scaleSqrt] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let rScale = defaultScales.r;
-	/** @type {[min: Number, max: Number]|Function} [xRange] Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides xReverse. */
+	/** @type {[min: Number, max: Number]|Function} [xRange] Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `xReverse`. */
 	export let xRange = undefined;
-	/** @type {[min: Number, max: Number]|Function} [xRange] Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides yReverse. */
+	/** @type {[min: Number, max: Number]|Function} [xRange] Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `yReverse`. */
 	export let yRange = undefined;
-	/** @type {[min: Number, max: Number]|Function} [zRange] Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides zReverse. */
+	/** @type {[min: Number, max: Number]|Function} [zRange] Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `zReverse`. */
 	export let zRange = undefined;
-	/** @type {[min: Number, max: Number]|Function} [rRange] Override the default y range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. This overrides rReverse. */
+	/** @type {[min: Number, max: Number]|Function} [rRange] Override the default y range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `rReverse`. */
 	export let rRange = undefined;
 	/** @type {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}] */
 	export let padding = {};
 	/** @type {{ x?: [min: Number, max: Number], y?: [min: Number, max: Number], r?: [min: Number, max: Number], z?: [min: Number, max: Number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */
 	export let extents = {};
+
 	/** @type {Array} [flatData=data] A flat version of data. */
 	export let flatData = undefined;
 
-	/** @type {Object} custom */
+	/** @type {Object} custom Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants. */
 	export let custom = {};
 
 	/* --------------------------------------------

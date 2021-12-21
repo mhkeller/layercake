@@ -1,12 +1,12 @@
 <script>
 	/**
-		Generates an SVG area shape manually constructing the SVG path.
-		@type {String} [fill='#ab00d610'] – The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
-	*/
+	 * Generates an SVG area shape manually constructing the SVG path.
+	 */
 	import { getContext } from 'svelte';
 
 	const { data, xGet, yGet, xScale, yScale, extents } = getContext('LayerCake');
 
+	/**	@type {String} [fill='#ab00d610'] The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
 	export let fill = '#ab00d610';
 
 	$: path = 'M' + $data

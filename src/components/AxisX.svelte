@@ -1,4 +1,7 @@
 <script>
+	import { getContext } from 'svelte';
+	const { width, height, xScale, yRange } = getContext('LayerCake');
+
 	/**
 		Generates an SVG x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
 		@type {Boolean} [gridlines=true] – Extend lines from the ticks into the chart space
@@ -10,10 +13,6 @@
 		@type {Number} [xTick=0] – TK
 		@type {Number} [yTick=16] – The distance from the baseline to place each tick value.
 	*/
-	import { getContext } from 'svelte';
-
-	const { width, height, xScale, yRange } = getContext('LayerCake');
-
 	export let gridlines = true;
 	export let tickMarks = false;
 	export let baseline = false;

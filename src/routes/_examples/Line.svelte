@@ -44,7 +44,9 @@
 				ticks={4}
 			/>
 			<Line/>
-			<Area/>
+			<Area
+				fill='#000'
+			/>
 		</Svg>
 	</LayerCake>
 </div>

@@ -1,7 +1,7 @@
 <script>
 	/**
 		Generates an SVG marker containing a marker for a triangle makes a nice arrowhead. Add it to the named slot called "defs" on the SVG layout component.
-    @type {fill} [fill='#000'] – The arrowhead's fill color.
+    @type {String} [fill='#000'] – The arrowhead's fill color.
 	*/
 	export let fill = '#000';
 </script>

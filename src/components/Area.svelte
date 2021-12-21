@@ -1,7 +1,8 @@
+<!--
+	@component
+	Generates an SVG area shape manually constructing the SVG path.
+ -->
 <script>
-	/**
-	 * Generates an SVG area shape manually constructing the SVG path.
-	 */
 	import { getContext } from 'svelte';
 
 	/** @type {import('layercake').LayerCakeContext} */

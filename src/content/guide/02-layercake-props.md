@@ -133,7 +133,7 @@ Same as [xScale](/guide#xscale) but for the z scale. The default is `d3.scaleLin
 
 Same as [xScale](/guide#xscale) but for the r scale. The default is `d3.scaleSqrt()`.
 
-### xDomain `Array:[min: Number, max: Number]|String[]|Number[]`
+### xDomain `Array:[min: ?Number, max: ?Number]|String[]|Number[]`
 
 Set a min or max on the x scale. If you want to inherit the value from the data's extent, set that value to `null`.
 

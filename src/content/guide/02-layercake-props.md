@@ -337,7 +337,7 @@ Use it in conjunction with [`percentRange={true}`](guide#percentrange) to easily
 
 ### percentRange `Boolean=false`
 
-When rendering charts server side, you pretty much always want your scale range to be `[0, 100]` since you won't be able to base the range off of the target container's width. Use this convenience helper to set the min and max to be out of a hundred.
+When rendering charts server side, you pretty much always want your scale range to be `[0, 100]` since you won't be able to base the range off of the target container's width. Use this convenience helper to set the ranges for any field that has an accessor to just that.
 
 > The default range for the y-scale will be `[100, 0]` because `yReverse` defaults to `true`. All of the range reverse functions will work as usual with this.
 

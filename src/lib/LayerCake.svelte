@@ -21,12 +21,12 @@
 	export let pointerEvents = true;
 	/** @type {String} [position='relative'] Determine the positioning of the wrapper div. Set this to `'absolute'` when you want to stack cakes. */
 	export let position = 'relative';
-	/** @type {Boolean} [percentRange=false] Sets all scale ranges to `[0, 100]`*/
+	/** @type {Boolean} [percentRange=false] If `true`, set all scale ranges to `[0, 100]`*/
 	export let percentRange = false;
 
-	/** @type {Number} [width=containerWidth] Override the container width. */
+	/** @type {Number} [width=containerWidth] Override the automated width. */
 	export let width = undefined;
-	/** @type {Number} [height=containerHeight] Override container height. */
+	/** @type {Number} [height=containerHeight] Override the automated height. */
 	export let height = undefined;
 
 	/** @type {Number} [containerWidth=100] The bound container width. */
@@ -34,7 +34,7 @@
 	/** @type {Number} [containerHeight=100] The bound container height. */
 	export let containerHeight = height || 100;
 
-	/**	@type {Element} [element] The layercake-container `<div>` tag. Useful for bindings. */
+	/**	@type {Element} [element] The .layercake-container `<div>` tag. Useful for bindings. */
 	export let element = undefined;
 
 	/* --------------------------------------------
@@ -44,13 +44,13 @@
 	 *
 	 */
 
-	/** @type {String|Function|Number|[String|Function|Number]} x The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of strings, functions or numbers. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|String[]|Function[]|Number[]} x The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of any one of them. This property gets converted to a function when you access it through the context. */
 	export let x = undefined;
-	/** @type {String|Function|Number|[String|Function|Number]} y The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of strings, functions or numbers. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|String[]|Function[]|Number[]} y The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of any one of them. This property gets converted to a function when you access it through the context. */
 	export let y = undefined;
-	/** @type {String|Function|Number|[String|Function|Number]} z The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of strings, functions or numbers. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|String[]|Function[]|Number[]} z The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of any one of them. This property gets converted to a function when you access it through the context. */
 	export let z = undefined;
-	/** @type {String|Function|Number|[String|Function|Number]} r The r accessor. The key in each row of data that corresponds to the r-field. This can be a string, an accessor function, a number or an array of strings, functions or numbers. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|String[]|Function[]|Number[]} r The r accessor. The key in each row of data that corresponds to the r-field. This can be a string, an accessor function, a number or an array of any one of them. This property gets converted to a function when you access it through the context. */
 	export let r = undefined;
 
 	/** @type {Array|Object} [data=[]] */

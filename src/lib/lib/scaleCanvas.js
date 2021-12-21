@@ -1,6 +1,6 @@
 /**
 	Scales a canvas. From Paul Lewis: http://www.html5rocks.com/en/tutorials/canvas/hidpi/
-	@param {Object} ctx A canvas context.
+	@param {CanvasRenderingContext2D} ctx A canvas context.
 	@param {Number} width The container width.
 	@param {Number} height The container height.
 	@returns {{width: Number, height: Number}}

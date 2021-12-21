@@ -1,14 +1,14 @@
 /**
 	Calculate the extents of desired fields
-	For example, a fields object like this:
-	`{'x': d => d.x, 'y': d => d.y}`
-	For data like this:
+	For example, data like this:
 	[{ x: 0, y: -10 }, { x: 10, y: 0 }, { x: 5, y: 10 }]
-	Returns an object like:
+	and a fields object like this:
+	`{'x': d => d.x, 'y': d => d.y}`
+	returns an object like this:
 	`{ x: [0, 10], y: [-10, 10] }`
-	@param {Array<Object>} data A flat array of objects.
-	@param {Object} fields An object containing `x`, `y`, `r` or `z` keys that equal an accessor function.
-	@returns {Object} An object with the same structure as `fields` but instead of an accessor, each key contains an array of a min and a max.
+	@param {Array} data A flat array of objects.
+	@param {{x?: Function, y?: Function, z?: Function, r?: Function}} fields An object containing `x`, `y`, `r` or `z` keys that equal an accessor function.
+	@returns {{x?: [min: Number, max: Number], y?: [min: Number, max: Number], z?: [min: Number, max: Number], r?: [min: Number, max: Number]}} An object with the same structure as `fields` but instead of an accessor, each key contains an array of a min and a max.
 */
 export default function calcExtents (data, fields) {
 	if (!Array.isArray(data)) {

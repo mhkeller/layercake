@@ -62,7 +62,7 @@ Becomes...
 ]
 ```
 
-### scaleCanvas(ctx: `Canvas 2d Context`, width: `Number`, height: `Number`)
+### scaleCanvas(ctx: `CanvasRenderingContext2D`, width: `Number`, height: `Number`)
 
 Scale your canvas size to retina screens. This function will modify the canvas, if necessary, and return an object with the new `width` and `height` as properties.
 
@@ -106,7 +106,7 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 </script>
 ```
 
-### calcExtents(flatData: `Array`, fields: `Object`)
+### calcExtents(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`)
 
 Calculate the extents of any of the keys specified in **fields**, which is an object whose keys represent the name of the dimension (`x`, `y`, `z` or `r`) and whose values are an accessor function.
 

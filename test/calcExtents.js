@@ -4,6 +4,8 @@ import calcExtents from '../src/lib/lib/calcExtents.js';
 
 const name = 'calcExtents';
 
+calcExtents()
+
 const tests = [
 	{ args: [[0, 1, 2], {}], expected: {} },
 	{ args: [[undefined, null, NaN], { x: d => d }], expected: { x: [null, null] } },

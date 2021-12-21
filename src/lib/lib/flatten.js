@@ -1,7 +1,7 @@
 /**
 	Flatten arrays of arrays one level deep
-	@param {array} list The list to flatten.
-	@returns {array}
+	@param {Array} list The list to flatten.
+	@returns {Array}
 */
 export default function flatten (list) {
 	if (Array.isArray(list) && Array.isArray(list[0])) {

@@ -127,7 +127,7 @@ console.log(extents);
 */
 ```
 
-Returns an object whose keys are the field names specified as the first item in the key group array followed by an array of `[min, max]`.
+Returns an object whose keys are the field names specified as the first item in the key group array followed by an array of `[min, max]`. This function will also work on strings, which is useful if your data fields are date-time strings like `'2020-03-09T18:00:00'`.
 
 You can also return an array if you have an object with keys where each one is more logically associated with the min or the max like this:
 

@@ -12,7 +12,7 @@
 
 	hljsDefineSvelte(hljs);
 
-	const codeExample = `<script>
+	const codeExample = `<scr${''}ipt>
 	// The library provides a main wrapper component
 	// and a bunch empty layout components...
 	import { LayerCake, Svg, Html, Canvas } from 'layercake';
@@ -20,17 +20,21 @@
 	// ...that you fill with your own chart components,
 	// that live inside your project and which you
 	// can copy and paste from here as starting points.
-	chunk
+	import AxisX from './components/AxisX.svelte';
+  import AxisY from './components/AxisY.svelte';
+  import Line from './components/Line.svelte';
+  import Scatter from './components/Scatter.svelte';
+  import Labels from './components/Labels.svelte';
 
 	const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }];
-<\/script>
+<\/scr${''}ipt>
 
-<style>
+<sty${''}le>
 	.chart-container {
 		width: 100%;
 		height: 500px;
 	}
-</style>
+</sty${''}le>
 
 <div class="chart-container">
 	<LayerCake
@@ -210,7 +214,7 @@
 	</div>
 
 	<div class="code-example">
-		<pre>{@html hljs.highlight(codeExample.replace('chunk', `import AxisX from './components/AxisX.svelte';\n  import AxisY from './components/AxisY.svelte';\n  import Line from './components/Line.svelte';\n  import Scatter from './components/Scatter.svelte';\n  import Labels from './components/Labels.svelte';`).replace(' *{}', '').replace('}\n\n', '}\n'), { language: 'svelte' }).value}</pre>
+		<pre>{@html hljs.highlight(codeExample, { language: 'svelte' }).value}</pre>
 	</div>
 
 	<div id="gallery">

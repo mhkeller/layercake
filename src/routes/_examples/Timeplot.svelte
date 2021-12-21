@@ -32,8 +32,9 @@
 		x: d => d.timestring
 	});
 
-	const minDate = extents.x[0].split('T')[0].split('-').map(d => +d);
-	const maxDate = extents.x[1].split('T')[0].split('-').map(d => +d);
+	// Convert to string even though it is one to make Typescript happy
+	const minDate = extents.x[0].toString().split('T')[0].split('-').map(d => +d);
+	const maxDate = extents.x[1].toString().split('T')[0].split('-').map(d => +d);
 
 	const allDays = timeDay.range(new Date(Date.UTC(minDate[0], minDate[1] - 1, minDate[2])), new Date(Date.UTC(maxDate[0], maxDate[1] - 1, maxDate[2] + 1)))
 		.map(d => d.toISOString().split('T')[0]).sort().reverse();

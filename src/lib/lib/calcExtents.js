@@ -8,7 +8,7 @@
 	`{ x: [0, 10], y: [-10, 10] }`
 	@param {Array} data A flat array of objects.
 	@param {{x?: Function, y?: Function, z?: Function, r?: Function}} fields An object containing `x`, `y`, `r` or `z` keys that equal an accessor function.
-	@returns {{x?: [min: Number, max: Number], y?: [min: Number, max: Number], z?: [min: Number, max: Number], r?: [min: Number, max: Number]}} An object with the same structure as `fields` but instead of an accessor, each key contains an array of a min and a max.
+	@returns {{x?: [min: Number, max: Number]|[min: String, max: String], y?: [min: Number, max: Number]|[min: String, max: String], z?: [min: Number, max: Number]|[min: String, max: String], r?: [min: Number, max: Number]|[min: String, max: String]}} An object with the same structure as `fields` but instead of an accessor, each key contains an array of a min and a max.
 */
 export default function calcExtents (data, fields) {
 	if (!Array.isArray(data)) {

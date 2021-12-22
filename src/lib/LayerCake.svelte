@@ -319,7 +319,7 @@
 		containerWidth: _containerWidth,
 		containerHeight: _containerHeight,
 
-		/** @type {Writable<Function>} x The string */
+		/** @type {Writable<any>} x The string */
 		x: _x,
 
 		y: _y,

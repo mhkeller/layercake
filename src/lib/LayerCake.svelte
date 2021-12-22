@@ -305,6 +305,10 @@
 		return $width / $height;
 	});
 
+	/** @typedef {import('svelte/store').Readable} Readable */
+	/** @typedef {Object} LayerCakeContext */
+
+	/** @type {LayerCakeContext} context The string */
 	$: context = {
 		activeGetters: activeGetters_d,
 		width: width_d,
@@ -313,6 +317,7 @@
 		aspectRatio: aspectRatio_d,
 		containerWidth: _containerWidth,
 		containerHeight: _containerHeight,
+		/** @type {Readable<Function>} x The string */
 		x: _x,
 		y: _y,
 		z: _z,

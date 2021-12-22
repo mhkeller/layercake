@@ -306,6 +306,7 @@
 	});
 
 	/** @typedef {import('svelte/types/runtime/store').Readable} Readable */
+	/** @typedef {import('svelte/types/runtime/store').Writable} Writable */
 	/** @typedef {Object} LayerCakeContext */
 
 	/** @type {LayerCakeContext} context The string */
@@ -318,7 +319,7 @@
 		containerWidth: _containerWidth,
 		containerHeight: _containerHeight,
 
-		/** @type {Readable<Function>} x The string */
+		/** @type {Writable<Function>} x The string */
 		x: _x,
 
 		y: _y,

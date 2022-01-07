@@ -1,7 +1,8 @@
+<!--
+	@component
+	Layer Cake component
+ -->
 <script>
-	/**
-		Layer Cake component
-	*/
 	import { setContext } from 'svelte';
 	import { writable, derived } from 'svelte/store';
 

@@ -1,22 +1,27 @@
+<!--
+	@component
+	WebGL layout component
+ -->
 <script>
-	/**
-		WebGL layout component
-		@type {Number} [zIndex] The layer's z-index.
-		@type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer.
-		@type {HTMLCanvasElement} [element] The `<canvas>` tag. Useful for bindings.
-		@type {WebGLRenderingContext} [context] The `<canvas>`'s WebGL context. Useful for bindings.
-		@type {Object} [contextAttributes] The second argument passed to canvas.getContext. See the WebGL docs [for more info](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext).
-	*/
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
+	/** @type {HTMLCanvasElement} [element] The `<canvas>` tag. Useful for bindings. */
+	export let element = undefined;
+
+	/** @type {Number} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
+
+	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
+
+	/** @type {Object} [contextAttributes] The second argument passed to canvas.getContext. See the WebGL docs [for more info](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext). */
 	export let contextAttributes = undefined;
 
-	export let element = undefined;
-	let testGl;
+	/** @type {WebGLRenderingContext} [context] The `<canvas>`'s WebGL context. Useful for bindings. */
 	export let context = undefined;
+
+	let testGl;
 
 	let zIndexStyle = '';
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';

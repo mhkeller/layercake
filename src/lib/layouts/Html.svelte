@@ -1,14 +1,17 @@
+<!--
+	@component
+	HTML layout component
+ -->
 <script>
-	/**
-		HTML layout component
-		@type {Number} [zIndex] The layer's z-index.
-		@type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer.
-		@type {Element} [element] The layer's outermost `<div>` tag. Useful for bindings.
-	*/
 	import { getContext } from 'svelte';
 
+	/** @type {Element} [element] The layer's outermost `<div>` tag. Useful for bindings. */
 	export let element = undefined;
+
+	/** @type {Number} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
+
+	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
 	let zIndexStyle = '';

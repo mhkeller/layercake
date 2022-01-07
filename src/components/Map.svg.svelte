@@ -12,10 +12,10 @@
 	/** @type {Function} projection – A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
 	export let projection;
 
-	/** @type {Number} [fixedAspectRatio=undefined] – By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
+	/** @type {Number} [fixedAspectRatio] – By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
 	export let fixedAspectRatio = undefined;
 
-	/** @type {String} [fill=undefined] – The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
+	/** @type {String} [fill] – The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
 	export let fill = undefined;
 
 	/** @type {String} [stroke='#333'] – The shape's stroke color. */

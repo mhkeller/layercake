@@ -1,17 +1,21 @@
+<!--
+	@component
+	SVG layout component
+ -->
 <script>
-	/**
-		SVG layout component
-		@type {Number} [zIndex] The layer's z-index.
-		@type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer.
-		@type {Element} [element] The layer's `<svg>` tag. Useful for bindings.
-		@type {String} [viewBox] A string passed to the viewBox property on the `<svg>` tag.
-	*/
 	import { getContext } from 'svelte';
 
+	/** @type {Element} [element] The layer's `<svg>` tag. Useful for bindings. */
 	export let element = undefined;
-	export let viewBox = undefined;
+
+	/** @type {Number} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
+
+	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
+
+	/** @type {String} [viewBox] A string passed to the viewBox property on the `<svg>` tag. */
+	export let viewBox = undefined;
 
 	let zIndexStyle = '';
 	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';

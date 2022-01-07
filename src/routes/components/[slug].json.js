@@ -63,11 +63,17 @@ export async function get({ params }) {
 		};
 	});
 
+	const componentDescription = doctrine.parse(fromMain.split('<script>')[0]
+		.replace('<!--', '')
+		.replace('-->', '')).tags[0].description;
+
 	const jsdocString = fromMain.replace('<script>', '')
 		.split('</script>')[0]
-		.split('*/')[0]
-		.replace('/**', '')
-		.replace(/@type/g, '@param')
+		.match(/\/\*\*.*/gm)
+		.join('\n')
+		.replaceAll('@type', '@param')
+		.replaceAll('/**', '')
+		.replaceAll('*/', '')
 		.trim();
 
 	const jsdocParsed = doctrine.parse(jsdocString, { unwrap: true, sloppy: true });
@@ -77,7 +83,8 @@ export async function get({ params }) {
 		main,
 		dek,
 		usedIn,
-		jsdocParsed
+		jsdocParsed,
+		componentDescription
 	};
 
 	return {

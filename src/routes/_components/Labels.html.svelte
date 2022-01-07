@@ -39,12 +39,10 @@
 		x={xKey}
 		y={yKey}
 		data={data}
-		custom={{
-			getLabelName: d => d[xKey]
-		}}
 	>
 		<Html>
 			<Labels
+				getLabelName={d => d[xKey]}
 				{labels}
 			/>
 		</Html>

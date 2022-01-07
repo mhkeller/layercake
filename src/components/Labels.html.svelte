@@ -5,7 +5,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-  const { xGet, yGet, custom } = getContext('LayerCake');
+  const { xGet, yGet } = getContext('LayerCake');
 
 	/** @type {Array} labels – An array of objects that contain a field containing text label and data fields. */
   export let labels;

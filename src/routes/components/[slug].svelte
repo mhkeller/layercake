@@ -97,7 +97,6 @@
 
 
 	const jsdocTableBody= `${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(d.type)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`).join('\n')}`;
-
 	const jsdocTable = data.jsdocParsed.tags.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
 
 	function copyToClipboard () {
@@ -259,6 +258,22 @@
 		font-weight: bold;
 	}
 
+	h1 {
+		margin-top: 10px;
+	}
+
+	.all-components a {
+		color: #ff3e00;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 11px;
+		position: absolute;
+		top: 12px;
+	}
+	.all-components a:hover {
+		text-decoration: underline;
+	}
+
 	#params-table,
 	#used-in {
 		width: 100%;
@@ -337,6 +352,7 @@
 </svelte:head>
 
 <div class="main">
+	<div class="all-components"><a href="/components" sveltekit:prefetch>← View all components</a></div>
 	<h1>{component.slug} component</h1>
 
 	<div class="chart-hero">
@@ -351,7 +367,7 @@
 	</div>
 
 	<div class="dek">
-		{@html markdownToHtml(data.jsdocParsed.description)}
+		{@html markdownToHtml(data.componentDescription)}
 	</div>
 	<div id="params-table">
 		{@html markdownToHtml(jsdocTable)}

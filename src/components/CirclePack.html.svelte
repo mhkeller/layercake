@@ -1,37 +1,49 @@
+<!--
+	@component
+	Generates an HTML circle pack chart using [d3-hierarchy](https://github.com/d3/d3-hierarchy).
+ -->
 <script>
-	/**
-		Generates an HTML circle pack chart using [d3-hierarchy](https://github.com/d3/d3-hierarchy).
-		@type {String} [idKey='id'] - The key on each object where the id value lives.
-		@type {String} [parentKey=undefined] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack).
-		@type {String} [valueKey='value'] - The key on each object where the data value lives.
-		@type {Function} [labelVisibilityThreshold=r => r > 25] - By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior.
-		@type {String} [fill='#fff'] - The circle's fill color.
-		@type {String} [stroke='#999'] - The circle's stroke color.
-		@type {Number} [strokeWidth=1] - The circle's stroke width, in pixels.
-		@type {String} [textColor='#333'] - The label text color.
-		@type {String} [textStroke='#000'] - The label text's stroke color.
-		@type {Number} [textStrokeWidth=0] - The label text's stroke width, in pixels.
-		@type {Function} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice.
-		@type {Number} [spacing=0] - Whitespace padding between each circle, in pixels.
-		*/
 	import { stratify, pack, hierarchy } from 'd3-hierarchy'
 	import { getContext } from 'svelte';
 	import { format } from 'd3-format';
 
 	const { width, height, data } = getContext('LayerCake');
 
+	/** @type {String} [idKey='id'] - The key on each object where the id value lives. */
   export let idKey = 'id';
+
+	/** @type {String} [parentKey=undefined] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack). */
   export let parentKey = undefined;
+
+	/** @type {String} [valueKey='value'] - The key on each object where the data value lives. */
   export let valueKey = 'value';
+
+	/** @type {Function} [labelVisibilityThreshold=r => r > 25] - By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior. */
   export let labelVisibilityThreshold = r => r > 25;
+
+	/** @type {String} [fill='#fff'] - The circle's fill color. */
   export let fill = '#fff';
+
+	/** @type {String} [stroke='#999'] - The circle's stroke color. */
 	export let stroke = '#999';
+
+	/** @type {Number} [strokeWidth=1] - The circle's stroke width, in pixels. */
 	export let strokeWidth = 1;
+
+	/** @type {String} [textColor='#333'] - The label text color. */
 	export let textColor = '#333';
-	export let textStrokeWidth = 0;
+
+	/** @type {String} [textStroke='#000'] - The label text's stroke color. */
 	export let textStroke = '#000';
+
+	/** @type {Number} [textStrokeWidth=0] - The label text's stroke width, in pixels. */
+	export let textStrokeWidth = 0;
+
+	/** @type {Function} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice. */
 	export let sortBy = (a, b) => b.value - a.value; // 'depth' is also a popular choice
-  export let spacing = 0;
+
+	/** @type {Number} [spacing=0] - Whitespace padding between each circle, in pixels. */
+	export let spacing = 0;
 
   /* --------------------------------------------
    * This component will automatically group your data

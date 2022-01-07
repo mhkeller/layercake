@@ -1,12 +1,8 @@
+<!--
+	@component
+	Generates a tooltip that works on multiseries datasets, like multiline charts. It creates a tooltip showing the name of the series and the current value. It finds the nearest data point using the [QuadTree.html.svelte](https://layercake.graphics/components/QuadTree.html.svelte) component.
+ -->
 <script>
-	/**
-		Generates a tooltip that works on multiseries datasets, like multiline charts. It creates a tooltip showing the name of the series and the current value. It finds the nearest data point using the [QuadTree.html.svelte](https://layercake.graphics/components/QuadTree.html.svelte) component.
-    @type {Function} [formatTitle=d => d] – A function to format the tooltip title, which is `$config.x`.
-    @type {Function} [formatKey=d => titleCase(d)] – A function to format the series name.
-    @type {Function} [formatValue=d => isNaN(+d) ? d : commas(d)] – A function to format the value.
-    @type {Array} [dataset=$data] – The dataset to work off of. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
-    @type {Number} [offset=20] – A negative y-offset from the hover point, in pixels.
-    */
   import { getContext } from 'svelte';
   import { format } from 'd3-format';
 
@@ -17,11 +13,20 @@
   const commas = format(',');
   const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
 
-  export let offset = 20;
-  export let dataset = $data;
+	/** @type {Function} [formatTitle=d => d] – A function to format the tooltip title, which is `$config.x`. */
   export let formatTitle = d => d;
-  export let formatKey = d => titleCase(d);
+
+	/** @type {Function} [formatValue=d => isNaN(+d) ? d : commas(d)] – A function to format the value. */
   export let formatValue = d => isNaN(+d) ? d : commas(d);
+
+	/** @type {Function} [formatKey=d => titleCase(d)] – A function to format the series name. */
+  export let formatKey = d => titleCase(d);
+
+	/** @type {Number} [offset=-20] – A y-offset from the hover point, in pixels. */
+	export let offset = -20;
+
+	/** @type {Array} [dataset=$data] – The dataset to work off of. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */
+	export let dataset = $data;
 
   const w = 150;
   const w2 = w / 2;
@@ -92,7 +97,7 @@
       style="
         width:{w}px;
         display: { visible ? 'block' : 'none' };
-        top:{$yScale(sortResult(found)[0].value) - offset}px;
+        top:{$yScale(sortResult(found)[0].value) + offset}px;
         left:{Math.min(Math.max(w2, x), $width - w2)}px;"
       >
         <div class="title">{formatTitle(found[$config.x])}</div>

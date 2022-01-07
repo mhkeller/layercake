@@ -1,11 +1,13 @@
+<!--
+	@component
+	Generates a hover tooltip. It creates a slot with an exposed variable via `let:detail` that contains information about the event. Use the slot to populate the body of the tooltip using the exposed variable `detail`.
+ -->
 <script>
-	/**
-		Generates a hover tooltip. It creates a slot with an exposed variable via `let:detail` that contains information about the event. Use the slot to populate the body of the tooltip using the exposed variable `detail`.
-		@type {Object} evt – A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`.
-		@type {Number} [offset=35] – A negative y-offset from the hover point, in pixels.
-	*/
+	/** @type {Object} evt – A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`. */
   export let evt = {};
-  export let offset = 35;
+
+	/** @type {Number} [offset=-35] – A y-offset from the hover point, in pixels. */
+  export let offset = -35;
 </script>
 
 <style>
@@ -25,7 +27,7 @@
   <div
     class="tooltip"
     style="
-      top:{evt.detail.e.layerY - offset}px;
+      top:{evt.detail.e.layerY + offset}px;
       left:{evt.detail.e.layerX}px;
     "
   >

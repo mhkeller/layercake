@@ -1,7 +1,8 @@
+<!--
+	@component
+	Generates an SVG column chart. It uses the z-scale for color assignments and aassumes both `xScale` and `zScale` are ordinal scales.  It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack
+ -->
 <script>
-	/**
-		Generates an SVG column chart. It uses the z-scale for color assignments and aassumes both `xScale` and `zScale` are ordinal scales.  It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack
-	*/
 	import { getContext } from 'svelte';
 
 	const { data, xGet, yGet, zGet, xScale } = getContext('LayerCake');

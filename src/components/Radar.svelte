@@ -1,7 +1,8 @@
+<!--
+	@component
+	Generates an SVG radar chart.
+ -->
 <script>
-	/**
-		Generates an SVG radar chart.
-	*/
 	import { getContext } from 'svelte';
 	import { line, curveCardinalClosed } from 'd3-shape';
 

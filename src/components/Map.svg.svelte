@@ -1,23 +1,30 @@
+<!--
+	@component
+	Generates an SVG map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
+ -->
 <script>
-	/**
-		Generates an SVG map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
-		@type {Function} projection – A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
-		@type {GeoJsonFeatureCollection} [features=$data.features] – A GeoJSON feature collection that has an array of features on its `features` key. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data`.
-		@type {String} [stroke='#ccc'] – The shape's stroke color.
-		@type {Number} [strokeWidth=1] – The shape's stroke width.
-		@type {String} [fill='#fff'] – The shape's fill color.
-	*/
 	import { getContext, createEventDispatcher } from 'svelte';
 	import { geoPath } from 'd3-geo';
 	import { raise } from 'layercake';
 
 	const { data, width, height, zGet } = getContext('LayerCake');
 
+	/** @type {Function} projection – A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
 	export let projection;
+
+	/** @type {Number} [fixedAspectRatio=undefined] – By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
 	export let fixedAspectRatio = undefined;
-	export let fill = undefined; // The fill will be determined by the scale, unless this prop is set
+
+	/** @type {String} [fill=undefined] – The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
+	export let fill = undefined;
+
+	/** @type {String} [stroke='#333'] – The shape's stroke color. */
 	export let stroke = '#333';
+
+	/** @type {Number} [strokeWidth=0.5] – The shape's stroke width. */
 	export let strokeWidth = 0.5;
+
+	/** @type {Array} [features=$data.features] – A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features`. */
 	export let features = $data.features;
 
 	/* --------------------------------------------

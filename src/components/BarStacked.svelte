@@ -1,7 +1,8 @@
+<!--
+	@component
+	Generates an SVG stacked bar chart and sets the color via an ordinal scale in `zScale`.
+ -->
 <script>
-	/**
-		Generates an SVG stacked bar chart and sets the color via an ordinal scale in `zScale`.
-	*/
 	import { getContext } from 'svelte';
 
 	const { data, xGet, yGet, zGet, yScale } = getContext('LayerCake');

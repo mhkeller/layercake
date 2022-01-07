@@ -1,12 +1,13 @@
+<!--
+	@component
+	Generates an HTML Cleveland dot plot, also known as a lollipop-chart.
+ -->
 <script>
-	/**
-		Generates an HTML Cleveland dot plot, also known as a lollipop-chart.
-		@type {Number} [r=5] – The circle radius.
-	*/
 	import { getContext } from 'svelte';
 
 	const { data, xGet, yGet, zScale, yScale, config } = getContext('LayerCake');
 
+	/** @type {Number} [r=5] – The circle radius. */
 	export let r = 5;
 
 	$: midHeight = $yScale.bandwidth() / 2;

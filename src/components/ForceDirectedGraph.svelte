@@ -1,3 +1,7 @@
+<!--
+	@component
+
+ -->
 <script>
 	// Based on this example https://observablehq.com/@d3/force-directed-graph
 	import { getContext } from 'svelte';

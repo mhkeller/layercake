@@ -1,7 +1,8 @@
+<!--
+	@component
+	Generates an SVG radial scale, useful for radar charts.
+ -->
 <script>
-	/**
-		Generates an SVG radial scale, useful for radar charts.
-	*/
 	import { getContext } from 'svelte';
 
 	const { width, height, xScale, extents, config } = getContext('LayerCake');

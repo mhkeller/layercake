@@ -1,18 +1,22 @@
+<!--
+	@component
+	Generates an SVG Beeswarm chart.
+ -->
 <script>
-	/**
-		Generates an SVG Beeswarm chart.
-		@type {Number} [r=3] – The circle radius size in pixels.
-		@type {Number} [strokeWidth=0] – The circle's stroke width in pixels.
-		@type {String} [stroke='#fff'] – The circle's stroke color.
-		@type {Number} [spacing=1.5] – Whitespace padding between each circle, in pixels
-	*/
 	import { getContext } from 'svelte';
 
 	const { data, xGet, zGet, height, config, custom } = getContext('LayerCake');
 
+	/** @type {Number} [r=3] – The circle radius size in pixels. */
 	export let r = 3;
+
+	/** @type {Number} [strokeWidth=0] – The circle's stroke width in pixels. */
 	export let strokeWidth = 0;
+
+	/** @type {String} [stroke='#fff'] – The circle's stroke color. */
 	export let stroke = '#fff';
+
+	/** @type {Number} [spacing=1.5] – Whitespace padding between each circle, in pixels */
 	export let spacing = 1.5;
 
 	$: circles = dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet });

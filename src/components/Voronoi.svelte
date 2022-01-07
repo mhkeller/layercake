@@ -1,14 +1,15 @@
+<!--
+	@component
+	Generates a voronoi layer using [d3-delauney](https://github.com/d3/d3-delauney).
+ -->
 <script>
-	/**
-		Generates a voronoi layer using [d3-delauney](https://github.com/d3/d3-delauney).
-		@type {String} [stroke=undefined] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
-	*/
 	import { getContext, createEventDispatcher } from 'svelte';
 	import { uniques } from 'layercake';
 	import { Delaunay } from 'd3-delaunay';
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
+	/** @type {String} [stroke=undefined] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly. */
 	export let stroke = undefined;
 
 	let dispatcher = createEventDispatcher();
@@ -27,7 +28,6 @@
 	$: uniquePoints = uniques(points, d => d.join(), false);
 
 	$: voronoi = Delaunay.from(uniquePoints).voronoi([0, 0, $width, $height]);
-
 </script>
 
 <style>

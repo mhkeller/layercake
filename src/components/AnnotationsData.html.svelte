@@ -1,16 +1,19 @@
+<!--
+	@component
+	Adds text annotations that get their x and y placement using the `xScale` and `yScale`.
+ -->
 <script>
-	/**
-		Adds text annotations that get their x and y placement using the `xScale` and `yScale`.
-		@type {Array} [annotations=[]] – A list of annotation objects.
-		@type {Function} [getText=d => d.text] – An accessor function to get the field to display.
-		@type {Boolean} [percentRange=false] – If `true` will set the `top` and `left` CSS positions to percentages instead of pixels.
-	*/
 	import { getContext } from 'svelte';
 
 	const { xGet, yGet } = getContext('LayerCake');
 
+	/** @type {Array} [annotations=[]] – A list of annotation objects. */
 	export let annotations = [];
+
+	/** @type {Function} [getText=d => d.text] – An accessor function to get the field to display. */
 	export let getText = d => d.text;
+
+	/** @type {Boolean} [percentRange=false] – If `true` will set the `top` and `left` CSS positions to percentages instead of pixels. */
 	export let percentRange = false;
 
 	$: units = percentRange === true ? '%' : 'px';

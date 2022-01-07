@@ -1,18 +1,22 @@
+<!--
+	@component
+	Adds HTML text labels based features in the data or a custom GeoJSON Feature Collection.
+ -->
 <script>
-	/**
-		Adds HTML text labels based features in the data or a custom GeoJSON Feature Collection.
-		@type {Function} projection – A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
-		@type {Function} getLabel – An accessor function to get the field to display.
-		@type {Function} [getCoordinates=d => d.geometry.coordinates] – An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format.
-		@type {Array} [features=$data.features] – A list of labels. By default, assumes `$data` is a GeoJSON Feature Collection and uses those features.
-	*/
 	import { getContext } from 'svelte';
 
 	const { data, width, height } = getContext('LayerCake');
 
+	/** @type {Function} projection – A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
 	export let projection;
+
+	/** @type {Function} getLabel – An accessor function to get the field to display. */
 	export let getLabel;
+
+	/** @type {Function} [getCoordinates=d => d.geometry.coordinates] – An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format. */
 	export let getCoordinates;
+
+	/** @type {Array} [features=$data.features] – A list of labels. By default, assumes `$data` is a GeoJSON Feature Collection and uses those features. */
 	export let features = $data.features;
 
 	$: projectionFn = projection()

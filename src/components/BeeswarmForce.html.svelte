@@ -1,12 +1,8 @@
+<!--
+	@component
+	Generates an HTML Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
+ -->
 <script>
-	/**
-		Generates an HTML Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
-		@type {Number} [r=4] – The circle radius size in pixels.
-		@type {Number} [strokeWidth=0.5] – The circle's stroke width in pixels.
-		@type {String} [stroke='#fff'] – The circle's stroke color.
-		@type {Number} [xStrength=0.95] – The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.
-		@type {Number} [yStrength=0.075] – The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more.
-	*/
 	import { getContext } from 'svelte';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 
@@ -14,10 +10,19 @@
 
 	const nodes = $data.map((d) => ({ ...d }));
 
+	/** @type {Number} [r=4] – The circle radius size in pixels. */
 	export let r = 4;
+
+	/** @type {Number} [strokeWidth=0.5] – The circle's stroke width in pixels. */
 	export let strokeWidth = 0.5;
+
+	/** @type {String} [stroke='#fff'] – The circle's stroke color. */
 	export let stroke = '#fff';
+
+	/** @type {Number} [xStrength=0.95] – The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */
 	export let xStrength = 0.95;
+
+	/** @type {Number} [yStrength=0.075] – The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more. */
 	export let yStrength = 0.075;
 
 	$: simulation = forceSimulation(nodes)

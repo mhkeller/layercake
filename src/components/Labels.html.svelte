@@ -1,16 +1,20 @@
+<!--
+	@component
+	Adds HTML text labels based on a given list.
+ -->
 <script>
-	/**
-		Adds HTML text labels based on a given list.
-		@type {List} labels – An array of objects that contain a field containing text label and data fields.
-		@type {String} [stroke=''] – The shape's stroke color.
-		@type {Number} [strokeWidth=0] – The shape's stroke width.
-	*/
-  import { getContext } from 'svelte';
+	import { getContext } from 'svelte';
 
   const { xGet, yGet, custom } = getContext('LayerCake');
 
+	/** @type {Array} labels – An array of objects that contain a field containing text label and data fields. */
   export let labels;
-  export let formatName = d => d;
+
+	/** @type {Function} getLabelName= – An accessor function to return the label field on your objects in the `labels` array. */
+  export let getLabelName;
+
+	/** @type {Function} [formatLabelName=d => d] – An optional formatting function. */
+  export let formatLabelName = d => d;
 </script>
 
 {#each labels as d}
@@ -20,7 +24,7 @@
       top:{$yGet(d)}px;
       left:{$xGet(d)}px;
     "
-  >{formatName($custom.getLabelName(d))}</div>
+  >{formatLabelName(getLabelName(d))}</div>
 {/each}
 
 <style>

@@ -6,7 +6,7 @@ Layer Cake exposes some commonly-used helper functions. If you don't use them, t
 
 ### flatten(data: `Array`)
 
-Flatten an array one-level down. Handy for preparing data from stacked layouts whose extents can easily be calculated.
+Flatten an array one-level down. Handy for preparing data from stacked layouts whose extents can easily be calculated. This is equivalent to `Array.prototype.flat()` but is kept in for old versions of node that support that or other browser compatibility.
 
 This data:
 

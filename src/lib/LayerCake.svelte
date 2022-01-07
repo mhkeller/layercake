@@ -305,7 +305,8 @@
 		return $width / $height;
 	});
 
-	/** @typedef {import('svelte/store').Readable} Readable */
+	/** @typedef {import('svelte/types/runtime/store').Readable} Readable */
+	/** @typedef {import('svelte/types/runtime/store').Writable} Writable */
 	/** @typedef {Object} LayerCakeContext */
 
 	/** @type {LayerCakeContext} context The string */
@@ -317,8 +318,10 @@
 		aspectRatio: aspectRatio_d,
 		containerWidth: _containerWidth,
 		containerHeight: _containerHeight,
-		/** @type {Readable<Function>} x The string */
+
+		/** @type {Writable<any>} x The string */
 		x: _x,
+
 		y: _y,
 		z: _z,
 		r: _r,

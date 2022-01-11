@@ -2,6 +2,9 @@
 	@component
 	Layer Cake component
  -->
+<script context="module" lang="ts">
+  export type LayerCakeContext = {};
+</script>
 <script>
 	import { setContext } from 'svelte';
 	import { writable, derived } from 'svelte/store';
@@ -320,11 +323,12 @@
 		containerWidth: _containerWidth,
 		containerHeight: _containerHeight,
 
-		/** @type {Writable<any>} x The string */
 		x: _x,
 
 		y: _y,
 		z: _z,
+
+		/** some information */
 		r: _r,
 		custom: _custom,
 		data: _data,

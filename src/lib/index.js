@@ -1,3 +1,12 @@
+/**
+ * Configured and computed properties to use
+ * @typedef {import('svelte/types/runtime/store').Writable} Writable
+ * @typedef {import('svelte/types/runtime/store').Readable} Readable
+ * @typedef {Object} LayerCakeContext
+ * @property {Readable<Function>} x x whatever
+ * @property {Function} y a thing called y
+ */
+
 export { default as LayerCake } from './LayerCake.svelte';
 export { default as Html } from './layouts/Html.svelte';
 export { default as Svg } from './layouts/Svg.svelte';

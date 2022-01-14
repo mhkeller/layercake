@@ -220,7 +220,7 @@
 	<div id="gallery">
 		{#each examples as example}
 			<div class="gallery-item">
-				<h4 class="title"><a sveltekit:prefetch href="example/{example.slug}">{example.title}</a> <a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="nofollow">Edit</a></h4>
+				<h4 class="title"><a sveltekit:prefetch href="/example/{example.slug}">{example.title}</a> <a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="nofollow">Edit</a></h4>
 				<svelte:component this="{example.component}"/>
 			</div>
 		{/each}
@@ -235,7 +235,7 @@
 	<div id="ssr-gallery">
 		{#each examplesSsr as example}
 			<div class="gallery-item" class:scaled={example.title.toLowerCase().includes('map')}>
-				<h4 class="title"><a sveltekit:prefetch href="example-ssr/{example.slug}">{example.title}</a> <a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="nofollow">Edit</a></h4>
+				<h4 class="title"><a sveltekit:prefetch href="/example-ssr/{example.slug}">{example.title}</a> <a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="nofollow">Edit</a></h4>
 				<svelte:component this="{example.component}"/>
 			</div>
 		{/each}

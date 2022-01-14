@@ -42,7 +42,6 @@
 	export let slug;
 	export let data;
 
-	// console.log('data', data)
 
 	export let active = 'index';
 

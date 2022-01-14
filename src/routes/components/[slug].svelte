@@ -11,7 +11,8 @@
 			return {
 				props: {
 					slug,
-					data
+					data,
+					active: slug
 				}
 			}
 		} else {
@@ -43,19 +44,21 @@
 
 	export let slug;
 	export let data;
+	export let active = '';
 
 	function markdownToHtml (text) {
 		return md.render(text);
 	}
 
-	function highlight (str, slug) {
-		const parts = slug.split('.');
+	function highlight (str, s) {
+		const parts = s.split('.');
 		let ext = parts[parts.length - 1];
 		if (ext === 'csv') ext = 'diff'
-		return hljs.highlight(str, { language: 'svelte' }).value;
+		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [data.main];
+	$: pages = [data.main]
+		.concat(data.modules);
 
 	const lookup = new Map();
 	components.flatMap(d => d.components).forEach(d => {
@@ -207,12 +210,11 @@
 		cursor: pointer;
 	}
 
-	:global(.tab.active) {
+	#page-nav :global(.tab.active) {
 		color: #000;
 		pointer-events: none;
 		border-bottom: 2px solid #000;
 	}
-
 
 	.copy {
 		position: absolute;
@@ -394,7 +396,8 @@
 		<ul id="page-nav">
 			{#each pages as page}
 				<li
-					class="tab active"
+					class="tab {active === page.slug ? 'active' : ''}"
+					on:click="{() => active = page.slug}"
 				>{page.slug}</li>
 			{/each}
 		</ul>
@@ -404,7 +407,7 @@
 				on:click={copyToClipboard}
 			></div>
 			{#each pages as page}
-				<div class="contents" style="display: block;">
+				<div class="contents" style="display: {active === page.slug ? 'block' : 'none'};">
 					<pre>{@html highlight(page.contents, page.slug)}</pre>
 				</div>
 			{/each}

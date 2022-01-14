@@ -37,7 +37,7 @@
 		height: 100%;
 	}
 	.padding {
-		margin: 20px 0;
+		margin: 13px 0;
 	}
 </style>
 

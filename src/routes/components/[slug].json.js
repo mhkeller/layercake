@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { readFileSync, existsSync } from 'fs';
 import { readdirFilterSync } from 'indian-ocean';
 import doctrine from 'doctrine';
@@ -9,6 +10,18 @@ function cleanMain (str) {
 		.trim();
 
 	return cleaned;
+}
+
+function cleanContents (str) {
+	return str.replace(/\t/g, '  ').trim();
+}
+
+function getJsPaths (example) {
+	const match = example.match(/\.\/.+\.js('|")/gm);
+	if (match) {
+		return match.map(d => d.replace('../../', '').replace(/('|")/g, ''));
+	}
+	return [];
 }
 
 export async function get({ params }) {
@@ -33,6 +46,14 @@ export async function get({ params }) {
 	const component = readFileSync(componentPath, 'utf-8');
 
 	const fromMain = cleanMain(component);
+
+	const modules = getJsPaths(component)
+		.map(d => {
+			return {
+				slug: d.replace('../', ''),
+				contents: cleanContents(readFileSync(d.replace('./', 'src/'), 'utf-8'))
+			};
+		});
 
 	const main = {
 		slug,
@@ -78,13 +99,13 @@ export async function get({ params }) {
 
 	const jsdocParsed = doctrine.parse(jsdocString, { unwrap: true, sloppy: true });
 
-	// console.log(JSON.stringify(jsdocParsed, null, 2));
 	const response = {
 		main,
 		dek,
 		usedIn,
 		jsdocParsed,
-		componentDescription
+		componentDescription,
+		modules
 	};
 
 	return {

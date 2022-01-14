@@ -4,7 +4,7 @@
 
 	import downloadBlob from '../../modules/downloadBlob.js';
 
-	export let data;
+	export let data = {};
 	export let slug;
 	export let ssr = false;
 

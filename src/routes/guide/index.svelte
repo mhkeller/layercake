@@ -12,7 +12,7 @@
 		} else {
 			return {
 				status: res.status,
-				error: new Error(`Could not load ${url}`)
+				error: new Error(`Could not load.`)
 			}
 		}
 	}

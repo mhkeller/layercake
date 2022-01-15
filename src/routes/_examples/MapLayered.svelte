@@ -24,26 +24,22 @@
 	const projection = geoAlbersUsa;
 
 	/* --------------------------------------------
-	 * Create lookups to more easily join our data
-	 */
-	const joinKey = 'name';
+	* Create lookups to more easily join our data
+	* `dataJoinKey` is the name of the field in the data
+	* `mapJoinKey` is the name of the field in the map file
+	*/
+	const dataJoinKey = 'name';
+	const mapJoinKey = 'name';
 	const dataLookup = new Map();
 	const labelLookup = new Map();
 
 	stateData.forEach(d => {
-		dataLookup.set(d[joinKey], d);
+		dataLookup.set(d[dataJoinKey], d[colorKey]);
 	});
 
-	stateLabels.forEach(d => {
-		labelLookup.set(d[joinKey], d);
-	});
-
-	geojson.features.forEach(d => {
-		// This will overwrite any existing keys on d.properties
-		// so watch out for any name collision
-		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
-		Object.assign(d.properties, labelLookup.get(d.properties[joinKey]));
-	});
+	// stateLabels.forEach(d => {
+	// 	labelLookup.set(d[dataJoinKey], d);
+	// });
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
@@ -67,7 +63,7 @@
 <div class="chart-container">
 	<LayerCake
 		data={geojson}
-		z={colorKey}
+		z={d => dataLookup.get(d[mapJoinKey])}
 		zScale={scaleQuantize()}
 		zRange={colors}
 		{flatData}
@@ -75,6 +71,7 @@
 		<Canvas>
 			<MapCanvas
 				{projection}
+				fill='#fff'
 			/>
 		</Canvas>
 

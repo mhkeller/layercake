@@ -13,23 +13,21 @@
 	import stateData from '../../data/us-states-data.json';
 
 	const colorKey = 'myValue';
+
 	/* --------------------------------------------
 	 * Create lookups to more easily join our data
+	 * `dataJoinKey` is the name of the field in the data
+	 * `mapJoinKey` is the name of the field in the map file
 	 */
-	const joinKey = 'name';
+	const dataJoinKey = 'name';
+	const mapJoinKey = 'name';
 	const dataLookup = new Map();
 
 	const geojson = feature(usStates, usStates.objects.collection);
 	const projection = geoAlbersUsa;
 
 	stateData.forEach(d => {
-		dataLookup.set(d[joinKey], d);
-	});
-
-	geojson.features.forEach(d => {
-		// This will overwrite any existing keys on d.properties
-		// so watch out for any name collision
-		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
+		dataLookup.set(d[dataJoinKey], d[colorKey]);
 	});
 
 	let evt;
@@ -59,7 +57,7 @@
 <div class="chart-container">
 	<LayerCake
 		data={geojson}
-		z={colorKey}
+		z={d => dataLookup.get(d[mapJoinKey])}
 		zScale={scaleQuantize()}
 		zRange={colors}
 		{flatData}
@@ -67,7 +65,7 @@
 		<Svg>
 			<MapSvg
 				{projection}
-				on:mousemove={event => evt = hideTooltip= event}
+				on:mousemove={event => evt = hideTooltip = event}
 				on:mouseout={() => hideTooltip = true}
 			/>
 		</Svg>
@@ -81,7 +79,8 @@
 					let:detail
 				>
 					{#each Object.entries(detail.props) as [key, value]}
-						<div class="row"><span>{key}:</span> {typeof value === 'number' ? addCommas(value) : value}</div>
+						{@const keyCapitalized = key.replace(/^\w/, d => d.toUpperCase())}
+						<div class="row"><span>{keyCapitalized}:</span> {typeof value === 'number' ? addCommas(value) : value}</div>
 					{/each}
 				</Tooltip>
 			{/if}

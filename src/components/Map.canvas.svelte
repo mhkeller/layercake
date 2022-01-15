@@ -19,8 +19,9 @@
 
 	/** @type {Number} [strokeWidth=1] – The shape's stroke width. */
 	export let strokeWidth = 1;
-	/** @type {String} [fill='#fff'] – The shape's fill color. */
-	export let fill = '#fff';
+
+	/** @type {String} [fill] – The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
+	export let fill = undefined;
 
 	/** @type {Array} [features] – A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */
 	export let features = undefined;
@@ -43,8 +44,7 @@
 				geoPathFn.context($ctx);
 				geoPathFn(feature);
 
-				$ctx.fillStyle = fill;
-				// $ctx.fillStyle = $zGet(feature.properties); // Use this if making a choropleth
+				$ctx.fillStyle = fill || $zGet(feature.properties);
 				$ctx.fill();
 
 				$ctx.lineWidth = strokeWidth;

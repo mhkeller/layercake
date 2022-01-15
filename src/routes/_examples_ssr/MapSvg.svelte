@@ -13,25 +13,23 @@
 	import stateData from '../../data/us-states-data.json';
 
 	const colorKey = 'myValue';
+
 	/* --------------------------------------------
 	 * Create lookups to more easily join our data
+	 * `dataJoinKey` is the name of the field in the data
+	 * `mapJoinKey` is the name of the field in the map file
 	 */
-	const joinKey = 'name';
+	const dataJoinKey = 'name';
+	const mapJoinKey = 'name';
 	const dataLookup = new Map();
+
+	stateData.forEach(d => {
+		dataLookup.set(d[dataJoinKey], d[colorKey]);
+	});
 
 	const geojson = feature(usStates, usStates.objects.collection);
 	const aspectRatio = 2.63;
 	const projection = geoAlbersUsa;
-
-	stateData.forEach(d => {
-		dataLookup.set(d[joinKey], d);
-	});
-
-	geojson.features.forEach(d => {
-		// This will overwrite any existing keys on d.properties
-		// so watch out for any name collision
-		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
-	});
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
@@ -58,7 +56,7 @@
 		ssr={true}
 		position='absolute'
 		data={geojson}
-		z={colorKey}
+		z={d => dataLookup.get(d[mapJoinKey])}
 		zScale={scaleQuantize()}
 		zRange={colors}
 		{flatData}

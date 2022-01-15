@@ -26,8 +26,6 @@
 		slug = path.replace(/\/$/, '').split('/').pop();
 	}
 
-	// $: console.log('segment', segment)
-
 	let basePath = '/';
 	let open = false;
 
@@ -371,11 +369,11 @@
 	<li>
 		<!-- svelte-ignore a11y-no-onchange -->
 		<select on:change={loadPage} bind:value="{segment}">
-			{#if segment === '/components'}
-				<option value="/components" disabled>Select...</option>
+			{#if segment.startsWith('/components')}
+				<option value="{segment}" disabled>Select...</option>
 			{/if}
-			{#if segment === '/guide'}
-				<option value="/guide" disabled>Select...</option>
+			{#if segment.startsWith('/guide')}
+				<option value="{segment}" disabled>Select...</option>
 			{/if}
 			<option value="/">All</option>
 			<option class="header" disabled></option>

@@ -19,7 +19,7 @@
 	/** @type {Number} [spacing=1.5] – Spacing, in pixels, between each circle. */
 	export let spacing = 1.5;
 
-	/** @type {Function} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `<title>` tag. */
+	/** @type {Function} [getTitle] — An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production. */
 	export let getTitle = undefined;
 
 	$: circles = dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet });
@@ -84,7 +84,7 @@
 			"
 		>
 			{#if getTitle}
-				<title>{getTitle(d)}</title>
+				<div class="title">{getTitle(d)}</div>
 			{/if}
 		</div>
 	{/each}
@@ -96,5 +96,20 @@
 		border-style: solid;
 		border-radius: 50%;
 		transform: translate(-50%, -50%);
+	}
+	.title {
+		display: none;
+		white-space: nowrap;
+		padding: 0 3px;
+		border-radius: 3px;
+		font-size: 12px;
+		pointer-events: none;
+		position: absolute;
+		top: -15px;
+		left: 5px;
+		z-index: 9999;
+	}
+	.bee:hover .title {
+		display: block
 	}
 </style>

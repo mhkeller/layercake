@@ -25,11 +25,12 @@
 
 <div class="map-labels">
 {#each (features || $data.features) as d}
+	{@const coords = projectionFn(getCoordinates(d))}
 	<div
 		class="map-label"
 		style="
-			left: {projectionFn(getCoordinates(d))[0]}px;
-			top: {projectionFn(getCoordinates(d))[1]}px;
+			left: {coords[0]}px;
+			top: {coords[1]}px;
 		"
 	>{getLabel(d)}</div>
 {/each}

@@ -49,8 +49,11 @@
 		data={data}
 	>
 		<Svg>
-			<AxisX/>
+			<AxisX
+				gridlines={false}
+			/>
 			<AxisY
+				gridlines={false}
 				ticks={4}
 			/>
 		</Svg>
@@ -68,6 +71,7 @@
 				fill={color}
 			/>
 			<Voronoi
+				stroke="#333"
 				on:voronoi-mouseover={logEvent}
 			/>
 		</Svg>

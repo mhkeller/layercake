@@ -88,6 +88,7 @@
   let:found
   let:e
 >
+	{@const foundSorted = sortResult(found)}
   {#if visible === true}
     <div
       style="left:{(x / 100) * $width }px;"
@@ -97,11 +98,11 @@
       style="
         width:{w}px;
         display: { visible ? 'block' : 'none' };
-        top:calc({$yScale(sortResult(found)[0].value)}% + {offset}px);
+        top:calc({$yScale(foundSorted[0].value)}% + {offset}px);
         left:{Math.min(Math.max(w2, (x / 100) * $width), $width - w2)}px;"
       >
         <div class="title">{formatTitle(found[$config.x])}</div>
-        {#each sortResult(found) as row}
+        {#each foundSorted as row}
           <div class="row"><span class="key">{formatKey(row.key)}:</span> {formatValue(row.value)}</div>
         {/each}
     </div>

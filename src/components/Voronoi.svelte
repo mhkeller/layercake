@@ -40,14 +40,14 @@
 
 	/* Useful to testing but you'll want to disable this for production */
 	.voronoi-cell:hover {
-		stroke: #000;
-		stroke-width: 2px;
+		stroke: #333 !important;
+		stroke-width: 3px;
 	}
 </style>
 
 {#each uniquePoints as point, i}
 	<path
-		style="{stroke ? `stroke:${stroke};` : ''}"
+		style:stroke
 		class="voronoi-cell"
 		d={voronoi.renderCell(i)}
 		on:mouseover="{() => { log(point) }}"

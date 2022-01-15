@@ -52,9 +52,6 @@
 		zDomain={Array.from(seriesNames)}
 		zRange={seriesColors}
 		data={dataTransformed}
-		custom={{
-			getTitle: d => d[titleKey]
-		}}
 		let:width
 	>
 
@@ -65,6 +62,7 @@
 				strokeWidth={1}
 				xStrength={0.95}
 				yStrength={0.075}
+				getTitle={d => d[titleKey]}
 			/>
 		</Svg>
 

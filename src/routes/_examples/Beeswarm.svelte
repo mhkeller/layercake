@@ -22,7 +22,7 @@
 	const dataTransformed = data.map(d => {
 		seriesNames.add(d[zKey]);
 		return {
-			title: d[titleKey],
+			[titleKey]: d[titleKey],
 			[xKey]: +d[xKey],
 			[zKey]: d[zKey]
 		};
@@ -53,7 +53,6 @@
 		zDomain={[...seriesNames].sort()}
 		zRange={seriesColors}
 		data={dataTransformed}
-		custom={{ getTitle: d => d.data.title }}
 		let:width
 	>
 
@@ -63,9 +62,11 @@
 				formatTick={addCommas}
 				tickMarks={true}
 			/>
+			<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
 			<Beeswarm
 				r={width < 400 ? r / 1.6 : r}
 				spacing={1}
+				getTitle={d => d.data[titleKey] }
 			/>
 		</Svg>
 

@@ -15,18 +15,20 @@
 
 <g class="dot-plot">
 	{#each $data as row}
+		{@const yVal = $yGet(row)}
+		{@const xVals = $xGet(row)}
 		<g class="dot-row">
 			<line
-				x1="{Math.min(...$xGet(row))}"
-				y1="{$yGet(row) + midHeight}"
-				x2="{Math.max(...$xGet(row))}"
-				y2="{$yGet(row) + midHeight}"
+				x1="{Math.min(...xVals)}"
+				y1="{yVal + midHeight}"
+				x2="{Math.max(...xVals)}"
+				y2="{yVal + midHeight}"
 			></line>
 
-			{#each $xGet(row) as circleX, i}
+			{#each xVals as circleX, i}
 				<circle
 					cx="{circleX}"
-					cy="{$yGet(row) + midHeight}"
+					cy="{yVal + midHeight}"
 					r="{r}"
 					fill="{$zScale($config.x[i])}"
 				></circle>

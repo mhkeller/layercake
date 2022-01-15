@@ -5,7 +5,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	const { data, xGet, zGet, height, config, custom } = getContext('LayerCake');
+	const { data, xGet, zGet, height, config } = getContext('LayerCake');
 
 	/** @type {Number} [r=3] – The circle radius size in pixels. */
 	export let r = 3;
@@ -18,6 +18,9 @@
 
 	/** @type {Number} [spacing=1.5] – Spacing, in pixels, between each circle. */
 	export let spacing = 1.5;
+
+	/** @type {Function} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `<title>` tag. */
+	export let getTitle = undefined;
 
 	$: circles = dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet });
 
@@ -80,7 +83,9 @@
 				height:{r * 2}px;
 			"
 		>
-			<title>{$custom.getTitle(d)}</title>
+			{#if getTitle}
+				<title>{getTitle(d)}</title>
+			{/if}
 		</div>
 	{/each}
 	</div>

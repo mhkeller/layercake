@@ -6,7 +6,7 @@
 	import { getContext } from 'svelte';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 
-	const { data, xGet, height, zGet, custom } = getContext('LayerCake');
+	const { data, xGet, height, zGet } = getContext('LayerCake');
 
 	const nodes = $data.map((d) => ({ ...d }));
 
@@ -24,6 +24,9 @@
 
 	/** @type {Number} [yStrength=0.075] – The value passed into the `.strength` method on `forceY`. See [the documentation](https://github.com/d3/d3-force#y_strength). */
 	export let yStrength = 0.075;
+
+	/** @type {Function} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `<title>` tag. */
+	export let getTitle = undefined;
 
 	$: simulation = forceSimulation(nodes)
 		.force('x', forceX().x(d => $xGet(d)).strength(xStrength))
@@ -51,7 +54,9 @@
 			cy='{node.y}'
 			r='{r}'
 		>
-			<title>{$custom.getTitle(node)}</title>
+			{#if getTitle}
+				<title>{getTitle(node)}</title>
+			{/if}
 		</circle>
 	{/each}
 </g>

@@ -15,22 +15,24 @@
 
 <div class="dot-plot">
 	{#each $data as row}
+		{@const scaledYValue = $yGet(row)}
+		{@const scaledXValues = $xGet(row)}
 		<div class="dot-row">
 			<div
 				class="line"
 				style="
-					left: {Math.min(...$xGet(row))}%;
-					top: {$yGet(row) + midHeight}%;
-					right: {100 - Math.max(...$xGet(row))}%;
+					left: {Math.min(...scaledXValues)}%;
+					top: {scaledYValue + midHeight}%;
+					right: {100 - Math.max(...scaledXValues)}%;
 				"
 			></div>
 
-			{#each $xGet(row) as circleX, i}
+			{#each scaledXValues as circleX, i}
 				<div
 					class="circle"
 					style="
 						left: {circleX}%;
-						top: {$yGet(row) + midHeight}%;
+						top: {scaledYValue + midHeight}%;
 						width: {r * 2}px;
 						height: {r * 2}px;
 						background: {$zScale($config.x[i])};

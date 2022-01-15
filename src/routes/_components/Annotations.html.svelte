@@ -5,7 +5,7 @@
 
 	const annotations = [
 		{
-			text: 'CSS-based annotation...',
+			text: 'CSS-positioned annotation...',
 			top: '10%',
 			left: '15%'
 		},

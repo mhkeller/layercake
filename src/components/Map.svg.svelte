@@ -24,8 +24,8 @@
 	/** @type {Number} [strokeWidth=0.5] – The shape's stroke width. */
 	export let strokeWidth = 0.5;
 
-	/** @type {Array} [features=$data.features] – A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features`. */
-	export let features = $data.features;
+	/** @type {Array} [features] – A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */
+	export let features = undefined;
 
 	/* --------------------------------------------
 	 * Here's how you would do cross-component hovers
@@ -55,7 +55,7 @@
 	on:mouseout={(e) => dispatch('mouseout')}
 	on:blur={(e) => dispatch('mouseout')}
 >
-	{#each features as feature}
+	{#each (features || $data.features) as feature}
 		<path
 			class="feature-path"
 			fill="{fill || $zGet(feature.properties)}"

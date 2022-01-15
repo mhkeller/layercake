@@ -16,15 +16,15 @@
 	/** @type {Function} [getCoordinates=d => d.geometry.coordinates] – An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format. */
 	export let getCoordinates;
 
-	/** @type {Array} [features=$data.features] – A list of labels. By default, assumes `$data` is a GeoJSON Feature Collection and uses those features. */
-	export let features = $data.features;
+	/** @type {Array} [features] – A list of labels as GeoJSON features. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
+	export let features = undefined;
 
 	$: projectionFn = projection()
 		.fitSize([$width, $height], $data);
 </script>
 
 <g class="map-labels">
-{#each features as d}
+{#each (features || $data.features) as d}
 	<text
 		class="map-label"
 		x="{projectionFn(getCoordinates(d))[0]}"

@@ -22,20 +22,22 @@
 	/** @type {String} [fill='#fff'] – The shape's fill color. */
 	export let fill = '#fff';
 
-	/** @type {Array} [features=$data.features] – A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features`. */
-	export let features = $data.features;
+	/** @type {Array} [features] – A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */
+	export let features = undefined;
 
 	$: projectionFn = projection()
 		.fitSize([$width, $height], $data);
 
 	$: geoPathFn = geoPath(projectionFn);
 
+	$: featuresToDraw = features || $data.features;
+
 	$: {
 		if ($ctx && geoPath) {
 			scaleCanvas($ctx, $width, $height);
 			$ctx.clearRect(0, 0, $width, $height);
 
-			features.forEach(feature => {
+			featuresToDraw.forEach(feature => {
 				$ctx.beginPath();
 				// Set the context here since setting it in `$: geoPath` is a circular reference
 				geoPathFn.context($ctx);

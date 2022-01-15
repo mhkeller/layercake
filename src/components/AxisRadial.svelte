@@ -15,6 +15,9 @@
 
 	$: max = $xScale(Math.max(...$extents.x));
 
+	$: lineLength = max * lineLengthFactor;
+	$: labelPlacement = max * labelPlacementFactor;
+
 	$: angleSlice = (Math.PI * 2) / $config.x.length;
 
 	function anchor (total, i) {
@@ -49,11 +52,12 @@
 	></circle>
 
 	{#each $config.x as label, i}
+		{@const thisAngleSlice = angleSlice * i - Math.PI / 2}
 		<line
 			x1="0"
 			y1="0"
-			x2="{(max * lineLengthFactor) * Math.cos(angleSlice * i - Math.PI / 2)}"
-			y2="{(max * lineLengthFactor) * Math.sin(angleSlice * i - Math.PI / 2)}"
+			x2="{lineLength * Math.cos(thisAngleSlice)}"
+			y2="{lineLength * Math.sin(thisAngleSlice)}"
 			stroke="#ccc"
 			stroke-width="1"
 			fill="none"
@@ -64,6 +68,6 @@
 			dy="0.35em"
 			font-size="12px"
 			text-outline="#fff"
-			transform="translate({(max * labelPlacementFactor) * Math.cos(angleSlice * i - Math.PI / 2)}, {(max * labelPlacementFactor) * Math.sin(angleSlice * i - Math.PI / 2)})">{label}</text>
+			transform="translate({(labelPlacement) * Math.cos(thisAngleSlice)}, {labelPlacement * Math.sin(thisAngleSlice)})">{label}</text>
 	{/each}
 </g>

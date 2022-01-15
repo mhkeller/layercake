@@ -90,9 +90,7 @@
 
 		<Svg>
 			<slot name="def">
-				<ArrowheadMarker
-					fill='#f0c'
-				/>
+				<ArrowheadMarker/>
 			</slot>
 			<Arrows {annotations}/>
 		</Svg>

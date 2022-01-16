@@ -1,6 +1,13 @@
 Changelog
 ===
 
+# 6.0.0
+
+> 2022-01-16
+
+Layer Cake is now built with SvelteKit and the website is included in this repo instead of the [layercake.graphics](https://github.com/mhkeller/layercake.graphics) repo. This is a new major version since that seemed like a clean way to separate out any problems that might arise from the SvelteKit build process but there shouldn't actually be any breaking changes.
+
+
 # 5.0.2
 
 > 2021-12-08

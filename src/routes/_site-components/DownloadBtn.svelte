@@ -39,14 +39,12 @@
 			const deps = {};
 			const devDeps = {};
 			imports.forEach(mod => {
-				if (mod === 'layercake') {
-					deps[mod] = depsLookup[mod];
-				} else if (mod === 'svelte') {
+				if (mod === 'svelte') {
 					return;
 				} else {
 					deps[mod] = depsLookup[mod];
 				}
-				if (!depsLookup[mod] && mod !== 'layercake') {
+				if (!depsLookup[mod]) {
 					window.alert(`Missing dependency, add "${mod}" to this repo's package.json`);
 				}
 			});

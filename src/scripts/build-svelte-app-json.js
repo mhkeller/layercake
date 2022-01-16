@@ -8,8 +8,12 @@ for (const path of process.argv.slice(2)) {
 	}
 }
 
+const templatePkg = JSON.parse(fs.readFileSync('src/scripts/svelte-app/package.json', 'utf-8'));
+
 fs.writeFileSync(`static/svelte-app.json`, JSON.stringify(files));
 
+console.log(templatePkg);
+
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
-const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
+const allDeps = { ...pkg.dependencies, ...pkg.devDependencies, layercake: templatePkg.dependencies.layercake };
 fs.writeFileSync('static/deps.json', JSON.stringify(allDeps));

@@ -1,4 +1,5 @@
 <script context="module">
+	export const prerender = true;
 	export async function load({ params, fetch }) {
 		// the `slug` parameter is available because
 		// this file is called [slug].svelte

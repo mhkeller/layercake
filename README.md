@@ -9,7 +9,7 @@ Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.grap
  🍰 [Read the guide](https://layercake.graphics/guide)
  🍰 [API docs](https://layercake.graphics/guide#layercake-props)
  🍰 [View the Component Gallery](https://layercake.graphics/components)
- 🍰 [Starter template](https://github.com/mhkeller/layercake-template)
+ 🍰 [Try the starter template](https://github.com/mhkeller/layercake-template)
  🍰
 
 ## Install

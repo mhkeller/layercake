@@ -88,14 +88,19 @@ export async function get({ params }) {
 		.replace('<!--', '')
 		.replace('-->', '')).tags[0].description;
 
-	const jsdocString = fromMain.replace('<script>', '')
+	const jsdocTop = fromMain.replace('<script>', '')
 		.split('</script>')[0]
-		.match(/\/\*\*.*/gm)
-		.join('\n')
-		.replaceAll('@type', '@param')
-		.replaceAll('/**', '')
-		.replaceAll('*/', '')
-		.trim();
+		.match(/\/\*\*.*/gm);
+
+	let jsdocString = '';
+
+	if (jsdocTop !== null) {
+		jsdocString = jsdocTop.join('\n')
+			.replaceAll('@type', '@param')
+			.replaceAll('/**', '')
+			.replaceAll('*/', '')
+			.trim();
+	}
 
 	const jsdocParsed = doctrine.parse(jsdocString, { unwrap: true, sloppy: true });
 
@@ -103,6 +108,7 @@ export async function get({ params }) {
 		main,
 		dek,
 		usedIn,
+		hasjsDoctable: jsdocString !== jsdocTop,
 		jsdocParsed,
 		componentDescription,
 		modules

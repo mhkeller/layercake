@@ -99,8 +99,13 @@
 |-----|-------|--------|-----------|`;
 
 
-	const jsdocTableBody= `${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(d.type)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`).join('\n')}`;
-	const jsdocTable = data.jsdocParsed.tags.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
+	let jsdocTableBody = '';
+	let jsdocTable = '';
+
+	if (data.hasjsDoctable === true) {
+		jsdocTableBody= `${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(d.type)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`).join('\n')}`;
+		jsdocTable = data.jsdocParsed.tags.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
+	}
 
 	function copyToClipboard () {
 		const text = pages[0].contents;
@@ -371,9 +376,11 @@
 	<div class="dek">
 		{@html markdownToHtml(data.componentDescription)}
 	</div>
-	<div id="params-table">
-		{@html markdownToHtml(jsdocTable)}
-	</div>
+	{#if data.hasjsDoctable === true}
+		<div id="params-table">
+			{@html markdownToHtml(jsdocTable)}
+		</div>
+	{/if}
 	<div id="used-in">
 		{#if data.usedIn[0].matches.length > 0 || data.usedIn[1].matches.length > 0 }
 			<h3>Used in these{data.usedIn[0].matches.length === 0 && data.usedIn[1].matches.length > 0 ? ' SSR' : ''} examples:</h3>

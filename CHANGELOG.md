@@ -1,6 +1,12 @@
 Changelog
 ===
 
+# 6.0.0
+
+> 2022-01-16
+
+Layer Cake is now built with SvelteKit and the website is included in this repo instead of the [layercake.graphics](https://github.com/mhkeller/layercake.graphics) repo. This is a new major version since that seemed like a clean way to separate out any problems that might arise from the SvelteKit build process but there shouldn't actually be any breaking changes. One new feature is you'll now get TypeScript type hints when using the library (powered by JSDoc comments). Many thanks to [everyone](https://github.com/mhkeller/layercake/issues/49) who helped](https://github.com/mhkeller/layercake/issues/58) sort out best practices for that. There are a lot of commits in this release so instead of including them all here, here's the diff between this release and 5.0.3: https://github.com/mhkeller/layercake/compare/v5.0.3...v6.0.0
+
 # 5.0.3
 
 > 2021-12-14

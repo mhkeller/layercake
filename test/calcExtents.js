@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import calcExtents from '../src/lib/calcExtents.js';
+import calcExtents from '../src/lib/lib/calcExtents.js';
 
 const name = 'calcExtents';
 
@@ -72,7 +72,7 @@ const tests = [
 const errorTests = [
 	{
 		args: [[]],
-		expected: /^TypeError: The second argument of calcExtents\(\) must be an object with field names as keys as accessor functions as values.$/
+		expected: /^TypeError: The second argument of calcExtents\(\) must be an object with field names as keys as accessor functions as values\.$/
 	},
 	{
 		// Old-style API with array of objects as second argument
@@ -81,7 +81,10 @@ const errorTests = [
 		], [{ field: 'x', accessor: d => d.x }]],
 		expected: /^TypeError: The second argument of calcExtents\(\) must be an object with field names as keys as accessor functions as values.$/
 	},
-	{ args: [{}], expected: /^TypeError: The first argument of calcExtents\(\) must be an array.$/ }
+	{
+		args: [{}],
+		expected: /^TypeError: The first argument of calcExtents\(\) must be an array\. If you got this error using the <LayerCake> component, consider passing a flat array to the `flatData` prop\. More info: https:\/\/layercake\.graphics\/guide\/#flatdata.*/
+	}
 ];
 
 describe(name, () => {

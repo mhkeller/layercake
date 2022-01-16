@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import partialDomain from '../src/utils/partialDomain.js';
+import partialDomain from '../src/lib/utils/partialDomain.js';
 
 const name = 'partialDomain';
 

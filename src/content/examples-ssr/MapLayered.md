@@ -1,0 +1,3 @@
+A canvas layer and an SVG layer. This technique is useful if you have a background layer that would require a large number of DOM nodes. Rendering that layer with canvas will speed up the page. The shapes you actually care about are in SVG to make styling and mouse interaction easier.
+
+To render server-side, this example uses the `fixedAspectRatio` property, which the user sets ahead of time. The Canvas layer is rendered client side.

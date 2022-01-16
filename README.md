@@ -14,10 +14,8 @@ Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.grap
 
 ## Install
 
-Layer Cake lives in your `devDependencies` alongside Svelte, which it lists as a `peerDependency`.
-
 ```sh
-npm install --save-dev layercake
+npm install --save layercake
 ```
 
 ## Example

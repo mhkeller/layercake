@@ -2,7 +2,7 @@
 import * as assert from 'assert';
 import {
 	scaleLinear, scaleTime, scaleLog, scalePow, scaleSqrt, scaleSymlog } from 'd3-scale';
-import padScale from '../src/utils/padScale.js';
+import padScale from '../src/lib/utils/padScale.js';
 
 const name = 'padScale';
 

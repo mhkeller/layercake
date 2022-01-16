@@ -13,6 +13,11 @@
     "update_template": "sh ./src/scripts/update_template.sh",
     "test": "mocha --require esm test/*.js"
   },
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "svelte": "src/index.js",
   "devDependencies": {
     "@rollup/plugin-dsv": "^2.0.2",
     "@sveltejs/adapter-static": "^1.0.0-next.22",
@@ -58,7 +63,6 @@
     "underscore": "^1.13.1",
     "yootils": "^0.3.1"
   },
-  "type": "module",
   "dependencies": {
     "d3-scale": "^4.0.2"
   }

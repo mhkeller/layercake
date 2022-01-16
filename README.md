@@ -1,4 +1,4 @@
-Layer Cake  [<img src="hhttps://raw.githubusercontent.com/mhkeller/layercake.graphics/main/static/layercake-logo-500x400.png" width="115" align="right" alt="layercake-logo">](https://mhkeller.github.io/layercake)
+Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.graphics/main/static/layercake-logo-500x400.png" width="115" align="right" alt="layercake-logo">](https://mhkeller.github.io/layercake)
 ===
 
 > a framework for mostly-reusable graphics with [svelte](https://github.com/sveltejs/svelte)

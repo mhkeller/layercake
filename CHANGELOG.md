@@ -5,8 +5,15 @@ Changelog
 
 > 2022-01-16
 
-Layer Cake is now built with SvelteKit and the website is included in this repo instead of the [layercake.graphics](https://github.com/mhkeller/layercake.graphics) repo. This is a new major version since that seemed like a clean way to separate out any problems that might arise from the SvelteKit build process but there shouldn't actually be any breaking changes.
+Layer Cake is now built with SvelteKit and the website is included in this repo instead of the [layercake.graphics](https://github.com/mhkeller/layercake.graphics) repo. This is a new major version since that seemed like a clean way to separate out any problems that might arise from the SvelteKit build process but there shouldn't actually be any breaking changes. One new feature is you'll now get TypeScript type hints when using the library (powered by JSDoc comments). Many thanks to [everyone](https://github.com/mhkeller/layercake/issues/49) who helped](https://github.com/mhkeller/layercake/issues/58) sort out best practices for that. There are a lot of commits in this release so instead of including them all here, here's the diff between this release and 5.0.3: https://github.com/mhkeller/layercake/compare/v5.0.3...v6.0.0
 
+# 5.0.3
+
+> 2021-12-14
+
+Fix an extra argument that was causing the `aspectRatio` context val to be `NaN`. PR [#55](https://github.com/mhkeller/layercake/pull/55) from @techniq to add `"svelte": "src/index.js"` to package.json, fixes [#54](https://github.com/mhkeller/layercake/issues/54).
+  * [ed7e53b672b9e1ddcaf334dad283d6a547552e6a](https://github.com/mhkeller/layercake/commit/ed7e53b672b9e1ddcaf334dad283d6a547552e6a)
+  * [ef975738a0d2c8513e3164d218027c3c3c5fc84f](https://github.com/mhkeller/layercake/commit/ef975738a0d2c8513e3164d218027c3c3c5fc84f)
 
 # 5.0.2
 

@@ -8,7 +8,7 @@ Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.grap
  🍰 [See examples](https://layercake.graphics)
  🍰 [Read the guide](https://layercake.graphics/guide)
  🍰 [API docs](https://layercake.graphics/guide#layercake-props)
- 🍰 [Component gallery](https://layercake.graphics/components)
+ 🍰 [View the Component Gallery](https://layercake.graphics/components)
  🍰 [Starter template](https://github.com/mhkeller/layercake-template)
  🍰
 

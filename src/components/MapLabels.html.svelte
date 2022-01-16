@@ -40,7 +40,7 @@
 	.map-label {
 		position: absolute;
 		text-align: center;
-		font-size: 10px;
+		font-size: 8px;
 		color: #333;
 		margin-top: -3px; /* To match the SVG labels, it needs a slight tweak */
 		transform: translate(-50%, -50%);

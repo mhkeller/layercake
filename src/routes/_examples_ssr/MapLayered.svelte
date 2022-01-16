@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, ScaledSvg, Canvas } from 'layercake';
+	import { LayerCake, ScaledSvg, Canvas, Html } from 'layercake';
 	import { feature } from 'topojson-client';
 	import { geoAlbersUsa } from 'd3-geo';
 	import { scaleQuantize } from 'd3-scale';
@@ -8,11 +8,12 @@
 
 	import MapSvg from '../../components/Map.svg.svelte';
 	import MapCanvas from '../../components/Map.canvas.svelte';
+	import MapLabels from '../../components/MapLabels.html.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
 	import usStates from '../../data/us-states.topojson.json';
 	import stateData from '../../data/us-states-data.json';
-	// import stateLabels from '../../data/us-states-labels.json';
+	import stateLabels from '../../data/us-states-labels.json';
 
 	const colorKey = 'myValue';
 
@@ -28,15 +29,19 @@
 	const dataJoinKey = 'name';
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
-	// const labelLookup = new Map();
+
+	const labelCoordinatesKey = 'center';
+	const labelNameKey = 'abbr';
 
 	stateData.forEach(d => {
 		dataLookup.set(d[dataJoinKey], d[colorKey]);
 	});
 
-	// stateLabels.forEach(d => {
-	// 	labelLookup.set(d[joinKey], d);
-	// });
+	// Exclude some for space reasons
+	const labelsToExclude = ['VT', 'MD', 'NJ', 'RI', 'DC', 'DE', 'WV', 'MA', 'CT', 'NH'];
+	const labelsToDisplay = stateLabels.filter(d => {
+		return !labelsToExclude.includes(d[labelNameKey]);
+	});
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
@@ -90,5 +95,16 @@
 				features={geojson.features.slice(40, 50)}
 			/>
 		</ScaledSvg>
+
+		<Html
+			pointerEvents={false}
+		>
+			<MapLabels
+				{projection}
+				features={labelsToDisplay}
+				getCoordinates={d => d[labelCoordinatesKey]}
+				getLabel={d => d[labelNameKey]}
+			/>
+		</Html>
 	</LayerCake>
 </div>

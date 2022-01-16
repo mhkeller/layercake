@@ -9,7 +9,6 @@
 	import MapSvg from '../../components/Map.svg.svelte';
 	import MapCanvas from '../../components/Map.canvas.svelte';
 	import MapLabels from '../../components/MapLabels.html.svelte';
-	// import MapLabels from '../../components/MapLabels.html.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
 	import usStates from '../../data/us-states.topojson.json';
@@ -31,15 +30,16 @@
 	const dataJoinKey = 'name';
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
-	const labelLookup = new Map();
 
 	stateData.forEach(d => {
 		dataLookup.set(d[dataJoinKey], d[colorKey]);
 	});
 
-	// stateLabels.forEach(d => {
-	// 	labelLookup.set(d[dataJoinKey], d);
-	// });
+	// Exclude some for space reasons
+	const labelsToExclude = ['VT', 'MD', 'NJ', 'RI', 'DC', 'DE', 'WV', 'MA', 'CT', 'NH'];
+	const labelsToDisplay = stateLabels.filter(d => {
+		return !labelsToExclude.includes(d[labelNameKey]);
+	});
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
@@ -82,16 +82,15 @@
 			/>
 		</Svg>
 
-		<!-- Work in progress -->
-		<!-- <Html
+		<Html
 			pointerEvents={false}
 		>
 			<MapLabels
 				{projection}
-				features={[...geojson.features.slice(0, 50), geojson.features[0]]}
-				getCoordinates={feature => feature.properties[labelCoordinatesKey]}
-				getName={feature => feature.properties[labelNameKey]}
+				features={labelsToDisplay}
+				getCoordinates={d => d[labelCoordinatesKey]}
+				getLabel={d => d[labelNameKey]}
 			/>
-		</Html> -->
+		</Html>
 	</LayerCake>
 </div>

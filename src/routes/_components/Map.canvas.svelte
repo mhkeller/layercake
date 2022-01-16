@@ -36,6 +36,7 @@
 		<Canvas>
 			<MapCanvas
 				{projection}
+				fill="#fff"
 			/>
 		</Canvas>
 	</LayerCake>

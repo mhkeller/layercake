@@ -25,10 +25,11 @@
 
 <g class="map-labels">
 {#each (features || $data.features) as d}
+	{@const coords = projectionFn(getCoordinates(d))}
 	<text
 		class="map-label"
-		x="{projectionFn(getCoordinates(d))[0]}"
-		y="{projectionFn(getCoordinates(d))[1]}"
+		x="{coords[0]}"
+		y="{coords[1]}"
 	>{getLabel(d)}</text>
 {/each}
 </g>

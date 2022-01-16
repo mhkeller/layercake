@@ -15,9 +15,6 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "src/index.js",
-  "module": "src/index.js",
-  "svelte": "src/index.js",
   "devDependencies": {
     "@rollup/plugin-dsv": "^2.0.2",
     "@sveltejs/adapter-static": "^1.0.0-next.22",

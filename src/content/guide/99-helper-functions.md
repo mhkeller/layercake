@@ -68,7 +68,7 @@ Scale your canvas size to retina screens. This function will modify the canvas, 
 
 Such as in the [Scatter canvas](/example/Scatter) example:
 
-```html
+```svelte
 <!-- { filename: 'Scatter.html' } -->
 <script>
 	import { getContext } from 'svelte';

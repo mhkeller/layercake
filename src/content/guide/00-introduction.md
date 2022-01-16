@@ -38,7 +38,7 @@ cd my-chart
 
 The `App.svelte` file in this example is your main Svelte component. You can render a LayerCake inside a DOM element like so.
 
-```html
+```svelte
 <!-- { filename: 'js/App.svelte' } -->
 <script>
   import { LayerCake } from 'layercake';
@@ -83,7 +83,7 @@ The `App.svelte` file in this example is your main Svelte component. You can ren
 
 Within the `LayerCake` component, you'll want to add at least one layout component, kind of like a wrapper. It can be `Svg`, `Html`, `Canvas` or `WebGL`. Within any of these is where you'll put your own custom layer components. Here's an example with a few different layout elements working together.
 
-```html
+```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, Svg, Canvas, Html }  from 'layercake';
@@ -154,7 +154,7 @@ The only components the Layer Cake module exports are `LayerCake` and those layo
 
 Here's an example starting with a similar `App.svelte` file to the example above. We're creating a scatter chart in SVG.
 
-```html
+```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, Svg } from 'layercake';
@@ -198,7 +198,7 @@ Here's an example starting with a similar `App.svelte` file to the example above
 
 This is what the scatter component looks like:
 
-```html
+```svelte
 <!-- { filename: './components/Scatter.svelte' } -->
 <script>
   // Import the getContext function from svelte
@@ -226,7 +226,7 @@ A few notes on this component:
 1. Everything that you export from `getContext('LayerCake')` is a [Svelte store](https://svelte.dev/docs#svelte_store) so prefix them with `$` in the template.
 2. This example is a bit verbose because we're calling our accessor functions and then our scale functions. You can combine these two steps with the built-in `xGet` and `yGet` functions. Like so:
 
-```html
+```svelte
 <!-- { filename: './components/Scatter.svelte' } -->
 <script>
   // Import the getContext function from svelte
@@ -256,7 +256,7 @@ You can also use Layer Cake to simply arrange SVG, HTML, Canvas and WebGL elemen
 
 Here's an example that doesn't set any properties on the `LayerCake` component:
 
-```html
+```svelte
 <!-- { filename: 'App.Svelte' } -->
 <script>
   import { LayerCake, Svg, Html } from 'layercake';

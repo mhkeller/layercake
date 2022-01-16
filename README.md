@@ -20,7 +20,7 @@ npm install --save layercake
 
 ## Example
 
-```html
+```svelte
 <script>
   import { LayerCake, Svg, Html, Canvas } from 'layercake';
 

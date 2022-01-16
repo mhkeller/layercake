@@ -2,9 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import * as fleece from 'golden-fleece';
 import hljs from 'highlight.js';
+
 import * as marked from './marked.js'
 import processMarkdown from './processMarkdown.js';
 import slugify from './slugify.js';
+import hljsDefineSvelte from './hljsDefineSvelte.js';
+
+hljs.registerLanguage('svelte', hljsDefineSvelte);
+
+hljsDefineSvelte(hljs);
 
 const escaped = {
 	'"': '&quot;',

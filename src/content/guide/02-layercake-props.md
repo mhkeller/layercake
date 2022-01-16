@@ -4,7 +4,7 @@ title: LayerCake props
 
 These are the props you can set on the `LayerCake` component itself. You set them all like so:
 
-```html
+```svelte
 <Layercake
   foo='foo'
   bar='bar'
@@ -14,7 +14,7 @@ These are the props you can set on the `LayerCake` component itself. You set the
 
 The component also exports an `element` prop that represents the main wrapper, in case you need to access it for some reason. It also exposes this as a slot prop.
 
-```html
+```svelte
 <script>
   let mainElement;
 </script>
@@ -31,7 +31,7 @@ The component also exports an `element` prop that represents the main wrapper, i
 
 A list of data items. If this is not a flat data array of objects, you'll also need to set [flatData](/guide#flatdata).
 
-```html
+```svelte
 <LayerCake
   data={ myData }
 >
@@ -41,7 +41,7 @@ A list of data items. If this is not a flat data array of objects, you'll also n
 
 The key in each row of data that corresponds to the x-field. This can be a string, number (usually relating to an index of an array), an accessor function, or any combination of those types. This property gets converted to a function when you access it through the context.
 
-```html
+```svelte
 <LayerCake
   x='myX'
   <!-- is equivalent to... -->
@@ -80,7 +80,7 @@ The data is now an array of values. The `month` values you can't see because sne
 
 The x- and y-accessors would then look like this:
 
-```html
+```svelte
 <LayerCake
   x={ [0, 1] }
   y={ d => d.data.month }
@@ -105,7 +105,7 @@ Same as [x](/guide#x) but for the r dimension.
 
 An object that can specify `top`, `right`, `bottom`, or `left` padding in pixels. Any unspecified values are filled in as `0`. Padding operates like CSS `box-sizing: border-box;` where values are subtracted from the parent container's width and height, the same as [a D3 margin convention](https://bl.ocks.org/mbostock/3019563).
 
-```html
+```svelte
 <LayerCake
   padding={ { top: 20, right: 10, bottom: 0, left: 0 } }
   // equivalent to...
@@ -137,7 +137,7 @@ Same as [xScale](/guide#xscale) but for the r scale. The default is `d3.scaleSqr
 
 Set a min or max on the x scale. If you want to inherit the value from the data's extent, set that value to `null`.
 
-```html
+```svelte
 <LayerCake
   xDomain={ [0, 100] } // Fixes the x scale's domain
   // or..
@@ -147,7 +147,7 @@ Set a min or max on the x scale. If you want to inherit the value from the data'
 
 This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series.
 
-```html
+```svelte
 <LayerCake
   xDomain={ [-1, 0, 1] } // Could be useful to create a diverging scale
   // or..
@@ -197,14 +197,14 @@ Override the default y range of `[0, width]` by setting it here to an array or f
 
 This overrides setting [xReverse](/guide#xreverse) to `true`.
 
-```html
+```svelte
 <LayerCake
   xRange={ [1, 100] }
 >
 ```
 It can also be a function:
 
-```html
+```svelte
 <LayerCake
   xRange={ ({ width, height }) => [0, width / 2] }
 >
@@ -234,7 +234,7 @@ Assign a pixel value to add to the min or max of the x scale. This will increase
 
 It will log out a warning if you try to use it on a scale that has a domain or range that isn't two items, such as with ordinal scales.
 
-```html
+```svelte
 <LayerCake
   xPadding= { [10, 10] } // Add ten pixels of data units to both sides of the scale's domain
 >
@@ -272,7 +272,7 @@ Same as [xNice](/guide#xnice) but for the r domain.
 
 Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension.
 
-```html
+```svelte
 <LayerCake
   extents={{ x: [0, 100], y: [50, 100] }}
 >
@@ -286,7 +286,7 @@ In order for Layer Cake to measure the extents of your data, it needs a flat arr
 
 Here's an example showing passing different data formats for extent calculation versus what is used by layer components.
 
-```html
+```svelte
 <script>
   import { LayerCake } from 'LayerCake';
 
@@ -359,7 +359,7 @@ Determine the positioning of the wrapper div. Set this to `'absolute'` when you 
 
 Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants.
 
-```html
+```svelte
 <LayerCake
   custom={ { size: 10, names: ['a', 'b', 'c'] } }
 >

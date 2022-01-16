@@ -21,7 +21,7 @@ An object that has a key for each dimension of data you have provided an accesso
 
 The aspect ratio of the chart, `width / height`. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:aspectRatio`. For example, you could use it to selectively display some components over others:
 
-```html
+```svelte
 <LayerCake
   let:aspectRatio
 >
@@ -82,7 +82,7 @@ The width of the drawable space for the chart. This is the height of the parent 
 
 The x accessor. This will always be a function regardless of whether you passed in a string or an array as a prop. If you passed in an array, it will return an array of equal length.
 
-```html
+```svelte
 <LayerCake
   x='x'
   <!-- equivalent to -->
@@ -90,7 +90,7 @@ The x accessor. This will always be a function regardless of whether you passed 
 >
 ```
 
-```html
+```svelte
 <script>
   import { getContext } from 'svelte';
   const { data, x, y } = getContext('LayerCake');
@@ -162,7 +162,7 @@ Why use this? Hard coding key names into your components makes them less reusabl
 
 Here are a few examples to show how it working and what it's equivalent to:
 
-```html
+```svelte
 <script>
 import { getContext } from 'svelte';
 
@@ -180,7 +180,7 @@ const { data, x, xScale, xGet } = getContext('LayerCake');
 
 Here's an example from a simple scatter plot:
 
-```html
+```svelte
 <script>
   import { getContext } from 'svelte';
 

@@ -14,7 +14,7 @@ Here are the four layout components: HTML, Svg, ScaledSvg, Canvas and WebGL cont
 
 ### Html
 
-```html
+```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, Html } from 'layercake';
@@ -46,7 +46,7 @@ Here are the four layout components: HTML, Svg, ScaledSvg, Canvas and WebGL cont
 
 The SVG layout component also accepts a `viewBox` prop. See the [Layout component props](/guide#layout-component-props) section for more information.
 
-```html
+```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, Svg } from 'layercake';
@@ -75,7 +75,7 @@ The SVG layout component also accepts a `viewBox` prop. See the [Layout componen
 
 This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field.
 
-```html
+```svelte
 <div class="chart-container">
   <LayerCake ...>
     <Svg>
@@ -97,11 +97,11 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
 
 Use this when you want to render SVGs server side, using Rich Harris's [Pancake technique](https://dev.to/richharris/a-new-technique-for-making-responsive-javascript-free-charts-gmp).
 
-It's often used in conjunction with props `ssr={true}` and `percentRange={true}`. 
+It's often used in conjunction with props `ssr={true}` and `percentRange={true}`.
 
 The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. See the [Layout component props](/guide#layout-component-props) section for more information.
 
-```html
+```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, ScaledSvg } from 'layercake';
@@ -133,7 +133,7 @@ The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. 
 
 This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field.
 
-```html
+```svelte
 <div class="chart-container">
   <LayerCake ...>
     <Svg>
@@ -153,7 +153,7 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
 
 ### Canvas
 
-```html
+```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, Canvas } from 'layercake';
@@ -189,7 +189,7 @@ In the component, you access the canvas context with `const { ctx } = getContext
 
 Here's an example showing a scatter plot.
 
-```html
+```svelte
 <!-- { filename: './components/CanvasLayer.svelte' } -->
 <script>
 	import { getContext } from 'svelte';
@@ -225,7 +225,7 @@ Here's an example showing a scatter plot.
 
 ### WebGL
 
-```html
+```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, WebGL } from 'layercake';

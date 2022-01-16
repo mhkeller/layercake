@@ -4,9 +4,9 @@ title: Troubleshooting
 
 ### The chart is blank
 
-The `<LayerCake>` component expands to fill the size of its parent `<div>` – that's why all of the examples define a `chart-container` element with a specific width and height. If your chart isn't showing up, make sure you have a width and height set on your wrapper div. 
+The `<LayerCake>` component expands to fill the size of its parent `<div>` – that's why all of the examples define a `chart-container` element with a specific width and height. If your chart isn't showing up, make sure you have a width and height set on your wrapper div.
 
-Inspect the DOM tree with your browser's dev tools and look at what width and height the Layer Cake layout elements are receiving and trace up the parents in the tree to see which element may not be sized properly. If you have an unusual combination of `absolute`-ly positioned elements, it could be one of the parents is not getting a specific width and height. 
+Inspect the DOM tree with your browser's dev tools and look at what width and height the Layer Cake layout elements are receiving and trace up the parents in the tree to see which element may not be sized properly. If you have an unusual combination of `absolute`-ly positioned elements, it could be one of the parents is not getting a specific width and height.
 
 Also take a look in the console for any warnings – LayerCake should warn you if any of the dimensions are zero or negative.
 
@@ -20,7 +20,7 @@ Layer Cake is *almost entirely* a basic Svelte component. The exception is the [
 
 For example:
 
-```html
+```svelte
 <script>
   import LayerCake from './layercake/src/LayerCake.svelte';
   import Svg from './layercake/src/layouts/Svg.svelte';

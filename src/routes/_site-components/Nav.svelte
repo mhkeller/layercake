@@ -394,7 +394,7 @@
 	<ul class='primary'>
 		<li><a sveltekit:prefetch class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'><span class="wide-name">Component gallery</span><span class="short-name">Components</span></a></li>
 		<li><a sveltekit:prefetch class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
-		<li><a id="github-link" href='https://github.com/mhkeller/layercake'> </a></li>
+		<li><a id="github-link" target="_blank" rel="nofollow" href='https://github.com/mhkeller/layercake'> </a></li>
 	</ul>
 
 	<div class='secondary'>

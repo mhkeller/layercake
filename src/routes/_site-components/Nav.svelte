@@ -15,12 +15,12 @@
 	// I was getting a weird artifact of a service-worker.js
 	// being requested. it's fixed now but keep this for
 	// good measure
-	$: isServiceWorker = $page.url.pathname === '/service-worker.js';
+	$: isServiceWorker = $page.path === '/service-worker.js';
 
 	let segment;
 
 	$: if (!isServiceWorker) {
-		path = $page.url.pathname;
+		path = $page.path;
 		type = path.split('/')[1];
 		segment = `/${path.replace('/', '')}`;
 		slug = path.replace(/\/$/, '').split('/').pop();

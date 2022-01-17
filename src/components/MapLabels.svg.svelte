@@ -45,8 +45,11 @@
 	}
 	.map-label {
 		color: #333;
-		/* This is small because we're loading it in ScaledSvg so it's actually being zoomed by about 10x */
-		font-size: 1px;
+		/**
+		 * If you render this in an ScaledSvg layout component, you'll
+		 * want to make this like 1px bc it's actually being zoomed by about 10x
+		 */
+		font-size: 8px;
 		text-anchor: middle;
 	}
 </style>

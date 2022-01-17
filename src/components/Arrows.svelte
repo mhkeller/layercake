@@ -17,12 +17,6 @@
 
 	let container;
 
-	// If you're loading this component via sapper or another multi-page app
-	// you will likely need to set an explicit path to the svg marker definition
-	// for Safari compatibility. See https://github.com/sveltejs/svelte/issues/3450
-	// Otherwise, you can remove this variable from here and from the template below
-	$: basePath = typeof window !== 'undefined' ? window.location.href : '';
-
 	const { width, height } = getContext('LayerCake');
 
 	/* --------------------------------------------
@@ -97,7 +91,7 @@
 			{#if anno.arrows}
 				{#each anno.arrows as arrow}
 					<path
-						marker-end='url({ basePath }#arrowhead)'
+						marker-end='url(#arrowhead)'
 						d='{d(anno, i, arrow)}'></path>
 				{/each}
 			{/if}

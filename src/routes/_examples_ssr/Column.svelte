@@ -103,7 +103,7 @@
 		data={data}
 	>
 		<Svg>
-			<slot name="def">
+			<slot name="defs">
 				<ArrowheadMarker/>
 			</slot>
 			<Arrows {annotations}/>

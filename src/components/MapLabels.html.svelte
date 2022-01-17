@@ -32,7 +32,7 @@
 
 <div
 	class="map-labels"
-	style:padding-bottom={fixedAspectRatio ? '100%' : null}
+	style:aspect-ratio={fixedAspectRatio ? 1 : null}
 >
 {#each (features || $data.features) as d}
 	{@const coords = projectionFn(getCoordinates(d))}

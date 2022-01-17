@@ -55,7 +55,7 @@
 		It can also be a flexbox child or CSS grid element.
 		The point being it needs dimensions since the <LayerCake> element will
 		expand to fill it.
-		The height is being set inline with `padding-bottom` using the aspect ratio trick below.
+		The height is being set inline with a CSS `aspect-ratio` property.
 	*/
 	.chart-container {
 		position: relative;
@@ -63,7 +63,7 @@
 	}
 </style>
 
-<div class="chart-container" style="padding-bottom:{100 / aspectRatio}%;">
+<div class="chart-container" style="aspect-ratio:{aspectRatio};">
 	<LayerCake
 		position='absolute'
 		data={geojson}

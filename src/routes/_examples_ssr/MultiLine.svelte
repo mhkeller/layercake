@@ -7,7 +7,7 @@
 	import MultiLine from '../../components/MultiLine.svelte';
 	import AxisX from '../../components/AxisX.html.svelte';
 	import AxisY from '../../components/AxisY.html.svelte';
-	import Labels from '../../components/GroupLabels.html.svelte';
+	import GroupLabels from '../../components/GroupLabels.html.svelte';
 	import SharedTooltip from '../../components/SharedTooltip.percent-range.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
@@ -103,7 +103,7 @@
 		</ScaledSvg>
 
 		<Html>
-			<Labels/>
+			<GroupLabels/>
 			<SharedTooltip
 				formatTitle={formatTickX}
 				dataset={data}

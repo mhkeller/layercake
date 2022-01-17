@@ -4,6 +4,7 @@
 	import SmallMultipleWrapper from '../../components/SmallMultipleWrapper.percent-range.svelte';
 
 	import pointSeries from '../../data/pointSeries.js';
+
 	/* --------------------------------------------
 	 * Grab the extents of the full dataset
 	 */

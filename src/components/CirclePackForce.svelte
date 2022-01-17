@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different.
+	Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different. This technique comes from @plmrry.
  -->
 <script>
 	import { getContext } from 'svelte';

@@ -95,11 +95,9 @@
 				features={geojson.features.slice(40, 50)}
 			/>
 		</ScaledSvg>
-
-		<Html
-			pointerEvents={false}
-		>
+		<Html>
 			<MapLabels
+				fixedAspectRatio={aspectRatio}
 				{projection}
 				features={labelsToDisplay}
 				getCoordinates={d => d[labelCoordinatesKey]}

@@ -33,6 +33,6 @@
     "@lukeed/uuid": "^2.0.0",
     "@rollup/plugin-dsv": "^2.0.2",
     "cookie": "^0.4.1",
-    "layercake": "^6.0.0"
+    "layercake": "^6.0.2"
   }
 }

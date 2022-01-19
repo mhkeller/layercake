@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 6.0.1
+
+> 2022-01-19
+
+Fill in a misssing documentation line for the `padding` prop.
+
+* [ed7e53b672b9e1ddcaf334dad283d6a547552e6a](https://github.com/mhkeller/layercake/commit/ed7e53b672b9e1ddcaf334dad283d6a547552e6a)
+
 # 6.0.0
 
 > 2022-01-16

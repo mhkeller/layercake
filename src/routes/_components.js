@@ -1,6 +1,3 @@
-/* --------------------------------------------
- * Normal components
- */
 import Area from './_components/Area.svelte';
 import Annotations from './_components/Annotations.html.svelte';
 import Arrows from './_components/Arrows.svelte';
@@ -20,12 +17,10 @@ import Brush from './_components/Brush.svelte';
 import Calendar from './_components/Calendar.svelte';
 import CirclePack from './_components/CirclePack.svelte';
 import CirclePackForce from './_components/CirclePackForce.svelte';
-// import CirclePackNested from './_components/CirclePackNested.svelte';
 import ClevelandDotPlot from './_components/ClevelandDotPlot.svelte';
 import ClevelandDotPlotHtml from './_components/ClevelandDotPlot.html.svelte';
 import Column from './_components/Column.svelte';
 import ColumnStacked from './_components/ColumnStacked.svelte';
-// import ForceDirectedGraph from './_components/ForceDirectedGraph.svelte';
 import Line from './_components/Line.svelte';
 import LineD3 from './_components/Line-D3.svelte';
 import MapSvg from './_components/Map.svg.svelte';
@@ -47,7 +42,6 @@ import GroupLabels from './_components/GroupLabels.html.svelte';
 import Tooltip from './_components/Tooltip.html.svelte';
 import SharedTooltip from './_components/SharedTooltip.html.svelte';
 import SharedTooltipPercentRange from './_components_ssr/SharedTooltip.percent-range.html.svelte';
-
 import AxisXHtml from './_components_ssr/AxisX.html.svelte';
 import AxisYHtml from './_components_ssr/AxisY.html.svelte';
 import ScatterHtml from './_components_ssr/Scatter.html.svelte';

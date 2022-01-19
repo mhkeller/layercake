@@ -8,6 +8,7 @@ Changelog
 Fill in a misssing documentation line for the `padding` prop.
 
 * [e682adaed7a7fbea63f6911e533e37e1c5d9952e](https://github.com/mhkeller/layercake/commit/e682adaed7a7fbea63f6911e533e37e1c5d9952e)
+* [4383fe34bc1b8aca59c104bf8de76766d2dba52a](https://github.com/mhkeller/layercake/commit/4383fe34bc1b8aca59c104bf8de76766d2dba52a)
 
 # 6.0.0
 

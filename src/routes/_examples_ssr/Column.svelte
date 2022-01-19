@@ -103,9 +103,9 @@
 		data={data}
 	>
 		<Svg>
-			<slot name="def">
+			<svelte:fragment slot="defs">
 				<ArrowheadMarker/>
-			</slot>
+			</svelte:fragment>
 			<Arrows {annotations}/>
 		</Svg>
 	</LayerCake>

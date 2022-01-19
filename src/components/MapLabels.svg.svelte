@@ -13,14 +13,19 @@
 	/** @type {Function} getLabel – An accessor function to get the field to display. */
 	export let getLabel;
 
+	/** @type {Number} [fixedAspectRatio] – By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
+	export let fixedAspectRatio = undefined;
+
 	/** @type {Function} [getCoordinates=d => d.geometry.coordinates] – An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format. */
 	export let getCoordinates;
 
 	/** @type {Array} [features] – A list of labels as GeoJSON features. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
 	export let features = undefined;
 
+	$: fitSizeRange = fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height];
+
 	$: projectionFn = projection()
-		.fitSize([$width, $height], $data);
+		.fitSize(fitSizeRange, $data);
 </script>
 
 <g class="map-labels">
@@ -35,9 +40,16 @@
 </g>
 
 <style>
+	.map-labels {
+		pointer-events: none;
+	}
 	.map-label {
 		color: #333;
-		font-size: 10px;
+		/**
+		 * If you render this in an ScaledSvg layout component, you'll
+		 * want to make this like 1px bc it's actually being zoomed by about 10x
+		 */
+		font-size: 8px;
 		text-anchor: middle;
 	}
 </style>

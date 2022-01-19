@@ -35,10 +35,6 @@
 		data={geojson}
 	>
 		<Svg>
-			<!-- <MapSvg
-				fill='#fff'
-				{projection}
-			/> -->
 			<MapLabels
 				{projection}
 				features={usStateLabels.filter(d => !hideList.includes(d.abbr))}

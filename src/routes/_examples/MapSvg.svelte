@@ -27,7 +27,7 @@
 	const projection = geoAlbersUsa;
 
 	stateData.forEach(d => {
-		dataLookup.set(d[dataJoinKey], d[colorKey]);
+		dataLookup.set(d[dataJoinKey], d);
 	});
 
 	let evt;
@@ -57,7 +57,7 @@
 <div class="chart-container">
 	<LayerCake
 		data={geojson}
-		z={d => dataLookup.get(d[mapJoinKey])}
+		z={d => dataLookup.get(d[mapJoinKey])[colorKey]}
 		zScale={scaleQuantize()}
 		zRange={colors}
 		{flatData}
@@ -78,7 +78,9 @@
 					{evt}
 					let:detail
 				>
-					{#each Object.entries(detail.props) as [key, value]}
+					<!-- For the tooltip, do another data join because the hover event only has the data from the geography data -->
+					{@const tooltipData = { ...detail.props, ...dataLookup.get(detail.props[mapJoinKey]) }}
+					{#each Object.entries(tooltipData) as [key, value]}
 						{@const keyCapitalized = key.replace(/^\w/, d => d.toUpperCase())}
 						<div class="row"><span>{keyCapitalized}:</span> {typeof value === 'number' ? addCommas(value) : value}</div>
 					{/each}

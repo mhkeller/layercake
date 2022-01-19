@@ -7,7 +7,7 @@
 
 	const { xGet, yGet } = getContext('LayerCake');
 
-	/** @type {Array} annotations=[] – A list of annotation objects. */
+	/** @type {Array} annotations – A list of annotation objects. */
 	export let annotations = [];
 
 	/** @type {Function} [getText=d => d.text] – An accessor function to get the field to display. */

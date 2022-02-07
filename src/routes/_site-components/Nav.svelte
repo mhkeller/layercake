@@ -17,7 +17,7 @@
 	// good measure
 	$: isServiceWorker = $page.path === '/service-worker.js';
 
-	let segment;
+	let segment = '';
 
 	$: if (!isServiceWorker) {
 		path = $page.path;

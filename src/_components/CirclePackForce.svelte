@@ -14,22 +14,22 @@
 
 	const { data, width, height, xScale, xGet, rGet, zGet } = getContext('LayerCake');
 
-	/** @type {Number} [manyBodyStrength=5] – The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more. */
+	/** @type {Number} [manyBodyStrength=5] - The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more. */
 	export let manyBodyStrength = 5;
 
-	/** @type {Number} [xStrength=0.1] – The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */
+	/** @type {Number} [xStrength=0.1] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */
 	export let xStrength = 0.1;
 
 	/** @type {String} [nodeColor] Set a color manually otherwise it will default to the `zScale`. */
 	export let nodeColor = undefined;
 
-	/** @type {String} [nodeStroke='#fff'] – The circle's stroke color. */
+	/** @type {String} [nodeStroke='#fff'] - The circle's stroke color. */
 	export let nodeStroke = '#fff';
 
-	/** @type {Number} [nodeStrokeWidth=1] – The circle's stroke width, in pixels. */
+	/** @type {Number} [nodeStrokeWidth=1] - The circle's stroke width, in pixels. */
 	export let nodeStrokeWidth = 1;
 
-	/** @type {Boolean} [groupBy=true] – Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center. */
+	/** @type {Boolean} [groupBy=true] - Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center. */
 	export let groupBy = true;
 
 	/* --------------------------------------------

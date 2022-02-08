@@ -7,7 +7,7 @@
 
 	const { data, xGet, yGet, zScale, yScale, config } = getContext('LayerCake');
 
-	/** @type {Number} [r=5] – The circle radius. */
+	/** @type {Number} [r=5] - The circle radius. */
 	export let r = 5;
 
 	$: midHeight = $yScale.bandwidth() / 2;

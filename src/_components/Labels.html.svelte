@@ -7,13 +7,13 @@
 
   const { xGet, yGet } = getContext('LayerCake');
 
-	/** @type {Array} labels – An array of objects that contain a field containing text label and data fields. */
+	/** @type {Array} labels - An array of objects that contain a field containing text label and data fields. */
   export let labels;
 
-	/** @type {Function} getLabelName= – An accessor function to return the label field on your objects in the `labels` array. */
+	/** @type {Function} getLabelName= - An accessor function to return the label field on your objects in the `labels` array. */
   export let getLabelName;
 
-	/** @type {Function} [formatLabelName=d => d] – An optional formatting function. */
+	/** @type {Function} [formatLabelName=d => d] - An optional formatting function. */
   export let formatLabelName = d => d;
 </script>
 

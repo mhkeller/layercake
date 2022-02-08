@@ -16,13 +16,13 @@
 		return $yRange[0] - $yGet(d);
 	};
 
-	/** @type {String} [fill='#00e047'] – The shape's fill color. */
+	/** @type {String} [fill='#00e047'] - The shape's fill color. */
 	export let fill = '#00e047';
 
-	/** @type {String} [stroke='#000'] – The shape's stroke color. */
+	/** @type {String} [stroke='#000'] - The shape's stroke color. */
 	export let stroke = '#000';
 
-	/** @type {Number} [strokeWidth=0] – The shape's stroke width. */
+	/** @type {Number} [strokeWidth=0] - The shape's stroke width. */
 	export let strokeWidth = 0;
 
 </script>

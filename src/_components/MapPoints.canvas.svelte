@@ -10,22 +10,22 @@
 
 	const { ctx } = getContext('canvas');
 
-	/** @type {Function} projection – A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
+	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
 	export let projection;
 
-	/** @type {Number} [r=3.5] – The point's radius. */
+	/** @type {Number} [r=3.5] - The point's radius. */
 	export let r = 3.5;
 
-	/** @type {String} [fill='yellow'] – The point's fill color. */
+	/** @type {String} [fill='yellow'] - The point's fill color. */
 	export let fill = 'yellow';
 
-	/** @type {String} [stroke='#000'] – The point's stroke color. */
+	/** @type {String} [stroke='#000'] - The point's stroke color. */
 	export let stroke = '#000';
 
-	/** @type {Number} [strokeWidth=1] – The point's stroke width. */
+	/** @type {Number} [strokeWidth=1] - The point's stroke width. */
 	export let strokeWidth = 1;
 
-	/** @type {Array} [features] – A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
+	/** @type {Array} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
 	export let features = undefined;
 
 	$: projectionFn = projection()

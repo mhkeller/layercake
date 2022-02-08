@@ -13,19 +13,19 @@
   const commas = format(',');
   const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
 
-	/** @type {Function} [formatTitle=d => d] – A function to format the tooltip title, which is `$config.x`. */
+	/** @type {Function} [formatTitle=d => d] - A function to format the tooltip title, which is `$config.x`. */
   export let formatTitle = d => d;
 
-	/** @type {Function} [formatValue=d => isNaN(+d) ? d : commas(d)] – A function to format the value. */
+	/** @type {Function} [formatValue=d => isNaN(+d) ? d : commas(d)] - A function to format the value. */
   export let formatValue = d => isNaN(+d) ? d : commas(d);
 
-	/** @type {Function} [formatKey=d => titleCase(d)] – A function to format the series name. */
+	/** @type {Function} [formatKey=d => titleCase(d)] - A function to format the series name. */
   export let formatKey = d => titleCase(d);
 
-	/** @type {Number} [offset=-20] – A y-offset from the hover point, in pixels. */
+	/** @type {Number} [offset=-20] - A y-offset from the hover point, in pixels. */
 	export let offset = -20;
 
-	/** @type {Array} [dataset] – The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */
+	/** @type {Array} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */
 	export let dataset = undefined;
 
   const w = 150;

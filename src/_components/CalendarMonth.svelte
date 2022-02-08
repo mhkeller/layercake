@@ -10,7 +10,7 @@
 
 	const { width, height, data, x, z, zScale, extents } = getContext('LayerCake');
 
-	/** @type {Function} [calcCellSize=(w, h) => Math.min(w / 7, h / 5)] – A function givn the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom. */
+	/** @type {Function} [calcCellSize=(w, h) => Math.min(w / 7, h / 5)] - A function givn the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom. */
 	export let calcCellSize = (w, h) => Math.min(w / 7, h / 5);
 
 	const getDayOfWeek = timeFormat('%w');

@@ -8,28 +8,28 @@
 
 	const { data, width, height } = getContext('LayerCake');
 
-	/** @type {Function} [colorLinks=d => 'rgba(0, 0, 0, .2)'] – A function to return a color for the links. */
+	/** @type {Function} [colorLinks=d => 'rgba(0, 0, 0, .2)'] - A function to return a color for the links. */
 	export let colorLinks = d => 'rgba(0, 0, 0, .2)';
 
-	/** @type {Function} [colorNodes=d => '#333'] – A function to return a color for each node. */
+	/** @type {Function} [colorNodes=d => '#333'] - A function to return a color for each node. */
 	export let colorNodes = d => '#333';
 
-	/** @type {Function} [colorText=d => '#263238'] – A function to return a color for each text label. */
+	/** @type {Function} [colorText=d => '#263238'] - A function to return a color for each text label. */
 	export let colorText = d => '#263238';
 
-	/** @type {Number} [nodeWidth=5] – The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth). */
+	/** @type {Number} [nodeWidth=5] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth). */
 	export let nodeWidth = 5;
 
-	/** @type {Number} [nodePadding=10] – The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding). */
+	/** @type {Number} [nodePadding=10] - The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding). */
 	export let nodePadding = 10;
 
-	/** @type {Function} [linkSort=null] – How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort). */
+	/** @type {Function} [linkSort=null] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort). */
 	export let linkSort = null;
 
-	/** @type {Function} [nodeId=d => d.id] – The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId). */
+	/** @type {Function} [nodeId=d => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId). */
 	export let nodeId = d => d.id;
 
-	/** @type {Function} [nodeAlign=d3.sankeyLeft] – An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more. */
+	/** @type {Function} [nodeAlign=d3.sankeyLeft] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more. */
 	export let nodeAlign = Sankey.sankeyLeft;
 
 	$: sankey = Sankey.sankey()

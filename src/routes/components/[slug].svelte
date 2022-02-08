@@ -63,10 +63,10 @@
 
 	const lookup = new Map();
 	components.flatMap(d => d.components).forEach(d => {
-		lookup.set(d.slug, d);
+		lookup.set(d.slug.toLowerCase(), d);
 	});
 
-	$: component = lookup.get(slug);
+	$: component = lookup.get(slug.toLowerCase());
 
 	function printTypes(type) {
 		const joinEls = els => els.map(d => `\`${d.name}\``).join(' &vert; ')

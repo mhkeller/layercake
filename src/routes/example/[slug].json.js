@@ -125,11 +125,14 @@ export async function get({ params }) {
 	const componentComponentMatches = getComponentPaths(components.map(d => d.contents).join(''));
 	const componentComponents = componentComponentMatches === null ? [] : componentComponentMatches
 		.map(d => {
+			// console.log('d', d, d.replace('./', './_components/'));
 			return {
 				title: d.replace('./', './_components/'),
 				contents: cleanContents(fs.readFileSync(d.replace('./', 'src/_components/'), 'utf-8'))
 			};
 		});
+
+	// console.log(componentComponents);
 
 	const response = {
 		main,

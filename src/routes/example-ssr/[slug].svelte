@@ -66,10 +66,10 @@
 
 	const exampleLookup = new Map();
 	examples.forEach(exmpl => {
-		exampleLookup.set(exmpl.slug, exmpl);
+		exampleLookup.set(exmpl.slug.toLowerCase(), exmpl);
 	});
 
-	$: example = exampleLookup.get(slug);
+	$: example = exampleLookup.get(slug.toLowerCase());
 
 	function copyToClipboard () {
 		const text = pages.filter(d => cleanTitle(d.title) === active)[0].contents;

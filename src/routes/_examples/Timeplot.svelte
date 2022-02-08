@@ -3,12 +3,12 @@
 	import { timeDay } from 'd3-time';
 	import { scaleBand, scaleTime } from 'd3-scale';
 
-	import ScatterSvg from '../../components/Scatter.svg.svelte';
-	import AxisX from '../../components/AxisX.svelte';
-	import AxisY from '../../components/AxisY.svelte';
+	import ScatterSvg from '../../_components/Scatter.svg.svelte';
+	import AxisX from '../../_components/AxisX.svelte';
+	import AxisY from '../../_components/AxisY.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/days.csv';
+	import data from '../../_data/days.csv';
 
 	const xKey = 'seconds';
 	const yKey = 'day';

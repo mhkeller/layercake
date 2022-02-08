@@ -5,10 +5,10 @@
 
 	// For a map example with a tooltip, check out https://layercake.graphics/example/MapSvg
 
-	import MapCanvas from '../../components/Map.canvas.svelte';
+	import MapCanvas from '../../_components/Map.canvas.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
-	import usStates from '../../data/us-states.topojson.json';
+	import usStates from '../../_data/us-states.topojson.json';
 
 	const geojson = feature(usStates, usStates.objects.collection);
 	const projection = geoAlbersUsa;

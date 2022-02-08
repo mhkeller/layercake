@@ -2,12 +2,12 @@
 	import { LayerCake, Svg } from 'layercake';
 	import { scaleBand } from 'd3-scale';
 
-	import Bar from '../../components/Bar.svelte';
-	import AxisX from '../../components/AxisX.svelte';
-	import AxisY from '../../components/AxisY.svelte';
+	import Bar from '../../_components/Bar.svelte';
+	import AxisX from '../../_components/AxisX.svelte';
+	import AxisY from '../../_components/AxisY.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/groups.csv';
+	import data from '../../_data/groups.csv';
 
 	const xKey = 'value';
 	const yKey = 'year';

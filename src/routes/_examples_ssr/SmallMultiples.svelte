@@ -1,9 +1,9 @@
 <script>
 	import { calcExtents, flatten } from 'layercake';
 
-	import SmallMultipleWrapper from '../../components/SmallMultipleWrapper.percent-range.svelte';
+	import SmallMultipleWrapper from '../../_components/SmallMultipleWrapper.percent-range.svelte';
 
-	import pointSeries from '../../data/pointSeries.js';
+	import pointSeries from '../../_data/pointSeries.js';
 
 	/* --------------------------------------------
 	 * Grab the extents of the full dataset

@@ -3,10 +3,10 @@
 	import { stack } from 'd3-shape';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 
-	import BarStacked from '../../components/BarStacked.svelte';
+	import BarStacked from '../../_components/BarStacked.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/fruitOrdinal.csv';
+	import data from '../../_data/fruitOrdinal.csv';
 
 	const xKey = [0, 1];
 	const yKey = 'year';

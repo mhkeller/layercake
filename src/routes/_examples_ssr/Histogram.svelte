@@ -2,12 +2,12 @@
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 	import { histogram, extent } from 'd3-array';
 
-	import Column from '../../components/Column.svelte';
-	import AxisX from '../../components/AxisX.html.svelte';
-	import AxisY from '../../components/AxisY.html.svelte';
-	import thresholds from '../../modules/thresholds.js';
+	import Column from '../../_components/Column.svelte';
+	import AxisX from '../../_components/AxisX.html.svelte';
+	import AxisY from '../../_components/AxisY.html.svelte';
+	import thresholds from '../../_modules/thresholds.js';
 
-	import data from '../../data/unemployment.js';
+	import data from '../../_data/unemployment.js';
 
 	let binCount = 40;
 

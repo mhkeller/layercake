@@ -3,9 +3,9 @@
 	import { scaleOrdinal } from 'd3-scale';
 	import { schemeCategory10 } from 'd3-scale-chromatic';
 
-	import ForceDirectedGraph from '../../components/ForceDirectedGraph.svelte';
+	import ForceDirectedGraph from '../../_components/ForceDirectedGraph.svelte';
 
-	import data from '../../data/miserables.json';
+	import data from '../../_data/miserables.json';
 
 	const xKey = 'id';
 	const zKey = 'group';

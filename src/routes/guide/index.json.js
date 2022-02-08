@@ -1,4 +1,4 @@
-import getSections from '../../modules/getSections.js';
+import getSections from '../../_modules/getSections.js';
 let json;
 
 export async function get () {

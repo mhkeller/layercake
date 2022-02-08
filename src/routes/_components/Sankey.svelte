@@ -1,9 +1,9 @@
 <script>
 	import { LayerCake, Svg } from 'layercake';
 
-	import Sankey from '../../components/Sankey.svelte';
+	import Sankey from '../../_components/Sankey.svelte';
 
-	import data from '../../data/sankey-data.js';
+	import data from '../../_data/sankey-data.js';
 </script>
 
 <style>

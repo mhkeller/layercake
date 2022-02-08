@@ -1,10 +1,10 @@
 <script>
 	import { LayerCake, Svg } from 'layercake';
 
-	import Radar from '../../components/Radar.svelte';
+	import Radar from '../../_components/Radar.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/radarScores.csv';
+	import data from '../../_data/radarScores.csv';
 
 	const seriesKey = 'name';
 	const xKey = ['fastball', 'change', 'slider', 'cutter', 'curve'];

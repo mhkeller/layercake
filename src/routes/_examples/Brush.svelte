@@ -1,14 +1,14 @@
 <script>
 	import { LayerCake, Svg, Html } from 'layercake';
 
-	import Line from '../../components/Line.svelte';
-	import Area from '../../components/Area.svelte';
-	import AxisX from '../../components/AxisX.svelte';
-	import AxisY from '../../components/AxisY.svelte';
-	import Brush from '../../components/Brush.html.svelte';
+	import Line from '../../_components/Line.svelte';
+	import Area from '../../_components/Area.svelte';
+	import AxisX from '../../_components/AxisX.svelte';
+	import AxisY from '../../_components/AxisY.svelte';
+	import Brush from '../../_components/Brush.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	let brushExtents = [null, null];
 

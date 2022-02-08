@@ -3,10 +3,10 @@
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse } from 'd3-time-format';
 
-	import MultiLine from '../../components/MultiLine.svelte';
+	import MultiLine from '../../_components/MultiLine.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/fruit.csv';
+	import data from '../../_data/fruit.csv';
 
 	/* --------------------------------------------
 	 * Set what is our x key to separate it from the other series

@@ -4,11 +4,11 @@
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format, precisionFixed } from 'd3-format';
 
-	import MultiLine from '../../components/MultiLine.svelte';
-	import SharedTooltip from '../../components/SharedTooltip.html.svelte';
+	import MultiLine from '../../_components/MultiLine.svelte';
+	import SharedTooltip from '../../_components/SharedTooltip.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/fruit.csv';
+	import data from '../../_data/fruit.csv';
 
 	/* --------------------------------------------
 	 * Set what is our x key to separate it from the other series

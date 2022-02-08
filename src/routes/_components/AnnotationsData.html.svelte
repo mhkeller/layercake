@@ -2,11 +2,11 @@
 	import { LayerCake, Svg, Html } from 'layercake';
 	import { scaleBand } from 'd3-scale';
 
-	import AnnotationsData from '../../components/AnnotationsData.html.svelte';
-	import Column from '../../components./../components/Column.svelte';
+	import AnnotationsData from '../../_components/AnnotationsData.html.svelte';
+	import Column from '../../_components/Column.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/groups.csv';
+	import data from '../../_data/groups.csv';
 
 	const xKey = 'year';
 	const yKey = 'value';

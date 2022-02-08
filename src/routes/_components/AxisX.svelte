@@ -1,10 +1,10 @@
 <script>
 	import { LayerCake, Svg } from 'layercake';
 
-	import AxisX from '../../components/AxisX.svelte';
+	import AxisX from '../../_components/AxisX.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';

@@ -2,10 +2,10 @@
 	import { LayerCake, Svg } from 'layercake';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 
-	import ClevelandDotPlot from '../../components/ClevelandDotPlot.svelte';
+	import ClevelandDotPlot from '../../_components/ClevelandDotPlot.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/fruitOrdinal.csv';
+	import data from '../../_data/fruitOrdinal.csv';
 
 	const yKey = 'year';
 	const xKey = Object.keys(data[0]).filter(d => d !== yKey);

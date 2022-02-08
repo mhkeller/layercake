@@ -3,10 +3,10 @@
 	import { nest } from 'd3-collection';
 	import { scaleQuantize } from 'd3-scale';
 
-	import CalendarMonth from '../../components/CalendarMonth.svelte';
+	import CalendarMonth from '../../_components/CalendarMonth.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import dates from '../../data/dates.csv';
+	import dates from '../../_data/dates.csv';
 
 	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

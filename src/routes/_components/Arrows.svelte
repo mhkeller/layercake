@@ -1,9 +1,9 @@
 <script>
 	import { LayerCake, Svg, Html } from 'layercake';
 
-	import Annotations from '../../components/Annotations.html.svelte';
-	import Arrows from '../../components/Arrows.svelte';
-	import ArrowheadMarker from '../../components/ArrowheadMarker.svelte';
+	import Annotations from '../../_components/Annotations.html.svelte';
+	import Arrows from '../../_components/Arrows.svelte';
+	import ArrowheadMarker from '../../_components/ArrowheadMarker.svelte';
 
 	const annotations = [
 		{

@@ -6,7 +6,7 @@
 	import hljs from 'highlight.js';
 	import examples from './_examples.js';
 	import examplesSsr from './_examples_ssr.js';
-	import hljsDefineSvelte from '../modules/hljsDefineSvelte.js';
+	import hljsDefineSvelte from '../_modules/hljsDefineSvelte.js';
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 

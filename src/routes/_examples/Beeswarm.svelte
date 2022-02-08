@@ -3,12 +3,12 @@
 	import { format } from 'd3-format';
 	import { scaleOrdinal } from 'd3-scale';
 
-	import Key from '../../components/Key.html.svelte';
-	import AxisX from '../../components/AxisX.svelte';
-	import Beeswarm from '../../components/Beeswarm.svelte';
+	import Key from '../../_components/Key.html.svelte';
+	import AxisX from '../../_components/AxisX.svelte';
+	import Beeswarm from '../../_components/Beeswarm.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/cars-2.csv';
+	import data from '../../_data/cars-2.csv';
 
 	const xKey = 'Weight_in_lbs';
 	const zKey = 'Origin';

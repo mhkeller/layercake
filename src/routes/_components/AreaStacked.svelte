@@ -4,10 +4,10 @@
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse } from 'd3-time-format';
 
-	import AreaStacked from '../../components/AreaStacked.svelte';
+	import AreaStacked from '../../_components/AreaStacked.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/fruit.csv';
+	import data from '../../_data/fruit.csv';
 
 	const xKey = 'month';
 	const yKey = [0, 1];

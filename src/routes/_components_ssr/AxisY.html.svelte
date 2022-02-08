@@ -1,10 +1,10 @@
 <script>
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
-	import AxisY from '../../components/AxisY.html.svelte';
+	import AxisY from '../../_components/AxisY.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';

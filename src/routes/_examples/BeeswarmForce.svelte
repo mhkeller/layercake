@@ -2,12 +2,12 @@
 	import { LayerCake, Svg, Html } from 'layercake';
 	import { scaleOrdinal } from 'd3-scale';
 
-	import Key from '../../components/Key.html.svelte';
-	import AxisX from '../../components/AxisX.svelte';
-	import Beeswarm from '../../components/BeeswarmForce.svelte';
+	import Key from '../../_components/Key.html.svelte';
+	import AxisX from '../../_components/AxisX.svelte';
+	import Beeswarm from '../../_components/BeeswarmForce.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/us-senate.csv';
+	import data from '../../_data/us-senate.csv';
 
 	const xKey = 'date_of_birth';
 	const zKey = 'gender';

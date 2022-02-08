@@ -1,13 +1,13 @@
 <script>
 	import { LayerCake, Svg, WebGL, Html } from 'layercake';
 
-	import ScatterWebGL from '../../components/Scatter.webgl.svelte';
-	import AxisX from '../../components/AxisX.svelte';
-	import AxisY from '../../components/AxisY.svelte';
-	import QuadTree from '../../components/QuadTree.html.svelte';
+	import ScatterWebGL from '../../_components/Scatter.webgl.svelte';
+	import AxisX from '../../_components/AxisX.svelte';
+	import AxisY from '../../_components/AxisY.svelte';
+	import QuadTree from '../../_components/QuadTree.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';

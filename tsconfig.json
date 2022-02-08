@@ -43,7 +43,7 @@
 		"src/**/*.svelte"
 	],
 	"exclude": [
-		"src/data/*",
+		"src/_data/*",
 		"src/scripts/**/*"
 	]
 }

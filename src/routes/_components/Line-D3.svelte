@@ -2,10 +2,10 @@
 	import { LayerCake, Svg } from 'layercake';
 	import { curveCardinal } from 'd3-shape';
 
-	import Line from '../../components/Line-D3.svelte';
+	import Line from '../../_components/Line-D3.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';

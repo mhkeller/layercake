@@ -2,10 +2,10 @@
 	import { LayerCake, Svg } from 'layercake';
 	import { scaleOrdinal } from 'd3-scale';
 
-	import Beeswarm from '../../components/Beeswarm.svelte';
+	import Beeswarm from '../../_components/Beeswarm.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/cars-2.csv';
+	import data from '../../_data/cars-2.csv';
 
 	const xKey = 'Weight_in_lbs';
 	const zKey = 'Origin';

@@ -1,10 +1,10 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import CirclePack from '../../components/CirclePack.html.svelte';
+	import CirclePack from '../../_components/CirclePack.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/fruitGroups.csv';
+	import data from '../../_data/fruitGroups.csv';
 
 	const idKey = 'fruit';
 	const valueKey = 'value';

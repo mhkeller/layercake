@@ -2,10 +2,10 @@
 	import { LayerCake, Html } from 'layercake';
 	import { scaleOrdinal } from 'd3-scale';
 
-	import BeeswarmHtml from '../../components/BeeswarmForce.html.svelte';
+	import BeeswarmHtml from '../../_components/BeeswarmForce.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/us-senate.csv';
+	import data from '../../_data/us-senate.csv';
 
 	const xKey = 'date_of_birth';
 	const zKey = 'gender';

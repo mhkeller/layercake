@@ -1,11 +1,11 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import ScatterHtml from '../../components/Scatter.html.svelte';
-	import QuadTreePercentRange from '../../components/QuadTree.percent-range.html.svelte';
+	import ScatterHtml from '../../_components/Scatter.html.svelte';
+	import QuadTreePercentRange from '../../_components/QuadTree.percent-range.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';

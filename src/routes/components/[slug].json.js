@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import { readFileSync, existsSync } from 'fs';
 import { readdirFilterSync } from 'indian-ocean';
 import doctrine from 'doctrine';
@@ -29,7 +28,7 @@ export async function get({ params }) {
 	// this file is called [slug].json.js
 	const { slug } = params;
 
-	const componentPath = `src/components/${slug}`;
+	const componentPath = `src/_components/${slug}`;
 
 	if (!existsSync(componentPath)) {
 		return {

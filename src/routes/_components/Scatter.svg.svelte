@@ -1,10 +1,10 @@
 <script>
 	import { LayerCake, Svg, Canvas } from 'layercake';
 
-	import ScatterSvg from '../../components/Scatter.svg.svelte';
+	import ScatterSvg from '../../_components/Scatter.svg.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';

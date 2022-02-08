@@ -4,11 +4,11 @@
 	import { geoAlbersUsa } from 'd3-geo';
 
 	// import MapSvg from '../../components/Map.svg.svelte';
-	import MapLabels from '../../components/MapLabels.svg.svelte';
+	import MapLabels from '../../_components/MapLabels.svg.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
-	import usStates from '../../data/us-states.topojson.json';
-	import usStateLabels from '../../data/us-states-labels.json';
+	import usStates from '../../_data/us-states.topojson.json';
+	import usStateLabels from '../../_data/us-states-labels.json';
 
 	const geojson = feature(usStates, usStates.objects.collection);
 	const projection = geoAlbersUsa;

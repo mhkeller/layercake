@@ -1,10 +1,10 @@
 <script>
 	import { LayerCake, Svg } from 'layercake';
 
-	import Voronoi from '../../components/Voronoi.svelte';
+	import Voronoi from '../../_components/Voronoi.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';

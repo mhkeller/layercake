@@ -6,14 +6,14 @@
 
 	// For a map example with a tooltip, check out https://layercake.graphics/example/MapSvg
 
-	import MapSvg from '../../components/Map.svg.svelte';
-	import MapCanvas from '../../components/Map.canvas.svelte';
-	import MapLabels from '../../components/MapLabels.html.svelte';
+	import MapSvg from '../../_components/Map.svg.svelte';
+	import MapCanvas from '../../_components/Map.canvas.svelte';
+	import MapLabels from '../../_components/MapLabels.html.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
-	import usStates from '../../data/us-states.topojson.json';
-	import stateData from '../../data/us-states-data.json';
-	import stateLabels from '../../data/us-states-labels.json';
+	import usStates from '../../_data/us-states.topojson.json';
+	import stateData from '../../_data/us-states-data.json';
+	import stateLabels from '../../_data/us-states-labels.json';
 
 	const colorKey = 'myValue';
 	const labelCoordinatesKey = 'center';

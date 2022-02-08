@@ -2,15 +2,15 @@
 	import { LayerCake, Svg, ScaledSvg, Html } from 'layercake';
 	import { scaleBand } from 'd3-scale';
 
-	import Column from '../../components/Column.svelte';
-	import AxisX from '../../components/AxisX.html.svelte';
-	import AxisY from '../../components/AxisY.html.svelte';
-	import Annotations from '../../components/Annotations.html.svelte';
-	import Arrows from '../../components/Arrows.svelte';
-	import ArrowheadMarker from '../../components/ArrowheadMarker.svelte';
+	import Column from '../../_components/Column.svelte';
+	import AxisX from '../../_components/AxisX.html.svelte';
+	import AxisY from '../../_components/AxisY.html.svelte';
+	import Annotations from '../../_components/Annotations.html.svelte';
+	import Arrows from '../../_components/Arrows.svelte';
+	import ArrowheadMarker from '../../_components/ArrowheadMarker.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/groups.csv';
+	import data from '../../_data/groups.csv';
 
 	const xKey = 'year';
 	const yKey = 'value';

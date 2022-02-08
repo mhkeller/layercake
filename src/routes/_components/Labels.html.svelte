@@ -1,10 +1,10 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import Labels from '../../components/Labels.html.svelte';
+	import Labels from '../../_components/Labels.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';

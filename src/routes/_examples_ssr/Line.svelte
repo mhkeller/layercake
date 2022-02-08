@@ -1,13 +1,13 @@
 <script>
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
-	import Line from '../../components/Line.svelte';
-	import Area from '../../components/Area.svelte';
-	import AxisX from '../../components/AxisX.html.svelte';
-	import AxisY from '../../components/AxisY.html.svelte';
+	import Line from '../../_components/Line.svelte';
+	import Area from '../../_components/Area.svelte';
+	import AxisX from '../../_components/AxisX.html.svelte';
+	import AxisY from '../../_components/AxisY.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/points.csv';
+	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';

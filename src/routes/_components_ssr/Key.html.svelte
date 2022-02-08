@@ -3,10 +3,10 @@
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse } from 'd3-time-format';
 
-	import Key from '../../components/Key.html.svelte';
+	import Key from '../../_components/Key.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/fruit.csv';
+	import data from '../../_data/fruit.csv';
 
 	const xKey = 'month';
 	const yKey = [0, 1];

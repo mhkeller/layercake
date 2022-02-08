@@ -4,12 +4,12 @@
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { format, precisionFixed } from 'd3-format';
 
-	import ColumnStacked from '../../components/ColumnStacked.svelte';
-	import AxisX from '../../components/AxisX.html.svelte';
-	import AxisY from '../../components/AxisY.html.svelte';
+	import ColumnStacked from '../../_components/ColumnStacked.svelte';
+	import AxisX from '../../_components/AxisX.html.svelte';
+	import AxisY from '../../_components/AxisY.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/fruitOrdinal.csv';
+	import data from '../../_data/fruitOrdinal.csv';
 
 	const xKey = 'year';
 	const yKey = [0, 1];

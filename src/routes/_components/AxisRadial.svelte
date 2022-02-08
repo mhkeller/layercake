@@ -1,10 +1,10 @@
 <script>
 	import { LayerCake, Svg } from 'layercake';
 
-	import AxisRadial from '../../components/AxisRadial.svelte';
+	import AxisRadial from '../../_components/AxisRadial.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import data from '../../data/radarScores.csv';
+	import data from '../../_data/radarScores.csv';
 
 	const seriesKey = 'name';
 	const xKey = ['fastball', 'change', 'slider', 'cutter', 'curve'];

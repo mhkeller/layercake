@@ -5,12 +5,12 @@
 	import { scaleQuantize } from 'd3-scale';
 	import { format } from 'd3-format';
 
-	import MapSvg from '../../components/Map.svg.svelte';
-	import Tooltip from '../../components/Tooltip.html.svelte';
+	import MapSvg from '../../_components/Map.svg.svelte';
+	import Tooltip from '../../_components/Tooltip.html.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
-	import usStates from '../../data/us-states.topojson.json';
-	import stateData from '../../data/us-states-data.json';
+	import usStates from '../../_data/us-states.topojson.json';
+	import stateData from '../../_data/us-states-data.json';
 
 	const colorKey = 'myValue';
 

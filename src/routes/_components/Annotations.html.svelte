@@ -1,7 +1,7 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import Annotations from '../../components/Annotations.html.svelte';
+	import Annotations from '../../_components/Annotations.html.svelte';
 
 	const annotations = [
 		{

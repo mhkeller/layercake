@@ -3,10 +3,10 @@
 	import { feature } from 'topojson-client';
 	import { geoAlbersUsa, geoCentroid } from 'd3-geo';
 
-	import MapPointsHtml from '../../components/MapPoints.html.svelte';
+	import MapPointsHtml from '../../_components/MapPoints.html.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
-	import usStates from '../../data/us-states.topojson.json';
+	import usStates from '../../_data/us-states.topojson.json';
 
 	const geojson = feature(usStates, usStates.objects.collection);
 	const projection = geoAlbersUsa;

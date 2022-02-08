@@ -1,11 +1,11 @@
 <script>
-	import SyncedBrushWrapper from '../../components/SyncedBrushWrapper.percent-range.svelte';
+	import SyncedBrushWrapper from '../../_components/SyncedBrushWrapper.percent-range.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
-	import pointsOne from '../../data/points.csv';
-	import pointsTwo from '../../data/pointsTwo.csv';
-	import pointsThree from '../../data/pointsThree.csv';
-	import pointsFour from '../../data/pointsFour.csv';
+	import pointsOne from '../../_data/points.csv';
+	import pointsTwo from '../../_data/pointsTwo.csv';
+	import pointsThree from '../../_data/pointsThree.csv';
+	import pointsFour from '../../_data/pointsFour.csv';
 
 	let brushExtents = [null, null];
 

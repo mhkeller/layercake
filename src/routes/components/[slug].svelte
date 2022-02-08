@@ -30,8 +30,8 @@
 	import hljs from 'highlight.js';
 
 	import DownloadComponentBtn from '../_site-components/DownloadComponentBtn.svelte';
-	import hljsDefineSvelte from '../../modules/hljsDefineSvelte.js';
-	// import cleanTitle from '../../modules/cleanTitle.js';
+	import hljsDefineSvelte from '../../_modules/hljsDefineSvelte.js';
+	// import cleanTitle from '../../_modules/cleanTitle.js';
 
 	import components from '../_components.js';
 

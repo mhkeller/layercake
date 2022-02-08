@@ -4,7 +4,7 @@
  -->
 <script>
 	import { getContext, onMount } from 'svelte';
-	import { swoopyArrow, getElPosition, parseCssValue } from '../modules/arrowUtils.js';
+	import { swoopyArrow, getElPosition, parseCssValue } from '../_modules/arrowUtils.js';
 
 	/** @type {Array} annotations – A list of annotation objects. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options. */
 	export let annotations = [];

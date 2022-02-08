@@ -27,8 +27,8 @@
 	import hljs from 'highlight.js';
 
 	import DownloadBtn from '../_site-components/DownloadBtn.svelte';
-	import hljsDefineSvelte from '../../modules/hljsDefineSvelte.js';
-	import cleanTitle from '../../modules/cleanTitle.js';
+	import hljsDefineSvelte from '../../_modules/hljsDefineSvelte.js';
+	import cleanTitle from '../../_modules/cleanTitle.js';
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);

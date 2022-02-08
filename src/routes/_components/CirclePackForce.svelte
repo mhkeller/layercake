@@ -2,9 +2,9 @@
 	import { LayerCake, Svg, Html } from 'layercake';
 	import { scaleOrdinal, scaleBand } from 'd3-scale';
 
-	import ForceLayout from '../../components/CirclePackForce.svelte';
+	import ForceLayout from '../../_components/CirclePackForce.svelte';
 
-	import data from '../../data/dots.json';
+	import data from '../../_data/dots.json';
 
 	const xKey = 'category';
 	const rKey = 'value';

@@ -8,7 +8,7 @@ The `<LayerCake>` component expands to fill the size of its parent `<div>` – t
 
 Inspect the DOM tree with your browser's dev tools and look at what width and height the Layer Cake layout elements are receiving and trace up the parents in the tree to see which element may not be sized properly. If you have an unusual combination of `absolute`-ly positioned elements, it could be one of the parents is not getting a specific width and height.
 
-Also take a look in the console for any warnings – LayerCake should warn you if any of the dimensions are zero or negative.
+Also take a look in the console for any warnings. LayerCake will warn you if any of the dimensions are zero or negative.
 
 ### The chart is a very small square
 

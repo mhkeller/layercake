@@ -1,4 +1,5 @@
-import adapter from '@sveltejs/adapter-auto';
+// import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 import dsv from '@rollup/plugin-dsv';
 
@@ -9,7 +10,14 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter(),
+		// base: dev ? '' : '/your-repo-name', // If building for GitHub pages
+		adapter: adapter({
+			// default options are shown
+			pages: 'build',
+			assets: 'build',
+			fallback: null,
+			precompress: false
+		}),
 
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',

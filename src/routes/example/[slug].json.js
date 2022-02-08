@@ -126,8 +126,8 @@ export async function get({ params }) {
 	const componentComponents = componentComponentMatches === null ? [] : componentComponentMatches
 		.map(d => {
 			return {
-				title: d.replace('./', './components/'),
-				contents: cleanContents(fs.readFileSync(d.replace('./', 'src/components/'), 'utf-8'))
+				title: d.replace('./', './_components/'),
+				contents: cleanContents(fs.readFileSync(d.replace('./', 'src/_components/'), 'utf-8'))
 			};
 		});
 

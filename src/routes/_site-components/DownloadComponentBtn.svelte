@@ -70,7 +70,7 @@
 			data: data.main.contents
 		});
 		const filteredFiles = uniques(files.filter(Boolean), 'path', false);
-		console.log(filteredFiles);
+
 		if (filteredFiles.length === 1) {
 			downloadBlob(filteredFiles[0].data, `layercake-${slug}`, true);
 		} else {

@@ -2,9 +2,6 @@
 	@component
 	Layer Cake component
  -->
-<script context="module" lang="ts">
-  export type LayerCakeContext = {};
-</script>
 <script>
 	import { setContext } from 'svelte';
 	import { writable, derived } from 'svelte/store';
@@ -143,81 +140,81 @@
 	 * Make store versions of each parameter
 	 * Prefix these with `_` to keep things organized
 	 */
-	const _percentRange = writable();
+	const _percentRange = writable(percentRange);
 
-	const _containerWidth = writable();
-	const _containerHeight = writable();
-	const _x = writable();
-	const _y = writable();
-	const _z = writable();
-	const _r = writable();
-	const _custom = writable();
-	const _data = writable();
-	const _xDomain = writable();
-	const _yDomain = writable();
-	const _zDomain = writable();
-	const _rDomain = writable();
-	const _xNice = writable();
-	const _yNice = writable();
-	const _zNice = writable();
-	const _rNice = writable();
-	const _xReverse = writable();
-	const _yReverse = writable();
-	const _zReverse = writable();
-	const _rReverse = writable();
-	const _xPadding = writable();
-	const _yPadding = writable();
-	const _zPadding = writable();
-	const _rPadding = writable();
-	const _xScale = writable();
-	const _yScale = writable();
-	const _zScale = writable();
-	const _rScale = writable();
-	const _xRange = writable();
-	const _yRange = writable();
-	const _zRange = writable();
-	const _rRange = writable();
-	const _padding = writable();
-	const _flatData = writable();
-	const _extents = writable();
+	const _containerWidth = writable(containerWidth);
+	const _containerHeight = writable(containerHeight);
+	const _x = writable(makeAccessor(x));
+	const _y = writable(makeAccessor(y));
+	const _z = writable(makeAccessor(z));
+	const _r = writable(makeAccessor(r));
+	const _custom = writable(custom);
+	const _data = writable(data);
+	const _xDomain = writable(xDomain);
+	const _yDomain = writable(yDomain);
+	const _zDomain = writable(zDomain);
+	const _rDomain = writable(rDomain);
+	const _xNice = writable(xNice);
+	const _yNice = writable(yNice);
+	const _zNice = writable(zNice);
+	const _rNice = writable(rNice);
+	const _xReverse = writable(xReverse);
+	const _yReverse = writable(yReverse);
+	const _zReverse = writable(zReverse);
+	const _rReverse = writable(rReverse);
+	const _xPadding = writable(xPadding);
+	const _yPadding = writable(yPadding);
+	const _zPadding = writable(zPadding);
+	const _rPadding = writable(rPadding);
+	const _xScale = writable(xScale);
+	const _yScale = writable(yScale);
+	const _zScale = writable(zScale);
+	const _rScale = writable(rScale);
+	const _xRange = writable(xRange);
+	const _yRange = writable(yRange);
+	const _zRange = writable(zRange);
+	const _rRange = writable(rRange);
+	const _padding = writable(padding);
+	const _flatData = writable(flatData || data);
+	const _extents = writable(filterObject(extents));
 	const _config = writable(config);
 
-	$: _percentRange.set(percentRange);
-	$: _containerWidth.set(containerWidth);
-	$: _containerHeight.set(containerHeight);
-	$: _x.set(makeAccessor(x));
-	$: _y.set(makeAccessor(y));
-	$: _z.set(makeAccessor(z));
-	$: _r.set(makeAccessor(r));
-	$: _xDomain.set(xDomain);
-	$: _yDomain.set(yDomain);
-	$: _zDomain.set(zDomain);
-	$: _rDomain.set(rDomain);
-	$: _custom.set(custom);
-	$: _data.set(data);
-	$: _xNice.set(xNice);
-	$: _yNice.set(yNice);
-	$: _zNice.set(zNice);
-	$: _rNice.set(rNice);
-	$: _xReverse.set(xReverse);
-	$: _yReverse.set(yReverse);
-	$: _zReverse.set(zReverse);
-	$: _rReverse.set(rReverse);
-	$: _xPadding.set(xPadding);
-	$: _yPadding.set(yPadding);
-	$: _zPadding.set(zPadding);
-	$: _rPadding.set(rPadding);
-	$: _xScale.set(xScale);
-	$: _yScale.set(yScale);
-	$: _zScale.set(zScale);
-	$: _rScale.set(rScale);
-	$: _xRange.set(xRange);
-	$: _yRange.set(yRange);
-	$: _zRange.set(zRange);
-	$: _rRange.set(rRange);
-	$: _padding.set(padding);
-	$: _extents.set(filterObject(extents));
-	$: _flatData.set(flatData || data);
+	$: $_percentRange = percentRange;
+	$: $_containerWidth = containerWidth;
+	$: $_containerHeight = containerHeight;
+	$: $_x = makeAccessor(x);
+	$: $_y = makeAccessor(y);
+	$: $_z = makeAccessor(z);
+	$: $_r = makeAccessor(r);
+	$: $_xDomain = xDomain;
+	$: $_yDomain = yDomain;
+	$: $_zDomain = zDomain;
+	$: $_rDomain = rDomain;
+	$: $_custom = custom;
+	$: $_data = data;
+	$: $_xNice = xNice;
+	$: $_yNice = yNice;
+	$: $_zNice = zNice;
+	$: $_rNice = rNice;
+	$: $_xReverse = xReverse;
+	$: $_yReverse = yReverse;
+	$: $_zReverse = zReverse;
+	$: $_rReverse = rReverse;
+	$: $_xPadding = xPadding;
+	$: $_yPadding = yPadding;
+	$: $_zPadding = zPadding;
+	$: $_rPadding = rPadding;
+	$: $_xScale = xScale;
+	$: $_yScale = yScale;
+	$: $_zScale = zScale;
+	$: $_rScale = rScale;
+	$: $_xRange = xRange;
+	$: $_yRange = yRange;
+	$: $_zRange = zRange;
+	$: $_rRange = rRange;
+	$: $_padding = padding;
+	$: $_extents = filterObject(extents);
+	$: $_flatData = flatData || data;
 
 	/* --------------------------------------------
 	 * Create derived values

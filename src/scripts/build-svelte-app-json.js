@@ -3,7 +3,7 @@ import * as fs from 'fs';
 const files = [];
 
 for (const path of process.argv.slice(2)) {
-	if (!path.includes('/.')) {
+	if (!path.includes('.DS_Store')) {
 		files.push({ path: path.split('svelte-app/')[1], data: fs.readFileSync(path).toString() });
 	}
 }

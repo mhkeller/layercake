@@ -141,15 +141,16 @@
 	 * Prefix these with `_` to keep things organized
 	 */
 	const _percentRange = writable(percentRange);
-
 	const _containerWidth = writable(containerWidth);
 	const _containerHeight = writable(containerHeight);
+	const _extents = writable(filterObject(extents));
+	const _data = writable(data);
+	const _flatData = writable(flatData || data);
+	const _padding = writable(padding);
 	const _x = writable(makeAccessor(x));
 	const _y = writable(makeAccessor(y));
 	const _z = writable(makeAccessor(z));
 	const _r = writable(makeAccessor(r));
-	const _custom = writable(custom);
-	const _data = writable(data);
 	const _xDomain = writable(xDomain);
 	const _yDomain = writable(yDomain);
 	const _zDomain = writable(zDomain);
@@ -166,22 +167,24 @@
 	const _yPadding = writable(yPadding);
 	const _zPadding = writable(zPadding);
 	const _rPadding = writable(rPadding);
-	const _xScale = writable(xScale);
-	const _yScale = writable(yScale);
-	const _zScale = writable(zScale);
-	const _rScale = writable(rScale);
 	const _xRange = writable(xRange);
 	const _yRange = writable(yRange);
 	const _zRange = writable(zRange);
 	const _rRange = writable(rRange);
-	const _padding = writable(padding);
-	const _flatData = writable(flatData || data);
-	const _extents = writable(filterObject(extents));
+	const _xScale = writable(xScale);
+	const _yScale = writable(yScale);
+	const _zScale = writable(zScale);
+	const _rScale = writable(rScale);
 	const _config = writable(config);
+	const _custom = writable(custom);
 
 	$: $_percentRange = percentRange;
 	$: $_containerWidth = containerWidth;
 	$: $_containerHeight = containerHeight;
+	$: $_extents = filterObject(extents);
+	$: $_data = data;
+	$: $_flatData = flatData || data;
+	$: $_padding = padding;
 	$: $_x = makeAccessor(x);
 	$: $_y = makeAccessor(y);
 	$: $_z = makeAccessor(z);
@@ -190,8 +193,6 @@
 	$: $_yDomain = yDomain;
 	$: $_zDomain = zDomain;
 	$: $_rDomain = rDomain;
-	$: $_custom = custom;
-	$: $_data = data;
 	$: $_xNice = xNice;
 	$: $_yNice = yNice;
 	$: $_zNice = zNice;
@@ -204,17 +205,16 @@
 	$: $_yPadding = yPadding;
 	$: $_zPadding = zPadding;
 	$: $_rPadding = rPadding;
-	$: $_xScale = xScale;
-	$: $_yScale = yScale;
-	$: $_zScale = zScale;
-	$: $_rScale = rScale;
 	$: $_xRange = xRange;
 	$: $_yRange = yRange;
 	$: $_zRange = zRange;
 	$: $_rRange = rRange;
-	$: $_padding = padding;
-	$: $_extents = filterObject(extents);
-	$: $_flatData = flatData || data;
+	$: $_xScale = xScale;
+	$: $_yScale = yScale;
+	$: $_zScale = zScale;
+	$: $_rScale = rScale;
+	$: $_custom = custom;
+	$: $_config = config;
 
 	/* --------------------------------------------
 	 * Create derived values

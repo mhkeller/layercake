@@ -3,7 +3,7 @@
 	Layer Cake component
  -->
 <script>
-	import { setContext } from 'svelte';
+	import { setContext, onMount } from 'svelte';
 	import { writable, derived } from 'svelte/store';
 
 	import makeAccessor from './utils/makeAccessor.js';
@@ -115,6 +115,16 @@
 
 	/** @type {Object} custom Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants. */
 	export let custom = {};
+
+	/* --------------------------------------------
+	 * Keep track of whethr the component has mounted
+	 * This is used to emit warnings once we have measured
+	 * the container object and it doesn't have proper dimensions
+	 */
+	let isMounted = false;
+	onMount(() => {
+		isMounted = true;
+	})
 
 	/* --------------------------------------------
 	 * Preserve a copy of our passed in settings before we modify them
@@ -250,11 +260,11 @@
 		b.left = $padding.left;
 		b.width = b.right - b.left;
 		b.height = b.bottom - b.top;
-		if (b.width <= 0) {
-			console.error('[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?');
+		if (b.width <= 0 && isMounted === true) {
+			console.warn('[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?');
 		}
-		if (b.height <= 0) {
-			console.error('[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?');
+		if (b.height <= 0 && isMounted === true) {
+			console.warn('[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?');
 		}
 		return b;
 	});
@@ -361,11 +371,12 @@
 	<div
 		bind:this={element}
 		class="layercake-container"
-		style="
-			position:{position};
-			{position === 'absolute' ? 'top:0;right:0;bottom:0;left:0;' : ''}
-			{pointerEvents === false ? 'pointer-events:none;' : ''}
-		"
+		style:position
+		style:top={position === 'absolute' ? '0' : null}
+		style:right={position === 'absolute' ? '0' : null}
+		style:bottom={position === 'absolute' ? '0' : null}
+		style:left={position === 'absolute' ? '0' : null}
+		style:pointer-events={pointerEvents === false ? 'none' : null}
 		bind:clientWidth={containerWidth}
 		bind:clientHeight={containerHeight}
 	>

@@ -23,12 +23,6 @@
 
 	let testGl;
 
-	let zIndexStyle = '';
-	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
-
-	let pointerEventsStyle = '';
-	$: pointerEventsStyle = pointerEvents === false ? 'pointer-events:none;' : '';
-
 	const { padding } = getContext('LayerCake');
 
 	const cntxt = {
@@ -43,6 +37,7 @@
 		for (let j = 0; j < contexts.length; j++) {
 			testGl = element.getContext(contexts[j], contextAttributes);
 			if (testGl) {
+				// @ts-ignore
 				context = testGl;
 				break;
 			}
@@ -56,6 +51,12 @@
 <canvas
 	bind:this={element}
 	class="layercake-layout-webgl"
-	style="width:100%;height:100%;top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;position:absolute;{zIndexStyle}{pointerEventsStyle}"
+	style:z-index={zIndex}
+	style:pointer-events={pointerEvents === false ? 'none' : null}
+	style:top={$padding.top + 'px'}
+	style:right={$padding.right + 'px'}
+	style:bottom={$padding.bottom + 'px'}
+	style:left={$padding.left + 'px'}
+	style="width:100%;height:100%;position:absolute;"
 ></canvas>
 <slot {element} {context}></slot>

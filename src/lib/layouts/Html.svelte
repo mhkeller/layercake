@@ -14,19 +14,18 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	let zIndexStyle = '';
-	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
-
-	let pointerEventsStyle = '';
-	$: pointerEventsStyle = pointerEvents === false ? 'pointer-events:none;' : '';
-
 	const { padding } = getContext('LayerCake');
 </script>
 
 <div
 	bind:this={element}
 	class="layercake-layout-html"
-	style="top: {$padding.top}px; right:{$padding.right}px; bottom:{$padding.bottom}px; left:{$padding.left}px;{zIndexStyle}{pointerEventsStyle}"
+	style:z-index={zIndex}
+	style:pointer-events={pointerEvents === false ? 'none' : null}
+	style:top={$padding.top + 'px'}
+	style:right={$padding.right + 'px'}
+	style:bottom={$padding.bottom + 'px'}
+	style:left={$padding.left + 'px'}
 >
 	<slot {element}></slot>
 </div>

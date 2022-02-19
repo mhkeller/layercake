@@ -20,12 +20,6 @@
 	/** @type {String} [viewBox=`0 0 100 ${100 / fixedAspectRatio}`] A string passed to the viewBox property on the `<svg>` tag. */
 	export let viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
 
-	let zIndexStyle = '';
-	$: zIndexStyle = typeof zIndex !== 'undefined' ? `z-index:${zIndex};` : '';
-
-	let pointerEventsStyle = '';
-	$: pointerEventsStyle = pointerEvents === false ? 'pointer-events:none;' : '';
-
 	const { padding } = getContext('LayerCake');
 </script>
 
@@ -33,7 +27,13 @@
 	bind:this={element}
 	{viewBox}
 	preserveAspectRatio="none"
-	style="top: {$padding.top}px; right:0px; bottom:0px; left:{$padding.left}px;width:calc(100% - {($padding.left + $padding.right)}px);height:calc(100% - {($padding.top + $padding.bottom)}px);{zIndexStyle}{pointerEventsStyle}"
+	style:z-index={zIndex}
+	style:pointer-events={pointerEvents === false ? 'none' : null}
+	style:top={$padding.top + 'px'}
+	style:left={$padding.left + 'px'}
+	style:width={`calc(100% - ${($padding.left + $padding.right)}px)`}
+	style:height={`calc(100% - ${($padding.top + $padding.bottom)}px)`}
+	style="right:0px; bottom:0px;"
 >
 	<defs>
 		<slot name="defs"></slot>

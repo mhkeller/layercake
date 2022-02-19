@@ -23,6 +23,7 @@ Each layout component also export an `element` prop that you can bind to and rep
 
 * In the `Html` component, `element` equals the `<div>` tag.
 * In the `Svg` component, `element` equals the `<svg>` tag.
+  * This layout component also has a `innerElement` binding to the `<g>` tag, which wraps all of the content.
 * In the `ScaledSvg` component, `element` equals the `<svg>` tag.
 * In the `Canvas` component, `element` equals the `<canvas>` tag.
 * In the `WebGL` component, `element` equals the `<canvas>` tag.

@@ -22,7 +22,7 @@
 	$: if (!isServiceWorker) {
 		path = $page.path;
 		type = path.split('/')[1];
-		segment = `/${path.replace('/', '')}`.toLowerCase();
+		segment = `/${path.replace('/', '')}`;
 		slug = path.replace(/\/$/, '').split('/').pop();
 	}
 
@@ -379,12 +379,12 @@
 			<option class="header" disabled></option>
 			<option class="header" disabled>Client-side</option>
 			{#each examples.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
-				<option value="/example/{example.slug.toLowerCase()}">{slimName(example.title)}</option>
+				<option value="/example/{example.slug}">{slimName(example.title)}</option>
 			{/each}
 			<option class="header" disabled></option>
 			<option class="header" disabled>Server-side</option>
 			{#each examplesSsr.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
-				<option value="/example-ssr/{example.slug.toLowerCase()}" >{slimName(example.title)}</option>
+				<option value="/example-ssr/{example.slug}" >{slimName(example.title)}</option>
 			{/each}
 		</select>
 	</li>

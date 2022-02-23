@@ -22,21 +22,23 @@ npm install --save layercake
 
 ```svelte
 <script>
+  // The library provides a main wrapper component
+  // and a bunch empty layout components...
   import { LayerCake, Svg, Html, Canvas } from 'layercake';
 
+  // ...that you fill with your own chart components,
+  // that live inside your project and which you
+  // can copy and paste from here as starting points.
   import AxisX from './components/AxisX.svelte';
   import AxisY from './components/AxisY.svelte';
   import Line from './components/Line.svelte';
   import Scatter from './components/Scatter.svelte';
   import Labels from './components/Labels.svelte';
 
-  const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }];
+  const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }];
 </script>
 
 <style>
-  /* Set dimensions on the parent.
-     The <LayerCake> component will expand to fill it.
-   */
   .chart-container {
     width: 100%;
     height: 500px;

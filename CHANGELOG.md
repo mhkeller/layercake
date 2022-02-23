@@ -1,6 +1,17 @@
 Changelog
 ===
 
+# 6.1.0
+
+> 2022-02-22
+
+This adds an `innerElement` prop you can bind to on the `<Svg>` component that lets you bind to the `<g>` element. Mostly this release improves reactivity by setting initial values for store values and changing the syntax from using `.set` to using assignments, which apparently helps Svelte understand the topology. This should lead to fewer re-renders. It also will only warn about negative dimensions on the parent container once DOM elements are mounted. So you won't get a warning because the code was executed before the DOM was able to measure it. This release improves layout components by using new [style directives](https://github.com/sveltejs/rfcs/pull/42).
+
+* [4530774c759114fd8de0854542fa162b694a5c7c](https://github.com/mhkeller/layercake/commit/4530774c759114fd8de0854542fa162b694a5c7c)
+* [85684a94c9cf79b204e1453723e97b7853ed2af6](https://github.com/mhkeller/layercake/commit/85684a94c9cf79b204e1453723e97b7853ed2af6)
+* [c51506ad0e45718962ccabb831b9408bfe82009a](https://github.com/mhkeller/layercake/commit/c51506ad0e45718962ccabb831b9408bfe82009a)
+* [28a1f9e92e39464111055f27801a0af45583df26](https://github.com/mhkeller/layercake/commit/28a1f9e92e39464111055f27801a0af45583df26)
+
 # 6.0.1
 
 > 2022-01-19

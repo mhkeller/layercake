@@ -100,6 +100,7 @@ for `Canvas` and `WebGL`, and the `<div>` for the `Html` layer).
     <title id='graphic-title'>The graphic's label</title>
   </Svg>
 </LayerCake>
+```
 
 Note: `LayerCake` sets some attributes, like `style`, `class`, `width`, and `height`. Be careful when setting these attributes. 
 

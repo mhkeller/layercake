@@ -6,6 +6,7 @@ All layout components accept the following props:
 
 * [zIndex](guide#zindex-1) `Number|String`
 * [pointerEvents](guide#pointerevents-1) `Boolean`
+* [attrs](guide#attrs-1) `Object`
 
 The Svg and ScaledSvg layout components also accept:
 
@@ -85,6 +86,22 @@ Useful for tooltip layers that need to be display above chart elements but not c
   </Html>
 </LayerCake>
 ```
+
+### attrs `Object`
+
+This lets you adjust the attributes on the outermost element of the layer (the `<svg>` tag in the case of `Svg` and `ScaledSvg`, the `<cavas>` tag
+for `Canvas` and `WebGL`, and the `<div>` for the `Html` layer). 
+
+```svelte
+<LayerCake ...>
+  <Svg
+    attrs={{id: 'example-visual', role: 'img', 'aria-labelledby': 'graphic-title'}}
+  >
+    <title id='graphic-title'>The graphic's label</title>
+  </Svg>
+</LayerCake>
+
+Note: `LayerCake` sets some attributes, like `style`, `class`, `width`, and `height`. Be careful when setting these attributes. 
 
 ### viewBox `String`
 

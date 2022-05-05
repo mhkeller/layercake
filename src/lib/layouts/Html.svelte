@@ -14,6 +14,13 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
+	/** @type {Object} [attrs] An object that sets additional attribute values onto the `<div>` tag*/
+		export let attrs = {};
+
+	$: if (element) {
+		Object.entries(attrs).forEach(d => element.setAttribute(...d));
+	}
+
 	const { padding } = getContext('LayerCake');
 </script>
 

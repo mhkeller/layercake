@@ -20,6 +20,13 @@
 	/** @type {String} [viewBox=`0 0 100 ${100 / fixedAspectRatio}`] A string passed to the viewBox property on the `<svg>` tag. */
 	export let viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
 
+	/** @type {Object} [attrs] An object that sets additional attribute values onto the `<svg>` tag*/
+		export let attrs = {};
+
+	$: if (element) {
+		Object.entries(attrs).forEach(d => element.setAttribute(...d));
+	}
+
 	const { padding } = getContext('LayerCake');
 </script>
 

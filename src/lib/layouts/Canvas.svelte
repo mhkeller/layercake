@@ -19,6 +19,13 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
+	/** @type {Object} [attrs] An object that sets additional attribute values onto the `<canvas>` tag*/
+		export let attrs = {};
+
+	$: if (element) {
+		Object.entries(attrs).forEach(d => element.setAttribute(...d));
+	}
+
 	const { width, height, padding } = getContext('LayerCake');
 
 	const cntxt = {

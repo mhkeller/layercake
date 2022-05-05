@@ -21,6 +21,13 @@
 	/** @type {WebGLRenderingContext} [context] The `<canvas>`'s WebGL context. Useful for bindings. */
 	export let context = undefined;
 
+	/** @type {Object} [attrs] An object that sets additional attribute values onto the `<canvas>` tag*/
+		export let attrs = {};
+
+	$: if (element) {
+		Object.entries(attrs).forEach(d => element.setAttribute(...d));
+	}
+
 	let testGl;
 
 	const { padding } = getContext('LayerCake');

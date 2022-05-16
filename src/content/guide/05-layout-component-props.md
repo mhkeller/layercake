@@ -6,6 +6,7 @@ All layout components accept the following props:
 
 * [zIndex](guide#zindex-1) `Number|String`
 * [pointerEvents](guide#pointerevents-1) `Boolean`
+* [attrs](guide#attrs-1)
 
 The Svg and ScaledSvg layout components also accept:
 
@@ -83,6 +84,18 @@ Useful for tooltip layers that need to be display above chart elements but not c
     pointerEvents={false}
   >
   </Html>
+</LayerCake>
+```
+
+### attrs `Object|null`
+
+This allows you to add attributes onto the main container of any of the layout components
+(i.e. the `<svg>` tag for `Svg` and `ScaledSvg`; the `<canvas>` tag for `Webgl` and `Canvas`; and the `<div>` tag for `Html`). 
+
+```svelte
+<LayerCake ...>
+  <Svg attrs={{role: "img", title: "A graphic description"}}>
+  </Svg>
 </LayerCake>
 ```
 

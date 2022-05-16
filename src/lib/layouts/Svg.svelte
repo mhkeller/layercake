@@ -20,6 +20,19 @@
 	/** @type {String} [viewBox] A string passed to the viewBox property on the `<svg>` tag. */
 	export let viewBox = undefined;
 
+	/** @type {Object|null} [attrs] An object that sets additional attribute values onto the `<svg>` tag*/
+		export let attrs = null;
+
+	$: if (element && attrs) {
+		const attrList = Object.entries(attrs);
+		for (let i = 0; i < attrList.length; i++) {
+			const [attr, property] = attrList[i];
+			if (!element.hasAttribute(attr) || element.getAttribute(attr) !== property) {
+				element.setAttribute(attr, property);
+			}
+		}
+	}
+
 	const { containerWidth, containerHeight, padding } = getContext('LayerCake');
 </script>
 <svg

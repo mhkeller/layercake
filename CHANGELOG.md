@@ -1,6 +1,15 @@
 Changelog
 ===
 
+# 6.1.1
+
+> 2022-06-24
+
+* [PR#82](https://github.com/mhkeller/layercake/pull/82)
+
+Fixes some typos in documentation
+
+
 # 6.1.0
 
 > 2022-02-22

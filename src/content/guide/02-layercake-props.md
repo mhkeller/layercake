@@ -193,7 +193,7 @@ This is ignored if you set [rRange](/guide#rRange).
 
 ### xRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
 
-Override the default y range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
+Override the default x range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
 
 This overrides setting [xReverse](/guide#xreverse) to `true`.
 

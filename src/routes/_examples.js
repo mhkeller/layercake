@@ -1,7 +1,6 @@
 import Line from './_examples/Line.svelte';
 import Scatter from './_examples/Scatter.svelte';
 import MapSvg from './_examples/MapSvg.svelte';
-// import MapSvgPreProjected from './_examples/MapSvgPreProjected.svelte';
 import Column from './_examples/Column.svelte';
 import AreaStacked from './_examples/AreaStacked.svelte';
 import ColumnStacked from './_examples/ColumnStacked.svelte';
@@ -29,7 +28,6 @@ export default [
 	{ replPath: 'ad32f9f301484d0cace82272126e9d09?version=3.46.2', title: 'Line + area', slug: 'Line', component: Line },
 	{ replPath: '71cde05fa1e94583be57046207f72c02?version=3.46.2', title: 'WebGL Scatter (svg axes, quadtree hover)', slug: 'ScatterWebgl', component: ScatterWebGL },
 	{ replPath: '14b8f866cc414a9ebdfbb5eaabf66ae2?version=3.46.2', title: 'Map (svg, tooltip, pre-projected)', slug: 'MapSvg', component: MapSvg },
-	// { replPath: '00faa5b954594b66a1d9ec185b8db460?version=3.46.2', title: 'Map, pre-projected (svg, tooltip)', slug: 'MapSvgPreProjected', component: MapSvgPreProjected },
 	{ replPath: 'a8135fcccf3d42e68b1f29be00fc72c6?version=3.46.2', title: 'Multilayer map (canvas + svg)', slug: 'MapLayered', component: MapLayered },
 	{ replPath: '666164c95fb9441188aab2622a4e8547?version=3.46.2', title: 'Column annotated', slug: 'Column', component: Column },
 	{ replPath: 'f38656e90d0644cfb460206005c492e5?version=3.46.2', title: 'Stacked column', slug: 'ColumnStacked', component: ColumnStacked },

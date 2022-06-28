@@ -18,9 +18,10 @@
 		export let attrs = null;
 
 	$: if (element && attrs) {
-		const attrList = Object.entries(attrs);
-		for (let i = 0; i < attrList.length; i++) {
-			const [attr, property] = attrList[i];
+		const attrKeys = Object.keys(attrs);
+		for (let i = 0; i < attrKeys.length; i++) {
+			const attr = attrKeys[i];
+			const property = attrs[attr];
 			if (!element.hasAttribute(attr) || element.getAttribute(attr) !== property) {
 				element.setAttribute(attr, property);
 			}

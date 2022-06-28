@@ -175,7 +175,7 @@ This is ignored if you set [xRange](/guide#xRange).
 
 ### yReverse `Boolean=true`
 
-Reverse the default y range. By default this is `true` and the range is `[height, 0]`.
+Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale.
 
 This is ignored if you set [yRange](/guide#yRange).
 

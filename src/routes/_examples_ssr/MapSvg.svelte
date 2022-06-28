@@ -1,7 +1,7 @@
 <script>
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 	import { feature } from 'topojson-client';
-	import { geoAlbersUsa } from 'd3-geo';
+	import { geoIdentity } from 'd3-geo';
 	import { scaleQuantize } from 'd3-scale';
 
 	// For a map example with a tooltip, check out https://layercake.graphics/example/MapSvg
@@ -9,7 +9,7 @@
 	import MapSvg from '../../_components/Map.svg.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
-	import usStates from '../../_data/us-states.topojson.json';
+	import usStates from '../../_data/states-albers-10m.json';
 	import stateData from '../../_data/us-states-data.json';
 
 	const colorKey = 'myValue';
@@ -27,9 +27,9 @@
 		dataLookup.set(d[dataJoinKey], d[colorKey]);
 	});
 
-	const geojson = feature(usStates, usStates.objects.collection);
+	const geojson = feature(usStates, usStates.objects.states);
 	const aspectRatio = 2.63;
-	const projection = geoAlbersUsa;
+	const projection = geoIdentity;
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale

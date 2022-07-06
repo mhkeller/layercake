@@ -2,6 +2,7 @@
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
   import { extent, bin } from 'd3-array';
   import { scaleBand } from 'd3-scale';
+	import { format } from 'd3-format';
 
 	import Column from '../../_components/Column.svelte';
 	import AxisX from '../../_components/AxisX.html.svelte';
@@ -11,6 +12,8 @@
 	import everyN from '../../_modules/everyN.js';
 
 	import data from '../../_data/unemployment.js';
+
+	const f = format('.2f');
 
 	let binCount = 40;
 
@@ -72,7 +75,7 @@
 				gridlines={false}
 				baseline={true}
 				ticks={slimSteps}
-				formatTick={d => d.toFixed(2)}
+				formatTick={d => +f(d)}
 			/>
 			<AxisY
 				gridlines={false}

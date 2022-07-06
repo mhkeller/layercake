@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 6.1.2
+
+> not yet on npm
+
+Makes a more helpful error message when the data passed into `calcExtents` isn't an array.
+
+*
+
 # 6.1.1
 
 > 2022-06-24

@@ -1,25 +1,31 @@
 <script>
 	import { LayerCake, Svg } from 'layercake';
-	import { histogram, extent } from 'd3-array';
+  import { extent, bin } from 'd3-array';
+	import { scaleBand } from 'd3-scale';
 
 	import Column from '../../_components/Column.svelte';
 	import AxisX from '../../_components/AxisX.svelte';
 	import AxisY from '../../_components/AxisY.svelte';
-	import thresholds from '../../_modules/thresholds.js';
+
+	import calcThresholds from '../../_modules/calcThresholds.js';
+	import everyN from '../../_modules/everyN.js'
 
 	import data from '../../_data/unemployment.js';
 
 	const xKey = ['x0', 'x1'];
 	const yKey = 'length';
+
 	let binCount = 40;
 
 	const domain = extent(data);
 
-	$: hist = histogram()
-		.domain(domain)
-		.thresholds(thresholds(domain, binCount));
+	$: steps = calcThresholds(domain, binCount);
 
-	$: bins = hist(data);
+	$: hist = bin()
+		.domain(domain)
+		.thresholds(steps);
+
+	$: slimSteps = everyN(steps, 5);
 </script>
 
 <style>
@@ -54,14 +60,17 @@
 		padding={{ top: 20, right: 5, bottom: 20, left: 30 }}
 		x={xKey}
 		y={yKey}
+		xDomain={steps}
+		xScale={scaleBand().paddingInner([0])}
 		yDomain={[0, null]}
-		data={bins}
+		data={hist(data)}
 	>
 		<Svg>
 			<AxisX
 				gridlines={false}
 				baseline={true}
-				snapTicks={true}
+				ticks={slimSteps}
+				formatTick={d => d.toFixed(2)}
 			/>
 			<AxisY
 				gridlines={false}

@@ -54,6 +54,5 @@ export default function calcUniques (data, fields) {
 		}
 		uniques[s] = Array.from(set);
 	}
-
 	return uniques;
 }

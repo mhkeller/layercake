@@ -13,12 +13,8 @@ export default function createScale (s) {
 
 		const scale = $scale === defaultScales[s] ? $scale() : $scale.copy();
 
-		/* --------------------------------------------
-		 * On creation, `$domain` will already have any nulls filled in
-		 * But if we set it via the context it might not, so rerun it through partialDomain
-		 */
 		scale
-			.domain(partialDomain($extents[s], $domain))
+			.domain($domain)
 			.range(defaultRange);
 
 		if ($padding) {

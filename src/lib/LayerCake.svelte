@@ -8,8 +8,7 @@
 
 	import makeAccessor from './utils/makeAccessor.js';
 	import filterObject from './utils/filterObject.js';
-	import calcExtents from './lib/calcExtents.js';
-	import calcUniques from './lib/calcUniques.js';
+	import calcScaleExtents from './helpers/calcScaleExtents.js';
 	import calcDomain from './helpers/calcDomain.js';
 	import createScale from './helpers/createScale.js';
 	import createGetter from './helpers/createGetter.js';
@@ -58,13 +57,13 @@
 	/** @type {Array|Object} [data=[]] If `data` is not a flat array of objects and you want to use any of the scales, set a flat version of the data via the `flatData` prop. */
 	export let data = [];
 
-	/** @type {[min: ?Number, max: ?Number]|String[]|Number[]} [xDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series.*/
+	/** @type {[min: ?Number, max: ?Number]|String[]|Number[]|Function} [xDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let xDomain = undefined;
-	/** @type {[min: ?Number, max: ?Number]|String[]|Number[]} [yDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`.*/
+	/** @type {[min: ?Number, max: ?Number]|String[]|Number[]|Function} [yDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`.  Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let yDomain = undefined;
-	/** @type {[min: ?Number, max: ?Number]|String[]|Number[]} [zDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series.*/
+	/** @type {[min: ?Number, max: ?Number]|String[]|Number[]|Function} [zDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let zDomain = undefined;
-	/** @type {[min: ?Number, max: ?Number]|String[]|Number[]} [rDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series.*/
+	/** @type {[min: ?Number, max: ?Number]|String[]|Number[]|Function} [rDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let rDomain = undefined;
 	/** @type {Boolean} [xNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. */
 	export let xNice = false;
@@ -284,10 +283,13 @@
 	 * Note that this is different from an "extent" passed
 	 * in as a domain, which can be a partial domain
 	 */
-	const extents_d = derived([_flatData, activeGetters_d, _extents], ([$flatData, $activeGetters, $extents]) => {
+	const extents_d = derived([_flatData, activeGetters_d, _extents, _xScale, _yScale, _rScale, _zScale], ([$flatData, $activeGetters, $extents, $_xScale, $_yScale, $_rScale, $_zScale]) => {
+		const scaleLookup = { x: $_xScale, y: $_yScale, r: $_rScale, z: $_zScale };
 		const getters = filterObject($activeGetters, $extents);
+		const activeScales = Object.fromEntries(Object.keys(getters).map(k => [k, scaleLookup[k]]));
+
 		if (Object.keys(getters).length > 0) {
-			const calculatedExtents = isOrdinal ? calcUniques($flatData, getters) : calcExtents($flatData, getters);
+			const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
 			return { ...calculatedExtents, ...$extents };
 		} else {
 			return {};

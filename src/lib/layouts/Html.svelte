@@ -5,6 +5,8 @@
 <script>
 	import { getContext } from 'svelte';
 
+	import setElementAttributes from '../utils/setElementAttributes.js';
+
 	/** @type {Element} [element] The layer's outermost `<div>` tag. Useful for bindings. */
 	export let element = undefined;
 
@@ -14,18 +16,11 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	/** @type {Object|null} [attrs] An object that sets additional attribute values onto the outer `<div>` tag*/
+	/** @type {Object} [attrs] An object of key-value pairs that sets additional attribute values onto the outer `<div>` tag for each key */
 		export let attrs = null;
 
 	$: if (element && attrs) {
-		const attrKeys = Object.keys(attrs);
-		for (let i = 0; i < attrKeys.length; i++) {
-			const attr = attrKeys[i];
-			const property = attrs[attr];
-			if (!element.hasAttribute(attr) || element.getAttribute(attr) !== property) {
-				element.setAttribute(attr, property);
-			}
-		}
+		setElementAttributes(element, attrs);
 	}
 
 	const { padding } = getContext('LayerCake');

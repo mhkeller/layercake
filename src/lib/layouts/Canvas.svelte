@@ -5,7 +5,9 @@
 <script>
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
+
 	import scaleCanvas from '../lib/scaleCanvas.js';
+	import setElementAttributes from '../utils/setElementAttributes.js';
 
 	/** @type {HTMLCanvasElement} [element] The `<canvas>` tag. Useful for bindings. */
 	export let element = undefined;
@@ -19,18 +21,11 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	/** @type {Object|null} [attrs] An object that sets additional attribute values onto the `<canvas>` tag*/
+	/** @type {Object} [attrs] An object of key-value pairs that sets additional attribute values onto the `<canvas>` tag for each key */
 		export let attrs = null;
 
-	$: if (element && attrs) {
-		const attrKeys = Object.keys(attrs);
-		for (let i = 0; i < attrKeys.length; i++) {
-			const attr = attrKeys[i];
-			const property = attrs[attr];
-			if (!element.hasAttribute(attr) || element.getAttribute(attr) !== property) {
-				element.setAttribute(attr, property);
-			}
-		}
+	$: if (element && attrs ) {
+		setElementAttributes(element, attrs);
 	}
 
 	const { width, height, padding } = getContext('LayerCake');

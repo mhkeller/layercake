@@ -5,6 +5,8 @@
 <script>
 	import { getContext } from 'svelte';
 
+	import setElementAttributes from '../utils/setElementAttributes.js';
+
 	/** @type {Element} [element] The layer's `<svg>` tag. Useful for bindings. */
 	export let element = undefined;
 
@@ -20,18 +22,11 @@
 	/** @type {String} [viewBox=`0 0 100 ${100 / fixedAspectRatio}`] A string passed to the viewBox property on the `<svg>` tag. */
 	export let viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
 
-	/** @type {Object|null} [attrs] An object that sets additional attribute values onto the `<svg>` tag*/
+	/** @type {Object} [attrs] An object of key-value pairs that sets additional attribute values onto the `<svg>` tag for each key */
 		export let attrs = null;
 
 	$: if (element && attrs) {
-		const attrKeys = Object.keys(attrs);
-		for (let i = 0; i < attrKeys.length; i++) {
-			const attr = attrKeys[i];
-			const property = attrs[attr];
-			if (!element.hasAttribute(attr) || element.getAttribute(attr) !== property) {
-				element.setAttribute(attr, property);
-			}
-		}
+		setElementAttributes(element, attrs);
 	}
 
 	const { padding } = getContext('LayerCake');

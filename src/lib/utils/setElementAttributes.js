@@ -11,5 +11,7 @@ export default function setElementAttributes(element, attrs) {
 				element.setAttribute(attr, property);
 			}
 		}
+	} else {
+		console.warn('[LayerCake] `attrs` property must be an object. You passed in:', attrs);
 	}
 }

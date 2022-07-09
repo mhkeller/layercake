@@ -9,6 +9,7 @@
 	import makeAccessor from './utils/makeAccessor.js';
 	import filterObject from './utils/filterObject.js';
 	import calcExtents from './lib/calcExtents.js';
+	import calcUniques from './lib/calcUniques.js';
 	import calcDomain from './helpers/calcDomain.js';
 	import createScale from './helpers/createScale.js';
 	import createGetter from './helpers/createGetter.js';
@@ -286,7 +287,8 @@
 	const extents_d = derived([_flatData, activeGetters_d, _extents], ([$flatData, $activeGetters, $extents]) => {
 		const getters = filterObject($activeGetters, $extents);
 		if (Object.keys(getters).length > 0) {
-			return { ...calcExtents($flatData, getters), ...$extents };
+			const calculatedExtents = isOrdinal ? calcUniques($flatData, getters) : calcExtents($flatData, getters);
+			return { ...calculatedExtents, ...$extents };
 		} else {
 			return {};
 		}

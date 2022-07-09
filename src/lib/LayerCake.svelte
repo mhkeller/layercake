@@ -280,6 +280,8 @@
 	/* --------------------------------------------
 	 * Calculate extents by taking the extent of the data
 	 * and filling that in with anything set by the user
+	 * Note that this is different from an "extent" passed
+	 * in as a domain, which can be a partial domain
 	 */
 	const extents_d = derived([_flatData, activeGetters_d, _extents], ([$flatData, $activeGetters, $extents]) => {
 		const getters = filterObject($activeGetters, $extents);

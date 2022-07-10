@@ -171,7 +171,7 @@ console.log(uniques);
 The accessor functions can also return an array. This is useful if you want to scan multiple keys per object:
 
 ```js
-const timeData = [{ teamCity: 'Los Angeles', backupCity: 'New York' }, { primaryColor: 'Chicago', secondaryColor: 'Seattle'}];
+const timeData = [{ teamCity: 'Los Angeles', backupCity: 'New York' }, { teamCity: 'Chicago', backupCity: 'Seattle'}];
 
 const uniques = calcUniques(timeData, {
   y: d => [d.teamCity, d.backupCity]

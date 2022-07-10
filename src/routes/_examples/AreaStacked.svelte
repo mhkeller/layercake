@@ -60,6 +60,7 @@
 		y={yKey}
 		z={zKey}
 		zScale={scaleOrdinal()}
+		zDomain={seriesNames}
 		zRange={seriesColors}
 		flatData={flatten(series)}
 		data={series}

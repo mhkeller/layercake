@@ -53,7 +53,7 @@
 		z={zKey}
 		yScale={scaleBand().paddingInner([0.05])}
 		zScale={scaleOrdinal()}
-		zDomain={domain => domain.reverse()}
+		zDomain={seriesNames}
 		zRange={seriesColors}
 		flatData={flatten(series)}
 		data={series}

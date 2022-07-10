@@ -37,7 +37,8 @@
 				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey]; // Conditional required for sapper
 				return {
 					[yKey]: +d[key],
-					[xKey]: d[xKey]
+					[xKey]: d[xKey],
+					[zKey]: key
 				};
 			})
 		};
@@ -77,7 +78,6 @@
 		z={zKey}
 		yDomain={[0, null]}
 		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
 		zRange={seriesColors}
 		flatData={flatten(dataLong)}
 		data={dataLong}

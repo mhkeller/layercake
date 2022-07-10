@@ -50,7 +50,6 @@
 		x={xKey}
 		z={zKey}
 		zScale={scaleOrdinal()}
-		zDomain={[...seriesNames].sort()}
 		zRange={seriesColors}
 		data={dataTransformed}
 		let:width

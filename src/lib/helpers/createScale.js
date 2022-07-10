@@ -14,10 +14,9 @@ export default function createScale (s) {
 		const scale = $scale === defaultScales[s] ? $scale() : $scale.copy();
 
 		/* --------------------------------------------
-		 * On creation, `$domain` will already have any nulls filled in
-		 * But if we set it via the context it might not, so rerun it through partialDomain
+		 * Set the domain
 		 */
-		scale.domain(partialDomain($extents[s], $domain))
+		scale.domain($domain)
 
 		/* --------------------------------------------
 		 * Set the range of the scale to our default if

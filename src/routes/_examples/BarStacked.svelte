@@ -52,7 +52,6 @@
 		y={d => d.data[yKey]}
 		z={zKey}
 		yScale={scaleBand().paddingInner([0.05])}
-		yDomain={['2016', '2017', '2018', '2019']}
 		zScale={scaleOrdinal()}
 		zDomain={seriesNames}
 		zRange={seriesColors}

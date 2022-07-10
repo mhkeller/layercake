@@ -98,7 +98,7 @@
 	export let rRange = undefined;
 	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
 	export let xReverse = false;
-	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale. Ignored if you set the yRange prop. */
+	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` or `scalePoint` for `yScale`. Ignored if you set the yRange prop. */
 	export let yReverse = typeof yScale.bandwidth === 'function' ? false : true;
 	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
 	export let zReverse = false;

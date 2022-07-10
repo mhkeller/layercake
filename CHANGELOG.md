@@ -1,6 +1,19 @@
 Changelog
 ===
 
+# 7.0.0
+
+> 2022-07-10
+
+This release has a few new features that should make for nicer default charts when working with ordinal scales. Many thanks to [@techniq](https://github.com/techniq) for kicking things off with this. Here are the highlights:
+
+1. When setting a `scaleBand` or `scalePoint` scale, the `yRange` is no longer reversed by default.
+  * [PR #85](https://github.com/mhkeller/layercake/pull/85)
+2. If the scale already has a custom interpolator function, don't set the range. This helps when using `scaleSequential` and `scaleDiverging` for a color scale. Interpolators are kind of like ranges but set with a different method. Before, any custom interpolator you set when passing in the scale would get overridden when the range was set automatically.
+  * [PR #89](https://github.com/mhkeller/layercake/pull/89)
+3. If setting a `scaleOrdinal`, `scaleBand` or `scalePoint`, the calculated extents will be a series of unique values instead of `[min, max]`.
+  * [PR #90](https://github.com/mhkeller/layercake/pull/90)
+
 # 6.1.2
 
 > 2022-07-10

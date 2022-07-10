@@ -1,20 +1,39 @@
 /* globals describe it */
 import * as assert from 'assert';
-import { scaleLinear, scaleLog, scaleSymlog, scalePow, scaleIdentity, scaleTime, scaleRadial, scaleSqrt } from 'd3-scale';
+import * as d3Scale from 'd3-scale';
 import findScaleType from '../src/lib/helpers/findScaleType.js';
 
 const name = 'findScaleType';
 
 const tests = [
-	{ name: 'scaleLinear', args: [scaleLinear()], expected: 'other' },
-	{ name: 'scaleLog', args: [scaleLog()], expected: 'log' },
-	{ name: 'scaleSymlog', args: [scaleSymlog()], expected: 'symlog' },
-	{ name: 'scalePow', args: [scalePow()], expected: 'pow' },
-	{ name: 'scaleSqrt', args: [scaleSqrt()], expected: 'sqrt' },
-	{ name: 'scaleIdentity', args: [scaleIdentity()], expected: 'other' },
-	{ name: 'scaleTime', args: [scaleTime()], expected: 'other' },
-	{ name: 'scaleRadial', args: [scaleRadial()], expected: 'other' },
+	{ name: 'scaleLog', expected: 'log' },
+	{ name: 'scaleSymlog', expected: 'symlog' },
+	{ name: 'scalePow', expected: 'pow' },
+	{ name: 'scaleSqrt', expected: 'sqrt' },
+
+	{ name: 'scaleLinear', expected: 'other' },
+	{ name: 'scaleIdentity', expected: 'other' },
+	{ name: 'scaleTime', expected: 'other' },
+	{ name: 'scaleRadial', expected: 'other' },
+
+	{ name: 'scaleOrdinal', expected: 'other' },
+	{ name: 'scaleBand', expected: 'other' },
+	{ name: 'scalePoint', expected: 'other' },
+
+	{ name: 'scaleSequentialLog', expected: 'log' },
+	{ name: 'scaleSequentialPow', expected: 'pow' },
+	{ name: 'scaleSequentialSqrt', expected: 'sqrt' },
+	{ name: 'scaleSequentialSymlog', expected: 'symlog' },
+	{ name: 'scaleSequentialQuantile', expected: 'other' },
+	{ name: 'scaleDivergingLog', expected: 'log' },
+	{ name: 'scaleDivergingPow', expected: 'pow' },
+	{ name: 'scaleDivergingSqrt', expected: 'sqrt' },
+	{ name: 'scaleDivergingSymlog', expected: 'symlog' },
 ];
+
+tests.forEach(d => {
+	d.args = [d3Scale[d.name]()];
+});
 
 describe(name, () => {
 	tests.forEach(test => {

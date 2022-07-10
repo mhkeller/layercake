@@ -1,8 +1,13 @@
 /* globals describe it */
 import * as assert from 'assert';
 import getDefaultRange from '../src/lib/settings/getDefaultRange.js';
-import defaultReverses from '../src/lib/settings/defaultReverses.js';
 
+const defaultReverses = {
+	x: false,
+	y: true,
+	z: false,
+	r: false
+};
 
 const name = 'getDefaultRange';
 

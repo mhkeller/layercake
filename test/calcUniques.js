@@ -66,7 +66,30 @@ const tests = [
 			{ start: 0, end: 1 }, { start: -10000, end: 0 }
 		], { y: d => [d.start, d.end] }],
 		expected: { y: [0, 1, -10000] }
-	}
+	},
+	{
+		args: [[
+			{ teamCity: 'New York', backupCity: 'Los Angeles' },
+			{ teamCity: 'Chicago', backupCity: 'Seattle'}
+		], { y: d => [d.teamCity, d.backupCity] }],
+		expected: { y: ['New York', 'Los Angeles', 'Chicago', 'Seattle'] }
+	},
+	// empty sort options
+	{
+		args: [[
+			{ teamCity: 'New York', backupCity: 'Los Angeles' },
+			{ teamCity: 'Chicago', backupCity: 'Seattle'}
+		], { y: d => [d.teamCity, d.backupCity] }, {}],
+		expected: { y: ['New York', 'Los Angeles', 'Chicago', 'Seattle'] }
+	},
+	// sort true
+	{
+		args: [[
+			{ teamCity: 'New York', backupCity: 'Los Angeles' },
+			{ teamCity: 'Chicago', backupCity: 'Seattle'}
+		], { y: d => [d.teamCity, d.backupCity] }, { sort: true }],
+		expected: { y: ['Chicago', 'Los Angeles', 'New York', 'Seattle'] }
+	},
 ];
 
 const errorTests = [

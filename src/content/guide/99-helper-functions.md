@@ -149,9 +149,9 @@ console.log(extents);
 ```
 
 
-### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`)
+### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`[, { sort: `Boolean=false`] }: Object)
 
-The same API and behavior as `calcExtents` but instead of a two-value array of `[min, max]` values, it returns an array of unique items. It returns the values in the order they appear in the data.
+The same API and behavior as `calcExtents` but instead of a two-value array of `[min, max]` values, it returns an array of unique items. It returns the values in the order they appear in the data. Optionally pass in `true` in the third options argument to do a simple `.sort()`.
 
 ```js
 const uniques = calcUniques(flatData, {
@@ -171,16 +171,16 @@ console.log(uniques);
 The accessor functions can also return an array. This is useful if you want to scan multiple keys per object:
 
 ```js
-const timeData = [{ teamCity: 'Los Angeles', backupCity: 'New York' }, { teamCity: 'Chicago', backupCity: 'Seattle'}];
+const timeData = [{ teamCity: 'New York', backupCity: 'Los Angeles' }, { teamCity: 'Chicago', backupCity: 'Seattle'}];
 
 const uniques = calcUniques(timeData, {
   y: d => [d.teamCity, d.backupCity]
-});
+}, { sort: true });
 
 console.log(uniques);
 /*
 {
-  y: ['Los Angeles', 'New York', 'Chicago', 'Seattle']
+  y: ['Chicago', 'Los Angeles', 'New York', 'Seattle']
 }
 */
 ```

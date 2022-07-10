@@ -83,7 +83,7 @@ const errorTests = [
 	},
 	{
 		args: [{}],
-		expected: /^TypeError: The first argument of calcExtents\(\) must be an array\. If you got this error using the <LayerCake> component, consider passing a flat array to the `flatData` prop\. More info: https:\/\/layercake\.graphics\/guide\/#flatdata.*/
+		expected: /^TypeError: The first argument of calcExtents\(\) must be an array\. You passed in a object.*/
 	}
 ];
 

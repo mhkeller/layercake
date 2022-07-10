@@ -3,7 +3,7 @@ Changelog
 
 # 6.1.2
 
-> not yet on npm
+> 2022-07-10
 
 Makes a more helpful error message when the data passed into `calcExtents` isn't an array.
 

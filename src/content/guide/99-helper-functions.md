@@ -108,7 +108,7 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 
 ### calcExtents(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`)
 
-Calculate the extents of any of the keys specified in **fields**, which is an object whose keys represent the name of the dimension (`x`, `y`, `z` or `r`) and whose values are an accessor function.
+Calculate the extents of any of the keys specified in **fields**, which is an object whose keys represent the name of the dimension (`x`, `y`, `z` or `r`) and whose value is an accessor function.
 
 For example, calculating the extents for the x and y fields, which are in the data as `myX` and `myY` would look like this:
 
@@ -127,9 +127,11 @@ console.log(extents);
 */
 ```
 
-Returns an object whose keys are the field names specified as the first item in the key group array followed by an array of `[min, max]`. This function will also work on strings, which is useful if your data fields are date-time strings like `'2020-03-09T18:00:00'`.
+Returns an object matching the keys in the `fields` argument and whose value is an array of `[min, max]`.
 
-You can also return an array if you have an object with keys where each one is more logically associated with the min or the max like this:
+This function will also work on strings, which is useful if your data fields are date-time strings like `'2020-03-09T18:00:00'`.
+
+The accessor functions can also return an array. This is useful if you want to scan multiple keys per object:
 
 ```js
 const timeData = [{ start: 0, end: 1 }, { start: -10000, end: 0 }];
@@ -146,7 +148,44 @@ console.log(extents);
 */
 ```
 
-### uniques(data: `Array`[, accessor: `String|Function`, transform: `Boolean`])
+
+### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`)
+
+The same API and behavior as `calcExtents` but instead of a two-value array of `[min, max]` values, it returns an array of unique items. It returns the values in the order they appear in the data.
+
+```js
+const uniques = calcUniques(flatData, {
+  x: d => d.myX,
+  y: d => d.myY
+});
+
+console.log(uniques);
+/*
+{
+  x: [0, 85, 123, 43, 10],
+  y: ['group-1', 'group-2', 'group-3']
+}
+*/
+```
+
+The accessor functions can also return an array. This is useful if you want to scan multiple keys per object:
+
+```js
+const timeData = [{ teamCity: 'Los Angeles', backupCity: 'New York' }, { primaryColor: 'Chicago', secondaryColor: 'Seattle'}];
+
+const uniques = calcUniques(timeData, {
+  y: d => [d.teamCity, d.backupCity]
+});
+
+console.log(uniques);
+/*
+{
+  y: ['Los Angeles', 'New York', 'Chicago', 'Seattle']
+}
+*/
+```
+
+### uniques(data: `Array`[, accessor: `String|Function`, transform: `Boolean=true`])
 
 A function to get the unique values from a list. If **accessor** is specified, the uniqueness will be compared using that and, by default, the values in the returned list of unique values will be values returned by the accessor. Accessor can also be the string name of the key. Pass `false` to the **transform** argument if you want to return the original elements, which will be the first one that appears for every unique value. The default for **transform** is `true`.
 

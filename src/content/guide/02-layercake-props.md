@@ -117,7 +117,7 @@ An object that can specify `top`, `right`, `bottom`, or `left` padding in pixels
 
 ### xScale `d3.scaleLinear()`
 
-The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default `d3.scaleLinear()` or you want to add extra options.
+The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default [`d3.scaleLinear()`](https://github.com/d3/d3-scale#scalelinear) or you want to add extra options.
 
 See the [Column chart](/example/Column) for an example of passing in a `d3.scaleBand()` to override the default.
 
@@ -131,9 +131,9 @@ Same as [xScale](/guide#xscale) but for the z scale. The default is `d3.scaleLin
 
 ### rScale `d3.scaleSqrt()`
 
-Same as [xScale](/guide#xscale) but for the r scale. The default is `d3.scaleSqrt()`.
+Same as [xScale](/guide#xscale) but for the r scale. The default is [`d3.scaleSqrt()`](https://github.com/d3/d3-scale#scalesqrt.
 
-### xDomain `Array:[min: ?Number, max: ?Number]|String[]|Number[]`
+### xDomain `Array:[min: ?Number, max: ?Number]|String[]|Number[]|Function`
 
 Set a min or max on the x scale. If you want to inherit the value from the data's extent, set that value to `null`.
 
@@ -145,7 +145,7 @@ Set a min or max on the x scale. If you want to inherit the value from the data'
 >
 ```
 
-This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series.
+This value can also be a longer array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete string values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series.
 
 ```svelte
 <LayerCake
@@ -155,15 +155,25 @@ This value can also be an array because sometimes your scales are [piecewise](ht
 >
 ```
 
-### yDomain `Array:[min: Number, max: Number]|String[]|Number[]`
+If you set a ([`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint or [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal) to any of the scales, the automatically calculated domain will be a list of unique values for the associated accessor instead of a two-value `[min, max]` array. This is useful for color scales or groups. If you want to sort this group, you can pass a function to this prop and it will receive the calculated list of unique values as an argument.
+
+```svelte
+<LayerCake
+  // Domain for a column chart was calculated as: ['1989', '1992', '1991', '1990']
+  // and we want to sort it properly
+  xDomain={ domain => domain.sort() }
+>
+```
+
+### yDomain `Array:[min: Number, max: Number]|String[]|Number[]|Function`
 
 Same as [xDomain](/guide#xdomain) but for the y scale.
 
-### zDomain `Array:[min: Number, max: Number]|String[]|Number[]`
+### zDomain `Array:[min: Number, max: Number]|String[]|Number[]|Function`
 
 Same as [xDomain](/guide#xdomain) but for the z scale.
 
-### rDomain `Array:[min: Number, max: Number]|String[]|Number[]`
+### rDomain `Array:[min: Number, max: Number]|String[]|Number[]|Function`
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 
@@ -175,7 +185,7 @@ This is ignored if you set [xRange](/guide#xRange).
 
 ### yReverse `Boolean=true`
 
-Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale.
+Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale in which case this is `false`.
 
 This is ignored if you set [yRange](/guide#yRange).
 

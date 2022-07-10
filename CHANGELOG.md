@@ -13,6 +13,7 @@ This release has a few new features that should make for nicer default charts wh
   * [PR #89](https://github.com/mhkeller/layercake/pull/89)
 3. If setting a `scaleOrdinal`, `scaleBand` or `scalePoint`, the calculated extents will be a series of unique values instead of `[min, max]`.
   * [PR #90](https://github.com/mhkeller/layercake/pull/90)
+4. A new function called [`calcUniques`](https://github.com/mhkeller/layercake/blob/68ddb96e5f98ec59cbe7cd3cc3e2ca204e457113/src/lib/lib/calcUniques.js) which has the same API as [`calcExtents`](https://github.com/mhkeller/layercake/blob/68ddb96e5f98ec59cbe7cd3cc3e2ca204e457113/src/lib/lib/calcExtents.js) but calculates unique values instead of mins and maxes.
 
 # 6.1.2
 

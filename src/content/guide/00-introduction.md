@@ -6,13 +6,13 @@ title: Introduction
 
 Layer Cake is a graphics framework for [Svelte](https://svelte.dev) that removes the boilerplate from making responsive web graphics. it gives you common elements, like a coordinate system and scales, for you to start creating your own dataviz layers, like axes, plots and annotations.
 
-Layer Cake is described as a framework and not a library because unlike Vega or HighCharts, it doesn't automatically create, for example, a scatter chart for you. It gives you the scales and the DOM element to encode chart elements from your data. This is because every chart ends up being custom in one way or another. Other libraries handle this usually by creating a complex JSON specification but learning that is a big investment and often mentally taxing.
+Layer Cake is described as a framework and not a library because unlike Vega or HighCharts, it doesn't automatically create, for example, a scatter chart for you. It gives you the scales and the DOM element to encode chart elements from your data. This is because every chart usually ends up needing some customization in one way or another. Those other libraries handle customization  usually by creating a complex JSON specification but learning that is a big investment and can be another layer of abstraction to take into account.
 
-The idea behind a Layer Cake chart is you can start from a basic scatter, line or bar chart template but because those chart layers live in your project, you can customize them however you want.
+The idea behind a Layer Cake chart is you can start from a basic scatter, line or bar chart template and – because those chart layers live in your project – you can customize them however you want.
 
 By organizing a graphic into layers, you can more easily reuse components from project to project. It also lets you easily move between web languages (SVG, Canvas, HTML, WebGL) by giving you a common coordinate system they can all use. That way, you can choose the best format for each element without worrying superimposing different elements on top of one another.
 
-Layer Cake is more about having a system to organize your own custom components than it is a high-level charting library. It doesn't have any built-in concepts or strong opinions about how your data should be structured.
+Layer Cake is more about having a system to organize your own custom components than it is a high-level charting library.
 
 > Layer Cake uses D3 scales. See more in the [xScale](/guide#xscale), [yScale](/guide#yscale), [zScale](/guide#zscale) and [rScale](/guide#rscale) sections of the [Layer Cake Props API](/guide#layercake-props).
 
@@ -20,13 +20,14 @@ Layer Cake is more about having a system to organize your own custom components 
 
 1. Layer components exist inside your own project. Layer Cake doesn't have any built-in concept of what a bar chart or column chart is, for example. It is a tool to give you scales and empty containers to draw on.
 2. Layer Cake needs a flat array of objects to measure the extents of your data. In most cases, what you pass in to the `data` prop is already a flat array of objects. In some cases, though, like [multi-series line](/example/MultiLine) charts or [maps](/example/MapSvg), your data needs to take on a more complex shape. In these instances, pass in a flat array of objects to the [`flatData`](/guide#flatdata) prop and your accessors will be called on each object in order to calculate your scale extents.
+3. For most scale types, such as [linear scales](https://github.com/d3/d3-scale#scalelinear), Layer Cake measures the extents of your data as the `[min, max]`. For categorical scale types ([`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint and [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal), it calculates the extent as the unique values in that list. Also, if your y-scale is not one of these categorical scales, it reverses the default range from `[0, height]` to `[height, 0]` in order to match the DOM coordinate system and make drawing easier out of the box.
 
 ### Getting started
 
-Install Layer Cake in your `devDependencies` alongside Svelte.
+Install Layer Cake in your `dependencies` alongside Svelte.
 
 ```sh
-npm install --save-dev layercake
+npm install --save layercake
 ```
 
 The easiest way to get started is to clone down, or use [degit](https://github.com/rich-harris/degit) to grab the starter template at [https://github.com/mhkeller/layercake-template](https://github.com/mhkeller/layercake-template).
@@ -36,7 +37,7 @@ degit mhkeller/layercake-template my-chart
 cd my-chart
 ```
 
-The `App.svelte` file in this example is your main Svelte component. You can render a LayerCake inside a DOM element like so.
+The `App.svelte` file in this example is your main Svelte component. You can render a `<LayerCake>` inside a DOM element like so.
 
 ```svelte
 <!-- { filename: 'js/App.svelte' } -->
@@ -295,3 +296,16 @@ Here's an example that doesn't set any properties on the `LayerCake` component:
 See the [layercake-template](https://github.com/mhkeller/layercake-template) for the rollup config needed to compile LayerCake server-side. In short, it creates a JavaScript file, which then constructs the required HTML and CSS when executed. You have the option of also hydrating that markup with any additiona client-side JavaScript, or building it without any bundled JavaScript.
 
 You can also use LayerCake in Sapper (or similar dev environment) to create charts that work without JavaScript, which is how the server-side examples on this site work. Just set the [ssr](/guide#ssr) prop to `true`. Check out the examples on the [home page](/) for useful patterns using the [percentRange](/guide#percentrange) option, the [ScaledSvg](/guide#scaledsvg) component and other percentage-based components.
+
+### How does LayerCake know what to set as a scale's domain and range?
+
+As of version 7.0, Layer Cake tries to be a little smarter about how it calculates these values. For categorical scales like ([`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint and [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal), it calculates the extent as the list of unique values in your data for a given field. This is useful for bar charts, column charts or color scales where you have discrete values as opposed to a continuous range.
+
+For all other scale types, Layer Cake measures the extent as the simple `[min, max]` values.
+
+The default ranges for each dimension are:
+
+* x: `[0, width]`
+* y: `[height, 0]`, unless using a `scaleBand` or `scalePoint` and it is `[0, height]`
+* r: `[1, 25]`. The min is `1` and not zero because this is a `scaleSqrt` by default and `0` is not allowed in that type of chart.
+* z: `[0, width]`

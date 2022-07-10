@@ -1,7 +1,7 @@
 <script>
 	import { LayerCake, Svg, Html } from 'layercake';
 	import { feature } from 'topojson-client';
-	import { geoAlbersUsa } from 'd3-geo';
+	import { geoIdentity } from 'd3-geo';
 	import { scaleQuantize } from 'd3-scale';
 	import { format } from 'd3-format';
 
@@ -9,7 +9,7 @@
 	import Tooltip from '../../_components/Tooltip.html.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
-	import usStates from '../../_data/us-states.topojson.json';
+	import usStates from '../../_data/states-albers-10m.json';
 	import stateData from '../../_data/us-states-data.json';
 
 	const colorKey = 'myValue';
@@ -23,8 +23,8 @@
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
 
-	const geojson = feature(usStates, usStates.objects.collection);
-	const projection = geoAlbersUsa;
+	const geojson = feature(usStates, usStates.objects.states);
+	const projection = geoIdentity;
 
 	stateData.forEach(d => {
 		dataLookup.set(d[dataJoinKey], d);

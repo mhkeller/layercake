@@ -6,7 +6,7 @@ const name = 'calcExtents';
 
 const tests = [
 	{ args: [[0, 1, 2], {}], expected: {} },
-	{ args: [[undefined, null, NaN], { x: d => d }], expected: { x: [null, null] } },
+	{ args: [[undefined, null, NaN, false], { x: d => d }], expected: { x: [null, null] } },
 	{
 		args: [[
 			{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
@@ -83,7 +83,7 @@ const errorTests = [
 	},
 	{
 		args: [{}],
-		expected: /^TypeError: The first argument of calcExtents\(\) must be an array\. If you got this error using the <LayerCake> component, consider passing a flat array to the `flatData` prop\. More info: https:\/\/layercake\.graphics\/guide\/#flatdata.*/
+		expected: /^TypeError: The first argument of calcExtents\(\) must be an array\. You passed in a object.*/
 	}
 ];
 

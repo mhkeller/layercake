@@ -35,8 +35,7 @@
 		padding={{ top: 0, bottom: 20, left: 35 }}
 		x={xKey}
 		y={yKey}
-		yScale={scaleBand().paddingInner([0.05]).round(true)}
-		yDomain={['1979', '1980', '1981', '1982', '1983']}
+		yScale={scaleBand().paddingInner([0.05])}
 		xDomain={[0, null]}
 		data={data}
 	>

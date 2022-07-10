@@ -39,7 +39,7 @@
 </script>
 
 <div class='axis y-axis' style='transform:translate(-{$padding.left}px, 0)'>
-	{#each tickVals as tick, i}
+	{#each tickVals as tick, i (tick)}
 		<div class='tick tick-{i}' style='top:{$yScale(tick) + (isBandwidth ? $yScale.bandwidth () / 2 : 0)}%;left:{$xRange[0]}%;'>
 			{#if gridlines !== false}
 				<div class="gridline" style='top:0;left:{isBandwidth ? $padding.left : 0}px;right:-{$padding.left + $padding.right}px;'></div>

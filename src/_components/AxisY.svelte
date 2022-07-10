@@ -45,7 +45,7 @@
 </script>
 
 <g class='axis y-axis' transform='translate({-$padding.left}, 0)'>
-	{#each tickVals as tick}
+	{#each tickVals as tick (tick)}
 		<g class='tick tick-{tick}' transform='translate({$xRange[0] + (isBandwidth ? $padding.left : 0)}, {$yScale(tick)})'>
 			{#if gridlines !== false}
 				<line

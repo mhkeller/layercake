@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 6.1.2
+
+> 2022-07-10
+
+Makes a more helpful error message when the data passed into `calcExtents` isn't an array.
+
+* [0e10894911db7c0cde14aabf44fd18b2235f43dc](https://github.com/mhkeller/layercake/commit/0e10894911db7c0cde14aabf44fd18b2235f43dc)
+
 # 6.1.1
 
 > 2022-06-24

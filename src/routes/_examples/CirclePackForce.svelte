@@ -12,17 +12,7 @@
 
 	let groupBy = 'true';
 
-	const seriesNameSet = new Set();
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
-
-	data.forEach(d => {
-		seriesNameSet.add(d[zKey]);
-	});
-
-	/* --------------------------------------------
-	 * Convert this to an array so we can use it in our scales
-	 */
-	const seriesNames = [...seriesNameSet];
 
 	let manyBodyStrength = 3;
 	let xStrength = 0.1
@@ -59,10 +49,8 @@
 		r={rKey}
 		z={zKey}
 		xScale={scaleBand()}
-		xDomain={seriesNames}
 		rRange={[3, 12]}
 		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
 		zRange={seriesColors}
 	>
 		<Svg>

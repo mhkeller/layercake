@@ -15,12 +15,9 @@
 
 	const r = 6;
 
-	const seriesNames = new Set();
 	const seriesColors = ['#fc0', '#000'];
 
 	const dataTransformed = data.map(d => {
-		seriesNames.add(d[zKey]);
-
 		return {
 			[titleKey]: d[titleKey],
 			[zKey]: d[zKey],
@@ -49,7 +46,6 @@
 		x={xKey}
 		z={zKey}
 		zScale={scaleOrdinal()}
-		zDomain={Array.from(seriesNames)}
 		zRange={seriesColors}
 		data={dataTransformed}
 		let:width

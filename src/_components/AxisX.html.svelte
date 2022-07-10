@@ -39,7 +39,7 @@
 </script>
 
 <div class='axis x-axis' class:snapTicks>
-	{#each tickVals as tick, i}
+	{#each tickVals as tick, i (tick)}
 		{#if gridlines !== false}
 			<div class="gridline" style='left:{$xScale(tick)}%;top: 0px;bottom: 0;'></div>
 		{/if}

@@ -14,12 +14,25 @@ export default function createScale (s) {
 		const scale = $scale === defaultScales[s] ? $scale() : $scale.copy();
 
 		/* --------------------------------------------
-		 * On creation, `$domain` will already have any nulls filled in
-		 * But if we set it via the context it might not, so rerun it through partialDomain
+		 * Set the domain
 		 */
-		scale
-			.domain(partialDomain($extents[s], $domain))
-			.range(defaultRange);
+		scale.domain($domain)
+
+		/* --------------------------------------------
+		 * Set the range of the scale to our default if
+		 * the scale doesn't have an interpolator function
+		 * or if it does, still set the range if that function
+		 * is the default identity function
+		 */
+		if (
+			!scale.interpolator ||
+			(
+				typeof scale.interpolator === 'function'
+				&& scale.interpolator().name.startsWith('identity')
+			)
+		) {
+			scale.range(defaultRange);
+		}
 
 		if ($padding) {
 			scale.domain(padScale(scale, $padding));

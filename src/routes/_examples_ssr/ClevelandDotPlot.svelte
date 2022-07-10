@@ -42,7 +42,6 @@
 		x={xKey}
 		y={yKey}
 		yScale={scaleBand().paddingInner([0.05]).round(true)}
-		yDomain={['2016', '2017', '2018', '2019']}
 		xDomain={[0, null]}
 		xPadding={[2, 0]}
 		zScale={scaleOrdinal()}

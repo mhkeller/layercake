@@ -1,5 +1,4 @@
 import defaultScales from '../settings/defaultScales.js';
-import partialDomain from '../utils/partialDomain.js';
 import padScale from '../utils/padScale.js';
 import getDefaultRange from '../settings/getDefaultRange.js';
 

@@ -3,7 +3,7 @@ Changelog
 
 # 7.0.0
 
-> 2022-07-10
+> not yet on npm
 
 This release has a few new features that should make for nicer default charts when working with ordinal scales. Many thanks to [@techniq](https://github.com/techniq) for kicking things off with this. Here are the highlights:
 

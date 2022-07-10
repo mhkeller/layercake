@@ -6,7 +6,7 @@
  */
 export default function isOrdinalScale(scale) {
 	// scaleBand, scalePoint
-	if (scale.bandwidth) {
+	if (typeof scale.bandwidth === 'function') {
 		return 'ordinal';
 	}
 	// scaleOrdinal

@@ -14,7 +14,6 @@
 	import createGetter from './helpers/createGetter.js';
 	import getRange from './helpers/getRange.js';
 	import defaultScales from './settings/defaultScales.js';
-	import defaultReverses from './settings/defaultReverses.js';
 
 	/** @type {Boolean} [ssr=false] Whether this chart should be rendered server side. */
 	export let ssr = false;
@@ -73,14 +72,6 @@
 	export let zNice = false;
 	/** @type {Boolean} [rNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the r domain. */
 	export let rNice = false;
-	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
-	export let xReverse = defaultReverses.x;
-	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]`. Ignored if you set the yRange prop. */
-	export let yReverse = defaultReverses.y;
-	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
-	export let zReverse = defaultReverses.z;
-	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`.Ignored if you set the rRange prop. */
-	export let rReverse = defaultReverses.r;
 	/** @type {[leftPixels: Number, rightPixels: Number]} [xPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let xPadding = undefined;
 	/** @type {[leftPixels: Number, rightPixels: Number]} [yPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
@@ -105,6 +96,14 @@
 	export let zRange = undefined;
 	/** @type {[min: Number, max: Number]|Function|String[]|Number[]} [rRange] Override the default r range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `rReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
 	export let rRange = undefined;
+	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
+	export let xReverse = false;
+	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale. Ignored if you set the yRange prop. */
+	export let yReverse = typeof yScale.bandwidth === 'function' ? false : true;
+	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
+	export let zReverse = false;
+	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
+	export let rReverse = false;
 	/** @type {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}] The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563). */
 	export let padding = {};
 	/** @type {{ x?: [min: Number, max: Number], y?: [min: Number, max: Number], r?: [min: Number, max: Number], z?: [min: Number, max: Number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */

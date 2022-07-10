@@ -52,31 +52,38 @@
 	}
 </script>
 
-<g class='axis x-axis' class:snapTicks>
+<g class="axis x-axis" class:snapTicks>
 	{#each tickVals as tick, i (tick)}
-		<g class='tick tick-{ i }' transform='translate({$xScale(tick)},{$yRange[0]})'>
+		<g class="tick tick-{i}" transform="translate({$xScale(tick)},{Math.max(...$yRange)})">
 			{#if gridlines !== false}
-				<line class="gridline" y1='{$height * -1}' y2='0' x1='0' x2='0'></line>
+				<line class="gridline" y1={$height * -1} y2="0" x1="0" x2="0" />
 			{/if}
 			{#if tickMarks === true}
-				<line class="tick-mark" y1='{0}' y2='{6}' x1='{xTick || isBandwidth ? $xScale.bandwidth() / 2 : 0}' x2='{xTick || isBandwidth ? $xScale.bandwidth() / 2 : 0}'></line>
+				<line
+					class="tick-mark"
+					y1={0}
+					y2={6}
+					x1={xTick || isBandwidth ? $xScale.bandwidth() / 2 : 0}
+					x2={xTick || isBandwidth ? $xScale.bandwidth() / 2 : 0}
+				/>
 			{/if}
 			<text
-				x="{xTick || isBandwidth ? $xScale.bandwidth() / 2 : 0}"
-				y='{yTick}'
-				dx=''
-				dy=''
-				text-anchor='{textAnchor(i)}'>{formatTick(tick)}</text>
+				x={xTick || isBandwidth ? $xScale.bandwidth() / 2 : 0}
+				y={yTick}
+				dx=""
+				dy=""
+				text-anchor={textAnchor(i)}>{formatTick(tick)}</text
+			>
 		</g>
 	{/each}
 	{#if baseline === true}
-		<line class="baseline" y1='{$height + 0.5}' y2='{$height + 0.5}' x1='0' x2='{$width}'></line>
+		<line class="baseline" y1={$height + 0.5} y2={$height + 0.5} x1="0" x2={$width} />
 	{/if}
 </g>
 
 <style>
 	.tick {
-		font-size: .725em;
+		font-size: 0.725em;
 		font-weight: 200;
 	}
 

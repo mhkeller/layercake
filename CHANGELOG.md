@@ -7,12 +7,9 @@ Changelog
 
 This release has a few new features that should make for nicer default charts when working with ordinal scales. Many thanks to [@techniq](https://github.com/techniq) for kicking things off with this. Here are the highlights:
 
-1. When setting a `scaleBand` or `scalePoint` scale, the `yRange` is no longer reversed by default.
-  * [PR #85](https://github.com/mhkeller/layercake/pull/85)
-2. If the scale already has a custom interpolator function, don't set the range. This helps when using `scaleSequential` and `scaleDiverging` for a color scale. Interpolators are kind of like ranges but set with a different method. Before, any custom interpolator you set when passing in the scale would get overridden when the range was set automatically.
-  * [PR #89](https://github.com/mhkeller/layercake/pull/89)
-3. If setting a `scaleOrdinal`, `scaleBand` or `scalePoint`, the calculated extents will be a series of unique values instead of `[min, max]`.
-  * [PR #90](https://github.com/mhkeller/layercake/pull/90)
+1. When setting a `scaleBand` or `scalePoint` scale, the `yRange` is no longer reversed by default [PR #85](https://github.com/mhkeller/layercake/pull/85).
+2. If the scale already has a custom interpolator function, don't set the range. This helps when using `scaleSequential` and `scaleDiverging` for a color scale. Interpolators are kind of like ranges but set with a different method. Before, any custom interpolator you set when passing in the scale would get overridden when the range was set automatically [PR #89](https://github.com/mhkeller/layercake/pull/89).
+3. If setting a `scaleOrdinal`, `scaleBand` or `scalePoint`, the calculated extents will be a series of unique values instead of `[min, max]` [PR #90](https://github.com/mhkeller/layercake/pull/90).
 4. A new function called [`calcUniques`](https://github.com/mhkeller/layercake/blob/68ddb96e5f98ec59cbe7cd3cc3e2ca204e457113/src/lib/lib/calcUniques.js) which has the same API as [`calcExtents`](https://github.com/mhkeller/layercake/blob/68ddb96e5f98ec59cbe7cd3cc3e2ca204e457113/src/lib/lib/calcExtents.js) but calculates unique values instead of mins and maxes.
 
 This is technically a breaking change because the behavior is different but the only real change you would see would be the order of an ordinal y scale will be unreversed – which may be more correct than what it was previously.

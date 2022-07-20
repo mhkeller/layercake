@@ -274,7 +274,7 @@ Here's an example that doesn't set any properties on the `LayerCake` component:
 	*/
   .chart-container {
     width: 100%;
-    width: 300px;
+    height: 300px;
   }
 </style>
 

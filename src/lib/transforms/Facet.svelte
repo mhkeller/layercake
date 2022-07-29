@@ -2,6 +2,9 @@
   @component
   Facets your data by the values in the given column
 	and render small multiples
+	Returns as slot props
+		* {String} [groupKey] The key of each group
+		* {Array} [groupData] The data in each group
  -->
 <script>
 	import { groups } from 'd3-array';

@@ -29,7 +29,7 @@
 			<slot
 				{groupKey}
 				{groupData}
-			></slot>
+			/>
 		</div>
 	{/each}
 </div>

@@ -7,26 +7,30 @@
 		* {Array} [extents=[min, max]] The calculated extents of the `data` and the provided `value` accessor
  -->
  <script>
-	import { extent, bin } from 'd3-array';
+	import { bin } from 'd3-array';
 
 	/** @type {Array} [data] The data to be binned. */
 	export let data;
-	/** @type {Function} [faclue=d => d] An accessor function passed to `bin.value()`. Defaults to an identity function. */
-	export let value = d => d;
-	/** @type {Array} [domain=[dataMin, dataMax]] The domain passed to `bin.domain()`. If not set here as a prop, defaults to the min and max of the `data` and the `value` accessor. Pass in your own domain if you'd like. */
-	export let domain;
-	/** @type {Array} [thresholds] The thresholds passed to `bin.thresholds()` */
-	export let thresholds;
+	/** @type {Function} [value] An accessor function passed to `bin.value()`. */
+	export let value = undefined;
+	/** @type {Array} [domain] The domain passed to `bin.domain()`. Pass in your own domain if you'd like. */
+	export let domain = undefined;
+	/** @type {Array|Number} [thresholds] The thresholds passed to `bin.thresholds()` */
+	export let thresholds = undefined;
 
-	$: domainValue = domain || extent(data, value);
+	$: hist = bin();
 
-	$: hist = bin()
-	  .value(value)
-	  .domain(domainValue)
-	  .thresholds(thresholds);
+	$: if (value) {
+		hist.value(value);
+	}
+	$: if (domain) {
+		hist.domain(domain)
+	}
+	$: if (thresholds) {
+		hist.thresholds(thresholds);
+	}
 </script>
 
 <slot
-	bins={hist(data)}
-	extents={domainValue}
+	binData={hist(data)}
 />

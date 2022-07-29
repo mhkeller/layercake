@@ -1,9 +1,17 @@
+<!--
+  @component
+  Facets your data by the values in the given column
+	and render small multiples
+ -->
 <script>
 	import { groups } from 'd3-array';
-	export let data;
-	export let by;
 
-	export let orientation = 'row';
+	/** @type {Array} [data] The data to be faceted. */
+	export let data;
+	/** @type {String} [by] - The field name to facet by */
+	export let by;
+	/** @type {String} [orientation='column'] - Can be 'column' or 'row'. Whether to arrange the faceted charts by row or column. This is passed to `flex-direction` on the parent container. */
+	export let orientation = 'column';
 
 	const dataGroups = groups(data, d => d[by]);
 </script>
@@ -22,4 +30,3 @@
 		</div>
 	{/each}
 </div>
-

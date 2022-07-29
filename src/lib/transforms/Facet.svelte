@@ -13,7 +13,7 @@
 	/** @type {String} [orientation='column'] - Can be 'column' or 'row'. Whether to arrange the faceted charts by row or column. This is passed to `flex-direction` on the parent container. */
 	export let orientation = 'column';
 
-	const dataGroups = groups(data, d => d[by]);
+	$: dataGroups = groups(data, d => d[by]);
 </script>
 
 <div

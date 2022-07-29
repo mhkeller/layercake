@@ -13,7 +13,7 @@
 	export let data;
 	/** @type {Array} [keys] - The series names to stack, passed to `stack.keys()`. */
 	export let keys;
-	/** @type {String|Function} [value] An accessor function passed to `bin.value()`. Can also be a string. */
+	/** @type {String|Function} [value] An accessor function passed to `bin.value()`.  If this is a string, it will be transformed into an accessor for that key. */
 	export let value = undefined;
 	/** @type {Array|Function} [order] The stack order passed to `stack.order()`. */
 	export let order = undefined;

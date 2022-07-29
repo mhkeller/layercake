@@ -10,7 +10,7 @@
 
 	/** @type {Array} [data] The data to be binned. */
 	export let data;
-	/** @type {String|Function} [value] An accessor function passed to `bin.value()`. Can also be a string. */
+	/** @type {String|Function} [value] An accessor function passed to `bin.value()`. If this is a string, it will be transformed into an accessor for that key. */
 	export let value = undefined;
 	/** @type {Array} [domain] The domain passed to `bin.domain()`. Pass in your own domain if you'd like. */
 	export let domain = undefined;

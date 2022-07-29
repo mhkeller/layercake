@@ -11,7 +11,7 @@
 
 	/** @type {Array} [data] The data to be binned. */
 	export let data;
-	/** @type {Function} [value] An accessor function passed to `bin.value()`. */
+	/** @type {String|Function} [value] An accessor function passed to `bin.value()`. Can also be a string. */
 	export let value = undefined;
 	/** @type {Array} [domain] The domain passed to `bin.domain()`. Pass in your own domain if you'd like. */
 	export let domain = undefined;
@@ -21,13 +21,15 @@
 	$: hist = bin();
 
 	$: if (value) {
-		hist.value(value);
+		// @ts-ignore
+		const acc = typeof value === 'string' ? d => d[value] : value;
+		hist = hist.value(acc);
 	}
 	$: if (domain) {
-		hist.domain(domain)
+		hist = hist.domain(domain)
 	}
 	$: if (thresholds) {
-		hist.thresholds(thresholds);
+		hist = hist.thresholds(thresholds);
 	}
 </script>
 

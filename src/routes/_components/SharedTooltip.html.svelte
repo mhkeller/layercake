@@ -26,7 +26,8 @@
 		return {
 			key,
 			values: data.map(d => {
-				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey]; // Conditional required for sapper
+				// Put this in a conditional so that we don't recast the data on second render
+				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey];
 				return {
 					key,
 					[yKey]: +d[key],

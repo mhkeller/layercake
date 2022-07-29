@@ -3,8 +3,7 @@
   Bins and counts your data.
 	A wrapper around [d3-array#bin](https://github.com/d3/d3-array#bin)
 	Returns as slot props:
-		* {Array} [bins] An array of bin arrays. See [d3-array#bin](https://github.com/d3/d3-array#bin) for details
-		* {Array} [extents=[min, max]] The calculated extents of the `data` and the provided `value` accessor
+		* {Array} [binData] An array of bin arrays
  -->
  <script>
 	import { bin } from 'd3-array';

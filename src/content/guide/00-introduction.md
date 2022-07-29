@@ -295,7 +295,7 @@ Here's an example that doesn't set any properties on the `LayerCake` component:
 
 See the [layercake-template](https://github.com/mhkeller/layercake-template) for the rollup config needed to compile LayerCake server-side. In short, it creates a JavaScript file, which then constructs the required HTML and CSS when executed. You have the option of also hydrating that markup with any additiona client-side JavaScript, or building it without any bundled JavaScript.
 
-You can also use LayerCake in Sapper (or similar dev environment) to create charts that work without JavaScript, which is how the server-side examples on this site work. Just set the [ssr](/guide#ssr) prop to `true`. Check out the examples on the [home page](/) for useful patterns using the [percentRange](/guide#percentrange) option, the [ScaledSvg](/guide#scaledsvg) component and other percentage-based components.
+You can also use LayerCake in Svelte Kit to create charts that work without JavaScript, which is how the server-side examples on this site work. Just set the [ssr](/guide#ssr) prop to `true`. Check out the examples on the [home page](/) for useful patterns using the [percentRange](/guide#percentrange) option, the [ScaledSvg](/guide#scaledsvg) component and other percentage-based components.
 
 ### How does LayerCake know what to set as a scale's domain and range?
 

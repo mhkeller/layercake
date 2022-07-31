@@ -18,8 +18,8 @@ The component has the following props:
 
 It returns as slot props:
 
-* **groupKey** The key of each group
-* **groupData** The data in each group
+* **groupKey** The key of each group.
+* **groupData** The data in each group.
 
 Here's an example splitting a scatter plot into three:
 
@@ -89,13 +89,13 @@ The component has the following props:
 
 * **data** The data to be stacked.
 * **keys** The series names to stack, passed to [`stack.keys()`](https://github.com/d3/d3-shape#stack_keys).
-* **values** An accessor function passed to [`stack.value()`](https://github.com/d3/d3-shape#stack_value). If this is a string, it will be transformed into an accessor for that key.
-* **order** The stack order passed to [`stack.order()`](https://github.com/d3/d3-shape#stack_order).
-* **offset** The offset function passed to [`stack.offset()`](https://github.com/d3/d3-shape#stack_offset).
+* **value** Optional. An accessor function passed to [`stack.value()`](https://github.com/d3/d3-shape#stack_value). If this is a string, it will be transformed into an accessor for that key.
+* **order** Optional. The stack order passed to [`stack.order()`](https://github.com/d3/d3-shape#stack_order).
+* **offset** Optional. The offset function passed to [`stack.offset()`](https://github.com/d3/d3-shape#stack_offset).
 
 It returns as slot props:
 
-* **stackData** The transformed data
+* **stackData** The transformed data.
 
 Here's an example on a stacked area chart:
 
@@ -106,7 +106,7 @@ Here's an example on a stacked area chart:
 
   import ColumnStacked from './components/ColumnStacked.svelte';
 
-   const data = [
+  const data = [
     {month: new Date(2015, 3, 1), apples: 3840, bananas: 1920, cherries: 960, dates: 400},
     {month: new Date(2015, 2, 1), apples: 1600, bananas: 1440, cherries: 960, dates: 400},
     {month: new Date(2015, 1, 1), apples: 640,  bananas: 960,  cherries: 640, dates: 400},
@@ -118,6 +118,7 @@ Here's an example on a stacked area chart:
   <Stack
     {data}
     keys={['apples', 'bananas', 'cherries', 'dates']}
+
     let:stackData
   >
   <!--
@@ -140,6 +141,110 @@ Here's an example on a stacked area chart:
       </Svg>
     </LayerCake>
   </Stack>
+</div>
+
+<style>
+  /*
+  	The wrapper div needs to have an explicit width and height in CSS.
+  	It can also be a flexbox child or CSS grid element.
+  	The point being it needs dimensions since the <LayerCake> element will
+  	expand to fill it.
+  */
+  .chart-container {
+    width: 100%;
+    height: 300px;
+  }
+</style>
+```
+
+### Bin
+
+The **Bin** transform component is a wrapper around the `bin` function in [d3-array](https://github.com/d3/d3-array#bins). It's useful for histograms.
+
+The component has the following props:
+
+* **data** The data to be binned.
+* **value** Optional. An accessor function passed to [`bin.value()`](https://github.com/d3/d3-array#bin_value). If this is a string, it will be transformed into an accessor for that key.
+* **domain** Optional. The domain passed to [`bin.domain()`](https://github.com/d3/d3-array#bin_domain).
+* **thresholds** Optional. The thresholds passed to [`bin.thresholds()`](https://github.com/d3/d3-array#bin_thresholds). Optional. Can be a number, array or function.
+
+It returns as slot props:
+
+* **binData** The transformed data.
+
+Here's an example on a stacked area chart:
+
+```svelte
+<!-- { filename: 'App.svelte' } -->
+<script>
+  import { LayerCake, Bin, Svg } from 'layercake';
+
+  import { scaleBand } from 'd3-scale';
+
+  import Column from './components/Column.svelte';
+
+  const data = [
+    { myX: 0 },
+    { myX: 1 },
+    { myX: 2 },
+    { myX: 4 },
+    { myX: 2 },
+    { myX: 8 },
+    { myX: 1 },
+    { myX: 4 },
+    { myX: 7 }
+  ];
+</script>
+
+<div class="chart-container">
+  <Bin
+    {data}
+    value={d => d.myX}
+    // ... can also be a string
+    value='myX'
+
+    let:binData
+  >
+  <!--
+    binData equals (taken from the d3-array docs): an array of bins, where each bin is an array containing the associated elements from the input data. Thus, the length of the bin is the number of elements in that bin. Each bin has two additional attributes:
+
+    x0 - the lower bound of the bin (inclusive).
+    x1 - the upper bound of the bin (exclusive, except for the last bin).
+
+    [
+      [
+        { myX: 0 },
+        { myX: 1 },
+        { myX: 1 }
+      ], // length: 3, x0: 0, x1: 2
+      [
+        { myX: 2 },
+        { myX: 2 }
+      ], // length: 2, x0: 2, x1: 4,
+      [
+        { myX: 4 },
+        { myX: 4 }
+      ], // length: 2, x0: 4, x1: 6,
+      [
+        { myX: 7 }
+      ], // length: 1, x0: 7, x1: 8,
+      [
+        { myX: 8 }
+      ] // length: 1, x0: 8, x1: 10,
+    ]
+    -->
+    <LayerCake
+      data={binData}
+      x={['x0', 'x1']}
+      y='length'
+      xScale={scaleBand().paddingInner([0])}
+      yDomain={[0, null]}
+    >
+      <Svg>
+        <Column stroke="#000" strokeWidth="1"/>
+      </Svg>
+    </LayerCake>
+  </Bin>
 </div>
 
 <style>

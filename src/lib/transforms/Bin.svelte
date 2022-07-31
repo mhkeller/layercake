@@ -14,7 +14,7 @@
 	export let value = undefined;
 	/** @type {Array} [domain] The domain passed to `bin.domain()`. Pass in your own domain if you'd like. */
 	export let domain = undefined;
-	/** @type {Array|Number} [thresholds] The thresholds passed to `bin.thresholds()` */
+	/** @type {Number|Array|Function} [thresholds] The thresholds passed to `bin.thresholds()` */
 	export let thresholds = undefined;
 
 	$: hist = bin();

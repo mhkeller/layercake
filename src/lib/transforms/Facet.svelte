@@ -9,9 +9,9 @@
 <script>
 	import { groups } from 'd3-array';
 
-	/** @type {Array} [data] The data to be faceted */
+	/** @type {Array} [data] The data to be faceted. */
 	export let data;
-	/** @type {String} [by] The field name to facet by */
+	/** @type {String} [by] The field name to facet by. */
 	export let by;
 	/** @type {String} [orientation='column'] Can be 'column' or 'row'. Whether to arrange the faceted charts by row or column. This is passed to `flex-direction` on the parent container. */
 	export let orientation = 'column';

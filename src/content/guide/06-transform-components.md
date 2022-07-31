@@ -107,10 +107,10 @@ Here's an example on a stacked area chart:
   import ColumnStacked from './components/ColumnStacked.svelte';
 
   const data = [
-    {month: new Date(2015, 3, 1), apples: 3840, bananas: 1920, cherries: 960, dates: 400},
-    {month: new Date(2015, 2, 1), apples: 1600, bananas: 1440, cherries: 960, dates: 400},
-    {month: new Date(2015, 1, 1), apples: 640,  bananas: 960,  cherries: 640, dates: 400},
-    {month: new Date(2015, 0, 1), apples: 320,  bananas: 480,  cherries: 640, dates: 400}
+    {month: '2015-03-01', apples: 3840, bananas: 1920, cherries: 960, dates: 400},
+    {month: '2015-02-01', apples: 1600, bananas: 1440, cherries: 960, dates: 400},
+    {month: '2015-01-01', apples: 640,  bananas: 960,  cherries: 640, dates: 400},
+    {month: '2015-00-01', apples: 320,  bananas: 480,  cherries: 640, dates: 400}
   ];
 </script>
 
@@ -172,7 +172,229 @@ It returns as slot props:
 
 * **binData** The transformed data.
 
-Here's an example on a stacked area chart:
+Here's an example ([edit in REPL](https://svelte.dev/repl/dc86fbe62a0940afb28ce6ab69c4150a?version=3.49.0)) on a stacked area chart:
+
+```svelte
+<!-- { filename: 'App.svelte' } -->
+<script>
+  import { LayerCake, Bin, Svg } from 'layercake';
+
+  import { scaleBand } from 'd3-scale';
+
+  import Column from './components/Column.svelte';
+
+  const data = [
+    { myX: 0 },
+    { myX: 1 },
+    { myX: 2 },
+    { myX: 4 },
+    { myX: 2 },
+    { myX: 8 },
+    { myX: 1 },
+    { myX: 4 },
+    { myX: 7 }
+  ];
+</script>
+
+<div class="chart-container">
+  <Bin
+    {data}
+    value={d => d.myX}
+    // ... can also be a string
+    value='myX'
+
+    let:binData
+  >
+  <!--
+    binData equals (taken from the d3-array docs): an array of bins, where each bin is an array containing the associated elements from the input data. Thus, the length of the bin is the number of elements in that bin. Each bin has two additional attributes:
+
+    x0 - the lower bound of the bin (inclusive).
+    x1 - the upper bound of the bin (exclusive, except for the last bin).
+
+    [
+      [
+        { myX: 0 },
+        { myX: 1 },
+        { myX: 1 }
+      ], // length: 3, x0: 0, x1: 2
+      [
+        { myX: 2 },
+        { myX: 2 }
+      ], // length: 2, x0: 2, x1: 4,
+      [
+        { myX: 4 },
+        { myX: 4 }
+      ], // length: 2, x0: 4, x1: 6,
+      [
+        { myX: 7 }
+      ], // length: 1, x0: 7, x1: 8,
+      [
+        { myX: 8 }
+      ] // length: 1, x0: 8, x1: 10,
+    ]
+    -->
+    <LayerCake
+      data={binData}
+      x={['x0', 'x1']}
+      y='length'
+      xScale={scaleBand().paddingInner([0])}
+      yDomain={[0, null]}
+    >
+      <Svg>
+        <Column stroke="#000" strokeWidth="1"/>
+      </Svg>
+    </LayerCake>
+  </Bin>
+</div>
+
+<style>
+  /*
+  	The wrapper div needs to have an explicit width and height in CSS.
+  	It can also be a flexbox child or CSS grid element.
+  	The point being it needs dimensions since the <LayerCake> element will
+  	expand to fill it.
+  */
+  .chart-container {
+    width: 100%;
+    height: 300px;
+  }
+</style>
+```
+
+### GroupLonger
+
+The **GroupLonger** transform component is useful for data that you get in a "wide" format that you want to break into a multiseries chart.
+
+For example, let's say you have a spreadsheet like this and you want to create a line chart with one line for each fruit over time.
+
+```csv
+month,apples,bananas,cherries,dates
+2015-04-01,3840,1920,960,400
+2015-03-01,1600,1440,960,400
+2015-02-01,640,960,640,400
+2015-01-01,320,480,640,400
+```
+
+You need to convert your data into something like this:
+
+```js
+[
+  {
+    group: 'apples',
+    values: [
+      {
+        month: '2015-03-01',
+        value: 3840,
+        group: 'apples'
+      },
+      {
+        month: '2015-02-01',
+        value: 1600,
+        group: 'apples'
+      },
+      {
+        month: '2015-01-01',
+        value: 640,
+        group: 'apples'
+      },
+      {
+        month: '2015-00-01',
+        value: 320,
+        group: 'apples'
+      }
+    ]
+  },
+  {
+    group: 'bananas',
+    values: [
+      {
+        month: '2015-03-01',
+        value: 1920,
+        group: 'bananas'
+      },
+      {
+        month: '2015-02-01',
+        value: 1440,
+        group: 'bananas'
+      },
+      {
+        month: '2015-01-01',
+        value: 960,
+        group: 'bananas'
+      },
+      {
+        month: '2015-00-01',
+        value: 480,
+        group: 'bananas'
+      }
+    ]
+  },
+  {
+    group: 'cherries',
+    values: [
+      {
+        month: '2015-03-01',
+        value: 960,
+        group: 'cherries'
+      },
+      {
+        month: '2015-02-01',
+        value: 960,
+        group: 'cherries'
+      },
+      {
+        month: '2015-01-01',
+        value: 640,
+        group: 'cherries'
+      },
+      {
+        month: '2015-00-01',
+        value: 640,
+        group: 'cherries'
+      }
+    ]
+  },
+  {
+    group: 'dates',
+    values: [
+      {
+        month: '2015-03-01',
+        value: 400,
+        group: 'dates'
+      },
+      {
+        month: '2015-02-01',
+        value: 400,
+        group: 'dates'
+      },
+      {
+        month: '2015-01-01',
+        value: 400,
+        group: 'dates'
+      },
+      {
+        month: '2015-00-01',
+        value: 400,
+        group: 'dates'
+      }
+    ]
+  }
+]
+```
+
+The component has the following props:
+
+* **data** The data to be transformed.
+* **groups** The series names to break out out into separate groups.
+* **valuesTo** Optional. The name of the new field on each row of data to store the value under. Defaults to 'value'.
+* **groupsTo** Optional. This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
+* **keepKeys** Optional. Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data.
+
+It returns as slot props:
+
+* **seriesData** The transformed data.
+
+Here's an example on a multline chart: TKTKTK
 
 ```svelte
 <!-- { filename: 'App.svelte' } -->

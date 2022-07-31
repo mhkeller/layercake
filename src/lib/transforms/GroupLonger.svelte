@@ -17,21 +17,26 @@
  <script>
 	/** @type {Array} [data] The data to be transformed. */
 	export let data;
-	/** @type {Array} [groups] - The series names to break out. */
+	/** @type {Array} [groups] The series names to break out into separate groups. */
 	export let groups;
-	/** @type {String[]} [xKey] The name of the xKey. */
-	export let keepKeys = [];
-	/** @type {String} [yKey] The name of the yKey. */
-	export let valuesTo = undefined;
-	/** @type {String} [zKey] The name of the zKey. */
-	export let groupsTo = undefined;
+	/** @type {String} [valuesTo] The name of the new field on each row of data to store the value under. Defaults to 'value'. */
+	export let valuesTo = 'value';
+	/** @type {String} [groupsTo] This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data. */
+	export let groupsTo = 'group';
+	/** @type {String[]} [keepKeys] Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data. */
+	export let keepKeys = undefined;
+
+	$: groupsSet = new Set(groups);
+	$: keep = keepKeys || Object.keys(data[0]).filter(d => !groupsSet.has(d));
+
+	 $: console.log(keep);
 
 	$: dataLong = groups.map(key => {
 			return {
 				[groupsTo]: key,
 				values: data.map(d => {
 					return {
-						...Object.fromEntries(keepKeys.map((k => [k, d[k]]))),
+						...Object.fromEntries(keep.map((k => [k, d[k]]))),
 						[valuesTo]: d[key],
 						[groupsTo]: key,
 					};

@@ -38,7 +38,45 @@ const tests = [
 		[2, 3],
 		[0, 1],
 		[2, 3]
-	] }
+	] },
+	{ args: [
+		[
+			{
+				key: 'foo',
+				values: [{ x: 0, y: 1 }, { x: 1, y: 2 }]
+			},
+			{
+				key: 'foo',
+				values: [{ x: 1, y: 1 }, { x: 2, y: 2 }]
+			}
+		],
+		d => d.values
+		],
+		expected: [
+			{ x: 0, y: 1 },
+			{ x: 1, y: 2 },
+			{ x: 1, y: 1 },
+			{ x: 2, y: 2 }
+		] },
+	{ args: [
+		[
+			{
+				key: 'foo',
+				values: [{ x: 0, y: 1 }, { x: 1, y: 2 }]
+			},
+			{
+				key: 'foo',
+				values: [{ x: 1, y: 1 }, { x: 2, y: 2 }]
+			}
+		],
+		'values'
+		],
+		expected: [
+			{ x: 0, y: 1 },
+			{ x: 1, y: 2 },
+			{ x: 1, y: 1 },
+			{ x: 2, y: 2 }
+		] },
 ];
 
 describe(name, () => {

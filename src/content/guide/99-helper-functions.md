@@ -4,11 +4,11 @@ title: Helper functions
 
 Layer Cake exposes some commonly-used helper functions. If you don't use them, they will be tree-shaken so there's no added bloat!
 
-### flatten(data: `Array`)
+### flatten(data: `Array`[, accessor: `String|Function`])
 
 Flatten an array one-level down. Handy for preparing data from stacked layouts whose extents can easily be calculated. This is equivalent to `Array.prototype.flat()` but is kept in for old versions of node that support that or other browser compatibility.
 
-This data:
+In a typical scenario, the data:
 
 ```js
 const data = [
@@ -24,8 +24,44 @@ import { flatten } from 'layercake';
 
 const flatData = flatten(data);
 /*
-  [{x: 0, y: 1}, {x: 1, y: 5}, {x: 2, y: 10},
-   {x: 0, y: 10}, {x: 1, y: 15}, {x: 2, y: 20}]
+  [
+    { x: 0, y: 1 }, { x: 1, y: 5 },
+    { x: 2, y: 10 }, { x: 0, y: 10 },
+    { x: 1, y: 15 }, { x: 2, y: 20 }
+  ]
+*/
+```
+
+You can also pass an optional accessor function if the arrays live on some other key. The accessor can also be the string name of the key.
+
+For example, if you're using the [`GroupLonger.svelte`](#grouplonger) transform component like in the [MultiLine example](/example/MultiLine), that component will generally output data like the following and you can transform it by passing an accessor:
+
+
+Flatten it like this:
+
+```js
+import { flatten } from 'layercake';
+
+const data = [
+  {
+    key: 'group-one',
+    values: [{ x: 0, y: 1 }, { x: 1, y: 5 }, { x: 2, y: 10 }]
+  },
+  {
+    key: 'group-two',
+    values: [{ x: 0, y: 10 }, { x: 1, y: 15 }, { x: 2, y: 20 }]
+  }
+];
+
+const flatData = flatten(data, d => d.values);
+// this is equivalent to
+const flatData = flatten(data, 'values');
+/*
+  [
+    { x: 0, y: 1 }, { x: 1, y: 5 },
+    { x: 2, y: 10 }, { x: 0, y: 10 },
+    { x: 1, y: 15 }, { x: 2, y: 20 }
+  ]
 */
 ```
 
@@ -61,6 +97,8 @@ Becomes...
   [ 1440, 1840 ]
 ]
 ```
+
+You can also specify an accessor function
 
 ### scaleCanvas(ctx: `CanvasRenderingContext2D`, width: `Number`, height: `Number`)
 

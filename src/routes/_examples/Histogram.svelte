@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, Svg } from 'layercake';
+	import { LayerCake, Svg, takeEvery } from 'layercake';
   import { extent, bin } from 'd3-array';
 	import { scaleBand } from 'd3-scale';
 	import { format } from 'd3-format';
@@ -9,7 +9,6 @@
 	import AxisY from '../../_components/AxisY.svelte';
 
 	import calcThresholds from '../../_modules/calcThresholds.js';
-	import everyN from '../../_modules/everyN.js'
 
 	import data from '../../_data/unemployment.js';
 
@@ -28,7 +27,7 @@
 		.domain(domain)
 		.thresholds(steps);
 
-	$: slimSteps = everyN(steps, 5);
+	$: slimSteps = takeEvery(steps, 5);
 </script>
 
 <style>

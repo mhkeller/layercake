@@ -29,7 +29,6 @@ It returns as slot props:
 Here's an example splitting a scatter plot into three:
 
 ```svelte
-<!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, Facet, Html } from 'layercake';
 
@@ -111,7 +110,6 @@ It returns as slot props:
 Here's an example on a stacked area chart:
 
 ```svelte
-<!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, Stack, Svg, flatten } from 'layercake';
 
@@ -191,7 +189,6 @@ It returns as slot props:
 Here's an example ([edit in REPL](https://svelte.dev/repl/dc86fbe62a0940afb28ce6ab69c4150a?version=3.49.0)) on a stacked area chart:
 
 ```svelte
-<!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, Bin, Svg } from 'layercake';
 
@@ -283,7 +280,7 @@ The **SeriesLonger** transform component is useful for data that you get in a "w
 
 For example, let's say you have a spreadsheet like this and you want to create a line chart with one line for each fruit over time.
 
-```csv
+```txt
 month,apples,bananas,cherries,dates
 2015-03-01,1600,1440,960,400
 2015-02-01,640,960,640,400
@@ -395,10 +392,9 @@ It returns as slot props:
 * **seriesData** `Array`
   * The transformed data.
 
-Here's an example on a multline chart: TKTKTK
+Here's an example on a multline chart:
 
 ```svelte
-<!-- { filename: 'App.svelte' } -->
 <script>
   import { LayerCake, Bin, Svg } from 'layercake';
 

@@ -10,7 +10,6 @@ export default function flatten (list, accessor = d => d) {
 		let flat = [];
 		const l = list.length;
 		for (let i = 0; i < l; i += 1) {
-			console.log(acc(list[i]));
 			flat = flat.concat(acc(list[i]));
 		}
 		return flat;

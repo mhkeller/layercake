@@ -12,14 +12,19 @@ Here's an example making a scatter plot where the original data includes a bunch
 
 The component has the following props:
 
-* **data** The data to be faceted
-* **by** The field name to facet by as a string.
-* **orientation** Can be 'column' or 'row', defaults to 'column. It determines whether to arrange the faceted charts by row or column. This is passed to `flex-direction` on the parent container.
+* **data** `Array|Object`
+  * The data to be faceted
+* **by** `String`
+  * The field name to facet by as a string.
+* **orientation** `String="column"`
+  * Can be 'column' or 'row', defaults to 'column'. It determines whether to arrange the faceted charts by row or column. This is passed to `flex-direction` on the parent container.
 
 It returns as slot props:
 
-* **groupKey** The key of each group.
-* **groupData** The data in each group.
+* **groupKey** `String`
+  * The key of each group.
+* **groupData** `Array`
+  * The data in each group.
 
 Here's an example splitting a scatter plot into three:
 
@@ -87,15 +92,21 @@ The **Stack** transform component is a wrapper around the `stack` function in [d
 
 The component has the following props:
 
-* **data** The data to be stacked.
-* **keys** The series names to stack, passed to [`stack.keys()`](https://github.com/d3/d3-shape#stack_keys).
-* **value** Optional. An accessor function passed to [`stack.value()`](https://github.com/d3/d3-shape#stack_value). If this is a string, it will be transformed into an accessor for that key.
-* **order** Optional. The stack order passed to [`stack.order()`](https://github.com/d3/d3-shape#stack_order).
-* **offset** Optional. The offset function passed to [`stack.offset()`](https://github.com/d3/d3-shape#stack_offset).
+* **data** `Array|Object`
+  * The data to be stacked.
+* **keys** `String[]`
+  * The series names to stack, passed to [`stack.keys()`](https://github.com/d3/d3-shape#stack_keys).
+* **value** `Function|String`
+  * Optional. An accessor function passed to [`stack.value()`](https://github.com/d3/d3-shape#stack_value). If this is a string, it will be transformed into an accessor for that key.
+* **order** `Array|Function`
+  * Optional. The stack order passed to [`stack.order()`](https://github.com/d3/d3-shape#stack_order).
+* **offset** `Array|Function`
+  * Optional. The offset function passed to [`stack.offset()`](https://github.com/d3/d3-shape#stack_offset).
 
 It returns as slot props:
 
-* **stackData** The transformed data.
+* **stackData** `Array`
+  * The transformed data.
 
 Here's an example on a stacked area chart:
 
@@ -163,14 +174,19 @@ The **Bin** transform component is a wrapper around the `bin` function in [d3-ar
 
 The component has the following props:
 
-* **data** The data to be binned.
-* **value** Optional. An accessor function passed to [`bin.value()`](https://github.com/d3/d3-array#bin_value). If this is a string, it will be transformed into an accessor for that key.
-* **domain** Optional. The domain passed to [`bin.domain()`](https://github.com/d3/d3-array#bin_domain).
-* **thresholds** Optional. The thresholds passed to [`bin.thresholds()`](https://github.com/d3/d3-array#bin_thresholds). Optional. Can be a number, array or function.
+* **data** `Array|Object`
+  * The data to be binned.
+* **value** `Function|String`
+  * Optional. An accessor function passed to [`bin.value()`](https://github.com/d3/d3-array#bin_value). If this is a string, it will be transformed into an accessor for that key.
+* **domain** `Array`
+  * Optional. The domain passed to [`bin.domain()`](https://github.com/d3/d3-array#bin_domain).
+* **thresholds** `Number|Array|Function`
+  * Optional. The thresholds passed to [`bin.thresholds()`](https://github.com/d3/d3-array#bin_thresholds). Optional. Can be a number, array or function.
 
 It returns as slot props:
 
-* **binData** The transformed data.
+* **binData** `Array`
+  * The transformed data.
 
 Here's an example ([edit in REPL](https://svelte.dev/repl/dc86fbe62a0940afb28ce6ab69c4150a?version=3.49.0)) on a stacked area chart:
 
@@ -261,15 +277,14 @@ Here's an example ([edit in REPL](https://svelte.dev/repl/dc86fbe62a0940afb28ce6
 </style>
 ```
 
-### GroupLonger
+### SeriesLonger
 
-The **GroupLonger** transform component is useful for data that you get in a "wide" format that you want to break into a multiseries chart.
+The **SeriesLonger** transform component is useful for data that you get in a "wide" format that you want to break into a multi-series chart.
 
 For example, let's say you have a spreadsheet like this and you want to create a line chart with one line for each fruit over time.
 
 ```csv
 month,apples,bananas,cherries,dates
-2015-04-01,3840,1920,960,400
 2015-03-01,1600,1440,960,400
 2015-02-01,640,960,640,400
 2015-01-01,320,480,640,400
@@ -284,21 +299,16 @@ You need to convert your data into something like this:
     values: [
       {
         month: '2015-03-01',
-        value: 3840,
-        group: 'apples'
-      },
-      {
-        month: '2015-02-01',
         value: 1600,
         group: 'apples'
       },
       {
-        month: '2015-01-01',
+        month: '2015-02-01',
         value: 640,
         group: 'apples'
       },
       {
-        month: '2015-00-01',
+        month: '2015-01-01',
         value: 320,
         group: 'apples'
       }
@@ -309,21 +319,16 @@ You need to convert your data into something like this:
     values: [
       {
         month: '2015-03-01',
-        value: 1920,
-        group: 'bananas'
-      },
-      {
-        month: '2015-02-01',
         value: 1440,
         group: 'bananas'
       },
       {
-        month: '2015-01-01',
+        month: '2015-02-01',
         value: 960,
         group: 'bananas'
       },
       {
-        month: '2015-00-01',
+        month: '2015-01-01',
         value: 480,
         group: 'bananas'
       }
@@ -339,16 +344,11 @@ You need to convert your data into something like this:
       },
       {
         month: '2015-02-01',
-        value: 960,
-        group: 'cherries'
-      },
-      {
-        month: '2015-01-01',
         value: 640,
         group: 'cherries'
       },
       {
-        month: '2015-00-01',
+        month: '2015-01-01',
         value: 640,
         group: 'cherries'
       }
@@ -371,11 +371,6 @@ You need to convert your data into something like this:
         month: '2015-01-01',
         value: 400,
         group: 'dates'
-      },
-      {
-        month: '2015-00-01',
-        value: 400,
-        group: 'dates'
       }
     ]
   }
@@ -384,15 +379,21 @@ You need to convert your data into something like this:
 
 The component has the following props:
 
-* **data** The data to be transformed.
-* **groups** The series names to break out out into separate groups.
-* **valuesTo** Optional. The name of the new field on each row of data to store the value under. Defaults to 'value'.
-* **groupsTo** Optional. This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
-* **keepKeys** Optional. Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data.
+* **data** `Array|Object`
+  * The data to be transformed.
+* **seriesNames** `String[]`
+  * The series names to break out out into separate groups.
+* **valuesTo** `String`
+  * Optional. The name of the new field on each row of data to store the value under. Defaults to 'value'.
+* **groupsTo** `String`
+  * Optional. This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
+* **keepKeys** `String[]`
+  * Optional. Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data.
 
 It returns as slot props:
 
-* **seriesData** The transformed data.
+* **seriesData** `Array`
+  * The transformed data.
 
 Here's an example on a multline chart: TKTKTK
 

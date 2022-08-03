@@ -17,21 +17,19 @@
  <script>
 	/** @type {Array} [data] The data to be transformed. */
 	export let data;
-	/** @type {Array} [groups] The series names to break out into separate groups. */
-	export let groups;
+	/** @type {Array} [seriesNames] The series names to break out into separate groups. */
+	export let seriesNames;
 	/** @type {String} [valuesTo] The name of the new field on each row of data to store the value under. Defaults to 'value'. */
 	export let valuesTo = 'value';
 	/** @type {String} [groupsTo] This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data. */
-	export let groupsTo = 'group';
+	export let groupsTo = 'series';
 	/** @type {String[]} [keepKeys] Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data. */
 	export let keepKeys = undefined;
 
-	$: groupsSet = new Set(groups);
-	$: keep = keepKeys || Object.keys(data[0]).filter(d => !groupsSet.has(d));
+	$: seriesNamesSet = new Set(seriesNames);
+	$: keep = keepKeys || Object.keys(data[0]).filter(d => !seriesNamesSet.has(d));
 
-	 $: console.log(keep);
-
-	$: dataLong = groups.map(key => {
+	$: dataLong = seriesNames.map(key => {
 			return {
 				[groupsTo]: key,
 				values: data.map(d => {

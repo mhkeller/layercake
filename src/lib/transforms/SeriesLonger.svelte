@@ -19,10 +19,10 @@
 	export let data;
 	/** @type {Array} [seriesNames] The series names to break out into separate groups. */
 	export let seriesNames;
-	/** @type {String} [valuesTo] The name of the new field on each row of data to store the value under. Defaults to 'value'. */
-	export let valuesTo = 'value';
-	/** @type {String} [groupsTo] This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data. */
-	export let groupsTo = 'series';
+	/** @type {String} [seriesTo] This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data. */
+	export let seriesTo = 'series';
+	/** @type {String} [valueTo] The name of the new field on each row of data to store the value under. Defaults to 'value'. */
+	export let valueTo = 'value';
 	/** @type {String[]} [keepKeys] Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data. */
 	export let keepKeys = undefined;
 
@@ -31,12 +31,12 @@
 
 	$: dataLong = seriesNames.map(key => {
 			return {
-				[groupsTo]: key,
+				[seriesTo]: key,
 				values: data.map(d => {
 					return {
 						...Object.fromEntries(keep.map((k => [k, d[k]]))),
-						[valuesTo]: d[key],
-						[groupsTo]: key,
+						[valueTo]: d[key],
+						[seriesTo]: key,
 					};
 				})
 			};

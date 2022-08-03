@@ -295,82 +295,82 @@ You need to convert your data into something like this:
 ```js
 [
   {
-    group: 'apples',
+    series: 'apples',
     values: [
       {
         month: '2015-03-01',
         value: 1600,
-        group: 'apples'
+        series: 'apples'
       },
       {
         month: '2015-02-01',
         value: 640,
-        group: 'apples'
+        series: 'apples'
       },
       {
         month: '2015-01-01',
         value: 320,
-        group: 'apples'
+        series: 'apples'
       }
     ]
   },
   {
-    group: 'bananas',
+    series: 'bananas',
     values: [
       {
         month: '2015-03-01',
         value: 1440,
-        group: 'bananas'
+        series: 'bananas'
       },
       {
         month: '2015-02-01',
         value: 960,
-        group: 'bananas'
+        series: 'bananas'
       },
       {
         month: '2015-01-01',
         value: 480,
-        group: 'bananas'
+        series: 'bananas'
       }
     ]
   },
   {
-    group: 'cherries',
+    series: 'cherries',
     values: [
       {
         month: '2015-03-01',
         value: 960,
-        group: 'cherries'
+        series: 'cherries'
       },
       {
         month: '2015-02-01',
         value: 640,
-        group: 'cherries'
+        series: 'cherries'
       },
       {
         month: '2015-01-01',
         value: 640,
-        group: 'cherries'
+        series: 'cherries'
       }
     ]
   },
   {
-    group: 'dates',
+    series: 'dates',
     values: [
       {
         month: '2015-03-01',
         value: 400,
-        group: 'dates'
+        series: 'dates'
       },
       {
         month: '2015-02-01',
         value: 400,
-        group: 'dates'
+        series: 'dates'
       },
       {
         month: '2015-01-01',
         value: 400,
-        group: 'dates'
+        series: 'dates'
       }
     ]
   }
@@ -383,10 +383,10 @@ The component has the following props:
   * The data to be transformed.
 * **seriesNames** `String[]`
   * The series names to break out out into separate groups.
-* **valuesTo** `String`
-  * Optional. The name of the new field on each row of data to store the value under. Defaults to 'value'.
-* **groupsTo** `String`
+* **seriesTo** `String='series'`
   * Optional. This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
+* **valueTo** `String='value'`
+  * Optional. The name of the new field on each row of data to store the value under. Defaults to 'value'.
 * **keepKeys** `String[]`
   * Optional. Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data.
 
@@ -402,69 +402,124 @@ Here's an example on a multline chart: TKTKTK
 <script>
   import { LayerCake, Bin, Svg } from 'layercake';
 
-  import { scaleBand } from 'd3-scale';
-
-  import Column from './components/Column.svelte';
+  import MultiLine from './components/MultiLine.svelte';
 
   const data = [
-    { myX: 0 },
-    { myX: 1 },
-    { myX: 2 },
-    { myX: 4 },
-    { myX: 2 },
-    { myX: 8 },
-    { myX: 1 },
-    { myX: 4 },
-    { myX: 7 }
+    { month: '2015-03-01', apples: 1600, bananas: 1440, cherries: 960, dates: 400 },
+    { month: '2015-02-01', apples: 640, bananas: 960, cherries: 640, dates: 400 },
+    { month: '2015-01-01', apples: 320, bananas: 480, cherries: 640, dates: 400 }
   ];
+
+  const seriesNames = ['apples', 'bananas', 'cherries', 'dates'];
+  const seriesColors = ['#f0c', '#0fc', '#fc0', '#0cf'];
 </script>
 
 <div class="chart-container">
-  <Bin
+  <SeriesLonger
     {data}
-    value={d => d.myX}
-    // ... can also be a string
-    value='myX'
+    {seriesNames}
+    seriesTo='series'
+    valueTo='value'
 
-    let:binData
+    let:seriesData
   >
   <!--
-    binData equals (taken from the d3-array docs): an array of bins, where each bin is an array containing the associated elements from the input data. Thus, the length of the bin is the number of elements in that bin. Each bin has two additional attributes:
-
-    x0 - the lower bound of the bin (inclusive).
-    x1 - the upper bound of the bin (exclusive, except for the last bin).
-
+    seriesData is transformed to this:
     [
-      [
-        { myX: 0 },
-        { myX: 1 },
-        { myX: 1 }
-      ], // length: 3, x0: 0, x1: 2
-      [
-        { myX: 2 },
-        { myX: 2 }
-      ], // length: 2, x0: 2, x1: 4,
-      [
-        { myX: 4 },
-        { myX: 4 }
-      ], // length: 2, x0: 4, x1: 6,
-      [
-        { myX: 7 }
-      ], // length: 1, x0: 7, x1: 8,
-      [
-        { myX: 8 }
-      ] // length: 1, x0: 8, x1: 10,
+      {
+        series: 'apples',
+        values: [
+          {
+            month: '2015-03-01',
+            value: 1600,
+            series: 'apples'
+          },
+          {
+            month: '2015-02-01',
+            value: 640,
+            series: 'apples'
+          },
+          {
+            month: '2015-01-01',
+            value: 320,
+            series: 'apples'
+          }
+        ]
+      },
+      {
+        series: 'bananas',
+        values: [
+          {
+            month: '2015-03-01',
+            value: 1440,
+            series: 'bananas'
+          },
+          {
+            month: '2015-02-01',
+            value: 960,
+            series: 'bananas'
+          },
+          {
+            month: '2015-01-01',
+            value: 480,
+            series: 'bananas'
+          }
+        ]
+      },
+      {
+        series: 'cherries',
+        values: [
+          {
+            month: '2015-03-01',
+            value: 960,
+            series: 'cherries'
+          },
+          {
+            month: '2015-02-01',
+            value: 640,
+            series: 'cherries'
+          },
+          {
+            month: '2015-01-01',
+            value: 640,
+            series: 'cherries'
+          }
+        ]
+      },
+      {
+        series: 'dates',
+        values: [
+          {
+            month: '2015-03-01',
+            value: 400,
+            series: 'dates'
+          },
+          {
+            month: '2015-02-01',
+            value: 400,
+            series: 'dates'
+          },
+          {
+            month: '2015-01-01',
+            value: 400,
+            series: 'dates'
+          }
+        ]
+      }
     ]
     -->
     <LayerCake
-      data={binData}
-      x={['x0', 'x1']}
-      y='length'
-      xScale={scaleBand().paddingInner([0])}
+      data={seriesData}
+      x='month'
+      y='value'
+      z='series'
       yDomain={[0, null]}
+      zScale={scaleOrdinal()}
+      zDomain={seriesColors}
+      flatData={flatten(seriesData, d => d.values)}
     >
       <Svg>
-        <Column stroke="#000" strokeWidth="1"/>
+        <MultiLine/>
       </Svg>
     </LayerCake>
   </Bin>

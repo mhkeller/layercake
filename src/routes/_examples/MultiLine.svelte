@@ -1,5 +1,7 @@
 <script>
-	import { LayerCake, Svg, Html } from 'layercake';
+	import { LayerCake, Svg, Html, flatten } from 'layercake';
+	import { SeriesLonger } from 'layercake/transforms';
+
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format, precisionFixed } from 'd3-format';
@@ -20,39 +22,20 @@
 	const yKey = 'value';
 	const zKey = 'fruit';
 
+	const xKeyCast = timeParse('%Y-%m-%d');
+
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
 
-	const parseDate = timeParse('%Y-%m-%d');
+	data.forEach(d => {
+		d[xKey] = typeof d[xKey] === 'string'
+			? xKeyCast(d[xKey])
+			: d[xKey];
 
-	/* --------------------------------------------
-	 * Create a "long" format that is a grouped series of data points
-	 * Layer Cake uses this data structure and the key names
-	 * set in xKey, yKey and zKey to map your data into each scale.
-	 */
-	const dataLong = seriesNames.map(key => {
-		return {
-			[zKey]: key,
-			values: data.map(d => {
-				// Put this in a conditional so that we don't recast the data on second render
-				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey];
-				return {
-					[yKey]: +d[key],
-					[xKey]: d[xKey],
-					[zKey]: key
-				};
-			})
-		};
+		seriesNames.forEach(name => {
+			d[name] = +d[name];
+		});
 	});
-
-	/* --------------------------------------------
-	 * Make a flat array of the `values` of our nested series
-	 * we can pluck the field set from `yKey` from each item
-	 * in the array to measure the full extents
-	 */
-	const flatten = data => data.reduce((memo, group) => {
-		return memo.concat(group.values);
-	}, []);
 
 	const formatTickX = timeFormat('%b. %e');
 	const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
@@ -72,38 +55,46 @@
 </style>
 
 <div class="chart-container">
-	<LayerCake
-		padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-		x={xKey}
-		y={yKey}
-		z={zKey}
-		yDomain={[0, null]}
-		zScale={scaleOrdinal()}
-		zRange={seriesColors}
-		flatData={flatten(dataLong)}
-		data={dataLong}
+	<SeriesLonger
+		{data}
+		{seriesNames}
+		seriesTo={zKey}
+		valueTo={yKey}
+		let:seriesData
 	>
-		<Svg>
-			<AxisX
-				gridlines={false}
-				ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
-				formatTick={formatTickX}
-				snapTicks={true}
-				tickMarks={true}
-			/>
-			<AxisY
-				ticks={4}
-				formatTick={formatTickY}
-			/>
-			<MultiLine/>
-		</Svg>
+		<LayerCake
+			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+			x={xKey}
+			y={yKey}
+			z={zKey}
+			yDomain={[0, null]}
+			zScale={scaleOrdinal()}
+			zRange={seriesColors}
+			flatData={flatten(seriesData, 'values')}
+			data={seriesData}
+		>
+			<Svg>
+				<AxisX
+					gridlines={false}
+					ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
+					formatTick={formatTickX}
+					snapTicks={true}
+					tickMarks={true}
+				/>
+				<AxisY
+					ticks={4}
+					formatTick={formatTickY}
+				/>
+				<MultiLine/>
+			</Svg>
 
-		<Html>
-			<Labels/>
-			<SharedTooltip
-				formatTitle={formatTickX}
-				dataset={data}
-			/>
-		</Html>
-	</LayerCake>
+			<Html>
+				<Labels/>
+				<SharedTooltip
+					formatTitle={formatTickX}
+					dataset={data}
+				/>
+			</Html>
+		</LayerCake>
+	</SeriesLonger>
 </div>

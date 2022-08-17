@@ -1,6 +1,6 @@
 <script>
 	import { LayerCake, Svg, flatten, uniques } from 'layercake';
-	import { stack } from 'd3-shape';
+	import { Stack } from 'layercake/transforms';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { format, precisionFixed } from 'd3-format';
 
@@ -18,16 +18,14 @@
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#00e047', '#7ceb68', '#b7f486', '#ecfda5'];
 
+	/* --------------------------------------------
+	 * Cast data
+	 */
 	data.forEach(d => {
 		seriesNames.forEach(name => {
 			d[name] = +d[name];
 		});
 	});
-
-	const stackData = stack()
-		.keys(seriesNames);
-
-	const series = stackData(data);
 
 	const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
 </script>
@@ -46,30 +44,31 @@
 </style>
 
 <div class="chart-container">
-	<LayerCake
- 			padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
- 			x={d => d.data[xKey]}
- 			y={yKey}
- 			z={zKey}
- 			xScale={scaleBand().paddingInner([0.02]).round(true)}
- 			xDomain={uniques(data, xKey)}
-			zScale={scaleOrdinal()}
-			zDomain={seriesNames}
-			zRange={seriesColors}
- 			flatData={flatten(series)}
- 			data={series}
-	>
-		<Svg>
-			<AxisX
-				gridlines={false}
-			/>
-			<AxisY
-				ticks={4}
-				gridlines={false}
-				formatTick={formatTickY}
-			/>
-			<ColumnStacked/>
-		</Svg>
-	</LayerCake>
-
+	<Stack {data} keys={seriesNames} let:stackData>
+		<LayerCake
+				padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
+				x={d => d.data[xKey]}
+				y={yKey}
+				z={zKey}
+				xScale={scaleBand().paddingInner([0.02]).round(true)}
+				xDomain={uniques(data, xKey)}
+				zScale={scaleOrdinal()}
+				zDomain={seriesNames}
+				zRange={seriesColors}
+				flatData={flatten(stackData)}
+				data={stackData}
+		>
+			<Svg>
+				<AxisX
+					gridlines={false}
+				/>
+				<AxisY
+					ticks={4}
+					gridlines={false}
+					formatTick={formatTickY}
+				/>
+				<ColumnStacked/>
+			</Svg>
+		</LayerCake>
+	</Stack>
 </div>

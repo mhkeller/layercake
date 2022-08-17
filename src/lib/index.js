@@ -11,8 +11,3 @@ export { default as uniques } from './lib/uniques.js';
 export { default as calcExtents } from './lib/calcExtents.js';
 export { default as raise } from './lib/raise.js';
 export { default as takeEvery } from './lib/takeEvery.js';
-
-export { default as Bin } from './transforms/Bin.svelte';
-export { default as Facet } from './transforms/Facet.svelte';
-export { default as SeriesLonger } from './transforms/SeriesLonger.svelte';
-export { default as Stack } from './transforms/Stack.svelte';

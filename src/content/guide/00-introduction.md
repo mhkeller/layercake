@@ -299,7 +299,7 @@ You can also use LayerCake in Sapper (or similar dev environment) to create char
 
 ### How does LayerCake know what to set as a scale's domain and range?
 
-As of version 7.0, Layer Cake tries to be a little smarter about how it calculates these values. For categorical scales like ([`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint and [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal), it calculates the extent as the list of unique values in your data for a given field. This is useful for bar charts, column charts or color scales where you have discrete values as opposed to a continuous range.
+As of version 7.0, Layer Cake tries to be a little smarter about how it calculates these values. For categorical scales (like [`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint) and [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal)), it calculates the extent as the list of unique values in your data for a given field. This is useful for bar charts, column charts or color scales where you have discrete values as opposed to a continuous range.
 
 For all other scale types, Layer Cake measures the extent as the simple `[min, max]` values.
 

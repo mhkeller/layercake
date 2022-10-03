@@ -43,6 +43,6 @@
 	style:right={$padding.right + 'px'}
 	style:bottom={$padding.bottom + 'px'}
 	style:left={$padding.left + 'px'}
-	style="width:100%;height:100%;position:absolute;"
+	style="position:absolute;"
 ></canvas>
 <slot {element} {context}></slot>

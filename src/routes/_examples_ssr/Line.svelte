@@ -37,6 +37,7 @@
 		padding={{ right: 10, bottom: 20, left: 25 }}
 		x={xKey}
 		y={d => d[yKey]}
+		yNice={4}
 		yDomain={[0, null]}
 		data={data}
 	>

@@ -262,19 +262,19 @@ Same as [xPadding](/guide#xpadding) but for the z domain.
 
 Same as [xPadding](/guide#xpadding) but for the r domain.
 
-### xNice `Boolean=false`
+### xNice `Boolean=false|Number`
 
-Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice.
+Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice.  Can also pass `count` number as argument for greater control.
 
-### yNice `Boolean=false`
+### yNice `Boolean=false|Number`
 
 Same as [xNice](/guide#xnice) but for the y domain.
 
-### zNice `Boolean=false`
+### zNice `Boolean=false|Number`
 
 Same as [xNice](/guide#xnice) but for the z domain.
 
-### rNice `Boolean=false`
+### rNice `Boolean=false|Number`
 
 Same as [xNice](/guide#xnice) but for the r domain.
 

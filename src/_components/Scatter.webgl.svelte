@@ -31,16 +31,20 @@
 		if ($gl) {
 			const canvas = $gl.canvas;
 			// Lookup the size the browser is displaying the canvas.
-			const displayWidth = canvas.clientWidth;
-			const displayHeight = canvas.clientHeight;
+			const displayWidth = $width;
+			const displayHeight = $height;
+
+			const dpr = window.devicePixelRatio
 
 			// Check if the canvas is not the same size.
 			if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
 				// Make the canvas the same size
-				canvas.width = displayWidth;
-				canvas.height = displayHeight;
+				canvas.width = displayWidth * dpr;
+				canvas.height = displayHeight * dpr;
+				canvas.style.width = displayWidth;
+				canvas.style.height = displayHeight;
 			}
-			$gl.viewport(0, 0, canvas.width, canvas.height);
+			$gl.viewport(0, 0, displayWidth, displayHeight);
 		}
 	}
 

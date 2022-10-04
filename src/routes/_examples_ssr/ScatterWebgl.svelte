@@ -13,7 +13,7 @@
 	const yKey = 'myY';
 
 	const r = 3;
-	const padding = 6;
+	const padding = 20;
 
 	data.forEach(d => {
 		d[yKey] = +d[yKey];
@@ -49,7 +49,7 @@
 		position={'absolute'}
 		ssr={true}
 		percentRange={true}
-		padding={{ top: 5, right: 5, bottom: 20, left: 25 }}
+		padding={{ top: 25, right: 5, bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
 		xPadding={[padding, padding]}
@@ -64,7 +64,7 @@
 
 	<LayerCake
 		position={'absolute'}
-		padding={{ top: 0, right: 5, bottom: 20, left: 25 }}
+		padding={{ top: 25, right: 5, bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
 		xPadding={[padding, padding]}

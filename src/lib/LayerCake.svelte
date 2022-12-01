@@ -2,7 +2,7 @@
 	@component
 	Layer Cake component
  -->
-<script>
+<script lang="ts">
 	import { setContext, onMount } from 'svelte';
 	import { writable, derived } from 'svelte/store';
 
@@ -14,28 +14,52 @@
 	import createGetter from './helpers/createGetter.js';
 	import getRange from './helpers/getRange.js';
 	import defaultScales from './settings/defaultScales.js';
+	import type { LayerCakeConfig } from './config.js';
 
-	/** @type {Boolean} [ssr=false] Whether this chart should be rendered server side. */
+	type Data = $$Generic<readonly any[]>;
+	type Datum = Data[number];
+
+	type Config = LayerCakeConfig<Datum>;
+
+	/**
+	 * Whether this chart should be rendered server side.
+	 * @default
+	 */
 	export let ssr = false;
-	/** @type {Boolean} [pointerEvents=true] Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction. */
+	/**
+	 * Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction.
+	 * @default */
 	export let pointerEvents = true;
-	/** @type {String} [position='relative'] Determine the positioning of the wrapper div. Set this to `'absolute'` when you want to stack cakes. */
-	export let position = 'relative';
-	/** @type {Boolean} [percentRange=false] If `true`, set all scale ranges to `[0, 100]`. Ranges reversed via `xReverse`, `yReverse`, `zReverse` or `rReverse` props will continue to be reversed as usual. */
+	/**
+	 * Determine the positioning of the wrapper div. Set this to `'absolute'` when you want to stack cakes.
+	 * @default
+	 */
+	export let position: 'relative' | 'absolute' = 'relative';
+	/**
+	 * If `true`, set all scale ranges to `[0, 100]`.
+	 * Ranges reversed via `xReverse`, `yReverse`, `zReverse` or `rReverse` props will continue to be reversed as usual.
+	 * @default
+	 */
 	export let percentRange = false;
 
-	/** @type {Number} [width=containerWidth] Override the automated width. */
-	export let width = undefined;
-	/** @type {Number} [height=containerHeight] Override the automated height. */
-	export let height = undefined;
+	/**
+	 * Override the automated width.
+	 * @default containerWidth
+	 */
+	export let width: number | undefined = undefined;
+	/**
+	 * Override the automated height.
+	 * @default containerHeight
+	 */
+	export let height: number | undefined = undefined;
 
-	/** @type {Number} [containerWidth=100] The bound container width. */
+	/** The bound container width. */
 	export let containerWidth = width || 100;
-	/** @type {Number} [containerHeight=100] The bound container height. */
+	/** The bound container height. */
 	export let containerHeight = height || 100;
 
-	/**	@type {Element} [element] The .layercake-container `<div>` tag. Useful for bindings. */
-	export let element = undefined;
+	/**	The .layercake-container `<div>` tag. Useful for bindings. */
+	export let element: HTMLDivElement | undefined = undefined;
 
 	/* --------------------------------------------
 	 * Parameters
@@ -44,17 +68,37 @@
 	 *
 	 */
 
-	/** @type {String|Function|Number|Array} x The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
-	export let x = undefined;
-	/** @type {String|Function|Number|Array} y The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
-	export let y = undefined;
-	/** @type {String|Function|Number|Array} z The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
-	export let z = undefined;
-	/** @type {String|Function|Number|Array} r The r accessor. The key in each row of data that corresponds to the r-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
-	export let r = undefined;
+	/**
+	 * The x accessor.
+	 * The key in each row of data that corresponds to the x-field.
+	 * This can be a string, an accessor function, a number or an array of any combination of those types.
+	 * This property gets converted to a function when you access it through the context.
+	 */
+	export let x: Config['x'] | undefined = undefined;
+	/**
+	 * The y accessor.
+	 * The key in each row of data that corresponds to the y-field.
+	 * This can be a string, an accessor function, a number or an array of any combination of those types.
+	 * This property gets converted to a function when you access it through the context.
+	 */
+	export let y: Config['y'] | undefined = undefined;
+	/**
+	 * The z accessor.
+	 * The key in each row of data that corresponds to the z-field.
+	 * This can be a string, an accessor function, a number or an array of any combination of those types.
+	 * This property gets converted to a function when you access it through the context.
+	 */
+	export let z: Config['z'] | undefined = undefined;
+	/**
+	 * The r accessor.
+	 * The key in each row of data that corresponds to the r-field.
+	 * This can be a string, an accessor function, a number or an array of any combination of those types.
+	 * This property gets converted to a function when you access it through the context.
+	 */
+	export let r: Config['r'] | undefined = undefined;
 
-	/** @type {Array|Object} [data=[]] If `data` is not a flat array of objects and you want to use any of the scales, set a flat version of the data via the `flatData` prop. */
-	export let data = [];
+	/** If `data` is not a flat array of objects and you want to use any of the scales, set a flat version of the data via the `flatData` prop. */
+	export let data: Data | never[] = [];
 
 	/** @type {[min: ?Number, max: ?Number]|String[]|Number[]|Function} [xDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let xDomain = undefined;
@@ -123,7 +167,7 @@
 	let isMounted = false;
 	onMount(() => {
 		isMounted = true;
-	})
+	});
 
 	/* --------------------------------------------
 	 * Preserve a copy of our passed in settings before we modify them
@@ -131,7 +175,7 @@
 	 * Add the active keys since those aren't on our settings object.
 	 * This is mostly an escape-hatch
 	 */
-	const config = {};
+	const config: Partial<Config> = {};
 	$: if (x) config.x = x;
 	$: if (y) config.y = y;
 	$: if (z) config.z = z;
@@ -156,10 +200,10 @@
 	const _data = writable(data);
 	const _flatData = writable(flatData || data);
 	const _padding = writable(padding);
-	const _x = writable(makeAccessor(x));
-	const _y = writable(makeAccessor(y));
-	const _z = writable(makeAccessor(z));
-	const _r = writable(makeAccessor(r));
+	const _x = writable(makeAccessor<Datum>(x));
+	const _y = writable(makeAccessor<Datum>(y));
+	const _z = writable(makeAccessor<Datum>(z));
+	const _r = writable(makeAccessor<Datum>(r));
 	const _xDomain = writable(xDomain);
 	const _yDomain = writable(yDomain);
 	const _zDomain = writable(zDomain);
@@ -194,10 +238,10 @@
 	$: $_data = data;
 	$: $_flatData = flatData || data;
 	$: $_padding = padding;
-	$: $_x = makeAccessor(x);
-	$: $_y = makeAccessor(y);
-	$: $_z = makeAccessor(z);
-	$: $_r = makeAccessor(r);
+	$: $_x = makeAccessor<Datum>(x);
+	$: $_y = makeAccessor<Datum>(y);
+	$: $_z = makeAccessor<Datum>(z);
+	$: $_r = makeAccessor<Datum>(r);
 	$: $_xDomain = xDomain;
 	$: $_yDomain = yDomain;
 	$: $_zDomain = zDomain;
@@ -229,44 +273,46 @@
 	 * Create derived values
 	 * Suffix these with `_d`
 	 */
-	const activeGetters_d = derived([_x, _y, _z, _r], ([$x, $y, $z, $r]) => {
-		const obj = {};
-		if ($x) {
-			obj.x = $x;
-		}
-		if ($y) {
-			obj.y = $y;
-		}
-		if ($z) {
-			obj.z = $z;
-		}
-		if ($r) {
-			obj.r = $r;
-		}
-		return obj;
-	});
+	const activeGetters_d = derived([_x, _y, _z, _r], ([$x, $y, $z, $r]) => ({
+		x: $x || undefined,
+		y: $y || undefined,
+		z: $z || undefined,
+		r: $r || undefined
+	}));
 
 	const padding_d = derived([_padding, _containerWidth, _containerHeight], ([$padding]) => {
 		const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
 		return Object.assign(defaultPadding, $padding);
 	});
 
-	const box_d = derived([_containerWidth, _containerHeight, padding_d], ([$containerWidth, $containerHeight, $padding]) => {
-		const b = {};
-		b.top = $padding.top;
-		b.right = $containerWidth - $padding.right;
-		b.bottom = $containerHeight - $padding.bottom;
-		b.left = $padding.left;
-		b.width = b.right - b.left;
-		b.height = b.bottom - b.top;
-		if (b.width <= 0 && isMounted === true) {
-			console.warn('[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?');
+	const box_d = derived(
+		[_containerWidth, _containerHeight, padding_d],
+		([$containerWidth, $containerHeight, $padding]) => {
+			const top = $padding.top,
+				bottom = $containerHeight - $padding.bottom,
+				right = $containerWidth - $padding.right,
+				left = $padding.left,
+				b = {
+					top,
+					right,
+					bottom,
+					left,
+					width: right - left,
+					height: bottom - top
+				};
+			if (b.width <= 0 && isMounted === true) {
+				console.warn(
+					'[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?'
+				);
+			}
+			if (b.height <= 0 && isMounted === true) {
+				console.warn(
+					'[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?'
+				);
+			}
+			return b;
 		}
-		if (b.height <= 0 && isMounted === true) {
-			console.warn('[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?');
-		}
-		return b;
-	});
+	);
 
 	const width_d = derived([box_d], ([$box]) => {
 		return $box.width;
@@ -282,34 +328,93 @@
 	 * Note that this is different from an "extent" passed
 	 * in as a domain, which can be a partial domain
 	 */
-	const extents_d = derived([_flatData, activeGetters_d, _extents, _xScale, _yScale, _rScale, _zScale], ([$flatData, $activeGetters, $extents, $_xScale, $_yScale, $_rScale, $_zScale]) => {
-		const scaleLookup = { x: $_xScale, y: $_yScale, r: $_rScale, z: $_zScale };
-		const getters = filterObject($activeGetters, $extents);
-		const activeScales = Object.fromEntries(Object.keys(getters).map(k => [k, scaleLookup[k]]));
+	const extents_d = derived(
+		[_flatData, activeGetters_d, _extents, _xScale, _yScale, _rScale, _zScale],
+		([$flatData, $activeGetters, $extents, $_xScale, $_yScale, $_rScale, $_zScale]) => {
+			const scaleLookup = { x: $_xScale, y: $_yScale, r: $_rScale, z: $_zScale };
+			const getters = filterObject($activeGetters, $extents);
+			const activeScales = Object.fromEntries(Object.keys(getters).map((k) => [k, scaleLookup[k]]));
 
-		if (Object.keys(getters).length > 0) {
-			const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
-			return { ...calculatedExtents, ...$extents };
-		} else {
-			return {};
+			if (Object.keys(getters).length > 0) {
+				const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
+				return { ...calculatedExtents, ...$extents };
+			} else {
+				return {};
+			}
 		}
-	});
+	);
 
 	const xDomain_d = derived([extents_d, _xDomain], calcDomain('x'));
 	const yDomain_d = derived([extents_d, _yDomain], calcDomain('y'));
 	const zDomain_d = derived([extents_d, _zDomain], calcDomain('z'));
 	const rDomain_d = derived([extents_d, _rDomain], calcDomain('r'));
 
-	const xScale_d = derived([_xScale, extents_d, xDomain_d, _xPadding, _xNice, _xReverse, width_d, height_d, _xRange, _percentRange], createScale('x'));
+	const xScale_d = derived(
+		[
+			_xScale,
+			extents_d,
+			xDomain_d,
+			_xPadding,
+			_xNice,
+			_xReverse,
+			width_d,
+			height_d,
+			_xRange,
+			_percentRange
+		],
+		createScale('x')
+	);
 	const xGet_d = derived([_x, xScale_d], createGetter);
 
-	const yScale_d = derived([_yScale, extents_d, yDomain_d, _yPadding, _yNice, _yReverse, width_d, height_d, _yRange, _percentRange], createScale('y'));
+	const yScale_d = derived(
+		[
+			_yScale,
+			extents_d,
+			yDomain_d,
+			_yPadding,
+			_yNice,
+			_yReverse,
+			width_d,
+			height_d,
+			_yRange,
+			_percentRange
+		],
+		createScale('y')
+	);
 	const yGet_d = derived([_y, yScale_d], createGetter);
 
-	const zScale_d = derived([_zScale, extents_d, zDomain_d, _zPadding, _zNice, _zReverse, width_d, height_d, _zRange, _percentRange], createScale('z'));
+	const zScale_d = derived(
+		[
+			_zScale,
+			extents_d,
+			zDomain_d,
+			_zPadding,
+			_zNice,
+			_zReverse,
+			width_d,
+			height_d,
+			_zRange,
+			_percentRange
+		],
+		createScale('z')
+	);
 	const zGet_d = derived([_z, zScale_d], createGetter);
 
-	const rScale_d = derived([_rScale, extents_d, rDomain_d, _rPadding, _rNice, _rReverse, width_d, height_d, _rRange, _percentRange], createScale('r'));
+	const rScale_d = derived(
+		[
+			_rScale,
+			extents_d,
+			rDomain_d,
+			_rPadding,
+			_rNice,
+			_rReverse,
+			width_d,
+			height_d,
+			_rRange,
+			_percentRange
+		],
+		createScale('r')
+	);
 	const rGet_d = derived([_r, rScale_d], createGetter);
 
 	const xRange_d = derived([xScale_d], getRange);
@@ -372,7 +477,7 @@
 	$: setContext('LayerCake', context);
 </script>
 
-{#if (ssr === true || typeof window !== 'undefined')}
+{#if ssr === true || typeof window !== 'undefined'}
 	<div
 		bind:this={element}
 		class="layercake-container"
@@ -387,12 +492,13 @@
 	>
 		<slot
 			{element}
+			{context}
 			width={$width_d}
 			height={$height_d}
 			aspectRatio={$aspectRatio_d}
 			containerWidth={$_containerWidth}
 			containerHeight={$_containerHeight}
-		></slot>
+		/>
 	</div>
 {/if}
 

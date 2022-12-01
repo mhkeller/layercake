@@ -1,0 +1,33 @@
+{
+	"name": "Node.js & TypeScript",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:18",
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"updateContentCommand": "npm install",
+	// Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "node",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:1": {},
+		"ghcr.io/devcontainers/features/git:1": {},
+		"ghcr.io/devcontainers/features/node:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint",
+				"formulahendry.auto-rename-tag",
+				"fivethree.vscode-svelte-snippets",
+				"EditorConfig.EditorConfig",
+				"streetsidesoftware.code-spell-checker",
+				"mhutchie.git-graph",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"DavidAnson.vscode-markdownlint",
+				"esbenp.prettier-vscode",
+				"svelte.svelte-vscode",
+				"ardenivanov.svelte-intellisense",
+				"GitHub.vscode-pull-request-github"
+			]
+		}
+	}
+}

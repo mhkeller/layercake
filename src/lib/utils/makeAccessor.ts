@@ -6,9 +6,8 @@ import canBeZero from './canBeZero.js';
 	@param acc The accessor function, key or list of them.
 	@returns An accessor function.
 */
-export default function makeAccessor<Datum>(acc: SimpleAccessor<Datum>): AccessorFunction<Datum, number>;
-export default function makeAccessor<Datum>(acc: Accessor<Datum>): AccessorFunction<Datum, number> | AccessorFunction<Datum, number[]>;
-export default function makeAccessor<Datum>(acc: Accessor<Datum>): AccessorFunction<Datum, number> | AccessorFunction<Datum, number[]> {
+export default function makeAccessor<Datum, Acc extends Accessor<Datum> = Accessor<Datum>>(acc: Acc): Acc extends readonly any[] ? AccessorFunction<Datum, number[]> : AccessorFunction<Datum, number>;
+export default function makeAccessor<Datum, Acc extends Accessor<Datum> = Accessor<Datum>>(acc: Acc): (AccessorFunction<Datum, number> | AccessorFunction<Datum, number[]>) {
 	if (!canBeZero(acc)) return null;
 	if (Array.isArray(acc)) {
 		return d => acc.map((k) => {
@@ -24,16 +23,17 @@ export default function makeAccessor<Datum>(acc: Accessor<Datum>): AccessorFunct
 export type AccessorFunction<Datum, Out = number> = ((d: Datum) => Out)
 
 /** A key, an index, or a function that yields a number. */
-type SimpleAccessor<Datum> = (KeysWithValueMatchingType<Datum, number> | AccessorFunction<Datum>)
-type StackedAccessor<SubDatum> =
+export type SimpleAccessor<Datum> = (KeysWithValueMatchingType<Datum, number> | AccessorFunction<Datum>)
+/** An array of `SimpleAccessors` */
+export type StackedAccessor<SubDatum> =
 	| (KeysWithValueMatchingType<SubDatum, number>
 		| AccessorFunction<SubDatum>)[]
 
 /** A string, an accessor function, or a number to access `Datum`. */
-export type Accessor<Datum> =
-	| (Datum extends readonly (infer SubDatum)[]
-		? (StackedAccessor<SubDatum> | SimpleAccessor<Datum>)
-		: SimpleAccessor<Datum>)
+export type Accessor<Datum> = SimpleAccessor<Datum> | (
+	Datum extends readonly (infer SubDatum)[]
+	? StackedAccessor<SubDatum>
+	: never)
 
 /**
  * An {@linkcode Accessor} or an array of

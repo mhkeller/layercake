@@ -2,8 +2,8 @@ import defaultScales from '../settings/defaultScales.js';
 import padScale from '../utils/padScale.js';
 import getDefaultRange from '../settings/getDefaultRange.js';
 
-export default function createScale (s) {
-	return function scaleCreator ([$scale, $extents, $domain, $padding, $nice, $reverse, $width, $height, $range, $percentScale]) {
+export default function createScale(s: keyof typeof defaultScales) {
+	return function scaleCreator([$scale, $extents, $domain, $padding, $nice, $reverse, $width, $height, $range, $percentScale]) {
 		if ($extents === null) {
 			return null;
 		}

@@ -15,6 +15,7 @@
 	import getRange from './helpers/getRange.js';
 	import defaultScales from './settings/defaultScales.js';
 	import type { LayerCakeConfig } from './config.js';
+	import type { LayerCakeContext } from './context.js';
 
 	type Data = $$Generic<readonly any[]>;
 	type Datum = Data[number];
@@ -143,7 +144,8 @@
 	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
 	export let xReverse = false;
 	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` or `scalePoint` for `yScale`. Ignored if you set the yRange prop. */
-	export let yReverse = typeof yScale.bandwidth === 'function' ? false : true;
+	export let yReverse =
+		'bandwidth' in yScale && typeof yScale.bandwidth === 'function' ? false : true;
 	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
 	export let zReverse = false;
 	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
@@ -426,6 +428,7 @@
 		return $width / $height;
 	});
 
+	let context: LayerCakeContext<Datum, Config>;
 	$: context = {
 		activeGetters: activeGetters_d,
 		width: width_d,

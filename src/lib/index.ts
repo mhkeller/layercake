@@ -5,6 +5,9 @@ export { default as ScaledSvg } from './layouts/ScaledSvg.svelte';
 export { default as Canvas } from './layouts/Canvas.svelte';
 export { default as WebGL } from './layouts/Webgl.svelte';
 
+export type { LayerCakeConfig, LayerCakeConfigSimple, LayerCakeConfigXStacked } from './config'
+export type { LayerCakeContext } from './context'
+
 export { default as scaleCanvas } from './lib/scaleCanvas.js';
 export { default as flatten } from './lib/flatten.js';
 export { default as uniques } from './lib/uniques.js';

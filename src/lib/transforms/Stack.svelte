@@ -13,7 +13,7 @@
 	export let data;
 	/** @type {Array|Function} [keys] The series names to stack, passed to `stack.keys()`. */
 	export let keys;
-	/** @type {String|Function} [value] An accessor function passed to `stack.value()`. If this is a string, it will be transformed into an accessor for that key. */
+	/** @type {String|Number|Function} [value] An accessor function passed to `stack.value()`. If this is a string or number, it will be transformed into an accessor for that key. */
 	export let value = undefined;
 	/** @type {Array|Function} [order] The stack order passed to `stack.order()`. */
 	export let order = undefined;
@@ -25,7 +25,7 @@
 
 	$: if (value) {
 		// @ts-ignore
-		const acc = typeof value === 'string' ? d => d[value] : value;
+		const acc = typeof value === 'function' : value ? d => d[value];
 		stacker = stacker.value(acc);
 	}
 	$: if (order) {

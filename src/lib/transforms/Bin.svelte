@@ -10,7 +10,7 @@
 
 	/** @type {Array} [data] The data to be binned. */
 	export let data;
-	/** @type {String|Function} [value] An accessor function passed to `bin.value()`. If this is a string, it will be transformed into an accessor for that key. */
+	/** @type {String|Number|Function} [value] An accessor function passed to `bin.value()`. If this is a string or number, it will be transformed into an accessor for that key. */
 	export let value = undefined;
 	/** @type {Array} [domain] The domain passed to `bin.domain()`. Pass in your own domain if you'd like. */
 	export let domain = undefined;
@@ -21,7 +21,7 @@
 
 	$: if (value) {
 		// @ts-ignore
-		const acc = typeof value === 'string' ? d => d[value] : value;
+		const acc = typeof value === 'function' ? value : d => d[value];
 		hist = hist.value(acc);
 	}
 	$: if (domain) {

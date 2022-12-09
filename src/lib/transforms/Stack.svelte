@@ -25,7 +25,7 @@
 
 	$: if (value) {
 		// @ts-ignore
-		const acc = typeof value === 'function' : value ? d => d[value];
+		const acc = typeof value === 'function' ? value : d => d[value];
 		stacker = stacker.value(acc);
 	}
 	$: if (order) {

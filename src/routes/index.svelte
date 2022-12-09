@@ -210,7 +210,7 @@
 
 		<p>Unlike other libraries, <a href="/components" sveltekit:prefetch>chart components</a> live <span class="strong">inside your project</span>, so you have complete control for <span class="strong">customization</span>. It also includes some handy <a href="/guide#transform-components" sveltekit:prefetch>transformation components</a> to help format your data into the right shape.</p>
 
-		<p>Read the <a href="guide" sveltekit:prefetch>guide</a>, try the <a href="https://github.com/mhkeller/layercake-template" target="_blank" rel="nofollow">starter template</a> or check out <a href="components" sveltekit:prefetch>example components</a>. See the examples below and even edit them live. Here's a sample of what the code looks like:</p>
+		<p>Read the <a href="guide" sveltekit:prefetch>guide</a>, try the <a href="https://github.com/mhkeller/layercake-template" target="_blank" rel="nofollow">starter template</a> or check out <a href="guide#transform-components" sveltekit:prefetch>transform</a> and <a href="components" sveltekit:prefetch>example components</a>. See the examples below and even edit them live. Here's a sample of what the code looks like:</p>
 	</div>
 
 	<div class="code-example">

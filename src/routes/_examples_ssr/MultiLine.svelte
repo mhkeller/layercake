@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, ScaledSvg, Html } from 'layercake';
+	import { LayerCake, ScaledSvg, Html, flatten } from 'layercake';
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format, precisionFixed } from 'd3-format';
@@ -45,15 +45,6 @@
 		};
 	});
 
-	/* --------------------------------------------
-	 * Make a flat array of the `values` of our nested series
-	 * we can pluck the field set from `yKey` from each item
-	 * in the array to measure the full extents
-	 */
-	const flatten = data => data.reduce((memo, group) => {
-		return memo.concat(group.values);
-	}, []);
-
 	const formatTickX = timeFormat('%b. %e');
 	const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
 </script>
@@ -81,7 +72,7 @@
 		z={zKey}
 		zScale={scaleOrdinal()}
 		zRange={seriesColors}
-		flatData={flatten(dataLong)}
+		flatData={flatten(dataLong, 'values')}
 		yDomain={[0, null]}
 		data={dataLong}
 	>

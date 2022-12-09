@@ -1,5 +1,7 @@
 <script>
 	import { LayerCake, Svg, takeEvery } from 'layercake';
+	import { Bin } from 'layercake/transforms';
+
   import { extent, bin } from 'd3-array';
 	import { scaleBand } from 'd3-scale';
 	import { format } from 'd3-format';
@@ -22,11 +24,6 @@
 	const domain = extent(data);
 
 	$: steps = calcThresholds(domain, binCount);
-
-	$: hist = bin()
-		.domain(domain)
-		.thresholds(steps);
-
 	$: slimSteps = takeEvery(steps, 5);
 </script>
 
@@ -58,31 +55,33 @@
 </div>
 
 <div class="chart-container">
-	<LayerCake
-		padding={{ top: 20, right: 5, bottom: 20, left: 30 }}
-		x={xKey}
-		y={yKey}
-		xDomain={steps}
-		xScale={scaleBand().paddingInner([0])}
-		yDomain={[0, null]}
-		data={hist(data)}
-	>
-		<Svg>
-			<AxisX
-				gridlines={false}
-				baseline={true}
-				ticks={slimSteps}
-				formatTick={d => +f(d)}
-			/>
-			<AxisY
-				gridlines={false}
-				ticks={3}
-			/>
-			<Column
-				fill={'#fff'}
-				stroke={'#000'}
-				strokeWidth={1}
-			/>
-		</Svg>
-	</LayerCake>
+	<Bin {data} {domain} thresholds={steps} let:binData>
+		<LayerCake
+			padding={{ top: 20, right: 5, bottom: 20, left: 30 }}
+			x={xKey}
+			y={yKey}
+			xDomain={steps}
+			xScale={scaleBand().paddingInner([0])}
+			yDomain={[0, null]}
+			data={binData}
+		>
+			<Svg>
+				<AxisX
+					gridlines={false}
+					baseline={true}
+					ticks={slimSteps}
+					formatTick={d => +f(d)}
+				/>
+				<AxisY
+					gridlines={false}
+					ticks={3}
+				/>
+				<Column
+					fill={'#fff'}
+					stroke={'#000'}
+					strokeWidth={1}
+				/>
+			</Svg>
+		</LayerCake>
+	</Bin>
 </div>

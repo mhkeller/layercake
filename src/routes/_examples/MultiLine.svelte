@@ -27,6 +27,9 @@
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
 
+	/* --------------------------------------------
+	 * Cast values
+	 */
 	data.forEach(d => {
 		d[xKey] = typeof d[xKey] === 'string'
 			? xKeyCast(d[xKey])

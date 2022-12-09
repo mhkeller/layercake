@@ -1,6 +1,7 @@
 <script>
 	import { LayerCake, Svg, flatten, uniques } from 'layercake';
 	import { Stack } from 'layercake/transforms';
+
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { format, precisionFixed } from 'd3-format';
 

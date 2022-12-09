@@ -9,7 +9,6 @@ This release adds new exports (Bin, Facet, SeriesLonger and Stack) under the `sv
 
 * [PR #95](https://github.com/mhkeller/layercake/pull/95)
 
-
 # 7.0.0
 
 > 2022-07-10

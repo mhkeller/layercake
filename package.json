@@ -56,7 +56,7 @@
     "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",
     "regl": "^2.1.0",
-    "svelte": "^3.46.2",
+    "svelte": "^3.49.0",
     "svelte-check": "^2.2.11",
     "svelte-preprocess": "^4.10.1",
     "svelte2tsx": "^0.4.11",

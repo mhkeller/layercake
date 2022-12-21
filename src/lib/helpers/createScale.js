@@ -37,9 +37,9 @@ export default function createScale (s) {
 			scale.domain(padScale(scale, $padding));
 		}
 
-		if ($nice === true) {
+		if ($nice === true || typeof $nice === 'number') {
 			if (typeof scale.nice === 'function') {
-				scale.nice();
+				scale.nice(typeof $nice === 'number' ? $nice : undefined);
 			} else {
 				console.error(`[Layer Cake] You set \`${s}Nice: true\` but the ${s}Scale does not have a \`.nice\` method. Ignoring...`);
 			}

@@ -49,7 +49,7 @@ The key in each row of data that corresponds to the x-field. This can be a strin
 >
 ```
 
-You can also give this value an array of strings or arrays of functions. While it may seem counter-intuitive to have more than one x- or y-accessor, this is the case in stacked layouts and Cleveland dot plots. See the [Stacked bar](/example/BarStacked), [Stacked area](/example/AreaStacked), [Stacked colummn](/example/ColumnStacked) or [Cleveland dot plot](/example/ClevelandDotPlot) for complete examples.
+You can also give this value an array of strings or arrays of functions. While it may seem counter-intuitive to have more than one x- or y-accessor, this is the case in stacked layouts and Cleveland dot plots. See the [Stacked bar](/example/BarStacked), [Stacked area](/example/AreaStacked), [Stacked column](/example/ColumnStacked) or [Cleveland dot plot](/example/ClevelandDotPlot) for complete examples.
 
 Here's an overview using the `d3.stack()` to make a horizontal bar chart, which will have two values for the x-accessor.
 
@@ -131,7 +131,7 @@ Same as [xScale](/guide#xscale) but for the z scale. The default is `d3.scaleLin
 
 ### rScale `d3.scaleSqrt()`
 
-Same as [xScale](/guide#xscale) but for the r scale. The default is [`d3.scaleSqrt()`](https://github.com/d3/d3-scale#scalesqrt.
+Same as [xScale](/guide#xscale) but for the r scale. The default is [`d3.scaleSqrt()`](https://github.com/d3/d3-scale#scalesqrt).
 
 ### xDomain `Array:[min: ?Number, max: ?Number]|String[]|Number[]|Function`
 
@@ -155,7 +155,7 @@ This value can also be a longer array because sometimes your scales are [piecewi
 >
 ```
 
-If you set a ([`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint or [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal) to any of the scales, the automatically calculated domain will be a list of unique values for the associated accessor instead of a two-value `[min, max]` array. This is useful for color scales or groups. If you want to sort this group, you can pass a function to this prop and it will receive the calculated list of unique values as an argument.
+If you set a [`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint) or [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal) to any of the scales, the automatically calculated domain will be a list of unique values for the associated accessor instead of a two-value `[min, max]` array. This is useful for color scales or groups. If you want to sort this group, you can pass a function to this prop and it will receive the calculated list of unique values as an argument.
 
 ```svelte
 <LayerCake
@@ -262,19 +262,19 @@ Same as [xPadding](/guide#xpadding) but for the z domain.
 
 Same as [xPadding](/guide#xpadding) but for the r domain.
 
-### xNice `Boolean=false`
+### xNice `Boolean=false|Number`
 
-Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice.
+Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice.  Can also pass `count` number as argument for greater control.
 
-### yNice `Boolean=false`
+### yNice `Boolean=false|Number`
 
 Same as [xNice](/guide#xnice) but for the y domain.
 
-### zNice `Boolean=false`
+### zNice `Boolean=false|Number`
 
 Same as [xNice](/guide#xnice) but for the z domain.
 
-### rNice `Boolean=false`
+### rNice `Boolean=false|Number`
 
 Same as [xNice](/guide#xnice) but for the r domain.
 

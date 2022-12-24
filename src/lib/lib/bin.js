@@ -27,29 +27,15 @@
 	x1 - the upper bound of the bin (exclusive, except for the last bin).
 
 	[
-		[
-			{ myX: 0 },
-			{ myX: 1 },
-			{ myX: 1 }
-		], // length: 3, x0: 0, x1: 2
-		[
-			{ myX: 2 },
-			{ myX: 2 }
-		], // length: 2, x0: 2, x1: 4,
-		[
-			{ myX: 4 },
-			{ myX: 4 }
-		], // length: 2, x0: 4, x1: 6,
-		[
-			{ myX: 7 }
-		], // length: 1, x0: 7, x1: 8,
-		[
-			{ myX: 8 }
-		] // length: 1, x0: 8, x1: 10,
+		[ { myX: 0 }, { myX: 1 }, { myX: 1 }, x0: 0, x1: 2 ],
+		[ { myX: 2 }, { myX: 2 }, x0: 2, x1: 4 ],
+		[ { myX: 4 }, { myX: 4 }, x0: 4, x1: 6 ],
+		[ { myX: 7 }, x0: 6, x1: 8 ],
+		[ { myX: 8 }, x0: 8, x1: 10 ]
 	]
 
 	@param {Array} data The data to be binned.
-	@param {String|Number|Function} value An accessor function passed to `bin.value()`. If this is a string or number, it will be transformed into an accessor for that key.
+	@param {String|Number|Function} [value] Optional. An accessor function passed to `bin.value()`. Defaults to an identity function. If this is a string or number, it will be transformed into an accessor for that key.
 	@param {Object} options Options object
 	@param {Array} [options.domain] Optional. The domain passed to `bin.domain()`. Pass in your own domain if you'd like, otherwise computed automatically.
 	@param {Number|Array|Function} [options.thresholds] Optional. The thresholds passed to `bin.thresholds()`, otherwise computed automatically.
@@ -62,6 +48,9 @@ export default function bin(data, value, {
 	domain,
 	thresholds
 } = {}) {
+	if (!Array.isArray(data)) {
+		throw new TypeError('The first argument of bin() must be an array of data')
+	}
 	let hist = d3Bin();
 
 	if (value) {

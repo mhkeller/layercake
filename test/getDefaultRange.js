@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import getDefaultRange from '../src/lib/settings/getDefaultRange.js';
+import fn from '../src/lib/settings/getDefaultRange.js';
 
 const defaultReverses = {
 	x: false,
@@ -93,7 +93,7 @@ describe(name, () => {
 	tests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
-				const actual = getDefaultRange(...test.args);
+				const actual = fn(...test.args);
 				assert.deepStrictEqual(actual, test.expected);
 			});
 		});

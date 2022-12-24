@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import filterObject from '../src/lib/utils/filterObject.js';
+import fn from '../src/lib/utils/filterObject.js';
 
 const name = 'filterObject';
 
@@ -18,7 +18,7 @@ describe(name, () => {
 	tests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
-				const actual = filterObject(...test.args);
+				const actual = fn(...test.args);
 				assert.deepStrictEqual(actual, test.expected);
 			});
 		});

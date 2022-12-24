@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import makeAccessor from '../src/lib/utils/makeAccessor.js';
+import fn from '../src/lib/utils/makeAccessor.js';
 
 const name = 'makeAccessor';
 
@@ -19,7 +19,7 @@ describe(name, () => {
 	tests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${test.expected ? test.expected.toString() : JSON.stringify(test.expected)}`, () => {
-				const actual = makeAccessor(...test.args);
+				const actual = fn(...test.args);
 				if (typeof test.expected === 'function') {
 					assert.deepStrictEqual(actual(test.input), test.expected(test.input));
 					assert.deepStrictEqual(actual(test.input), test.expectedOutput);

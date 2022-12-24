@@ -1,6 +1,7 @@
 /* globals describe it */
 import * as assert from 'assert';
-import uniques from '../src/lib/lib/uniques.js';
+
+import fn from '../src/lib/lib/uniques.js';
 
 const name = 'uniques';
 
@@ -38,7 +39,7 @@ describe(name, () => {
 	tests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
-				const actual = uniques(...test.args);
+				const actual = fn(...test.args);
 				assert.deepStrictEqual(actual, test.expected);
 			});
 		});

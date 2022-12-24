@@ -39,7 +39,6 @@ export default function stack(data, keys, {
 	order,
 	offset
 } = {}) {
-
 	if (!Array.isArray(data)) {
 		throw new TypeError('The first argument of stack() must be an array of data')
 	}

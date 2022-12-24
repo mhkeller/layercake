@@ -13,7 +13,7 @@
     "update_template": "sh ./src/scripts/update_template.sh",
     "prebuild": "npm run update_template",
     "deploy": "npm run build && git add -A && git commit -am 'auto-deploy' && git push origin main",
-    "test": "mocha --require esm test/stack.js"
+    "test": "mocha --require esm test/*.js"
   },
   "license": "MIT",
   "type": "module",

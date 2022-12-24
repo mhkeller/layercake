@@ -73,16 +73,23 @@ The SVG layout component also accepts a `viewBox` prop. See the [Layout componen
 </div>
 ```
 
-This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field.
+This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field but due to [an issue with Svelte](https://github.com/sveltejs/svelte/issues/7807) sometimes adding SVG nodes as HTML elements, this may not work. As an alternative, you can also simply add a `<defs>` tag:
 
 ```svelte
 <div class="chart-container">
   <LayerCake ...>
     <Svg>
-
-      <!-- Add your defs in a named slot here -->
-      <svelte:fragment slot="defs">
+      <!-- Simply add a defs tag here -->
+      <defs>
         <linearGradient id="myGradient" gradientTransform="rotate(90)">
+          <stop offset="20%" stop-color="gold" />
+          <stop offset="90%" stop-color="red" />
+        </linearGradient>
+      <defs>
+
+      <!-- If you want to use the named slot, add the xmlns attribute on the linearGradient element -->
+      <svelte:fragment slot="defs">
+        <linearGradient id="myGradient" gradientTransform="rotate(90)" xmlns="http://www.w3.org/2000/svg">
           <stop offset="20%" stop-color="gold" />
           <stop offset="90%" stop-color="red" />
         </linearGradient>
@@ -131,25 +138,7 @@ The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. 
 </div>
 ```
 
-This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field.
-
-```svelte
-<div class="chart-container">
-  <LayerCake ...>
-    <Svg>
-
-      <!-- Add your defs in a named slot here -->
-      <svelte:fragment slot="defs">
-        <linearGradient id="myGradient" gradientTransform="rotate(90)">
-          <stop offset="20%" stop-color="gold" />
-          <stop offset="90%" stop-color="red" />
-        </linearGradient>
-      </svelte:fragment>
-
-    </Svg>
-  </LayerCake>
-</div>
-```
+This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field. See [the Svg layout component section above](/guide#svg) for a note about how to use this and a workaround for a Svelte issue where elements are not always recognized.
 
 ### Canvas
 
@@ -184,6 +173,8 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
 ```
 
 In the component, you access the canvas context with `const { ctx } = getContext('canvas');`. This value is on a different context from the `getContext('LayerCake')` one because you could have multiple canvas layers and there wouldn't be an easy way to grab the right one. This way, the component always has access to just its parent Canvas component.
+
+> Warning: If you want to draw multiple canvas layers, use one `<Canvas>` tag each. There is a bug in [Svelte's reactivity](https://github.com/mhkeller/layercake/issues/50) that will cause an infinite loop if you add two or more components in a single `<Canvas>` tag.
 
 > Since the `ctx` value is a normal 2d context, the underlying canvas element is accessible under `ctx.canvas`.
 

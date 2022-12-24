@@ -1,6 +1,6 @@
 {
   "name": "layercake",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -52,11 +52,11 @@
     "indian-ocean": "^4.0.2",
     "markdown-it": "^12.3.0",
     "marked": "^4.0.7",
-    "mocha": "^9.2.1",
+    "mocha": "^9.2.2",
     "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",
     "regl": "^2.1.0",
-    "svelte": "^3.46.2",
+    "svelte": "^3.49.0",
     "svelte-check": "^2.2.11",
     "svelte-preprocess": "^4.10.1",
     "svelte2tsx": "^0.4.11",

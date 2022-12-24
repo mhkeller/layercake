@@ -29,6 +29,9 @@ This release adds new exports (Bin, Facet, SeriesLonger and Stack) under the `sv
 * [9244affc944f2693ecb6011cb6fd809b7f31ca0a](https://github.com/mhkeller/layercake/commit/9244affc944f2693ecb6011cb6fd809b7f31ca0a)
 * [6737a9513b4712fd730b197cb08a7d935642106e](https://github.com/mhkeller/layercake/commit/6737a9513b4712fd730b197cb08a7d935642106e)
 
+> 2022-10-03
+
+Allow for all `nNice` props to take a number instead of just a boolean. [PR #101](https://github.com/mhkeller/layercake/pull/101) from [@techniq](https://github.com/techniq).
 
 # 7.0.0
 

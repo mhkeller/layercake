@@ -20,7 +20,7 @@ Layer Cake is more about having a system to organize your own custom components 
 
 1. Layer components exist inside your own project. Layer Cake doesn't have any built-in concept of what a bar chart or column chart is, for example. It is a tool to give you scales and empty containers to draw on.
 2. Layer Cake needs a flat array of objects to measure the extents of your data. In most cases, what you pass in to the `data` prop is already a flat array of objects. In some cases, though, like [multi-series line](/example/MultiLine) charts or [maps](/example/MapSvg), your data needs to take on a more complex shape. In these instances, pass in a flat array of objects to the [`flatData`](/guide#flatdata) prop and your accessors will be called on each object in order to calculate your scale extents.
-3. For most scale types, such as [linear scales](https://github.com/d3/d3-scale#scalelinear), Layer Cake measures the extents of your data as the `[min, max]`. For categorical scale types ([`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint and [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal), it calculates the extent as the unique values in that list. Also, if your y-scale is not one of these categorical scales, it reverses the default range from `[0, height]` to `[height, 0]` in order to match the DOM coordinate system and make drawing easier out of the box.
+3. For most scale types, such as [linear scales](https://github.com/d3/d3-scale#scalelinear), Layer Cake measures the extents of your data as the `[min, max]`. For categorical scale types ([`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint) and [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal)), it calculates the extent as the unique values in that list. Also, if your y-scale is not one of these categorical scales, it reverses the default range from `[0, height]` to `[height, 0]` in order to match the DOM coordinate system and make drawing easier out of the box.
 
 ### Getting started
 
@@ -299,7 +299,7 @@ You can also use LayerCake in Svelte Kit to create charts that work without Java
 
 ### How does LayerCake know what to set as a scale's domain and range?
 
-As of version 7.0, Layer Cake tries to be a little smarter about how it calculates these values. For categorical scales like ([`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint and [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal), it calculates the extent as the list of unique values in your data for a given field. This is useful for bar charts, column charts or color scales where you have discrete values as opposed to a continuous range.
+As of version 7.0, Layer Cake tries to be a little smarter about how it calculates these values. For categorical scales (like [`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoint`](https://github.com/d3/d3-scale#scalepoint) and [`scaleOrdinal`](https://github.com/d3/d3-scale#scaleordinal)), it calculates the extent as the list of unique values in your data for a given field. This is useful for bar charts, column charts or color scales where you have discrete values as opposed to a continuous range.
 
 For all other scale types, Layer Cake measures the extent as the simple `[min, max]` values.
 

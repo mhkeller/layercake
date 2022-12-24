@@ -1,37 +1,21 @@
 Changelog
 ===
 
-# 7.1.0
+# 7.2.0
 
 > not yet on npm
 
-This release adds new exports (Bin, Facet, SeriesLonger and Stack) under the `svelte/transforms` namespace. It also adds a new second argument to `flatten` and a `takeEvery` function.
+This release adds new exports (Facet, bin, groupLonger and stack) under the `svelte/transforms` namespace. It also adds a new second argument to `flatten` and a new `takeEvery` function.
 
-* [6b6358749cb09ee5194e0704af6b13ec84d817c0](https://github.com/mhkeller/layercake/commit/6b6358749cb09ee5194e0704af6b13ec84d817c0)
-* [8c0e3ad05597d7355e733b695c64664e51bfef9c](https://github.com/mhkeller/layercake/commit/8c0e3ad05597d7355e733b695c64664e51bfef9c)
-* [67748418900a856df0b8d8fc063dafa3342b31c7](https://github.com/mhkeller/layercake/commit/67748418900a856df0b8d8fc063dafa3342b31c7)
-* [e02a6ce91c1fa3569bb9c8bc085c5c1afabe9213](https://github.com/mhkeller/layercake/commit/e02a6ce91c1fa3569bb9c8bc085c5c1afabe9213)
-* [cf37fc91c29084276d7eb087d56d23a1a7deb01d](https://github.com/mhkeller/layercake/commit/cf37fc91c29084276d7eb087d56d23a1a7deb01d)
-* [e4fe4f7ccc50515b751427dc47a37724e7221f1b](https://github.com/mhkeller/layercake/commit/e4fe4f7ccc50515b751427dc47a37724e7221f1b)
-* [93cc3536f67243904410446c72666194ef30aa4e](https://github.com/mhkeller/layercake/commit/93cc3536f67243904410446c72666194ef30aa4e)
-* [df2a669467ac1b5ce82fee1f0ecf5e898d4d2d54](https://github.com/mhkeller/layercake/commit/df2a669467ac1b5ce82fee1f0ecf5e898d4d2d54)
-* [d947c15d8db5b8a792708947c07ff04119a73d1e](https://github.com/mhkeller/layercake/commit/d947c15d8db5b8a792708947c07ff04119a73d1e)
-* [7099fef3e1e99c486da72b17a83e75da456eeb3a](https://github.com/mhkeller/layercake/commit/7099fef3e1e99c486da72b17a83e75da456eeb3a)
-* [8b3d566abf0e9f28281e9a951b52c0338c53ba2e](https://github.com/mhkeller/layercake/commit/8b3d566abf0e9f28281e9a951b52c0338c53ba2e)
-* [6f2e3961db4977992085121d0c1c74e6f94c0319](https://github.com/mhkeller/layercake/commit/6f2e3961db4977992085121d0c1c74e6f94c0319)
-* [ca57c9c3c5d179e079188673ce72f1fe53a16a23](https://github.com/mhkeller/layercake/commit/ca57c9c3c5d179e079188673ce72f1fe53a16a23)
-* [e42dbbded1d722734928910600eb1be0420c9918](https://github.com/mhkeller/layercake/commit/e42dbbded1d722734928910600eb1be0420c9918)
-* [8c8267d673b5e3f04961b25ac83c7330a9813a23](https://github.com/mhkeller/layercake/commit/8c8267d673b5e3f04961b25ac83c7330a9813a23)
-* [865ebda13028db78ca3bb9826fdc435c77120cb4](https://github.com/mhkeller/layercake/commit/865ebda13028db78ca3bb9826fdc435c77120cb4)
-* [7286c33442a2a3c4b5f64d174a6c536cc5db414d](https://github.com/mhkeller/layercake/commit/7286c33442a2a3c4b5f64d174a6c536cc5db414d)
-* [54f25b135cd377fb603c0328b9e438240a06b84e](https://github.com/mhkeller/layercake/commit/54f25b135cd377fb603c0328b9e438240a06b84e)
-* [3c4b3da7bbe79785641cfa045a5f17fef63d4ed3](https://github.com/mhkeller/layercake/commit/3c4b3da7bbe79785641cfa045a5f17fef63d4ed3)
-* [9244affc944f2693ecb6011cb6fd809b7f31ca0a](https://github.com/mhkeller/layercake/commit/9244affc944f2693ecb6011cb6fd809b7f31ca0a)
-* [6737a9513b4712fd730b197cb08a7d935642106e](https://github.com/mhkeller/layercake/commit/6737a9513b4712fd730b197cb08a7d935642106e)
+* [PR #95](https://github.com/mhkeller/layercake/pull/95)
+
+# 7.1.0
 
 > 2022-10-03
 
-Allow for all `nNice` props to take a number instead of just a boolean. [PR #101](https://github.com/mhkeller/layercake/pull/101) from [@techniq](https://github.com/techniq).
+Allow for all `nNice` props to take a number instead of just a boolean.
+
+* [PR #101](https://github.com/mhkeller/layercake/pull/101) from [@techniq](https://github.com/techniq).
 
 # 7.0.0
 

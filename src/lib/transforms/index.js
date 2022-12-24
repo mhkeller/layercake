@@ -1,4 +1,4 @@
-export { default as Bin } from './Bin.svelte';
 export { default as Facet } from './Facet.svelte';
-export { default as SeriesLonger } from './SeriesLonger.svelte';
-export { default as Stack } from './Stack.svelte';
+// export { default as bin } from './bin.js';
+export { default as groupLonger } from './groupLonger.js';
+// export { default as stack } from './stack.js';

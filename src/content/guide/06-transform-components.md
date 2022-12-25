@@ -107,7 +107,7 @@ Facet by: <select bind:value={facetBy}>
   */
   .chart-container {
     width: 300px;
-    height: 300px;
+****    height: 300px;
   }
 </style>
 ```

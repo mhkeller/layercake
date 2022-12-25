@@ -1,6 +1,5 @@
 <script>
-	import { LayerCake, Svg, flatten } from 'layercake';
-	import { Stack } from 'layercake/transforms';
+	import { LayerCake, Svg, flatten, stack } from 'layercake';
 
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { format, precisionFixed } from 'd3-format';
@@ -29,6 +28,8 @@
 	});
 
 	const formatTickX = d => format(`.${precisionFixed(d)}s`)(d);
+
+	const stackedData = stack(data, seriesNames);
 </script>
 
 <style>
@@ -45,30 +46,28 @@
 </style>
 
 <div class="chart-container">
-	<Stack {data} keys={seriesNames} let:stackData>
-		<LayerCake
-			padding={{ top: 0, bottom: 20, left: 30 }}
-			x={xKey}
-			y={d => d.data[yKey]}
-			z={zKey}
-			yScale={scaleBand().paddingInner([0.05])}
-			zScale={scaleOrdinal()}
-			zDomain={seriesNames}
-			zRange={seriesColors}
-			flatData={flatten(stackData)}
-			data={stackData}
-		>
-			<Svg>
-				<AxisX
-					baseline={true}
-					snapTicks={true}
-					formatTick={formatTickX}
-				/>
-				<AxisY
-					gridlines={false}
-				/>
-				<BarStacked/>
-			</Svg>
-		</LayerCake>
-	</Stack>
+	<LayerCake
+		padding={{ top: 0, bottom: 20, left: 30 }}
+		x={xKey}
+		y={d => d.data[yKey]}
+		z={zKey}
+		yScale={scaleBand().paddingInner([0.05])}
+		zScale={scaleOrdinal()}
+		zDomain={seriesNames}
+		zRange={seriesColors}
+		flatData={flatten(stackedData)}
+		data={stackedData}
+	>
+		<Svg>
+			<AxisX
+				baseline={true}
+				snapTicks={true}
+				formatTick={formatTickX}
+			/>
+			<AxisY
+				gridlines={false}
+			/>
+			<BarStacked/>
+		</Svg>
+	</LayerCake>
 </div>

@@ -1,6 +1,5 @@
 <script>
-	import { LayerCake, Svg, Html, flatten } from 'layercake';
-	import { SeriesLonger } from 'layercake/transforms';
+	import { LayerCake, Svg, Html, groupLonger, flatten } from 'layercake';
 
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
@@ -42,6 +41,11 @@
 
 	const formatTickX = timeFormat('%b. %e');
 	const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
+
+	const groupedData = groupLonger(data, seriesNames, {
+		groupTo: zKey,
+		valueTo: yKey
+	});
 </script>
 
 <style>
@@ -58,46 +62,38 @@
 </style>
 
 <div class="chart-container">
-	<SeriesLonger
-		{data}
-		{seriesNames}
-		seriesTo={zKey}
-		valueTo={yKey}
-		let:seriesData
+	<LayerCake
+		padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
+		x={xKey}
+		y={yKey}
+		z={zKey}
+		yDomain={[0, null]}
+		zScale={scaleOrdinal()}
+		zRange={seriesColors}
+		flatData={flatten(groupedData, 'values')}
+		data={groupedData}
 	>
-		<LayerCake
-			padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
-			x={xKey}
-			y={yKey}
-			z={zKey}
-			yDomain={[0, null]}
-			zScale={scaleOrdinal()}
-			zRange={seriesColors}
-			flatData={flatten(seriesData, 'values')}
-			data={seriesData}
-		>
-			<Svg>
-				<AxisX
-					gridlines={false}
-					ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
-					formatTick={formatTickX}
-					snapTicks={true}
-					tickMarks={true}
-				/>
-				<AxisY
-					ticks={4}
-					formatTick={formatTickY}
-				/>
-				<MultiLine/>
-			</Svg>
+		<Svg>
+			<AxisX
+				gridlines={false}
+				ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
+				formatTick={formatTickX}
+				snapTicks={true}
+				tickMarks={true}
+			/>
+			<AxisY
+				ticks={4}
+				formatTick={formatTickY}
+			/>
+			<MultiLine/>
+		</Svg>
 
-			<Html>
-				<Labels/>
-				<SharedTooltip
-					formatTitle={formatTickX}
-					dataset={data}
-				/>
-			</Html>
-		</LayerCake>
-	</SeriesLonger>
+		<Html>
+			<Labels/>
+			<SharedTooltip
+				formatTitle={formatTickX}
+				dataset={data}
+			/>
+		</Html>
+	</LayerCake>
 </div>

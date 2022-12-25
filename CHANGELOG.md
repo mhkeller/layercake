@@ -5,7 +5,7 @@ Changelog
 
 > not yet on npm
 
-This release adds new exports (Facet, bin, groupLonger and stack) under the `svelte/transforms` namespace. It also adds a new second argument to `flatten` and a new `takeEvery` function.
+This release adds new functions: `bin`, `stack`, `groupLonger`, `takeEvery` and the `Facet` component under the `svelte/transform` namespace. It also adds a new second argument to `flatten`.
 
 * [PR #95](https://github.com/mhkeller/layercake/pull/95)
 

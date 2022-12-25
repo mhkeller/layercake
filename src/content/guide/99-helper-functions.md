@@ -4,6 +4,131 @@ title: Helper functions
 
 Layer Cake exposes some commonly-used helper functions. If you don't use them, they will be tree-shaken so there's no added bloat!
 
+### bin(data: `Array`[, accessor: `String|Function`, { domain: `Array`, thresholds: `Array` }])
+
+This is a wrapper around the `bin` function in [d3-array](https://github.com/d3/d3-array#bins). It's useful for histograms.
+
+The component has the following props:
+
+* **data** `Array|Object`
+  * The data to be binned.
+* **value** `Function|String`
+  * Optional. An accessor function passed to [`bin.value()`](https://github.com/d3/d3-array#bin_value). If this is a string, it will be transformed into an accessor for that key.
+* **domain** `Array`
+  * Optional. The domain passed to [`bin.domain()`](https://github.com/d3/d3-array#bin_domain).
+* **thresholds** `Number|Array|Function`
+  * Optional. The thresholds passed to [`bin.thresholds()`](https://github.com/d3/d3-array#bin_thresholds). Optional. Can be a number, array or function.
+
+See the [stacked bar chart](/example/BarStacked) for an example:
+
+```js
+import { bin } from 'layercake';
+
+const data = [
+  { myX: 0 },
+  { myX: 1 },
+  { myX: 2 },
+  { myX: 4 },
+  { myX: 2 },
+  { myX: 8 },
+  { myX: 1 },
+  { myX: 4 },
+  { myX: 7 }
+];
+
+// Usage
+bin(data, 'myX');
+// or...
+bin(data, d => d.myX);
+
+// Output...
+[
+  [ { myX: 0 }, { myX: 1 }, { myX: 1 }, x0: 0, x1: 2 ],
+  [ { myX: 2 }, { myX: 2 }, x0: 2, x1: 4 ],
+  [ { myX: 4 }, { myX: 4 }, x0: 4, x1: 6 ],
+  [ { myX: 7 }, x0: 6, x1: 8 ],
+  [ { myX: 8 }, x0: 8, x1: 10 ]
+]
+```
+
+### calcExtents(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`)
+
+Calculate the extents of any of the keys specified in **fields**, which is an object whose keys represent the name of the dimension (`x`, `y`, `z` or `r`) and whose value is an accessor function.
+
+For example, calculating the extents for the x and y fields, which are in the data as `myX` and `myY` would look like this:
+
+```js
+const extents = calcExtents(flatData, {
+  x: d => d.myX,
+  y: d => d.myY
+});
+
+console.log(extents);
+/*
+{
+  x: [0, 10],
+  y: [-20, 20]
+}
+*/
+```
+
+Returns an object matching the keys in the `fields` argument and whose value is an array of `[min, max]`.
+
+This function will also work on strings, which is useful if your data fields are date-time strings like `'2020-03-09T18:00:00'`.
+
+The accessor functions can also return an array. This is useful if you want to scan multiple keys per object:
+
+```js
+const timeData = [{ start: 0, end: 1 }, { start: -10000, end: 0 }];
+
+const extents = calcExtents(timeData, {
+  y: d => [d.start, d.end]
+});
+
+console.log(extents);
+/*
+{
+  y: [-10000, 1]
+}
+*/
+```
+
+### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`[, { sort: `Boolean=false`] }: Object)
+
+The same API and behavior as `calcExtents` but instead of a two-value array of `[min, max]` values, it returns an array of unique items. It returns the values in the order they appear in the data. Optionally pass in `true` in the third options argument to do a simple `.sort()`.
+
+```js
+const uniques = calcUniques(flatData, {
+  x: d => d.myX,
+  y: d => d.myY
+});
+
+console.log(uniques);
+/*
+{
+  x: [0, 85, 123, 43, 10],
+  y: ['group-1', 'group-2', 'group-3']
+}
+*/
+```
+
+The accessor functions can also return an array. This is useful if you want to scan multiple keys per object:
+
+```js
+const timeData = [{ teamCity: 'New York', backupCity: 'Los Angeles' }, { teamCity: 'Chicago', backupCity: 'Seattle'}];
+
+const uniques = calcUniques(timeData, {
+  y: d => [d.teamCity, d.backupCity]
+}, { sort: true });
+
+console.log(uniques);
+/*
+{
+  y: ['Chicago', 'Los Angeles', 'New York', 'Seattle']
+}
+*/
+```
+
 ### flatten(data: `Array`[, accessor: `String|Function`])
 
 Flatten an array one-level down. Handy for preparing data from stacked layouts whose extents can easily be calculated. This is equivalent to `Array.prototype.flat()` but is kept in for old versions of node that support that or other browser compatibility.
@@ -98,7 +223,90 @@ Becomes...
 ]
 ```
 
-You can also specify an accessor function
+### groupLonger(data: `Array`, keys: `String[]`[, { groupTo: `String='group'`, valueTo: `String='value'`,  keepKeys: `String[]` }])
+
+This function is useful for data that you get in a "wide" format that you want to break into a multi-series chart.
+
+For example, let's say you have a spreadsheet like this and you want to create a line chart with one line for each fruit over time.
+
+```txt
+month,apples,bananas,cherries,dates
+2015-01-01,320,480,640,400
+2015-02-01,640,960,740,500
+2015-03-01,1600,1440,960,600
+```
+
+You need to convert your data into something like this:
+
+```js
+import { groupLonger } from 'layercake';
+
+const groupData = groupLonger(data, [ 'apples', 'bananas', 'cherries', 'dates']);
+
+// Outputs
+[
+  {
+    group: 'apples',
+    values: [
+    	{ month: '2015-01-01', value: 320, group: 'apples' },
+    	{ month: '2015-02-01', value: 640, group: 'apples' },
+    	{ month: '2015-03-01', value: 1600, group: 'apples' }
+    ]
+  },{
+    group: 'bananas',
+    values: [
+    	{ month: '2015-01-01', value: 480, group: 'bananas' },
+    	{ month: '2015-02-01', value: 960, group: 'bananas' },
+    	{ month: '2015-03-01', value: 1440, group: 'bananas' }
+    ]
+  },{
+    group: 'cherries',
+    values: [
+    	{ month: '2015-01-01', value: 640, group: 'cherries' },
+    	{ month: '2015-02-01', value: 740, group: 'cherries' },
+    	{ month: '2015-03-01', value: 960, group: 'cherries' }
+    ]
+  },{
+    group: 'dates',
+    values: [
+    	{ month: '2015-01-01', value: 400, group: 'dates' },
+    	{ month: '2015-02-01', value: 500, group: 'dates' },
+    	{ month: '2015-03-01', value: 600, group: 'dates' }
+    ]
+  }
+]
+```
+
+The component has the following props:
+
+* **data** `Array|Object`
+  * The data to be transformed.
+* **keys** `String[]`
+  * The series names to break out out into separate groups.
+* **options** `Object` Options object
+* **options.groupTo** `String='group'`
+  * Optional. This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
+* **options.valueTo** `String='value'`
+  * Optional. The name of the new field on each row of data to store the value under. Defaults to 'value'.
+* **options.keepKeys** `String[]`
+  * Optional. Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data.
+
+It returns:
+
+* **groupData** `Array`
+  * The transformed data.
+
+See the example on the [multline chart](/example/MultiLine)
+
+### raise(el: `DOM Element`)
+
+Adapted from the [raise](https://github.com/d3/d3-selection#selection_raise) method in d3-selection, this is a convenience function to re-insert the passed in element as the last child of its parent. Equivalent to:
+
+```js
+el.parentNode.appendChild(el);
+```
+
+This is useful for hovering over SVG maps so that the hovered-over feature is not obstructed by neighboring shapes. See how it's used in the [SVG map component](/example/MapSvg).
 
 ### scaleCanvas(ctx: `CanvasRenderingContext2D`, width: `Number`, height: `Number`)
 
@@ -144,83 +352,52 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 </script>
 ```
 
-### calcExtents(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`)
+### stack(data: `Array|Object`[, keys: `String[]`, { domain: `Array`, thresholds: `Array` }])
 
-Calculate the extents of any of the keys specified in **fields**, which is an object whose keys represent the name of the dimension (`x`, `y`, `z` or `r`) and whose value is an accessor function.
+The **Stack** transform component is a wrapper around the `stack` function in [d3-shape](https://github.com/d3/d3-shape#stacks).
 
-For example, calculating the extents for the x and y fields, which are in the data as `myX` and `myY` would look like this:
+The component has the following props:
 
-```js
-const extents = calcExtents(flatData, {
-  x: d => d.myX,
-  y: d => d.myY
-});
+* **data** `Array|Object`
+  * The data to be stacked.
+* **keys** `String[]`
+  * The series names to stack, passed to [`stack.keys()`](https://github.com/d3/d3-shape#stack_keys).
+* **options** `Object` Options object
+* **options.value** `Function|String`
+  * Optional. An accessor function passed to [`stack.value()`](https://github.com/d3/d3-shape#stack_value). If this is a string, it will be transformed into an accessor for that key.
+* **options.order** `Array|Function`
+  * Optional. The stack order passed to [`stack.order()`](https://github.com/d3/d3-shape#stack_order).
+* **options.offset** `Array|Function`
+  * Optional. The offset function passed to [`stack.offset()`](https://github.com/d3/d3-shape#stack_offset).
 
-console.log(extents);
-/*
-{
-  x: [0, 10],
-  y: [-20, 20]
-}
-*/
-```
+It returns as slot props:
 
-Returns an object matching the keys in the `fields` argument and whose value is an array of `[min, max]`.
+* **stackData** `Array`
+  * The transformed data.
 
-This function will also work on strings, which is useful if your data fields are date-time strings like `'2020-03-09T18:00:00'`.
-
-The accessor functions can also return an array. This is useful if you want to scan multiple keys per object:
+See the example on the [stacked area chart](/example/AreaStacked)
 
 ```js
-const timeData = [{ start: 0, end: 1 }, { start: -10000, end: 0 }];
+import { stack } from 'layercake';
 
-const extents = calcExtents(timeData, {
-  y: d => [d.start, d.end]
-});
+// Input data
+const data = [
+  {month: '2015-01-01', apples: 320,  bananas: 480,  cherries: 640, dates: 400}
+  {month: '2015-02-01', apples: 640,  bananas: 960,  cherries: 740, dates: 500},
+  {month: '2015-03-01', apples: 1600, bananas: 1440, cherries: 920, dates: 600},
+  {month: '2015-04-01', apples: 3840, bananas: 1920, cherries: 960, dates: 700},
+];
 
-console.log(extents);
-/*
-{
-  y: [-10000, 1]
-}
-*/
-```
+// Usage
+stack(data, ['apples', 'bananas', 'cherries', 'dates'])
 
-
-### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`[, { sort: `Boolean=false`] }: Object)
-
-The same API and behavior as `calcExtents` but instead of a two-value array of `[min, max]` values, it returns an array of unique items. It returns the values in the order they appear in the data. Optionally pass in `true` in the third options argument to do a simple `.sort()`.
-
-```js
-const uniques = calcUniques(flatData, {
-  x: d => d.myX,
-  y: d => d.myY
-});
-
-console.log(uniques);
-/*
-{
-  x: [0, 85, 123, 43, 10],
-  y: ['group-1', 'group-2', 'group-3']
-}
-*/
-```
-
-The accessor functions can also return an array. This is useful if you want to scan multiple keys per object:
-
-```js
-const timeData = [{ teamCity: 'New York', backupCity: 'Los Angeles' }, { teamCity: 'Chicago', backupCity: 'Seattle'}];
-
-const uniques = calcUniques(timeData, {
-  y: d => [d.teamCity, d.backupCity]
-}, { sort: true });
-
-console.log(uniques);
-/*
-{
-  y: ['Chicago', 'Los Angeles', 'New York', 'Seattle']
-}
-*/
+// Output data. The `month` values you can't see because sneakily stashes them as a property on the array, accessible as `d.data`.
+[
+  [ [   0, 320],  [   0,  640], [   0, 1600], [   0, 3840] ], // apples
+  [ [ 320, 800],  [ 640, 1600], [1600, 3040], [3840, 5760] ], // bananas
+  [ [ 800, 1440], [1600, 2340], [3040, 3960], [5760, 6720] ], // cherries
+  [ [1440, 1840], [2340, 2840], [3960, 4560], [6720, 7420] ]  // dates
+]
 ```
 
 ### uniques(data: `Array`[, accessor: `String|Function`, transform: `Boolean=true`])
@@ -259,13 +436,3 @@ const uniqueYears = unique(data, 'year', false);
   {year: '1993', x: 7, y: 8}
 */
 ```
-
-### raise(el: `DOM Element`)
-
-Adapted from the [raise](https://github.com/d3/d3-selection#selection_raise) method in d3-selection, this is a convenience function to re-insert the passed in element as the last child of its parent. Equivalent to:
-
-```js
-el.parentNode.appendChild(el);
-```
-
-This is useful for hovering over SVG maps so that the hovered-over feature is not obstructed by neighboring shapes. See how it's used in the [SVG map component](/example/MapSvg).

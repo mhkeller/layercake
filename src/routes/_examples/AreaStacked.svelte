@@ -1,6 +1,5 @@
 <script>
-	import { LayerCake, Svg, flatten } from 'layercake';
-	import { Stack } from 'layercake/transforms';
+	import { LayerCake, Svg, flatten, stack } from 'layercake';
 
 	import { scaleOrdinal } from 'd3-scale';
 	import { format, precisionFixed } from 'd3-format';
@@ -36,6 +35,8 @@
 			d[name] = +d[name];
 		});
 	});
+
+	const stackedData = stack(data, seriesNames);
 </script>
 
 <style>
@@ -52,29 +53,26 @@
 </style>
 
 <div class="chart-container">
-	<!-- Use the Stack component to transform the data into a stack format -->
-	<Stack {data} keys={seriesNames} let:stackData>
-		<LayerCake
-			padding={{ top: 0, right: 0, bottom: 20, left: 17 }}
-			x={d => d.data[xKey]}
-			y={yKey}
-			z={zKey}
-			zScale={scaleOrdinal()}
-			zDomain={seriesNames}
-			zRange={seriesColors}
-			flatData={flatten(stackData)}
-			data={stackData}
-		>
-			<Svg>
-				<AxisX
-					formatTick={formatTickX}
-					tickMarks={true}
-				/>
-				<AxisY
-					formatTick={formatTickY}
-				/>
-				<AreaStacked/>
-			</Svg>
-		</LayerCake>
-	</Stack>
+	<LayerCake
+		padding={{ top: 0, right: 0, bottom: 20, left: 17 }}
+		x={d => d.data[xKey]}
+		y={yKey}
+		z={zKey}
+		zScale={scaleOrdinal()}
+		zDomain={seriesNames}
+		zRange={seriesColors}
+		flatData={flatten(stackedData)}
+		data={stackedData}
+	>
+		<Svg>
+			<AxisX
+				formatTick={formatTickX}
+				tickMarks={true}
+			/>
+			<AxisY
+				formatTick={formatTickY}
+			/>
+			<AreaStacked/>
+		</Svg>
+	</LayerCake>
 </div>

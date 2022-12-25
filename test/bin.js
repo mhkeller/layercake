@@ -65,7 +65,7 @@ const tests = [
 const errorTests = [
 	{
 		args: [undefined],
-		expected: /^TypeError: The first argument of bin\(\) must be an array of data/
+		expected: /^TypeError: The first argument of bin\(\) must be an array or data object/
 	}
 ];
 

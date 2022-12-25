@@ -3,7 +3,7 @@ Changelog
 
 # 7.2.0
 
-> not yet on npm
+> 2022-12-23
 
 This release adds new functions: `bin`, `stack`, `groupLonger` and `takeEvery`. It also adds a new second argument to `flatten`.
 

@@ -25,7 +25,7 @@
 	style="width:100%;height:100%;display:flex;"
 	>
 	{#each dataGroups as [groupKey, groupData]}
-		<div class="facet-chart-container" style="flex:1;">
+		<div class="facet-chart-container" style="flex:1;" data-groupkey={groupKey}>
 			<slot
 				{groupKey}
 				{groupData}

@@ -354,7 +354,7 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 
 ### stack(data: `Array|Object`[, keys: `String[]`, { domain: `Array`, thresholds: `Array` }])
 
-The **Stack** transform component is a wrapper around the `stack` function in [d3-shape](https://github.com/d3/d3-shape#stacks).
+This function is a wrapper around the `stack` function in [d3-shape](https://github.com/d3/d3-shape#stacks).
 
 The component has the following props:
 

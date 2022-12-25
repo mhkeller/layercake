@@ -1,0 +1,1 @@
+Histogram chart using Layer Cake's [bin function](/guide#bin). Because this will create a nested data structure, we use LayerCake's `flatten` function to pass to the `flatData` prop. See the [server-side rendered example](/example-ssr/Histogram) for the basic D3 function usage.

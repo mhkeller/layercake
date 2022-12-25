@@ -1,5 +1,6 @@
 <script>
-	import { LayerCake, Svg, Html } from 'layercake';
+	import { LayerCake, Svg, Html, groupLonger, flatten } from 'layercake';
+
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
 	import { format, precisionFixed } from 'd3-format';
@@ -20,41 +21,31 @@
 	const yKey = 'value';
 	const zKey = 'fruit';
 
+	const xKeyCast = timeParse('%Y-%m-%d');
+
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
 
-	const parseDate = timeParse('%Y-%m-%d');
-
 	/* --------------------------------------------
-	 * Create a "long" format that is a grouped series of data points
-	 * Layer Cake uses this data structure and the key names
-	 * set in xKey, yKey and zKey to map your data into each scale.
+	 * Cast values
 	 */
-	const dataLong = seriesNames.map(key => {
-		return {
-			[zKey]: key,
-			values: data.map(d => {
-				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey]; // Conditional required for sapper
-				return {
-					[yKey]: +d[key],
-					[xKey]: d[xKey],
-					[zKey]: key
-				};
-			})
-		};
+	data.forEach(d => {
+		d[xKey] = typeof d[xKey] === 'string'
+			? xKeyCast(d[xKey])
+			: d[xKey];
+
+		seriesNames.forEach(name => {
+			d[name] = +d[name];
+		});
 	});
-
-	/* --------------------------------------------
-	 * Make a flat array of the `values` of our nested series
-	 * we can pluck the field set from `yKey` from each item
-	 * in the array to measure the full extents
-	 */
-	const flatten = data => data.reduce((memo, group) => {
-		return memo.concat(group.values);
-	}, []);
 
 	const formatTickX = timeFormat('%b. %e');
 	const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
+
+	const groupedData = groupLonger(data, seriesNames, {
+		groupTo: zKey,
+		valueTo: yKey
+	});
 </script>
 
 <style>
@@ -79,8 +70,8 @@
 		yDomain={[0, null]}
 		zScale={scaleOrdinal()}
 		zRange={seriesColors}
-		flatData={flatten(dataLong)}
-		data={dataLong}
+		flatData={flatten(groupedData, 'values')}
+		data={groupedData}
 	>
 		<Svg>
 			<AxisX

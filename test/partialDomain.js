@@ -1,6 +1,7 @@
 /* globals describe it */
 import * as assert from 'assert';
-import partialDomain from '../src/lib/utils/partialDomain.js';
+
+import fn from '../src/lib/utils/partialDomain.js';
 
 const name = 'partialDomain';
 
@@ -15,7 +16,7 @@ describe(name, () => {
 	tests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
-				const actual = partialDomain(...test.args);
+				const actual = fn(...test.args);
 				assert.deepStrictEqual(actual, test.expected);
 			});
 		});

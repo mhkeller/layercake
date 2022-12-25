@@ -1,6 +1,6 @@
 <script>
-	import { LayerCake, Svg, flatten } from 'layercake';
-	import { stack } from 'd3-shape';
+	import { LayerCake, Svg, flatten, stack } from 'layercake';
+
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { format, precisionFixed } from 'd3-format';
 
@@ -18,18 +18,18 @@
 	const seriesNames = Object.keys(data[0]).filter(d => d !== yKey);
 	const seriesColors = ['#00bbff', '#8bcef6', '#c4e2ed', '#f7f6e3'];
 
+	/* --------------------------------------------
+	 * Cast data
+	 */
 	data.forEach(d => {
 		seriesNames.forEach(name => {
 			d[name] = +d[name];
 		});
 	});
 
-	const stackData = stack()
-		.keys(seriesNames);
-
-	const series = stackData(data);
-
 	const formatTickX = d => format(`.${precisionFixed(d)}s`)(d);
+
+	const stackedData = stack(data, seriesNames);
 </script>
 
 <style>
@@ -55,8 +55,8 @@
 		zScale={scaleOrdinal()}
 		zDomain={seriesNames}
 		zRange={seriesColors}
-		flatData={flatten(series)}
-		data={series}
+		flatData={flatten(stackedData)}
+		data={stackedData}
 	>
 		<Svg>
 			<AxisX

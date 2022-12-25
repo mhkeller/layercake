@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import calcExtents from '../src/lib/lib/calcUniques.js';
+import fn from '../src/lib/lib/calcUniques.js';
 
 const name = 'calcUniques';
 
@@ -115,14 +115,14 @@ describe(name, () => {
 		describe(JSON.stringify(test.args), () => {
 			it('should not modify data passed to calcUniques()', () => {
 				const dataBeforeCall = test.args[0];
-				calcExtents(...test.args);
+				fn(...test.args);
 				const dataAfterCall = test.args[0];
 				assert.deepStrictEqual(dataBeforeCall, dataAfterCall);
 			});
 		});
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
-				const actual = calcExtents(...test.args);
+				const actual = fn(...test.args);
 				assert.deepStrictEqual(actual, test.expected);
 			});
 		});
@@ -131,7 +131,7 @@ describe(name, () => {
 	errorTests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should throw error ${test.expected}`, () => {
-				const actual = () => calcExtents(...test.args);
+				const actual = () => fn(...test.args);
 				assert.throws(actual, test.expected);
 			});
 		});

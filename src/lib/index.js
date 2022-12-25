@@ -10,3 +10,7 @@ export { default as flatten } from './lib/flatten.js';
 export { default as uniques } from './lib/uniques.js';
 export { default as calcExtents } from './lib/calcExtents.js';
 export { default as raise } from './lib/raise.js';
+export { default as takeEvery } from './lib/takeEvery.js';
+export { default as bin } from './lib/bin.js';
+export { default as stack } from './lib/stack.js';
+export { default as groupLonger } from './lib/groupLonger.js';

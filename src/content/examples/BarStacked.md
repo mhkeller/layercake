@@ -1,0 +1,1 @@
+Stacked bar chart using Layer Cake's [stack function](/guide#stack). Because this will create a nested data structure, we use LayerCake's `flatten` function to pass to the `flatData` prop. See the [server-side rendered example](/example-ssr/BarStacked) for the basic D3 function usage.

@@ -20,6 +20,14 @@ Here are the four layout components: HTML, Svg, ScaledSvg, Canvas and WebGL cont
   import { LayerCake, Html } from 'layercake';
 </script>
 
+<div class="chart-container">
+  <LayerCake ...>
+    <Html zIndex={1}> <!-- Optional z-index -->
+      ...
+    </Html>
+  </LayerCake>
+</div>
+
 <style>
   /*
   	The wrapper div needs to have an explicit width and height in CSS.
@@ -32,14 +40,6 @@ Here are the four layout components: HTML, Svg, ScaledSvg, Canvas and WebGL cont
     height: 300px;
   }
 </style>
-
-<div class="chart-container">
-  <LayerCake ...>
-    <Html zIndex={1}> <!-- Optional z-index -->
-      ...
-    </Html>
-  </LayerCake>
-</div>
 ```
 
 ### Svg
@@ -51,6 +51,13 @@ The SVG layout component also accepts a `viewBox` prop. See the [Layout componen
 <script>
   import { LayerCake, Svg } from 'layercake';
 </script>
+
+<div class="chart-container">
+  <LayerCake ...>
+    <Svg zIndex={2}> <!-- Optional z-index -->
+    </Svg>
+  </LayerCake>
+</div>
 
 <style>
   /*
@@ -64,13 +71,6 @@ The SVG layout component also accepts a `viewBox` prop. See the [Layout componen
     height: 300px;
   }
 </style>
-
-<div class="chart-container">
-  <LayerCake ...>
-    <Svg zIndex={2}> <!-- Optional z-index -->
-    </Svg>
-  </LayerCake>
-</div>
 ```
 
 This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field but due to [an issue with Svelte](https://github.com/sveltejs/svelte/issues/7807) sometimes adding SVG nodes as HTML elements, this may not work. As an alternative, you can also simply add a `<defs>` tag:
@@ -114,6 +114,16 @@ The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. 
   import { LayerCake, ScaledSvg } from 'layercake';
 </script>
 
+<div class="chart-container">
+  <LayerCake
+    ssr={true}
+    percentRange={true}
+  >
+    <ScaledSvg fixedAspectRatio={16/9}> <!-- Optional fixed aspect ratio -->
+    </ScaledSvg>
+  </LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -126,16 +136,6 @@ The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. 
     height: 300px;
   }
 </style>
-
-<div class="chart-container">
-  <LayerCake
-    ssr={true}
-    percentRange={true}
-  >
-    <ScaledSvg fixedAspectRatio={16/9}> <!-- Optional fixed aspect ratio -->
-    </ScaledSvg>
-  </LayerCake>
-</div>
 ```
 
 This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field. See [the Svg layout component section above](/guide#svg) for a note about how to use this and a workaround for a Svelte issue where elements are not always recognized.
@@ -150,6 +150,14 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
   import CanvasLayer from './components/CanvasLayer.svelte'
 </script>
 
+<div class="chart-container">
+  <LayerCake ...>
+    <Canvas zIndex={3}> <!-- Optional z-index -->
+      <CanvasLayer/>
+    </Canvas>
+  </LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -162,14 +170,6 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
     height: 300px;
   }
 </style>
-
-<div class="chart-container">
-  <LayerCake ...>
-    <Canvas zIndex={3}> <!-- Optional z-index -->
-      <CanvasLayer/>
-    </Canvas>
-  </LayerCake>
-</div>
 ```
 
 In the component, you access the canvas context with `const { ctx } = getContext('canvas');`. This value is on a different context from the `getContext('LayerCake')` one because you could have multiple canvas layers and there wouldn't be an easy way to grab the right one. This way, the component always has access to just its parent Canvas component.
@@ -222,6 +222,13 @@ Here's an example showing a scatter plot.
   import { LayerCake, WebGL } from 'layercake';
 </script>
 
+<div class="chart-container">
+  <LayerCake ...>
+    <WebGL zIndex={4}> <!-- Optional z-index -->
+    </WebGL>
+  </LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -234,13 +241,6 @@ Here's an example showing a scatter plot.
     height: 300px;
   }
 </style>
-
-<div class="chart-container">
-  <LayerCake ...>
-    <WebGL zIndex={4}> <!-- Optional z-index -->
-    </WebGL>
-  </LayerCake>
-</div>
 ```
 In the component, you access the canvas context with `const { gl } = getContext('gl');`. This value is on a different context from the `getContext('LayerCake')` one because you could have multiple WebGL layers and there wouldn't be an easy way to grab the right one.
 

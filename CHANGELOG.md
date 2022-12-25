@@ -1,11 +1,21 @@
 Changelog
 ===
 
+# 7.2.0
+
+> not yet on npm
+
+This release adds new functions: `bin`, `stack`, `groupLonger` and `takeEvery`. It also adds a new second argument to `flatten`.
+
+* [PR #95](https://github.com/mhkeller/layercake/pull/95)
+
 # 7.1.0
 
 > 2022-10-03
 
-Allow for all `nNice` props to take a number instead of just a boolean. [PR #101](https://github.com/mhkeller/layercake/pull/101) from [@techniq](https://github.com/techniq).
+Allow for all `nNice` props to take a number instead of just a boolean.
+
+* [PR #101](https://github.com/mhkeller/layercake/pull/101) from [@techniq](https://github.com/techniq).
 
 # 7.0.0
 

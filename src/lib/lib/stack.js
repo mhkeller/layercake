@@ -39,8 +39,8 @@ export default function stack(data, keys, {
 	order,
 	offset
 } = {}) {
-	if (typeof data === 'object') {
-		throw new TypeError('The first argument of stack() must be an array of data')
+	if (typeof data !== 'object') {
+		throw new TypeError('The first argument of stack() must be an array or data object')
 	}
 	if (!Array.isArray(keys)) {
 		throw new TypeError('The second argument of stack() must be an array of key names');

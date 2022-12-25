@@ -4,8 +4,6 @@ title: Transform components
 
 Layer Cake also provides one component (for now) that modifies your input data to produce fancier layouts.
 
-
-
 ### Facet
 
 The **Facet** transform component will segment your data into multiple groups and display those groups as separate charts in a small multiple format.

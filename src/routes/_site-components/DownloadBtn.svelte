@@ -30,6 +30,8 @@
 	async function download () {
 		downloading = true;
 
+		console.log('downloading');
+
 		const cacheBust = new Date().getTime();
 		const files = await (await window.fetch(`/svelte-app.json?${cacheBust}`)).json();
 		const depsLookup = await (await window.fetch(`/deps.json?${cacheBust}`)).json();
@@ -60,10 +62,10 @@
 		files.push(...data.csvs.map(mod => ({ path: `src/routes/${mod.title.replace('../', '')}`, data: mod.contents })));
 		files.push(...data.jsons.map(mod => ({ path: `src/routes/${mod.title.replace('../', '')}`, data: mod.contents })));
 		files.push({
-			path: `src/routes/index.svelte`,
+			path: `src/routes/+page.svelte`,
 			data: data.main.contents
 		});
-		console.log('here');
+		console.log('here', files);
 		const filteredFiles = uniques(files.filter(Boolean), 'path', false);
 		downloadBlob(toAuto(filteredFiles), `layercake-${ssr ? 'ssr-' : ''}${slug}.zip`);
 		downloading = false;

@@ -73,7 +73,7 @@ export async function get({ params }) {
 	const fromMain = cleanMain(example);
 
 	const main = {
-		title: 'index.svelte',
+		title: '+page.svelte',
 		contents: fromMain
 	};
 

@@ -10,7 +10,7 @@
 				props: {
 					slug: page.params.slug,
 					data,
-					active: 'index'
+					active: '+page'
 				}
 			};
 		} else {
@@ -44,7 +44,7 @@
 	export let data;
 
 
-	export let active = 'index';
+	export let active = '+page';
 
 	function markdownToHtml (text) {
 		return md.render(text);

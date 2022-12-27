@@ -1,6 +1,6 @@
 {
   "name": "layercake",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",

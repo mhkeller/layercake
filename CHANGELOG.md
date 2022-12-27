@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 7.2.1
+
+> 2022-12-26
+
+Add the `d3-shape` and `d3-array` as dependencies to handle new helper functions
+
+* [791107d3c7ffda5e8a56f4f12d3d9179a26c4ffb](https://github.com/mhkeller/layercake/commit/791107d3c7ffda5e8a56f4f12d3d9179a26c4ffb)
+
 # 7.2.0
 
 > 2022-12-23

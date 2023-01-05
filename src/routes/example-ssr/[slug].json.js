@@ -49,7 +49,7 @@ function getComponentPaths (example) {
 	return [];
 }
 
-export async function get({ params }) {
+export async function GET({ params }) {
 	// the `slug` parameter is available because
 	// this file is called [slug].json.js
 	const { slug } = params;

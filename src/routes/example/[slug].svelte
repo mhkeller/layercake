@@ -1,14 +1,14 @@
 <script context="module">
 	export const prerender = true;
-	export async function load({ page, fetch }) {
-		const url = `${page.params.slug}.json`;
+	export async function load({ fetch, params }) {
+		const url = `${params.slug}.json`;
 		const res = await fetch(url);
 		const data = await res.json();
 
 		if (res.status === 200) {
 			return {
 				props: {
-					slug: page.params.slug,
+					slug: params.slug,
 					data,
 					active: '+page'
 				}

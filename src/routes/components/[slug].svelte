@@ -1,9 +1,9 @@
 <script context="module">
 	export const prerender = true;
-	export async function load({ page, fetch }) {
+	export async function load({ fetch, params }) {
 		// the `slug` parameter is available because
 		// this file is called [slug].svelte
-		const { slug } = page.params;
+		const { slug } = params;
 		const url = `${slug}.json`;
 		const res = await fetch(url);
 		const data = await res.json();
@@ -15,12 +15,12 @@
 					data,
 					active: slug
 				}
-			}
+			};
 		} else {
 			return {
 				status: res.status,
 				error: new Error(`Could not load ${url}: ${data.message}`)
-			}
+			};
 		}
 	}
 </script>
@@ -47,29 +47,30 @@
 	export let data;
 	export let active = '';
 
-	function markdownToHtml (text) {
+	function markdownToHtml(text) {
 		return md.render(text);
 	}
 
-	function highlight (str, s) {
+	function highlight(str, s) {
 		const parts = s.split('.');
 		let ext = parts[parts.length - 1];
-		if (ext === 'csv') ext = 'diff'
+		if (ext === 'csv') ext = 'diff';
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [data.main]
-		.concat(data.modules);
+	$: pages = [data.main].concat(data.modules);
 
 	const lookup = new Map();
-	components.flatMap(d => d.components).forEach(d => {
-		lookup.set(d.slug, d);
-	});
+	components
+		.flatMap((d) => d.components)
+		.forEach((d) => {
+			lookup.set(d.slug, d);
+		});
 
 	$: component = lookup.get(slug);
 
 	function printTypes(type) {
-		const joinEls = els => els.map(d => `\`${d.name}\``).join(' &vert; ')
+		const joinEls = (els) => els.map((d) => `\`${d.name}\``).join(' &vert; ');
 		if (type.name) {
 			return `\`${type.name}\``;
 		}
@@ -99,16 +100,22 @@
 	const jsdocTableHeader = `|Param|Default|Required|Description|
 |-----|-------|--------|-----------|`;
 
-
 	let jsdocTableBody = '';
 	let jsdocTable = '';
 
 	if (data.hasjsDoctable === true) {
-		jsdocTableBody= `${data.jsdocParsed.tags.map(d => `**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(d.type)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`).join('\n')}`;
+		jsdocTableBody = `${data.jsdocParsed.tags
+			.map(
+				(d) =>
+					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(
+						d.type
+					)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`
+			)
+			.join('\n')}`;
 		jsdocTable = data.jsdocParsed.tags.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
 	}
 
-	function copyToClipboard () {
+	function copyToClipboard() {
 		const text = pages[0].contents;
 		if (window.clipboardData && window.clipboardData.setData) {
 			return window.clipboardData.setData('Text', text);
@@ -128,8 +135,77 @@
 			}
 		}
 	}
-
 </script>
+
+<svelte:head>
+	<title>{component.slug} component</title>
+</svelte:head>
+
+<div class="main">
+	<div class="all-components">
+		<a href="/components" sveltekit:prefetch>← View all components</a>
+	</div>
+	<h1>{component.slug} component</h1>
+
+	<div class="chart-hero">
+		<svelte:component this={component.component} />
+	</div>
+
+	<div class="download">
+		<DownloadComponentBtn {data} {slug} />
+	</div>
+
+	<div class="dek">
+		{@html markdownToHtml(data.componentDescription)}
+	</div>
+	{#if data.hasjsDoctable === true}
+		<div id="params-table">
+			{@html markdownToHtml(jsdocTable)}
+		</div>
+	{/if}
+	<div id="used-in">
+		{#if data.usedIn[0].matches.length > 0 || data.usedIn[1].matches.length > 0}
+			<h3>
+				Used in these{data.usedIn[0].matches.length === 0 && data.usedIn[1].matches.length > 0
+					? ' SSR'
+					: ''} examples:
+			</h3>
+			{#each data.usedIn as group}
+				{#if group.matches.length > 0}
+					{#if group.group === 'SSR' && data.usedIn[0].matches.length > 0}
+						<h3>SSR Examples:</h3>
+					{/if}
+					<ul>
+						{#each group.matches as link}
+							<li><a href={link} sveltekit:prefetch>{link.split('/').pop()}</a></li>
+						{/each}
+					</ul>
+				{/if}
+			{/each}
+		{/if}
+	</div>
+
+	<div id="pages" class={data.dek ? 'has-dek' : ''}>
+		<ul id="page-nav">
+			{#each pages as page}
+				<li
+					class="tab {active === page.slug ? 'active' : ''}"
+					on:click={() => (active = page.slug)}
+				>
+					{page.slug}
+				</li>
+			{/each}
+		</ul>
+		<div id="contents-container">
+			<div class="copy" on:click={copyToClipboard} />
+			{#each pages as page}
+				<div class="contents" style="display: {active === page.slug ? 'block' : 'none'};">
+					<pre>{@html highlight(page.contents, page.slug)}</pre>
+				</div>
+			{/each}
+		</div>
+	</div>
+</div>
 
 <style>
 	.main {
@@ -354,71 +430,3 @@
 		}
 	}
 </style>
-
-<svelte:head>
-	<title>{component.slug} component</title>
-</svelte:head>
-
-<div class="main">
-	<div class="all-components"><a href="/components" sveltekit:prefetch>← View all components</a></div>
-	<h1>{component.slug} component</h1>
-
-	<div class="chart-hero">
-		<svelte:component this={component.component} />
-	</div>
-
-	<div class="download">
-		<DownloadComponentBtn
-			{data}
-			{slug}
-		/>
-	</div>
-
-	<div class="dek">
-		{@html markdownToHtml(data.componentDescription)}
-	</div>
-	{#if data.hasjsDoctable === true}
-		<div id="params-table">
-			{@html markdownToHtml(jsdocTable)}
-		</div>
-	{/if}
-	<div id="used-in">
-		{#if data.usedIn[0].matches.length > 0 || data.usedIn[1].matches.length > 0 }
-			<h3>Used in these{data.usedIn[0].matches.length === 0 && data.usedIn[1].matches.length > 0 ? ' SSR' : ''} examples:</h3>
-			{#each data.usedIn as group}
-				{#if group.matches.length > 0}
-					{#if group.group === 'SSR' && data.usedIn[0].matches.length > 0}
-						<h3>SSR Examples:</h3>
-					{/if}
-					<ul>
-						{#each group.matches as link}
-							<li><a href="{link}" sveltekit:prefetch>{link.split('/').pop()}</a></li>
-						{/each}
-					</ul>
-				{/if}
-			{/each}
-		{/if}
-	</div>
-
-	<div id="pages" class="{data.dek ? 'has-dek' : ''}">
-		<ul id="page-nav">
-			{#each pages as page}
-				<li
-					class="tab {active === page.slug ? 'active' : ''}"
-					on:click="{() => active = page.slug}"
-				>{page.slug}</li>
-			{/each}
-		</ul>
-		<div id="contents-container">
-			<div
-				class="copy"
-				on:click={copyToClipboard}
-			></div>
-			{#each pages as page}
-				<div class="contents" style="display: {active === page.slug ? 'block' : 'none'};">
-					<pre>{@html highlight(page.contents, page.slug)}</pre>
-				</div>
-			{/each}
-		</div>
-	</div>
-</div>

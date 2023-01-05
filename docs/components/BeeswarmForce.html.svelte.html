@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Layer Cake" />
+		<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+		<meta name='theme-color' content='#ff3e00'>
+
+		<link rel='icon' type='image/png' href='/layercake-logo-100.png'>
+
+		<meta property="og:site_name" content="https://layercake.graphics" />
+		<meta property="og:type" content="article" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<meta property="og:image" content="https://layercake.graphics/layercake-logo-1200.png" />
+		<meta property="og:description" content="A framework for mostly-reusable graphics with svelte" />
+		<meta name="description" content="A framework for mostly-reusable graphics with svelte">
+		<meta name="keywords" content="layercake, graphics, svelte, graphics framework, svelte graphics framework, data viz, data visualization, reusable, mostly-reusable" />
+		<meta property="og:url" content="https://layercake.graphics" />
+		<link rel="shortcut icon" type="image/png" href="https://layercake.graphics/favicon.png">
+
+		<meta name="twitter:site" content="https://layercake.graphics" />
+		<meta name="twitter:image" content="https://layercake.graphics/layercake-logo-1200.png">
+
+		<meta http-equiv="content-security-policy" content=""><title>BeeswarmForce.html.svelte component</title><!-- HEAD_svelte-1675z5z_START --><!-- HEAD_svelte-1675z5z_END -->
+	<link href="/_app/immutable/assets/__layout-0f95b919.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/GuideContents-48e964f9.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/_examples-d786b0c9.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/Brush-6c1d38e0.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/dots-ef082192.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/_examples_ssr-a57e5701.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/ClevelandDotPlot.percent-range-cce3ebed.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/_slug_-efaed1a8.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/_components-4402b009.css" rel="stylesheet">
+	<link rel="modulepreload" href="/_app/immutable/start-499274cb.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-ce1a03b6.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-eae88fad.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/singletons-eca981c1.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-7f65198e.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/GuideContents-58cef88b.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/_examples-c7478354.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/Brush.html-7c1bd33d.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/dots-c2530e0c.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/pointsFour-0a0dc1f2.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/_examples_ssr-9d9bb68f.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/ClevelandDotPlot.percent-range.html-b12fbca6.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/components/_slug_.svelte-296d0164.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/downloadBlob-3de9aae7.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/hljsDefineSvelte-22ce01cd.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/_components-33d6037e.js">
+	</head>
+	<body>
+		<div id="svelte">
+
+
+<div class="closed mousecatcher svelte-6iinyn"></div>
+<div class="container svelte-6iinyn"><span class="menu-link menu-closed svelte-6iinyn">Menu</span>
+	<a href="/" sveltekit:prefetch class="logo svelte-6iinyn">Layer Cake</a></div>
+
+<ul class="dropdown svelte-6iinyn"><li class="svelte-6iinyn">
+		<select class="svelte-6iinyn"><option value="/components/BeeswarmForce.html.svelte" disabled>Select...</option><option value="/">All</option><option class="header svelte-6iinyn" disabled value=""></option><option class="header svelte-6iinyn" disabled value="Client-side">Client-side</option><option value="/example/Bar">Bar</option><option value="/example/Beeswarm">Beeswarm</option><option value="/example/BeeswarmForce">Beeswarm, force layout</option><option value="/example/Brush">Brush</option><option value="/example/Calendar">Calendar</option><option value="/example/CirclePack">Circle pack</option><option value="/example/CirclePackForce">Circle pack, force layout</option><option value="/example/ClevelandDotPlot">Cleveland dot plot</option><option value="/example/Column">Column annotated</option><option value="/example/Histogram">Histogram</option><option value="/example/Line">Line + area</option><option value="/example/MapSvg">Map</option><option value="/example/MapLayered">Multilayer map</option><option value="/example/MultiLine">Multiline</option><option value="/example/CirclePackNested">Nested circle pack</option><option value="/example/Radar">Radar chart</option><option value="/example/Sankey">Sankey</option><option value="/example/Scatter">Scatter</option><option value="/example/SmallMultiples">Small multiples</option><option value="/example/AreaStacked">Stacked area</option><option value="/example/BarStacked">Stacked bar</option><option value="/example/ColumnStacked">Stacked column</option><option value="/example/SyncedBrush">Synced brush</option><option value="/example/Timeplot">Time of day plot</option><option value="/example/ScatterWebgl">WebGL Scatter</option><option class="header svelte-6iinyn" disabled value=""></option><option class="header svelte-6iinyn" disabled value="Server-side">Server-side</option><option value="/example-ssr/Bar">Bar</option><option value="/example-ssr/Brush">Brush</option><option value="/example-ssr/Calendar">Calendar</option><option value="/example-ssr/ClevelandDotPlot">Cleveland dot plot</option><option value="/example-ssr/Column">Column annotated</option><option value="/example-ssr/Histogram">Histogram</option><option value="/example-ssr/Line">Line + area</option><option value="/example-ssr/MapSvg">Map</option><option value="/example-ssr/MapLayered">Multilayer map</option><option value="/example-ssr/MultiLine">Multiline</option><option value="/example-ssr/Scatter">Scatter</option><option value="/example-ssr/SmallMultiples">Small multiples</option><option value="/example-ssr/AreaStacked">Stacked area</option><option value="/example-ssr/BarStacked">Stacked bar</option><option value="/example-ssr/ColumnStacked">Stacked column</option><option value="/example-ssr/SyncedBrush">Synced brush</option><option value="/example-ssr/Timeplot">Time of day plot</option><option value="/example-ssr/ScatterWebgl">WebGL Scatter</option></select></li></ul>
+
+<nav class="closed svelte-6iinyn"><ul class="primary svelte-6iinyn"><li class="svelte-6iinyn"><a sveltekit:prefetch class=" svelte-6iinyn" href="/components"><span class="wide-name svelte-6iinyn">Component gallery</span><span class="short-name svelte-6iinyn">Components</span></a></li>
+		<li class="svelte-6iinyn"><a sveltekit:prefetch class=" svelte-6iinyn" href="/guide">Guide</a></li>
+		<li class="svelte-6iinyn"><a id="github-link" target="_blank" rel="nofollow" href="https://github.com/mhkeller/layercake" class="svelte-6iinyn"></a></li></ul>
+
+	<div class="secondary svelte-6iinyn"><ul class="guide-toc svelte-7hddv0"><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#introduction">Introduction</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#what-is-layer-cake">What is Layer Cake?</a><a class="subsection  svelte-7hddv0" href="/guide#key-concepts">Key Concepts</a><a class="subsection  svelte-7hddv0" href="/guide#getting-started">Getting started</a><a class="subsection  svelte-7hddv0" href="/guide#using-layout-components">Using layout components</a><a class="subsection  svelte-7hddv0" href="/guide#layer-components">Layer components</a><a class="subsection  svelte-7hddv0" href="/guide#data-less-cakes">Data-less cakes</a><a class="subsection  svelte-7hddv0" href="/guide#server-side-rendering">Server-side rendering</a><a class="subsection  svelte-7hddv0" href="/guide#how-does-layercake-know-what-to-set-as-a-scale39s-domain-and-range">How does LayerCake know what to set as a scale's domain and range?</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#troubleshooting">Troubleshooting</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#the-chart-is-blank">The chart is blank</a><a class="subsection  svelte-7hddv0" href="/guide#the-chart-is-a-very-small-square">The chart is a very small square</a><a class="subsection  svelte-7hddv0" href="/guide#the-library-isn39t-building-properly">The library isn't building properly</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#layercake-props">LayerCake props</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#data">data</a><a class="subsection  svelte-7hddv0" href="/guide#x">x</a><a class="subsection  svelte-7hddv0" href="/guide#y">y</a><a class="subsection  svelte-7hddv0" href="/guide#z">z</a><a class="subsection  svelte-7hddv0" href="/guide#r">r</a><a class="subsection  svelte-7hddv0" href="/guide#padding">padding</a><a class="subsection  svelte-7hddv0" href="/guide#xscale">xScale</a><a class="subsection  svelte-7hddv0" href="/guide#yscale">yScale</a><a class="subsection  svelte-7hddv0" href="/guide#zscale">zScale</a><a class="subsection  svelte-7hddv0" href="/guide#rscale">rScale</a><a class="subsection  svelte-7hddv0" href="/guide#xdomain">xDomain</a><a class="subsection  svelte-7hddv0" href="/guide#ydomain">yDomain</a><a class="subsection  svelte-7hddv0" href="/guide#zdomain">zDomain</a><a class="subsection  svelte-7hddv0" href="/guide#rdomain">rDomain</a><a class="subsection  svelte-7hddv0" href="/guide#xreverse">xReverse</a><a class="subsection  svelte-7hddv0" href="/guide#yreverse">yReverse</a><a class="subsection  svelte-7hddv0" href="/guide#zreverse">zReverse</a><a class="subsection  svelte-7hddv0" href="/guide#rreverse">rReverse</a><a class="subsection  svelte-7hddv0" href="/guide#xrange">xRange</a><a class="subsection  svelte-7hddv0" href="/guide#yrange">yRange</a><a class="subsection  svelte-7hddv0" href="/guide#zrange">zRange</a><a class="subsection  svelte-7hddv0" href="/guide#rrange">rRange</a><a class="subsection  svelte-7hddv0" href="/guide#xpadding">xPadding</a><a class="subsection  svelte-7hddv0" href="/guide#ypadding">yPadding</a><a class="subsection  svelte-7hddv0" href="/guide#zpadding">zPadding</a><a class="subsection  svelte-7hddv0" href="/guide#rpadding">rPadding</a><a class="subsection  svelte-7hddv0" href="/guide#xnice">xNice</a><a class="subsection  svelte-7hddv0" href="/guide#ynice">yNice</a><a class="subsection  svelte-7hddv0" href="/guide#znice">zNice</a><a class="subsection  svelte-7hddv0" href="/guide#rnice">rNice</a><a class="subsection  svelte-7hddv0" href="/guide#extents">extents</a><a class="subsection  svelte-7hddv0" href="/guide#flatdata">flatData</a><a class="subsection  svelte-7hddv0" href="/guide#ssr">ssr</a><a class="subsection  svelte-7hddv0" href="/guide#percentrange">percentRange</a><a class="subsection  svelte-7hddv0" href="/guide#position">position</a><a class="subsection  svelte-7hddv0" href="/guide#custom">custom</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#computed-context-values">Computed context values</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#activegetters">activeGetters</a><a class="subsection  svelte-7hddv0" href="/guide#aspectratio">aspectRatio</a><a class="subsection  svelte-7hddv0" href="/guide#box">box</a><a class="subsection  svelte-7hddv0" href="/guide#config">config</a><a class="subsection  svelte-7hddv0" href="/guide#containerwidth">containerWidth</a><a class="subsection  svelte-7hddv0" href="/guide#containerheight">containerHeight</a><a class="subsection  svelte-7hddv0" href="/guide#extents-1">extents</a><a class="subsection  svelte-7hddv0" href="/guide#width">width</a><a class="subsection  svelte-7hddv0" href="/guide#height">height</a><a class="subsection  svelte-7hddv0" href="/guide#x-1">x</a><a class="subsection  svelte-7hddv0" href="/guide#y-1">y</a><a class="subsection  svelte-7hddv0" href="/guide#z-1">z</a><a class="subsection  svelte-7hddv0" href="/guide#r-1">r</a><a class="subsection  svelte-7hddv0" href="/guide#xdomain-1">xDomain</a><a class="subsection  svelte-7hddv0" href="/guide#ydomain-1">yDomain</a><a class="subsection  svelte-7hddv0" href="/guide#zdomain-1">zDomain</a><a class="subsection  svelte-7hddv0" href="/guide#rdomain-1">rDomain</a><a class="subsection  svelte-7hddv0" href="/guide#xrange-1">xRange</a><a class="subsection  svelte-7hddv0" href="/guide#yrange-1">yRange</a><a class="subsection  svelte-7hddv0" href="/guide#zrange-1">zRange</a><a class="subsection  svelte-7hddv0" href="/guide#rrange-1">rRange</a><a class="subsection  svelte-7hddv0" href="/guide#xget">xGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#yget">yGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#zget">zGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#rget">rGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#xscale-1">xScale(...)</a><a class="subsection  svelte-7hddv0" href="/guide#yscale-1">yScale(...)</a><a class="subsection  svelte-7hddv0" href="/guide#zscale-1">zScale(...)</a><a class="subsection  svelte-7hddv0" href="/guide#rscale-1">rScale(...)</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#layout-components">Layout components</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#html">Html</a><a class="subsection  svelte-7hddv0" href="/guide#svg">Svg</a><a class="subsection  svelte-7hddv0" href="/guide#scaledsvg">ScaledSvg</a><a class="subsection  svelte-7hddv0" href="/guide#canvas">Canvas</a><a class="subsection  svelte-7hddv0" href="/guide#webgl">WebGL</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#layout-component-props">Layout component props</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#zindex">zIndex</a><a class="subsection  svelte-7hddv0" href="/guide#pointerevents">pointerEvents</a><a class="subsection  svelte-7hddv0" href="/guide#viewbox">viewBox</a><a class="subsection  svelte-7hddv0" href="/guide#fixedaspectratio">fixedAspectRatio</a><a class="subsection  svelte-7hddv0" href="/guide#contextattributes">contextAttributes</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#helper-functions">Helper functions</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#bin">bin(...)</a><a class="subsection  svelte-7hddv0" href="/guide#calcextents">calcExtents(...)</a><a class="subsection  svelte-7hddv0" href="/guide#calcuniques">calcUniques(...)</a><a class="subsection  svelte-7hddv0" href="/guide#flatten">flatten(...)</a><a class="subsection  svelte-7hddv0" href="/guide#grouplonger">groupLonger(...)</a><a class="subsection  svelte-7hddv0" href="/guide#raise">raise(...)</a><a class="subsection  svelte-7hddv0" href="/guide#scalecanvas">scaleCanvas(...)</a><a class="subsection  svelte-7hddv0" href="/guide#stack">stack(...)</a><a class="subsection  svelte-7hddv0" href="/guide#uniques">uniques(...)</a>
+		</li></ul></div></nav>
+<main>
+
+<div class="main svelte-2w8zgn"><div class="all-components svelte-2w8zgn"><a href="/components" sveltekit:prefetch class="svelte-2w8zgn">← View all components</a></div>
+	<h1 class="svelte-2w8zgn">BeeswarmForce.html.svelte component</h1>
+
+	<div class="chart-hero svelte-2w8zgn"><div class="chart-container svelte-xrhe6m">
+
+
+</div></div>
+
+	<div class="download svelte-2w8zgn"><button  title="download zip file" class="icon svelte-1gef78k" style="background-image: url(/icons/download.svg)">Download      </button></div>
+
+	<div class="dek svelte-2w8zgn"><!-- HTML_TAG_START --><p>Generates an HTML Beeswarm chart using a <a href="https://github.com/d3/d3-force">d3-force simulation</a>.</p>
+<!-- HTML_TAG_END --></div>
+	<div id="params-table" class="svelte-2w8zgn"><!-- HTML_TAG_START --><table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>r</strong> <code>Number</code></td>
+<td><code>4</code></td>
+<td><center>no</center></td>
+<td>The circle radius size in pixels.</td>
+</tr>
+<tr>
+<td><strong>strokeWidth</strong> <code>Number</code></td>
+<td><code>0.5</code></td>
+<td><center>no</center></td>
+<td>The circle's stroke width in pixels.</td>
+</tr>
+<tr>
+<td><strong>stroke</strong> <code>String</code></td>
+<td><code>'#fff'</code></td>
+<td><center>no</center></td>
+<td>The circle's stroke color.</td>
+</tr>
+<tr>
+<td><strong>xStrength</strong> <code>Number</code></td>
+<td><code>0.95</code></td>
+<td><center>no</center></td>
+<td>The value passed into the <code>.strength</code> method on <code>forceX</code>, which is used as the <code>'x'</code> property on the simulation. See <a href="https://github.com/d3/d3-force#x_strength">the documentation</a> for more.</td>
+</tr>
+<tr>
+<td><strong>yStrength</strong> <code>Number</code></td>
+<td><code>0.075</code></td>
+<td><center>no</center></td>
+<td>The value passed into the <code>.strength</code> method on <code>forceY</code>, which is used as the <code>'y'</code> property on the simulation. See <a href="https://github.com/d3/d3-force#y_strength">the documentation</a> for more.</td>
+</tr>
+<tr>
+<td><strong>getTitle</strong> <code>Function</code></td>
+<td>None</td>
+<td><center>no</center></td>
+<td>An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.</td>
+</tr>
+</tbody>
+</table>
+<!-- HTML_TAG_END --></div>
+	<div id="used-in" class="svelte-2w8zgn"></div>
+
+	<div id="pages" class=" svelte-2w8zgn"><ul id="page-nav" class="svelte-2w8zgn"><li class="tab active svelte-2w8zgn">BeeswarmForce.html.svelte
+				</li></ul>
+		<div id="contents-container" class="svelte-2w8zgn"><div class="copy svelte-2w8zgn"></div>
+			<div class="contents" style="display: block;"><pre class="svelte-2w8zgn"><!-- HTML_TAG_START --><span class="hljs-comment">&lt;!--
+  @component
+  Generates an HTML Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
+ --&gt;</span><span class="language-xml">
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><span class="language-javascript">
+  <span class="hljs-keyword">import</span> { getContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;svelte&#x27;</span>;
+  <span class="hljs-keyword">import</span> { forceSimulation, forceX, forceY, forceCollide } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;d3-force&#x27;</span>;
+
+  <span class="hljs-keyword">const</span> { data, xGet, height, zGet } = <span class="hljs-title function_">getContext</span>(<span class="hljs-string">&#x27;LayerCake&#x27;</span>);
+
+  <span class="hljs-keyword">const</span> nodes = $data.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> ({ ...d }));
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">Number</span>} [r=4] - The circle radius size in pixels. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> r = <span class="hljs-number">4</span>;
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">Number</span>} [strokeWidth=0.5] - The circle&#x27;s stroke width in pixels. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> strokeWidth = <span class="hljs-number">0.5</span>;
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">String</span>} [stroke=&#x27;#fff&#x27;] - The circle&#x27;s stroke color. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> stroke = <span class="hljs-string">&#x27;#fff&#x27;</span>;
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">Number</span>} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`, which is used as the `&#x27;x&#x27;` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> xStrength = <span class="hljs-number">0.95</span>;
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">Number</span>} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`, which is used as the `&#x27;y&#x27;` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> yStrength = <span class="hljs-number">0.075</span>;
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">Function</span>} [getTitle] — An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> getTitle = <span class="hljs-literal">undefined</span>;
+</span><span class="hljs-keyword">
+  $: </span><span class="language-javascript">simulation = <span class="hljs-title function_">forceSimulation</span>(nodes)
+    .<span class="hljs-title function_">force</span>(<span class="hljs-string">&#x27;x&#x27;</span>, <span class="hljs-title function_">forceX</span>().<span class="hljs-title function_">x</span>(<span class="hljs-function"><span class="hljs-params">d</span> =&gt;</span> $xGet(d)).<span class="hljs-title function_">strength</span>(xStrength))
+    .<span class="hljs-title function_">force</span>(<span class="hljs-string">&#x27;y&#x27;</span>, <span class="hljs-title function_">forceY</span>().<span class="hljs-title function_">y</span>($height / <span class="hljs-number">2</span>).<span class="hljs-title function_">strength</span>(yStrength))
+    .<span class="hljs-title function_">force</span>(<span class="hljs-string">&#x27;collide&#x27;</span>, <span class="hljs-title function_">forceCollide</span>(r + strokeWidth / <span class="hljs-number">2</span>))
+    .<span class="hljs-title function_">stop</span>();
+</span><span class="hljs-keyword">
+  $: </span><span class="language-javascript">{
+    <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>,
+      n = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">ceil</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">log</span>(simulation.<span class="hljs-title function_">alphaMin</span>()) / <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span> - simulation.<span class="hljs-title function_">alphaDecay</span>()));
+      i &lt; n;
+      ++i ) {
+      simulation.<span class="hljs-title function_">tick</span>();
+    }
+  }
+</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;bee-group&#x27;</span>&gt;</span>
+  </span><span class="language-javascript">{</span><span class="hljs-keyword">#each</span><span class="language-javascript"> simulation.<span class="hljs-title function_">nodes</span>() <span class="hljs-keyword">as</span> node}</span><span class="language-xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+      <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;bee&#x27;</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">&#x27;
+        left:</span></span></span><span class="language-javascript">{node.<span class="hljs-property">x</span>}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">px;
+        top: </span></span></span><span class="language-javascript">{node.<span class="hljs-property">y</span>}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">px;
+        width: </span></span></span><span class="language-javascript">{r * <span class="hljs-number">2</span>}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">px;
+        height: </span></span></span><span class="language-javascript">{r * <span class="hljs-number">2</span>}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">px;
+        background: </span></span></span><span class="language-javascript">{$zGet(node)}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">;
+        border-width: </span></span></span><span class="language-javascript">{strokeWidth}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">px;
+        border-color: </span></span></span><span class="language-javascript">{stroke}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">;
+        &#x27;</span>
+    &gt;</span>
+      </span><span class="language-javascript">{</span><span class="hljs-keyword">#if</span><span class="language-javascript"> getTitle}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span></span><span class="language-javascript">{<span class="hljs-title function_">getTitle</span>(node)}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      </span><span class="language-javascript">{</span><span class="hljs-keyword">/if</span><span class="language-javascript">}</span><span class="language-xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  </span><span class="language-javascript">{</span><span class="hljs-keyword">/each</span><span class="language-javascript">}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span></span><span class="language-css">
+  <span class="hljs-selector-class">.bee</span> {
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">border-style</span>: solid;
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
+    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(-<span class="hljs-number">50%</span>, -<span class="hljs-number">50%</span>);
+  }
+  <span class="hljs-selector-class">.title</span> {
+    <span class="hljs-attribute">display</span>: none;
+    <span class="hljs-attribute">white-space</span>: nowrap;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">3px</span>;
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">3px</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">pointer-events</span>: none;
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">top</span>: -<span class="hljs-number">15px</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">z-index</span>: <span class="hljs-number">9999</span>;
+  }
+  <span class="hljs-selector-class">.bee</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-class">.title</span> {
+    <span class="hljs-attribute">display</span>: block
+  }
+</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><!-- HTML_TAG_END --></pre>
+				</div></div></div>
+</div></main>
+
+
+		<script type="module" data-sveltekit-hydrate="1cfu78o">
+		import { set_public_env, start } from "/_app/immutable/start-499274cb.js";
+
+		set_public_env({});
+
+		start({
+			target: document.querySelector('[data-sveltekit-hydrate="1cfu78o"]').parentNode,
+			paths: {"base":"","assets":""},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [0, 2],
+				params: {slug:"BeeswarmForce.html.svelte"},
+				routeId: "components/[slug]"
+			}
+		});
+	</script><script type="application/json" sveltekit:data-type="data" sveltekit:data-url="/api/guide-sections.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"html\":null,\"metadata\":{\"title\":\"Introduction\"},\"subsections\":[{\"slug\":\"what-is-layer-cake\",\"title\":\"What is Layer Cake?\"},{\"slug\":\"key-concepts\",\"title\":\"Key Concepts\"},{\"slug\":\"getting-started\",\"title\":\"Getting started\"},{\"slug\":\"using-layout-components\",\"title\":\"Using layout components\"},{\"slug\":\"layer-components\",\"title\":\"Layer components\"},{\"slug\":\"data-less-cakes\",\"title\":\"Data-less cakes\"},{\"slug\":\"server-side-rendering\",\"title\":\"Server-side rendering\"},{\"slug\":\"how-does-layercake-know-what-to-set-as-a-scale39s-domain-and-range\",\"title\":\"How does LayerCake know what to set as a scale's domain and range?\"}],\"slug\":\"introduction\",\"file\":\"00-introduction.md\"},{\"html\":null,\"metadata\":{\"title\":\"Troubleshooting\"},\"subsections\":[{\"slug\":\"the-chart-is-blank\",\"title\":\"The chart is blank\"},{\"slug\":\"the-chart-is-a-very-small-square\",\"title\":\"The chart is a very small square\"},{\"slug\":\"the-library-isn39t-building-properly\",\"title\":\"The library isn't building properly\"}],\"slug\":\"troubleshooting\",\"file\":\"01-troubleshooting.md\"},{\"html\":null,\"metadata\":{\"title\":\"LayerCake props\"},\"subsections\":[{\"slug\":\"data\",\"title\":\"data\"},{\"slug\":\"x\",\"title\":\"x\"},{\"slug\":\"y\",\"title\":\"y\"},{\"slug\":\"z\",\"title\":\"z\"},{\"slug\":\"r\",\"title\":\"r\"},{\"slug\":\"padding\",\"title\":\"padding\"},{\"slug\":\"xscale\",\"title\":\"xScale\"},{\"slug\":\"yscale\",\"title\":\"yScale\"},{\"slug\":\"zscale\",\"title\":\"zScale\"},{\"slug\":\"rscale\",\"title\":\"rScale\"},{\"slug\":\"xdomain\",\"title\":\"xDomain\"},{\"slug\":\"ydomain\",\"title\":\"yDomain\"},{\"slug\":\"zdomain\",\"title\":\"zDomain\"},{\"slug\":\"rdomain\",\"title\":\"rDomain\"},{\"slug\":\"xreverse\",\"title\":\"xReverse\"},{\"slug\":\"yreverse\",\"title\":\"yReverse\"},{\"slug\":\"zreverse\",\"title\":\"zReverse\"},{\"slug\":\"rreverse\",\"title\":\"rReverse\"},{\"slug\":\"xrange\",\"title\":\"xRange\"},{\"slug\":\"yrange\",\"title\":\"yRange\"},{\"slug\":\"zrange\",\"title\":\"zRange\"},{\"slug\":\"rrange\",\"title\":\"rRange\"},{\"slug\":\"xpadding\",\"title\":\"xPadding\"},{\"slug\":\"ypadding\",\"title\":\"yPadding\"},{\"slug\":\"zpadding\",\"title\":\"zPadding\"},{\"slug\":\"rpadding\",\"title\":\"rPadding\"},{\"slug\":\"xnice\",\"title\":\"xNice\"},{\"slug\":\"ynice\",\"title\":\"yNice\"},{\"slug\":\"znice\",\"title\":\"zNice\"},{\"slug\":\"rnice\",\"title\":\"rNice\"},{\"slug\":\"extents\",\"title\":\"extents\"},{\"slug\":\"flatdata\",\"title\":\"flatData\"},{\"slug\":\"ssr\",\"title\":\"ssr\"},{\"slug\":\"percentrange\",\"title\":\"percentRange\"},{\"slug\":\"position\",\"title\":\"position\"},{\"slug\":\"custom\",\"title\":\"custom\"}],\"slug\":\"layercake-props\",\"file\":\"02-layercake-props.md\"},{\"html\":null,\"metadata\":{\"title\":\"Computed context values\"},\"subsections\":[{\"slug\":\"activegetters\",\"title\":\"activeGetters\"},{\"slug\":\"aspectratio\",\"title\":\"aspectRatio\"},{\"slug\":\"box\",\"title\":\"box\"},{\"slug\":\"config\",\"title\":\"config\"},{\"slug\":\"containerwidth\",\"title\":\"containerWidth\"},{\"slug\":\"containerheight\",\"title\":\"containerHeight\"},{\"slug\":\"extents-1\",\"title\":\"extents\"},{\"slug\":\"width\",\"title\":\"width\"},{\"slug\":\"height\",\"title\":\"height\"},{\"slug\":\"x-1\",\"title\":\"x\"},{\"slug\":\"y-1\",\"title\":\"y\"},{\"slug\":\"z-1\",\"title\":\"z\"},{\"slug\":\"r-1\",\"title\":\"r\"},{\"slug\":\"xdomain-1\",\"title\":\"xDomain\"},{\"slug\":\"ydomain-1\",\"title\":\"yDomain\"},{\"slug\":\"zdomain-1\",\"title\":\"zDomain\"},{\"slug\":\"rdomain-1\",\"title\":\"rDomain\"},{\"slug\":\"xrange-1\",\"title\":\"xRange\"},{\"slug\":\"yrange-1\",\"title\":\"yRange\"},{\"slug\":\"zrange-1\",\"title\":\"zRange\"},{\"slug\":\"rrange-1\",\"title\":\"rRange\"},{\"slug\":\"xget\",\"title\":\"xGet(...)\"},{\"slug\":\"yget\",\"title\":\"yGet(...)\"},{\"slug\":\"zget\",\"title\":\"zGet(...)\"},{\"slug\":\"rget\",\"title\":\"rGet(...)\"},{\"slug\":\"xscale-1\",\"title\":\"xScale(...)\"},{\"slug\":\"yscale-1\",\"title\":\"yScale(...)\"},{\"slug\":\"zscale-1\",\"title\":\"zScale(...)\"},{\"slug\":\"rscale-1\",\"title\":\"rScale(...)\"}],\"slug\":\"computed-context-values\",\"file\":\"03-computed-context-values.md\"},{\"html\":null,\"metadata\":{\"title\":\"Layout components\"},\"subsections\":[{\"slug\":\"html\",\"title\":\"Html\"},{\"slug\":\"svg\",\"title\":\"Svg\"},{\"slug\":\"scaledsvg\",\"title\":\"ScaledSvg\"},{\"slug\":\"canvas\",\"title\":\"Canvas\"},{\"slug\":\"webgl\",\"title\":\"WebGL\"}],\"slug\":\"layout-components\",\"file\":\"04-layout-components.md\"},{\"html\":null,\"metadata\":{\"title\":\"Layout component props\"},\"subsections\":[{\"slug\":\"zindex\",\"title\":\"zIndex\"},{\"slug\":\"pointerevents\",\"title\":\"pointerEvents\"},{\"slug\":\"viewbox\",\"title\":\"viewBox\"},{\"slug\":\"fixedaspectratio\",\"title\":\"fixedAspectRatio\"},{\"slug\":\"contextattributes\",\"title\":\"contextAttributes\"}],\"slug\":\"layout-component-props\",\"file\":\"05-layout-component-props.md\"},{\"html\":null,\"metadata\":{\"title\":\"Helper functions\"},\"subsections\":[{\"slug\":\"bin\",\"title\":\"bin(...)\"},{\"slug\":\"calcextents\",\"title\":\"calcExtents(...)\"},{\"slug\":\"calcuniques\",\"title\":\"calcUniques(...)\"},{\"slug\":\"flatten\",\"title\":\"flatten(...)\"},{\"slug\":\"grouplonger\",\"title\":\"groupLonger(...)\"},{\"slug\":\"raise\",\"title\":\"raise(...)\"},{\"slug\":\"scalecanvas\",\"title\":\"scaleCanvas(...)\"},{\"slug\":\"stack\",\"title\":\"stack(...)\"},{\"slug\":\"uniques\",\"title\":\"uniques(...)\"}],\"slug\":\"helper-functions\",\"file\":\"99-helper-functions.md\"}]"}</script>
+	<script type="application/json" sveltekit:data-type="data" sveltekit:data-url="BeeswarmForce.html.svelte.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"main\":{\"slug\":\"BeeswarmForce.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an HTML Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';\\n\\n  const { data, xGet, height, zGet } = getContext('LayerCake');\\n\\n  const nodes = $data.map((d) => ({ ...d }));\\n\\n  /** @type {Number} [r=4] - The circle radius size in pixels. */\\n  export let r = 4;\\n\\n  /** @type {Number} [strokeWidth=0.5] - The circle's stroke width in pixels. */\\n  export let strokeWidth = 0.5;\\n\\n  /** @type {String} [stroke='#fff'] - The circle's stroke color. */\\n  export let stroke = '#fff';\\n\\n  /** @type {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */\\n  export let xStrength = 0.95;\\n\\n  /** @type {Number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more. */\\n  export let yStrength = 0.075;\\n\\n  /** @type {Function} [getTitle] — An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production. */\\n  export let getTitle = undefined;\\n\\n  $: simulation = forceSimulation(nodes)\\n    .force('x', forceX().x(d => $xGet(d)).strength(xStrength))\\n    .force('y', forceY().y($height / 2).strength(yStrength))\\n    .force('collide', forceCollide(r + strokeWidth / 2))\\n    .stop();\\n\\n  $: {\\n    for ( let i = 0,\\n      n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay()));\\n      i \u003C n;\\n      ++i ) {\\n      simulation.tick();\\n    }\\n  }\\n\u003C/script>\\n\\n\u003Cdiv class='bee-group'>\\n  {#each simulation.nodes() as node}\\n    \u003Cdiv\\n      class='bee'\\n      style='\\n        left:{node.x}px;\\n        top: {node.y}px;\\n        width: {r * 2}px;\\n        height: {r * 2}px;\\n        background: {$zGet(node)};\\n        border-width: {strokeWidth}px;\\n        border-color: {stroke};\\n        '\\n    >\\n      {#if getTitle}\\n        \u003Cdiv class=\\\"title\\\">{getTitle(node)}\u003C/div>\\n      {/if}\\n    \u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .bee {\\n    position: absolute;\\n    border-style: solid;\\n    border-radius: 50%;\\n    transform: translate(-50%, -50%);\\n  }\\n  .title {\\n    display: none;\\n    white-space: nowrap;\\n    padding: 0 3px;\\n    border-radius: 3px;\\n    font-size: 12px;\\n    pointer-events: none;\\n    position: absolute;\\n    top: -15px;\\n    left: 5px;\\n    z-index: 9999;\\n  }\\n  .bee:hover .title {\\n    display: block\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The circle radius size in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"4\"},{\"title\":\"param\",\"description\":\"The circle's stroke width in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"0.5\"},{\"title\":\"param\",\"description\":\"The circle's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#fff'\"},{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"xStrength\",\"default\":\"0.95\"},{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"yStrength\",\"default\":\"0.075\"},{\"title\":\"param\",\"description\":\"— An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"getTitle\"}]},\"componentDescription\":\"Generates an HTML Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).\",\"modules\":[]}"}</script></div>
+	</body>
+</html>

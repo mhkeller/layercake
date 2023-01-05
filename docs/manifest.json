@@ -1,20 +1,336 @@
 {
-	"background_color": "#ffffff",
-	"theme_color": "#aa1e1e",
-	"name": "layercake",
-	"short_name": "layercake",
-	"display": "minimal-ui",
-	"start_url": "/",
-	"icons": [
-		{
-			"src": "layercake-logo-192.png",
-			"sizes": "192x192",
-			"type": "image/png"
-		},
-		{
-			"src": "layercake-logo-512.png",
-			"sizes": "512x512",
-			"type": "image/png"
-		}
-	]
+  ".svelte-kit/runtime/client/start.js": {
+    "file": "_app/immutable/start-499274cb.js",
+    "src": ".svelte-kit/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_index-eae88fad.js",
+      "_singletons-eca981c1.js"
+    ],
+    "dynamicImports": [
+      "src/routes/__layout.svelte",
+      ".svelte-kit/runtime/components/error.svelte",
+      "src/routes/components/[slug].svelte",
+      "src/routes/components/index.svelte",
+      "src/routes/example/[slug].svelte",
+      "src/routes/example-ssr/[slug].svelte",
+      "src/routes/guide/index.svelte",
+      "src/routes/index.svelte"
+    ]
+  },
+  "src/routes/__layout.svelte": {
+    "file": "_app/immutable/pages/__layout.svelte-7f65198e.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_singletons-eca981c1.js",
+      "_GuideContents-58cef88b.js",
+      "__examples-c7478354.js",
+      "__examples_ssr-9d9bb68f.js",
+      "_Brush.html-7c1bd33d.js",
+      "_index-eae88fad.js",
+      "_dots-c2530e0c.js",
+      "_pointsFour-0a0dc1f2.js",
+      "_ClevelandDotPlot.percent-range.html-b12fbca6.js"
+    ],
+    "css": [
+      "_app/immutable/assets/__layout-0f95b919.css"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "_app/immutable/error.svelte-1fc13659.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ce1a03b6.js"
+    ]
+  },
+  "src/routes/components/[slug].svelte": {
+    "file": "_app/immutable/pages/components/_slug_.svelte-296d0164.js",
+    "src": "src/routes/components/[slug].svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_downloadBlob-3de9aae7.js",
+      "_hljsDefineSvelte-22ce01cd.js",
+      "_Brush.html-7c1bd33d.js",
+      "__components-33d6037e.js",
+      "_index-eae88fad.js",
+      "_dots-c2530e0c.js",
+      "_ClevelandDotPlot.percent-range.html-b12fbca6.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_slug_-efaed1a8.css"
+    ]
+  },
+  "src/routes/components/index.svelte": {
+    "file": "_app/immutable/pages/components/index.svelte-509440e1.js",
+    "src": "src/routes/components/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ce1a03b6.js",
+      "__components-33d6037e.js",
+      "_Brush.html-7c1bd33d.js",
+      "_index-eae88fad.js",
+      "_dots-c2530e0c.js",
+      "_ClevelandDotPlot.percent-range.html-b12fbca6.js"
+    ],
+    "css": [
+      "_app/immutable/assets/index-6919a64f.css"
+    ]
+  },
+  "src/routes/example/[slug].svelte": {
+    "file": "_app/immutable/pages/example/_slug_.svelte-fbabbbdb.js",
+    "src": "src/routes/example/[slug].svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_downloadBlob-3de9aae7.js",
+      "_hljsDefineSvelte-22ce01cd.js",
+      "_cleanTitle-4553eb88.js",
+      "__examples-c7478354.js",
+      "_Brush.html-7c1bd33d.js",
+      "_index-eae88fad.js",
+      "_dots-c2530e0c.js",
+      "_pointsFour-0a0dc1f2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_slug_-284a5497.css"
+    ]
+  },
+  "src/routes/example-ssr/[slug].svelte": {
+    "file": "_app/immutable/pages/example-ssr/_slug_.svelte-e02b4592.js",
+    "src": "src/routes/example-ssr/[slug].svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_downloadBlob-3de9aae7.js",
+      "_hljsDefineSvelte-22ce01cd.js",
+      "_cleanTitle-4553eb88.js",
+      "__examples_ssr-9d9bb68f.js",
+      "_Brush.html-7c1bd33d.js",
+      "_index-eae88fad.js",
+      "_ClevelandDotPlot.percent-range.html-b12fbca6.js",
+      "_pointsFour-0a0dc1f2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_slug_-dc1a05cc.css"
+    ]
+  },
+  "src/routes/guide/index.svelte": {
+    "file": "_app/immutable/pages/guide/index.svelte-ae550c61.js",
+    "src": "src/routes/guide/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_GuideContents-58cef88b.js"
+    ],
+    "css": [
+      "_app/immutable/assets/index-bd2c739b.css"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "_app/immutable/pages/index.svelte-af526df0.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_hljsDefineSvelte-22ce01cd.js",
+      "__examples-c7478354.js",
+      "__examples_ssr-9d9bb68f.js",
+      "_Brush.html-7c1bd33d.js",
+      "_index-eae88fad.js",
+      "_dots-c2530e0c.js",
+      "_pointsFour-0a0dc1f2.js",
+      "_ClevelandDotPlot.percent-range.html-b12fbca6.js"
+    ],
+    "css": [
+      "_app/immutable/assets/index-b9a26aa4.css"
+    ]
+  },
+  "_index-ce1a03b6.js": {
+    "file": "_app/immutable/chunks/index-ce1a03b6.js"
+  },
+  "_index-eae88fad.js": {
+    "file": "_app/immutable/chunks/index-eae88fad.js",
+    "imports": [
+      "_index-ce1a03b6.js"
+    ]
+  },
+  "_singletons-eca981c1.js": {
+    "file": "_app/immutable/chunks/singletons-eca981c1.js"
+  },
+  "_GuideContents-58cef88b.js": {
+    "file": "_app/immutable/chunks/GuideContents-58cef88b.js",
+    "imports": [
+      "_index-ce1a03b6.js"
+    ],
+    "css": [
+      "_app/immutable/assets/GuideContents-48e964f9.css"
+    ]
+  },
+  "__examples-c7478354.js": {
+    "file": "_app/immutable/chunks/_examples-c7478354.js",
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_Brush.html-7c1bd33d.js",
+      "_dots-c2530e0c.js",
+      "_pointsFour-0a0dc1f2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_examples-d786b0c9.css"
+    ]
+  },
+  "__examples_ssr-9d9bb68f.js": {
+    "file": "_app/immutable/chunks/_examples_ssr-9d9bb68f.js",
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_Brush.html-7c1bd33d.js",
+      "_ClevelandDotPlot.percent-range.html-b12fbca6.js",
+      "_pointsFour-0a0dc1f2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_examples_ssr-a57e5701.css"
+    ]
+  },
+  "_Brush.html-7c1bd33d.js": {
+    "file": "_app/immutable/chunks/Brush.html-7c1bd33d.js",
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_index-eae88fad.js"
+    ],
+    "css": [
+      "_app/immutable/assets/Brush-6c1d38e0.css"
+    ]
+  },
+  "_dots-c2530e0c.js": {
+    "file": "_app/immutable/chunks/dots-c2530e0c.js",
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_Brush.html-7c1bd33d.js"
+    ],
+    "css": [
+      "_app/immutable/assets/dots-ef082192.css"
+    ]
+  },
+  "_pointsFour-0a0dc1f2.js": {
+    "file": "_app/immutable/chunks/pointsFour-0a0dc1f2.js",
+    "imports": [
+      "_Brush.html-7c1bd33d.js",
+      "_index-ce1a03b6.js",
+      "_index-eae88fad.js"
+    ]
+  },
+  "_ClevelandDotPlot.percent-range.html-b12fbca6.js": {
+    "file": "_app/immutable/chunks/ClevelandDotPlot.percent-range.html-b12fbca6.js",
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_Brush.html-7c1bd33d.js"
+    ],
+    "css": [
+      "_app/immutable/assets/ClevelandDotPlot.percent-range-cce3ebed.css"
+    ]
+  },
+  "_downloadBlob-3de9aae7.js": {
+    "file": "_app/immutable/chunks/downloadBlob-3de9aae7.js",
+    "imports": [
+      "_Brush.html-7c1bd33d.js"
+    ]
+  },
+  "_hljsDefineSvelte-22ce01cd.js": {
+    "file": "_app/immutable/chunks/hljsDefineSvelte-22ce01cd.js"
+  },
+  "__components-33d6037e.js": {
+    "file": "_app/immutable/chunks/_components-33d6037e.js",
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_Brush.html-7c1bd33d.js",
+      "_dots-c2530e0c.js",
+      "_ClevelandDotPlot.percent-range.html-b12fbca6.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_components-4402b009.css"
+    ]
+  },
+  "_cleanTitle-4553eb88.js": {
+    "file": "_app/immutable/chunks/cleanTitle-4553eb88.js",
+    "imports": [
+      "_index-ce1a03b6.js",
+      "_downloadBlob-3de9aae7.js",
+      "_Brush.html-7c1bd33d.js"
+    ],
+    "css": [
+      "_app/immutable/assets/cleanTitle-0901854a.css"
+    ]
+  },
+  "cleanTitle.css": {
+    "file": "_app/immutable/assets/cleanTitle-0901854a.css",
+    "src": "cleanTitle.css"
+  },
+  "src/routes/__layout.css": {
+    "file": "_app/immutable/assets/__layout-0f95b919.css",
+    "src": "src/routes/__layout.css"
+  },
+  "_examples.css": {
+    "file": "_app/immutable/assets/_examples-d786b0c9.css",
+    "src": "_examples.css"
+  },
+  "src/routes/components/index.css": {
+    "file": "_app/immutable/assets/index-6919a64f.css",
+    "src": "src/routes/components/index.css"
+  },
+  "ClevelandDotPlot.percent-range.css": {
+    "file": "_app/immutable/assets/ClevelandDotPlot.percent-range-cce3ebed.css",
+    "src": "ClevelandDotPlot.percent-range.css"
+  },
+  "_examples_ssr.css": {
+    "file": "_app/immutable/assets/_examples_ssr-a57e5701.css",
+    "src": "_examples_ssr.css"
+  },
+  "src/routes/example/[slug].css": {
+    "file": "_app/immutable/assets/_slug_-284a5497.css",
+    "src": "src/routes/example/[slug].css"
+  },
+  "GuideContents.css": {
+    "file": "_app/immutable/assets/GuideContents-48e964f9.css",
+    "src": "GuideContents.css"
+  },
+  "src/routes/example-ssr/[slug].css": {
+    "file": "_app/immutable/assets/_slug_-dc1a05cc.css",
+    "src": "src/routes/example-ssr/[slug].css"
+  },
+  "dots.css": {
+    "file": "_app/immutable/assets/dots-ef082192.css",
+    "src": "dots.css"
+  },
+  "src/routes/components/[slug].css": {
+    "file": "_app/immutable/assets/_slug_-efaed1a8.css",
+    "src": "src/routes/components/[slug].css"
+  },
+  "_components.css": {
+    "file": "_app/immutable/assets/_components-4402b009.css",
+    "src": "_components.css"
+  },
+  "Brush.css": {
+    "file": "_app/immutable/assets/Brush-6c1d38e0.css",
+    "src": "Brush.css"
+  },
+  "src/routes/guide/index.css": {
+    "file": "_app/immutable/assets/index-bd2c739b.css",
+    "src": "src/routes/guide/index.css"
+  },
+  "src/routes/index.css": {
+    "file": "_app/immutable/assets/index-b9a26aa4.css",
+    "src": "src/routes/index.css"
+  }
 }

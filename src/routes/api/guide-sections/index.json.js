@@ -1,7 +1,7 @@
 import getSections from '../../../_modules/getSections.js';
 
 let json;
-export async function get () {
+export async function GET () {
 	if (!json || process.env.NODE_ENV !== 'production') {
 		json = getSections(false);
 	}

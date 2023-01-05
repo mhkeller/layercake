@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Layer Cake" />
+		<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+		<meta name='theme-color' content='#ff3e00'>
+
+		<link rel='icon' type='image/png' href='/layercake-logo-100.png'>
+
+		<meta property="og:site_name" content="https://layercake.graphics" />
+		<meta property="og:type" content="article" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<meta property="og:image" content="https://layercake.graphics/layercake-logo-1200.png" />
+		<meta property="og:description" content="A framework for mostly-reusable graphics with svelte" />
+		<meta name="description" content="A framework for mostly-reusable graphics with svelte">
+		<meta name="keywords" content="layercake, graphics, svelte, graphics framework, svelte graphics framework, data viz, data visualization, reusable, mostly-reusable" />
+		<meta property="og:url" content="https://layercake.graphics" />
+		<link rel="shortcut icon" type="image/png" href="https://layercake.graphics/favicon.png">
+
+		<meta name="twitter:site" content="https://layercake.graphics" />
+		<meta name="twitter:image" content="https://layercake.graphics/layercake-logo-1200.png">
+
+		<meta http-equiv="content-security-policy" content=""><title>Annotations.html.svelte component</title><!-- HEAD_svelte-1675z5z_START --><!-- HEAD_svelte-1675z5z_END -->
+	<link href="/_app/immutable/assets/__layout-0f95b919.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/GuideContents-48e964f9.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/_examples-d786b0c9.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/Brush-6c1d38e0.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/dots-ef082192.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/_examples_ssr-a57e5701.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/ClevelandDotPlot.percent-range-cce3ebed.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/_slug_-efaed1a8.css" rel="stylesheet">
+	<link href="/_app/immutable/assets/_components-4402b009.css" rel="stylesheet">
+	<link rel="modulepreload" href="/_app/immutable/start-499274cb.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-ce1a03b6.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-eae88fad.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/singletons-eca981c1.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-7f65198e.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/GuideContents-58cef88b.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/_examples-c7478354.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/Brush.html-7c1bd33d.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/dots-c2530e0c.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/pointsFour-0a0dc1f2.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/_examples_ssr-9d9bb68f.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/ClevelandDotPlot.percent-range.html-b12fbca6.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/components/_slug_.svelte-296d0164.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/downloadBlob-3de9aae7.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/hljsDefineSvelte-22ce01cd.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/_components-33d6037e.js">
+	</head>
+	<body>
+		<div id="svelte">
+
+
+<div class="closed mousecatcher svelte-6iinyn"></div>
+<div class="container svelte-6iinyn"><span class="menu-link menu-closed svelte-6iinyn">Menu</span>
+	<a href="/" sveltekit:prefetch class="logo svelte-6iinyn">Layer Cake</a></div>
+
+<ul class="dropdown svelte-6iinyn"><li class="svelte-6iinyn">
+		<select class="svelte-6iinyn"><option value="/components/Annotations.html.svelte" disabled>Select...</option><option value="/">All</option><option class="header svelte-6iinyn" disabled value=""></option><option class="header svelte-6iinyn" disabled value="Client-side">Client-side</option><option value="/example/Bar">Bar</option><option value="/example/Beeswarm">Beeswarm</option><option value="/example/BeeswarmForce">Beeswarm, force layout</option><option value="/example/Brush">Brush</option><option value="/example/Calendar">Calendar</option><option value="/example/CirclePack">Circle pack</option><option value="/example/CirclePackForce">Circle pack, force layout</option><option value="/example/ClevelandDotPlot">Cleveland dot plot</option><option value="/example/Column">Column annotated</option><option value="/example/Histogram">Histogram</option><option value="/example/Line">Line + area</option><option value="/example/MapSvg">Map</option><option value="/example/MapLayered">Multilayer map</option><option value="/example/MultiLine">Multiline</option><option value="/example/CirclePackNested">Nested circle pack</option><option value="/example/Radar">Radar chart</option><option value="/example/Sankey">Sankey</option><option value="/example/Scatter">Scatter</option><option value="/example/SmallMultiples">Small multiples</option><option value="/example/AreaStacked">Stacked area</option><option value="/example/BarStacked">Stacked bar</option><option value="/example/ColumnStacked">Stacked column</option><option value="/example/SyncedBrush">Synced brush</option><option value="/example/Timeplot">Time of day plot</option><option value="/example/ScatterWebgl">WebGL Scatter</option><option class="header svelte-6iinyn" disabled value=""></option><option class="header svelte-6iinyn" disabled value="Server-side">Server-side</option><option value="/example-ssr/Bar">Bar</option><option value="/example-ssr/Brush">Brush</option><option value="/example-ssr/Calendar">Calendar</option><option value="/example-ssr/ClevelandDotPlot">Cleveland dot plot</option><option value="/example-ssr/Column">Column annotated</option><option value="/example-ssr/Histogram">Histogram</option><option value="/example-ssr/Line">Line + area</option><option value="/example-ssr/MapSvg">Map</option><option value="/example-ssr/MapLayered">Multilayer map</option><option value="/example-ssr/MultiLine">Multiline</option><option value="/example-ssr/Scatter">Scatter</option><option value="/example-ssr/SmallMultiples">Small multiples</option><option value="/example-ssr/AreaStacked">Stacked area</option><option value="/example-ssr/BarStacked">Stacked bar</option><option value="/example-ssr/ColumnStacked">Stacked column</option><option value="/example-ssr/SyncedBrush">Synced brush</option><option value="/example-ssr/Timeplot">Time of day plot</option><option value="/example-ssr/ScatterWebgl">WebGL Scatter</option></select></li></ul>
+
+<nav class="closed svelte-6iinyn"><ul class="primary svelte-6iinyn"><li class="svelte-6iinyn"><a sveltekit:prefetch class=" svelte-6iinyn" href="/components"><span class="wide-name svelte-6iinyn">Component gallery</span><span class="short-name svelte-6iinyn">Components</span></a></li>
+		<li class="svelte-6iinyn"><a sveltekit:prefetch class=" svelte-6iinyn" href="/guide">Guide</a></li>
+		<li class="svelte-6iinyn"><a id="github-link" target="_blank" rel="nofollow" href="https://github.com/mhkeller/layercake" class="svelte-6iinyn"></a></li></ul>
+
+	<div class="secondary svelte-6iinyn"><ul class="guide-toc svelte-7hddv0"><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#introduction">Introduction</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#what-is-layer-cake">What is Layer Cake?</a><a class="subsection  svelte-7hddv0" href="/guide#key-concepts">Key Concepts</a><a class="subsection  svelte-7hddv0" href="/guide#getting-started">Getting started</a><a class="subsection  svelte-7hddv0" href="/guide#using-layout-components">Using layout components</a><a class="subsection  svelte-7hddv0" href="/guide#layer-components">Layer components</a><a class="subsection  svelte-7hddv0" href="/guide#data-less-cakes">Data-less cakes</a><a class="subsection  svelte-7hddv0" href="/guide#server-side-rendering">Server-side rendering</a><a class="subsection  svelte-7hddv0" href="/guide#how-does-layercake-know-what-to-set-as-a-scale39s-domain-and-range">How does LayerCake know what to set as a scale's domain and range?</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#troubleshooting">Troubleshooting</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#the-chart-is-blank">The chart is blank</a><a class="subsection  svelte-7hddv0" href="/guide#the-chart-is-a-very-small-square">The chart is a very small square</a><a class="subsection  svelte-7hddv0" href="/guide#the-library-isn39t-building-properly">The library isn't building properly</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#layercake-props">LayerCake props</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#data">data</a><a class="subsection  svelte-7hddv0" href="/guide#x">x</a><a class="subsection  svelte-7hddv0" href="/guide#y">y</a><a class="subsection  svelte-7hddv0" href="/guide#z">z</a><a class="subsection  svelte-7hddv0" href="/guide#r">r</a><a class="subsection  svelte-7hddv0" href="/guide#padding">padding</a><a class="subsection  svelte-7hddv0" href="/guide#xscale">xScale</a><a class="subsection  svelte-7hddv0" href="/guide#yscale">yScale</a><a class="subsection  svelte-7hddv0" href="/guide#zscale">zScale</a><a class="subsection  svelte-7hddv0" href="/guide#rscale">rScale</a><a class="subsection  svelte-7hddv0" href="/guide#xdomain">xDomain</a><a class="subsection  svelte-7hddv0" href="/guide#ydomain">yDomain</a><a class="subsection  svelte-7hddv0" href="/guide#zdomain">zDomain</a><a class="subsection  svelte-7hddv0" href="/guide#rdomain">rDomain</a><a class="subsection  svelte-7hddv0" href="/guide#xreverse">xReverse</a><a class="subsection  svelte-7hddv0" href="/guide#yreverse">yReverse</a><a class="subsection  svelte-7hddv0" href="/guide#zreverse">zReverse</a><a class="subsection  svelte-7hddv0" href="/guide#rreverse">rReverse</a><a class="subsection  svelte-7hddv0" href="/guide#xrange">xRange</a><a class="subsection  svelte-7hddv0" href="/guide#yrange">yRange</a><a class="subsection  svelte-7hddv0" href="/guide#zrange">zRange</a><a class="subsection  svelte-7hddv0" href="/guide#rrange">rRange</a><a class="subsection  svelte-7hddv0" href="/guide#xpadding">xPadding</a><a class="subsection  svelte-7hddv0" href="/guide#ypadding">yPadding</a><a class="subsection  svelte-7hddv0" href="/guide#zpadding">zPadding</a><a class="subsection  svelte-7hddv0" href="/guide#rpadding">rPadding</a><a class="subsection  svelte-7hddv0" href="/guide#xnice">xNice</a><a class="subsection  svelte-7hddv0" href="/guide#ynice">yNice</a><a class="subsection  svelte-7hddv0" href="/guide#znice">zNice</a><a class="subsection  svelte-7hddv0" href="/guide#rnice">rNice</a><a class="subsection  svelte-7hddv0" href="/guide#extents">extents</a><a class="subsection  svelte-7hddv0" href="/guide#flatdata">flatData</a><a class="subsection  svelte-7hddv0" href="/guide#ssr">ssr</a><a class="subsection  svelte-7hddv0" href="/guide#percentrange">percentRange</a><a class="subsection  svelte-7hddv0" href="/guide#position">position</a><a class="subsection  svelte-7hddv0" href="/guide#custom">custom</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#computed-context-values">Computed context values</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#activegetters">activeGetters</a><a class="subsection  svelte-7hddv0" href="/guide#aspectratio">aspectRatio</a><a class="subsection  svelte-7hddv0" href="/guide#box">box</a><a class="subsection  svelte-7hddv0" href="/guide#config">config</a><a class="subsection  svelte-7hddv0" href="/guide#containerwidth">containerWidth</a><a class="subsection  svelte-7hddv0" href="/guide#containerheight">containerHeight</a><a class="subsection  svelte-7hddv0" href="/guide#extents-1">extents</a><a class="subsection  svelte-7hddv0" href="/guide#width">width</a><a class="subsection  svelte-7hddv0" href="/guide#height">height</a><a class="subsection  svelte-7hddv0" href="/guide#x-1">x</a><a class="subsection  svelte-7hddv0" href="/guide#y-1">y</a><a class="subsection  svelte-7hddv0" href="/guide#z-1">z</a><a class="subsection  svelte-7hddv0" href="/guide#r-1">r</a><a class="subsection  svelte-7hddv0" href="/guide#xdomain-1">xDomain</a><a class="subsection  svelte-7hddv0" href="/guide#ydomain-1">yDomain</a><a class="subsection  svelte-7hddv0" href="/guide#zdomain-1">zDomain</a><a class="subsection  svelte-7hddv0" href="/guide#rdomain-1">rDomain</a><a class="subsection  svelte-7hddv0" href="/guide#xrange-1">xRange</a><a class="subsection  svelte-7hddv0" href="/guide#yrange-1">yRange</a><a class="subsection  svelte-7hddv0" href="/guide#zrange-1">zRange</a><a class="subsection  svelte-7hddv0" href="/guide#rrange-1">rRange</a><a class="subsection  svelte-7hddv0" href="/guide#xget">xGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#yget">yGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#zget">zGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#rget">rGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#xscale-1">xScale(...)</a><a class="subsection  svelte-7hddv0" href="/guide#yscale-1">yScale(...)</a><a class="subsection  svelte-7hddv0" href="/guide#zscale-1">zScale(...)</a><a class="subsection  svelte-7hddv0" href="/guide#rscale-1">rScale(...)</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#layout-components">Layout components</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#html">Html</a><a class="subsection  svelte-7hddv0" href="/guide#svg">Svg</a><a class="subsection  svelte-7hddv0" href="/guide#scaledsvg">ScaledSvg</a><a class="subsection  svelte-7hddv0" href="/guide#canvas">Canvas</a><a class="subsection  svelte-7hddv0" href="/guide#webgl">WebGL</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#layout-component-props">Layout component props</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#zindex">zIndex</a><a class="subsection  svelte-7hddv0" href="/guide#pointerevents">pointerEvents</a><a class="subsection  svelte-7hddv0" href="/guide#viewbox">viewBox</a><a class="subsection  svelte-7hddv0" href="/guide#fixedaspectratio">fixedAspectRatio</a><a class="subsection  svelte-7hddv0" href="/guide#contextattributes">contextAttributes</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#helper-functions">Helper functions</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#bin">bin(...)</a><a class="subsection  svelte-7hddv0" href="/guide#calcextents">calcExtents(...)</a><a class="subsection  svelte-7hddv0" href="/guide#calcuniques">calcUniques(...)</a><a class="subsection  svelte-7hddv0" href="/guide#flatten">flatten(...)</a><a class="subsection  svelte-7hddv0" href="/guide#grouplonger">groupLonger(...)</a><a class="subsection  svelte-7hddv0" href="/guide#raise">raise(...)</a><a class="subsection  svelte-7hddv0" href="/guide#scalecanvas">scaleCanvas(...)</a><a class="subsection  svelte-7hddv0" href="/guide#stack">stack(...)</a><a class="subsection  svelte-7hddv0" href="/guide#uniques">uniques(...)</a>
+		</li></ul></div></nav>
+<main>
+
+<div class="main svelte-2w8zgn"><div class="all-components svelte-2w8zgn"><a href="/components" sveltekit:prefetch class="svelte-2w8zgn">← View all components</a></div>
+	<h1 class="svelte-2w8zgn">Annotations.html.svelte component</h1>
+
+	<div class="chart-hero svelte-2w8zgn"><div class="chart-container svelte-xrhe6m">
+
+
+</div></div>
+
+	<div class="download svelte-2w8zgn"><button  title="download zip file" class="icon svelte-1gef78k" style="background-image: url(/icons/download.svg)">Download      </button></div>
+
+	<div class="dek svelte-2w8zgn"><!-- HTML_TAG_START --><p>Adds text annotations based on a config object that has CSS styles as fields.</p>
+<!-- HTML_TAG_END --></div>
+	<div id="params-table" class="svelte-2w8zgn"><!-- HTML_TAG_START --><table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>annotations</strong> <code>Array</code></td>
+<td>None</td>
+<td><center>yes</center></td>
+<td>A list of annotation objects. It expects values of <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code> whose values are CSS values like <code>'10px'</code> or <code>'5%'</code> that will be used to absolutely position the text div. See the <a href="https://layercake.graphics/example/Column">Column</a> chart example for the schema and options.</td>
+</tr>
+<tr>
+<td><strong>getText</strong> <code>Function</code></td>
+<td><code>d=&gt;d.text</code></td>
+<td><center>no</center></td>
+<td>An accessor function to get the field to display.</td>
+</tr>
+</tbody>
+</table>
+<!-- HTML_TAG_END --></div>
+	<div id="used-in" class="svelte-2w8zgn"><h3 class="svelte-2w8zgn">Used in these examples:
+			</h3>
+			
+					<ul class="svelte-2w8zgn"><li><a href="/example/Column" sveltekit:prefetch class="svelte-2w8zgn">Column</a></li>
+					</ul><h3 class="svelte-2w8zgn">SSR Examples:</h3>
+					<ul class="svelte-2w8zgn"><li><a href="/example-ssr/Column" sveltekit:prefetch class="svelte-2w8zgn">Column</a></li>
+					</ul></div>
+
+	<div id="pages" class=" svelte-2w8zgn"><ul id="page-nav" class="svelte-2w8zgn"><li class="tab active svelte-2w8zgn">Annotations.html.svelte
+				</li></ul>
+		<div id="contents-container" class="svelte-2w8zgn"><div class="copy svelte-2w8zgn"></div>
+			<div class="contents" style="display: block;"><pre class="svelte-2w8zgn"><!-- HTML_TAG_START --><span class="hljs-comment">&lt;!--
+  @component
+  Adds text annotations based on a config object that has CSS styles as fields.
+ --&gt;</span><span class="language-xml">
+ <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><span class="language-javascript">
+   <span class="hljs-keyword">const</span> vals = [<span class="hljs-string">&#x27;top&#x27;</span>, <span class="hljs-string">&#x27;right&#x27;</span>, <span class="hljs-string">&#x27;bottom&#x27;</span>, <span class="hljs-string">&#x27;left&#x27;</span>];
+
+   <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">Array</span>} <span class="hljs-variable">annotations</span> - A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `&#x27;10px&#x27;` or `&#x27;5%&#x27;` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options. */</span>
+   <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> annotations = [];
+
+   <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">Function</span>} [getText=d =&gt; d.text] - An accessor function to get the field to display. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> <span class="hljs-title function_">getText</span> = d =&gt; d.<span class="hljs-property">text</span>;
+</span><span class="hljs-keyword">
+  $: </span><span class="language-javascript">fillStyle = <span class="hljs-function"><span class="hljs-params">d</span> =&gt;</span> {
+    <span class="hljs-keyword">let</span> style = <span class="hljs-string">&#x27;&#x27;</span>;
+    vals.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">val</span> =&gt;</span> {
+      <span class="hljs-keyword">if</span> (d[val]) {
+        style += <span class="hljs-string">`<span class="hljs-subst">${val}</span>:<span class="hljs-subst">${d[val]}</span>;`</span>;
+      }
+    });
+    <span class="hljs-keyword">return</span> style;
+  };
+</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;layercake-annotations&quot;</span>&gt;</span>
+  </span><span class="language-javascript">{</span><span class="hljs-keyword">#each</span><span class="language-javascript"> annotations <span class="hljs-keyword">as</span> d, i}</span><span class="language-xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+      <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;layercake-annotation&quot;</span>
+      <span class="hljs-attr">data-id</span>=<span class="hljs-string">&quot;</span></span></span><span class="language-javascript">{i}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;</span></span></span><span class="language-javascript">{<span class="hljs-title function_">fillStyle</span>(d)}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+    &gt;</span></span><span class="language-javascript">{<span class="hljs-title function_">getText</span>(d)}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  </span><span class="language-javascript">{</span><span class="hljs-keyword">/each</span><span class="language-javascript">}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span></span><span class="language-css">
+  <span class="hljs-selector-class">.layercake-annotation</span> {
+    <span class="hljs-attribute">position</span>: absolute;
+  }
+</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><!-- HTML_TAG_END --></pre>
+				</div></div></div>
+</div></main>
+
+
+		<script type="module" data-sveltekit-hydrate="6borm0">
+		import { set_public_env, start } from "/_app/immutable/start-499274cb.js";
+
+		set_public_env({});
+
+		start({
+			target: document.querySelector('[data-sveltekit-hydrate="6borm0"]').parentNode,
+			paths: {"base":"","assets":""},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [0, 2],
+				params: {slug:"Annotations.html.svelte"},
+				routeId: "components/[slug]"
+			}
+		});
+	</script><script type="application/json" sveltekit:data-type="data" sveltekit:data-url="/api/guide-sections.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"html\":null,\"metadata\":{\"title\":\"Introduction\"},\"subsections\":[{\"slug\":\"what-is-layer-cake\",\"title\":\"What is Layer Cake?\"},{\"slug\":\"key-concepts\",\"title\":\"Key Concepts\"},{\"slug\":\"getting-started\",\"title\":\"Getting started\"},{\"slug\":\"using-layout-components\",\"title\":\"Using layout components\"},{\"slug\":\"layer-components\",\"title\":\"Layer components\"},{\"slug\":\"data-less-cakes\",\"title\":\"Data-less cakes\"},{\"slug\":\"server-side-rendering\",\"title\":\"Server-side rendering\"},{\"slug\":\"how-does-layercake-know-what-to-set-as-a-scale39s-domain-and-range\",\"title\":\"How does LayerCake know what to set as a scale's domain and range?\"}],\"slug\":\"introduction\",\"file\":\"00-introduction.md\"},{\"html\":null,\"metadata\":{\"title\":\"Troubleshooting\"},\"subsections\":[{\"slug\":\"the-chart-is-blank\",\"title\":\"The chart is blank\"},{\"slug\":\"the-chart-is-a-very-small-square\",\"title\":\"The chart is a very small square\"},{\"slug\":\"the-library-isn39t-building-properly\",\"title\":\"The library isn't building properly\"}],\"slug\":\"troubleshooting\",\"file\":\"01-troubleshooting.md\"},{\"html\":null,\"metadata\":{\"title\":\"LayerCake props\"},\"subsections\":[{\"slug\":\"data\",\"title\":\"data\"},{\"slug\":\"x\",\"title\":\"x\"},{\"slug\":\"y\",\"title\":\"y\"},{\"slug\":\"z\",\"title\":\"z\"},{\"slug\":\"r\",\"title\":\"r\"},{\"slug\":\"padding\",\"title\":\"padding\"},{\"slug\":\"xscale\",\"title\":\"xScale\"},{\"slug\":\"yscale\",\"title\":\"yScale\"},{\"slug\":\"zscale\",\"title\":\"zScale\"},{\"slug\":\"rscale\",\"title\":\"rScale\"},{\"slug\":\"xdomain\",\"title\":\"xDomain\"},{\"slug\":\"ydomain\",\"title\":\"yDomain\"},{\"slug\":\"zdomain\",\"title\":\"zDomain\"},{\"slug\":\"rdomain\",\"title\":\"rDomain\"},{\"slug\":\"xreverse\",\"title\":\"xReverse\"},{\"slug\":\"yreverse\",\"title\":\"yReverse\"},{\"slug\":\"zreverse\",\"title\":\"zReverse\"},{\"slug\":\"rreverse\",\"title\":\"rReverse\"},{\"slug\":\"xrange\",\"title\":\"xRange\"},{\"slug\":\"yrange\",\"title\":\"yRange\"},{\"slug\":\"zrange\",\"title\":\"zRange\"},{\"slug\":\"rrange\",\"title\":\"rRange\"},{\"slug\":\"xpadding\",\"title\":\"xPadding\"},{\"slug\":\"ypadding\",\"title\":\"yPadding\"},{\"slug\":\"zpadding\",\"title\":\"zPadding\"},{\"slug\":\"rpadding\",\"title\":\"rPadding\"},{\"slug\":\"xnice\",\"title\":\"xNice\"},{\"slug\":\"ynice\",\"title\":\"yNice\"},{\"slug\":\"znice\",\"title\":\"zNice\"},{\"slug\":\"rnice\",\"title\":\"rNice\"},{\"slug\":\"extents\",\"title\":\"extents\"},{\"slug\":\"flatdata\",\"title\":\"flatData\"},{\"slug\":\"ssr\",\"title\":\"ssr\"},{\"slug\":\"percentrange\",\"title\":\"percentRange\"},{\"slug\":\"position\",\"title\":\"position\"},{\"slug\":\"custom\",\"title\":\"custom\"}],\"slug\":\"layercake-props\",\"file\":\"02-layercake-props.md\"},{\"html\":null,\"metadata\":{\"title\":\"Computed context values\"},\"subsections\":[{\"slug\":\"activegetters\",\"title\":\"activeGetters\"},{\"slug\":\"aspectratio\",\"title\":\"aspectRatio\"},{\"slug\":\"box\",\"title\":\"box\"},{\"slug\":\"config\",\"title\":\"config\"},{\"slug\":\"containerwidth\",\"title\":\"containerWidth\"},{\"slug\":\"containerheight\",\"title\":\"containerHeight\"},{\"slug\":\"extents-1\",\"title\":\"extents\"},{\"slug\":\"width\",\"title\":\"width\"},{\"slug\":\"height\",\"title\":\"height\"},{\"slug\":\"x-1\",\"title\":\"x\"},{\"slug\":\"y-1\",\"title\":\"y\"},{\"slug\":\"z-1\",\"title\":\"z\"},{\"slug\":\"r-1\",\"title\":\"r\"},{\"slug\":\"xdomain-1\",\"title\":\"xDomain\"},{\"slug\":\"ydomain-1\",\"title\":\"yDomain\"},{\"slug\":\"zdomain-1\",\"title\":\"zDomain\"},{\"slug\":\"rdomain-1\",\"title\":\"rDomain\"},{\"slug\":\"xrange-1\",\"title\":\"xRange\"},{\"slug\":\"yrange-1\",\"title\":\"yRange\"},{\"slug\":\"zrange-1\",\"title\":\"zRange\"},{\"slug\":\"rrange-1\",\"title\":\"rRange\"},{\"slug\":\"xget\",\"title\":\"xGet(...)\"},{\"slug\":\"yget\",\"title\":\"yGet(...)\"},{\"slug\":\"zget\",\"title\":\"zGet(...)\"},{\"slug\":\"rget\",\"title\":\"rGet(...)\"},{\"slug\":\"xscale-1\",\"title\":\"xScale(...)\"},{\"slug\":\"yscale-1\",\"title\":\"yScale(...)\"},{\"slug\":\"zscale-1\",\"title\":\"zScale(...)\"},{\"slug\":\"rscale-1\",\"title\":\"rScale(...)\"}],\"slug\":\"computed-context-values\",\"file\":\"03-computed-context-values.md\"},{\"html\":null,\"metadata\":{\"title\":\"Layout components\"},\"subsections\":[{\"slug\":\"html\",\"title\":\"Html\"},{\"slug\":\"svg\",\"title\":\"Svg\"},{\"slug\":\"scaledsvg\",\"title\":\"ScaledSvg\"},{\"slug\":\"canvas\",\"title\":\"Canvas\"},{\"slug\":\"webgl\",\"title\":\"WebGL\"}],\"slug\":\"layout-components\",\"file\":\"04-layout-components.md\"},{\"html\":null,\"metadata\":{\"title\":\"Layout component props\"},\"subsections\":[{\"slug\":\"zindex\",\"title\":\"zIndex\"},{\"slug\":\"pointerevents\",\"title\":\"pointerEvents\"},{\"slug\":\"viewbox\",\"title\":\"viewBox\"},{\"slug\":\"fixedaspectratio\",\"title\":\"fixedAspectRatio\"},{\"slug\":\"contextattributes\",\"title\":\"contextAttributes\"}],\"slug\":\"layout-component-props\",\"file\":\"05-layout-component-props.md\"},{\"html\":null,\"metadata\":{\"title\":\"Helper functions\"},\"subsections\":[{\"slug\":\"bin\",\"title\":\"bin(...)\"},{\"slug\":\"calcextents\",\"title\":\"calcExtents(...)\"},{\"slug\":\"calcuniques\",\"title\":\"calcUniques(...)\"},{\"slug\":\"flatten\",\"title\":\"flatten(...)\"},{\"slug\":\"grouplonger\",\"title\":\"groupLonger(...)\"},{\"slug\":\"raise\",\"title\":\"raise(...)\"},{\"slug\":\"scalecanvas\",\"title\":\"scaleCanvas(...)\"},{\"slug\":\"stack\",\"title\":\"stack(...)\"},{\"slug\":\"uniques\",\"title\":\"uniques(...)\"}],\"slug\":\"helper-functions\",\"file\":\"99-helper-functions.md\"}]"}</script>
+	<script type="application/json" sveltekit:data-type="data" sveltekit:data-url="Annotations.html.svelte.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"main\":{\"slug\":\"Annotations.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Adds text annotations based on a config object that has CSS styles as fields.\\n -->\\n \u003Cscript>\\n   const vals = ['top', 'right', 'bottom', 'left'];\\n\\n   /** @type {Array} annotations - A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options. */\\n   export let annotations = [];\\n\\n   /** @type {Function} [getText=d => d.text] - An accessor function to get the field to display. */\\n  export let getText = d => d.text;\\n\\n  $: fillStyle = d => {\\n    let style = '';\\n    vals.forEach(val => {\\n      if (d[val]) {\\n        style += `${val}:${d[val]};`;\\n      }\\n    });\\n    return style;\\n  };\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"layercake-annotations\\\">\\n  {#each annotations as d, i}\\n    \u003Cdiv\\n      class=\\\"layercake-annotation\\\"\\n      data-id=\\\"{i}\\\"\\n      style=\\\"{fillStyle(d)}\\\"\\n    >{getText(d)}\u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .layercake-annotation {\\n    position: absolute;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Column\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Column\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Array\"},\"name\":\"annotations\"},{\"title\":\"param\",\"description\":\"An accessor function to get the field to display.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"getText\",\"default\":\"d=>d.text\"}]},\"componentDescription\":\"Adds text annotations based on a config object that has CSS styles as fields.\",\"modules\":[]}"}</script></div>
+	</body>
+</html>

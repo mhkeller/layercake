@@ -1,29 +1,8 @@
-<script context="module">
-	export const prerender = true;
-	export async function load({ fetch }) {
-		const res = await fetch('guide.json');
-		const data = await res.json();
-
-		if (res.status === 200) {
-			return {
-				props: {
-					sections: data
-				}
-			};
-		} else {
-			return {
-				status: res.status,
-				error: new Error(`Could not load.`)
-			}
-		}
-	}
-</script>
-
 <script>
 	import { afterUpdate } from 'svelte';
 	import GuideContents from '../_site-components/GuideContents.svelte';
 
-	export let sections;
+	export let data;
 
 	let container;
 	let positions = [];
@@ -373,19 +352,19 @@
 </svelte:head>
 
 <sidebar>
-	<GuideContents {sections} bind:activeGuideSection/>
+	<GuideContents sections={data.sections} bind:activeGuideSection/>
 </sidebar>
 
 <div id="container" class='content' bind:this={container}>
 	<div id="toc">
 		<h3>Table of contents</h3>
 		<ul>
-			{#each sections as section}
+			{#each data.sections as section}
 				<li><a href="#{section.slug}">- {section.slug.replace(/^\w/, d => d.toUpperCase()).replaceAll('-', ' ')}</a></li>
 			{/each}
 		</ul>
 	</div>
-	{#each sections as section}
+	{#each data.sections as section}
 		<section id='{section.slug}'>
 			<h2>
 				{section.metadata.title}

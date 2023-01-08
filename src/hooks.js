@@ -1,5 +1,5 @@
 import { minify } from 'html-minifier';
-import { prerendering } from '$app/env';
+import { building } from '$app/environment';
 
 const minification_options = {
 	collapseBooleanAttributes: true,
@@ -23,7 +23,7 @@ const minification_options = {
 export async function handle({ event, resolve }) {
 	const response = await resolve(event);
 
-	if (prerendering && response.headers['content-type'] === 'text/html') {
+	if (building && response.headers['content-type'] === 'text/html') {
 		let body = await response.text();
 		body = minify(body, minification_options);
 		return new Response(body, response);

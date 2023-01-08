@@ -1,0 +1,1 @@
+import{e as r}from"./index-1885ff30.js";const a=!0;async function s({fetch:o}){const e=await o("guide.json"),t=await e.json();if(e.status===200)return{sections:t};throw r(500,"Could not load.")}const l=Object.freeze(Object.defineProperty({__proto__:null,load:s,prerender:a},Symbol.toStringTag,{value:"Module"}));export{l as _,s as l,a as p};

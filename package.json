@@ -19,8 +19,8 @@
   "type": "module",
   "devDependencies": {
     "@rollup/plugin-dsv": "^2.0.2",
-    "@sveltejs/adapter-static": "1.0.0-next.39",
-    "@sveltejs/kit": "1.0.0-next.405",
+    "@sveltejs/adapter-static": "1.0.0",
+    "@sveltejs/kit": "1.0.2",
     "@types/cookie": "^0.4.1",
     "@types/markdown-it": "^12.2.3",
     "@typescript-eslint/eslint-plugin": "^5.8.0",

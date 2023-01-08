@@ -1,8 +1,9 @@
+import { json as json$1 } from '@sveltejs/kit';
 import { readFileSync, existsSync } from 'fs';
 import { readdirFilterSync } from 'indian-ocean';
 import doctrine from 'doctrine';
 
-function cleanMain (str) {
+function cleanMain(str) {
 	const cleaned = str
 		.replace(/\t/g, '  ')
 		.replace(/\.\.\/\.\.\//g, './')
@@ -11,14 +12,14 @@ function cleanMain (str) {
 	return cleaned;
 }
 
-function cleanContents (str) {
+function cleanContents(str) {
 	return str.replace(/\t/g, '  ').trim();
 }
 
-function getJsPaths (example) {
+function getJsPaths(example) {
 	const match = example.match(/\.\/.+\.js('|")/gm);
 	if (match) {
-		return match.map(d => d.replace('../../', '').replace(/('|")/g, ''));
+		return match.map((d) => d.replace('../../', '').replace(/('|")/g, ''));
 	}
 	return [];
 }
@@ -31,28 +32,29 @@ export async function GET({ params }) {
 	const componentPath = `src/_components/${slug}`;
 
 	if (!existsSync(componentPath)) {
-		return {
-			status: 404,
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: {
+		return json$1(
+			{
 				message: `Not found: ${slug}`
+			},
+			{
+				status: 404,
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			}
-		};
+		);
 	}
 
 	const component = readFileSync(componentPath, 'utf-8');
 
 	const fromMain = cleanMain(component);
 
-	const modules = getJsPaths(component)
-		.map(d => {
-			return {
-				slug: d.replace('../', ''),
-				contents: cleanContents(readFileSync(d.replace('./', 'src/'), 'utf-8'))
-			};
-		});
+	const modules = getJsPaths(component).map((d) => {
+		return {
+			slug: d.replace('../', ''),
+			contents: cleanContents(readFileSync(d.replace('./', 'src/'), 'utf-8'))
+		};
+	});
 
 	const main = {
 		slug,
@@ -67,34 +69,36 @@ export async function GET({ params }) {
 		return {
 			group: i === 0 ? 'Regular' : 'SSR',
 			matches: readdirFilterSync(d, { fullPath: true })
-				.map(q => {
+				.map((q) => {
 					return {
 						path: q,
 						contents: readFileSync(q, 'utf-8')
 					};
 				})
-				.filter(q => {
+				.filter((q) => {
 					return q.contents.includes(slug);
 				})
-				.map(q => {
+				.map((q) => {
 					const name = q.path.split('/').pop().replace('.svelte', '');
 					return `/example${i === 1 ? '-ssr' : ''}/${name}`;
 				})
 		};
 	});
 
-	const componentDescription = doctrine.parse(fromMain.split('<script>')[0]
-		.replace('<!--', '')
-		.replace('-->', '')).tags[0].description;
+	const componentDescription = doctrine.parse(
+		fromMain.split('<script>')[0].replace('<!--', '').replace('-->', '')
+	).tags[0].description;
 
-	const jsdocTop = fromMain.replace('<script>', '')
+	const jsdocTop = fromMain
+		.replace('<script>', '')
 		.split('</script>')[0]
 		.match(/\/\*\*.*/gm);
 
 	let jsdocString = '';
 
 	if (jsdocTop !== null) {
-		jsdocString = jsdocTop.join('\n')
+		jsdocString = jsdocTop
+			.join('\n')
 			.replaceAll('@type', '@param')
 			.replaceAll('/**', '')
 			.replaceAll('*/', '')
@@ -113,11 +117,9 @@ export async function GET({ params }) {
 		modules
 	};
 
-	return {
-		status: 200,
+	return new Response(JSON.stringify(response), {
 		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: response
-	};
+			'content-type': 'application/json'
+		}
+	});
 }

@@ -1,39 +1,12 @@
-<script context="module">
-	export const prerender = true;
-	export async function load({ fetch, params }) {
-		// the `slug` parameter is available because
-		// this file is called [slug].svelte
-		const { slug } = params;
-		const url = `${slug}.json`;
-		const res = await fetch(url);
-		const data = await res.json();
-
-		if (res.status === 200) {
-			return {
-				props: {
-					slug,
-					data,
-					active: slug
-				}
-			};
-		} else {
-			return {
-				status: res.status,
-				error: new Error(`Could not load ${url}: ${data.message}`)
-			};
-		}
-	}
-</script>
-
 <script>
 	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
-	import DownloadComponentBtn from '../_site-components/DownloadComponentBtn.svelte';
-	import hljsDefineSvelte from '../../_modules/hljsDefineSvelte.js';
+	import DownloadComponentBtn from '../../_site-components/DownloadComponentBtn.svelte';
+	import hljsDefineSvelte from '../../../_modules/hljsDefineSvelte.js';
 	// import cleanTitle from '../../_modules/cleanTitle.js';
 
-	import components from '../_components.js';
+	import components from '../../_components.js';
 
 	const md = new MarkdownIt({
 		html: true,
@@ -43,10 +16,11 @@
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	export let slug;
+	/** @type {import('./$types').PageData */
 	export let data;
-	export let active = '';
-
+	let {slug, content, active} = data;
+	$: ({slug, content, active} = data);
+	
 	function markdownToHtml(text) {
 		return md.render(text);
 	}
@@ -58,7 +32,7 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [data.main].concat(data.modules);
+	$: pages = [content.main].concat(content.modules);
 
 	const lookup = new Map();
 	components
@@ -103,8 +77,8 @@
 	let jsdocTableBody = '';
 	let jsdocTable = '';
 
-	if (data.hasjsDoctable === true) {
-		jsdocTableBody = `${data.jsdocParsed.tags
+	if (content.hasjsDoctable === true) {
+		jsdocTableBody = `${content.jsdocParsed.tags
 			.map(
 				(d) =>
 					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(
@@ -112,7 +86,7 @@
 					)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`
 			)
 			.join('\n')}`;
-		jsdocTable = data.jsdocParsed.tags.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
+		jsdocTable = content.jsdocParsed.tags.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
 	}
 
 	function copyToClipboard() {
@@ -152,27 +126,27 @@
 	</div>
 
 	<div class="download">
-		<DownloadComponentBtn {data} {slug} />
+		<DownloadComponentBtn data={content} {slug} />
 	</div>
 
 	<div class="dek">
-		{@html markdownToHtml(data.componentDescription)}
+		{@html markdownToHtml(content.componentDescription)}
 	</div>
-	{#if data.hasjsDoctable === true}
+	{#if content.hasjsDoctable === true}
 		<div id="params-table">
 			{@html markdownToHtml(jsdocTable)}
 		</div>
 	{/if}
 	<div id="used-in">
-		{#if data.usedIn[0].matches.length > 0 || data.usedIn[1].matches.length > 0}
+		{#if content.usedIn[0].matches.length > 0 || content.usedIn[1].matches.length > 0}
 			<h3>
-				Used in these{data.usedIn[0].matches.length === 0 && data.usedIn[1].matches.length > 0
+				Used in these{content.usedIn[0].matches.length === 0 && content.usedIn[1].matches.length > 0
 					? ' SSR'
 					: ''} examples:
 			</h3>
-			{#each data.usedIn as group}
+			{#each content.usedIn as group}
 				{#if group.matches.length > 0}
-					{#if group.group === 'SSR' && data.usedIn[0].matches.length > 0}
+					{#if group.group === 'SSR' && content.usedIn[0].matches.length > 0}
 						<h3>SSR Examples:</h3>
 					{/if}
 					<ul>
@@ -185,7 +159,7 @@
 		{/if}
 	</div>
 
-	<div id="pages" class={data.dek ? 'has-dek' : ''}>
+	<div id="pages" class={content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
 				<li

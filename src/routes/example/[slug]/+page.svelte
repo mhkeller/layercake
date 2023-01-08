@@ -1,36 +1,12 @@
-<script context="module">
-	export const prerender = true;
-	export async function load({ fetch, params }) {
-		const url = `${params.slug}.json`;
-		const res = await fetch(url);
-		const data = await res.json();
-
-		if (res.status === 200) {
-			return {
-				props: {
-					slug: params.slug,
-					data,
-					active: '+page'
-				}
-			};
-		} else {
-			return {
-				status: res.status,
-				error: new Error(`Could not load ${url}: ${data.message}`)
-			}
-		}
-	}
-</script>
-
 <script>
 	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
-	import DownloadBtn from '../_site-components/DownloadBtn.svelte';
-	import hljsDefineSvelte from '../../_modules/hljsDefineSvelte.js';
-	import cleanTitle from '../../_modules/cleanTitle.js';
+	import DownloadBtn from '../../_site-components/DownloadBtn.svelte';
+	import hljsDefineSvelte from '../../../_modules/hljsDefineSvelte.js';
+	import cleanTitle from '../../../_modules/cleanTitle.js';
 
-	import examples from '../_examples.js';
+	import examples from '../../_examples.js';
 
 	const md = new MarkdownIt({
 		html: true,
@@ -40,12 +16,10 @@
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	export let slug;
-	export let data;
-
-
-	export let active = '+page';
-
+	export let data
+	let {slug, content, active} = data
+	$: ({slug, content, active} = data)
+	
 	function markdownToHtml (text) {
 		return md.render(text);
 	}
@@ -57,13 +31,13 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [data.main]
-		.concat(data.components)
-		.concat(data.componentModules)
-		.concat(data.modules)
-		.concat(data.componentComponents)
-		.concat(data.jsons)
-		.concat(data.csvs);
+	$: pages = [content.main]
+		.concat(content.components)
+		.concat(content.componentModules)
+		.concat(content.modules)
+		.concat(content.componentComponents)
+		.concat(content.jsons)
+		.concat(content.csvs);
 
 	const exampleLookup = new Map();
 	examples.forEach(exmpl => {
@@ -280,18 +254,18 @@
 
 	<div class="download">
 		<DownloadBtn
-			{data}
+			data={content}
 			slug='{slug}'
 		/>
 	</div>
 
-	{#if data.dek}
+	{#if content.dek}
 		<div class="dek">
-			{@html markdownToHtml(data.dek)}
+			{@html markdownToHtml(content.dek)}
 		</div>
 	{/if}
 
-	<div id="pages" class="{data.dek ? 'has-dek' : ''}">
+	<div id="pages" class="{content.dek ? 'has-dek' : ''}">
 		<ul id="page-nav">
 			{#each pages as page}
 				<li

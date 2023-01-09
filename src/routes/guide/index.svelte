@@ -335,13 +335,34 @@
 
 		h2 {
 			padding: 4rem 0 0 0;
-			margin: -3rem 0 1.05em 0;
+			margin: -3rem 0 0 0;
 		}
 
 		section :global(h3) {
 			padding-top: 3.5em;
 			margin: -2em 0 1em 0;
 		}
+	}
+
+	#container :global(section p:nth-child(2)) {
+		margin-top: 21px;
+	}
+
+	#toc h3 {
+		margin-top: 14px;
+		font-weight: bold;
+	}
+	#toc ul {
+		list-style: none;
+		margin: 0;
+		padding: 0 0 0 28px;
+		margin-bottom: 21px;
+	}
+	#toc li a {
+		text-decoration: none;
+	}
+	#toc li a:hover {
+		text-decoration: underline;
 	}
 </style>
 
@@ -356,6 +377,14 @@
 </sidebar>
 
 <div id="container" class='content' bind:this={container}>
+	<div id="toc">
+		<h3>Table of contents</h3>
+		<ul>
+			{#each sections as section}
+				<li><a href="#{section.slug}">- {section.slug.replace(/^\w/, d => d.toUpperCase()).replaceAll('-', ' ')}</a></li>
+			{/each}
+		</ul>
+	</div>
 	{#each sections as section}
 		<section id='{section.slug}'>
 			<h2>

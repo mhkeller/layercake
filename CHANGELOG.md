@@ -1,11 +1,29 @@
 Changelog
 ===
 
+# 7.2.2
+
+> 2022-12-26
+
+Add the `d3-shape` and `d3-array` as dependencies to handle new helper functions. Note: 7.2.1 was skipped because of an npm error.
+
+* [791107d3c7ffda5e8a56f4f12d3d9179a26c4ffb](https://github.com/mhkeller/layercake/commit/791107d3c7ffda5e8a56f4f12d3d9179a26c4ffb)
+
+# 7.2.0
+
+> 2022-12-23
+
+This release adds new functions: `bin`, `stack`, `groupLonger` and `takeEvery`. It also adds a new second argument to `flatten`.
+
+* [PR #95](https://github.com/mhkeller/layercake/pull/95)
+
 # 7.1.0
 
 > 2022-10-03
 
-Allow for all `nNice` props to take a number instead of just a boolean. [PR #101](https://github.com/mhkeller/layercake/pull/101) from [@techniq](https://github.com/techniq).
+Allow for all `nNice` props to take a number instead of just a boolean.
+
+* [PR #101](https://github.com/mhkeller/layercake/pull/101) from [@techniq](https://github.com/techniq).
 
 # 7.0.0
 

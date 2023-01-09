@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import canBeZero from '../src/lib/utils/canBeZero.js';
+import fn from '../src/lib/utils/canBeZero.js';
 
 const name = 'canBeZero';
 
@@ -16,7 +16,7 @@ describe(name, () => {
 	tests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
-				const actual = canBeZero(...test.args);
+				const actual = fn(...test.args);
 				assert.strictEqual(actual, test.expected);
 			});
 		});

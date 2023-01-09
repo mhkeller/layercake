@@ -21,7 +21,7 @@ npm install
 npm run build && npm run preview
 ```
 
-Your app will be running at [localhost:5000](http://localhost:5000).
+Your app will be running at [localhost:4173](http://localhost:4173).
 
 ## Developing
 
@@ -31,4 +31,4 @@ npm install
 npm run dev
 ```
 
-Your app will be running at [localhost:3000](http://localhost:3000).
+Your app will be running at [localhost:5173](http://localhost:5173).

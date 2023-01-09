@@ -1,6 +1,7 @@
 <script>
-	import { LayerCake, Svg } from 'layercake';
-  import { extent, bin } from 'd3-array';
+	import { LayerCake, Svg, bin, takeEvery } from 'layercake';
+
+  import { extent } from 'd3-array';
 	import { scaleBand } from 'd3-scale';
 	import { format } from 'd3-format';
 
@@ -9,7 +10,6 @@
 	import AxisY from '../../_components/AxisY.svelte';
 
 	import calcThresholds from '../../_modules/calcThresholds.js';
-	import everyN from '../../_modules/everyN.js'
 
 	import data from '../../_data/unemployment.js';
 
@@ -22,13 +22,13 @@
 
 	const domain = extent(data);
 
-	$: steps = calcThresholds(domain, binCount);
+	$: thresholds = calcThresholds(domain, binCount);
+	$: slimThresholds = takeEvery(thresholds, 5);
 
-	$: hist = bin()
-		.domain(domain)
-		.thresholds(steps);
-
-	$: slimSteps = everyN(steps, 5);
+	$: binnedData = bin(data, d => d, {
+		domain,
+		thresholds
+	})
 </script>
 
 <style>
@@ -63,16 +63,16 @@
 		padding={{ top: 20, right: 5, bottom: 20, left: 30 }}
 		x={xKey}
 		y={yKey}
-		xDomain={steps}
+		xDomain={thresholds}
 		xScale={scaleBand().paddingInner([0])}
 		yDomain={[0, null]}
-		data={hist(data)}
+		data={binnedData}
 	>
 		<Svg>
 			<AxisX
 				gridlines={false}
 				baseline={true}
-				ticks={slimSteps}
+				ticks={slimThresholds}
 				formatTick={d => +f(d)}
 			/>
 			<AxisY

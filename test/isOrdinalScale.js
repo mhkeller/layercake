@@ -1,7 +1,8 @@
 /* globals describe it */
 import * as assert from 'assert';
 import * as d3Scale from 'd3-scale';
-import isOrdinalScale from '../src/lib/helpers/isOrdinalScale.js';
+
+import fn from '../src/lib/helpers/isOrdinalScale.js';
 
 const name = 'isOrdinalScale';
 
@@ -47,7 +48,7 @@ describe(name, () => {
 	tests.forEach(test => {
 		describe(test.name, () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
-				const actual = isOrdinalScale(...test.args);
+				const actual = fn(...test.args);
 				assert.equal(actual, test.expected);
 			});
 		});

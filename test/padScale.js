@@ -1,8 +1,15 @@
 /* globals describe it */
 import * as assert from 'assert';
 import {
-	scaleLinear, scaleTime, scaleLog, scalePow, scaleSqrt, scaleSymlog } from 'd3-scale';
-import padScale from '../src/lib/utils/padScale.js';
+	scaleLinear,
+	scaleTime,
+	scaleLog,
+	scalePow,
+	scaleSqrt,
+	scaleSymlog
+} from 'd3-scale';
+
+import fn from '../src/lib/utils/padScale.js';
 
 const name = 'padScale';
 
@@ -72,7 +79,7 @@ describe(name, () => {
 					assert.deepStrictEqual(test.args[0].domain(), test.expected);
 					return;
 				}
-				const paddedDomain = padScale(...test.args);
+				const paddedDomain = fn(...test.args);
 
 				const originalScale = test.args[0];
 				const padding = test.args[1];
@@ -109,7 +116,7 @@ describe(`${name} errors`, () => {
 	errorTests.forEach(test => {
 		describe(test.name, () => {
 			it(`should throw error ${test.expected}`, () => {
-				const actual = function () { padScale(...test.args); };
+				const actual = function () { fn(...test.args); };
 				assert.throws(actual, test.expected);
 			});
 		});

@@ -1,7 +1,7 @@
 /* globals describe it */
 import * as assert from 'assert';
 import * as d3Scale from 'd3-scale';
-import findScaleType from '../src/lib/helpers/findScaleType.js';
+import fn from '../src/lib/helpers/findScaleType.js';
 
 const name = 'findScaleType';
 
@@ -39,7 +39,7 @@ describe(name, () => {
 	tests.forEach(test => {
 		describe(test.name, () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
-				const actual = findScaleType(...test.args);
+				const actual = fn(...test.args);
 				assert.equal(actual, test.expected);
 			});
 		});

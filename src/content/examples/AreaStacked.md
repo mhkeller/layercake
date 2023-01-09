@@ -1,1 +1,1 @@
-Stack area charts using D3's [stack](https://github.com/d3/d3-shape#stacks) function. Because this will create a nested data structure, we use LayerCake's `flatten` function and the `flatData` option from which we measure the extents.
+Stacked area chart using Layer Cake's [stack function](/guide#stack). Because this will create a nested data structure, we use LayerCake's `flatten` function to pass to the `flatData` prop. See the [server-side rendered example](/example-ssr/AreaStacked) for the basic D3 function usage.

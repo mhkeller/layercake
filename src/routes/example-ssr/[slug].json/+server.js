@@ -1,4 +1,4 @@
-import { json as json$1 } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import * as fs from 'fs';
 
 function getComponentJsPaths(example) {
@@ -58,17 +58,7 @@ export async function GET({ params }) {
 	const examplePath = `src/routes/_examples_ssr/${slug}.svelte`;
 
 	if (!fs.existsSync(examplePath)) {
-		return json$1(
-			{
-				message: `Not found: ${slug}`
-			},
-			{
-				status: 404,
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}
-		);
+		throw error(404, `Not found: ${slug}`);
 	}
 
 	const example = fs.readFileSync(examplePath, 'utf-8');
@@ -144,9 +134,5 @@ export async function GET({ params }) {
 		jsons
 	};
 
-	return new Response(JSON.stringify(response), {
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	});
+	return json(response);
 }

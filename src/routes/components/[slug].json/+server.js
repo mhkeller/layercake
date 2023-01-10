@@ -1,4 +1,4 @@
-import { json as json$1 } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import { readFileSync, existsSync } from 'fs';
 import { readdirFilterSync } from 'indian-ocean';
 import doctrine from 'doctrine';
@@ -32,17 +32,7 @@ export async function GET({ params }) {
 	const componentPath = `src/_components/${slug}`;
 
 	if (!existsSync(componentPath)) {
-		return json$1(
-			{
-				message: `Not found: ${slug}`
-			},
-			{
-				status: 404,
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}
-		);
+		throw error(404, `Not found: ${slug}`);
 	}
 
 	const component = readFileSync(componentPath, 'utf-8');
@@ -117,9 +107,5 @@ export async function GET({ params }) {
 		modules
 	};
 
-	return new Response(JSON.stringify(response), {
-		headers: {
-			'content-type': 'application/json'
-		}
-	});
+	return json(response);
 }

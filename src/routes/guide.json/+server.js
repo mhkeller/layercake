@@ -1,15 +1,12 @@
+import { json } from '@sveltejs/kit';
 import getSections from '../../_modules/getSections.js';
 
-let json;
+let data;
 
 export async function GET() {
-	if (!json || process.env.NODE_ENV !== 'production') {
-		json = getSections();
+	if (!data || process.env.NODE_ENV !== 'production') {
+		data = getSections();
 	}
 
-	return new Response(JSON.stringify(json), {
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	});
+	return json(data);
 }

@@ -202,7 +202,7 @@
 	</div>
 
 	<div id="dek">
-		<p>Layer Cake is a graphics framework for <a href="https://svelte.dev" target="_blank" rel="noopener">Svelte</a>. It uses the measurements of your target div and your data extents to create scales that <span class="strong">stay synced</span> on layout changes. Use these scales to organize multiple, <span class="strong">mostly-reusable Svelte components</span>, whether they be SVG, HTML, Canvas or WebGL. Since they all share the same coordinate space, you can build your graphic one layer at a time. It can also be used to easily create <span class="strong">responsive graphics server-side</span> that <a href="#server-side">work without JavaScript</a>.</p>
+		<p>Layer Cake is a graphics framework for <a href="https://svelte.dev" target="_blank" rel="noreferrer">Svelte</a>. It uses the measurements of your target div and your data extents to create scales that <span class="strong">stay synced</span> on layout changes. Use these scales to organize multiple, <span class="strong">mostly-reusable Svelte components</span>, whether they be SVG, HTML, Canvas or WebGL. Since they all share the same coordinate space, you can build your graphic one layer at a time. It can also be used to easily create <span class="strong">responsive graphics server-side</span> that <a href="#server-side">work without JavaScript</a>.</p>
 
 		<p>Unlike other libraries, <a href="/components" sveltekit:prefetch>chart components</a> live <span class="strong">inside your project</span>, so you have complete control for <span class="strong">customization</span>. It also includes some handy <a href="/guide#helper-functions" sveltekit:prefetch>helper functions</a> to help format your data into the right shape.</p>
 

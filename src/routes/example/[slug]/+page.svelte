@@ -271,6 +271,7 @@
 				<li
 					class="tab {active === cleanTitle(page.title) ? 'active' : ''}"
 					on:click="{() => active = cleanTitle(page.title)}"
+					on:keypress="{() => active = cleanTitle(page.title)}"
 				>{page.title}</li>
 			{/each}
 		</ul>
@@ -278,6 +279,7 @@
 			<div
 				class="copy"
 				on:click={copyToClipboard}
+				on:keypress={copyToClipboard}
 			></div>
 			{#each pages as page}
 				<div class="contents" style="display: {active === cleanTitle(page.title) ? 'block' : 'none'};">

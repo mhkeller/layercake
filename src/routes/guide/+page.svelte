@@ -139,7 +139,7 @@
 	section :global(h3 > a) {
 		width: 25px;
 		height: 25px;
-		background-image: url(icons/link.svg);
+		background-image: url(/icons/link.svg);
 		background-repeat: no-repeat;
 		position: absolute;
 		transform: translate(0px, -3px);

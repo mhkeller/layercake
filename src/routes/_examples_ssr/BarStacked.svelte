@@ -49,7 +49,7 @@
 	<LayerCake
 		ssr={true}
 		percentRange={true}
-		padding={{ top: 0, right: 0, bottom: 20, left: 30 }}
+		padding={{ top: 0, right: 0, bottom: 20, left: 35 }}
 		y={d => d.data[xKey]}
 		x={yKey}
 		z={zKey}

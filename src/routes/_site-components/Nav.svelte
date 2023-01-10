@@ -359,9 +359,15 @@
 	}
 </style>
 
-<div class='{open ? "open" : "closed"} mousecatcher' on:click="{() => open = false}"></div>
+<div class='{open ? "open" : "closed"} mousecatcher'
+	on:click="{() => open = false}"
+	on:keypress="{() => open = false}"
+></div>
 <div class='container'>
-	<span class="menu-link {open ? "menu-open" : "menu-closed"}" on:click='{toggleOpen}'>{open ? 'Close' : 'Menu'}</span>
+	<span class="menu-link {open ? "menu-open" : "menu-closed"}"
+		on:click='{toggleOpen}'
+		on:keypress='{toggleOpen}'
+	>{open ? 'Close' : 'Menu'}</span>
 	<a href='/' sveltekit:prefetch class='logo'>Layer Cake</a>
 </div>
 

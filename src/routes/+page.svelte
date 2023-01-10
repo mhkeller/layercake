@@ -204,9 +204,9 @@
 	<div id="dek">
 		<p>Layer Cake is a graphics framework for <a href="https://svelte.dev" target="_blank" rel="noopener">Svelte</a>. It uses the measurements of your target div and your data extents to create scales that <span class="strong">stay synced</span> on layout changes. Use these scales to organize multiple, <span class="strong">mostly-reusable Svelte components</span>, whether they be SVG, HTML, Canvas or WebGL. Since they all share the same coordinate space, you can build your graphic one layer at a time. It can also be used to easily create <span class="strong">responsive graphics server-side</span> that <a href="#server-side">work without JavaScript</a>.</p>
 
-		<p>Unlike other libraries, <a href="/components" sveltekit:prefetch>chart components</a> live <span class="strong">inside your project</span>, so you have complete control for <span class="strong">customization</span>. It also includes some handy transformation components to help format your data into the right shape.</p>
+		<p>Unlike other libraries, <a href="/components" sveltekit:prefetch>chart components</a> live <span class="strong">inside your project</span>, so you have complete control for <span class="strong">customization</span>. It also includes some handy <a href="/guide#helper-functions" sveltekit:prefetch>helper functions</a> to help format your data into the right shape.</p>
 
-		<p>Read the <a href="guide" sveltekit:prefetch>guide</a>, try the <a href="https://github.com/mhkeller/layercake-template" target="_blank" rel="nofollow">starter template</a> or check out <a href="guide" sveltekit:prefetch>transform</a> and <a href="components" sveltekit:prefetch>example components</a>. See the examples below and even edit them live. Here's a sample of what the code looks like:</p>
+		<p>Read the <a href="guide" sveltekit:prefetch>guide</a>, try the <a href="https://github.com/mhkeller/layercake-template" target="_blank" rel="noreferrer">starter template</a> or check out the <a href="components" sveltekit:prefetch>example components</a>. See the examples below and even edit them live. Here's a sample of what the code looks like:</p>
 	</div>
 
 	<div class="code-example">
@@ -216,7 +216,7 @@
 	<div id="gallery">
 		{#each examples as example}
 			<div class="gallery-item">
-				<h4 class="title"><a sveltekit:prefetch href="/example/{example.slug}">{example.title}</a> <a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="nofollow">Edit</a></h4>
+				<h4 class="title"><a sveltekit:prefetch href="/example/{example.slug}">{example.title}</a> <a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="noreferrer">Edit</a></h4>
 				<svelte:component this="{example.component}"/>
 			</div>
 		{/each}
@@ -224,14 +224,14 @@
 
 	<div class="section-hed" id="server-side">
 		<h2>Server-side rendering</h2>
-		<p>Svelte makes it easy to render your project server side and Layer Cake has built-in helpers to make it even easier for charts. All of these examples below (except for their canvas components) will load and be responsive without client-side JavaScript. The advantage is that you can see the chart as soon as the page loads, avoiding blank placeholder spaces. HTML charts use percentage-based scales and SVG charts take advanage of certain <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox" target="_blank" rel="nofollow">viewBox</a> and CSS settings that Rich Harris, Svelte's creator, outlined in <a href="https://dev.to/richharris/a-new-technique-for-making-responsive-javascript-free-charts-gmp" target="_blank" rel="nofollow">this blog post</a>.</p>
+		<p>Svelte makes it easy to render your project server side and Layer Cake has built-in helpers to make it even easier for charts. All of these examples below (except for their canvas components) will load and be responsive without client-side JavaScript. The advantage is that you can see the chart as soon as the page loads, avoiding blank placeholder spaces. HTML charts use percentage-based scales and SVG charts take advanage of certain <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox" target="_blank" rel="noreferrer">viewBox</a> and CSS settings that Rich Harris, Svelte's creator, outlined in <a href="https://dev.to/richharris/a-new-technique-for-making-responsive-javascript-free-charts-gmp" target="_blank" rel="noreferrer">this blog post</a>.</p>
 		<p>For shapes that are difficult to render using percentages, such as swoopy arrows, Layer Cake makes it easy to superimpose client-side components that will hydrate once JavaScript is available. See the annotated column example below.</p>
 	</div>
 
 	<div id="ssr-gallery">
 		{#each examplesSsr as example}
 			<div class="gallery-item" class:scaled={example.title.toLowerCase().includes('map')}>
-				<h4 class="title"><a sveltekit:prefetch href="/example-ssr/{example.slug}">{example.title}</a> <a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="nofollow">Edit</a></h4>
+				<h4 class="title"><a sveltekit:prefetch href="/example-ssr/{example.slug}">{example.title}</a> <a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="noreferrer">Edit</a></h4>
 				<svelte:component this="{example.component}"/>
 			</div>
 		{/each}

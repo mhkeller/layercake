@@ -19,7 +19,7 @@
 	export let data
 	let {slug, content, active} = data
 	$: ({slug, content, active} = data)
-	
+
 	function markdownToHtml (text) {
 		return md.render(text);
 	}
@@ -258,7 +258,7 @@
 </svelte:head>
 
 <div class="main" data-label="Server-side">
-	<h1>{example.title}<a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="nofollow">Edit</a></h1>
+	<h1>{example.title}<a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="noreferrer">Edit</a></h1>
 
 	<div class="chart-hero" data-slug={slug.toLowerCase()}>
 		<svelte:component this={example.component} />

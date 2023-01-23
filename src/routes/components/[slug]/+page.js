@@ -1,6 +1,5 @@
 import { error } from '@sveltejs/kit';
 
-export const prerender = true;
 export async function load({ fetch, params }) {
 	// the `slug` parameter is available because
 	// this file is called [slug].svelte

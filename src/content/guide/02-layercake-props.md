@@ -181,25 +181,25 @@ Same as [xDomain](/guide#xdomain) but for the r scale.
 
 Reverse the default x range. By default this is `false` and the range is `[0, width]`.
 
-This is ignored if you set [xRange](/guide#xRange).
+This is ignored if you set [xRange](/guide#xrange).
 
 ### yReverse `Boolean=true`
 
 Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale in which case this is `false`.
 
-This is ignored if you set [yRange](/guide#yRange).
+This is ignored if you set [yRange](/guide#yrange).
 
 ### zReverse `Boolean=false`
 
 Reverse the default z range. By default this is `false` and the range is `[0, width]`.
 
-This is ignored if you set [zRange](/guide#zRange).
+This is ignored if you set [zRange](/guide#zrange).
 
 ### rReverse `Boolean=false`
 
 Reverse the default r range. By default this is `false` and the range is `[1, 25]`.
 
-This is ignored if you set [rRange](/guide#rRange).
+This is ignored if you set [rRange](/guide#rrange).
 
 ### xRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
 

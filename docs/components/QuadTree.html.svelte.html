@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Layer Cake" />
+		<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+		<meta name='theme-color' content='#ff3e00'>
+
+		<link rel='icon' type='image/png' href='/layercake-logo-100.png'>
+
+		<meta property="og:site_name" content="https://layercake.graphics" />
+		<meta property="og:type" content="article" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<meta property="og:image" content="https://layercake.graphics/layercake-logo-1200.png" />
+		<meta property="og:description" content="A framework for mostly-reusable graphics with svelte" />
+		<meta name="description" content="A framework for mostly-reusable graphics with svelte">
+		<meta name="keywords" content="layercake, graphics, svelte, graphics framework, svelte graphics framework, data viz, data visualization, reusable, mostly-reusable" />
+		<meta property="og:url" content="https://layercake.graphics" />
+		<link rel="shortcut icon" type="image/png" href="https://layercake.graphics/favicon.png">
+
+		<meta name="twitter:site" content="https://layercake.graphics" />
+		<meta name="twitter:image" content="https://layercake.graphics/layercake-logo-1200.png">
+
+		<meta http-equiv="content-security-policy" content="">
+		<link href="../_app/immutable/assets/_layout-7b48a4ef.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/GuideContents-48e964f9.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/_examples-d786b0c9.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/Brush-6c1d38e0.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/dots-ef082192.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/_examples_ssr-a57e5701.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range-cce3ebed.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/_page-e4289f57.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/_components-4402b009.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/start-b676dccc.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index-bab5e66b.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons-c00be4bd.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index-bae20f10.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/control-f5b05b5f.js">
+		<link rel="modulepreload" href="../_app/immutable/components/pages/_layout.svelte-76721deb.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores-8135f9a4.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents-df5a5a2a.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples-1cfbc5ae.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html-da7ecbd3.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/dots-9077e538.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour-2fd2af77.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr-ad2e34c5.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html-8b840f00.js">
+		<link rel="modulepreload" href="../_app/immutable/modules/pages/_layout.js-ac5188f8.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index-1885ff30.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_layout-bce0f951.js">
+		<link rel="modulepreload" href="../_app/immutable/components/pages/components/_slug_/_page.svelte-e445c4ca.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob-9f919364.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/hljsDefineSvelte-185b3d8f.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_components-283ee097.js">
+		<link rel="modulepreload" href="../_app/immutable/modules/pages/components/_slug_/_page.js-88f63a4f.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_page-c0f5941f.js"><title>QuadTree.html.svelte component</title><!-- HEAD_svelte-1675z5z_START --><!-- HEAD_svelte-1675z5z_END -->
+	</head>
+	<body>
+		<div id="svelte">
+
+
+<div class="closed mousecatcher svelte-6iinyn"></div>
+<div class="container svelte-6iinyn"><span class="menu-link menu-closed svelte-6iinyn">Menu</span>
+	<a href="/" sveltekit:prefetch class="logo svelte-6iinyn">Layer Cake</a></div>
+
+<ul class="dropdown svelte-6iinyn"><li class="svelte-6iinyn">
+		<select class="svelte-6iinyn"><option value="/components/QuadTree.html.svelte" disabled>Select...</option><option value="/">All</option><option class="header svelte-6iinyn" disabled value=""></option><option class="header svelte-6iinyn" disabled value="Client-side">Client-side</option><option value="/example/Bar">Bar</option><option value="/example/Beeswarm">Beeswarm</option><option value="/example/BeeswarmForce">Beeswarm, force layout</option><option value="/example/Brush">Brush</option><option value="/example/Calendar">Calendar</option><option value="/example/CirclePack">Circle pack</option><option value="/example/CirclePackForce">Circle pack, force layout</option><option value="/example/ClevelandDotPlot">Cleveland dot plot</option><option value="/example/Column">Column annotated</option><option value="/example/Histogram">Histogram</option><option value="/example/Line">Line + area</option><option value="/example/MapSvg">Map</option><option value="/example/MapLayered">Multilayer map</option><option value="/example/MultiLine">Multiline</option><option value="/example/CirclePackNested">Nested circle pack</option><option value="/example/Radar">Radar chart</option><option value="/example/Sankey">Sankey</option><option value="/example/Scatter">Scatter</option><option value="/example/SmallMultiples">Small multiples</option><option value="/example/AreaStacked">Stacked area</option><option value="/example/BarStacked">Stacked bar</option><option value="/example/ColumnStacked">Stacked column</option><option value="/example/SyncedBrush">Synced brush</option><option value="/example/Timeplot">Time of day plot</option><option value="/example/ScatterWebgl">WebGL Scatter</option><option class="header svelte-6iinyn" disabled value=""></option><option class="header svelte-6iinyn" disabled value="Server-side">Server-side</option><option value="/example-ssr/Bar">Bar</option><option value="/example-ssr/Brush">Brush</option><option value="/example-ssr/Calendar">Calendar</option><option value="/example-ssr/ClevelandDotPlot">Cleveland dot plot</option><option value="/example-ssr/Column">Column annotated</option><option value="/example-ssr/Histogram">Histogram</option><option value="/example-ssr/Line">Line + area</option><option value="/example-ssr/MapSvg">Map</option><option value="/example-ssr/MapLayered">Multilayer map</option><option value="/example-ssr/MultiLine">Multiline</option><option value="/example-ssr/Scatter">Scatter</option><option value="/example-ssr/SmallMultiples">Small multiples</option><option value="/example-ssr/AreaStacked">Stacked area</option><option value="/example-ssr/BarStacked">Stacked bar</option><option value="/example-ssr/ColumnStacked">Stacked column</option><option value="/example-ssr/SyncedBrush">Synced brush</option><option value="/example-ssr/Timeplot">Time of day plot</option><option value="/example-ssr/ScatterWebgl">WebGL Scatter</option></select></li></ul>
+
+<nav class="closed svelte-6iinyn"><ul class="primary svelte-6iinyn"><li class="svelte-6iinyn"><a sveltekit:prefetch class=" svelte-6iinyn" href="/components"><span class="wide-name svelte-6iinyn">Component gallery</span><span class="short-name svelte-6iinyn">Components</span></a></li>
+		<li class="svelte-6iinyn"><a sveltekit:prefetch class=" svelte-6iinyn" href="/guide">Guide</a></li>
+		<li class="svelte-6iinyn"><a id="github-link" target="_blank" rel="noreferrer" href="https://github.com/mhkeller/layercake" class="svelte-6iinyn"></a></li></ul>
+
+	<div class="secondary svelte-6iinyn"><ul class="guide-toc svelte-7hddv0"><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#introduction">Introduction</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#what-is-layer-cake">What is Layer Cake?</a><a class="subsection  svelte-7hddv0" href="/guide#key-concepts">Key Concepts</a><a class="subsection  svelte-7hddv0" href="/guide#getting-started">Getting started</a><a class="subsection  svelte-7hddv0" href="/guide#using-layout-components">Using layout components</a><a class="subsection  svelte-7hddv0" href="/guide#layer-components">Layer components</a><a class="subsection  svelte-7hddv0" href="/guide#data-less-cakes">Data-less cakes</a><a class="subsection  svelte-7hddv0" href="/guide#server-side-rendering">Server-side rendering</a><a class="subsection  svelte-7hddv0" href="/guide#how-does-layercake-know-what-to-set-as-a-scale39s-domain-and-range">How does LayerCake know what to set as a scale's domain and range?</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#troubleshooting">Troubleshooting</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#the-chart-is-blank">The chart is blank</a><a class="subsection  svelte-7hddv0" href="/guide#the-chart-is-a-very-small-square">The chart is a very small square</a><a class="subsection  svelte-7hddv0" href="/guide#the-library-isn39t-building-properly">The library isn't building properly</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#layercake-props">LayerCake props</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#data">data</a><a class="subsection  svelte-7hddv0" href="/guide#x">x</a><a class="subsection  svelte-7hddv0" href="/guide#y">y</a><a class="subsection  svelte-7hddv0" href="/guide#z">z</a><a class="subsection  svelte-7hddv0" href="/guide#r">r</a><a class="subsection  svelte-7hddv0" href="/guide#padding">padding</a><a class="subsection  svelte-7hddv0" href="/guide#xscale">xScale</a><a class="subsection  svelte-7hddv0" href="/guide#yscale">yScale</a><a class="subsection  svelte-7hddv0" href="/guide#zscale">zScale</a><a class="subsection  svelte-7hddv0" href="/guide#rscale">rScale</a><a class="subsection  svelte-7hddv0" href="/guide#xdomain">xDomain</a><a class="subsection  svelte-7hddv0" href="/guide#ydomain">yDomain</a><a class="subsection  svelte-7hddv0" href="/guide#zdomain">zDomain</a><a class="subsection  svelte-7hddv0" href="/guide#rdomain">rDomain</a><a class="subsection  svelte-7hddv0" href="/guide#xreverse">xReverse</a><a class="subsection  svelte-7hddv0" href="/guide#yreverse">yReverse</a><a class="subsection  svelte-7hddv0" href="/guide#zreverse">zReverse</a><a class="subsection  svelte-7hddv0" href="/guide#rreverse">rReverse</a><a class="subsection  svelte-7hddv0" href="/guide#xrange">xRange</a><a class="subsection  svelte-7hddv0" href="/guide#yrange">yRange</a><a class="subsection  svelte-7hddv0" href="/guide#zrange">zRange</a><a class="subsection  svelte-7hddv0" href="/guide#rrange">rRange</a><a class="subsection  svelte-7hddv0" href="/guide#xpadding">xPadding</a><a class="subsection  svelte-7hddv0" href="/guide#ypadding">yPadding</a><a class="subsection  svelte-7hddv0" href="/guide#zpadding">zPadding</a><a class="subsection  svelte-7hddv0" href="/guide#rpadding">rPadding</a><a class="subsection  svelte-7hddv0" href="/guide#xnice">xNice</a><a class="subsection  svelte-7hddv0" href="/guide#ynice">yNice</a><a class="subsection  svelte-7hddv0" href="/guide#znice">zNice</a><a class="subsection  svelte-7hddv0" href="/guide#rnice">rNice</a><a class="subsection  svelte-7hddv0" href="/guide#extents">extents</a><a class="subsection  svelte-7hddv0" href="/guide#flatdata">flatData</a><a class="subsection  svelte-7hddv0" href="/guide#ssr">ssr</a><a class="subsection  svelte-7hddv0" href="/guide#percentrange">percentRange</a><a class="subsection  svelte-7hddv0" href="/guide#position">position</a><a class="subsection  svelte-7hddv0" href="/guide#custom">custom</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#computed-context-values">Computed context values</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#activegetters">activeGetters</a><a class="subsection  svelte-7hddv0" href="/guide#aspectratio">aspectRatio</a><a class="subsection  svelte-7hddv0" href="/guide#box">box</a><a class="subsection  svelte-7hddv0" href="/guide#config">config</a><a class="subsection  svelte-7hddv0" href="/guide#containerwidth">containerWidth</a><a class="subsection  svelte-7hddv0" href="/guide#containerheight">containerHeight</a><a class="subsection  svelte-7hddv0" href="/guide#extents-1">extents</a><a class="subsection  svelte-7hddv0" href="/guide#width">width</a><a class="subsection  svelte-7hddv0" href="/guide#height">height</a><a class="subsection  svelte-7hddv0" href="/guide#x-1">x</a><a class="subsection  svelte-7hddv0" href="/guide#y-1">y</a><a class="subsection  svelte-7hddv0" href="/guide#z-1">z</a><a class="subsection  svelte-7hddv0" href="/guide#r-1">r</a><a class="subsection  svelte-7hddv0" href="/guide#xdomain-1">xDomain</a><a class="subsection  svelte-7hddv0" href="/guide#ydomain-1">yDomain</a><a class="subsection  svelte-7hddv0" href="/guide#zdomain-1">zDomain</a><a class="subsection  svelte-7hddv0" href="/guide#rdomain-1">rDomain</a><a class="subsection  svelte-7hddv0" href="/guide#xrange-1">xRange</a><a class="subsection  svelte-7hddv0" href="/guide#yrange-1">yRange</a><a class="subsection  svelte-7hddv0" href="/guide#zrange-1">zRange</a><a class="subsection  svelte-7hddv0" href="/guide#rrange-1">rRange</a><a class="subsection  svelte-7hddv0" href="/guide#xget">xGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#yget">yGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#zget">zGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#rget">rGet(...)</a><a class="subsection  svelte-7hddv0" href="/guide#xscale-1">xScale(...)</a><a class="subsection  svelte-7hddv0" href="/guide#yscale-1">yScale(...)</a><a class="subsection  svelte-7hddv0" href="/guide#zscale-1">zScale(...)</a><a class="subsection  svelte-7hddv0" href="/guide#rscale-1">rScale(...)</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#layout-components">Layout components</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#html">Html</a><a class="subsection  svelte-7hddv0" href="/guide#svg">Svg</a><a class="subsection  svelte-7hddv0" href="/guide#scaledsvg">ScaledSvg</a><a class="subsection  svelte-7hddv0" href="/guide#canvas">Canvas</a><a class="subsection  svelte-7hddv0" href="/guide#webgl">WebGL</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#layout-component-props">Layout component props</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#zindex">zIndex</a><a class="subsection  svelte-7hddv0" href="/guide#pointerevents">pointerEvents</a><a class="subsection  svelte-7hddv0" href="/guide#viewbox">viewBox</a><a class="subsection  svelte-7hddv0" href="/guide#fixedaspectratio">fixedAspectRatio</a><a class="subsection  svelte-7hddv0" href="/guide#contextattributes">contextAttributes</a>
+		</li><li class="svelte-7hddv0"><a class="section  svelte-7hddv0" href="/guide#helper-functions">Helper functions</a>
+			<a class="subsection  svelte-7hddv0" href="/guide#bin">bin(...)</a><a class="subsection  svelte-7hddv0" href="/guide#calcextents">calcExtents(...)</a><a class="subsection  svelte-7hddv0" href="/guide#calcuniques">calcUniques(...)</a><a class="subsection  svelte-7hddv0" href="/guide#flatten">flatten(...)</a><a class="subsection  svelte-7hddv0" href="/guide#grouplonger">groupLonger(...)</a><a class="subsection  svelte-7hddv0" href="/guide#raise">raise(...)</a><a class="subsection  svelte-7hddv0" href="/guide#scalecanvas">scaleCanvas(...)</a><a class="subsection  svelte-7hddv0" href="/guide#stack">stack(...)</a><a class="subsection  svelte-7hddv0" href="/guide#uniques">uniques(...)</a>
+		</li></ul></div></nav>
+<main>
+
+<div class="main svelte-2w8zgn"><div class="all-components svelte-2w8zgn"><a href="/components" sveltekit:prefetch class="svelte-2w8zgn">← View all components</a></div>
+	<h1 class="svelte-2w8zgn">QuadTree.html.svelte component</h1>
+
+	<div class="chart-hero svelte-2w8zgn"><div class="chart-container svelte-1tp0zbo">
+
+
+</div></div>
+
+	<div class="download svelte-2w8zgn"><button  title="download zip file" class="icon svelte-1gef78k" style="background-image: url(/icons/download.svg)">Download      </button></div>
+
+	<div class="dek svelte-2w8zgn"><!-- HTML_TAG_START --><p>Creates an interaction layer (in HTML) using <a href="https://github.com/d3/d3-quadtree">d3-quadtree</a> to find the nearest datapoint to the mouse. This component creates a slot that exposes variables <code>x</code>, <code>y</code>, <code>found</code> (the found datapoint), <code>visible</code> (a Boolean whether any data was found) and <code>e</code> (the event object).</p>
+<p>The quadtree searches across both the x and y dimensions at the same time. But if you want to only search across one, set the <code>x</code> and <code>y</code> props to the same value. For example, the <a href="https://layercake.graphics/components/SharedTooltip.html.svelte">shared tooltip component</a> sets <code>y='x'</code> since it's nicer behavior to only pick up on the nearest x-value.</p>
+<!-- HTML_TAG_END --></div>
+	<div id="params-table" class="svelte-2w8zgn"><!-- HTML_TAG_START --><table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>x</strong> <code>String</code></td>
+<td><code>'x'</code></td>
+<td><center>no</center></td>
+<td>The dimension to search across when moving the mouse left and right.</td>
+</tr>
+<tr>
+<td><strong>y</strong> <code>String</code></td>
+<td><code>'y'</code></td>
+<td><center>no</center></td>
+<td>The dimension to search across when moving the mouse up and down.</td>
+</tr>
+<tr>
+<td><strong>searchRadius</strong> <code>String</code></td>
+<td>None</td>
+<td><center>no</center></td>
+<td>The number of pixels to search around the mouse's location. This is the third argument passed to <a href="https://github.com/d3/d3-quadtree#quadtree_find"><code>quadtree.find</code></a> and by default a value of <code>undefined</code> means an unlimited range.</td>
+</tr>
+<tr>
+<td><strong>dataset</strong> <code>Array</code></td>
+<td>None</td>
+<td><center>no</center></td>
+<td>The dataset to work off of—defaults to $data if left unset. You can pass override the default here in here in case you don't want to use the main data or it's in a strange format.</td>
+</tr>
+</tbody>
+</table>
+<!-- HTML_TAG_END --></div>
+	<div id="used-in" class="svelte-2w8zgn"><h3 class="svelte-2w8zgn">Used in these examples:
+			</h3>
+			
+					<ul class="svelte-2w8zgn"><li><a href="/example/ScatterWebgl" sveltekit:prefetch class="svelte-2w8zgn">ScatterWebgl</a></li>
+					</ul><h3 class="svelte-2w8zgn">SSR Examples:</h3>
+					<ul class="svelte-2w8zgn"><li><a href="/example-ssr/ScatterWebgl" sveltekit:prefetch class="svelte-2w8zgn">ScatterWebgl</a></li>
+					</ul></div>
+
+	<div id="pages" class=" svelte-2w8zgn"><ul id="page-nav" class="svelte-2w8zgn"><li class="tab active svelte-2w8zgn">QuadTree.html.svelte
+				</li></ul>
+		<div id="contents-container" class="svelte-2w8zgn"><div class="copy svelte-2w8zgn"></div>
+			<div class="contents" style="display: block;"><pre class="svelte-2w8zgn"><!-- HTML_TAG_START --><span class="hljs-comment">&lt;!--
+  @component
+  Creates an interaction layer (in HTML) using [d3-quadtree](https://github.com/d3/d3-quadtree) to find the nearest datapoint to the mouse. This component creates a slot that exposes variables `x`, `y`, `found` (the found datapoint), `visible` (a Boolean whether any data was found) and `e` (the event object).
+
+  The quadtree searches across both the x and y dimensions at the same time. But if you want to only search across one, set the `x` and `y` props to the same value. For example, the [shared tooltip component](https://layercake.graphics/components/SharedTooltip.html.svelte) sets `y=&#x27;x&#x27;` since it&#x27;s nicer behavior to only pick up on the nearest x-value.
+ --&gt;</span><span class="language-xml">
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><span class="language-javascript">
+  <span class="hljs-keyword">import</span> { getContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;svelte&#x27;</span>;
+  <span class="hljs-keyword">import</span> { quadtree } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;d3-quadtree&#x27;</span>;
+
+  <span class="hljs-keyword">const</span> { data, xGet, yGet, width, height } = <span class="hljs-title function_">getContext</span>(<span class="hljs-string">&#x27;LayerCake&#x27;</span>);
+
+  <span class="hljs-keyword">let</span> visible = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">let</span> found = {};
+  <span class="hljs-keyword">let</span> e = {};
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">String</span>} [x=&#x27;x&#x27;] – The dimension to search across when moving the mouse left and right. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> x = <span class="hljs-string">&#x27;x&#x27;</span>;
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">String</span>} [y=&#x27;y&#x27;] – The dimension to search across when moving the mouse up and down. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> y = <span class="hljs-string">&#x27;y&#x27;</span>;
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">String</span>} [searchRadius] – The number of pixels to search around the mouse&#x27;s location. This is the third argument passed to [`quadtree.find`](https://github.com/d3/d3-quadtree#quadtree_find) and by default a value of `undefined` means an unlimited range. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> searchRadius = <span class="hljs-literal">undefined</span>;
+
+  <span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {<span class="hljs-type">Array</span>} [dataset] – The dataset to work off of—defaults to $data if left unset. You can pass override the default here in here in case you don&#x27;t want to use the main data or it&#x27;s in a strange format. */</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> dataset = <span class="hljs-literal">undefined</span>;
+</span><span class="hljs-keyword">
+  $: </span><span class="language-javascript">xGetter = x === <span class="hljs-string">&#x27;x&#x27;</span> ? $xGet : $yGet;
+</span><span class="hljs-keyword">  $: </span><span class="language-javascript">yGetter = y === <span class="hljs-string">&#x27;y&#x27;</span> ? $yGet : $xGet;
+
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">findItem</span> (evt) {
+    e = evt;
+
+    <span class="hljs-keyword">const</span> xLayerKey = <span class="hljs-string">`layer<span class="hljs-subst">${x.toUpperCase()}</span>`</span>;
+    <span class="hljs-keyword">const</span> yLayerKey = <span class="hljs-string">`layer<span class="hljs-subst">${y.toUpperCase()}</span>`</span>;
+
+    found = finder.<span class="hljs-title function_">find</span>(evt[xLayerKey], evt[yLayerKey], searchRadius) || {};
+    visible = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(found).<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>;
+  }
+</span><span class="hljs-keyword">
+  $: </span><span class="language-javascript">finder = <span class="hljs-title function_">quadtree</span>()
+    .<span class="hljs-title function_">extent</span>([[-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>], [$width + <span class="hljs-number">1</span>, $height + <span class="hljs-number">1</span>]])
+    .<span class="hljs-title function_">x</span>(xGetter)
+    .<span class="hljs-title function_">y</span>(yGetter)
+    .<span class="hljs-title function_">addAll</span>(dataset || $data);
+</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span></span><span class="language-css">
+  <span class="hljs-selector-class">.bg</span> {
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+  }
+</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;bg&quot;</span>
+  <span class="hljs-attr">on:mousemove</span>=<span class="hljs-string">&quot;</span></span></span><span class="language-javascript">{findItem}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+  <span class="hljs-attr">on:mouseout</span>=<span class="hljs-string">&quot;</span></span></span><span class="language-javascript">{<span class="hljs-function">() =&gt;</span> visible = <span class="hljs-literal">false</span>}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+  <span class="hljs-attr">on:blur</span>=<span class="hljs-string">&quot;</span></span></span><span class="language-javascript">{<span class="hljs-function">() =&gt;</span> visible = <span class="hljs-literal">false</span>}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">slot</span>
+  <span class="hljs-attr">x</span>=</span></span><span class="language-javascript">{<span class="hljs-title function_">xGetter</span>(found) || <span class="hljs-number">0</span>}</span><span class="language-xml"><span class="hljs-tag">
+  <span class="hljs-attr">y</span>=</span></span><span class="language-javascript">{<span class="hljs-title function_">yGetter</span>(found) || <span class="hljs-number">0</span>}</span><span class="language-xml"><span class="hljs-tag">
+  </span></span><span class="language-javascript">{found}</span><span class="language-xml"><span class="hljs-tag">
+  </span></span><span class="language-javascript">{visible}</span><span class="language-xml"><span class="hljs-tag">
+  </span></span><span class="language-javascript">{e}</span><span class="language-xml"><span class="hljs-tag">
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span></span><!-- HTML_TAG_END --></pre>
+				</div></div></div>
+</div></main>
+
+
+		<script type="module" data-sveltekit-hydrate="1qw1cyt">
+			import { start } from "../_app/immutable/start-b676dccc.js";
+
+			start({
+				env: {},
+				paths: {"base":"","assets":""},
+				target: document.querySelector('[data-sveltekit-hydrate="1qw1cyt"]').parentNode,
+				version: "1674508720391",
+				hydrate: {
+					node_ids: [0, 4],
+					data: [null,null],
+					form: null
+				}
+			});
+		</script>
+	<script type="application/json" data-sveltekit-fetched data-url="/api/guide-sections.json">{"status":200,"statusText":"","headers":{},"body":"[{\"html\":null,\"metadata\":{\"title\":\"Introduction\"},\"subsections\":[{\"slug\":\"what-is-layer-cake\",\"title\":\"What is Layer Cake?\"},{\"slug\":\"key-concepts\",\"title\":\"Key Concepts\"},{\"slug\":\"getting-started\",\"title\":\"Getting started\"},{\"slug\":\"using-layout-components\",\"title\":\"Using layout components\"},{\"slug\":\"layer-components\",\"title\":\"Layer components\"},{\"slug\":\"data-less-cakes\",\"title\":\"Data-less cakes\"},{\"slug\":\"server-side-rendering\",\"title\":\"Server-side rendering\"},{\"slug\":\"how-does-layercake-know-what-to-set-as-a-scale39s-domain-and-range\",\"title\":\"How does LayerCake know what to set as a scale's domain and range?\"}],\"slug\":\"introduction\",\"file\":\"00-introduction.md\"},{\"html\":null,\"metadata\":{\"title\":\"Troubleshooting\"},\"subsections\":[{\"slug\":\"the-chart-is-blank\",\"title\":\"The chart is blank\"},{\"slug\":\"the-chart-is-a-very-small-square\",\"title\":\"The chart is a very small square\"},{\"slug\":\"the-library-isn39t-building-properly\",\"title\":\"The library isn't building properly\"}],\"slug\":\"troubleshooting\",\"file\":\"01-troubleshooting.md\"},{\"html\":null,\"metadata\":{\"title\":\"LayerCake props\"},\"subsections\":[{\"slug\":\"data\",\"title\":\"data\"},{\"slug\":\"x\",\"title\":\"x\"},{\"slug\":\"y\",\"title\":\"y\"},{\"slug\":\"z\",\"title\":\"z\"},{\"slug\":\"r\",\"title\":\"r\"},{\"slug\":\"padding\",\"title\":\"padding\"},{\"slug\":\"xscale\",\"title\":\"xScale\"},{\"slug\":\"yscale\",\"title\":\"yScale\"},{\"slug\":\"zscale\",\"title\":\"zScale\"},{\"slug\":\"rscale\",\"title\":\"rScale\"},{\"slug\":\"xdomain\",\"title\":\"xDomain\"},{\"slug\":\"ydomain\",\"title\":\"yDomain\"},{\"slug\":\"zdomain\",\"title\":\"zDomain\"},{\"slug\":\"rdomain\",\"title\":\"rDomain\"},{\"slug\":\"xreverse\",\"title\":\"xReverse\"},{\"slug\":\"yreverse\",\"title\":\"yReverse\"},{\"slug\":\"zreverse\",\"title\":\"zReverse\"},{\"slug\":\"rreverse\",\"title\":\"rReverse\"},{\"slug\":\"xrange\",\"title\":\"xRange\"},{\"slug\":\"yrange\",\"title\":\"yRange\"},{\"slug\":\"zrange\",\"title\":\"zRange\"},{\"slug\":\"rrange\",\"title\":\"rRange\"},{\"slug\":\"xpadding\",\"title\":\"xPadding\"},{\"slug\":\"ypadding\",\"title\":\"yPadding\"},{\"slug\":\"zpadding\",\"title\":\"zPadding\"},{\"slug\":\"rpadding\",\"title\":\"rPadding\"},{\"slug\":\"xnice\",\"title\":\"xNice\"},{\"slug\":\"ynice\",\"title\":\"yNice\"},{\"slug\":\"znice\",\"title\":\"zNice\"},{\"slug\":\"rnice\",\"title\":\"rNice\"},{\"slug\":\"extents\",\"title\":\"extents\"},{\"slug\":\"flatdata\",\"title\":\"flatData\"},{\"slug\":\"ssr\",\"title\":\"ssr\"},{\"slug\":\"percentrange\",\"title\":\"percentRange\"},{\"slug\":\"position\",\"title\":\"position\"},{\"slug\":\"custom\",\"title\":\"custom\"}],\"slug\":\"layercake-props\",\"file\":\"02-layercake-props.md\"},{\"html\":null,\"metadata\":{\"title\":\"Computed context values\"},\"subsections\":[{\"slug\":\"activegetters\",\"title\":\"activeGetters\"},{\"slug\":\"aspectratio\",\"title\":\"aspectRatio\"},{\"slug\":\"box\",\"title\":\"box\"},{\"slug\":\"config\",\"title\":\"config\"},{\"slug\":\"containerwidth\",\"title\":\"containerWidth\"},{\"slug\":\"containerheight\",\"title\":\"containerHeight\"},{\"slug\":\"extents-1\",\"title\":\"extents\"},{\"slug\":\"width\",\"title\":\"width\"},{\"slug\":\"height\",\"title\":\"height\"},{\"slug\":\"x-1\",\"title\":\"x\"},{\"slug\":\"y-1\",\"title\":\"y\"},{\"slug\":\"z-1\",\"title\":\"z\"},{\"slug\":\"r-1\",\"title\":\"r\"},{\"slug\":\"xdomain-1\",\"title\":\"xDomain\"},{\"slug\":\"ydomain-1\",\"title\":\"yDomain\"},{\"slug\":\"zdomain-1\",\"title\":\"zDomain\"},{\"slug\":\"rdomain-1\",\"title\":\"rDomain\"},{\"slug\":\"xrange-1\",\"title\":\"xRange\"},{\"slug\":\"yrange-1\",\"title\":\"yRange\"},{\"slug\":\"zrange-1\",\"title\":\"zRange\"},{\"slug\":\"rrange-1\",\"title\":\"rRange\"},{\"slug\":\"xget\",\"title\":\"xGet(...)\"},{\"slug\":\"yget\",\"title\":\"yGet(...)\"},{\"slug\":\"zget\",\"title\":\"zGet(...)\"},{\"slug\":\"rget\",\"title\":\"rGet(...)\"},{\"slug\":\"xscale-1\",\"title\":\"xScale(...)\"},{\"slug\":\"yscale-1\",\"title\":\"yScale(...)\"},{\"slug\":\"zscale-1\",\"title\":\"zScale(...)\"},{\"slug\":\"rscale-1\",\"title\":\"rScale(...)\"}],\"slug\":\"computed-context-values\",\"file\":\"03-computed-context-values.md\"},{\"html\":null,\"metadata\":{\"title\":\"Layout components\"},\"subsections\":[{\"slug\":\"html\",\"title\":\"Html\"},{\"slug\":\"svg\",\"title\":\"Svg\"},{\"slug\":\"scaledsvg\",\"title\":\"ScaledSvg\"},{\"slug\":\"canvas\",\"title\":\"Canvas\"},{\"slug\":\"webgl\",\"title\":\"WebGL\"}],\"slug\":\"layout-components\",\"file\":\"04-layout-components.md\"},{\"html\":null,\"metadata\":{\"title\":\"Layout component props\"},\"subsections\":[{\"slug\":\"zindex\",\"title\":\"zIndex\"},{\"slug\":\"pointerevents\",\"title\":\"pointerEvents\"},{\"slug\":\"viewbox\",\"title\":\"viewBox\"},{\"slug\":\"fixedaspectratio\",\"title\":\"fixedAspectRatio\"},{\"slug\":\"contextattributes\",\"title\":\"contextAttributes\"}],\"slug\":\"layout-component-props\",\"file\":\"05-layout-component-props.md\"},{\"html\":null,\"metadata\":{\"title\":\"Helper functions\"},\"subsections\":[{\"slug\":\"bin\",\"title\":\"bin(...)\"},{\"slug\":\"calcextents\",\"title\":\"calcExtents(...)\"},{\"slug\":\"calcuniques\",\"title\":\"calcUniques(...)\"},{\"slug\":\"flatten\",\"title\":\"flatten(...)\"},{\"slug\":\"grouplonger\",\"title\":\"groupLonger(...)\"},{\"slug\":\"raise\",\"title\":\"raise(...)\"},{\"slug\":\"scalecanvas\",\"title\":\"scaleCanvas(...)\"},{\"slug\":\"stack\",\"title\":\"stack(...)\"},{\"slug\":\"uniques\",\"title\":\"uniques(...)\"}],\"slug\":\"helper-functions\",\"file\":\"99-helper-functions.md\"}]"}</script>
+	<script type="application/json" data-sveltekit-fetched data-url="/components/QuadTree.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"QuadTree.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Creates an interaction layer (in HTML) using [d3-quadtree](https://github.com/d3/d3-quadtree) to find the nearest datapoint to the mouse. This component creates a slot that exposes variables `x`, `y`, `found` (the found datapoint), `visible` (a Boolean whether any data was found) and `e` (the event object).\\n\\n  The quadtree searches across both the x and y dimensions at the same time. But if you want to only search across one, set the `x` and `y` props to the same value. For example, the [shared tooltip component](https://layercake.graphics/components/SharedTooltip.html.svelte) sets `y='x'` since it's nicer behavior to only pick up on the nearest x-value.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { quadtree } from 'd3-quadtree';\\n\\n  const { data, xGet, yGet, width, height } = getContext('LayerCake');\\n\\n  let visible = false;\\n  let found = {};\\n  let e = {};\\n\\n  /** @type {String} [x='x'] – The dimension to search across when moving the mouse left and right. */\\n  export let x = 'x';\\n\\n  /** @type {String} [y='y'] – The dimension to search across when moving the mouse up and down. */\\n  export let y = 'y';\\n\\n  /** @type {String} [searchRadius] – The number of pixels to search around the mouse's location. This is the third argument passed to [`quadtree.find`](https://github.com/d3/d3-quadtree#quadtree_find) and by default a value of `undefined` means an unlimited range. */\\n  export let searchRadius = undefined;\\n\\n  /** @type {Array} [dataset] – The dataset to work off of—defaults to $data if left unset. You can pass override the default here in here in case you don't want to use the main data or it's in a strange format. */\\n  export let dataset = undefined;\\n\\n  $: xGetter = x === 'x' ? $xGet : $yGet;\\n  $: yGetter = y === 'y' ? $yGet : $xGet;\\n\\n  function findItem (evt) {\\n    e = evt;\\n\\n    const xLayerKey = `layer${x.toUpperCase()}`;\\n    const yLayerKey = `layer${y.toUpperCase()}`;\\n\\n    found = finder.find(evt[xLayerKey], evt[yLayerKey], searchRadius) || {};\\n    visible = Object.keys(found).length > 0;\\n  }\\n\\n  $: finder = quadtree()\\n    .extent([[-1, -1], [$width + 1, $height + 1]])\\n    .x(xGetter)\\n    .y(yGetter)\\n    .addAll(dataset || $data);\\n\u003C/script>\\n\\n\u003Cstyle>\\n  .bg {\\n    position: absolute;\\n    top: 0;\\n    right: 0;\\n    bottom: 0;\\n    left: 0;\\n  }\\n\u003C/style>\\n\\n\u003Cdiv\\n  class=\\\"bg\\\"\\n  on:mousemove=\\\"{findItem}\\\"\\n  on:mouseout=\\\"{() => visible = false}\\\"\\n  on:blur=\\\"{() => visible = false}\\\"\\n>\u003C/div>\\n\u003Cslot\\n  x={xGetter(found) || 0}\\n  y={yGetter(found) || 0}\\n  {found}\\n  {visible}\\n  {e}\\n>\u003C/slot>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/ScatterWebgl\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/ScatterWebgl\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"– The dimension to search across when moving the mouse left and right.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"x\",\"default\":\"'x'\"},{\"title\":\"param\",\"description\":\"– The dimension to search across when moving the mouse up and down.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"y\",\"default\":\"'y'\"},{\"title\":\"param\",\"description\":\"– The number of pixels to search around the mouse's location. This is the third argument passed to [`quadtree.find`](https://github.com/d3/d3-quadtree#quadtree_find) and by default a value of `undefined` means an unlimited range.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"searchRadius\"},{\"title\":\"param\",\"description\":\"– The dataset to work off of—defaults to $data if left unset. You can pass override the default here in here in case you don't want to use the main data or it's in a strange format.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Array\"}},\"name\":\"dataset\"}]},\"componentDescription\":\"Creates an interaction layer (in HTML) using [d3-quadtree](https://github.com/d3/d3-quadtree) to find the nearest datapoint to the mouse. This component creates a slot that exposes variables `x`, `y`, `found` (the found datapoint), `visible` (a Boolean whether any data was found) and `e` (the event object).\\n\\n  The quadtree searches across both the x and y dimensions at the same time. But if you want to only search across one, set the `x` and `y` props to the same value. For example, the [shared tooltip component](https://layercake.graphics/components/SharedTooltip.html.svelte) sets `y='x'` since it's nicer behavior to only pick up on the nearest x-value.\",\"modules\":[]}"}</script></div>
+	</body>
+</html>

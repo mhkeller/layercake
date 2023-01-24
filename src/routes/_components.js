@@ -101,8 +101,8 @@ export default [
 		components: [
 			{ slug: 'Voronoi.svelte', component: Voronoi },
 			{ slug: 'Brush.html.svelte', component: Brush },
-			{ slug: 'Quadtree.html.svelte', component: QuadTree },
-			{ slug: 'Quadtree.percent-range.html.svelte', component: QuadTreePercentRange },
+			{ slug: 'QuadTree.html.svelte', component: QuadTree },
+			{ slug: 'QuadTree.percent-range.html.svelte', component: QuadTreePercentRange },
 			{ slug: 'Tooltip.html.svelte', component: Tooltip },
 			{ slug: 'SharedTooltip.html.svelte', component: SharedTooltip },
 			{ slug: 'SharedTooltip.percent-range.html.svelte', component: SharedTooltipPercentRange },

@@ -1,8 +1,8 @@
 import { normalizePath } from 'vite';
 import path from 'path';
-import dsv from '@rollup/plugin-dsv';
 import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-static';
+
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -14,26 +14,9 @@ const config = {
 		adapter: adapter({
 			// default options are shown
 			pages: 'docs',
-			fallback: null
+			// fallback: null,
 		}),
 
-		target: 'body',
-		package: {
-			exports: (filepath) => {
-				return filepath.endsWith('index.js')
-			}
-		},
-
-		vite: {
-			plugins: [
-				dsv()
-			],
-			resolve: {
-				alias: {
-					'layercake': [path.resolve('src/lib')]
-				}
-			}
-		}
   	// 	optimizeDeps: {
   	// 	  include: [
 		// 			'd3-scale',

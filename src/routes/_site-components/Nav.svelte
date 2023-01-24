@@ -15,12 +15,12 @@
 	// I was getting a weird artifact of a service-worker.js
 	// being requested. it's fixed now but keep this for
 	// good measure
-	$: isServiceWorker = $page.path === '/service-worker.js';
+	$: isServiceWorker = $page.url.pathname === '/service-worker.js';
 
 	let segment = '';
 
 	$: if (!isServiceWorker) {
-		path = $page.path;
+		path = $page.url.pathname;
 		type = path.split('/')[1];
 		segment = `/${path.replace('/', '')}`;
 		slug = path.replace(/\/$/, '').split('/').pop();
@@ -359,9 +359,15 @@
 	}
 </style>
 
-<div class='{open ? "open" : "closed"} mousecatcher' on:click="{() => open = false}"></div>
+<div class='{open ? "open" : "closed"} mousecatcher'
+	on:click="{() => open = false}"
+	on:keypress="{() => open = false}"
+></div>
 <div class='container'>
-	<span class="menu-link {open ? "menu-open" : "menu-closed"}" on:click='{toggleOpen}'>{open ? 'Close' : 'Menu'}</span>
+	<span class="menu-link {open ? "menu-open" : "menu-closed"}"
+		on:click='{toggleOpen}'
+		on:keypress='{toggleOpen}'
+	>{open ? 'Close' : 'Menu'}</span>
 	<a href='/' sveltekit:prefetch class='logo'>Layer Cake</a>
 </div>
 
@@ -394,7 +400,7 @@
 	<ul class='primary'>
 		<li><a sveltekit:prefetch class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'><span class="wide-name">Component gallery</span><span class="short-name">Components</span></a></li>
 		<li><a sveltekit:prefetch class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
-		<li><a id="github-link" target="_blank" rel="nofollow" href='https://github.com/mhkeller/layercake'> </a></li>
+		<li><a id="github-link" target="_blank" rel="noreferrer" href='https://github.com/mhkeller/layercake'> </a></li>
 	</ul>
 
 	<div class='secondary'>

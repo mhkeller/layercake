@@ -4,20 +4,20 @@ title: Layout component props
 
 All layout components accept the following props:
 
-* [zIndex](guide#zindex-1) `Number|String`
-* [pointerEvents](guide#pointerevents-1) `Boolean`
+* [zIndex](guide#zindex) `Number|String`
+* [pointerEvents](guide#pointerevents) `Boolean`
 
 The Svg and ScaledSvg layout components also accept:
 
-* [viewBox](guide#viewbox-1) `String`
+* [viewBox](guide#viewbox) `String`
 
 And ScaledSvg additionally accepts:
 
-* [fixedAspectRatio](guide#fixedaspectratio-1) `Number`
+* [fixedAspectRatio](guide#fixedaspectratio) `Number`
 
 The WebGL Component accepts:
 
-* [contextAttributes](guide#contextattributes-1) `Object`
+* [contextAttributes](guide#contextattributes) `Object`
 
 Each layout component also export an `element` prop that you can bind to and represents the HTML element that wraps the layout component. These are also available as slot props.
 

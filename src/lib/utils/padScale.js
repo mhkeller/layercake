@@ -22,6 +22,8 @@ export default function padScale (scale, padding) {
 		return scale.domain();
 	}
 
+	// TODO check if this is an ordinal scale first
+
 	if (scale.domain().length !== 2) {
 		console.warn('[LayerCake] The scale is expected to have a domain of length 2 to use padding. Are you sure you want to use padding? Your scale\'s domain is:', scale.domain());
 	}

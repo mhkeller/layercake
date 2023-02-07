@@ -8,11 +8,14 @@
 
 	import makeAccessor from './utils/makeAccessor.js';
 	import filterObject from './utils/filterObject.js';
+
 	import calcScaleExtents from './helpers/calcScaleExtents.js';
 	import calcDomain from './helpers/calcDomain.js';
 	import createScale from './helpers/createScale.js';
 	import createGetter from './helpers/createGetter.js';
 	import getRange from './helpers/getRange.js';
+	import printDebug from './helpers/printDebug.js';
+
 	import defaultScales from './settings/defaultScales.js';
 
 	/** @type {Boolean} [ssr=false] Whether this chart should be rendered server side. */
@@ -114,6 +117,9 @@
 
 	/** @type {Object} custom Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants. */
 	export let custom = {};
+
+	/** @type {Boolean} debug Enable debug printing to the console. Useful to inspect your scales and dimensions. */
+	export let debug = false;
 
 	/* --------------------------------------------
 	 * Keep track of whethr the component has mounted
@@ -370,6 +376,18 @@
 	};
 
 	$: setContext('LayerCake', context);
+
+	// TODO can this be throttled so that only the last one gets printed?
+	$: if ($box_d && debug === true && (ssr === true || typeof window !== 'undefined')) {
+		printDebug({
+			boundingBox: $box_d,
+			activeGetters: $activeGetters_d,
+			x: $xScale_d,
+			y: $yScale_d,
+			z: $zScale_d,
+			r: $rScale_d,
+		});
+	}
 </script>
 
 {#if (ssr === true || typeof window !== 'undefined')}

@@ -52,6 +52,7 @@
 		rRange={[3, 12]}
 		zScale={scaleOrdinal()}
 		zRange={seriesColors}
+		debug={true}
 	>
 		<Svg>
 			<ForceLayout

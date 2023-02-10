@@ -29,13 +29,13 @@ function printScale(s, scale) {
 	console.log(`\t${s}:`, `scale${scaleType.replace(/^\w/, d => d.toUpperCase())}`);
 	const d = colorizeArray(scale.domain())
 	if (d.color === true) {
-		console.log(`\t\tDomain: ` + d.vals[0], ...d.vals[1]);
+		console.log(`\t\tDomain: %cArray%c(${scale.domain().length}) ` + d.vals[0], 'color: #1377e4', 'color: #737373', ...d.vals[1], ']');
 	} else {
 		console.log(`\t\tDomain:`, scale.domain());
 	}
 	const r = colorizeArray(scale.range())
 	if (r.color === true) {
-		console.log(`\t\tRange: ` + r.vals[0], ...r.vals[1]);
+		console.log(`\t\tRange:    %cArray%c(${scale.range().length}) ` + r.vals[0] + '%c ]', 'color: #1377e4', 'color: #737373', 'color: #1478e4', ...r.vals[1], 'color: #1478e4');
 	} else {
 		console.log(`\t\tRange:`, scale.range());
 	}
@@ -53,7 +53,7 @@ function colorizeArray(arr) {
 	if (colors.length) {
 		return {
 			color: true,
-			vals: [`[${a.join(', ')}]`, colors.map(d => `background-color: ${d}`)]
+			vals: [`%c[ ${a.join(', ')}`, colors.map(d => `background-color: ${d}`)]
 		};
 	}
 	return a;

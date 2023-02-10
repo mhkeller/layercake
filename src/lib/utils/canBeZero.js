@@ -1,7 +1,7 @@
 /**
 	A function to help truth test values. Returns a `true` if zero.
-	@type {number} val The value to test.
-	@returns {boolean}
+	@param {any} val The value to test.
+	@returns {any}
 */
 export default function canBeZero (val) {
 	if (val === 0) {

@@ -8,6 +8,7 @@
 
 	import makeAccessor from './utils/makeAccessor.js';
 	import filterObject from './utils/filterObject.js';
+	import debounce from './utils/debounce.js';
 
 	import calcScaleExtents from './helpers/calcScaleExtents.js';
 	import calcDomain from './helpers/calcDomain.js';
@@ -17,6 +18,8 @@
 	import printDebug from './helpers/printDebug.js';
 
 	import defaultScales from './settings/defaultScales.js';
+
+	const printDebug_debounced = debounce(printDebug, 200);
 
 	/** @type {Boolean} [ssr=false] Whether this chart should be rendered server side. */
 	export let ssr = false;
@@ -377,9 +380,9 @@
 
 	$: setContext('LayerCake', context);
 
-	// TODO can this be throttled so that only the last one gets printed?
 	$: if ($box_d && debug === true && (ssr === true || typeof window !== 'undefined')) {
-		printDebug({
+		// Call this as a debounce so that it doesn't get called multiple times as these vars get filled in
+		printDebug_debounced({
 			boundingBox: $box_d,
 			activeGetters: $activeGetters_d,
 			x: $xScale_d,

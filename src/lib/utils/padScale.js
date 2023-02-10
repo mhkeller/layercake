@@ -1,14 +1,14 @@
-/* --------------------------------------------
- *
- * Returns a modified scale domain by in/decreasing
- * the min/max by taking the desired difference
- * in pixels and converting it to units of data.
- * Returns an array that you can set as the new domain.
- * Padding contributed by @veltman.
- * See here for discussion of transforms: https://github.com/d3/d3-scale/issues/150
- *
- * --------------------------------------------
- */
+/**
+	Returns a modified scale domain by in/decreasing
+	the min/max by taking the desired difference
+	in pixels and converting it to units of data.
+	Returns an array that you can set as the new domain.
+	Padding contributed by @veltman.
+	See here for discussion of transforms: https://github.com/d3/d3-scale/issues/150
+	@param {Function} scale A D3 scale funcion
+	@param {Number[]} padding A two-value array of numbers specifying padding in pixels
+	@returns {Number[]} The padded domain
+*/
 import getPadFunctions from '../helpers/getPadFunctions.js';
 
 export default function padScale (scale, padding) {

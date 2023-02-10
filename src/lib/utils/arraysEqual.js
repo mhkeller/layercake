@@ -1,9 +1,12 @@
-/* --------------------------------------------
- *
- * Determine whether two arrays equal one another, order not important
- * --------------------------------------------
+/**
+  Determine whether two arrays equal one another, order not important.
+	This uses includes instead of converting to a set because this is only
+	used internally on a small array size and it's not worth the cost
+	of making a set
+	@param {Array} arr1 An array to test
+	@param {Array} arr2 An array to test against
+	@returns {Boolean} Whether they contain all and only the same items
  */
-// TODO test this
 export default function arraysEqual(arr1, arr2) {
 	if (arr1.length !== arr2.length) return false;
 	return arr1.every(k => {

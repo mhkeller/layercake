@@ -2,6 +2,8 @@ import findScaleName from './findScaleName.js';
 import isCSSColor from 'is-css-color';
 import Color from 'color';
 
+import t from './toTitleCase.js';
+
 /* --------------------------------------------
  *
  * Print out the values of an object
@@ -51,14 +53,6 @@ function printColorArray(colorValues, method, values) {
 		'color: #1478e4'
 	);
 }
-
-/**
- * To Titlecase
- */
-function t(str) {
-	return str.replace(/^\w/, d => d.toUpperCase())
-}
-
 function colorizeArray(arr) {
 	const colors = [];
 	const a = arr.map((d, i) => {

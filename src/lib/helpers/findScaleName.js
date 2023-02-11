@@ -1,7 +1,8 @@
 import arraysEqual from '../utils/arraysEqual.js';
+import t from '../helpers/toTitleCase.js';
 
-function f(name) {
-	return `scale${name.replace(/^\w/, (d) => d.toUpperCase())}`;
+function f(name, modifier = '') {
+	return `scale${t(modifier)}${t(name)}`;
 }
 
 /**
@@ -25,24 +26,40 @@ export default function findScaleName(scale) {
 		return f('ordinal');
 	}
 
+	let modifier = ''
+	// @ts-ignore
+	if (scale.interpolator) {
+		// @ts-ignore
+		const domain = scale.domain();
+		if (domain.length === 3) {
+			modifier = 'diverging';
+		} else if (domain.length === 2) {
+			modifier = 'sequential';
+		}
+	}
+
 	/**
 	 * Continuous scales
 	 */
 	// @ts-ignore
 	if (scale.constant) {
-		return f('symlog');
+		return f('symlog', modifier);
 	}
 	// @ts-ignore
 	if (scale.base) {
-		return f('log');
+		return f('log', modifier);
 	}
 	// @ts-ignore
 	if (scale.exponent) {
 		// @ts-ignore
 		if (scale.exponent() === 0.5) {
-			return f('sqrt');
+			return f('sqrt', modifier);
 		}
-		return f('pow');
+		return f('pow', modifier);
+	}
+
+	if (modifier) {
+		return f(modifier);
 	}
 
 	return f('linear');

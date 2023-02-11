@@ -71,7 +71,6 @@ function colorizeArray(arr) {
 		return d;
 	});
 	if (colors.length) {
-		// TODO, set contrast color
 		return [
 			`%c[ ${a.join(', ')}`,
 			colors.map(

@@ -6,29 +6,7 @@
  *
  * --------------------------------------------
  */
-import arraysEqual from '../utils/arraysEqual.js';
-
 export default function findScaleType(scale) {
-	/**
-	 * Ordinal scales
-	 *  Determine whether a scale is an ordinal scale
-   *  https://svelte.dev/repl/ec6491055208401ca41120c9c8a67737?version=3.49.0
-	 */
-	// scaleBand, scalePoint
-	if (typeof scale.bandwidth === 'function') {
-		if (typeof scale.paddingInner === 'number') {
-			return 'band'
-		}
-		return 'point'
-	}
-	// scaleOrdinal
-	if (arraysEqual(Object.keys(scale), ['domain', 'range', 'unknown', 'copy'])) {
-		return 'ordinal';
-	}
-
-	/**
-	 * Continuous scales
-	 */
 	if (scale.constant) {
 		return 'symlog';
 	}
@@ -41,6 +19,5 @@ export default function findScaleType(scale) {
 		}
 		return 'pow';
 	}
-
-	return 'linear';
+	return 'other';
 }

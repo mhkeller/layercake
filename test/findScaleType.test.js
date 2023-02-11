@@ -11,6 +11,12 @@ const tests = [
 	{ name: 'scalePow', expected: 'pow' },
 	{ name: 'scaleSqrt', expected: 'sqrt' },
 
+	// { name: 'scaleImplicit', expected: 'other' },
+	{ name: 'scaleQuantile', expected: 'other' },
+	{ name: 'scaleQuantize', expected: 'other' },
+	{ name: 'scaleThreshold', expected: 'other' },
+	{ name: 'scaleUtc', expected: 'other' },
+
 	{ name: 'scaleLinear', expected: 'other' },
 	{ name: 'scaleIdentity', expected: 'other' },
 	{ name: 'scaleTime', expected: 'other' },
@@ -20,11 +26,13 @@ const tests = [
 	{ name: 'scaleBand', expected: 'other' },
 	{ name: 'scalePoint', expected: 'other' },
 
+	{ name: 'scaleSequential', expected: 'other' },
 	{ name: 'scaleSequentialLog', expected: 'log' },
 	{ name: 'scaleSequentialPow', expected: 'pow' },
 	{ name: 'scaleSequentialSqrt', expected: 'sqrt' },
 	{ name: 'scaleSequentialSymlog', expected: 'symlog' },
 	{ name: 'scaleSequentialQuantile', expected: 'other' },
+	{ name: 'scaleDiverging', expected: 'other' },
 	{ name: 'scaleDivergingLog', expected: 'log' },
 	{ name: 'scaleDivergingPow', expected: 'pow' },
 	{ name: 'scaleDivergingSqrt', expected: 'sqrt' },
@@ -32,6 +40,10 @@ const tests = [
 ];
 
 tests.forEach(d => {
+	const scale = d3Scale[d.name];
+	if (typeof scale !== 'function') {
+		throw new Error(`No D3 scale found for name ${d.name}`);
+	}
 	d.args = [d3Scale[d.name]()];
 });
 

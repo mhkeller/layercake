@@ -1,4 +1,4 @@
-import findScaleType from './findScaleType.js';
+import findScaleName from './findScaleName.js';
 
 /* --------------------------------------------
  *
@@ -23,8 +23,8 @@ function printObject(obj) {
 }
 
 function printScale(s, scale) {
-	const scaleType = findScaleType(scale);
-	console.log(`\t${s}:`, `scale${scaleType.replace(/^\w/, d => d.toUpperCase())}`);
+	const scaleName = findScaleName(scale);
+	console.log(`\t${s}:`, scaleName);
 	console.log(`\t\tDomain:`, scale.domain());
 	console.log(`\t\tRange:`, scale.range());
 }

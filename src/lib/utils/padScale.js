@@ -9,7 +9,9 @@
 	@param {Number[]} padding A two-value array of numbers specifying padding in pixels
 	@returns {Number[]} The padded domain
 */
+import isOrdinalDomain from '../helpers/isOrdinalDomain.js';
 import getPadFunctions from '../helpers/getPadFunctions.js';
+import findScaleName from '$lib/helpers/findScaleName.js';
 
 export default function padScale (scale, padding) {
 	if (typeof scale.range !== 'function') {
@@ -18,17 +20,13 @@ export default function padScale (scale, padding) {
 	if (typeof scale.domain !== 'function') {
 		throw new Error('Scale method `domain` must be a function');
 	}
-	if (!Array.isArray(padding)) {
+	// TODO, check for other domains that you can't pad
+	if (!Array.isArray(padding) || findScaleName(scale) === 'scaleThreshold') {
 		return scale.domain();
 	}
 
-	// TODO check if this is an ordinal scale first
-
-	if (scale.domain().length !== 2) {
-		console.warn('[LayerCake] The scale is expected to have a domain of length 2 to use padding. Are you sure you want to use padding? Your scale\'s domain is:', scale.domain());
-	}
-	if (scale.range().length !== 2) {
-		console.warn('[LayerCake] The scale is expected to have a range of length 2 to use padding. Are you sure you want to use padding? Your scale\'s range is:', scale.range());
+	if (isOrdinalDomain(scale) === true) {
+		return scale.domain();
 	}
 
 	const { lift, ground } = getPadFunctions(scale);

@@ -6,6 +6,7 @@ import { scaleLinear, scaleBand } from 'd3-scale';
 
 const name = 'calcScaleExtents';
 
+// TODO more tests
 const tests = [
 	{
 		args: [

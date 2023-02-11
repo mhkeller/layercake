@@ -1,4 +1,5 @@
 import findScaleName from './findScaleName.js';
+import isCSSColor from 'is-css-color';
 
 /* --------------------------------------------
  *
@@ -25,6 +26,34 @@ function printObject(obj) {
 function printScale(s, scale) {
 	const scaleName = findScaleName(scale);
 	console.log(`\t${s}:`, scaleName);
-	console.log(`\t\tDomain:`, scale.domain());
-	console.log(`\t\tRange:`, scale.range());
+	const d = colorizeArray(scale.domain())
+	if (d.color === true) {
+		console.log(`\t\tDomain: %cArray%c(${scale.domain().length}) ` + d.vals[0], 'color: #1377e4', 'color: #737373', ...d.vals[1], ']');
+	} else {
+		console.log(`\t\tDomain:`, scale.domain());
+	}
+	const r = colorizeArray(scale.range())
+	if (r.color === true) {
+		console.log(`\t\tRange:    %cArray%c(${scale.range().length}) ` + r.vals[0] + '%c ]', 'color: #1377e4', 'color: #737373', 'color: #1478e4', ...r.vals[1], 'color: #1478e4');
+	} else {
+		console.log(`\t\tRange:`, scale.range());
+	}
+}
+
+function colorizeArray(arr) {
+	const colors = [];
+	const a = arr.map(d => {
+		if (isCSSColor(d)) {
+			colors.push(d);
+			return `%c ${d}`;
+		}
+		return d;
+	});
+	if (colors.length) {
+		return {
+			color: true,
+			vals: [`%c[ ${a.join(', ')}`, colors.map(d => `background-color: ${d}`)]
+		};
+	}
+	return a;
 }

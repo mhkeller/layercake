@@ -12,6 +12,9 @@ function f(name, modifier = '') {
 	@returns {String} The scale's name
  */
 export default function findScaleName(scale) {
+	/**
+	 * Ordinal scales
+	 */
 	// scaleBand, scalePoint
 	// @ts-ignore
 	if (typeof scale.bandwidth === 'function') {
@@ -26,6 +29,9 @@ export default function findScaleName(scale) {
 		return f('ordinal');
 	}
 
+	/**
+	 * Sequential versus divergin
+	 */
 	let modifier = ''
 	// @ts-ignore
 	if (scale.interpolator) {
@@ -41,6 +47,10 @@ export default function findScaleName(scale) {
 	/**
 	 * Continuous scales
 	 */
+	// @ts-ignore
+	if (scale.qauntiles) {
+		return f('quantiles', modifier);
+	}
 	// @ts-ignore
 	if (scale.constant) {
 		return f('symlog', modifier);

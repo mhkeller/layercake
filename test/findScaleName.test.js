@@ -8,10 +8,12 @@ const name = 'findScaleName';
 const exclude = ['scaleImplicit', 'tickFormat'];
 
 const tests = Object.keys(d3Scale).filter(d => {
-	return !exclude.includes(d);
-}).map(d => {
-	return { name: d, args: [d3Scale[d]] };
-});
+// const tests = ['scaleSequentialQuantile']
+		return !exclude.includes(d);
+	})
+	.map((d) => {
+		return { name: d, args: [d3Scale[d]] };
+	});
 
 tests.forEach(d => {
 	const scale = d3Scale[d.name];

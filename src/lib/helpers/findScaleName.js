@@ -32,14 +32,15 @@ export default function findScaleName(scale) {
 	/**
 	 * Sequential versus divergin
 	 */
+	let domain;
 	let modifier = ''
 	// @ts-ignore
 	if (scale.interpolator) {
 		// @ts-ignore
-		const domain = scale.domain();
+		domain = scale.domain();
 		if (domain.length === 3) {
 			modifier = 'diverging';
-		} else if (domain.length === 2) {
+		} else {
 			modifier = 'sequential';
 		}
 	}
@@ -48,8 +49,11 @@ export default function findScaleName(scale) {
 	 * Continuous scales
 	 */
 	// @ts-ignore
-	if (scale.qauntiles) {
-		return f('quantiles', modifier);
+	if (scale.quantiles) {
+		return f('quantile', modifier);
+	}
+	if (scale.thresholds) {
+		return f('quantize', modifier);
 	}
 	// @ts-ignore
 	if (scale.constant) {
@@ -68,8 +72,34 @@ export default function findScaleName(scale) {
 		return f('pow', modifier);
 	}
 
+	if (arraysEqual(Object.keys(scale), ['domain', 'range', 'invertExtent', 'unknown', 'copy'])) {
+		return f('threshold');
+	}
+
+	if (arraysEqual(Object.keys(scale), ['invert', 'range', 'domain', 'unknown', 'copy', 'ticks', 'tickFormat', 'nice'])) {
+		return f('identity');
+	}
+
+	if (
+		arraysEqual(Object.keys(scale), [
+			'invert', 'domain', 'range', 'rangeRound', 'round', 'clamp', 'unknown', 'copy', 'ticks', 'tickFormat', 'nice'
+		])
+	) {
+		return f('radial');
+	}
+
 	if (modifier) {
 		return f(modifier);
+	}
+
+	if (!domain) {
+		// @ts-ignore
+		domain = scale.domain()
+	}
+
+	// TODO This may not behave correctly if you set a linear scale with a date as the domain
+	if (domain[0] instanceof Date) {
+		return f('time');
 	}
 
 	return f('linear');

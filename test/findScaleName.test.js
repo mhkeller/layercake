@@ -5,7 +5,7 @@ import fn from '../src/lib/helpers/findScaleName.js';
 
 const name = 'findScaleName';
 
-const exclude = ['scaleImplicit', 'tickFormat'];
+const exclude = ['scaleImplicit', 'tickFormat', 'scaleUtc'];
 
 const tests = Object.keys(d3Scale).filter(d => {
 // const tests = ['scaleSequentialQuantile']

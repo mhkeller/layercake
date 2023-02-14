@@ -2,7 +2,6 @@ import isCSSColor from 'is-css-color';
 import Color from 'color';
 
 import findScaleName from './findScaleName.js';
-
 import t from './toTitleCase.js';
 
 const indent = '    ';

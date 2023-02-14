@@ -1,8 +1,11 @@
-import findScaleName from './findScaleName.js';
 import isCSSColor from 'is-css-color';
 import Color from 'color';
 
+import findScaleName from './findScaleName.js';
+
 import t from './toTitleCase.js';
+
+const indent = '    ';
 
 /* --------------------------------------------
  *
@@ -22,13 +25,13 @@ export default function printDebug(obj) {
 
 function printObject(obj) {
 	Object.entries(obj).forEach(([key, value]) => {
-		console.log(`\t${key}:`, value);
+		console.log(`${indent}${key}:`, value);
 	})
 }
 
 function printScale(s, scale) {
 	const scaleName = findScaleName(scale);
-	console.log(`\t${s}:`, scaleName);
+	console.log(`${indent}${s}:`, scaleName);
 	printValues(scale, 'domain');
 	printValues(scale, 'range');
 }
@@ -39,13 +42,13 @@ function printValues(scale, method) {
 	if (colorValues) {
 		printColorArray(colorValues, method, values);
 	} else {
-		console.log(`\t\t${t(method)}:`, values);
+		console.log(`${indent}${indent}${t(method)}:`, values);
 	}
 }
 
 function printColorArray(colorValues, method, values) {
 	console.log(
-		`\t\t${t(method)}:    %cArray%c(${values.length}) ` + colorValues[0] + '%c ]',
+		`${indent}${indent}${t(method)}:    %cArray%c(${values.length}) ` + colorValues[0] + '%c ]',
 		'color: #1377e4',
 		'color: #737373',
 		'color: #1478e4',

@@ -20,7 +20,7 @@
   "devDependencies": {
     "@rollup/plugin-dsv": "^2.0.2",
     "@sveltejs/adapter-static": "1.0.0",
-    "@sveltejs/kit": "1.0.2",
+    "@sveltejs/kit": "1.7.1",
     "@types/cookie": "^0.4.1",
     "@types/markdown-it": "^12.2.3",
     "@typescript-eslint/eslint-plugin": "^5.8.0",

@@ -4,7 +4,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"package": "svelte-kit sync && svelte-package && publint",
+		"package": "svelte-kit sync && svelte-package -o package && publint",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -21,7 +21,7 @@
 		"@rollup/plugin-dsv": "^2.0.2",
 		"@sveltejs/adapter-static": "1.0.0",
 		"@sveltejs/kit": "1.7.1",
-		"@sveltejs/package": "^2.0.2",
+		"@sveltejs/package": "^2.0.0",
 		"@types/cookie": "^0.4.1",
 		"@types/markdown-it": "^12.2.3",
 		"@typescript-eslint/eslint-plugin": "^5.8.0",
@@ -70,5 +70,185 @@
 		"d3-array": "^3.2.1",
 		"d3-scale": "^4.0.2",
 		"d3-shape": "^3.2.0"
+	},
+	"exports": {
+		"./package.json": "./package.json",
+		"./LayerCake.svelte": {
+			"types": "./package/LayerCake.svelte.d.ts",
+			"svelte": "./package/LayerCake.svelte",
+			"default": "./package/LayerCake.svelte"
+		},
+		"./layouts/Canvas.svelte": {
+			"types": "./package/layouts/Canvas.svelte.d.ts",
+			"svelte": "./package/layouts/Canvas.svelte",
+			"default": "./package/layouts/Canvas.svelte"
+		},
+		"./layouts/Html.svelte": {
+			"types": "./package/layouts/Html.svelte.d.ts",
+			"svelte": "./package/layouts/Html.svelte",
+			"default": "./package/layouts/Html.svelte"
+		},
+		"./layouts/ScaledSvg.svelte": {
+			"types": "./package/layouts/ScaledSvg.svelte.d.ts",
+			"svelte": "./package/layouts/ScaledSvg.svelte",
+			"default": "./package/layouts/ScaledSvg.svelte"
+		},
+		"./layouts/Svg.svelte": {
+			"types": "./package/layouts/Svg.svelte.d.ts",
+			"svelte": "./package/layouts/Svg.svelte",
+			"default": "./package/layouts/Svg.svelte"
+		},
+		"./layouts/Webgl.svelte": {
+			"types": "./package/layouts/Webgl.svelte.d.ts",
+			"svelte": "./package/layouts/Webgl.svelte",
+			"default": "./package/layouts/Webgl.svelte"
+		},
+		"./lib/bin": {
+			"types": "./package/lib/bin.d.ts",
+			"default": "./package/lib/bin.js"
+		},
+		"./lib/calcExtents": {
+			"types": "./package/lib/calcExtents.d.ts",
+			"default": "./package/lib/calcExtents.js"
+		},
+		"./lib/calcUniques": {
+			"types": "./package/lib/calcUniques.d.ts",
+			"default": "./package/lib/calcUniques.js"
+		},
+		"./lib/flatten": {
+			"types": "./package/lib/flatten.d.ts",
+			"default": "./package/lib/flatten.js"
+		},
+		"./lib/groupLonger": {
+			"types": "./package/lib/groupLonger.d.ts",
+			"default": "./package/lib/groupLonger.js"
+		},
+		"./lib/raise": {
+			"types": "./package/lib/raise.d.ts",
+			"default": "./package/lib/raise.js"
+		},
+		"./lib/scaleCanvas": {
+			"types": "./package/lib/scaleCanvas.d.ts",
+			"default": "./package/lib/scaleCanvas.js"
+		},
+		"./lib/stack": {
+			"types": "./package/lib/stack.d.ts",
+			"default": "./package/lib/stack.js"
+		},
+		"./lib/takeEvery": {
+			"types": "./package/lib/takeEvery.d.ts",
+			"default": "./package/lib/takeEvery.js"
+		},
+		"./lib/uniques": {
+			"types": "./package/lib/uniques.d.ts",
+			"default": "./package/lib/uniques.js"
+		}
+	},
+	"files": [
+		"package"
+	],
+	"svelte": "./package/index.js",
+	"typesVersions": {
+		">4.0": {
+			"LayerCake.svelte": [
+				"./package/LayerCake.svelte.d.ts"
+			],
+			"helpers/calcDomain": [
+				"./package/helpers/calcDomain.d.ts"
+			],
+			"helpers/calcScaleExtents": [
+				"./package/helpers/calcScaleExtents.d.ts"
+			],
+			"helpers/createGetter": [
+				"./package/helpers/createGetter.d.ts"
+			],
+			"helpers/createScale": [
+				"./package/helpers/createScale.d.ts"
+			],
+			"helpers/findScaleType": [
+				"./package/helpers/findScaleType.d.ts"
+			],
+			"helpers/getPadFunctions": [
+				"./package/helpers/getPadFunctions.d.ts"
+			],
+			"helpers/getRange": [
+				"./package/helpers/getRange.d.ts"
+			],
+			"helpers/isOrdinalScale": [
+				"./package/helpers/isOrdinalScale.d.ts"
+			],
+			"index": [
+				"./package/index.d.ts"
+			],
+			"layouts/Canvas.svelte": [
+				"./package/layouts/Canvas.svelte.d.ts"
+			],
+			"layouts/Html.svelte": [
+				"./package/layouts/Html.svelte.d.ts"
+			],
+			"layouts/ScaledSvg.svelte": [
+				"./package/layouts/ScaledSvg.svelte.d.ts"
+			],
+			"layouts/Svg.svelte": [
+				"./package/layouts/Svg.svelte.d.ts"
+			],
+			"layouts/Webgl.svelte": [
+				"./package/layouts/Webgl.svelte.d.ts"
+			],
+			"lib/bin": [
+				"./package/lib/bin.d.ts"
+			],
+			"lib/calcExtents": [
+				"./package/lib/calcExtents.d.ts"
+			],
+			"lib/calcUniques": [
+				"./package/lib/calcUniques.d.ts"
+			],
+			"lib/flatten": [
+				"./package/lib/flatten.d.ts"
+			],
+			"lib/groupLonger": [
+				"./package/lib/groupLonger.d.ts"
+			],
+			"lib/raise": [
+				"./package/lib/raise.d.ts"
+			],
+			"lib/scaleCanvas": [
+				"./package/lib/scaleCanvas.d.ts"
+			],
+			"lib/stack": [
+				"./package/lib/stack.d.ts"
+			],
+			"lib/takeEvery": [
+				"./package/lib/takeEvery.d.ts"
+			],
+			"lib/uniques": [
+				"./package/lib/uniques.d.ts"
+			],
+			"settings/defaultScales": [
+				"./package/settings/defaultScales.d.ts"
+			],
+			"settings/getDefaultRange": [
+				"./package/settings/getDefaultRange.d.ts"
+			],
+			"utils/canBeZero": [
+				"./package/utils/canBeZero.d.ts"
+			],
+			"utils/filterObject": [
+				"./package/utils/filterObject.d.ts"
+			],
+			"utils/identity": [
+				"./package/utils/identity.d.ts"
+			],
+			"utils/makeAccessor": [
+				"./package/utils/makeAccessor.d.ts"
+			],
+			"utils/padScale": [
+				"./package/utils/padScale.d.ts"
+			],
+			"utils/partialDomain": [
+				"./package/utils/partialDomain.d.ts"
+			]
+		}
 	}
 }

@@ -13,15 +13,19 @@ import isOrdinalDomain from '../helpers/isOrdinalDomain.js';
 import getPadFunctions from '../helpers/getPadFunctions.js';
 import findScaleName from '../helpers/findScaleName.js';
 
+// These scales have a discrete range so they can't be padded
+const unpaddable = ['scaleThreshold', 'scaleQuantile', 'scaleQuantize', 'scaleSequentialQuantile'];
+
 export default function padScale (scale, padding) {
 	if (typeof scale.range !== 'function') {
+		console.log(scale);
 		throw new Error('Scale method `range` must be a function');
 	}
 	if (typeof scale.domain !== 'function') {
 		throw new Error('Scale method `domain` must be a function');
 	}
-	// TODO, check for other domains that you can't pad
-	if (!Array.isArray(padding) || findScaleName(scale) === 'scaleThreshold') {
+
+	if (!Array.isArray(padding) || unpaddable.includes(findScaleName(scale))) {
 		return scale.domain();
 	}
 

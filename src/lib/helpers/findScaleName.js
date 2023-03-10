@@ -32,13 +32,11 @@ export default function findScaleName(scale) {
 	/**
 	 * Sequential versus divergin
 	 */
-	let domain;
 	let modifier = ''
 	// @ts-ignore
 	if (scale.interpolator) {
 		// @ts-ignore
-		domain = scale.domain();
-		if (domain.length === 3) {
+		if (scale.domain().length === 3) {
 			modifier = 'diverging';
 		} else {
 			modifier = 'sequential';
@@ -52,6 +50,7 @@ export default function findScaleName(scale) {
 	if (scale.quantiles) {
 		return f('quantile', modifier);
 	}
+	// @ts-ignore
 	if (scale.thresholds) {
 		return f('quantize', modifier);
 	}
@@ -92,28 +91,22 @@ export default function findScaleName(scale) {
 		return f(modifier);
 	}
 
-	if (!domain) {
-		// @ts-ignore
-		domain = scale.domain()
-	}
-
-
-
 	/**
 	 * Test for scaleTime vs scaleUtc
 	 * https://github.com/d3/d3-scale/pull/274#issuecomment-1462935595
 	 */
-	if (domain[0] instanceof Date) {
+	// @ts-ignore
+	if (scale.domain()[0] instanceof Date) {
 		const d = new Date;
-		let format;
+		let s;
 		// @ts-ignore
-		d.getDay = () => format = 'time';
+		d.getDay = () => s = 'time';
 		// @ts-ignore
-		d.getUTCDay = () => format = 'utc';
+		d.getUTCDay = () => s = 'utc';
 
 		// @ts-ignore
 		scale.copy().tickFormat(0, '%a')(d);
-		return f(format);
+		return f(s);
 	}
 
 	return f('linear');

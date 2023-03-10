@@ -11,7 +11,7 @@
 */
 import isOrdinalDomain from '../helpers/isOrdinalDomain.js';
 import getPadFunctions from '../helpers/getPadFunctions.js';
-import findScaleName from '$lib/helpers/findScaleName.js';
+import findScaleName from '../helpers/findScaleName.js';
 
 export default function padScale (scale, padding) {
 	if (typeof scale.range !== 'function') {

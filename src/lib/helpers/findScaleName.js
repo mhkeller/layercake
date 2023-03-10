@@ -97,9 +97,23 @@ export default function findScaleName(scale) {
 		domain = scale.domain()
 	}
 
-	// TODO This may not behave correctly if you set a linear scale with a date as the domain
+
+
+	/**
+	 * Test for scaleTime vs scaleUtc
+	 * https://github.com/d3/d3-scale/pull/274#issuecomment-1462935595
+	 */
 	if (domain[0] instanceof Date) {
-		return f('time');
+		const d = new Date;
+		let format;
+		// @ts-ignore
+		d.getDay = () => format = 'time';
+		// @ts-ignore
+		d.getUTCDay = () => format = 'utc';
+
+		// @ts-ignore
+		scale.copy().tickFormat(0, '%a')(d);
+		return f(format);
 	}
 
 	return f('linear');

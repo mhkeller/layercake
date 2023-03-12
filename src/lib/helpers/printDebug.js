@@ -19,7 +19,7 @@ export default function printDebug(obj) {
 	Object.keys(obj.activeGetters).forEach(g => {
 		printScale(g, obj[g]);
 	});
-	console.log('/************ End Debug ***************/\n');
+	console.log('/************ End LayerCake Debug ***************/\n');
 }
 
 function printObject(obj) {
@@ -29,6 +29,7 @@ function printObject(obj) {
 }
 
 function printScale(s, scale) {
+	console.log('scale', scale);
 	const scaleName = findScaleName(scale);
 	console.log(`${indent}${s}:`, scaleName);
 	printValues(scale, 'domain');

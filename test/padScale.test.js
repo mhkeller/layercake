@@ -10,7 +10,10 @@ import {
 	scaleOrdinal,
 	scaleBand,
 	scalePoint,
-	scaleThreshold
+	scaleThreshold,
+	scaleQuantile,
+	scaleQuantize,
+	scaleSequentialQuantile
 } from 'd3-scale';
 
 import fn from '../src/lib/utils/padScale.js';
@@ -61,8 +64,14 @@ const ordinalTests = [
 	{ name: 'ordinal', args: [scaleOrdinal().domain(['0', '1', '2']).range([0, 100]), [10, 10]], expected: ['0', '1', '2'] },
 	{ name: 'band', args: [scaleBand().domain(['a', 'b', 'c']).range([0, 100]), [10, 10]], expected: ['a', 'b', 'c'] },
 	{ name: 'point', args: [scalePoint().domain(['b', 'd', 'e']).range([0, 100]), [10, 10]], expected: ['b', 'd', 'e'] },
+];
+
+const discreteRangeTests = [
 	{ name: 'threshold', args: [scaleThreshold().domain([0, 10]).range(['a', 'b', 'c']), [10, 10]], expected: [0, 10] },
-]
+	{ name: 'quantile', args: [scaleQuantile().domain([0, 10]).range(['a', 'b', 'c']), [10, 10]], expected: [0, 10] },
+	{ name: 'quantize', args: [scaleQuantize().domain([0, 10]).range(['a', 'b', 'c']), [10, 10]], expected: [0, 10] },
+	{ name: 'sequentialQuantile', args: [scaleSequentialQuantile().domain([0, 10]), [10, 10]], expected: [0, 10] },
+];
 
 const errorTests = [
 	{
@@ -144,3 +153,15 @@ describe(`ordinal scales`, () => {
 		});
 	});
 });
+
+describe(`discrete range scales`, () => {
+	discreteRangeTests.forEach(test => {
+		describe(test.name, () => {
+			it(`should equal ${test.expected}`, () => {
+				const paddedDomain = fn(...test.args);
+				assert.deepStrictEqual(paddedDomain, test.expected);
+			});
+		});
+	});
+});
+console.log('scale squential', scaleSequentialQuantile().range());

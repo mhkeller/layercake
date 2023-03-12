@@ -6,9 +6,12 @@ title: Troubleshooting
 
 To get more information about what scales you're using and the calculated `domain` and `range`, set the [debug](/guide#debug) prop to `true`. This will print
 
-1. The current scales you have currently set
-2. The `domain` and `range` for each scale
-3. The bounding box dimensions of your chart container
+1. The bounding box dimensions of your chart container
+2. The scales you have currently set and for each one:
+   1. The accessor function or string key
+   2. The scale type
+   3. The `domain`
+   4. The `range`
 
 It's helpful if you're trying to track down why a chart is not display correctly, which comes down to CSS not being set on the parent chart container or weird data issues (`undefined`, `NaN` values etc...) that are throwing off the extent calculation for the `domain`.
 

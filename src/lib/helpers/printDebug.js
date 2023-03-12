@@ -17,7 +17,7 @@ export default function printDebug(obj) {
 	printObject(obj.boundingBox)
 	console.log('Scales:\n');
 	Object.keys(obj.activeGetters).forEach(g => {
-		printScale(g, obj[g]);
+		printScale(g, obj[`${g}Scale`], obj[g]);
 	});
 	console.log('/************ End LayerCake Debug ***************/\n');
 }
@@ -28,10 +28,11 @@ function printObject(obj) {
 	})
 }
 
-function printScale(s, scale) {
-	console.log('scale', scale);
+function printScale(s, scale, acc) {
 	const scaleName = findScaleName(scale);
-	console.log(`${indent}${s}:`, scaleName);
+	console.log(`${indent}${s}:`);
+	console.log(`${indent}${indent}Accessor: "${acc.toString()}"`);
+	console.log(`${indent}${indent}Type: ${scaleName}`);
 	printValues(scale, 'domain');
 	printValues(scale, 'range');
 }

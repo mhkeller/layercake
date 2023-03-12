@@ -105,9 +105,12 @@ Same as [x](/guide#x) but for the r dimension.
 
 If this is `true`, Layer Cake will print to the control a helpful debug message showing:
 
-1. The current scales you have currently set
-2. The `domain` and `range` for each scale
-3. The bounding box dimensions of your chart container
+1. The bounding box dimensions of your chart container
+2. The scales you have currently set and for each one:
+   1. The accessor function or string key
+   2. The scale type
+   3. The `domain`
+   4. The `range`
 
 It's helpful if you're trying to track down why a chart is not display correctly, which comes down to CSS not being set on the parent chart container or weird data issues (`undefined`, `NaN` values etc...) that are throwing off the extent calculation for the `domain`.
 

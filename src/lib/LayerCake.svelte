@@ -385,10 +385,14 @@
 		printDebug_debounced({
 			boundingBox: $box_d,
 			activeGetters: $activeGetters_d,
-			x: $xScale_d,
-			y: $yScale_d,
-			z: $zScale_d,
-			r: $rScale_d,
+			x: config.x,
+			y: config.y,
+			z: config.z,
+			r: config.r,
+			xScale: $xScale_d,
+			yScale: $yScale_d,
+			zScale: $zScale_d,
+			rScale: $rScale_d,
 		});
 	}
 </script>

@@ -2,6 +2,16 @@
 title: Troubleshooting
 ---
 
+### Use the `debug` feature
+
+To get more information about what scales you're using and the calculated `domain` and `range`, set the [debug](/guide#debug) prop to `true`. This will print
+
+1. The current scales you have currently set
+2. The `domain` and `range` for each scale
+3. The bounding box dimensions of your chart container
+
+It's helpful if you're trying to track down why a chart is not display correctly, which comes down to CSS not being set on the parent chart container or weird data issues (`undefined`, `NaN` values etc...) that are throwing off the extent calculation for the `domain`.
+
 ### The chart is blank
 
 The `<LayerCake>` component expands to fill the size of its parent `<div>` – that's why all of the examples define a `chart-container` element with a specific width and height. If your chart isn't showing up, make sure you have a width and height set on your wrapper div.

@@ -81,62 +81,8 @@
 		"dist"
 	],
 	"peerDependencies": {
-		"svelte": "^3.54.0"
+		"svelte": "^3.54.0",
+		"typescript": "^5.0.0"
 	},
-	"svelte": "./dist/index.js",
-	"typesVersions": {
-		">4.0": {
-			"LayerCake.svelte": [
-				"./dist/LayerCake.svelte.d.ts"
-			],
-			"index": [
-				"./dist/index.d.ts"
-			],
-			"layouts/Canvas.svelte": [
-				"./dist/layouts/Canvas.svelte.d.ts"
-			],
-			"layouts/Html.svelte": [
-				"./dist/layouts/Html.svelte.d.ts"
-			],
-			"layouts/ScaledSvg.svelte": [
-				"./dist/layouts/ScaledSvg.svelte.d.ts"
-			],
-			"layouts/Svg.svelte": [
-				"./dist/layouts/Svg.svelte.d.ts"
-			],
-			"layouts/Webgl.svelte": [
-				"./dist/layouts/Webgl.svelte.d.ts"
-			],
-			"lib/bin": [
-				"./dist/lib/bin.d.ts"
-			],
-			"lib/calcExtents": [
-				"./dist/lib/calcExtents.d.ts"
-			],
-			"lib/calcUniques": [
-				"./dist/lib/calcUniques.d.ts"
-			],
-			"lib/flatten": [
-				"./dist/lib/flatten.d.ts"
-			],
-			"lib/groupLonger": [
-				"./dist/lib/groupLonger.d.ts"
-			],
-			"lib/raise": [
-				"./dist/lib/raise.d.ts"
-			],
-			"lib/scaleCanvas": [
-				"./dist/lib/scaleCanvas.d.ts"
-			],
-			"lib/stack": [
-				"./dist/lib/stack.d.ts"
-			],
-			"lib/takeEvery": [
-				"./dist/lib/takeEvery.d.ts"
-			],
-			"lib/uniques": [
-				"./dist/lib/uniques.d.ts"
-			]
-		}
-	}
+	"svelte": "./dist/index.js"
 }

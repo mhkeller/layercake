@@ -3,7 +3,7 @@ Changelog
 
 # 7.2.3
 
-> 2023-03-05
+> not yet on npm
 
 Correct the types on the `xDomain`, `rDomain`, `zDomain`, `rDomain` props to reflect that the values can be `null` to inherit the calculated min or max.
 

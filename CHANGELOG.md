@@ -5,7 +5,7 @@ Changelog
 
 > not yet on npm
 
-Correct the types on the `xDomain`, `rDomain`, `zDomain`, `rDomain` props to reflect that the values can be `null` to inherit the calculated min or max.
+Correct the types on the `xDomain`, `rDomain`, `zDomain`, `rDomain` props to reflect that the values can be `null` to inherit the calculated min or max. Updates `svelte-package` and `package.json` to use `exports` field. Adds Typescript 5 as a `peerDep`.
 
 * [0c9b3ddc4ac9f8bb79db346e2682876f280a7862](https://github.com/mhkeller/layercake/commit/0c9b3ddc4ac9f8bb79db346e2682876f280a7862)
 

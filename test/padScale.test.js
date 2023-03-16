@@ -6,7 +6,14 @@ import {
 	scaleLog,
 	scalePow,
 	scaleSqrt,
-	scaleSymlog
+	scaleSymlog,
+	scaleOrdinal,
+	scaleBand,
+	scalePoint,
+	scaleThreshold,
+	scaleQuantile,
+	scaleQuantize,
+	scaleSequentialQuantile
 } from 'd3-scale';
 
 import fn from '../src/lib/utils/padScale.js';
@@ -50,7 +57,20 @@ const tests = [
 	{ name: 'time change min', args: [scaleTime().domain([new Date(Date.UTC(2010, 0, 1)), new Date(Date.UTC(2010, 11, 31))]).range([0, 100]), [10, 0]], expected: [new Date('2009-11-21T13:20:00.000Z'), new Date('2010-12-31T00:00:00.000Z')] },
 	{ name: 'time change max', args: [scaleTime().domain([new Date(Date.UTC(2010, 0, 1)), new Date(Date.UTC(2010, 11, 31))]).range([0, 100]), [0, 10]], expected: [new Date('2010-01-01T00:00:00.000Z'), new Date('2011-02-09T10:40:00.000Z')] },
 	{ name: 'time change both', args: [scaleTime().domain([new Date(Date.UTC(2010, 0, 1)), new Date(Date.UTC(2010, 11, 31))]).range([0, 100]), [10, 10]], expected: [new Date('2009-11-16T12:00:00.000Z'), new Date('2011-02-14T12:00:00.000Z')] },
+];
 
+const ordinalTests = [
+	{ name: 'ordinal', args: [scaleOrdinal().domain([0, 100]).range([0, 100]), [10, 10]], expected: [0, 100] },
+	{ name: 'ordinal', args: [scaleOrdinal().domain(['0', '1', '2']).range([0, 100]), [10, 10]], expected: ['0', '1', '2'] },
+	{ name: 'band', args: [scaleBand().domain(['a', 'b', 'c']).range([0, 100]), [10, 10]], expected: ['a', 'b', 'c'] },
+	{ name: 'point', args: [scalePoint().domain(['b', 'd', 'e']).range([0, 100]), [10, 10]], expected: ['b', 'd', 'e'] },
+];
+
+const discreteRangeTests = [
+	{ name: 'threshold', args: [scaleThreshold().domain([0, 10]).range(['a', 'b', 'c']), [10, 10]], expected: [0, 10] },
+	{ name: 'quantile', args: [scaleQuantile().domain([0, 10]).range(['a', 'b', 'c']), [10, 10]], expected: [0, 10] },
+	{ name: 'quantize', args: [scaleQuantize().domain([0, 10]).range(['a', 'b', 'c']), [10, 10]], expected: [0, 10] },
+	{ name: 'sequentialQuantile', args: [scaleSequentialQuantile().domain([0, 10]), [10, 10]], expected: [0, 10] },
 ];
 
 const errorTests = [
@@ -122,3 +142,26 @@ describe(`${name} errors`, () => {
 		});
 	});
 });
+
+describe(`ordinal scales`, () => {
+	ordinalTests.forEach(test => {
+		describe(test.name, () => {
+			it(`should equal ${test.expected}`, () => {
+				const paddedDomain = fn(...test.args);
+				assert.deepStrictEqual(paddedDomain, test.expected);
+			});
+		});
+	});
+});
+
+describe(`discrete range scales`, () => {
+	discreteRangeTests.forEach(test => {
+		describe(test.name, () => {
+			it(`should equal ${test.expected}`, () => {
+				const paddedDomain = fn(...test.args);
+				assert.deepStrictEqual(paddedDomain, test.expected);
+			});
+		});
+	});
+});
+console.log('scale squential', scaleSequentialQuantile().range());

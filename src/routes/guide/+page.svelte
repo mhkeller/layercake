@@ -301,6 +301,10 @@
 		white-space: pre;
 	}
 
+	section :global(p img) {
+		width: 100%;
+	}
+
 	@media (min-width: 768px) {
 		sidebar {
 			display: block;

@@ -8,12 +8,18 @@
 
 	import makeAccessor from './utils/makeAccessor.js';
 	import filterObject from './utils/filterObject.js';
+	import debounce from './utils/debounce.js';
+
 	import calcScaleExtents from './helpers/calcScaleExtents.js';
 	import calcDomain from './helpers/calcDomain.js';
 	import createScale from './helpers/createScale.js';
 	import createGetter from './helpers/createGetter.js';
 	import getRange from './helpers/getRange.js';
+	import printDebug from './helpers/printDebug.js';
+
 	import defaultScales from './settings/defaultScales.js';
+
+	const printDebug_debounced = debounce(printDebug, 200);
 
 	/** @type {Boolean} [ssr=false] Whether this chart should be rendered server side. */
 	export let ssr = false;
@@ -114,6 +120,9 @@
 
 	/** @type {Object} custom Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants. */
 	export let custom = {};
+
+	/** @type {Boolean} debug Enable debug printing to the console. Useful to inspect your scales and dimensions. */
+	export let debug = false;
 
 	/* --------------------------------------------
 	 * Keep track of whethr the component has mounted
@@ -370,6 +379,22 @@
 	};
 
 	$: setContext('LayerCake', context);
+
+	$: if ($box_d && debug === true && (ssr === true || typeof window !== 'undefined')) {
+		// Call this as a debounce so that it doesn't get called multiple times as these vars get filled in
+		printDebug_debounced({
+			boundingBox: $box_d,
+			activeGetters: $activeGetters_d,
+			x: config.x,
+			y: config.y,
+			z: config.z,
+			r: config.r,
+			xScale: $xScale_d,
+			yScale: $yScale_d,
+			zScale: $zScale_d,
+			rScale: $rScale_d,
+		});
+	}
 </script>
 
 {#if (ssr === true || typeof window !== 'undefined')}

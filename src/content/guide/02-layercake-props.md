@@ -101,6 +101,23 @@ Same as [x](/guide#x) but for the z dimension.
 
 Same as [x](/guide#x) but for the r dimension.
 
+### debug `Boolean`
+
+If this is `true`, Layer Cake will print to the control a helpful debug message showing:
+
+1. The bounding box dimensions of your chart container
+2. The scales you have currently set and for each one:
+   1. The accessor function or string key
+   2. The scale type
+   3. The `domain`
+   4. The `range`
+
+It's helpful if you're trying to track down why a chart is not display correctly, which comes down to CSS not being set on the parent chart container or weird data issues (`undefined`, `NaN` values etc...) that are throwing off the extent calculation for the `domain`.
+
+If your `domain` or `range` includes values that are colors, the debug interface will highlight them in that color.
+
+![](/print-debug.png)
+
 ### padding `Object`
 
 An object that can specify `top`, `right`, `bottom`, or `left` padding in pixels. Any unspecified values are filled in as `0`. Padding operates like CSS `box-sizing: border-box;` where values are subtracted from the parent container's width and height, the same as [a D3 margin convention](https://bl.ocks.org/mbostock/3019563).

@@ -1,7 +1,7 @@
 import calcUniques from '../lib/calcUniques.js';
 import calcExtents from '../lib/calcExtents.js';
 
-import isOrdinalScale from './isOrdinalScale.js';
+import isOrdinalDomain from './isOrdinalDomain.js';
 
 /* --------------------------------------------
  * Figure out which of our scales are ordinal
@@ -10,10 +10,10 @@ import isOrdinalScale from './isOrdinalScale.js';
  */
 export default function calcScaleExtents (flatData, getters, activeScales) {
 	const scaleGroups = Object.keys(activeScales).reduce((groups, k) => {
-		const scaleType = isOrdinalScale(activeScales[k]);
+		const domainType = isOrdinalDomain(activeScales[k]) === true ? 'ordinal' : 'other';
 		// @ts-ignore
-		if (!groups[scaleType]) groups[scaleType] = {};
-		groups[scaleType][k] = getters[k];
+		if (!groups[domainType]) groups[domainType] = {};
+		groups[domainType][k] = getters[k];
 		return groups;
 	}, { ordinal: false, other: false});
 

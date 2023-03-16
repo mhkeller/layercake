@@ -1,4 +1,13 @@
-test
 .editorconfig
-vscode/
+.vscode/
 .github
+.eslintrc.cjs
+.prettierrc
+.travis.yml
+svelte.config.js
+tsconfig.js
+vite.config.js
+docs/
+src/
+static/
+test/

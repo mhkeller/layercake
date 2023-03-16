@@ -2,6 +2,10 @@
 title: Troubleshooting
 ---
 
+### TypeScript
+
+Layer Cake suggests using TypeScript 5 and, [per the SvelteKit docs](https://kit.svelte.dev/docs/packaging#typescript), suggests you set the `moduleResolution` option to `bundler`. See the SvelteKit docs [for more info](https://kit.svelte.dev/docs/packaging#typescript).
+
 ### The chart is blank
 
 The `<LayerCake>` component expands to fill the size of its parent `<div>` – that's why all of the examples define a `chart-container` element with a specific width and height. If your chart isn't showing up, make sure you have a width and height set on your wrapper div.

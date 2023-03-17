@@ -7,8 +7,7 @@ Changelog
 
 Bring back the `"main": "./dist/index.js",` field in `package.json` for legacy build systems.
 
-* [4fe0f3b5e3bc4660107f682f2d0884efa43edb6f](https://github.com/mhkeller/layercake/commit/4fe0f3b5e3bc4660107f682f2d0884efa43edb6f)
-
+* [639f7397f055fe8bfda0f5cbc04dc58a1b91ca28](https://github.com/mhkeller/layercake/commit/639f7397f055fe8bfda0f5cbc04dc58a1b91ca28)
 
 # 7.3.3
 

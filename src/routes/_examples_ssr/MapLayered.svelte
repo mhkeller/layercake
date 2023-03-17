@@ -57,13 +57,13 @@
 		expand to fill it.
 		The height is being set inline with a CSS `aspect-ratio` property.
 	*/
-	.chart-container {
+	.map-container {
 		position: relative;
 		width: 100%;
 	}
 </style>
 
-<div class="chart-container" style="aspect-ratio:{aspectRatio};">
+<div class="map-container" style="aspect-ratio:{aspectRatio};">
 	<LayerCake
 		position='absolute'
 		data={geojson}

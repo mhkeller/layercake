@@ -27,7 +27,7 @@
 
 <style>
 	.group-container {
-		height: 90%;
+		height: calc(100% - 40px);
 		width: 100%;
 	}
 	.input-container {
@@ -45,7 +45,7 @@
 		The point being it needs dimensions since the <LayerCake> element will
 		expand to fill it.
 	*/
-	.chart-container {
+	.small-multiple-container {
 		position: relative;
 		display: inline-block;
 		width: 11%;
@@ -60,7 +60,7 @@
 
 <div class="group-container">
 	{#each pointSeries as data}
-		<div class="chart-container">
+		<div class="small-multiple-container">
 			<SmallMultipleWrapper
 				{data}
 				{fullExtents}

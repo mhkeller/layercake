@@ -20,7 +20,7 @@
 	export let data;
 	let {slug, content, active} = data;
 	$: ({slug, content, active} = data);
-	
+
 	function markdownToHtml(text) {
 		return md.render(text);
 	}
@@ -165,13 +165,14 @@
 				<li
 					class="tab {active === page.slug ? 'active' : ''}"
 					on:click={() => (active = page.slug)}
+					on:keypress={() => (active = page.slug)}
 				>
 					{page.slug}
 				</li>
 			{/each}
 		</ul>
 		<div id="contents-container">
-			<div class="copy" on:click={copyToClipboard} />
+			<div class="copy" on:click={copyToClipboard} on:keypress={copyToClipboard} />
 			{#each pages as page}
 				<div class="contents" style="display: {active === page.slug ? 'block' : 'none'};">
 					<pre>{@html highlight(page.contents, page.slug)}</pre>
@@ -210,6 +211,10 @@
 
 	.dek :global(p a:hover) {
 		text-decoration: underline;
+	}
+
+	.chart-hero :global(.chart-container) {
+		height: 100% !important;
 	}
 
 	#pages {

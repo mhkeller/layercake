@@ -35,7 +35,7 @@
 		The point being it needs dimensions since the <LayerCake> element will
 		expand to fill it.
 	*/
-	.chart-container {
+	.brushed-chart-container {
 		width: 100%;
 		height: 80%;
 	}
@@ -45,7 +45,7 @@
 	}
 </style>
 
-<div class="chart-container">
+<div class="brushed-chart-container">
 	<LayerCake
 		ssr={true}
 		percentRange={true}

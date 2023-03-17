@@ -34,7 +34,7 @@
 	*/
 	.chart-container {
 		width: 100%;
-		height: 100%;
+		height: 250px;
 	}
 	.padding {
 		margin: 13px 0;

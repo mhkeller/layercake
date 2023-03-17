@@ -214,6 +214,10 @@
 		text-decoration: underline;
 	}
 
+	.block-container :global(.chart-container) {
+		height: 100% !important;
+	}
+
 	h2 {
 		padding: 4rem 0 0 0;
 		margin: -3rem 0 1.05rem 0;

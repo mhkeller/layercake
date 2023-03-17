@@ -24,6 +24,8 @@
 			d[yKey] = +d[yKey];
 		});
 	});
+
+	const colors = ['#00e047', '#00bbff', '#ff00cc', '#ffcc00'];
 </script>
 
 <style>
@@ -33,9 +35,9 @@
 		The point being it needs dimensions since the <LayerCake> element will
 		expand to fill it.
 	*/
-	.small-multiple-container {
+	.chart-container {
 		width: 100%;
-		height: 100%;
+		height: 250px;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
@@ -43,14 +45,15 @@
 	}
 </style>
 
-<div class="small-multiple-container">
-	{#each datasets as dataset}
+<div class="chart-container">
+	{#each datasets as dataset, i}
 		<SyncedBrushWrapper
 			data={dataset}
 			{xKey}
 			{yKey}
 			bind:min={brushExtents[0]}
 			bind:max={brushExtents[1]}
+			stroke={colors[i]}
 		/>
 	{/each}
 </div>

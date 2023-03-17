@@ -37,14 +37,15 @@
 		expand to fill it.
 		The width is being set inline below.
 	*/
-	.chart-container {
+	.calendar-container {
+		--margin-top: 25px;
 		display: inline-block;
 		position: relative;
 		vertical-align: top;
-		height: 100%;
-		margin-top: 25px;
+		height: calc(100% - var(--margin-top));
+		margin-top: var(--margin-top);
 	}
-	.chart-container:before {
+	.calendar-container:before {
 		content: attr(data-month);
 		position: absolute;
 		top: 0;
@@ -55,7 +56,7 @@
 
 {#each sortedData as month, i}
 	<div
-		class="chart-container"
+		class="calendar-container"
 		style="width:calc({80 / sortedData.length}% - {gutter}px);{i === 0 ? `margin-right:${gutter * 2}px` : ''}"
 		data-month="{monthNames[+month.key + 1]}"
 	>

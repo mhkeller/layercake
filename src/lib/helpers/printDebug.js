@@ -51,16 +51,16 @@ function printScale(s, scale, acc) {
 	console.log(`${indent}${indent}Accessor: "${acc.toString()}"`);
 	console.log(`${indent}${indent}Type: ${scaleName}`);
 	printValues(scale, 'domain');
-	printValues(scale, 'range');
+	printValues(scale, 'range', ' ');
 }
 
-function printValues(scale, method) {
+function printValues(scale, method, extraSpace = '') {
 	const values = scale[method]();
 	const colorValues = colorizeArray(values);
 	if (colorValues) {
 		printColorArray(colorValues, method, values);
 	} else {
-		console.log(`${indent}${indent}${t(method)}:`, values);
+		console.log(`${indent}${indent}${t(method)}:${extraSpace}`, values);
 	}
 }
 

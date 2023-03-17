@@ -1,18 +1,33 @@
-<script lang="ts">
+<script>
 	import * as d3sc from 'd3-scale-chromatic';
 
-	export let text: string | null = null;
-	export let colorScale: ((x: number) => string) | string | null = null;
-	export let textSide: 'left' | 'right' | 'top' | 'bottom' = `left`;
-	export let style: string | null = null;
-	export let textStyle: string | null = null;
-	export let wrapperStyle: string | null = null;
-	export let tickLabels: (string | number)[] | number = 0;
-	export let range: [number, number] = [];
+	/** @type {string | null} [text=null] - Text label to show next to the color bar */
+	export let text = null;
+	/** @type {((x: number) => string) | string | null} [colorScale=null] - Color scale to use.
+	 * If a string, will use a d3-scale-chromatic scale with that name. If a function, expects
+	 * one that maps the unit interval [0, 1] to color strings. */
+	export let colorScale = null;
+	/** @type {('left' | 'right' | 'top' | 'bottom')} [textSide='left'] - Position of the color bar's
+	 * text label relative to the gradient bar */
+	export let textSide = `left`;
+	/** @type {string | null} [style=null] - Style to apply to the color bar's gradient */
+	export let style = null;
+	/** @type {string | null} [textStyle=null] - Style to apply to the color bar's text label */
+	export let textStyle = null;
+	/** @type {string | null} [wrapperStyle=null] - Style to apply to the color bar's wrapper div */
+	export let wrapperStyle = null;
+	/** @type {string | number | [number, number]} [tickLabels=0] - Tick labels to show.
+	 * If a number, will generate that many equidistant tick labels. If an array, will
+	 * use those labels. If a range, will generate tick labels for that range. */
+	export let tickLabels = 0;
+	/** @type {[number?, number?]} [range=[]] - Range of values to show in tick labels */
+	export let range = [];
+	/** @type {('top' | 'bottom' | 'center')} [tickSide='bottom'] - Position of tick labels */
 	export let tickSide: 'top' | 'bottom' | 'center' = `bottom`;
-	// TODO vertical not fully implemented yet
-	export let orientation: 'horizontal' | 'vertical' = `horizontal`;
-	export let precision: number = 1;
+	/** @type {('horizontal' | 'vertical')} [orientation='horizontal'] - Orientation of the color bar gradient */
+	export let orientation = `horizontal`; // TODO vertical not fully implemented yet
+	/** @type {Number} [precision=1] - Number of decimal places to show in tick labels */
+	export let precision = 1;
 
 	$: if (tickLabels?.length == 0 || typeof tickLabels == `number` || range?.length > 0) {
 		const n_ticks = Array.isArray(tickLabels) ? 5 : tickLabels;
@@ -68,7 +83,7 @@
 		gap: var(--cbar-gap, 5pt);
 		margin: var(--cbar-margin);
 		padding: var(--cbar-padding);
-		width: var(--cbar-wrapper-width);
+		width: var(--cbar-width);
 	}
 	div.colorbar > div {
 		position: relative;

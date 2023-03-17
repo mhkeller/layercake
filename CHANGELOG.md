@@ -1,7 +1,15 @@
 Changelog
 ===
 
+# 7.3.2
+
+> 2023-03-17
+
+Cut down on dependencies by using d3-color for contrast detection
+
 # 7.3.1
+
+* [0229ab57e817908359d23183dfa8760e4816205f](https://github.com/mhkeller/layercake/commit/0229ab57e817908359d23183dfa8760e4816205f)
 
 > 2023-03-16
 

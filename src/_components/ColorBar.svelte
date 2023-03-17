@@ -20,8 +20,8 @@
 	 * If a number, will generate that many equidistant tick labels. If an array, will
 	 * use those labels. If a range, will generate tick labels for that range. */
 	export let tickLabels = 0;
-	/** @type {[number?, number?]} [range=[]] - Range of values to show in tick labels */
-	export let range = [];
+	/** @type {[number, number]} [range=[]] - Range of values to show in tick labels. Default is [0, 1]. */
+	export let range = [0, 1];
 	/** @type {('top' | 'bottom' | 'center')} [tickSide='bottom'] - Position of tick labels */
 	export let tickSide: 'top' | 'bottom' | 'center' = `bottom`;
 	/** @type {('horizontal' | 'vertical')} [orientation='horizontal'] - Orientation of the color bar gradient */

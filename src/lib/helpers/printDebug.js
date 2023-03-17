@@ -1,10 +1,27 @@
-import isCSSColor from 'is-css-color';
-import Color from 'color';
+import { rgb } from 'd3-color'
 
 import findScaleName from './findScaleName.js';
 import t from './toTitleCase.js';
 
 const indent = '    ';
+
+function getRgb(clr){
+	const { r, g, b, opacity: o } = rgb(clr);
+	if (![r, g, b].every(c => c >= 0 && c <= 255)) {
+		return false;
+	}
+	return { r, g, b, o };
+}
+
+/**
+ * Calculate human-perceived lightness from RGB
+ * This doesn't take opacity into account
+ * https://stackoverflow.com/a/596243
+ */
+function contrast({ r, g, b }) {
+	const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+	return luminance > 0.6 ? 'black' : 'white';
+}
 
 /* --------------------------------------------
  *
@@ -60,8 +77,9 @@ function printColorArray(colorValues, method, values) {
 function colorizeArray(arr) {
 	const colors = [];
 	const a = arr.map((d, i) => {
-		if (isCSSColor(d)) {
-			colors.push(d);
+		const rgbo = getRgb(d);
+		if (rgbo !== false) {
+			colors.push(rgbo);
 			// Add a space to the last item
 			const space = i === arr.length - 1 ? ' ' : '';
 			return `%c ${d}${space}`;
@@ -72,13 +90,9 @@ function colorizeArray(arr) {
 		return [
 			`%c[ ${a.join(', ')}`,
 			colors.map(
-				d => `background-color: ${d}; color:${contrast(d)};`
+				d => `background-color: rgba(${d.r}, ${d.g}, ${d.b}, ${d.o}); color:${contrast(d)};`
 			)
 		];
 	}
 	return null;
-}
-
-function contrast(color) {
-	return Color(color).isLight() ? '#000' : '#fff';
 }

@@ -68,11 +68,10 @@
 		"yootils": "^0.3.1"
 	},
 	"dependencies": {
-		"color": "^4.2.3",
 		"d3-array": "^3.2.1",
+		"d3-color": "^3.1.0",
 		"d3-scale": "^4.0.2",
-		"d3-shape": "^3.2.0",
-		"is-css-color": "^1.0.0"
+		"d3-shape": "^3.2.0"
 	},
 	"exports": {
 		".": {

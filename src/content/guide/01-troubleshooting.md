@@ -4,7 +4,18 @@ title: Troubleshooting
 
 ### Use the `debug` feature
 
-To get more information about what scales you're using and the calculated `domain` and `range`, set the [debug](/guide#debug) prop to `true`. This will print
+To get more information about what scales you're using and the calculated `domain` and `range`, set the [debug](/guide#debug) prop to `true`.
+
+```svelte
+<LayerCake
+  debug={true}
+
+  <!-- Can also be set simply with this -->
+  debug
+>
+```
+
+This will print:
 
 1. The bounding box dimensions of your chart container
 2. The scales you have currently set and for each one:

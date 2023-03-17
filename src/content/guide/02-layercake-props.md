@@ -103,7 +103,18 @@ Same as [x](/guide#x) but for the r dimension.
 
 ### debug `Boolean`
 
-If this is `true`, Layer Cake will print to the control a helpful debug message showing:
+If this is `true`, Layer Cake will print to the control a helpful debug message.
+
+```svelte
+<LayerCake
+  debug={true}
+
+  <!-- Can also be set simply with this -->
+  debug
+>
+```
+
+It will display:
 
 1. The bounding box dimensions of your chart container
 2. The scales you have currently set and for each one:

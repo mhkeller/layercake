@@ -1,6 +1,15 @@
 Changelog
 ===
 
+# 7.3.4
+
+> 2023-03-17
+
+Bring back the `"main": "./dist/index.js",` field in `package.json` for legacy build systems.
+
+* [4fe0f3b5e3bc4660107f682f2d0884efa43edb6f](https://github.com/mhkeller/layercake/commit/4fe0f3b5e3bc4660107f682f2d0884efa43edb6f)
+
+
 # 7.3.3
 
 > 2023-03-17
@@ -21,7 +30,7 @@ Cut down on dependencies by using d3-color for contrast detection
 
 > 2023-03-16
 
-Adds the `debug-mode` prop.
+Adds the `debug-mode` prop. Note: 7.3.0 was skipped because of an npm error.
 
 * [PR #12](https://github.com/mhkeller/layercake/pull/112)
 

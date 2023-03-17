@@ -1,15 +1,23 @@
 Changelog
 ===
 
+# 7.3.3
+
+> 2023-03-17
+
+Align values better in print debug output.
+
 # 7.3.2
 
+* [4fe0f3b5e3bc4660107f682f2d0884efa43edb6f](https://github.com/mhkeller/layercake/commit/4fe0f3b5e3bc4660107f682f2d0884efa43edb6f)
+*
 > 2023-03-17
 
 Cut down on dependencies by using d3-color for contrast detection
 
-# 7.3.1
-
 * [0229ab57e817908359d23183dfa8760e4816205f](https://github.com/mhkeller/layercake/commit/0229ab57e817908359d23183dfa8760e4816205f)
+
+# 7.3.1
 
 > 2023-03-16
 

@@ -10,7 +10,7 @@ Align values better in print debug output.
 # 7.3.2
 
 * [4fe0f3b5e3bc4660107f682f2d0884efa43edb6f](https://github.com/mhkeller/layercake/commit/4fe0f3b5e3bc4660107f682f2d0884efa43edb6f)
-*
+
 > 2023-03-17
 
 Cut down on dependencies by using d3-color for contrast detection

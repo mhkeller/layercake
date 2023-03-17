@@ -23,7 +23,7 @@
 	/** @type {[number, number]} [range=[]] - Range of values to show in tick labels. Default is [0, 1]. */
 	export let range = [0, 1];
 	/** @type {('top' | 'bottom' | 'center')} [tickSide='bottom'] - Position of tick labels */
-	export let tickSide: 'top' | 'bottom' | 'center' = `bottom`;
+	export let tickSide = `bottom`;
 	/** @type {('horizontal' | 'vertical')} [orientation='horizontal'] - Orientation of the color bar gradient */
 	export let orientation = `horizontal`; // TODO vertical not fully implemented yet
 	/** @type {Number} [precision=1] - Number of decimal places to show in tick labels */

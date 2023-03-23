@@ -38,10 +38,14 @@
 	}
 
 	$: if (colorScale === null || typeof colorScale == `string`) {
-		colorScale = d3sc[`interpolate${colorScale ?? text}`];
+		const key = colorScale ?? text;
+		colorScale = d3sc[`interpolate${key}`];
 		if (colorScale === undefined) {
-			const list_valid = `supported color scale names are ${Object.keys(d3sc).join(`, `)}`;
-			console.error(`Color scale '${colorScale ?? text}' not found, ${list_valid}`);
+			const validKeys = Object.keys(d3sc)
+				.map((key) => key.split(`interpolate`)[1])
+				.filter(Boolean)
+				.join(`, `);
+			console.error(`Color scale '${key}' not found, supported color scale names are ${validKeys}`);
 		}
 	}
 
@@ -84,6 +88,7 @@
 		margin: var(--cbar-margin);
 		padding: var(--cbar-padding);
 		width: var(--cbar-width);
+		font-size: var(--cbar-font-size, 10pt);
 	}
 	div.colorbar > div {
 		position: relative;
@@ -95,7 +100,7 @@
 		position: absolute;
 		transform: translate(-50%);
 		font-weight: var(--cbar-tick-label-font-weight, lighter);
-		font-size: var(--cbar-tick-label-font-size, 10pt);
+		font-size: var(--cbar-tick-label-font-size, --cbar-font-size);
 		color: var(--cbar-tick-label-color);
 		background: var(--cbar-tick-label-bg);
 	}

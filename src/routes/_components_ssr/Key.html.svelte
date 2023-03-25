@@ -43,6 +43,7 @@
 
 <div class="chart-container">
 	<LayerCake
+		ssr={true}
 		padding={{ top: 10 }}
 		x={xKey}
 		y={yKey}

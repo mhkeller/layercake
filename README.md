@@ -3,7 +3,7 @@ Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.grap
 
 > a framework for mostly-reusable graphics with [svelte](https://github.com/sveltejs/svelte)
 
-[![Tests badges](https://github.com/mhkeller/layercake/actions/workflows/node.js.yml/badge.svg)](https://github.com/mhkeller/layercake/actions/workflows/node.js.yml) [![npm version](https://img.shields.io/npm/v/layercake.svg)](https://npmjs.org/package/layercake)
+[![Tests badges](https://github.com/mhkeller/layercake/actions/workflows/node.js.yml/badge.svg)](https://github.com/mhkeller/layercake/actions/workflows/node.js.yml) [![npm version](https://img.shields.io/npm/v/layercake.svg)](https://npmjs.org/package/layercake) [![npm](https://img.shields.io/npm/dm/layercake.svg)](https://www.npmjs.com/package/layercake)
 
  🍰 [See examples](https://layercake.graphics)
  🍰 [Read the guide](https://layercake.graphics/guide)

@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an HTML y-axis.
+	Generates an SVG y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
 <script>
 	import { getContext } from 'svelte';

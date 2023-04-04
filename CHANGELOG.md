@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 7.3.5
+
+> 2023-04-04
+
+Dependabot fix
+
+* [PR#126](https://github.com/mhkeller/layercake/pull/126)
+
 # 7.3.4
 
 > 2023-03-17

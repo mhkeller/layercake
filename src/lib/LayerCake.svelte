@@ -104,8 +104,8 @@
 	export let rRange = undefined;
 	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
 	export let xReverse = false;
-	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` or `scalePoint` for `yScale`. Ignored if you set the yRange prop. */
-	export let yReverse = typeof yScale.bandwidth === 'function' ? false : true;
+	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using an ordinal scale with a `.bandwidth` method for `yScale`. Ignored if you set the `yRange` prop. */
+	export let yReverse = undefined
 	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
 	export let zReverse = false;
 	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
@@ -124,8 +124,15 @@
 	/** @type {Boolean} debug Enable debug printing to the console. Useful to inspect your scales and dimensions. */
 	export let debug = false;
 
+	/**
+	 * Make this reactive
+	 */
+	$: yReverseValue = typeof yReverse === 'undefined'
+		? typeof yScale.bandwidth === 'function' ? false : true
+		: yReverse;
+
 	/* --------------------------------------------
-	 * Keep track of whethr the component has mounted
+	 * Keep track of whether the component has mounted
 	 * This is used to emit warnings once we have measured
 	 * the container object and it doesn't have proper dimensions
 	 */
@@ -178,7 +185,7 @@
 	const _zNice = writable(zNice);
 	const _rNice = writable(rNice);
 	const _xReverse = writable(xReverse);
-	const _yReverse = writable(yReverse);
+	const _yReverse = writable(yReverseValue);
 	const _zReverse = writable(zReverse);
 	const _rReverse = writable(rReverse);
 	const _xPadding = writable(xPadding);
@@ -216,7 +223,7 @@
 	$: $_zNice = zNice;
 	$: $_rNice = rNice;
 	$: $_xReverse = xReverse;
-	$: $_yReverse = yReverse;
+	$: $_yReverse = yReverseValue;
 	$: $_zReverse = zReverse;
 	$: $_rReverse = rReverse;
 	$: $_xPadding = xPadding;

@@ -2,7 +2,17 @@
 title: Computed context values
 ---
 
-In addition to the values you set on the LayerCake component, additional properties are computed and exposed on the context.
+In addition to the values you set on the LayerCake component, additional properties are computed and exposed on the context. These are also exposed as slot props via the `let:` keyword on the `<LayerCake>` component such as:
+
+```svelte
+  <LayerCake
+    let:xScale
+    let:yGet
+    let:containerWidth
+  >
+    <!-- Components... -->
+  </LayerCake>
+```
 
 ### activeGetters `Object`
 
@@ -19,7 +29,7 @@ An object that has a key for each dimension of data you have provided an accesso
 
 ### aspectRatio `Number`
 
-The aspect ratio of the chart, `width / height`. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:aspectRatio`. For example, you could use it to selectively display some components over others:
+The aspect ratio of the chart, `width / height`. As a slot prop, you could use it to selectively display some components over others:
 
 ```svelte
 <LayerCake

@@ -32,28 +32,28 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_page.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.82e70fbb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index.bc069e12.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.18477685.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index.d063f3db.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.8989525d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.9b6cf9d7.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.dfa7726c.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.fe42a1f1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.e7f5239e.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.f0fb24e9.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/_layout.svelte.aaf368c5.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.3d38f004.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.81d718af.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.481d6679.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.9d358d3c.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/dots.da17b3af.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.62d28053.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.7c7ddbbb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.a4c285d1.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.ccf30181.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/_layout.svelte.c763428b.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.53a5df67.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.7db6b3b1.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.3b24a65d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.b36da96d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/dots.2b8abe2f.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.428a5485.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.1f87ffaf.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.b75bbd80.js">
 		<link rel="modulepreload" href="../_app/immutable/entry/_layout.js.f671c087.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.2defaa64.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_layout.1b9ff9ac.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/components-_slug_-page.svelte.b5e4b3b0.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.8c21ee6e.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/components-_slug_-page.svelte.c5b27d04.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.eea381e2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/hljsDefineSvelte.185b3d8f.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_components.51d2ac04.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_components.faa6d7e7.js">
 		<link rel="modulepreload" href="../_app/immutable/entry/components-_slug_-page.js.82d856d7.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_page.0221e33a.js"><title>Annotations.html.svelte component</title><!-- HEAD_svelte-1675z5z_START --><!-- HEAD_svelte-1675z5z_END -->
 	</head>
@@ -184,7 +184,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Annotations.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Annotations.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Adds text annotations based on a config object that has CSS styles as fields.\\n -->\\n \u003Cscript>\\n   const vals = ['top', 'right', 'bottom', 'left'];\\n\\n   /** @type {Array} annotations - A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options. */\\n   export let annotations = [];\\n\\n   /** @type {Function} [getText=d => d.text] - An accessor function to get the field to display. */\\n  export let getText = d => d.text;\\n\\n  $: fillStyle = d => {\\n    let style = '';\\n    vals.forEach(val => {\\n      if (d[val]) {\\n        style += `${val}:${d[val]};`;\\n      }\\n    });\\n    return style;\\n  };\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"layercake-annotations\\\">\\n  {#each annotations as d, i}\\n    \u003Cdiv\\n      class=\\\"layercake-annotation\\\"\\n      data-id=\\\"{i}\\\"\\n      style=\\\"{fillStyle(d)}\\\"\\n    >{getText(d)}\u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .layercake-annotation {\\n    position: absolute;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Column\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Column\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Array\"},\"name\":\"annotations\"},{\"title\":\"param\",\"description\":\"An accessor function to get the field to display.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"getText\",\"default\":\"d=>d.text\"}]},\"componentDescription\":\"Adds text annotations based on a config object that has CSS styles as fields.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_xje80j = {
+					__sveltekit_11h1e7o = {
 						env: {},
 						base: new URL("..", location).pathname.slice(0, -1),
 						element: document.currentScript.parentElement
@@ -193,10 +193,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.82e70fbb.js"),
-						import("../_app/immutable/entry/app.f0fb24e9.js")
+						import("../_app/immutable/entry/start.8989525d.js"),
+						import("../_app/immutable/entry/app.ccf30181.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_xje80j.element, {
+						kit.start(app, __sveltekit_11h1e7o.element, {
 							node_ids: [0, 4],
 							data,
 							form: null,

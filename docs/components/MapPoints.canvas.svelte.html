@@ -32,28 +32,28 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_page.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.82e70fbb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index.bc069e12.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.18477685.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index.d063f3db.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.8989525d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.9b6cf9d7.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.dfa7726c.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.fe42a1f1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.e7f5239e.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.f0fb24e9.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/_layout.svelte.aaf368c5.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.3d38f004.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.81d718af.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.481d6679.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.9d358d3c.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/dots.da17b3af.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.62d28053.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.7c7ddbbb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.a4c285d1.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.ccf30181.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/_layout.svelte.c763428b.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.53a5df67.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.7db6b3b1.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.3b24a65d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.b36da96d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/dots.2b8abe2f.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.428a5485.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.1f87ffaf.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.b75bbd80.js">
 		<link rel="modulepreload" href="../_app/immutable/entry/_layout.js.f671c087.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.2defaa64.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_layout.1b9ff9ac.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/components-_slug_-page.svelte.b5e4b3b0.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.8c21ee6e.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/components-_slug_-page.svelte.c5b27d04.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.eea381e2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/hljsDefineSvelte.185b3d8f.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_components.51d2ac04.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_components.faa6d7e7.js">
 		<link rel="modulepreload" href="../_app/immutable/entry/components-_slug_-page.js.82d856d7.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_page.0221e33a.js"><title>MapPoints.canvas.svelte component</title><!-- HEAD_svelte-1675z5z_START --><!-- HEAD_svelte-1675z5z_END -->
 	</head>
@@ -216,7 +216,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/MapPoints.canvas.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"MapPoints.canvas.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { scaleCanvas } from 'layercake';\\n\\n  const { data, width, height } = getContext('LayerCake');\\n\\n  const { ctx } = getContext('canvas');\\n\\n  /** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */\\n  export let projection;\\n\\n  /** @type {Number} [r=3.5] - The point's radius. */\\n  export let r = 3.5;\\n\\n  /** @type {String} [fill='yellow'] - The point's fill color. */\\n  export let fill = 'yellow';\\n\\n  /** @type {String} [stroke='#000'] - The point's stroke color. */\\n  export let stroke = '#000';\\n\\n  /** @type {Number} [strokeWidth=1] - The point's stroke width. */\\n  export let strokeWidth = 1;\\n\\n  /** @type {Array} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */\\n  export let features = undefined;\\n\\n  $: projectionFn = projection()\\n    .fitSize([$width, $height], $data);\\n\\n  $: featuresToDraw = features || $data.features;\\n  $: {\\n    if ($ctx) {\\n      scaleCanvas($ctx, $width, $height);\\n      $ctx.clearRect(0, 0, $width, $height);\\n\\n      // To scale the circle by size, set width and height to `$rGet(d.properties)`\\n      featuresToDraw.forEach(d => {\\n        $ctx.beginPath();\\n        const coordinates = projectionFn(d.geometry.coordinates);\\n        $ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);\\n        $ctx.fillStyle = fill;\\n        $ctx.fill();\\n        $ctx.lineWidth = strokeWidth;\\n        $ctx.strokeStyle = stroke;\\n        $ctx.stroke();\\n      });\\n    }\\n  }\\n\u003C/script>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Function\"},\"name\":\"projection\"},{\"title\":\"param\",\"description\":\"The point's radius.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"3.5\"},{\"title\":\"param\",\"description\":\"The point's fill color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'yellow'\"},{\"title\":\"param\",\"description\":\"The point's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#000'\"},{\"title\":\"param\",\"description\":\"The point's stroke width.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"1\"},{\"title\":\"param\",\"description\":\"A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Array\"}},\"name\":\"features\"}]},\"componentDescription\":\"Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_xje80j = {
+					__sveltekit_11h1e7o = {
 						env: {},
 						base: new URL("..", location).pathname.slice(0, -1),
 						element: document.currentScript.parentElement
@@ -225,10 +225,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.82e70fbb.js"),
-						import("../_app/immutable/entry/app.f0fb24e9.js")
+						import("../_app/immutable/entry/start.8989525d.js"),
+						import("../_app/immutable/entry/app.ccf30181.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_xje80j.element, {
+						kit.start(app, __sveltekit_11h1e7o.element, {
 							node_ids: [0, 4],
 							data,
 							form: null,

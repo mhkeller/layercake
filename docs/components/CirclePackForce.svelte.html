@@ -32,28 +32,28 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_page.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.82e70fbb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index.bc069e12.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.18477685.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index.d063f3db.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.8989525d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.9b6cf9d7.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.dfa7726c.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.fe42a1f1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.e7f5239e.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.f0fb24e9.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/_layout.svelte.aaf368c5.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.3d38f004.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.81d718af.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.481d6679.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.9d358d3c.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/dots.da17b3af.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.62d28053.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.7c7ddbbb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.a4c285d1.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.ccf30181.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/_layout.svelte.c763428b.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.53a5df67.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.7db6b3b1.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.3b24a65d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.b36da96d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/dots.2b8abe2f.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.428a5485.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.1f87ffaf.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.b75bbd80.js">
 		<link rel="modulepreload" href="../_app/immutable/entry/_layout.js.f671c087.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.2defaa64.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_layout.1b9ff9ac.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/components-_slug_-page.svelte.b5e4b3b0.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.8c21ee6e.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/components-_slug_-page.svelte.c5b27d04.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.eea381e2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/hljsDefineSvelte.185b3d8f.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_components.51d2ac04.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_components.faa6d7e7.js">
 		<link rel="modulepreload" href="../_app/immutable/entry/components-_slug_-page.js.82d856d7.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_page.0221e33a.js"><title>CirclePackForce.svelte component</title><!-- HEAD_svelte-1675z5z_START --><!-- HEAD_svelte-1675z5z_END -->
 	</head>
@@ -249,7 +249,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/CirclePackForce.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"CirclePackForce.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different. This technique comes from @plmrry.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import {\\n    forceSimulation,\\n    forceX,\\n    forceManyBody,\\n    forceCollide,\\n    forceCenter,\\n  } from 'd3-force';\\n\\n  const { data, width, height, xScale, xGet, rGet, zGet } = getContext('LayerCake');\\n\\n  /** @type {Number} [manyBodyStrength=5] - The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more. */\\n  export let manyBodyStrength = 5;\\n\\n  /** @type {Number} [xStrength=0.1] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */\\n  export let xStrength = 0.1;\\n\\n  /** @type {String} [nodeColor] Set a color manually otherwise it will default to the `zScale`. */\\n  export let nodeColor = undefined;\\n\\n  /** @type {String} [nodeStroke='#fff'] - The circle's stroke color. */\\n  export let nodeStroke = '#fff';\\n\\n  /** @type {Number} [nodeStrokeWidth=1] - The circle's stroke width, in pixels. */\\n  export let nodeStrokeWidth = 1;\\n\\n  /** @type {Boolean} [groupBy=true] - Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center. */\\n  export let groupBy = true;\\n\\n  /* --------------------------------------------\\n   * Make a copy because the simulation will alter the objects\\n   */\\n  const initialNodes = $data.map((d) => ({ ...d }));\\n\\n  const simulation = forceSimulation(initialNodes)\\n\\n  let nodes = [];\\n\\n  simulation.on(\\\"tick\\\", () => {\\n    nodes = simulation.nodes()\\n  })\\n\\n  /* ----------------------------------------------\\n   * When variables change, set forces and restart the simulation\\n   */\\n  $: {\\n    simulation\\n      .force('x', forceX().x(d => {\\n        return groupBy === true ? $xGet(d) + $xScale.bandwidth() / 2 : $width / 2;\\n      }).strength(xStrength))\\n      .force('center', forceCenter($width / 2, $height / 2))\\n      .force('charge', forceManyBody().strength(manyBodyStrength))\\n      .force('collision', forceCollide().radius(d => {\\n        return $rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out\\n      }))\\n      .force('center', forceCenter($width / 2, $height / 2))\\n      .alpha(1)\\n      .restart()\\n  }\\n\\n\u003C/script>\\n  {#each nodes as point}\\n    \u003Ccircle\\n      class='node'\\n      r={$rGet(point)}\\n      fill={nodeColor || $zGet(point)}\\n      stroke={nodeStroke}\\n      stroke-width={nodeStrokeWidth}\\n      cx='{point.x}'\\n      cy='{point.y}'\\n    >\\n      \u003C!-- \u003Ctitle>{point[$custom.title]}\u003C/title> -->\\n    \u003C/circle>\\n  {/each}\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/CirclePackForce\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"manyBodyStrength\",\"default\":\"5\"},{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"xStrength\",\"default\":\"0.1\"},{\"title\":\"param\",\"description\":\"Set a color manually otherwise it will default to the `zScale`.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"nodeColor\"},{\"title\":\"param\",\"description\":\"The circle's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"nodeStroke\",\"default\":\"'#fff'\"},{\"title\":\"param\",\"description\":\"The circle's stroke width, in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"nodeStrokeWidth\",\"default\":\"1\"},{\"title\":\"param\",\"description\":\"Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Boolean\"}},\"name\":\"groupBy\",\"default\":\"true\"}]},\"componentDescription\":\"Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different. This technique comes from @plmrry.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_xje80j = {
+					__sveltekit_11h1e7o = {
 						env: {},
 						base: new URL("..", location).pathname.slice(0, -1),
 						element: document.currentScript.parentElement
@@ -258,10 +258,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.82e70fbb.js"),
-						import("../_app/immutable/entry/app.f0fb24e9.js")
+						import("../_app/immutable/entry/start.8989525d.js"),
+						import("../_app/immutable/entry/app.ccf30181.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_xje80j.element, {
+						kit.start(app, __sveltekit_11h1e7o.element, {
 							node_ids: [0, 4],
 							data,
 							form: null,

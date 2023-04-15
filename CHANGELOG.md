@@ -5,7 +5,7 @@ Changelog
 
 > 2023-04-15
 
-Expose context values as slot props. Make `yReverse` more reactive.
+Expose context values as slot props. Make the defaults for `yReverse` reactive post-load.
 
 * [PR#110](https://github.com/mhkeller/layercake/pull/110)
 * [PR#130](https://github.com/mhkeller/layercake/pull/130)

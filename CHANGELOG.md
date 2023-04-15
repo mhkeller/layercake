@@ -1,6 +1,15 @@
 Changelog
 ===
 
+# 7.4.0
+
+> 2023-04-15
+
+Expose context values as slot props.
+
+* [PR#110](https://github.com/mhkeller/layercake/pull/110)
+* [PR#130](https://github.com/mhkeller/layercake/pull/130)
+
 # 7.3.5
 
 > 2023-04-04

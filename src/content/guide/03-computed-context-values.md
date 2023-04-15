@@ -59,11 +59,11 @@ Having access to this field can help you not repeat yourself in specifying thing
 
 ### containerWidth `Number`
 
-The width of the parent container, the div element that contains the `<LayerCake>` component. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:containerWidth`.
+The width of the parent container – the div element that contains the `<LayerCake>` component. Unlike [width](/guide#width), this value does not take into account any margin. As a variable on the Layer Cake slot so you can access it with `let:containerWidth`.
 
 ### containerHeight `Number`
 
-The height of the parent container, the div element that contains the `<LayerCake>` component. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:containerHeight`.
+The height of the parent container – the div element that contains the `<LayerCake>` component. Unlike [height](/guide#height), this value does not take into account any margin. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:containerHeight`.
 
 ### extents `Object`
 

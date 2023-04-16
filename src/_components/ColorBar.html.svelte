@@ -7,30 +7,33 @@
 
 	const { zScale } = getContext('LayerCake');
 
-	/** @type {string | null} [text=null] - Text label to show next to the color bar */
-	export let text = null;
+	/** @type {string | null} [label=null] - Text label to show next to the color bar */
+	export let label = null;
 
-	/** @type {('left' | 'right' | 'top' | 'bottom')} [textSide='left'] - Position of the color bar's
+	/** @type {string} [labelSide='left'] - Position of the label. Can be 'top', 'right', 'bottom', or 'left
 	 * text label relative to the gradient bar */
-	export let textSide = `left`;
+	export let labelSide = `left`;
 
 	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
 	export let ticks = 3;
 
+  /** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
+  export let tickMarks = false;
+
+	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
+	export let formatTick = d => d;
+
 	/** @type {Boolean} [snapTicks=true] - Instead of centering the text on the first and the last items, align them to the edges of the chart. */
 	export let snapTicks = true;
 
-	/** @type {('top' | 'bottom' | 'center')} [tickSide='bottom'] - Position of tick labels */
+	/** @type {string} [tickSide='bottom'] - Position of tick labels. Can be 'top' or 'bottom' */
 	export let tickSide = `bottom`;
 
-	/** @type {('horizontal' | 'vertical')} [orientation='horizontal'] - Orientation of the color bar gradient */
+	/** @type {string} [orientation='horizontal'] - Orientation of the color bar gradient. Can be 'horizontal' or 'vertical' */
 	export let orientation = `horizontal`; // TODO vertical not fully implemented yet
 
-	/** @type {Number} [precision=1] - Number of decimal places to show in tick labels */
-	export let precision = 1;
-
-	/** @type {Number} [steps=10] - Number of samples to take of the color ramp */
-	export let steps = 10;
+	/** @type {Number} [steps=100] - Number of samples to take of the color ramp to create the linear gradient */
+	export let steps = 100;
 
 	$: tickVals = Array.isArray(ticks) ? ticks :
 				typeof ticks === 'function' ?
@@ -47,24 +50,27 @@
 	$: flex_dir = {
 		left: `row`,
 		right: `row-reverse`,
-		top: `column`,
-		bottom: `column-reverse`
-	}[textSide];
+		'top-left': `column`,
+		'top-right': `column`,
+		'bottom-left': `column-reverse`,
+		'bottom-right': `column-reverse`
+	}[labelSide];
 
 	$: tick_pos = {
 		bottom: `top: 100%`,
-		top: `bottom: 100%`,
-		center: `top: 50%; transform: translateY(-50%)`
+		top: `bottom: 100%`
 	}[tickSide];
 </script>
 
-<div style:flex-direction={flex_dir} class="colorbar"  class:snapTicks>
-	{#if text}<span>{text}</span>{/if}
-
-	<div style:background="linear-gradient({grad_dir}, {ramped})">
+<div style:flex-direction={flex_dir} class="colorbar" class:snapTicks class:tickMarks>
+	{#if label}<span class="label" data-labelside={labelSide}>{label}</span>{/if}
+	<div class="gradient-bar" style:background="linear-gradient({grad_dir}, {ramped})" style:flex={labelSide === 'left' || labelSide === 'right' ? '1' : null}>
 		{#each tickVals as tick_label, i}
+			{#if tickMarks === true}
+				<div class="tick-mark" style="left: calc(100% * {i} / {tickVals?.length - 1}); {tick_pos}; {i === tickVals?.length - 1 ? 'transform: translateX(-1px)' : i ? 'transform: translateX(-0.5px)' : ''}"></div>
+			{/if}
 			<span class="tick tick-{i}" style="left: calc(100% * {i} / {tickVals?.length - 1}); {tick_pos}">
-				{tick_label.toFixed(precision)}
+				{formatTick(tick_label)}
 			</span>
 		{/each}
 	</div>
@@ -75,6 +81,7 @@
 		display: flex;
 		box-sizing: border-box;
 		place-items: center;
+		position: relative;
 		gap: var(--cbar-gap, 5pt);
 		margin: var(--cbar-margin);
 		padding: var(--cbar-padding);
@@ -85,7 +92,7 @@
 		position: relative;
 		height: var(--cbar-height, 1em);
 		width: var(--cbar-width, 10em);
-		border-radius: var(--cbar-border-radius, 2pt);
+		border-radius: var(--cbar-border-radius, 0);
 	}
 	div.colorbar > div > span {
 		position: absolute;
@@ -96,10 +103,36 @@
 		background: var(--cbar-tick-label-bg);
 	}
 
+	.label {
+		line-height: 0
+	}
+	.label[data-labelside*='bottom-'] {
+		margin-top: 3px;
+
+	}
+	.label[data-labelside*='-left'] {
+		align-self: flex-start;
+	}
+	.label[data-labelside*='-right'] {
+		align-self: flex-end;
+	}
+
 	.colorbar.snapTicks .tick:last-child {
 		transform: translateX(-100%);
 	}
 	.colorbar.snapTicks .tick.tick-0 {
 		transform: translateX(0);
 	}
+
+	.tickMarks .tick{
+		margin-top: 3px;
+	}
+
+	.tick-mark {
+		position: absolute;
+    border-left: 1px solid #aaa;
+		--length: 6px;
+		height: var(--length);
+		bottom: calc(-1 * var(--length));
+  }
 </style>

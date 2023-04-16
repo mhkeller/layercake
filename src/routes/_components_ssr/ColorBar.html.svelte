@@ -8,33 +8,59 @@
 	const data = [{ myZ: [0, 0.25, 0.5, 0.75, 1] }];
 
 	const zKey = 'myZ';
-	let cbarWidth = 10;
-	let cbarHeight = 1;
+	let cbarWidth = 35;
+	// let cbarHeight = 1;
 	let nTicks = 3;
+	let snapTicks = true;
+	let tickMarks = true;
+	let tickSide = 'bottom';
+	let labelSide = 'left';
 </script>
 
 <form>
-	<label for="cbar-width">width:</label>
-	<input type="number" bind:value={cbarWidth} min="3" max="50" id="cbar-width" />
-	<input type="range" bind:value={cbarWidth} min="3" max="50" />
-	<label for="cbar-height">height:</label>
-	<input type="number" bind:value={cbarHeight} min="0.1" max="4" step="0.1" id="cbar-height" />
-	<input type="range" bind:value={cbarHeight} min="0.1" max="4" step="0.1" />
-	<label for="n-ticks">ticks:</label>
-	<input type="number" bind:value={nTicks} min="1" max="20" id="n-ticks" />
-	<input type="range" bind:value={nTicks} min="1" max="20" />
+	<div>
+		<label for="cbar-width">width:</label>
+		<input type="range" bind:value={cbarWidth} min="10" max="50" /> {cbarWidth}
+		<label for="n-ticks">ticks:</label>
+		<input type="range" bind:value={nTicks} min="1" max="10" /> {nTicks}
+<!--
+		<label for="snap-ticks">Snap ticks</label>
+		<input id="snap-ticks" type="checkbox" bind:checked={snapTicks} />
+
+		<label for="tick-marks">Tick marks</label>
+		<input id="tick-marks" type="checkbox" bind:checked={tickMarks} /> -->
+	</div>
+
+	<div>
+		<!-- Tick side:
+		<select bind:value={tickSide}>
+			<option value="top">top</option>
+			<option value="bottom">bottom</option>
+		</select> -->
+
+		Label side:
+		<select bind:value={labelSide}>
+			<option value="top-left">top-left</option>
+			<option value="top-right">top-right</option>
+			<option value="right">right</option>
+			<option value="bottom-left">bottom-left</option>
+			<option value="bottom-right">bottom-right</option>
+			<option value="left">left</option>
+		</select>
+
+	</div>
 </form>
 <div class="chart-container">
 	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(interpolateViridis)} {data}>
 		<Html>
-			<ColorBar ticks={nTicks} --cbar-width="{cbarWidth}em" --cbar-height="{cbarHeight}em" />
+			<ColorBar label="label one" {labelSide} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}em" />
 		</Html>
 	</LayerCake>
 </div>
 <div class="chart-container">
 	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(interpolateRdBu)} {data}>
 		<Html>
-			<ColorBar />
+			<ColorBar label="label two" {labelSide} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}em" />
 		</Html>
 	</LayerCake>
 </div>
@@ -49,6 +75,7 @@
 	.chart-container {
 		width: 100%;
 		height: 25%;
+		margin-bottom: 8px;
 	}
 	form {
 		display: flex;

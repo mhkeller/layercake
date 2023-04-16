@@ -29,6 +29,9 @@
 	/** @type {Number} [precision=1] - Number of decimal places to show in tick labels */
 	export let precision = 1;
 
+	/** @type {Number} [steps=10] - Number of samples to take of the color ramp */
+	export let steps = 10;
+
 	$: tickVals = Array.isArray(ticks) ? ticks :
 				typeof ticks === 'function' ?
 					ticks($zScale.ticks()) :
@@ -39,7 +42,7 @@
 		vertical: `to bottom`
 	}[orientation];
 
-	$: ramped = [...Array(10).keys()].map(i => $zScale(i / 10));
+	$: ramped = [...Array(steps).keys()].map(i => $zScale(i / steps));
 
 	$: flex_dir = {
 		left: `row`,

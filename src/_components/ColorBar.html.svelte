@@ -99,7 +99,7 @@
 	div.colorbar {
 		display: flex;
 		box-sizing: border-box;
-		place-items: center;
+		align-items: baseline;
 		position: relative;
 		gap: var(--cbar-gap, 5pt);
 		margin: var(--cbar-margin);
@@ -133,6 +133,14 @@
 		flex: 1;
 	}
 
+	.label[data-labelside*='right'][data-tickside='top'],
+	.label[data-labelside*='left'][data-tickside='top'] {
+		transform: translateY(-1px);
+	}
+	.label[data-labelside*='right'][data-tickside='bottom'],
+	.label[data-labelside*='left'][data-tickside='bottom'] {
+		transform: translateY(-1px);
+	}
 	.label[data-labelside*='top-'][data-tickside='top'] {
 		margin-bottom: 10px;
 	}

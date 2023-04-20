@@ -57,13 +57,13 @@
 		</Html>
 	</LayerCake>
 </div>
-<div class="chart-container">
+<!-- <div class="chart-container">
 	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(interpolateRdBu)} {data}>
 		<Html>
 			<ColorBar label="Label two" {labelSide} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}em" />
 		</Html>
 	</LayerCake>
-</div>
+</div> -->
 
 <style>
 	/*

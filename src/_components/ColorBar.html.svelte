@@ -29,9 +29,6 @@
 	/** @type {string} [tickSide='bottom'] - Position of tick labels. Can be 'top' or 'bottom' */
 	export let tickSide = `bottom`;
 
-	/** @type {string} [orientation='horizontal'] - Orientation of the color bar gradient. Can be 'horizontal' or 'vertical' */
-	export let orientation = `horizontal`; // TODO vertical not fully implemented yet
-
 	/** @type {Number} [steps=100] - Number of samples to take of the color ramp to create the linear gradient */
 	export let steps = 100;
 
@@ -39,11 +36,6 @@
 				typeof ticks === 'function' ?
 					ticks($zScale.ticks()) :
 						$zScale.ticks(ticks);
-
-	$: grad_dir = {
-		horizontal: `to right`,
-		vertical: `to bottom`
-	}[orientation];
 
 	$: ramped = [...Array(steps).keys()].map(i => $zScale(i / steps));
 
@@ -80,7 +72,7 @@
 	>
 		<div
 			class="gradient-bar"
-			style:background="linear-gradient({grad_dir}, {ramped})"
+			style:background="linear-gradient(to right, {ramped})"
 		></div>
 		<div class="tick-container">
 			{#each tickVals as tick_label, i}

@@ -19,10 +19,10 @@
 
 <form>
 	<div>
-		<label for="cbar-width">width:</label>
-		<input type="range" bind:value={cbarWidth} min="10" max="50" /> {cbarWidth}
-		<label for="n-ticks">ticks:</label>
-		<input type="range" bind:value={nTicks} min="1" max="10" /> {nTicks}
+		<!-- <label for="cbar-width">width:</label>
+		<input type="range" bind:value={cbarWidth} min="10" max="50" /> {cbarWidth} -->
+		<!-- <label for="n-ticks">ticks:</label>
+		<input type="range" bind:value={nTicks} min="1" max="10" /> {nTicks} -->
 <!--
 		<label for="snap-ticks">Snap ticks</label>
 		<input id="snap-ticks" type="checkbox" bind:checked={snapTicks} />
@@ -32,11 +32,11 @@
 	</div>
 
 	<div>
-		<!-- Tick side:
+		Tick side:
 		<select bind:value={tickSide}>
 			<option value="top">top</option>
 			<option value="bottom">bottom</option>
-		</select> -->
+		</select>
 
 		Label side:
 		<select bind:value={labelSide}>
@@ -53,14 +53,14 @@
 <div class="chart-container">
 	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(interpolateViridis)} {data}>
 		<Html>
-			<ColorBar label="label one" {labelSide} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}em" />
+			<ColorBar label="Label one" {labelSide} formatTick={d => d * 100} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}em" />
 		</Html>
 	</LayerCake>
 </div>
 <div class="chart-container">
 	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(interpolateRdBu)} {data}>
 		<Html>
-			<ColorBar label="label two" {labelSide} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}em" />
+			<ColorBar label="Label two" {labelSide} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}em" />
 		</Html>
 	</LayerCake>
 </div>

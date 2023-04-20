@@ -47,7 +47,7 @@
 
 	$: ramped = [...Array(steps).keys()].map(i => $zScale(i / steps));
 
-	$: flex_dir = {
+	$: labelFlexDir = {
 		left: `row`,
 		right: `row-reverse`,
 		'top-left': `column`,
@@ -56,23 +56,42 @@
 		'bottom-right': `column-reverse`
 	}[labelSide];
 
-	$: tick_pos = {
-		bottom: `top: 100%`,
-		top: `bottom: 100%`
+	$: tickFlexDir = {
+		'top': `column-reverse`,
+		'bottom': `column`,
+	}[tickSide];
+
+	$: tickPos = {
+		'bottom': `top: 0%`,
+		'top': `bottom: 0%`,
 	}[tickSide];
 </script>
 
-<div style:flex-direction={flex_dir} class="colorbar" class:snapTicks class:tickMarks>
-	{#if label}<span class="label" data-labelside={labelSide}>{label}</span>{/if}
-	<div class="gradient-bar" style:background="linear-gradient({grad_dir}, {ramped})" style:flex={labelSide === 'left' || labelSide === 'right' ? '1' : null}>
-		{#each tickVals as tick_label, i}
-			{#if tickMarks === true}
-				<div class="tick-mark" style="left: calc(100% * {i} / {tickVals?.length - 1}); {tick_pos}; {i === tickVals?.length - 1 ? 'transform: translateX(-1px)' : i ? 'transform: translateX(-0.5px)' : ''}"></div>
-			{/if}
-			<span class="tick tick-{i}" style="left: calc(100% * {i} / {tickVals?.length - 1}); {tick_pos}">
-				{formatTick(tick_label)}
-			</span>
-		{/each}
+<div style:flex-direction={labelFlexDir} class="colorbar" class:snapTicks class:tickMarks>
+	{#if label}<span
+		class="label"
+		data-labelside={labelSide}
+		data-tickside={tickSide}
+	>{label}</span>{/if}
+	<div
+		class="bar-container"
+		style:flex={labelSide === 'left' || labelSide === 'right' ? '1' : null}
+		style:flex-direction={tickFlexDir}
+	>
+		<div
+			class="gradient-bar"
+			style:background="linear-gradient({grad_dir}, {ramped})"
+		></div>
+		<div class="tick-container">
+			{#each tickVals as tick_label, i}
+				{#if tickMarks === true}
+					<div class="tick-mark" style="left: calc(100% * {i} / {tickVals?.length - 1});{tickPos}; {i === tickVals?.length - 1 ? 'transform: translateX(-1px)' : i ? 'transform: translateX(-0.5px)' : ''}"></div>
+				{/if}
+				<span class="tick tick-{i}" style="left: calc(100% * {i} / {tickVals?.length - 1}); {tickPos}">
+					{formatTick(tick_label)}
+				</span>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -90,11 +109,11 @@
 	}
 	div.colorbar > div {
 		position: relative;
-		height: var(--cbar-height, 1em);
+		height: var(--cbar-height, 2em);
 		width: var(--cbar-width, 10em);
 		border-radius: var(--cbar-border-radius, 0);
 	}
-	div.colorbar > div > span {
+	.tick-container > span {
 		position: absolute;
 		transform: translate(-50%);
 		font-weight: var(--cbar-tick-label-font-weight, lighter);
@@ -102,13 +121,26 @@
 		color: var(--cbar-tick-label-color);
 		background: var(--cbar-tick-label-bg);
 	}
+	.bar-container,
+	.tick-container {
+		display: flex;
+	}
+	.tick-container {
+		position: relative;
+	}
+	.gradient-bar,
+	.tick-container {
+		flex: 1;
+	}
 
-	.label {
-		line-height: 0
+	.label[data-labelside*='top-'][data-tickside='top'] {
+		margin-bottom: 10px;
+	}
+	.label[data-labelside*='bottom-'][data-tickside='bottom'] {
+		margin-top: 10px;
 	}
 	.label[data-labelside*='bottom-'] {
 		margin-top: 3px;
-
 	}
 	.label[data-labelside*='-left'] {
 		align-self: flex-start;
@@ -125,7 +157,7 @@
 	}
 
 	.tickMarks .tick{
-		margin-top: 3px;
+		margin-top: 4px;
 	}
 
 	.tick-mark {

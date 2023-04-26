@@ -91,8 +91,8 @@
 	*/
 	.chart-container {
 		width: 100%;
-		height: 45px;
-		margin-top: 10px;
+		height: 50px;
+		margin-top: 5px;
 	}
 	.controls-container {
 		margin-bottom: 21px;

@@ -93,10 +93,9 @@
 		box-sizing: border-box;
 		align-items: baseline;
 		position: relative;
-		gap: var(--cbar-gap, 5pt);
 		margin: var(--cbar-margin);
 		padding: var(--cbar-padding);
-		font-size: var(--cbar-font-size, 10pt);
+		font-size: var(--cbar-font-size, 12px);
 		width: var(--cbar-width);
 	}
 	div.colorbar > div {
@@ -127,17 +126,36 @@
 
 	.cbar-label[data-labelside='right'][data-tickside='top'],
 	.cbar-label[data-labelside='left'][data-tickside='top'] {
-		transform: translateY(-1px);
+		transform: translateY(4px);
+		align-self: end;
 	}
 	.cbar-label[data-labelside='right'][data-tickside='bottom'],
 	.cbar-label[data-labelside='left'][data-tickside='bottom'] {
 		transform: translateY(-1px);
 	}
-	.cbar-label[data-labelside*='-left'] {
-		align-self: flex-start;
+	.cbar-label[data-labelside*='top-'] {
+		padding-bottom: 2px;
+	}
+	.cbar-label[data-labelside*='bottom-'] {
+		padding-top: 2px;
+	}
+	.cbar-label[data-labelside*='bottom-'][data-tickside='bottom'] {
+		padding-top: 5px;
+	}
+	.cbar-label[data-labelside*='top-'][data-tickside='top'] {
+		padding-bottom: 5px;
 	}
 	.cbar-label[data-labelside*='-right'] {
 		align-self: flex-end;
+	}
+	.cbar-label[data-labelside*='-left'] {
+		align-self: flex-start;
+	}
+	.cbar-label[data-labelside='left'] {
+		padding-right: 4px;
+	}
+	.cbar-label[data-labelside='right'] {
+		padding-left: 4px;
 	}
 
 	.colorbar.snapTicks .tick:last-child {

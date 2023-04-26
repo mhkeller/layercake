@@ -1,11 +1,18 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 	import { scaleSequential } from 'd3-scale';
-	import { interpolateViridis, interpolateRdBu } from 'd3-scale-chromatic';
+	import * as d3ScaleChromatic from 'd3-scale-chromatic';
 
 	import ColorBar from '../../_components/ColorBar.html.svelte';
 
 	const data = [{ myZ: [0, 0.25, 0.5, 0.75, 1] }];
+
+	const colorScales = Object.fromEntries(Object.entries(d3ScaleChromatic).map(([k, v]) => {
+		if (k.startsWith('interpolate')) {
+			return [k, v];
+		}
+		return null;
+	}).filter(Boolean));
 
 	const zKey = 'myZ';
 	let cbarWidth = 100;
@@ -15,7 +22,16 @@
 	let tickMarks = true;
 	let tickSide = 'bottom';
 	let labelSide = 'left';
+	let scaleName = 'interpolateViridis';
 </script>
+
+<div class="chart-container">
+	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(colorScales[scaleName])} {data}>
+		<Html>
+			<ColorBar label="Label one" {labelSide} formatTick={d => d * 100} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}%" />
+		</Html>
+	</LayerCake>
+</div>
 
 <div class="controls-container">
 		<div class="row">
@@ -55,22 +71,16 @@
 			<option value="left">left</option>
 		</select>
 	</div>
+	<div class="row">
+		<div class="form-label">scale:</div>
+		<select bind:value={scaleName}>
+			{#each Object.keys(colorScales) as n}
+				<option value={n}>{n}</option>
+			{/each}
+		</select>
+	</div>
 </div>
 
-<div class="chart-container">
-	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(interpolateViridis)} {data}>
-		<Html>
-			<ColorBar label="Label one" {labelSide} formatTick={d => d * 100} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}%" />
-		</Html>
-	</LayerCake>
-</div>
-<!-- <div class="chart-container">
-	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(interpolateRdBu)} {data}>
-		<Html>
-			<ColorBar label="Label two" {labelSide} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}em" />
-		</Html>
-	</LayerCake>
-</div> -->
 
 <style>
 	/*
@@ -81,8 +91,8 @@
 	*/
 	.chart-container {
 		width: 100%;
-		height: 50%;
-		margin-bottom: 8px;
+		height: 45px;
+		margin-top: 10px;
 	}
 	.controls-container {
 		margin-bottom: 21px;

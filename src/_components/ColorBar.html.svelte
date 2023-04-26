@@ -17,11 +17,11 @@
 	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
 	export let ticks = 3;
 
-  /** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
-  export let tickMarks = false;
+	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
+	export let tickMarks = false;
 
 	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = d => d;
+	export let formatTick = (d) => d;
 
 	/** @type {Boolean} [snapTicks=true] - Instead of centering the text on the first and the last items, align them to the edges of the chart. */
 	export let snapTicks = true;
@@ -32,12 +32,13 @@
 	/** @type {Number} [steps=100] - Number of samples to take of the color ramp to create the linear gradient */
 	export let steps = 100;
 
-	$: tickVals = Array.isArray(ticks) ? ticks :
-				typeof ticks === 'function' ?
-					ticks($zScale.ticks()) :
-						$zScale.ticks(ticks);
+	$: tickVals = Array.isArray(ticks)
+		? ticks
+		: typeof ticks === 'function'
+		? ticks($zScale.ticks())
+		: $zScale.ticks(ticks);
 
-	$: ramped = [...Array(steps).keys()].map(i => $zScale(i / steps));
+	$: ramped = [...Array(steps).keys()].map((i) => $zScale(i / steps));
 
 	$: labelFlexDir = {
 		left: `row`,
@@ -49,45 +50,53 @@
 	}[labelSide];
 
 	$: tickFlexDir = {
-		'top': `column-reverse`,
-		'bottom': `column`,
+		top: `column-reverse`,
+		bottom: `column`
 	}[tickSide];
 
-	$: tickPos = tickMarks ? {
-		'bottom': `top: 4px`,
-		'top': `bottom: 4px`,
-	}[tickSide] : {
-		'bottom': `top: 0`,
-		'top': `bottom: 0`,
-	}[tickSide];
+	$: tickPos = tickMarks
+		? {
+				bottom: `top: 4px`,
+				top: `bottom: 4px`
+		  }[tickSide]
+		: {
+				bottom: `top: 0`,
+				top: `bottom: 0`
+		  }[tickSide];
 
 	$: tickPosMark = {
-		'bottom': `top: 0`,
-		'top': `bottom: 0`,
+		bottom: `top: 0`,
+		top: `bottom: 0`
 	}[tickSide];
 </script>
 
 <div style:flex-direction={labelFlexDir} class="colorbar" class:snapTicks class:tickMarks>
-	{#if label}<span
-		class="cbar-label"
-		data-labelside={labelSide}
-		data-tickside={tickSide}
-	>{label}</span>{/if}
+	{#if label}<span class="cbar-label" data-labelside={labelSide} data-tickside={tickSide}
+			>{label}</span
+		>{/if}
 	<div
 		class="bar-container"
 		style:flex={labelSide === 'left' || labelSide === 'right' ? '1' : null}
 		style:flex-direction={tickFlexDir}
 	>
-		<div
-			class="gradient-bar"
-			style:background="linear-gradient(to right, {ramped})"
-		></div>
+		<div class="gradient-bar" style:background="linear-gradient(to right, {ramped})" />
 		<div class="tick-container">
 			{#each tickVals as tick_label, i}
 				{#if tickMarks === true}
-					<div class="tick-mark" style="left: calc(100% * {i} / {tickVals?.length - 1});{tickPosMark}; {i === tickVals?.length - 1 ? 'transform: translateX(-1px)' : i ? 'transform: translateX(-0.5px)' : ''}"></div>
+					<div
+						class="tick-mark"
+						style="left: calc(100% * {i} / {tickVals?.length - 1});{tickPosMark}; {i ===
+						tickVals?.length - 1
+							? 'transform: translateX(-1px)'
+							: i
+							? 'transform: translateX(-0.5px)'
+							: ''}"
+					/>
 				{/if}
-				<span class="tick tick-{i}" style="left: calc(100% * {i} / {tickVals?.length - 1}); {tickPos}">
+				<span
+					class="tick tick-{i}"
+					style="left: calc(100% * {i} / {tickVals?.length - 1}); {tickPos}"
+				>
 					{formatTick(tick_label)}
 				</span>
 			{/each}
@@ -172,16 +181,11 @@
 	.colorbar.snapTicks .tick.tick-0 {
 		transform: translateX(0);
 	}
-
-	/* .tickMarks .tick{
-		margin-top: -4px;
-	} */
-
 	.tick-mark {
 		position: absolute;
-    border-left: 1px solid #aaa;
+		border-left: 1px solid #aaa;
 		--length: 6px;
 		height: var(--length);
 		bottom: calc(-1 * var(--length));
-  }
+	}
 </style>

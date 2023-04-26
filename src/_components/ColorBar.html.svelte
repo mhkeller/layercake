@@ -53,9 +53,17 @@
 		'bottom': `column`,
 	}[tickSide];
 
-	$: tickPos = {
-		'bottom': `top: 0%`,
-		'top': `bottom: 0%`,
+	$: tickPos = tickMarks ? {
+		'bottom': `top: 4px`,
+		'top': `bottom: 4px`,
+	}[tickSide] : {
+		'bottom': `top: 0`,
+		'top': `bottom: 0`,
+	}[tickSide];
+
+	$: tickPosMark = {
+		'bottom': `top: 0`,
+		'top': `bottom: 0`,
 	}[tickSide];
 </script>
 
@@ -77,7 +85,7 @@
 		<div class="tick-container">
 			{#each tickVals as tick_label, i}
 				{#if tickMarks === true}
-					<div class="tick-mark" style="left: calc(100% * {i} / {tickVals?.length - 1});{tickPos}; {i === tickVals?.length - 1 ? 'transform: translateX(-1px)' : i ? 'transform: translateX(-0.5px)' : ''}"></div>
+					<div class="tick-mark" style="left: calc(100% * {i} / {tickVals?.length - 1});{tickPosMark}; {i === tickVals?.length - 1 ? 'transform: translateX(-1px)' : i ? 'transform: translateX(-0.5px)' : ''}"></div>
 				{/if}
 				<span class="tick tick-{i}" style="left: calc(100% * {i} / {tickVals?.length - 1}); {tickPos}">
 					{formatTick(tick_label)}
@@ -165,9 +173,9 @@
 		transform: translateX(0);
 	}
 
-	.tickMarks .tick{
-		margin-top: 4px;
-	}
+	/* .tickMarks .tick{
+		margin-top: -4px;
+	} */
 
 	.tick-mark {
 		position: absolute;

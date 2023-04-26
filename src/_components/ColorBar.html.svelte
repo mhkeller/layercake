@@ -61,7 +61,7 @@
 
 <div style:flex-direction={labelFlexDir} class="colorbar" class:snapTicks class:tickMarks>
 	{#if label}<span
-		class="label"
+		class="cbar-label"
 		data-labelside={labelSide}
 		data-tickside={tickSide}
 	>{label}</span>{/if}
@@ -96,13 +96,13 @@
 		gap: var(--cbar-gap, 5pt);
 		margin: var(--cbar-margin);
 		padding: var(--cbar-padding);
-		width: var(--cbar-width);
 		font-size: var(--cbar-font-size, 10pt);
+		width: var(--cbar-width);
 	}
 	div.colorbar > div {
 		position: relative;
+		width: 100%;
 		height: var(--cbar-height, 2em);
-		width: var(--cbar-width, 10em);
 		border-radius: var(--cbar-border-radius, 0);
 	}
 	.tick-container > span {
@@ -125,18 +125,18 @@
 		flex: 1;
 	}
 
-	.label[data-labelside='right'][data-tickside='top'],
-	.label[data-labelside='left'][data-tickside='top'] {
+	.cbar-label[data-labelside='right'][data-tickside='top'],
+	.cbar-label[data-labelside='left'][data-tickside='top'] {
 		transform: translateY(-1px);
 	}
-	.label[data-labelside='right'][data-tickside='bottom'],
-	.label[data-labelside='left'][data-tickside='bottom'] {
+	.cbar-label[data-labelside='right'][data-tickside='bottom'],
+	.cbar-label[data-labelside='left'][data-tickside='bottom'] {
 		transform: translateY(-1px);
 	}
-	.label[data-labelside*='-left'] {
+	.cbar-label[data-labelside*='-left'] {
 		align-self: flex-start;
 	}
-	.label[data-labelside*='-right'] {
+	.cbar-label[data-labelside*='-right'] {
 		align-self: flex-end;
 	}
 

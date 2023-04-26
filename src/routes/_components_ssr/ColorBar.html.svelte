@@ -8,7 +8,7 @@
 	const data = [{ myZ: [0, 0.25, 0.5, 0.75, 1] }];
 
 	const zKey = 'myZ';
-	let cbarWidth = 35;
+	let cbarWidth = 100;
 	// let cbarHeight = 1;
 	let nTicks = 3;
 	let snapTicks = true;
@@ -17,28 +17,35 @@
 	let labelSide = 'left';
 </script>
 
-<form>
-	<div>
-		<!-- <label for="cbar-width">width:</label>
-		<input type="range" bind:value={cbarWidth} min="10" max="50" /> {cbarWidth} -->
-		<!-- <label for="n-ticks">ticks:</label>
-		<input type="range" bind:value={nTicks} min="1" max="10" /> {nTicks} -->
-<!--
-		<label for="snap-ticks">Snap ticks</label>
-		<input id="snap-ticks" type="checkbox" bind:checked={snapTicks} />
+<div class="controls-container">
+		<div class="row">
+			<label class="form-label" for="cbar-width">width:</label>
+			<input type="range" bind:value={cbarWidth} min="50" max="100" /> <span style="display:inline-block;width:25px;text-align:right;">{cbarWidth}%</span>
+		</div>
+		<!-- <div class="row">
+			<label class="form-label" for="n-ticks">ticks:</label>
+			<input type="range" bind:value={nTicks} min="1" max="10" /> {nTicks}
+		</div> -->
 
-		<label for="tick-marks">Tick marks</label>
-		<input id="tick-marks" type="checkbox" bind:checked={tickMarks} /> -->
+		<div class="row">
+			<label class="form-label" for="snap-ticks">snap ticks</label>
+			<input id="snap-ticks" type="checkbox" bind:checked={snapTicks} />
+		</div>
+	<div class="row">
+		<label class="form-label" for="tick-marks">tick marks</label>
+		<input id="tick-marks" type="checkbox" bind:checked={tickMarks} />
 	</div>
 
-	<div>
-		Tick side:
+	<div class="row">
+		<div class="form-label">tick side:</div>
 		<select bind:value={tickSide}>
 			<option value="top">top</option>
 			<option value="bottom">bottom</option>
 		</select>
+	</div>
 
-		Label side:
+	<div class="row">
+		<div class="form-label">label side:</div>
 		<select bind:value={labelSide}>
 			<option value="top-left">top-left</option>
 			<option value="top-right">top-right</option>
@@ -47,13 +54,13 @@
 			<option value="bottom-right">bottom-right</option>
 			<option value="left">left</option>
 		</select>
-
 	</div>
-</form>
+</div>
+
 <div class="chart-container">
 	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(interpolateViridis)} {data}>
 		<Html>
-			<ColorBar label="Label one" {labelSide} formatTick={d => d * 100} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}em" />
+			<ColorBar label="Label one" {labelSide} formatTick={d => d * 100} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}%" />
 		</Html>
 	</LayerCake>
 </div>
@@ -74,13 +81,22 @@
 	*/
 	.chart-container {
 		width: 100%;
-		height: 25%;
+		height: 50%;
 		margin-bottom: 8px;
 	}
-	form {
+	.controls-container {
+		margin-bottom: 21px;
+		max-width: 325px;
+		text-align: right;
+	}
+	.row {
 		display: flex;
-		align-items: center;
-		gap: 1em;
-		margin: 1em 0;
+		justify-content: space-between;
+		margin-bottom: 2px;
+		font-size: 0.8em;
+		font-family: Consolas, monaco, monospace;
+	}
+	.row input[type="range"]{
+		height: 15px;
 	}
 </style>

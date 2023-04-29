@@ -21,6 +21,18 @@
 	/** @type {WebGLRenderingContext} [context] The `<canvas>`'s WebGL context. Useful for bindings. */
 	export let context = undefined;
 
+	/** @type {String} [label] A string passed to the `aria-label` on the `<canvas>` tag. */
+	export let label = undefined;
+
+	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<canvas>` tag. */
+	export let labelledBy = undefined;
+
+	/** @type {String} [role] A string passed to the `role` on the `<canvas>` tag. */
+	export let role = undefined;
+
+	/** @type {Number} [tabindex] A number passed to the `tabindex` on the `<canvas>` tag. */
+	export let tabindex = undefined;
+
 	let testGl;
 
 	const { padding } = getContext('LayerCake');
@@ -58,5 +70,10 @@
 	style:bottom={$padding.bottom + 'px'}
 	style:left={$padding.left + 'px'}
 	style="width:100%;height:100%;position:absolute;"
+	aria-label={label}
+	aria-labelledby={labelledBy}
+	{role}
+	{tabindex}
 ></canvas>
+<slot name="title"></slot>
 <slot {element} {context}></slot>

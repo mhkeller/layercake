@@ -5,6 +5,8 @@
 <script>
 	import { getContext } from 'svelte';
 
+	const { padding } = getContext('LayerCake');
+
 	/** @type {Element} [element] The layer's outermost `<div>` tag. Useful for bindings. */
 	export let element = undefined;
 
@@ -14,9 +16,20 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	const { padding } = getContext('LayerCake');
+	/** @type {String} [label] A string passed to the `aria-label` on the `<div>` tag. */
+	export let label = undefined;
+
+	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<div>` tag. */
+	export let labelledBy = undefined;
+
+	/** @type {String} [role] A string passed to the `role` on the `<div>` tag. */
+	export let role = undefined;
+
+	/** @type {Number} [tabindex] A number passed to the `tabindex` on the `<div>` tag. */
+	export let tabindex = undefined;
 </script>
 
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <div
 	bind:this={element}
 	class="layercake-layout-html"
@@ -26,7 +39,12 @@
 	style:right={$padding.right + 'px'}
 	style:bottom={$padding.bottom + 'px'}
 	style:left={$padding.left + 'px'}
+	aria-label={label}
+	aria-labelledby={labelledBy}
+	{role}
+	{tabindex}
 >
+	<slot name="title"></slot>
 	<slot {element}></slot>
 </div>
 

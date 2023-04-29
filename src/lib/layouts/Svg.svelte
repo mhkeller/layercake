@@ -17,11 +17,24 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	/** @type {String} [viewBox] A string passed to the viewBox property on the `<svg>` tag. */
+	/** @type {String} [viewBox] A string passed to the `viewBox` property on the `<svg>` tag. */
 	export let viewBox = undefined;
+
+	/** @type {String} [label] A string passed to the `aria-label` on the `<svg>` tag. */
+	export let label = undefined;
+
+	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` tag. */
+	export let labelledBy = undefined;
+
+	/** @type {String} [role] A string passed to the `role` on the `<svg>` tag. */
+	export let role = undefined;
+
+	/** @type {Number} [tabindex] A number passed to the `tabindex` on the `<svg>` tag. */
+	export let tabindex = undefined;
 
 	const { containerWidth, containerHeight, padding } = getContext('LayerCake');
 </script>
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <svg
 	bind:this={element}
 	class="layercake-layout-svg"
@@ -30,7 +43,13 @@
 	height={$containerHeight}
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
+	aria-label={label}
+	aria-labelledby={labelledBy}
+	{role}
+	{tabindex}
 >
+	<slot name="title"></slot>
+
 	<defs>
 		<slot name="defs"></slot>
 	</defs>

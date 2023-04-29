@@ -1,11 +1,17 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
-	import { scaleSequential } from 'd3-scale';
+	import { scaleSequential, scaleDiverging } from 'd3-scale';
 	import * as d3ScaleChromatic from 'd3-scale-chromatic';
 
 	import ColorBar from '../../_components/ColorBar.html.svelte';
 
-	const data = [{ myZ: [0, 0.25, 0.5, 0.75, 1] }];
+	const data = [
+		{ myZ: -1 },
+		{ myZ: 0.25 },
+		{ myZ: 0.5 },
+		{ myZ: 0.75 },
+		{ myZ: 1 }
+	];
 
 	const colorScales = Object.fromEntries(Object.entries(d3ScaleChromatic).map(([k, v]) => {
 		if (k.startsWith('interpolate')) {
@@ -22,11 +28,18 @@
 	let tickMarks = true;
 	let tickSide = 'bottom';
 	let labelSide = 'left';
-	let scaleName = 'interpolateViridis';
+	let scaleName = 'interpolateRdBu';
 </script>
 
 <div class="chart-container">
-	<LayerCake ssr={true} z={zKey} zScale={scaleSequential(colorScales[scaleName])} {data}>
+	<LayerCake
+		ssr={true}
+		z={zKey}
+		zScale={scaleDiverging().interpolator(colorScales[scaleName])}
+		{data}
+		zDomain={[-1, 0, 1]}
+		debug
+	>
 		<Html>
 			<ColorBar label="Label one" {labelSide} formatTick={d => d * 100} {tickSide} {snapTicks} {tickMarks} ticks={nTicks} --cbar-width="{cbarWidth}%" />
 		</Html>

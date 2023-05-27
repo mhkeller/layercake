@@ -28,6 +28,9 @@
 
 	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` tag. */
 	export let labelledBy = undefined;
+
+	/** @type {String} [title] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the title slot but this is a convenient shorthand. If you use the title slot, this prop is ignored. */
+	export let title = undefined;
 </script>
 
 <svg
@@ -44,7 +47,7 @@
 	aria-label={label}
 	aria-labelledby={labelledBy}
 >
-	<slot name="title"></slot>
+	<slot name="title">{#if title}<title>{title}</title>{/if}</slot>
 
 	<defs>
 		<slot name="defs"></slot>

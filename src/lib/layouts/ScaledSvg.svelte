@@ -30,7 +30,6 @@
 	export let labelledBy = undefined;
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <svg
 	bind:this={element}
 	{viewBox}

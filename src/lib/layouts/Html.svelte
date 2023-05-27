@@ -23,7 +23,6 @@
 	export let labelledBy = undefined;
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 <div
 	bind:this={element}
 	class="layercake-layout-html"

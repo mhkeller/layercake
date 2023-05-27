@@ -28,7 +28,7 @@
 
 	const { containerWidth, containerHeight, padding } = getContext('LayerCake');
 </script>
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+
 <svg
 	bind:this={element}
 	class="layercake-layout-svg"

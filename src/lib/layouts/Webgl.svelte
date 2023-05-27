@@ -70,5 +70,4 @@
 	aria-label={label}
 	aria-labelledby={labelledBy}
 >{fallbackText}</canvas>
-<slot name="title"></slot>
 <slot {element} {context}></slot>

@@ -21,6 +21,9 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
+	/** @type {String} [fallbackText] Text to display if the browser won't render a canvas tag. */
+	export let fallbackText = '';
+
 	/** @type {String} [label] A string passed to the `aria-label` on the `<canvas>` tag. */
 	export let label = undefined;
 
@@ -52,6 +55,6 @@
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}
-></canvas>
+>{fallbackText}</canvas>
 <slot name="title"></slot>
 <slot {element} {context}></slot>

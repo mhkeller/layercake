@@ -24,11 +24,14 @@
 	/** @type {String} [fallbackText] Text to display if the browser won't render a canvas tag. */
 	export let fallbackText = '';
 
-	/** @type {String} [label] A string passed to the `aria-label` on the `<canvas>` tag. */
+	/** @type {String} [label] A string passed to the `aria-label` property on the `<canvas>` tag. */
 	export let label = undefined;
 
-	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<canvas>` tag. */
+	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` property on the `<canvas>` tag. */
 	export let labelledBy = undefined;
+
+	/** @type {String} [describedBy] A string passed to the `aria-describedby` property on the `<canvas>` tag. */
+	export let describedBy = undefined;
 
 	let testGl;
 
@@ -69,5 +72,6 @@
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}
+	aria-describedby={describedBy}
 >{fallbackText}</canvas>
 <slot {element} {context}></slot>

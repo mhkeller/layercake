@@ -30,6 +30,9 @@
 	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<canvas>` tag. */
 	export let labelledBy = undefined;
 
+	/** @type {String} [describedBy] A string passed to `aria-describedby` property on the `<canvas>` tag. */
+	export let describedBy = undefined;
+
 	const cntxt = {
 		ctx: writable({})
 	};
@@ -55,5 +58,6 @@
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}
+	aria-describedby={describedBy}
 >{fallbackText}</canvas>
 <slot {element} {context}></slot>

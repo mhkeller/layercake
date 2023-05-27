@@ -20,11 +20,14 @@
 	/** @type {String} [viewBox] A string passed to the `viewBox` property on the `<svg>` tag. */
 	export let viewBox = undefined;
 
-	/** @type {String} [label] A string passed to the `aria-label` on the `<svg>` tag. */
+	/** @type {String} [label] A string passed to the `aria-label` property on the `<svg>` tag. */
 	export let label = undefined;
 
-	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` tag. */
+	/** @type {String} [labelledBy] A string passed to the `aria-labelledby property` on the `<svg>` tag. */
 	export let labelledBy = undefined;
+
+	/** @type {String} [describedBy] A string passed to the `aria-describedby` property on the `<svg>` tag. */
+	export let describedBy = undefined;
 
 	/** @type {String} [title] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the title slot but this is a convenient shorthand. If you use the title slot, this prop is ignored. */
 	export let title = undefined;
@@ -42,6 +45,7 @@
 	style:pointer-events={pointerEvents === false ? 'none' : null}
 	aria-label={label}
 	aria-labelledby={labelledBy}
+	aria-describedby={describedBy}
 >
 	<slot name="title">{#if title}<title>{title}</title>{/if}</slot>
 

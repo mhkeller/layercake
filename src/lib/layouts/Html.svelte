@@ -21,6 +21,9 @@
 
 	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<div>` tag. */
 	export let labelledBy = undefined;
+
+	/** @type {String} [describedBy] A string passed to `aria-describedby` property on the `<div>` tag. */
+	export let describedBy = undefined;
 </script>
 
 <div
@@ -34,6 +37,7 @@
 	style:left={$padding.left + 'px'}
 	aria-label={label}
 	aria-labelledby={labelledBy}
+	aria-describedby={describedBy}
 >
 	<slot {element}></slot>
 </div>

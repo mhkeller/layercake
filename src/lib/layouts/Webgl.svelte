@@ -21,6 +21,9 @@
 	/** @type {WebGLRenderingContext} [context] The `<canvas>`'s WebGL context. Useful for bindings. */
 	export let context = undefined;
 
+	/** @type {String} [fallbackText] Text to display if the browser won't render a canvas tag. */
+	export let fallbackText = '';
+
 	/** @type {String} [label] A string passed to the `aria-label` on the `<canvas>` tag. */
 	export let label = undefined;
 
@@ -66,6 +69,6 @@
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}
-></canvas>
+>{fallbackText}</canvas>
 <slot name="title"></slot>
 <slot {element} {context}></slot>

@@ -28,12 +28,6 @@
 
 	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` tag. */
 	export let labelledBy = undefined;
-
-	/** @type {String} [role] A string passed to the `role` on the `<svg>` tag. */
-	export let role = undefined;
-
-	/** @type {Number} [tabindex] A number passed to the `tabindex` on the `<svg>` tag. */
-	export let tabindex = undefined;
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -50,8 +44,6 @@
 	style="right:0px; bottom:0px;"
 	aria-label={label}
 	aria-labelledby={labelledBy}
-	{role}
-	{tabindex}
 >
 	<slot name="title"></slot>
 

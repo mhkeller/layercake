@@ -21,12 +21,6 @@
 
 	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<div>` tag. */
 	export let labelledBy = undefined;
-
-	/** @type {String} [role] A string passed to the `role` on the `<div>` tag. */
-	export let role = undefined;
-
-	/** @type {Number} [tabindex] A number passed to the `tabindex` on the `<div>` tag. */
-	export let tabindex = undefined;
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -41,8 +35,6 @@
 	style:left={$padding.left + 'px'}
 	aria-label={label}
 	aria-labelledby={labelledBy}
-	{role}
-	{tabindex}
 >
 	<slot name="title"></slot>
 	<slot {element}></slot>

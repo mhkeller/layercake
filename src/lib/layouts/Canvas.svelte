@@ -27,12 +27,6 @@
 	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<canvas>` tag. */
 	export let labelledBy = undefined;
 
-	/** @type {String} [role] A string passed to the `role` on the `<canvas>` tag. */
-	export let role = undefined;
-
-	/** @type {Number} [tabindex] A number passed to the `tabindex` on the `<canvas>` tag. */
-	export let tabindex = undefined;
-
 	const cntxt = {
 		ctx: writable({})
 	};
@@ -58,8 +52,6 @@
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}
-	{role}
-	{tabindex}
 ></canvas>
 <slot name="title"></slot>
 <slot {element} {context}></slot>

@@ -36,7 +36,6 @@
 	aria-label={label}
 	aria-labelledby={labelledBy}
 >
-	<slot name="title"></slot>
 	<slot {element}></slot>
 </div>
 

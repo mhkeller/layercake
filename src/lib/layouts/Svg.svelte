@@ -29,7 +29,7 @@
 	/** @type {String} [describedBy] A string passed to the `aria-describedby` property on the `<svg>` tag. */
 	export let describedBy = undefined;
 
-	/** @type {String} [title] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the title slot but this is a convenient shorthand. If you use the title slot, this prop is ignored. */
+	/** @type {String} [title] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the "title" slot but this is a convenient shorthand. If you use the "title" slot, this prop is ignored. */
 	export let title = undefined;
 
 	const { containerWidth, containerHeight, padding } = getContext('LayerCake');

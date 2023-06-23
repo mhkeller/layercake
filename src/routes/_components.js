@@ -19,6 +19,7 @@ import CirclePack from './_components/CirclePack.svelte';
 import CirclePackForce from './_components/CirclePackForce.svelte';
 import ClevelandDotPlot from './_components/ClevelandDotPlot.svelte';
 import ClevelandDotPlotHtml from './_components/ClevelandDotPlot.html.svelte';
+import ColorBar from './_components_ssr/ColorBar.html.svelte';
 import Column from './_components/Column.svelte';
 import ColumnStacked from './_components/ColumnStacked.svelte';
 import Line from './_components/Line.svelte';
@@ -115,5 +116,6 @@ export default [
 			{ slug: 'Key.html.svelte', component: Key },
 			{ slug: 'Labels.html.svelte', component: Labels },
 			{ slug: 'GroupLabels.html.svelte', component: GroupLabels },
+			{ slug: 'ColorBar.html.svelte', component: ColorBar },
 		] }
 ];

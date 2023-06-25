@@ -16,6 +16,9 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
+	/** @type {String} [role] A string passed to the `aria-role` on the `<div>` tag. This is `undefined` by default but will be set by default to `'figure'` if `label`, `labelledby` or `describedby` is set. That default will be overridden by whatever is passed in. */
+	export let role = undefined;
+
 	/** @type {String} [label] A string passed to the `aria-label` on the `<div>` tag. */
 	export let label = undefined;
 
@@ -24,6 +27,8 @@
 
 	/** @type {String} [describedBy] A string passed to `aria-describedby` property on the `<div>` tag. */
 	export let describedBy = undefined;
+
+	$: roleVal = role || (label || labelledBy || describedBy ? 'figure' : undefined);
 </script>
 
 <div
@@ -35,6 +40,7 @@
 	style:right={$padding.right + 'px'}
 	style:bottom={$padding.bottom + 'px'}
 	style:left={$padding.left + 'px'}
+	role={roleVal}
 	aria-label={label}
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}

@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.43056674.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.488d2e40.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.252724fc.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.0304f864.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.f5b05b5f.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.913aaa3d.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.971e34c4.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.beb063ad.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.83bc780b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.93323930.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.7531fc85.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.d388bdec.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d2017060.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.93f6dc0c.js">
@@ -97,7 +97,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/MultiLine.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"MultiLine.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG multi-series line chart. It expects your data to be an array of objects, each with a `values` key that is an array of data objects.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, zGet } = getContext('LayerCake');\\n\\n  $: path = values => {\\n    return 'M' + values\\n      .map(d => {\\n        return $xGet(d) + ',' + $yGet(d);\\n      })\\n      .join('L');\\n  };\\n\u003C/script>\\n\\n\u003Cg class=\\\"line-group\\\">\\n  {#each $data as group}\\n    \u003Cpath\\n      class='path-line'\\n      d='{path(group.values)}'\\n      stroke=\\\"{$zGet(group)}\\\"\\n    >\u003C/path>\\n  {/each}\\n\u003C/g>\\n\\n\u003Cstyle>\\n  .path-line {\\n    fill: none;\\n    stroke-linejoin: round;\\n    stroke-linecap: round;\\n    stroke-width: 3px;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/MultiLine\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/MultiLine\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[]},\"componentDescription\":\"Generates an SVG multi-series line chart. It expects your data to be an array of objects, each with a `values` key that is an array of data objects.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_78igur = {
+					__sveltekit_elauib = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -107,8 +107,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.43056674.js"),
-						import("../_app/immutable/entry/app.913aaa3d.js")
+						import("../_app/immutable/entry/start.488d2e40.js"),
+						import("../_app/immutable/entry/app.971e34c4.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

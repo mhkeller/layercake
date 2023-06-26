@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.43056674.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.488d2e40.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.252724fc.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.0304f864.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.f5b05b5f.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.913aaa3d.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.971e34c4.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.beb063ad.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.83bc780b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.93323930.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.7531fc85.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.d388bdec.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d2017060.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.93f6dc0c.js">
@@ -135,7 +135,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Voronoi.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Voronoi.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates a voronoi layer using [d3-delauney](https://github.com/d3/d3-delauney).\\n -->\\n\u003Cscript>\\n  import { getContext, createEventDispatcher } from 'svelte';\\n  import { uniques } from 'layercake';\\n  import { Delaunay } from 'd3-delaunay';\\n\\n  const { data, xGet, yGet, width, height } = getContext('LayerCake');\\n\\n  /** @type {String} [stroke] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly. */\\n  export let stroke = undefined;\\n\\n  let dispatcher = createEventDispatcher();\\n\\n  function log (point) {\\n    console.log(point, point.data);\\n    dispatcher('voronoi-mouseover', point);\\n  }\\n\\n  $: points = $data.map(d => {\\n    const point = [$xGet(d), $yGet(d)];\\n    point.data = d;\\n    return point;\\n  });\\n\\n  $: uniquePoints = uniques(points, d => d.join(), false);\\n\\n  $: voronoi = Delaunay.from(uniquePoints).voronoi([0, 0, $width, $height]);\\n\u003C/script>\\n\\n\u003Cstyle>\\n  .voronoi-cell {\\n    fill: none;\\n    stroke: none;\\n    pointer-events: all;\\n    outline: none;\\n  }\\n\\n  /* Useful to testing but you'll want to disable this for production */\\n  .voronoi-cell:hover {\\n    stroke: #333 !important;\\n    stroke-width: 3px;\\n  }\\n\u003C/style>\\n\\n{#each uniquePoints as point, i}\\n  \u003Cpath\\n    style:stroke\\n    class=\\\"voronoi-cell\\\"\\n    d={voronoi.renderCell(i)}\\n    on:mouseover=\\\"{() => { log(point) }}\\\"\\n    on:focus=\\\"{() => { log(point) }}\\\"\\n  >\u003C/path>\\n{/each}\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Scatter\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"– An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\"}]},\"componentDescription\":\"Generates a voronoi layer using [d3-delauney](https://github.com/d3/d3-delauney).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_78igur = {
+					__sveltekit_elauib = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -145,8 +145,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.43056674.js"),
-						import("../_app/immutable/entry/app.913aaa3d.js")
+						import("../_app/immutable/entry/start.488d2e40.js"),
+						import("../_app/immutable/entry/app.971e34c4.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

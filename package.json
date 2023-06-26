@@ -18,7 +18,7 @@
 	"license": "MIT",
 	"type": "module",
 	"devDependencies": {
-		"@rollup/plugin-dsv": "^2.0.2",
+		"@rollup/plugin-dsv": "^3.0.2",
 		"@sveltejs/adapter-static": "^2.0.1",
 		"@sveltejs/kit": "^1.20.4",
 		"@sveltejs/package": "^2.1.0",

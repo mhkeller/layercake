@@ -5,7 +5,7 @@ Changelog
 
 > Not yet on npm
 
-Upgrade to Svelte 4.0
+Upgrade to Svelte 4.0. Drop support for Node 16.
 
 * [PR#147](https://github.com/mhkeller/layercake/pull/147)
 

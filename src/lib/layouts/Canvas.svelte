@@ -7,6 +7,8 @@
 	import { writable } from 'svelte/store';
 	import scaleCanvas from '../lib/scaleCanvas.js';
 
+	const { width, height, padding } = getContext('LayerCake');
+
 	/** @type {HTMLCanvasElement} [element] The `<canvas>` tag. Useful for bindings. */
 	export let element = undefined;
 
@@ -19,7 +21,17 @@
 	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	const { width, height, padding } = getContext('LayerCake');
+	/** @type {String} [fallback] Text to display if the browser won't render a canvas tag. You can also set arbitrary HTML via the "fallback" slot but this is fine if you just need text. If you use the "fallback" slot, this prop is ignored. */
+	export let fallback = '';
+
+	/** @type {String} [label] A string passed to the `aria-label` on the `<canvas>` tag. */
+	export let label = undefined;
+
+	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<canvas>` tag. */
+	export let labelledBy = undefined;
+
+	/** @type {String} [describedBy] A string passed to `aria-describedby` property on the `<canvas>` tag. */
+	export let describedBy = undefined;
 
 	const cntxt = {
 		ctx: writable({})
@@ -44,5 +56,8 @@
 	style:bottom={$padding.bottom + 'px'}
 	style:left={$padding.left + 'px'}
 	style="width:100%;height:100%;position:absolute;"
-></canvas>
+	aria-label={label}
+	aria-labelledby={labelledBy}
+	aria-describedby={describedBy}
+><slot name="fallback">{#if fallback}{fallback}{/if}</slot></canvas>
 <slot {element} {context}></slot>

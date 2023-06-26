@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 7.5.0
+
+> 2023-06-25
+
+Add accessibility props to layout components.
+
+* [PR#133](https://github.com/mhkeller/layercake/pull/133)
+
 # 7.4.0
 
 > 2023-04-15

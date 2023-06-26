@@ -2,7 +2,7 @@
 title: Layout component props
 ---
 
-All layout components accept the following props:
+In addition to the [accessibility props](guide#accessibility) described above, all layout components accept the following props:
 
 * [zIndex](guide#zindex) `Number|String`
 * [pointerEvents](guide#pointerevents) `Boolean`

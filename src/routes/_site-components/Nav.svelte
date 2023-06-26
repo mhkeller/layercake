@@ -368,7 +368,7 @@
 		on:click='{toggleOpen}'
 		on:keypress='{toggleOpen}'
 	>{open ? 'Close' : 'Menu'}</span>
-	<a href='/' sveltekit:prefetch class='logo'>Layer Cake</a>
+	<a href='/' class='logo'>Layer Cake</a>
 </div>
 
 <ul class="dropdown">
@@ -398,8 +398,8 @@
 
 <nav bind:this={nav} class='{open ? "open" : "closed"}'>
 	<ul class='primary'>
-		<li><a sveltekit:prefetch class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'><span class="wide-name">Component gallery</span><span class="short-name">Components</span></a></li>
-		<li><a sveltekit:prefetch class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
+		<li><a class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'><span class="wide-name">Component gallery</span><span class="short-name">Components</span></a></li>
+		<li><a class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
 		<li><a id="github-link" target="_blank" rel="noreferrer" href='https://github.com/mhkeller/layercake'> </a></li>
 	</ul>
 

@@ -117,7 +117,7 @@
 
 <div class="main">
 	<div class="all-components">
-		<a href="/components" sveltekit:prefetch>← View all components</a>
+		<a href="/components">← View all components</a>
 	</div>
 	<h1>{component.slug} component</h1>
 
@@ -151,7 +151,7 @@
 					{/if}
 					<ul>
 						{#each group.matches as link}
-							<li><a href={link} sveltekit:prefetch>{link.split('/').pop()}</a></li>
+							<li><a href={link}>{link.split('/').pop()}</a></li>
 						{/each}
 					</ul>
 				{/if}

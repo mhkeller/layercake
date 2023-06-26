@@ -8,9 +8,9 @@ Since Layer Cake components live inside your project, you have full control over
 
 Each of these components exposes props that will help with accessibility. These are the props that are common to all layout components:
 
-* `label` -> Sets [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
-* `labelledBy` -> Sets [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)
-* `describedBy` -> Sets [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby)
+* `label` → Sets [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
+* `labelledBy` → Sets [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)
+* `describedBy` → Sets [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby)
 
 ```svelte
 <LayerCake>

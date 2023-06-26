@@ -1,1 +1,0 @@
-import{e as a}from"./index.2defaa64.js";async function r({fetch:t}){const o=await t("guide.json"),e=await o.json();if(o.status===200)return{sections:e};throw a(500,"Could not load.")}const n=Object.freeze(Object.defineProperty({__proto__:null,load:r},Symbol.toStringTag,{value:"Module"}));export{n as _,r as l};

@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.488d2e40.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.e3682b14.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.0304f864.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.eff549f3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.f5b05b5f.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.971e34c4.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.5802024f.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.83bc780b.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.0f0f031d.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.93323930.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.d388bdec.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.58f15e05.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d2017060.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.93f6dc0c.js">
@@ -127,7 +127,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Labels.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Labels.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Adds HTML text labels based on a given list.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { xGet, yGet } = getContext('LayerCake');\\n\\n  /** @type {Array} labels - An array of objects that contain a field containing text label and data fields. */\\n  export let labels;\\n\\n  /** @type {Function} getLabelName= - An accessor function to return the label field on your objects in the `labels` array. */\\n  export let getLabelName;\\n\\n  /** @type {Function} [formatLabelName=d => d] - An optional formatting function. */\\n  export let formatLabelName = d => d;\\n\u003C/script>\\n\\n{#each labels as d}\\n  \u003Cdiv\\n    class=\\\"label\\\"\\n    style=\\\"\\n      top:{$yGet(d)}px;\\n      left:{$xGet(d)}px;\\n    \\\"\\n  >{formatLabelName(getLabelName(d))}\u003C/div>\\n{/each}\\n\\n\u003Cstyle>\\n  .label {\\n    position: absolute;\\n    transform: translate(-50%, -50%);\\n    font-size: 12px;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/MapLayered\",\"/example/MultiLine\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/MapLayered\",\"/example-ssr/MultiLine\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"An array of objects that contain a field containing text label and data fields.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Array\"},\"name\":\"labels\"},{\"title\":\"param\",\"description\":\"= - An accessor function to return the label field on your objects in the `labels` array.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Function\"},\"name\":\"getLabelName\"},{\"title\":\"param\",\"description\":\"An optional formatting function.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"formatLabelName\",\"default\":\"d=>d\"}]},\"componentDescription\":\"Adds HTML text labels based on a given list.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_elauib = {
+					__sveltekit_11n07v6 = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -137,8 +137,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.488d2e40.js"),
-						import("../_app/immutable/entry/app.971e34c4.js")
+						import("../_app/immutable/entry/start.e3682b14.js"),
+						import("../_app/immutable/entry/app.5802024f.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

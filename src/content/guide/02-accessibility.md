@@ -22,7 +22,7 @@ Each of these components exposes props that will help with accessibility. These 
 </LayerCake>
 ```
 
-### HTML
+### HTML layouts
 
 These aria labels are not very meaningful for `Html` components without also specifying a `role` attribute so if you set any of the above attributes, your HTML component will have `role='figure'` set. If you don't want that falue to be `'figure'`, the `Html` component – and only that one – has a `role` prop that will override it.
 
@@ -38,7 +38,7 @@ These aria labels are not very meaningful for `Html` components without also spe
 </LayerCake>
 ```
 
-### SVGs
+### SVG layouts
 
 The `Svg` and `ScaledSvg` components have a `title` prop and a named `title` slot.
 
@@ -89,7 +89,7 @@ And becomes...
 
 You mostly will just use the `title` prop but the slot is there as an escape hatch. Setting the `title` slot will override any value you set as the prop.
 
-### Canvas and WebGl
+### Canvas and WebGl layouts
 
 The `Canvas` and `WebGl` layout components have a `fallback` prop and a named `fallback` slot that defines the text to display when `<canvas>` is unavailable.
 

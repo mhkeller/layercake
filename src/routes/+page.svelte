@@ -99,6 +99,10 @@
 		margin-bottom: 60px;
 	}
 
+	.gallery-item :global(.chart-container) {
+		height: 100% !important;
+	}
+
 	.gallery-item.scaled {
 		height: auto;
 	}

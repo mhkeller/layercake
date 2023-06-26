@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an HTML y-axis.
+	Generates an SVG y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
 <script>
 	import { getContext } from 'svelte';
@@ -51,8 +51,8 @@
 				<line
 					class="gridline"
 					x2='100%'
-					y1={yTick + (isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
-					y2={yTick + (isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
+					y1={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
+					y2={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
 				></line>
 			{/if}
 			{#if tickMarks === true}
@@ -60,13 +60,13 @@
 					class='tick-mark'
 					x1='0'
 					x2='{isBandwidth ? -6 : 6}'
-					y1={yTick + (isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
-					y2={yTick + (isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
+					y1={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
+					y2={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
 				></line>
 			{/if}
 			<text
 				x='{xTick}'
-				y='{yTick + (isBandwidth ? $yScale.bandwidth() / 2 : 0)}'
+				y='{(isBandwidth ? ($yScale.bandwidth() / 2) + yTick : yTick)}'
 				dx='{isBandwidth ? -9 : dxTick}'
 				dy='{isBandwidth ? 4 : dyTick}'
 				style="text-anchor:{isBandwidth ? 'end' : textAnchor};"

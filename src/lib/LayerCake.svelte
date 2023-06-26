@@ -104,8 +104,8 @@
 	export let rRange = undefined;
 	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
 	export let xReverse = false;
-	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` or `scalePoint` for `yScale`. Ignored if you set the yRange prop. */
-	export let yReverse = typeof yScale.bandwidth === 'function' ? false : true;
+	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using an ordinal scale with a `.bandwidth` method for `yScale`. Ignored if you set the `yRange` prop. */
+	export let yReverse = undefined
 	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
 	export let zReverse = false;
 	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
@@ -124,15 +124,22 @@
 	/** @type {Boolean} debug Enable debug printing to the console. Useful to inspect your scales and dimensions. */
 	export let debug = false;
 
+	/**
+	 * Make this reactive
+	 */
+	$: yReverseValue = typeof yReverse === 'undefined'
+		? typeof yScale.bandwidth === 'function' ? false : true
+		: yReverse;
+
 	/* --------------------------------------------
-	 * Keep track of whethr the component has mounted
+	 * Keep track of whether the component has mounted
 	 * This is used to emit warnings once we have measured
 	 * the container object and it doesn't have proper dimensions
 	 */
 	let isMounted = false;
 	onMount(() => {
 		isMounted = true;
-	})
+	});
 
 	/* --------------------------------------------
 	 * Preserve a copy of our passed in settings before we modify them
@@ -178,7 +185,7 @@
 	const _zNice = writable(zNice);
 	const _rNice = writable(rNice);
 	const _xReverse = writable(xReverse);
-	const _yReverse = writable(yReverse);
+	const _yReverse = writable(yReverseValue);
 	const _zReverse = writable(zReverse);
 	const _rReverse = writable(rReverse);
 	const _xPadding = writable(xPadding);
@@ -216,7 +223,7 @@
 	$: $_zNice = zNice;
 	$: $_rNice = rNice;
 	$: $_xReverse = xReverse;
-	$: $_yReverse = yReverse;
+	$: $_yReverse = yReverseValue;
 	$: $_zReverse = zReverse;
 	$: $_rReverse = rReverse;
 	$: $_xPadding = xPadding;
@@ -260,22 +267,29 @@
 		return Object.assign(defaultPadding, $padding);
 	});
 
-	const box_d = derived([_containerWidth, _containerHeight, padding_d], ([$containerWidth, $containerHeight, $padding]) => {
-		const b = {};
-		b.top = $padding.top;
-		b.right = $containerWidth - $padding.right;
-		b.bottom = $containerHeight - $padding.bottom;
-		b.left = $padding.left;
-		b.width = b.right - b.left;
-		b.height = b.bottom - b.top;
-		if (b.width <= 0 && isMounted === true) {
-			console.warn('[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?');
+	const box_d = derived(
+		[_containerWidth, _containerHeight, padding_d],
+		([$containerWidth, $containerHeight, $padding]) => {
+			const b = {};
+			b.top = $padding.top;
+			b.right = $containerWidth - $padding.right;
+			b.bottom = $containerHeight - $padding.bottom;
+			b.left = $padding.left;
+			b.width = b.right - b.left;
+			b.height = b.bottom - b.top;
+			if (b.width <= 0 && isMounted === true) {
+				console.warn(
+					'[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?'
+				);
+			}
+			if (b.height <= 0 && isMounted === true) {
+				console.warn(
+					'[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?'
+				);
+			}
+			return b;
 		}
-		if (b.height <= 0 && isMounted === true) {
-			console.warn('[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?');
-		}
-		return b;
-	});
+	);
 
 	const width_d = derived([box_d], ([$box]) => {
 		return $box.width;
@@ -291,34 +305,93 @@
 	 * Note that this is different from an "extent" passed
 	 * in as a domain, which can be a partial domain
 	 */
-	const extents_d = derived([_flatData, activeGetters_d, _extents, _xScale, _yScale, _rScale, _zScale], ([$flatData, $activeGetters, $extents, $_xScale, $_yScale, $_rScale, $_zScale]) => {
-		const scaleLookup = { x: $_xScale, y: $_yScale, r: $_rScale, z: $_zScale };
-		const getters = filterObject($activeGetters, $extents);
-		const activeScales = Object.fromEntries(Object.keys(getters).map(k => [k, scaleLookup[k]]));
+	const extents_d = derived(
+		[_flatData, activeGetters_d, _extents, _xScale, _yScale, _rScale, _zScale],
+		([$flatData, $activeGetters, $extents, $_xScale, $_yScale, $_rScale, $_zScale]) => {
+			const scaleLookup = { x: $_xScale, y: $_yScale, r: $_rScale, z: $_zScale };
+			const getters = filterObject($activeGetters, $extents);
+			const activeScales = Object.fromEntries(Object.keys(getters).map((k) => [k, scaleLookup[k]]));
 
-		if (Object.keys(getters).length > 0) {
-			const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
-			return { ...calculatedExtents, ...$extents };
-		} else {
-			return {};
+			if (Object.keys(getters).length > 0) {
+				const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
+				return { ...calculatedExtents, ...$extents };
+			} else {
+				return {};
+			}
 		}
-	});
+	);
 
 	const xDomain_d = derived([extents_d, _xDomain], calcDomain('x'));
 	const yDomain_d = derived([extents_d, _yDomain], calcDomain('y'));
 	const zDomain_d = derived([extents_d, _zDomain], calcDomain('z'));
 	const rDomain_d = derived([extents_d, _rDomain], calcDomain('r'));
 
-	const xScale_d = derived([_xScale, extents_d, xDomain_d, _xPadding, _xNice, _xReverse, width_d, height_d, _xRange, _percentRange], createScale('x'));
+	const xScale_d = derived(
+		[
+			_xScale,
+			extents_d,
+			xDomain_d,
+			_xPadding,
+			_xNice,
+			_xReverse,
+			width_d,
+			height_d,
+			_xRange,
+			_percentRange
+		],
+		createScale('x')
+	);
 	const xGet_d = derived([_x, xScale_d], createGetter);
 
-	const yScale_d = derived([_yScale, extents_d, yDomain_d, _yPadding, _yNice, _yReverse, width_d, height_d, _yRange, _percentRange], createScale('y'));
+	const yScale_d = derived(
+		[
+			_yScale,
+			extents_d,
+			yDomain_d,
+			_yPadding,
+			_yNice,
+			_yReverse,
+			width_d,
+			height_d,
+			_yRange,
+			_percentRange
+		],
+		createScale('y')
+	);
 	const yGet_d = derived([_y, yScale_d], createGetter);
 
-	const zScale_d = derived([_zScale, extents_d, zDomain_d, _zPadding, _zNice, _zReverse, width_d, height_d, _zRange, _percentRange], createScale('z'));
+	const zScale_d = derived(
+		[
+			_zScale,
+			extents_d,
+			zDomain_d,
+			_zPadding,
+			_zNice,
+			_zReverse,
+			width_d,
+			height_d,
+			_zRange,
+			_percentRange
+		],
+		createScale('z')
+	);
 	const zGet_d = derived([_z, zScale_d], createGetter);
 
-	const rScale_d = derived([_rScale, extents_d, rDomain_d, _rPadding, _rNice, _rReverse, width_d, height_d, _rRange, _percentRange], createScale('r'));
+	const rScale_d = derived(
+		[
+			_rScale,
+			extents_d,
+			rDomain_d,
+			_rPadding,
+			_rNice,
+			_rReverse,
+			width_d,
+			height_d,
+			_rRange,
+			_percentRange
+		],
+		createScale('r')
+	);
 	const rGet_d = derived([_r, rScale_d], createGetter);
 
 	const xRange_d = derived([xScale_d], getRange);
@@ -397,7 +470,7 @@
 	}
 </script>
 
-{#if (ssr === true || typeof window !== 'undefined')}
+{#if ssr === true || typeof window !== 'undefined'}
 	<div
 		bind:this={element}
 		class="layercake-container"
@@ -417,7 +490,47 @@
 			aspectRatio={$aspectRatio_d}
 			containerWidth={$_containerWidth}
 			containerHeight={$_containerHeight}
-		></slot>
+			activeGetters={$activeGetters_d}
+			percentRange={$_percentRange}
+			x={$_x}
+			y={$_y}
+			z={$_z}
+			r={$_r}
+			custom={$_custom}
+			data={$_data}
+			xNice={$_xNice}
+			yNice={$_yNice}
+			zNice={$_zNice}
+			rNice={$_rNice}
+			xReverse={$_xReverse}
+			yReverse={$_yReverse}
+			zReverse={$_zReverse}
+			rReverse={$_rReverse}
+			xPadding={$_xPadding}
+			yPadding={$_yPadding}
+			zPadding={$_zPadding}
+			rPadding={$_rPadding}
+			padding={$padding_d}
+			flatData={$_flatData}
+			extents={$extents_d}
+			xDomain={$xDomain_d}
+			yDomain={$yDomain_d}
+			zDomain={$zDomain_d}
+			rDomain={$rDomain_d}
+			xRange={$xRange_d}
+			yRange={$yRange_d}
+			zRange={$zRange_d}
+			rRange={$rRange_d}
+			config={$_config}
+			xScale={$xScale_d}
+			xGet={$xGet_d}
+			yScale={$yScale_d}
+			yGet={$yGet_d}
+			zScale={$zScale_d}
+			zGet={$zGet_d}
+			rScale={$rScale_d}
+			rGet={$rGet_d}
+		/>
 	</div>
 {/if}
 

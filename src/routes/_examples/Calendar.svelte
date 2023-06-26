@@ -38,11 +38,12 @@
 		The width is being set inline below.
 	*/
 	.chart-container {
+		--margin-top: 25px;
 		display: inline-block;
 		position: relative;
 		vertical-align: top;
-		height: 100%;
-		margin-top: 25px;
+		height: calc(250px - var(--margin-top));
+		margin-top: var(--margin-top);
 	}
 	.chart-container:before {
 		content: attr(data-month);

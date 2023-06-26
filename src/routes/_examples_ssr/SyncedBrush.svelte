@@ -24,6 +24,8 @@
 			d[yKey] = +d[yKey];
 		});
 	});
+
+	const colors = ['#00e047', '#00bbff', '#ff00cc', '#ffcc00'];
 </script>
 
 <style>
@@ -44,13 +46,14 @@
 </style>
 
 <div class="small-multiple-container">
-	{#each datasets as dataset}
+	{#each datasets as dataset, i}
 		<SyncedBrushWrapper
 			data={dataset}
 			{xKey}
 			{yKey}
 			bind:min={brushExtents[0]}
 			bind:max={brushExtents[1]}
+			stroke={colors[i]}
 		/>
 	{/each}
 </div>

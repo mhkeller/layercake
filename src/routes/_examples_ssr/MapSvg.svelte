@@ -45,13 +45,13 @@
 		expand to fill it.
 		The height is being set inline with `padding-bottom` using the aspect ratio trick below.
 	*/
-	.chart-container {
+	.map-container {
 		position: relative;
 		width: 100%;
 	}
 </style>
 
-<div class="chart-container" style="padding-bottom:{100 / aspectRatio}%">
+<div class="map-container" style="padding-bottom:{100 / aspectRatio}%">
 	<LayerCake
 		ssr={true}
 		position='absolute'

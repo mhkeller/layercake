@@ -12,6 +12,7 @@
 	export let xKey = 'x';
 	export let yKey = 'y';
 	export let data = [];
+	export let stroke = '#00e047';
 
 	let brushedData;
 	$: {
@@ -25,7 +26,7 @@
 <style>
 	.chart-wrapper {
 		width: 48%;
-		height: 48%;
+		height: 40%;
 	}
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -70,10 +71,10 @@
 			</Html>
 			<ScaledSvg>
 				<Line
-					stroke='#00e047'
+					{stroke}
 				/>
 				<Area
-					fill='#00e04710'
+					fill={`${stroke}10`}
 				/>
 			</ScaledSvg>
 		</LayerCake>
@@ -91,10 +92,10 @@
 		>
 			<ScaledSvg>
 				<Line
-					stroke='#00e047'
+					{stroke}
 				/>
 				<Area
-					fill='#00e04710'
+					fill={`${stroke}10`}
 				/>
 			</ScaledSvg>
 			<Html>

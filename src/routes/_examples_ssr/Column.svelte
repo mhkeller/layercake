@@ -54,7 +54,7 @@
 <style>
 	.chart-container {
 		width: 100%;
-		height: 100%;
+		height: 400px;
 		position: relative;
 	}
 </style>

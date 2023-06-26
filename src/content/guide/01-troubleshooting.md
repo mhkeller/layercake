@@ -2,9 +2,9 @@
 title: Troubleshooting
 ---
 
-### Use the `debug` feature
+### Use the debug feature
 
-To get more information about what scales you're using and the calculated `domain` and `range`, set the [debug](/guide#debug) prop to `true`.
+To get more information about what scales you're using and the calculated `domain` and `range`, set the [`debug`](/guide#debug) prop to `true`.
 
 ```svelte
 <LayerCake
@@ -57,3 +57,7 @@ For example:
 ```
 
 > Copying Layer Cake's layout components into your library is actually a great way to add any additional customizations or functionality while maintaining compatibility with the rest of the library's API. You can use any of the built-in layout components as a starting point for something more complex, if need be.
+
+### Listening for click events on the entire component
+
+See the example in [this issue](https://github.com/mhkeller/layercake/issues/123).

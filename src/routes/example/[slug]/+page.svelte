@@ -87,6 +87,10 @@
 		position: relative;
 	}
 
+	.chart-hero :global(.chart-container) {
+		height: 100% !important;
+	}
+
 	.dek {
 		width: calc(100% - 80px);
 	}

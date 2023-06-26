@@ -1,6 +1,32 @@
 Changelog
 ===
 
+# 7.4.0
+
+> 2023-04-15
+
+Expose context values as slot props. Make the defaults for `yReverse` reactive post-load.
+
+* [PR#110](https://github.com/mhkeller/layercake/pull/110)
+* [PR#130](https://github.com/mhkeller/layercake/pull/130)
+* [2ed7d18cb69a515ebe2d5ce9fe11545ec3ed677b](https://github.com/mhkeller/layercake/commit/2ed7d18cb69a515ebe2d5ce9fe11545ec3ed677b)
+
+# 7.3.5
+
+> 2023-04-04
+
+Dependabot fix
+
+* [PR#126](https://github.com/mhkeller/layercake/pull/126)
+
+# 7.3.4
+
+> 2023-03-17
+
+Bring back the `"main": "./dist/index.js",` field in `package.json` for legacy build systems.
+
+* [639f7397f055fe8bfda0f5cbc04dc58a1b91ca28](https://github.com/mhkeller/layercake/commit/639f7397f055fe8bfda0f5cbc04dc58a1b91ca28)
+
 # 7.3.3
 
 > 2023-03-17
@@ -21,7 +47,7 @@ Cut down on dependencies by using d3-color for contrast detection
 
 > 2023-03-16
 
-Adds the `debug-mode` prop.
+Adds the `debug-mode` prop. Note: 7.3.0 was skipped because of an npm error.
 
 * [PR #12](https://github.com/mhkeller/layercake/pull/112)
 

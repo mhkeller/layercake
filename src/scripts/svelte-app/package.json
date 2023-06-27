@@ -18,19 +18,18 @@
     "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-svelte3": "^4.0.0",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.10.1",
-    "svelte": "^3.54.0",
+    "svelte": "^4.0.0",
     "svelte-check": "^3.4.3",
     "svelte-preprocess": "^5.0.3",
     "tslib": "^2.4.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.2.3"
+    "typescript": "^5.0.0",
+    "vite": "^4.0.0"
   },
   "type": "module",
   "dependencies": {
     "@rollup/plugin-dsv": "^2.0.2",
-    "layercake": "^7.5.0"
+    "layercake": "^7.6.0"
   }
 }

@@ -3,9 +3,9 @@ Changelog
 
 # 7.6.0
 
-> Not yet on npm
+> 2023-06-27
 
-Upgrade to Svelte 4.0.
+Upgrade to Svelte 4.0. Set version 3 and 4 as a peer dep.
 
 * [PR#147](https://github.com/mhkeller/layercake/pull/147)
 

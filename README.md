@@ -10,7 +10,8 @@ Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.grap
  🍰 [API docs](https://layercake.graphics/guide#layercake-props)
  🍰 [View the Component Gallery](https://layercake.graphics/components)
  🍰 [Try the starter template](https://github.com/mhkeller/layercake-template)
- 🍰
+
+> Compatible with Svelte 3 and 4
 
 ## Install
 

@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 7.6.0
+
+> Not yet on npm
+
+Upgrade to Svelte 4.0.
+
+* [PR#147](https://github.com/mhkeller/layercake/pull/147)
+
 # 7.5.0
 
 > 2023-06-25

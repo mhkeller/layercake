@@ -15,7 +15,7 @@ Each of these components exposes props that will help with accessibility. These 
 ```svelte
 <LayerCake>
   <Svg
-    label="A chart showing a decrease in output as time progresses."
+    label="A chart label of some kind."
   >
     <!-- Components go here -->
   </Svg>

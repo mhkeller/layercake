@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.47e13f15.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.6a007d6b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.a3249cad.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.250e5244.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.f5b05b5f.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.9ddd8c2f.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.15f548a1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.0391218c.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.afe82f62.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.93323930.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.d82502ed.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.cf2594a3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d2017060.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.93f6dc0c.js">
@@ -188,7 +188,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/CirclePackForce.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"CirclePackForce.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different. This technique comes from @plmrry.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import {\\n    forceSimulation,\\n    forceX,\\n    forceManyBody,\\n    forceCollide,\\n    forceCenter,\\n  } from 'd3-force';\\n\\n  const { data, width, height, xScale, xGet, rGet, zGet } = getContext('LayerCake');\\n\\n  /** @type {Number} [manyBodyStrength=5] - The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more. */\\n  export let manyBodyStrength = 5;\\n\\n  /** @type {Number} [xStrength=0.1] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */\\n  export let xStrength = 0.1;\\n\\n  /** @type {String} [nodeColor] Set a color manually otherwise it will default to the `zScale`. */\\n  export let nodeColor = undefined;\\n\\n  /** @type {String} [nodeStroke='#fff'] - The circle's stroke color. */\\n  export let nodeStroke = '#fff';\\n\\n  /** @type {Number} [nodeStrokeWidth=1] - The circle's stroke width, in pixels. */\\n  export let nodeStrokeWidth = 1;\\n\\n  /** @type {Boolean} [groupBy=true] - Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center. */\\n  export let groupBy = true;\\n\\n  /* --------------------------------------------\\n   * Make a copy because the simulation will alter the objects\\n   */\\n  const initialNodes = $data.map((d) => ({ ...d }));\\n\\n  const simulation = forceSimulation(initialNodes)\\n\\n  let nodes = [];\\n\\n  simulation.on(\\\"tick\\\", () => {\\n    nodes = simulation.nodes()\\n  })\\n\\n  /* ----------------------------------------------\\n   * When variables change, set forces and restart the simulation\\n   */\\n  $: {\\n    simulation\\n      .force('x', forceX().x(d => {\\n        return groupBy === true ? $xGet(d) + $xScale.bandwidth() / 2 : $width / 2;\\n      }).strength(xStrength))\\n      .force('center', forceCenter($width / 2, $height / 2))\\n      .force('charge', forceManyBody().strength(manyBodyStrength))\\n      .force('collision', forceCollide().radius(d => {\\n        return $rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out\\n      }))\\n      .force('center', forceCenter($width / 2, $height / 2))\\n      .alpha(1)\\n      .restart()\\n  }\\n\\n\u003C/script>\\n  {#each nodes as point}\\n    \u003Ccircle\\n      class='node'\\n      r={$rGet(point)}\\n      fill={nodeColor || $zGet(point)}\\n      stroke={nodeStroke}\\n      stroke-width={nodeStrokeWidth}\\n      cx='{point.x}'\\n      cy='{point.y}'\\n    >\\n      \u003C!-- \u003Ctitle>{point[$custom.title]}\u003C/title> -->\\n    \u003C/circle>\\n  {/each}\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/CirclePackForce\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"manyBodyStrength\",\"default\":\"5\"},{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"xStrength\",\"default\":\"0.1\"},{\"title\":\"param\",\"description\":\"Set a color manually otherwise it will default to the `zScale`.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"nodeColor\"},{\"title\":\"param\",\"description\":\"The circle's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"nodeStroke\",\"default\":\"'#fff'\"},{\"title\":\"param\",\"description\":\"The circle's stroke width, in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"nodeStrokeWidth\",\"default\":\"1\"},{\"title\":\"param\",\"description\":\"Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Boolean\"}},\"name\":\"groupBy\",\"default\":\"true\"}]},\"componentDescription\":\"Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different. This technique comes from @plmrry.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1hh1b17 = {
+					__sveltekit_1o0ouql = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -198,8 +198,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.47e13f15.js"),
-						import("../_app/immutable/entry/app.9ddd8c2f.js")
+						import("../_app/immutable/entry/start.6a007d6b.js"),
+						import("../_app/immutable/entry/app.15f548a1.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

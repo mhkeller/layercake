@@ -44,6 +44,7 @@ import Tooltip from './_components/Tooltip.html.svelte';
 import SharedTooltip from './_components/SharedTooltip.html.svelte';
 import SharedTooltipPercentRange from './_components_ssr/SharedTooltip.percent-range.html.svelte';
 import AxisXHtml from './_components_ssr/AxisX.html.svelte';
+import AxisXTopHtml from './_components_ssr/AxisXTop.html.svelte';
 import AxisYHtml from './_components_ssr/AxisY.html.svelte';
 import ScatterHtml from './_components_ssr/Scatter.html.svelte';
 import Key from './_components_ssr/Key.html.svelte';
@@ -51,16 +52,20 @@ import QuadTree from './_components/QuadTree.html.svelte';
 import QuadTreePercentRange from './_components_ssr/QuadTree.percent-range.html.svelte';
 
 export default [
-	{ name: 'axis',
+	{
+		name: 'axis',
 		components: [
 			{ slug: 'AxisX.svelte', component: AxisX },
 			{ slug: 'AxisY.svelte', component: AxisY },
 			{ slug: 'AxisXTop.svelte', component: AxisXTop },
 			{ slug: 'AxisX.html.svelte', component: AxisXHtml },
+			{ slug: 'AxisXTop.html.svelte', component: AxisXTopHtml },
 			{ slug: 'AxisY.html.svelte', component: AxisYHtml },
-			{ slug: 'AxisRadial.svelte', component: AxisRadial },
-		] },
-	{ name: 'chart',
+			{ slug: 'AxisRadial.svelte', component: AxisRadial }
+		]
+	},
+	{
+		name: 'chart',
 		components: [
 			{ slug: 'Area.svelte', component: Area },
 			{ slug: 'Area-D3.svelte', component: AreaD3 },
@@ -87,9 +92,11 @@ export default [
 			{ slug: 'Scatter.canvas.svelte', component: ScatterCanvas },
 			{ slug: 'Scatter.svg.svelte', component: ScatterSvg },
 			{ slug: 'Scatter.webgl.svelte', component: ScatterWebgl },
-			{ slug: 'Scatter.html.svelte', component: ScatterHtml },
-		] },
-	{ name: 'map',
+			{ slug: 'Scatter.html.svelte', component: ScatterHtml }
+		]
+	},
+	{
+		name: 'map',
 		components: [
 			{ slug: 'Map.svg.svelte', component: MapSvg },
 			{ slug: 'Map.canvas.svelte', component: MapCanvas },
@@ -97,9 +104,11 @@ export default [
 			{ slug: 'MapPoints.html.svelte', component: MapPointsHtml },
 			{ slug: 'MapPoints.canvas.svelte', component: MapPointsCanvas },
 			{ slug: 'MapLabels.html.svelte', component: MapLabelsHtml },
-			{ slug: 'MapLabels.svg.svelte', component: MapLabels },
-		] },
-	{ name: 'interaction',
+			{ slug: 'MapLabels.svg.svelte', component: MapLabels }
+		]
+	},
+	{
+		name: 'interaction',
 		components: [
 			{ slug: 'Voronoi.svelte', component: Voronoi },
 			{ slug: 'Brush.html.svelte', component: Brush },
@@ -107,15 +116,18 @@ export default [
 			{ slug: 'QuadTree.percent-range.html.svelte', component: QuadTreePercentRange },
 			{ slug: 'Tooltip.html.svelte', component: Tooltip },
 			{ slug: 'SharedTooltip.html.svelte', component: SharedTooltip },
-			{ slug: 'SharedTooltip.percent-range.html.svelte', component: SharedTooltipPercentRange },
-		] },
-	{ name: 'annotation',
+			{ slug: 'SharedTooltip.percent-range.html.svelte', component: SharedTooltipPercentRange }
+		]
+	},
+	{
+		name: 'annotation',
 		components: [
 			{ slug: 'Annotations.html.svelte', component: Annotations },
 			{ slug: 'AnnotationsData.html.svelte', component: AnnotationsData },
 			{ slug: 'Arrows.svelte', component: Arrows },
 			{ slug: 'Key.html.svelte', component: Key },
 			{ slug: 'Labels.html.svelte', component: Labels },
-			{ slug: 'GroupLabels.html.svelte', component: GroupLabels },
-		] }
+			{ slug: 'GroupLabels.html.svelte', component: GroupLabels }
+		]
+	}
 ];

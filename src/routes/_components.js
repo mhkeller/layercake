@@ -6,6 +6,7 @@ import AreaD3 from './_components/Area-D3.svelte';
 import AreaStacked from './_components/AreaStacked.svelte';
 import AxisRadial from './_components/AxisRadial.svelte';
 import AxisX from './_components/AxisX.svelte';
+import AxisXTop from './_components/AxisXTop.svelte';
 import AxisY from './_components/AxisY.svelte';
 import Bar from './_components/Bar.svelte';
 import BarStacked from './_components/BarStacked.svelte';
@@ -54,6 +55,7 @@ export default [
 		components: [
 			{ slug: 'AxisX.svelte', component: AxisX },
 			{ slug: 'AxisY.svelte', component: AxisY },
+			{ slug: 'AxisXTop.svelte', component: AxisXTop },
 			{ slug: 'AxisX.html.svelte', component: AxisXHtml },
 			{ slug: 'AxisY.html.svelte', component: AxisYHtml },
 			{ slug: 'AxisRadial.svelte', component: AxisRadial },

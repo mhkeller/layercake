@@ -1,6 +1,6 @@
 A multiline example with a quadtree tooltip. This is an interesting example because the data exists in a few different structures:
 
-1. We're loading data from a "wide" format where each series has its own column name.
+1. We're loading data from a "wide" format CSV file  where each series has its own column name.
    ```
    [
      {

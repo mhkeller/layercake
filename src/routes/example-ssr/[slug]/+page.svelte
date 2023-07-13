@@ -137,6 +137,10 @@
 		text-decoration: underline;
 	}
 
+	.dek :global(pre code) {
+		display: block;
+	}
+
 	#contents-container {
 		position: relative;
 		border-left: 3px solid #ccc;

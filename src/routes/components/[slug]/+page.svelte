@@ -10,7 +10,7 @@
 
 	const md = new MarkdownIt({
 		html: true,
-		linkfify: true
+		linkify: true
 	});
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);

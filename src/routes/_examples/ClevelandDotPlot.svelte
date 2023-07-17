@@ -39,7 +39,7 @@
 		padding={{ right: 10, bottom: 20, left: 30 }}
 		x={xKey}
 		y={yKey}
-		yScale={scaleBand().paddingInner([0.05]).round(true)}
+		yScale={scaleBand().paddingInner(0.05).round(true)}
 		xDomain={[0, null]}
 		xPadding={[10, 0]}
 		zScale={scaleOrdinal()}

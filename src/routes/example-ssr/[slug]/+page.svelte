@@ -13,7 +13,7 @@
 
 	const md = new MarkdownIt({
 		html: true,
-		linkfify: true
+		linkify: true
 	});
 
 	export let data

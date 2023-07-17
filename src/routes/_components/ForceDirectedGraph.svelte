@@ -37,7 +37,7 @@
 		z={zKey}
 		zScale={scaleOrdinal()}
 		zDomain={Array.from(seriesNames)}
-		zRange={schemeCategory10}
+		zRange={[...schemeCategory10]}
 	>
 		<Svg>
 			<ForceDirectedGraph

@@ -16,7 +16,7 @@
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	/** @type {import('./$types').PageData */
+	/** @type {import('./$types').PageData} */
 	export let data;
 	let {slug, content, active} = data;
 	$: ({slug, content, active} = data);

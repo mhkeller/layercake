@@ -64,7 +64,7 @@
 		xDomain={[0, 24 * 60 * 60]}
 		yDomain={allDays}
 		xScale={scaleTime()}
-		yScale={scaleBand().paddingInner([0.05]).round(true)}
+		yScale={scaleBand().paddingInner(0.05).round(true)}
 		xPadding={[padding, padding]}
 		data={daysTransformed}
 	>

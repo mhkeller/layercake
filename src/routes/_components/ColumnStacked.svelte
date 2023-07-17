@@ -46,7 +46,7 @@
  			x={d => d.data[xKey]}
  			y={yKey}
  			z={zKey}
- 			xScale={scaleBand().paddingInner([0.02]).round(true)}
+ 			xScale={scaleBand().paddingInner(0.02).round(true)}
  			xDomain={uniques(data, xKey)}
 			zScale={scaleOrdinal()}
 			zDomain={seriesNames}

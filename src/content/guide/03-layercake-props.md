@@ -161,7 +161,7 @@ Same as [xScale](/guide#xscale) but for the z scale. The default is `d3.scaleLin
 
 Same as [xScale](/guide#xscale) but for the r scale. The default is [`d3.scaleSqrt()`](https://github.com/d3/d3-scale#scalesqrt).
 
-### xDomain `Array:[min: Number, max: Number|null]|String[]|Number[]|Function`
+### xDomain `Array:[min: Number|null, max: Number|null]|String[]|Number[]|Function`
 
 Set a min or max on the x scale. If you want to inherit the value from the data's extent, set that value to `null`.
 
@@ -193,15 +193,15 @@ If you set a [`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoi
 >
 ```
 
-### yDomain `Array:[min: Number, max: Number|null]|String[]|Number[]|Function`
+### yDomain `Array:[min: Number|null, max: Number|null]|String[]|Number[]|Function`
 
 Same as [xDomain](/guide#xdomain) but for the y scale.
 
-### zDomain `Array:[min: Number, max: Number|null]|String[]|Number[]|Function`
+### zDomain `Array:[min: Number|null, max: Number|null]|String[]|Number[]|Function`
 
 Same as [xDomain](/guide#xdomain) but for the z scale.
 
-### rDomain `Array:[min: Number, max: Number|null]|String[]|Number[]|Function`
+### rDomain `Array:[min: Number|null, max: Number|null]|String[]|Number[]|Function`
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 

@@ -104,6 +104,10 @@
 		text-decoration: underline;
 	}
 
+	.dek :global(pre code) {
+		display: block;
+	}
+
 	#pages {
 		margin-top: 50px;
 	}

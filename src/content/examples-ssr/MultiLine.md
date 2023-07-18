@@ -61,3 +61,4 @@ A multiline example with a quadtree tooltip. This is an interesting example beca
      { value: 1920, month: 2015-03-31T22:00:00.000Z, fruit: 'bananas' },
      ...
    ```
+We're using a regular JavaScript transform to do steps one and two. See the [client-side rendered example](https://layercake.graphics/example/MultiLine) for how to do this with Layer Cake's [groupLonger transform function](https://layercake.graphics/guide#grouplonger).

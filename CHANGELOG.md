@@ -1,13 +1,21 @@
 Changelog
 ===
 
+# 7.6.1
+
+> 2023-07-19
+
+Fixes JSDoc types to allow for `null` values in the `xDomain`, `yDomain` etc. props. Thanks [@rgieseke](https://github.com/rgieseke)!
+
+* [PR#141](https://github.com/mhkeller/layercake/pull/141)
+
 # 7.6.0
 
 > 2023-06-27
 
 Upgrade to Svelte 4.0. Set version 3 and 4 as a peer dep.
 
-* [PR#147](https://github.com/mhkeller/layercake/pull/147)
+* [PR#137](https://github.com/mhkeller/layercake/pull/137)
 
 # 7.5.0
 

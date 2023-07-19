@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.7de282bd.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.78e571d9.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.3ce6d92b.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.ac915649.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.f5b05b5f.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.f8276ff5.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.855fc246.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.00c629a7.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.439bd5e3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.93323930.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.49827ff7.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.f9cfb6f2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.7be77a77.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.93f6dc0c.js">
@@ -86,7 +86,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/AreaStacked.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"AreaStacked.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape) and sets the color via an ordinal scale in `zScale`. It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { area } from 'd3-shape';\\n\\n  const { data, xGet, yScale, zGet } = getContext('LayerCake');\\n\\n  $: areaGen = area()\\n    .x(d => $xGet(d))\\n    .y0(d => $yScale(d[0]))\\n    .y1(d => $yScale(d[1]));\\n\u003C/script>\\n\\n\u003Cg class=\\\"area-group\\\">\\n  {#each $data as d}\\n    \u003Cpath\\n      class='path-area'\\n      d='{areaGen(d)}'\\n      fill='{$zGet(d)}'\\n    >\u003C/path>\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/AreaStacked\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/AreaStacked\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[]},\"componentDescription\":\"Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape) and sets the color via an ordinal scale in `zScale`. It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1ycxhit = {
+					__sveltekit_mkynun = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -96,8 +96,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.7de282bd.js"),
-						import("../_app/immutable/entry/app.f8276ff5.js")
+						import("../_app/immutable/entry/start.78e571d9.js"),
+						import("../_app/immutable/entry/app.855fc246.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

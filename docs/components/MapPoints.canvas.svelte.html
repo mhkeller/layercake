@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.7de282bd.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.78e571d9.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.3ce6d92b.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.ac915649.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.f5b05b5f.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.f8276ff5.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.855fc246.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.00c629a7.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.439bd5e3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.93323930.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.49827ff7.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.f9cfb6f2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.7be77a77.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.93f6dc0c.js">
@@ -162,7 +162,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/MapPoints.canvas.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"MapPoints.canvas.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { scaleCanvas } from 'layercake';\\n\\n  const { data, width, height } = getContext('LayerCake');\\n\\n  const { ctx } = getContext('canvas');\\n\\n  /** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */\\n  export let projection;\\n\\n  /** @type {Number} [r=3.5] - The point's radius. */\\n  export let r = 3.5;\\n\\n  /** @type {String} [fill='yellow'] - The point's fill color. */\\n  export let fill = 'yellow';\\n\\n  /** @type {String} [stroke='#000'] - The point's stroke color. */\\n  export let stroke = '#000';\\n\\n  /** @type {Number} [strokeWidth=1] - The point's stroke width. */\\n  export let strokeWidth = 1;\\n\\n  /** @type {Array} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */\\n  export let features = undefined;\\n\\n  $: projectionFn = projection()\\n    .fitSize([$width, $height], $data);\\n\\n  $: featuresToDraw = features || $data.features;\\n  $: {\\n    if ($ctx) {\\n      scaleCanvas($ctx, $width, $height);\\n      $ctx.clearRect(0, 0, $width, $height);\\n\\n      // To scale the circle by size, set width and height to `$rGet(d.properties)`\\n      featuresToDraw.forEach(d => {\\n        $ctx.beginPath();\\n        const coordinates = projectionFn(d.geometry.coordinates);\\n        $ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);\\n        $ctx.fillStyle = fill;\\n        $ctx.fill();\\n        $ctx.lineWidth = strokeWidth;\\n        $ctx.strokeStyle = stroke;\\n        $ctx.stroke();\\n      });\\n    }\\n  }\\n\u003C/script>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Function\"},\"name\":\"projection\"},{\"title\":\"param\",\"description\":\"The point's radius.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"3.5\"},{\"title\":\"param\",\"description\":\"The point's fill color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'yellow'\"},{\"title\":\"param\",\"description\":\"The point's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#000'\"},{\"title\":\"param\",\"description\":\"The point's stroke width.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"1\"},{\"title\":\"param\",\"description\":\"A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Array\"}},\"name\":\"features\"}]},\"componentDescription\":\"Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1ycxhit = {
+					__sveltekit_mkynun = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -172,8 +172,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.7de282bd.js"),
-						import("../_app/immutable/entry/app.f8276ff5.js")
+						import("../_app/immutable/entry/start.78e571d9.js"),
+						import("../_app/immutable/entry/app.855fc246.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.78e571d9.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.27afee9e.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.ac915649.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.fe1ec72b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.f5b05b5f.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.855fc246.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.389e6b3f.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.439bd5e3.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.535a3f5c.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.93323930.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.f9cfb6f2.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.6f9e4a1f.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.7be77a77.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.93f6dc0c.js">
@@ -105,7 +105,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Bar.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Bar.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG bar chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');\\n\\n  /** @type {String} [fill='#00bbff'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */\\n  export let fill = '#00bbff';\\n\u003C/script>\\n\\n\u003Cg class=\\\"bar-group\\\">\\n  {#each $data as d, i}\\n    \u003Crect\\n      class='group-rect'\\n      data-id=\\\"{i}\\\"\\n      x=\\\"{$xScale.range()[0]}\\\"\\n      y=\\\"{$yGet(d)}\\\"\\n      height={$yScale.bandwidth()}\\n      width=\\\"{$xGet(d)}\\\"\\n      {fill}\\n    >\u003C/rect>\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Bar\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Bar\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'#00bbff'\"}]},\"componentDescription\":\"Generates an SVG bar chart.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_mkynun = {
+					__sveltekit_1r8x6xf = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -115,8 +115,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.78e571d9.js"),
-						import("../_app/immutable/entry/app.855fc246.js")
+						import("../_app/immutable/entry/start.27afee9e.js"),
+						import("../_app/immutable/entry/app.389e6b3f.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

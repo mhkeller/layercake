@@ -1,7 +1,6 @@
-Layer Cake Example
-===
+# Layer Cake Example
 
-This is a starter example for using [Layer Cake](https://layercake.graphics). It sets you up with the line and area chart as seen [in the examples](https://layercake.graphics/example/Line). 
+This is a starter example for using [Layer Cake](https://layercake.graphics). It sets you up with the line and area chart as seen [in the examples](https://layercake.graphics/example/Line).
 
 To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
 
@@ -10,7 +9,7 @@ npx degit mhkeller/layercake-template my-chart
 cd my-chart
 ```
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+_Note that you will need to have [Node.js](https://nodejs.org) installed._
 
 ## Get started
 

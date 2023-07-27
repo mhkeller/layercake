@@ -34,8 +34,8 @@
 	/** @type {Number} [yOffset=0] - How far up and down to nudge the text label. */
 	export let yOffset = 0;
 
-	/** @type {Number} [dxTick=0] - Any optional value passed to the `dx` attribute on the text label. */
-	export let dxTick = 0;
+	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
+	export let dx = 0;
 
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = 0;
@@ -83,7 +83,7 @@
 			<text
 				x='{labelPosition === 'even' ? tickOffsetXVal - tickGutter * 2 : tickOffsetXVal - tickGutter}'
 				y='{(isBandwidth ? ($yScale.bandwidth() / 2) + yOffset : yOffset)}'
-				dx='{dxTick}'
+				dx='{dx}'
 				dy='{isBandwidth || labelPosition === 'even' ? dy + 3 : dy - 3}'
 			>{format(tick)}</text>
 		</g>

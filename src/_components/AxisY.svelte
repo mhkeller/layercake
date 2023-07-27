@@ -10,29 +10,35 @@
 	/** @type {Boolean} [gridlines=true] - Extend lines from the ticks into the chart space */
 	export let gridlines = true;
 
-	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
+	/** @type {Boolean} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above'). Default is 'above'. */
+	export let labelPosition = 'above';
+
+	/** @type {Boolean} [tickMarks=false] - Show a horiontal mark for each tick. */
 	export let tickMarks = false;
 
-	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = d => d;
+	/** @type {Boolean} [tickMarks=undefined] - How many pixels wide should the tickMark be. By default, this is calculated dynamically and the tick mark extends from the end of the tickOffsetX to the tickGutter position. Set a value here to override that calculation. */
+	export let tickMarkWidth = undefined;
+
+	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
+	export let format = d => d;
 
 	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
 	export let ticks = 4;
 
-	/** @type {Number} [xTick=0] - How far over to position the text marker. */
-	export let xTick = 0;
+	/** @type {Number} [tickGutter=2] - The amount of whitespace between the min of the xRange and the start of the tick. */
+	export let tickGutter = 2;
 
-	/** @type {Number} [yTick=0] - How far up and down to position the text marker. */
+	/** @type {Number} [tickOffsetX=0] - How far over to position the tick mark and label. */
+	export let tickOffsetX = 0
+
+	/** @type {Number} [yTick=0] - How far up and down to nudge the text label. */
 	export let yTick = 0;
 
-	/** @type {Number} [dxTick=0] - Any optional value passed to the `dx` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal. */
+	/** @type {Number} [dxTick=0] - Any optional value passed to the `dx` attribute on the text label. */
 	export let dxTick = 0;
 
-	/** @type {Number} [dyTick=-4] - Any optional value passed to the `dy` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal. */
-	export let dyTick = -4;
-
-	/** @type {String} [textAnchor='start'] The CSS `text-anchor` passed to the label. This is automatically set to "end" if the scale has a bandwidth method, like in ordinal scales. */
-	export let textAnchor = 'start';
+	/** @type {Number} [dyTick=-4] - Any optional value passed to the `dy` attribute on the text label. */
+	export let dyTick = -3;
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
 
@@ -42,14 +48,24 @@
 			typeof ticks === 'function' ?
 				ticks($yScale.ticks()) :
 					$yScale.ticks(ticks);
+
+	const tickWidthEven = 3;
+	const charPixelWidth = 7.25;
+	$: tickOffsetXVal = tickOffsetX + Math.min(-10, -1 * Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
+
+	function calcStringLength(sum, val) {
+		if (val === ',') return sum + charPixelWidth * 0.75;
+		return sum + charPixelWidth;
+	}
 </script>
 
-<g class='axis y-axis' transform='translate({-$padding.left}, 0)'>
+<g class='axis y-axis' transform='translate(0, 0)'>
 	{#each tickVals as tick (tick)}
-		<g class='tick tick-{tick}' transform='translate({$xRange[0] + (isBandwidth ? $padding.left : 0)}, {$yScale(tick)})'>
+		<g class='tick tick-{tick}' transform='translate({$xRange[0]}, {$yScale(tick) - 1})'>
 			{#if gridlines !== false}
 				<line
 					class="gridline"
+					x1='{isBandwidth ? 0 : tickOffsetXVal - tickGutter}'
 					x2='100%'
 					y1={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
 					y2={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
@@ -58,26 +74,25 @@
 			{#if tickMarks === true}
 				<line
 					class='tick-mark'
-					x1='0'
-					x2='{isBandwidth ? -6 : 6}'
+					x1='{(isBandwidth || labelPosition === 'even') ? 0 : tickOffsetXVal - tickGutter}'
+					x2='{typeof tickMarkWidth === 'number' ? (tickOffsetXVal - tickGutter) + tickMarkWidth : (isBandwidth || labelPosition === 'even') ? -tickGutter - tickWidthEven : -tickGutter}'
 					y1={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
 					y2={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
 				></line>
 			{/if}
 			<text
-				x='{xTick}'
+				x='{labelPosition === 'even' ? tickOffsetXVal - tickGutter * 2 : tickOffsetXVal - tickGutter}'
 				y='{(isBandwidth ? ($yScale.bandwidth() / 2) + yTick : yTick)}'
-				dx='{isBandwidth ? -9 : dxTick}'
-				dy='{isBandwidth ? 4 : dyTick}'
-				style="text-anchor:{isBandwidth ? 'end' : textAnchor};"
-			>{formatTick(tick)}</text>
+				dx='{dxTick}'
+				dy='{isBandwidth || labelPosition === 'even' ? dyTick + 6 : dyTick}'
+			>{format(tick)}</text>
 		</g>
 	{/each}
 </g>
 
 <style>
 	.tick {
-		font-size: .725em;
+		font-size: 0.725em;
 		font-weight: 200;
 	}
 

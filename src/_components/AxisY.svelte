@@ -84,7 +84,7 @@
 				x='{labelPosition === 'even' ? tickOffsetXVal - tickGutter * 2 : tickOffsetXVal - tickGutter}'
 				y='{(isBandwidth ? ($yScale.bandwidth() / 2) + yOffset : yOffset)}'
 				dx='{isBandwidth && tickMarks ? -tickGutter : dx}'
-				dy='{isBandwidth || labelPosition === 'even' ? dy + 3 : dy - 3}'
+				dy='{isBandwidth || labelPosition === 'even' ? dy + 4 : dy - 3}'
 			>{format(tick)}</text>
 		</g>
 	{/each}

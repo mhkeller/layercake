@@ -53,7 +53,10 @@ export default function calcUniques (data, fields, { sort = false } = {}) {
 			}
 		}
 		const results = Array.from(set);
-		uniques[s] = sort === true ? results.sort() : results;
+		if (sort === true) {
+			results.sort();
+		}
+		uniques[s] = results;
 	}
 	return uniques;
 }

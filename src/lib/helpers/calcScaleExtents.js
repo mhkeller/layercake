@@ -20,11 +20,11 @@ export default function calcScaleExtents (flatData, getters, activeScales) {
 	let extents = {};
 	if (scaleGroups.ordinal) {
 		// @ts-ignore
-		extents = calcUniques(flatData, scaleGroups.ordinal)
+		extents = calcUniques(flatData, scaleGroups.ordinal, { sort: true });
 	}
 	if (scaleGroups.other) {
 		// @ts-ignore
-		extents = { ...extents, ...calcExtents(flatData, scaleGroups.other) }
+		extents = { ...extents, ...calcExtents(flatData, scaleGroups.other) };
 	}
 
 	return extents;

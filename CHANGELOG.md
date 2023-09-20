@@ -3,7 +3,7 @@ Changelog
 
 # 8.0.0
 
-> Not yet on npm
+> 2023-09-19
 
 When calculating uniques for an ordinal scale's domain, sort the list. This will help in case your input data changes order, in which case your colors may be off (if using that dimension for a color scale). This is technically a breaking change although it may not actually affect any live charts.
 

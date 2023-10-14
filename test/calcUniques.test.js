@@ -6,90 +6,336 @@ const name = 'calcUniques';
 
 const tests = [
 	{ args: [[0, 1, 2], {}], expected: {} },
-	{ args: [[undefined, null, NaN, false, NaN, null], { x: d => d }], expected: { x: [undefined, null, NaN, false] } },
 	{
-		args: [[
-			{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
-		], { x: d => d.x }],
+		args: [[undefined, null, NaN, false, NaN, null], { x: (d) => d }],
+		expected: { x: [undefined, null, NaN, false] }
+	},
+	{
+		args: [
+			[
+				{ x: 0, y: 1 },
+				{ x: 1, y: 2 },
+				{ x: 2, y: 3 },
+				{ x: 3, y: 4 },
+				{ x: 4, y: 5 }
+			],
+			{ x: (d) => d.x }
+		],
 		expected: { x: [0, 1, 2, 3, 4] }
 	},
 	{
-		args: [[
-			{}, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }, { x: 4, y: 5 }
-		], { x: d => d.x }],
+		args: [
+			[
+				{},
+				{ x: 0, y: 1 },
+				{ x: 1, y: 2 },
+				{ x: 2, y: 3 },
+				{ x: 3, y: 4 },
+				{ x: 4, y: 5 },
+				{ x: 4, y: 5 }
+			],
+			{ x: (d) => d.x }
+		],
 		expected: { x: [undefined, 0, 1, 2, 3, 4] }
 	},
 	{
-		args: [[
-			{ x: null }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
-		], { x: d => d.x, y: d => d.y }],
+		args: [
+			[{ x: null }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }],
+			{ x: (d) => d.x, y: (d) => d.y }
+		],
 		expected: { x: [null, 0, 1, 2, 3, 4], y: [undefined, 1, 2, 3, 4, 5] }
 	},
 	{
-		args: [[
-			{ x: 'd' / 1 }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
-		], { x: d => d.x }],
+		args: [
+			[
+				{ x: 'd' / 1 },
+				{ x: 0, y: 1 },
+				{ x: 1, y: 2 },
+				{ x: 2, y: 3 },
+				{ x: 3, y: 4 },
+				{ x: 4, y: 5 }
+			],
+			{ x: (d) => d.x }
+		],
 		expected: { x: [NaN, 0, 1, 2, 3, 4] }
 	},
 	{
-		args: [[
-			{ x: NaN }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
-		], { x: d => d.x }],
+		args: [
+			[{ x: NaN }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }],
+			{ x: (d) => d.x }
+		],
 		expected: { x: [NaN, 0, 1, 2, 3, 4] }
 	},
 	{
-		args: [[
-			{ x: Number.NaN }, { x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
-		], { x: d => d.x }],
+		args: [
+			[
+				{ x: Number.NaN },
+				{ x: 0, y: 1 },
+				{ x: 1, y: 2 },
+				{ x: 2, y: 3 },
+				{ x: 3, y: 4 },
+				{ x: 4, y: 5 }
+			],
+			{ x: (d) => d.x }
+		],
 		expected: { x: [Number.NaN, 0, 1, 2, 3, 4] }
 	},
 	{
-		args: [[
-			{ x: '2010-01-04' }, { x: '2010-01-02' }, { x: '2010-01-04' }, { x: '2010-01-05' }, { x: '2010-01-06' }
-		], { x: d => d.x }],
+		args: [
+			[
+				{ x: '2010-01-04' },
+				{ x: '2010-01-02' },
+				{ x: '2010-01-04' },
+				{ x: '2010-01-05' },
+				{ x: '2010-01-06' }
+			],
+			{ x: (d) => d.x }
+		],
 		expected: { x: ['2010-01-04', '2010-01-02', '2010-01-05', '2010-01-06'] }
 	},
 	{
-		args: [[
-			{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
-		], { x: d => d.x, y: d => d.y }],
+		args: [
+			[
+				{ x: 0, y: 1 },
+				{ x: 1, y: 2 },
+				{ x: 2, y: 3 },
+				{ x: 3, y: 4 },
+				{ x: 4, y: 5 }
+			],
+			{ x: (d) => d.x, y: (d) => d.y }
+		],
 		expected: { x: [0, 1, 2, 3, 4], y: [1, 2, 3, 4, 5] }
 	},
 	{
-		args: [[
-			{ x: [-4, 0], y: [1, 6] }, { x: [-5, 1], y: [2, 7]}, { x: [-3, 2], y: [3, 8] }, { x: [-2, 3], y: [4, 9] }, { x: [-1, 4], y: [5, 10] }, { x: [-3, 2], y: [6, 1] }, { x: [-4, 4], y: [2, 8] }
-		], { x: d => d.x, y: d => d.y }],
+		args: [
+			[
+				{ x: [-4, 0], y: [1, 6] },
+				{ x: [-5, 1], y: [2, 7] },
+				{ x: [-3, 2], y: [3, 8] },
+				{ x: [-2, 3], y: [4, 9] },
+				{ x: [-1, 4], y: [5, 10] },
+				{ x: [-3, 2], y: [6, 1] },
+				{ x: [-4, 4], y: [2, 8] }
+			],
+			{ x: (d) => d.x, y: (d) => d.y }
+		],
 		expected: { x: [-4, 0, -5, 1, -3, 2, -2, 3, -1, 4], y: [1, 6, 2, 7, 3, 8, 4, 9, 5, 10] }
 	},
 	{
-		args: [[
-			{ start: 0, end: 1 }, { start: -10000, end: 0 }
-		], { y: d => [d.start, d.end] }],
+		args: [
+			[
+				{ x: [-4, 0], y: [1, 6] },
+				{ x: [-5, 1], y: [2, 7] },
+				{ x: [-3, 2], y: [3, 8] },
+				{ x: [-2, 3], y: [4, 9] },
+				{ x: [-1, 4], y: [5, 10] },
+				{ x: [-3, 2], y: [6, 1] },
+				{ x: [-4, 4], y: [2, 8] }
+			],
+			{ x: (d) => d.x, y: (d) => d.y },
+			{ sort: true }
+		],
+		expected: { x: [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4], y: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+	},
+	{
+		args: [
+			[
+				{ start: 0, end: 1 },
+				{ start: -10000, end: 0 }
+			],
+			{ y: (d) => [d.start, d.end] }
+		],
 		expected: { y: [0, 1, -10000] }
 	},
 	{
-		args: [[
-			{ teamCity: 'New York', backupCity: 'Los Angeles' },
-			{ teamCity: 'Chicago', backupCity: 'Seattle'}
-		], { y: d => [d.teamCity, d.backupCity] }],
+		args: [
+			[
+				{ teamCity: 'New York', backupCity: 'Los Angeles' },
+				{ teamCity: 'Chicago', backupCity: 'Seattle' }
+			],
+			{ y: (d) => [d.teamCity, d.backupCity] }
+		],
 		expected: { y: ['New York', 'Los Angeles', 'Chicago', 'Seattle'] }
 	},
 	// empty sort options
 	{
-		args: [[
-			{ teamCity: 'New York', backupCity: 'Los Angeles' },
-			{ teamCity: 'Chicago', backupCity: 'Seattle'}
-		], { y: d => [d.teamCity, d.backupCity] }, {}],
+		args: [
+			[
+				{ teamCity: 'New York', backupCity: 'Los Angeles' },
+				{ teamCity: 'Chicago', backupCity: 'Seattle' }
+			],
+			{ y: (d) => [d.teamCity, d.backupCity] },
+			{}
+		],
 		expected: { y: ['New York', 'Los Angeles', 'Chicago', 'Seattle'] }
 	},
 	// sort true
 	{
-		args: [[
-			{ teamCity: 'New York', backupCity: 'Los Angeles' },
-			{ teamCity: 'Chicago', backupCity: 'Seattle'}
-		], { y: d => [d.teamCity, d.backupCity] }, { sort: true }],
+		args: [
+			[
+				{ teamCity: 'New York', backupCity: 'Los Angeles' },
+				{ teamCity: 'Chicago', backupCity: 'Seattle' }
+			],
+			{ y: (d) => [d.teamCity, d.backupCity] },
+			{ sort: true }
+		],
 		expected: { y: ['Chicago', 'Los Angeles', 'New York', 'Seattle'] }
 	},
+	// sort true numbers
+	{
+		args: [[0, 10, 11, 1, 2, -1, -10, 4, 2, 4, 5, 6, 7, 7, 0], { x: (d) => d }, { sort: true }],
+		expected: { x: [-10, -1, 0, 1, 2, 4, 5, 6, 7, 10, 11] }
+	},
+	// sort true dates as strings
+	{
+		args: [
+			[
+				{ x: '2010-01-04' },
+				{ x: '2010-01-02' },
+				{ x: '2010-01-04' },
+				{ x: '2010-01-06' },
+				{ x: '2010-01-05' }
+			],
+			{ x: (d) => d.x },
+			{ sort: true }
+		],
+		expected: { x: ['2010-01-02', '2010-01-04', '2010-01-05', '2010-01-06'] }
+	},
+	// sort true dates as dates
+	{
+		args: [
+			[
+				{ x: '2010-01-04' },
+				{ x: '2010-01-02' },
+				{ x: '2010-01-04' },
+				{ x: '2010-01-06' },
+				{ x: '2010-01-05' }
+			].map((d) => ({ x: new Date(d.x) })),
+			{ x: (d) => d.x },
+			{ sort: true }
+		],
+		expected: {
+			x: ['2010-01-02', '2010-01-04', '2010-01-05', '2010-01-06'].map((d) => new Date(d))
+		}
+	},
+	// arrays of dates
+	{
+		args: [
+			[
+				{ x: ['2010-01-04', '2010-02-04'] },
+				{ x: ['2010-01-02', '2010-02-02'] },
+				{ x: ['2010-01-04', '2010-02-04'] },
+				{ x: ['2010-01-06', '2010-02-06'] },
+				{ x: ['2010-01-05', '2010-02-05'] }
+			].map((d) => ({ x: d.x.map((q) => new Date(q)) })),
+			{ x: (d) => d.x },
+			{ sort: true }
+		],
+		expected: {
+			x: [
+				'2010-01-02',
+				'2010-01-04',
+				'2010-01-05',
+				'2010-01-06',
+				'2010-02-02',
+				'2010-02-04',
+				'2010-02-05',
+				'2010-02-06'
+			].map((d) => new Date(d))
+		}
+	},
+	// arrays of dates sort false
+	{
+		args: [
+			[
+				{ x: ['2010-01-04', '2010-02-04'] },
+				{ x: ['2010-01-02', '2010-02-02'] },
+				{ x: ['2010-01-04', '2010-02-04'] },
+				{ x: ['2010-01-06', '2010-02-06'] },
+				{ x: ['2010-01-05', '2010-02-05'] }
+			].map((d) => ({ x: d.x.map((q) => new Date(q)) })),
+			{ x: (d) => d.x }
+		],
+		expected: {
+			x: [
+				'2010-01-04',
+				'2010-02-04',
+				'2010-01-02',
+				'2010-02-02',
+				'2010-01-06',
+				'2010-02-06',
+				'2010-01-05',
+				'2010-02-05'
+			].map((d) => new Date(d))
+		}
+	},
+	// arrays of dates as strings sort false
+	{
+		args: [
+			[
+				{ x: ['2010-01-04', '2010-02-04'] },
+				{ x: ['2010-01-02', '2010-02-02'] },
+				{ x: ['2010-01-04', '2010-02-04'] },
+				{ x: ['2010-01-06', '2010-02-06'] },
+				{ x: ['2010-01-05', '2010-02-05'] }
+			],
+			{ x: (d) => d.x }
+		],
+		expected: {
+			x: [
+				'2010-01-04',
+				'2010-02-04',
+				'2010-01-02',
+				'2010-02-02',
+				'2010-01-06',
+				'2010-02-06',
+				'2010-01-05',
+				'2010-02-05'
+			]
+		}
+	},
+	// arrays of dates as strings sort true
+	{
+			args: [
+				[
+					{ x: ['2010-01-04', '2010-02-04'] },
+					{ x: ['2010-01-02', '2010-02-02'] },
+					{ x: ['2010-01-04', '2010-02-04'] },
+					{ x: ['2010-01-06', '2010-02-06'] },
+					{ x: ['2010-01-05', '2010-02-05'] }
+				],
+				{ x: (d) => d.x },
+				{ sort: true }
+			],
+			expected: {
+				x: [
+					'2010-01-02',
+					'2010-01-04',
+					'2010-01-05',
+					'2010-01-06',
+					'2010-02-02',
+					'2010-02-04',
+					'2010-02-05',
+					'2010-02-06'
+				]
+			}
+		},
+	// dates
+	{
+		args: [
+			[
+				{ x: '2010-01-04' },
+				{ x: '2010-01-02' },
+				{ x: '2010-01-04' },
+				{ x: '2010-01-06' },
+				{ x: '2010-01-05' }
+			].map((d) => ({ x: new Date(d.x) })),
+			{ x: (d) => d.x }
+		],
+		expected: {
+			x: ['2010-01-04', '2010-01-02', '2010-01-06', '2010-01-05'].map((d) => new Date(d))
+		}
+	}
 ];
 
 const errorTests = [

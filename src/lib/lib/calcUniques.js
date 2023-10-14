@@ -59,7 +59,6 @@ export default function calcUniques (data, fields, { sort = false } = {}) {
 						set.add(getTime(val[k]));
 						results.push(val[k]);
 					}
-					set.add(val[k]);
 				}
 			} else {
 				/**
@@ -70,7 +69,6 @@ export default function calcUniques (data, fields, { sort = false } = {}) {
 					set.add(getTime(val));
 					results.push(val);
 				}
-				set.add(val);
 			}
 		}
 		if (sort === true) {

@@ -5,10 +5,10 @@ Changelog
 
 > 2023-10-14
 
-Corrects the change in 8.0.0 for sorting a domain by adding a comparator function to better sort strings and dates. Also some security upgrades. [Closes #151](https://github.com/mhkeller/layercake/issues/151)
+Corrects the change in 8.0.0 for sorting a domain by adding a comparator function to better sort strings and dates. Also fixes an oversight where domains that were dates would not be calculated uniquely. Also some security upgrades. [Closes #151](https://github.com/mhkeller/layercake/issues/151)
 
 * [PR#149](https://github.com/mhkeller/layercake/pull/149)
-* [PR#149](https://github.com/mhkeller/layercake/pull/149)
+* [PR#151](https://github.com/mhkeller/layercake/pull/151)
 
 # 8.0.0
 

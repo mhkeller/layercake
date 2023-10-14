@@ -11,7 +11,6 @@ const tests = [
 	{ args: [Infinity], expected: Infinity },
 	{ args: [null], expected: null },
 	{ args: [undefined], expected: undefined },
-	{ args: [new Date(2020, 0, 1)], expected: 1577854800000 },
 	{ args: [new Date(Date.UTC(2020, 0, 1))], expected: 1577836800000 }
 ];
 

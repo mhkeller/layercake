@@ -10,8 +10,7 @@
 	@param {{x?: Function, y?: Function, z?: Function, r?: Function}} fields An object containing `x`, `y`, `r` or `z` keys that equal an accessor function. If an accessor function returns an array of values, each value will also be evaluated..
 	@returns {{x?: [min: Number, max: Number]|[min: String, max: String], y?: [min: Number, max: Number]|[min: String, max: String], z?: [min: Number, max: Number]|[min: String, max: String], r?: [min: Number, max: Number]|[min: String, max: String]}} An object with the same structure as `fields` but instead of an accessor, each key contains an array of unique items.
 */
-import { ascending } from 'd3-array';
-import getTime from '../utils/getTime.js';
+import { ascending, InternSet } from 'd3-array';
 
 export default function calcUniques (data, fields, { sort = false } = {}) {
 	if (!Array.isArray(data)) {
@@ -38,12 +37,10 @@ export default function calcUniques (data, fields, { sort = false } = {}) {
 	let acc;
 	let val;
 	let set;
-	let results;
 
 	const dl = data.length;
 	for (i = 0; i < kl; i += 1) {
-		set = new Set();
-		results = [];
+		set = new InternSet();
 		s = keys[i];
 		acc = fields[s];
 		for (j = 0; j < dl; j += 1) {
@@ -51,28 +48,13 @@ export default function calcUniques (data, fields, { sort = false } = {}) {
 			if (Array.isArray(val)) {
 				const vl = val.length;
 				for (k = 0; k < vl; k += 1) {
-					/**
-					 * Date objects of the same date are not equivalent in a Set
-					 * If val[k] is a date we turn it into a time value with getTime, otherwise getTime returns val[k].
-					 * Push val[k] to results, though, so that we aren't converting the users data.
-					 */
-					if (!set.has(getTime(val[k]))) {
-						set.add(getTime(val[k]));
-						results.push(val[k]);
-					}
+					set.add(val[k]);
 				}
 			} else {
-				/**
-				 * Date objects of the same date are not equivalent in a Set
-				 * If val[k] is a date we turn it into a time value with getTime, otherwise getTime returns val[k].
-				 * Push val[k] to results, though, so that we aren't converting the users data.
-				 */
-				if (!set.has(getTime(val))) {
-					set.add(getTime(val));
-					results.push(val);
-				}
+				set.add(val);
 			}
 		}
+		const results = Array.from(set);
 		if (sort === true) {
 			results.sort(ascending);
 		}

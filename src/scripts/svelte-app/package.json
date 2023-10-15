@@ -26,6 +26,6 @@
 	"type": "module",
 	"dependencies": {
 		"@rollup/plugin-dsv": "^3.0.2",
-		"layercake": "^7.6.1"
+		"layercake": "^8.0.2"
 	}
 }

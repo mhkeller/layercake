@@ -1,7 +1,7 @@
 Changelog
 ===
 
-# 8.0.1
+# 8.0.2
 
 > 2023-10-14
 
@@ -9,6 +9,8 @@ Corrects the change in 8.0.0 for sorting a domain by adding a comparator functio
 
 * [PR#149](https://github.com/mhkeller/layercake/pull/149)
 * [PR#151](https://github.com/mhkeller/layercake/pull/151)
+
+Note: Due to a publishing error, there is no 8.0.1
 
 # 8.0.0
 

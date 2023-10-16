@@ -360,14 +360,14 @@
 </sidebar>
 
 <div id="container" class='content' bind:this={container}>
-	<div id="toc">
+	<section id="toc">
 		<h3>Table of contents</h3>
 		<ul>
 			{#each data.sections as section}
 				<li><a href="#{section.slug}">- {section.slug.replace(/^\w/, d => d.toUpperCase()).replaceAll('-', ' ')}</a></li>
 			{/each}
 		</ul>
-	</div>
+	</section>
 	{#each data.sections as section}
 		<section id='{section.slug}'>
 			<h2>

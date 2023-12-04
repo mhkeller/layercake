@@ -5,7 +5,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	const { padding, xRange, yScale } = getContext('LayerCake');
+	const { padding, xRange, yScale, width } = getContext('LayerCake');
 
 	/** @type {Boolean} [gridlines=true] - Extend lines from the ticks into the chart space */
 	export let gridlines = true;
@@ -66,7 +66,7 @@
 				<line
 					class="gridline"
 					x1='{isBandwidth ? 0 : tickOffsetXVal - tickGutter}'
-					x2='100%'
+					x2='{$width}'
 					y1={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
 					y2={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
 				></line>

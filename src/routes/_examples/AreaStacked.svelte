@@ -2,7 +2,7 @@
 	import { LayerCake, Svg, flatten, stack } from 'layercake';
 
 	import { scaleOrdinal } from 'd3-scale';
-	import { format, precisionFixed } from 'd3-format';
+	import { format } from 'd3-format';
 	import { timeParse, timeFormat } from 'd3-time-format';
 
 	import AxisX from '../../_components/AxisX.svelte';
@@ -21,7 +21,7 @@
 	const seriesColors = ['#ff00cc', '#ff7ac7', '#ffb3c0', '#ffe4b8'];
 
 	const formatTickX = timeFormat('%b. %-d')
-	const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
+	const formatTickY = d => format(`~s`)(d);
 
 	/* --------------------------------------------
 	 * Cast data

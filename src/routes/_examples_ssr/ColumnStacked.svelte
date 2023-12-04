@@ -2,7 +2,7 @@
 	import { LayerCake, ScaledSvg, Html, flatten, uniques } from 'layercake';
 	import { stack } from 'd3-shape';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
-	import { format, precisionFixed } from 'd3-format';
+	import { format } from 'd3-format';
 
 	import ColumnStacked from '../../_components/ColumnStacked.svelte';
 	import AxisX from '../../_components/AxisX.html.svelte';
@@ -29,7 +29,7 @@
 
 	const series = stackData(data);
 
-	const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
+	const formatTickY = d => format(`~s`)(d);
 </script>
 
 <style>

@@ -62,4 +62,4 @@ A multiline example with a quadtree tooltip. This is an interesting example beca
      ...
    ```
 
-We're using Layer Cake's [groupLonger transform function](/guide#grouplonger) to do steps one and two. See the [server-side rendered example](/example-ssr/Multiline) for a regular JavaScript transform.
+We're using Layer Cake's [groupLonger transform function](/guide#grouplonger) to do steps one and two. See the [server-side rendered example](/example-ssr/MultiLine) for a regular JavaScript transform.

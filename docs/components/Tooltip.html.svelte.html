@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.f654c445.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.6bfcee00.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.29327210.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.60e46c7b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.c2cf8273.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.2c273978.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.970783cc.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.543d063a.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.0162a325.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.8f2ca6db.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.e900c39f.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.7d877e1f.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d5f7eeba.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.297935a8.js">
@@ -121,7 +121,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Tooltip.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Tooltip.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates a hover tooltip. It creates a slot with an exposed variable via `let:detail` that contains information about the event. Use the slot to populate the body of the tooltip using the exposed variable `detail`.\\n -->\\n\u003Cscript>\\n  /** @type {Object} evt - A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`. */\\n  export let evt = {};\\n\\n  /** @type {Number} [offset=-35] - A y-offset from the hover point, in pixels. */\\n  export let offset = -35;\\n\u003C/script>\\n\\n\u003Cstyle>\\n  .tooltip {\\n    position: absolute;\\n    width: 150px;\\n    border: 1px solid #ccc;\\n    font-size: 13px;\\n    background: rgba(255, 255, 255, 0.85);\\n    transform: translate(-50%, -100%);\\n    padding: 5px;\\n    z-index: 15;\\n  }\\n\u003C/style>\\n\\n{#if evt.detail}\\n  \u003Cdiv\\n    class=\\\"tooltip\\\"\\n    style=\\\"\\n      top:{evt.detail.e.layerY + offset}px;\\n      left:{evt.detail.e.layerX}px;\\n    \\\"\\n  >\\n    \u003Cslot detail={evt.detail}>\u003C/slot>\\n  \u003C/div>\\n{/if}\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/MapSvg\",\"/example/MultiLine\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Object\"},\"name\":\"evt\"},{\"title\":\"param\",\"description\":\"A y-offset from the hover point, in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"offset\",\"default\":\"-35\"}]},\"componentDescription\":\"Generates a hover tooltip. It creates a slot with an exposed variable via `let:detail` that contains information about the event. Use the slot to populate the body of the tooltip using the exposed variable `detail`.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1u1wim4 = {
+					__sveltekit_1c1sl6m = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -131,8 +131,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.f654c445.js"),
-						import("../_app/immutable/entry/app.2c273978.js")
+						import("../_app/immutable/entry/start.6bfcee00.js"),
+						import("../_app/immutable/entry/app.970783cc.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.741717f2.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.f654c445.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.3739e447.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.29327210.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.c2cf8273.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.79d6da1d.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.2c273978.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.10697049.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.543d063a.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.8f2ca6db.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.548f6365.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.e900c39f.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d5f7eeba.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.297935a8.js">
@@ -165,7 +165,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/MapLabels.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"MapLabels.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Adds HTML text labels based features in the data or a custom GeoJSON Feature Collection.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, width, height } = getContext('LayerCake');\\n\\n  /** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */\\n  export let projection;\\n\\n  /** @type {Number} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */\\n  export let fixedAspectRatio = undefined;\\n\\n  /** @type {Function} getLabel - An accessor function to get the field to display. */\\n  export let getLabel;\\n\\n  /** @type {Function} [getCoordinates=d => d.geometry.coordinates] - An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format. */\\n  export let getCoordinates;\\n\\n  /** @type {Array} [features] - A list of labels as GeoJSON features. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */\\n  export let features = undefined;\\n\\n  $: fitSizeRange = fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height];\\n\\n  $: projectionFn = projection()\\n    .fitSize(fitSizeRange, $data);\\n\\n  $: units = fixedAspectRatio ? '%': 'px';\\n\u003C/script>\\n\\n\u003Cdiv\\n  class=\\\"map-labels\\\"\\n  style:aspect-ratio={fixedAspectRatio ? 1 : null}\\n>\\n{#each (features || $data.features) as d}\\n  {@const coords = projectionFn(getCoordinates(d))}\\n  \u003Cdiv\\n    class=\\\"map-label\\\"\\n    style=\\\"\\n      left: {coords[0]}{units};\\n      top: {coords[1]}{units};\\n    \\\"\\n  >{getLabel(d)}\u003C/div>\\n{/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .map-labels {\\n    pointer-events: none;\\n    position: relative;\\n  }\\n  .map-label {\\n    position: absolute;\\n    text-align: center;\\n    font-size: 8px;\\n    color: #333;\\n    margin-top: -3px; /* To match the SVG labels, it needs a slight tweak */\\n    transform: translate(-50%, -50%);\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/MapLayered\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/MapLayered\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Function\"},\"name\":\"projection\"},{\"title\":\"param\",\"description\":\"By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"fixedAspectRatio\"},{\"title\":\"param\",\"description\":\"An accessor function to get the field to display.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Function\"},\"name\":\"getLabel\"},{\"title\":\"param\",\"description\":\"An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"getCoordinates\",\"default\":\"d=>d.geometry.coordinates\"},{\"title\":\"param\",\"description\":\"A list of labels as GeoJSON features. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Array\"}},\"name\":\"features\"}]},\"componentDescription\":\"Adds HTML text labels based features in the data or a custom GeoJSON Feature Collection.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_183ui47 = {
+					__sveltekit_1u1wim4 = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -175,8 +175,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.741717f2.js"),
-						import("../_app/immutable/entry/app.79d6da1d.js")
+						import("../_app/immutable/entry/start.f654c445.js"),
+						import("../_app/immutable/entry/app.2c273978.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

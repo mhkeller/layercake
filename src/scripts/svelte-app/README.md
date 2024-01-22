@@ -1,6 +1,6 @@
 # Layer Cake Example
 
-This is a starter example for using [Layer Cake](https://layercake.graphics). It sets you up with the line and area chart as seen [in the examples](https://layercake.graphics/example/Line).
+This is a starter example for using [Layer Cake](https://layercake.graphics). It sets you up with the line and area chart as seen [in the examples](https://layercake.graphics/example/Line). It uses [SvelteKit](https://kit.svelte.dev/docs/) and so the file structure and file naming conventions come from there.
 
 To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
 

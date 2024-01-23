@@ -32,7 +32,7 @@ export async function GET({ params }) {
 	const componentPath = `src/_components/${slug}`;
 
 	if (!existsSync(componentPath)) {
-		throw error(404, `Not found: ${slug}`);
+		error(404, `Not found: ${slug}`);
 	}
 
 	const component = readFileSync(componentPath, 'utf-8');

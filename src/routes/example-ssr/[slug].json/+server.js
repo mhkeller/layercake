@@ -58,7 +58,7 @@ export async function GET({ params }) {
 	const examplePath = `src/routes/_examples_ssr/${slug}.svelte`;
 
 	if (!fs.existsSync(examplePath)) {
-		throw error(404, `Not found: ${slug}`);
+		error(404, `Not found: ${slug}`);
 	}
 
 	const example = fs.readFileSync(examplePath, 'utf-8');

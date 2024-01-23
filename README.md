@@ -13,7 +13,7 @@ Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.grap
 
 ## Svelte versions
 
-Works Svelte 3 and Svelte 4
+Requires Svelte 4 and SvelteKit 2
 
 ## Install
 

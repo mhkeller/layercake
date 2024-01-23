@@ -86,7 +86,7 @@
 		"dist"
 	],
 	"peerDependencies": {
-		"svelte": "3 - 4",
+		"svelte": "4",
 		"typescript": "^5.0.2"
 	},
 	"svelte": "./dist/index.js"

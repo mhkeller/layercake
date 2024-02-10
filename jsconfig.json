@@ -22,29 +22,18 @@
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"baseUrl": ".",
 		"allowJs": true,
 		"checkJs": true,
-		"strict": true,
-		"paths": {
-			"$lib": [
-				"src/lib"
-			],
-			"$lib/*": [
-				"src/lib/*"
-			],
-			"layercake": ["src/lib/index.js"],
-			"layercake/*": ["src/lib/*"]
-		}
+		"strict": true
 	},
 	"include": [
-		"src/**/*.d.ts",
-		"src/**/*.js",
-		"src/**/*.ts",
-		"src/**/*.svelte"
+		"./src/**/*.d.ts",
+		"./src/**/*.js",
+		"./src/**/*.ts",
+		"./src/**/*.svelte"
 	],
 	"exclude": [
-		"src/_data/*",
-		"src/scripts/**/*"
+		"./src/_data/*",
+		"./src/scripts/**/*"
 	]
 }

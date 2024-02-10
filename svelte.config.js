@@ -17,6 +17,13 @@ const config = {
 			// fallback: null,
 		}),
 
+		alias: {
+			"$lib": "./src/lib",
+			"$lib/*":"./src/lib/*",
+			"layercake": "./src/lib/index.js",
+			"layercake/*": "./src/lib/*"
+		}
+
   	// 	optimizeDeps: {
   	// 	  include: [
 		// 			'd3-scale',

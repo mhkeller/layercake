@@ -64,7 +64,7 @@
 		x={xKey}
 		y={yKey}
 		xDomain={thresholds}
-		xScale={scaleBand().paddingInner([0])}
+		xScale={scaleBand().paddingInner(0)}
 		yDomain={[0, null]}
 		data={binnedData}
 	>

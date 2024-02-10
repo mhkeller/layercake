@@ -39,7 +39,7 @@
 		padding={{ left: 10, right: 10 }}
 		x={xKey}
 		y={yKey}
-		yScale={scaleBand().paddingInner([0.05]).round(true)}
+		yScale={scaleBand().paddingInner(0.05).round(true)}
 		yDomain={['2016', '2017', '2018', '2019']}
 		zScale={scaleOrdinal()}
 		zDomain={xKey}

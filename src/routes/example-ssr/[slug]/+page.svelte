@@ -13,7 +13,7 @@
 
 	const md = new MarkdownIt({
 		html: true,
-		linkfify: true
+		linkify: true
 	});
 
 	export let data
@@ -135,6 +135,10 @@
 
 	.dek :global(p a:hover) {
 		text-decoration: underline;
+	}
+
+	.dek :global(pre code) {
+		display: block;
 	}
 
 	#contents-container {

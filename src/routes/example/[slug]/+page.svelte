@@ -10,7 +10,7 @@
 
 	const md = new MarkdownIt({
 		html: true,
-		linkfify: true
+		linkify: true
 	});
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
@@ -102,6 +102,10 @@
 
 	.dek :global(p a:hover) {
 		text-decoration: underline;
+	}
+
+	.dek :global(pre code) {
+		display: block;
 	}
 
 	#pages {

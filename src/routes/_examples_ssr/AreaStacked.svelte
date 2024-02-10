@@ -2,7 +2,7 @@
 	import { LayerCake, ScaledSvg, Html, flatten } from 'layercake';
 	import { stack } from 'd3-shape';
 	import { scaleOrdinal } from 'd3-scale';
-	import { format, precisionFixed } from 'd3-format';
+	import { format } from 'd3-format';
 	import { timeParse, timeFormat } from 'd3-time-format';
 
 	import AxisX from '../../_components/AxisX.html.svelte';
@@ -37,7 +37,7 @@
 	const series = stackData(data);
 
 	const formatTickX = timeFormat('%b. %-d')
-	const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
+	const formatTickY = d => format(`~s`)(d);
 </script>
 
 <style>

@@ -38,6 +38,20 @@ const tests = [
 	},
 	{
 		args: [
+			[{ mx: 0, my: '1' }, { mx: 1, my: '0' }, { mx: 2, my: '2' }, { mx: 3, my: '3' }],
+			{ x: d => d.mx, y: d => d.my },
+			{ x: scaleSqrt(), y: scalePoint() }
+		], expected: { x: [0, 3], y: ['0', '1', '2', '3'] }
+	},
+	{
+		args: [
+			[{ mx: 0, my: '1' }, { mx: 1, my: '0' }, { mx: 2, my: '2' }, { mx: 3, my: '3' }],
+			{ x: d => d.mx, y: d => d.my },
+			{ x: scaleSqrt(), y: scalePoint() }
+		], expected: { x: [0, 3], y: ['0', '1', '2', '3'] }
+	},
+	{
+		args: [
 			[{ mx: 0, my: '0' }, { mx: 1, my: '1' }, { mx: 2, my: '2' }, { mx: 3, my: '3' }],
 			{ x: d => d.mx, y: d => d.my },
 			{ x: scaleLog(), y: scaleOrdinal() }

@@ -3,7 +3,7 @@
 
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
-	import { format, precisionFixed } from 'd3-format';
+	import { format } from 'd3-format';
 
 	import MultiLine from '../../_components/MultiLine.svelte';
 	import AxisX from '../../_components/AxisX.svelte';
@@ -40,7 +40,7 @@
 	});
 
 	const formatTickX = timeFormat('%b. %e');
-	const formatTickY = d => format(`.${precisionFixed(d)}s`)(d);
+	const formatTickY = d => format(`~s`)(d);
 
 	const groupedData = groupLonger(data, seriesNames, {
 		groupTo: zKey,

@@ -10,13 +10,13 @@
 
 	const md = new MarkdownIt({
 		html: true,
-		linkfify: true
+		linkify: true
 	});
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	/** @type {import('./$types').PageData */
+	/** @type {import('./$types').PageData} */
 	export let data;
 	let {slug, content, active} = data;
 	$: ({slug, content, active} = data);

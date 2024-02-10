@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * marked - a markdown parser
  * Copyright (c) 2011-2021, Christopher Jeffrey. (MIT Licensed)

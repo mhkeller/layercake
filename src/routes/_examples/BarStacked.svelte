@@ -2,7 +2,7 @@
 	import { LayerCake, Svg, flatten, stack } from 'layercake';
 
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
-	import { format, precisionFixed } from 'd3-format';
+	import { format } from 'd3-format';
 
 	import BarStacked from '../../_components/BarStacked.svelte';
 	import AxisX from '../../_components/AxisX.svelte';
@@ -27,7 +27,7 @@
 		});
 	});
 
-	const formatTickX = d => format(`.${precisionFixed(d)}s`)(d);
+	const formatTickX = d => format(`~s`)(d);
 
 	const stackedData = stack(data, seriesNames);
 </script>
@@ -51,7 +51,7 @@
 		x={xKey}
 		y={d => d.data[yKey]}
 		z={zKey}
-		yScale={scaleBand().paddingInner([0.05])}
+		yScale={scaleBand().paddingInner(0.05)}
 		zScale={scaleOrdinal()}
 		zDomain={seriesNames}
 		zRange={seriesColors}

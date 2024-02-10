@@ -8,6 +8,6 @@ export async function load({ fetch }) {
 	if (res.status === 200) {
 		return {sections: data};
 	} else {
-		throw error(500, `Could not load.`);
+		error(500, `Could not load.`);
 	}
 }

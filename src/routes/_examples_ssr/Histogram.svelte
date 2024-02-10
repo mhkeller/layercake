@@ -65,7 +65,7 @@
 		x={xKey}
 		y={yKey}
 		xDomain={steps}
-		xScale={scaleBand().paddingInner([0])}
+		xScale={scaleBand().paddingInner(0)}
 		yDomain={[0, null]}
 		data={hist(data)}
 	>

@@ -1,13 +1,40 @@
 Changelog
 ===
 
+# 8.0.2
+
+> 2023-10-14
+
+Corrects the change in 8.0.0 for sorting a domain by adding a comparator function to better sort strings and dates. Also fixes an oversight where domains that were dates would not be calculated uniquely. Also some security upgrades. [Closes #151](https://github.com/mhkeller/layercake/issues/151)
+
+* [PR#149](https://github.com/mhkeller/layercake/pull/149)
+* [PR#151](https://github.com/mhkeller/layercake/pull/151)
+
+Note: Due to a publishing error, there is no 8.0.1
+
+# 8.0.0
+
+> 2023-09-19
+
+When calculating uniques for an ordinal scale's domain, sort the list. This will help in case your input data changes order, in which case your colors may be off (if using that dimension for a color scale). This is technically a breaking change although it may not actually affect any live charts.
+
+* [PR#142](https://github.com/mhkeller/layercake/pull/142)
+
+# 7.6.1
+
+> 2023-07-19
+
+Fixes JSDoc types to allow for `null` values in the `xDomain`, `yDomain` etc. props. Thanks [@rgieseke](https://github.com/rgieseke)!
+
+* [PR#141](https://github.com/mhkeller/layercake/pull/141)
+
 # 7.6.0
 
 > 2023-06-27
 
 Upgrade to Svelte 4.0. Set version 3 and 4 as a peer dep.
 
-* [PR#147](https://github.com/mhkeller/layercake/pull/147)
+* [PR#137](https://github.com/mhkeller/layercake/pull/137)
 
 # 7.5.0
 

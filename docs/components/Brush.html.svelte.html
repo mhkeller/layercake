@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.5ea13d95.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.02692d5d.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.f4687004.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.0ff78765.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.c2cf8273.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.6b7979cc.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.98e400d5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.91af2413.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.c28c7af1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.8f2ca6db.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.fb4690b2.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.a6dd37c3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d5f7eeba.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.297935a8.js">
@@ -219,7 +219,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Brush.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Brush.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Adds a brush component to create a range between 0 and 1. Bind to the `min` and `max` props to use them in other components. See the [brushable example](https://layercake.graphcics/example/Brush) for use.\\n -->\\n\u003Cscript>\\n  import { clamp } from 'yootils';\\n\\n  /** @type {Number} min - The brush's min value. Useful to bind to. */\\n  export let min;\\n\\n  /** @type {Number} max - The brush's max value. Useful to bind to. */\\n  export let max;\\n\\n  let brush;\\n\\n  const p = x => {\\n    const { left, right } = brush.getBoundingClientRect();\\n    return clamp((x - left) / (right - left), 0, 1);\\n  };\\n\\n  const handler = fn => {\\n    return e => {\\n      if (e.type === 'touchstart') {\\n        if (e.touches.length !== 1) return;\\n        e = e.touches[0];\\n      }\\n\\n      const id = e.identifier;\\n      const start = { min, max, p: p(e.clientX) };\\n\\n      const handle_move = e => {\\n        if (e.type === 'touchmove') {\\n          if (e.changedTouches.length !== 1) return;\\n          e = e.changedTouches[0];\\n          if (e.identifier !== id) return;\\n        }\\n\\n        fn(start, p(e.clientX));\\n      };\\n\\n      const handle_end = e => {\\n        if (e.type === 'touchend') {\\n          if (e.changedTouches.length !== 1) return;\\n          if (e.changedTouches[0].identifier !== id) return;\\n        } else if (e.target === brush) {\\n          clear();\\n        }\\n\\n        window.removeEventListener('mousemove', handle_move);\\n        window.removeEventListener('mouseup', handle_end);\\n\\n        window.removeEventListener('touchmove', handle_move);\\n        window.removeEventListener('touchend', handle_end);\\n      };\\n\\n      window.addEventListener('mousemove', handle_move);\\n      window.addEventListener('mouseup', handle_end);\\n\\n      window.addEventListener('touchmove', handle_move);\\n      window.addEventListener('touchend', handle_end);\\n    };\\n  };\\n\\n  const clear = () => {\\n    min = null;\\n    max = null;\\n  }\\n\\n  const reset = handler((start, p) => {\\n    min = clamp(Math.min(start.p, p), 0, 1);\\n    max = clamp(Math.max(start.p, p), 0, 1);\\n  });\\n\\n  const move = handler((start, p) => {\\n    const d = clamp(p - start.p, -start.min, 1 - start.max);\\n    min = start.min + d;\\n    max = start.max + d;\\n  });\\n\\n  const adjust_min = handler((start, p) => {\\n    min = p > start.max ? start.max : p;\\n    max = p > start.max ? p : start.max;\\n  });\\n\\n  const adjust_max = handler((start, p) => {\\n    min = p \u003C start.min ? p : start.min;\\n    max = p \u003C start.min ? start.min : p;\\n  });\\n\\n  $: left = 100 * min;\\n  $: right = 100 * (1 - max);\\n\u003C/script>\\n\\n\u003Cdiv bind:this={brush} class=\\\"brush-outer\\\" on:mousedown|stopPropagation={reset} on:touchstart|stopPropagation={reset}>\\n  {#if min !== null}\\n    \u003Cdiv class=\\\"brush-inner\\\" on:mousedown|stopPropagation={move} on:touchstart|stopPropagation={move} style=\\\"left: {left}%; right: {right}%\\\">\u003C/div>\\n    \u003Cdiv class=\\\"brush-handle\\\" on:mousedown|stopPropagation={adjust_min} on:touchstart|stopPropagation={adjust_min} style=\\\"left: {left}%\\\">\u003C/div>\\n    \u003Cdiv class=\\\"brush-handle\\\" on:mousedown|stopPropagation={adjust_max} on:touchstart|stopPropagation={adjust_max} style=\\\"right: {right}%\\\">\u003C/div>\\n  {/if}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .brush-outer {\\n    position: relative;\\n    width: 100%;\\n    height: calc(100% + 5px);\\n    top: -5px;\\n  }\\n\\n  .brush-inner {\\n    position: absolute;\\n    height: 100%;\\n    cursor: move;\\n    /* mix-blend-mode: difference; */\\n    background-color: #cccccc90;\\n    /* border: 1px solid #000; */\\n  }\\n\\n  .brush-handle {\\n    position: absolute;\\n    width: 0;\\n    height: 100%;\\n    cursor: ew-resize;\\n  }\\n\\n  .brush-handle::before {\\n    position: absolute;\\n    content: '';\\n    width: 8px;\\n    left: -4px;\\n    height: 100%;\\n    background: transparent;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Brush\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Brush\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The brush's min value. Useful to bind to.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Number\"},\"name\":\"min\"},{\"title\":\"param\",\"description\":\"The brush's max value. Useful to bind to.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Number\"},\"name\":\"max\"}]},\"componentDescription\":\"Adds a brush component to create a range between 0 and 1. Bind to the `min` and `max` props to use them in other components. See the [brushable example](https://layercake.graphcics/example/Brush) for use.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_ln0tei = {
+					__sveltekit_1y1aj7d = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -229,8 +229,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.5ea13d95.js"),
-						import("../_app/immutable/entry/app.6b7979cc.js")
+						import("../_app/immutable/entry/start.02692d5d.js"),
+						import("../_app/immutable/entry/app.98e400d5.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

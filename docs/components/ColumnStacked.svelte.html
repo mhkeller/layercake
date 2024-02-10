@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.5ea13d95.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.02692d5d.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.f4687004.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.0ff78765.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.c2cf8273.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.6b7979cc.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.98e400d5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.91af2413.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.c28c7af1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.8f2ca6db.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.fb4690b2.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.a6dd37c3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d5f7eeba.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.297935a8.js">
@@ -88,7 +88,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/ColumnStacked.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"ColumnStacked.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG column chart. It uses the z-scale for color assignments and aassumes both `xScale` and `zScale` are ordinal scales.  It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, zGet, xScale } = getContext('LayerCake');\\n\u003C/script>\\n\\n\u003Cg class=\\\"column-group\\\">\\n  {#each $data as series, i}\\n    {#each series as d}\\n      {@const yVals = $yGet(d)}\\n      {@const columnHeight = yVals[0] - yVals[1]}\\n      \u003Crect\\n        class='group-rect'\\n        data-id=\\\"{i}\\\"\\n        x=\\\"{$xGet(d)}\\\"\\n        y=\\\"{yVals[1]}\\\"\\n        width={$xScale.bandwidth()}\\n        height=\\\"{columnHeight}\\\"\\n        fill={$zGet(series)}\\n      >\u003C/rect>\\n    {/each}\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/ColumnStacked\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/ColumnStacked\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[]},\"componentDescription\":\"Generates an SVG column chart. It uses the z-scale for color assignments and aassumes both `xScale` and `zScale` are ordinal scales.  It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_ln0tei = {
+					__sveltekit_1y1aj7d = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -98,8 +98,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.5ea13d95.js"),
-						import("../_app/immutable/entry/app.6b7979cc.js")
+						import("../_app/immutable/entry/start.02692d5d.js"),
+						import("../_app/immutable/entry/app.98e400d5.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.5e8f225d.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.5ea13d95.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.1d050b2c.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.f4687004.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.c2cf8273.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.68ce7255.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.6b7979cc.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.d3a180a9.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.91af2413.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.8f2ca6db.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.edc8e944.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.fb4690b2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d5f7eeba.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.297935a8.js">
@@ -157,7 +157,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/AxisRadial.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"AxisRadial.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG radial scale, useful for radar charts.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { width, height, xScale, extents, config } = getContext('LayerCake');\\n\\n  /** @type {Number} [lineLengthFactor=1.1] - How far to extend the lines from the circle's center. A value of `1` puts them at the circle's circumference. */\\n  export let lineLengthFactor = 1.1;\\n\\n  /** @type {Number} [labelPlacementFactor=1.25] - How far to place the labels from the circle's center. A value of `1` puts them at the circle's circumference. */\\n  export let labelPlacementFactor = 1.25;\\n\\n  $: max = $xScale(Math.max(...$extents.x));\\n\\n  $: lineLength = max * lineLengthFactor;\\n  $: labelPlacement = max * labelPlacementFactor;\\n\\n  $: angleSlice = (Math.PI * 2) / $config.x.length;\\n\\n  function anchor (total, i) {\\n    if (i === 0 || i === total / 2) {\\n      return 'middle';\\n    } else if (i \u003C total / 2) {\\n      return 'start';\\n    }\\n    return 'end';\\n  }\\n\u003C/script>\\n\\n\u003Cg\\n  transform=\\\"translate({ $width / 2 }, { $height / 2 })\\\"\\n>\\n  \u003Ccircle\\n    cx=\\\"0\\\"\\n    cy=\\\"0\\\"\\n    r=\\\"{max}\\\"\\n    stroke=\\\"#ccc\\\"\\n    stroke-width=\\\"1\\\"\\n    fill=\\\"#CDCDCD\\\"\\n    fill-opacity=\\\"0.1\\\"\\n  >\u003C/circle>\\n  \u003Ccircle\\n    cx=\\\"0\\\"\\n    cy=\\\"0\\\"\\n    r=\\\"{max / 2}\\\"\\n    stroke=\\\"#ccc\\\"\\n    stroke-width=\\\"1\\\"\\n    fill=\\\"none\\\"\\n  >\u003C/circle>\\n\\n  {#each $config.x as label, i}\\n    {@const thisAngleSlice = angleSlice * i - Math.PI / 2}\\n    \u003Cline\\n      x1=\\\"0\\\"\\n      y1=\\\"0\\\"\\n      x2=\\\"{lineLength * Math.cos(thisAngleSlice)}\\\"\\n      y2=\\\"{lineLength * Math.sin(thisAngleSlice)}\\\"\\n      stroke=\\\"#ccc\\\"\\n      stroke-width=\\\"1\\\"\\n      fill=\\\"none\\\"\\n    >\\n    \u003C/line>\\n    \u003Ctext\\n      text-anchor=\\\"{anchor($config.x.length, i)}\\\"\\n      dy=\\\"0.35em\\\"\\n      font-size=\\\"12px\\\"\\n      transform=\\\"translate({(labelPlacement) * Math.cos(thisAngleSlice)}, {labelPlacement * Math.sin(thisAngleSlice)})\\\">{label}\u003C/text>\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Radar\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"How far to extend the lines from the circle's center. A value of `1` puts them at the circle's circumference.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"lineLengthFactor\",\"default\":\"1.1\"},{\"title\":\"param\",\"description\":\"How far to place the labels from the circle's center. A value of `1` puts them at the circle's circumference.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"labelPlacementFactor\",\"default\":\"1.25\"}]},\"componentDescription\":\"Generates an SVG radial scale, useful for radar charts.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_myisn3 = {
+					__sveltekit_ln0tei = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -167,8 +167,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.5e8f225d.js"),
-						import("../_app/immutable/entry/app.68ce7255.js")
+						import("../_app/immutable/entry/start.5ea13d95.js"),
+						import("../_app/immutable/entry/app.6b7979cc.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

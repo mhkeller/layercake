@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.5e8f225d.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.5ea13d95.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.1d050b2c.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.f4687004.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.c2cf8273.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.68ce7255.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.6b7979cc.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.d3a180a9.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.91af2413.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.8f2ca6db.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.edc8e944.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.fb4690b2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d5f7eeba.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.297935a8.js">
@@ -100,7 +100,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/GroupLabels.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"GroupLabels.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates HTML text labels for a nested data structure. It places the label near the y-value of the highest x-valued data point. This is useful for labeling the final point in a multi-series line chart, for example. It expects your data to be an array of objects where each has `values` field that is an array of data objects. It uses the `z` field accessor to pull the text label.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { max } from 'd3-array';\\n\\n  const { data, x, y, xScale, yScale, xRange, yRange, z } = getContext('LayerCake');\\n\\n  /* --------------------------------------------\\n   * Title case the first letter\\n   */\\n  const cap = val => val.replace(/^\\\\w/, d => d.toUpperCase());\\n\\n  /* --------------------------------------------\\n   * Put the label on the highest value\\n   */\\n  $: left = values => $xScale(max(values, $x)) /  Math.max(...$xRange);\\n  $: top = values => $yScale(max(values, $y)) / Math.max(...$yRange);\\n\u003C/script>\\n\\n{#each $data as group}\\n  \u003Cdiv\\n    class=\\\"label\\\"\\n    style=\\\"\\n      top:{top(group.values) * 100}%;\\n      left:{left(group.values) * 100}%;\\n    \\\"\\n  >{cap($z(group))}\u003C/div>\\n{/each}\\n\\n\u003Cstyle>\\n  .label {\\n    position: absolute;\\n    transform: translate(-100%, -100%)translateY(1px);\\n    font-size: 13px;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/MultiLine\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/MultiLine\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[]},\"componentDescription\":\"Generates HTML text labels for a nested data structure. It places the label near the y-value of the highest x-valued data point. This is useful for labeling the final point in a multi-series line chart, for example. It expects your data to be an array of objects where each has `values` field that is an array of data objects. It uses the `z` field accessor to pull the text label.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_myisn3 = {
+					__sveltekit_ln0tei = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -110,8 +110,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.5e8f225d.js"),
-						import("../_app/immutable/entry/app.68ce7255.js")
+						import("../_app/immutable/entry/start.5ea13d95.js"),
+						import("../_app/immutable/entry/app.6b7979cc.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

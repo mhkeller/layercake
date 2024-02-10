@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.5e8f225d.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.5ea13d95.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.1d050b2c.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.f4687004.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.c2cf8273.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.68ce7255.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.6b7979cc.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.d3a180a9.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.91af2413.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.8f2ca6db.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.edc8e944.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.fb4690b2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d5f7eeba.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.297935a8.js">
@@ -173,7 +173,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/QuadTree.percent-range.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"QuadTree.percent-range.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Creates an interaction layer (in HTML) using [d3-quadtree](https://github.com/d3/d3-quadtree) to find the nearest datapoint to the mouse. This component creates a slot that exposes variables `x`, `y`, `found` (the found datapoint), `visible` (a Boolean whether any data was found) and `e` (the event object). This component works with a percent range so the `x` and `y` values coming back will be percentages.\\n\\n  The quadtree searches across both the x and y dimensions at the same time. But if you want to only search across one, set the `x` and `y` props to the same value. For example, the [shared tooltip component](https://layercake.graphics/components/SharedTooltip.html.svelte) sets `y='x'` since it's nicer behavior to only pick up on the nearest x-value.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { quadtree } from 'd3-quadtree';\\n\\n  const { data, xGet, yGet, width, height } = getContext('LayerCake');\\n\\n  let visible = false;\\n  let found = {};\\n  let e = {};\\n\\n  /** @type {String} [x='x'] - The dimension to search across when moving the mouse left and right. */\\n  export let x = 'x';\\n\\n  /** @type {String} [y='y'] - The dimension to search across when moving the mouse up and down. */\\n  export let y = 'y';\\n\\n  /** @type {String} [searchRadius] - The number of pixels to search around the mouse's location. This is the third argument passed to [`quadtree.find`](https://github.com/d3/d3-quadtree#quadtree_find) and by default a value of `undefined` means an unlimited range. */\\n  export let searchRadius = undefined;\\n\\n  /** @type {Array} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */\\n  export let dataset = undefined;\\n\\n  $: xGetter = x === 'x' ? $xGet : $yGet;\\n  $: yGetter = y === 'y' ? $yGet : $xGet;\\n\\n  function findItem (evt) {\\n    e = evt;\\n\\n    const xLayerKey = `layer${x.toUpperCase()}`;\\n    const yLayerKey = `layer${y.toUpperCase()}`;\\n\\n    const xLayerVal = (evt[xLayerKey] / (x === 'x' ? $width : $height)) * 100;\\n    const yLayerVal = (evt[yLayerKey] / (y === 'y' ? $height : $width)) * 100;\\n\\n    found = finder.find(xLayerVal, yLayerVal, searchRadius) || {};\\n\\n    visible = Object.keys(found).length > 0;\\n  }\\n\\n  $: finder = quadtree()\\n    .extent([[-1, -1], [$width + 1, $height + 1]])\\n    .x(xGetter)\\n    .y(yGetter)\\n    .addAll(dataset || $data);\\n\u003C/script>\\n\\n\u003Cstyle>\\n  .bg {\\n    position: absolute;\\n    top: 0;\\n    right: 0;\\n    bottom: 0;\\n    left: 0;\\n  }\\n\u003C/style>\\n\\n\u003Cdiv\\n  class=\\\"bg\\\"\\n  on:mousemove=\\\"{findItem}\\\"\\n  on:mouseout=\\\"{() => visible = false}\\\"\\n  on:blur=\\\"{() => visible = false}\\\"\\n>\u003C/div>\\n\u003Cslot\\n  x={xGetter(found) || 0}\\n  y={yGetter(found) || 0}\\n  {found}\\n  {visible}\\n  {e}\\n>\u003C/slot>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The dimension to search across when moving the mouse left and right.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"x\",\"default\":\"'x'\"},{\"title\":\"param\",\"description\":\"The dimension to search across when moving the mouse up and down.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"y\",\"default\":\"'y'\"},{\"title\":\"param\",\"description\":\"The number of pixels to search around the mouse's location. This is the third argument passed to [`quadtree.find`](https://github.com/d3/d3-quadtree#quadtree_find) and by default a value of `undefined` means an unlimited range.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"searchRadius\"},{\"title\":\"param\",\"description\":\"The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Array\"}},\"name\":\"dataset\"}]},\"componentDescription\":\"Creates an interaction layer (in HTML) using [d3-quadtree](https://github.com/d3/d3-quadtree) to find the nearest datapoint to the mouse. This component creates a slot that exposes variables `x`, `y`, `found` (the found datapoint), `visible` (a Boolean whether any data was found) and `e` (the event object). This component works with a percent range so the `x` and `y` values coming back will be percentages.\\n\\n  The quadtree searches across both the x and y dimensions at the same time. But if you want to only search across one, set the `x` and `y` props to the same value. For example, the [shared tooltip component](https://layercake.graphics/components/SharedTooltip.html.svelte) sets `y='x'` since it's nicer behavior to only pick up on the nearest x-value.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_myisn3 = {
+					__sveltekit_ln0tei = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -183,8 +183,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.5e8f225d.js"),
-						import("../_app/immutable/entry/app.68ce7255.js")
+						import("../_app/immutable/entry/start.5ea13d95.js"),
+						import("../_app/immutable/entry/app.6b7979cc.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

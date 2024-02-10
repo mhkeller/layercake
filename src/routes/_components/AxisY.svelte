@@ -27,15 +27,20 @@
 		expand to fill it.
 	*/
 	.chart-container {
-		width: calc(100% - 20px);
+		width: calc(100% - 40px);
 		height: 200px;
 	}
 	.props {
+		margin-top: 5px;
+		height: 25px;
 		display: flex;
 		flex-direction: row;
 		user-select: none;
-		cursor: pointer;
 		gap: 20px;
+	}
+	label {
+		display: flex;
+		cursor: pointer;
 	}
 </style>
 
@@ -47,15 +52,13 @@
 	</select>
 
 	<label>
-		<input type="checkbox" bind:checked={tickMarks}/>
-		tickMarks
+		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 	</label>
 
-	<select bind:value={tickMarkWidth}>
+	<select bind:value={tickMarkWidth} disabled={!tickMarks}>
 		<option disabled>tickMarkWidth</option>
 		<option value="long">long</option>
 		<option value="short">short</option>
-		<option value="10">10 (or any number value)</option>
 	</select>
 
 </div>

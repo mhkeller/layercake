@@ -49,15 +49,15 @@
 	}
 
 	const tickLenBase = 3;
-	$: widestTickLen = Math.min(-10, -1 * Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
+	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
 
-	$: x1 = (widestTickLen - tickGutter) - (labelPosition === 'even' ? widestTickLen : 0);
+	$: x1 = (-widestTickLen - tickGutter) + (labelPosition === 'even' ? widestTickLen : 0);
 	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
 </script>
 
 <g class='axis y-axis'>
 	{#each tickVals as tick (tick)}
-		<g class='tick tick-{tick}' transform='translate({$xRange[0]}, {$yScale(tick) - 1})'>
+		<g class='tick tick-{tick}' transform='translate({$xRange[0]}, {$yScale(tick)})'>
 			{#if tickMarks === true && tickMarkLength === 'long'}
 				<line
 					class="gridline"
@@ -70,13 +70,13 @@
 				<line
 					class='tick-mark'
 					{x1}
-					x2='{typeof tickMarkLength === 'number' ? x1 + tickMarkLength : (isBandwidth || labelPosition === 'even') ? -tickGutter - tickLenBase : -tickGutter}'
+					x2='{typeof tickMarkLength === 'number' ? x1 + tickMarkLength : -tickGutter - (labelPosition === 'even' ?  tickLenBase : 0)}'
 					y1={y}
 					y2={y}
 				></line>
 			{/if}
 			<text
-				x='{widestTickLen - tickGutter}'
+				x='{-widestTickLen - tickGutter}'
 				{y}
 				{dx}
 				dy='{dy + (labelPosition === 'even' ? 4 : -3)}'

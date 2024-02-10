@@ -2,37 +2,37 @@
 	@component
 	Generates an SVG y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
-<script>
+ <script>
 	import { getContext } from 'svelte';
 
 	const { padding, xRange, yScale, width } = getContext('LayerCake');
 
-	/** @type {Boolean} [gridlines=true] - Extend lines from the ticks into the chart space */
-	export let gridlines = true;
+	/** @type {Boolean} [tickMarks=true] - Show marks next to the tick label. */
+	export let tickMarks = true;
 
-	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
-	export let tickMarks = false;
+	/** @type {String} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above') the label. Default is 'above'. */
+	export let labelPosition = 'above';
 
-	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = d => d;
+	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
+	export let tickMarkLength = 'long';
+
+	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
+	export let format = d => d ;
 
 	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
 	export let ticks = 4;
 
-	/** @type {Number} [xTick=0] - How far over to position the text marker. */
-	export let xTick = 0;
+	/** @type {Number} [tickGutter=5] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
+	export let tickGutter = 5;
 
-	/** @type {Number} [yTick=0] - How far up and down to position the text marker. */
-	export let yTick = 0;
+	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
+	export let dx = 0;
 
-	/** @type {Number} [dxTick=0] - Any optional value passed to the `dx` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal. */
-	export let dxTick = 0;
+	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
+	export let dy = 0;
 
-	/** @type {Number} [dyTick=-4] - Any optional value passed to the `dy` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal. */
-	export let dyTick = -4;
-
-	/** @type {String} [textAnchor='end'] The CSS `text-anchor` passed to the label. This is automatically set to "end" if the scale has a bandwidth method, like in ordinal scales. */
-	export let textAnchor = 'end';
+	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
+	export let charPixelWidth = 7.25;
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
 
@@ -42,43 +42,57 @@
 			typeof ticks === 'function' ?
 				ticks($yScale.ticks()) :
 					$yScale.ticks(ticks);
+
+	function calcStringLength(sum, val) {
+		if (val === ',') return sum + charPixelWidth * 0.75;
+		return sum + charPixelWidth;
+	}
+
+	$: tickLen = typeof tickMarkLength === 'number'
+		? tickMarkLength
+		: tickMarkLength === 'short'
+			? labelPosition === 'above' ? widestTickLen : 3
+			: 0;
+
+	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
+
+	$: x2 = $width + tickGutter + (labelPosition === 'above' ? widestTickLen : 0);
+	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
 </script>
 
-<g class='axis y-axis' transform='translate({-$padding.left}, 0)'>
+<g class='axis y-axis'>
 	{#each tickVals as tick (tick)}
-		<g class='tick tick-{tick}' transform='translate({$xRange[1] + $padding.left + (isBandwidth ? $padding.right : 0)}, {$yScale(tick)})'>
-			{#if gridlines !== false}
+		<g class='tick tick-{tick}' transform='translate({$xRange[0]}, {$yScale(tick)})'>
+			{#if tickMarks === true && tickMarkLength === 'long'}
 				<line
 					class="gridline"
-					x2='-{$xRange[1]}'
-					y1={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
-					y2={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
+					x1="0"
+					{x2}
+					y1={y}
+					y2={y}
 				></line>
-			{/if}
-			{#if tickMarks === true}
+			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
 				<line
 					class='tick-mark'
-					x1='0'
-					x2='{isBandwidth ? -6 : 6}'
-					y1={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
-					y2={(isBandwidth ? ($yScale.bandwidth() / 2) : 0)}
+					x1="{$width + tickGutter}"
+					x2='{$width + tickGutter + tickLen}'
+					y1={y}
+					y2={y}
 				></line>
 			{/if}
 			<text
-				x='{xTick}'
-				y='{(isBandwidth ? ($yScale.bandwidth() / 2) + yTick : yTick)}'
-				dx='{isBandwidth ? -9 : dxTick}'
-				dy='{isBandwidth ? 4 : dyTick}'
-				style="text-anchor:{isBandwidth ? 'end' : textAnchor};"
-			>{formatTick(tick)}</text>
+				x='{$width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}'
+				{y}
+				{dx}
+				dy='{dy + (labelPosition === 'even' ? 4 : -3)}'
+			>{format(tick)}</text>
 		</g>
 	{/each}
 </g>
 
 <style>
 	.tick {
-		font-size: .725em;
-		font-weight: 200;
+		font-size: 11px;
 	}
 
 	.tick line {

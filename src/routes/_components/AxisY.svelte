@@ -64,7 +64,7 @@
 
 <div class="chart-container">
 	<LayerCake
-		padding={{ right: 10, bottom: 20, left: 10 }}
+		padding={{ right: 10, left: 10 }}
 		x={xKey}
 		y={yKey}
 		data={data}

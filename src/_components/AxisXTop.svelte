@@ -27,14 +27,11 @@
 	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
 	export let tickGutter = 0;
 
-	/** @type {Number} [labelOffset=-4] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
-	export let labelOffset = -4;
-
 	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
 	export let dx = 0;
 
-	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = 0;
+	/** @type {Number} [dy=-4] - Any optional value passed to the `dy` attribute on the text label. */
+	export let dy = -4;
 
 	function textAnchor(i, st) {
 		if (st === true) {
@@ -51,7 +48,7 @@
 	$: tickLen = typeof tickMarkLength === 'number'
 		? tickMarkLength
 		: tickMarkLength === 'short'
-			? -6
+			? 6
 			: 0;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
@@ -87,12 +84,12 @@
 					x1={halfBand}
 					x2={halfBand}
 					y1={tickGutter}
-					y2={tickGutter + (typeof tickMarkLength === 'number' ? tickMarkLength : tickLen)}
+					y2={tickGutter - tickLen}
 				/>
 			{/if}
 			<text
 				x={halfBand}
-				y={tickGutter + tickLen + labelOffset}
+				y={tickGutter - tickLen}
 				{dx}
 				{dy}
 				text-anchor={textAnchor(i, snapTicks)}>{format(tick)}</text

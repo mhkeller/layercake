@@ -2,6 +2,7 @@
 	import { LayerCake, Svg } from 'layercake';
 
 	import AxisYRight from '../../_components/AxisYRight.svelte';
+	import Line from '../../_components/Line.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/points.csv';
@@ -12,6 +13,10 @@
 	data.forEach(d => {
 		d[yKey] = +d[yKey];
 	});
+
+	let tickMarks = true;
+	let labelPosition = 'above';
+	let tickMarkLength = 'long';
 </script>
 
 <style>
@@ -23,21 +28,56 @@
 	*/
 	.chart-container {
 		width: 100%;
-		height: 250px;
+		height: 200px;
+	}
+	.props {
+		margin-top: 5px;
+		height: 25px;
+		display: flex;
+		flex-direction: row;
+		user-select: none;
+		gap: 10px;
+	}
+	label {
+		display: flex;
+		cursor: pointer;
 	}
 </style>
 
+<div class="props">
+	<select bind:value={labelPosition}>
+		<option disabled>labelPosition</option>
+		<option value="above">above</option>
+		<option value="even">even</option>
+	</select>
+
+	<label>
+		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
+	</label>
+
+	<select bind:value={tickMarkLength} disabled={!tickMarks}>
+		<option disabled>tickMarkLength</option>
+		<option value="long">long</option>
+		<option value="short">short</option>
+	</select>
+
+</div>
+
 <div class="chart-container">
 	<LayerCake
+		padding={{ right: 10, left: 10 }}
 		x={xKey}
 		y={yKey}
 		data={data}
-		padding={{left: 50, right: 100}}
 	>
 		<Svg>
 			<AxisYRight
+				{tickMarks}
+				{labelPosition}
+				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
 				ticks={4}
 			/>
+			<Line/>
 		</Svg>
 	</LayerCake>
 </div>

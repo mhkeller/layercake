@@ -24,17 +24,14 @@
 	/** @type {Number|Array|Function} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function. */
 	export let ticks = undefined;
 
-	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
+	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the yRange min). */
 	export let tickGutter = 0;
-
-	/** @type {Number} [labelOffset=12] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
-	export let labelOffset = 12;
 
 	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
 	export let dx = 0;
 
-	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = 0;
+	/** @type {Number} [dy=12] - Any optional value passed to the `dy` attribute on the text label. */
+	export let dy = 12;
 
 	function textAnchor(i, st) {
 		if (st === true) {
@@ -92,7 +89,7 @@
 			{/if}
 			<text
 				x={halfBand}
-				y={tickGutter + tickLen + labelOffset}
+				y={tickGutter + tickLen}
 				{dx}
 				{dy}
 				text-anchor={textAnchor(i, snapTicks)}>{format(tick)}</text

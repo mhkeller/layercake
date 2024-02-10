@@ -2,15 +2,15 @@
 	@component
 	Generates an SVG x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
-<script>
+ <script>
 	import { getContext } from 'svelte';
 	const { width, height, xScale, yRange } = getContext('LayerCake');
 
-	/** @type {Boolean} [gridlines=true] - Extend lines from the ticks into the chart space */
-	export let gridlines = true;
-
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
+
+	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
+	export let tickMarkLength = 'long';
 
 	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
@@ -19,16 +19,40 @@
 	export let snapTicks = false;
 
 	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = d => d;
+	export let format = d => d;
 
 	/** @type {Number|Array|Function} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function. */
 	export let ticks = undefined;
 
-	/** @type {Number} [xTick=0] - How far over to position the text marker. */
-	export let xTick = 0;
+	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
+	export let tickGutter = 0;
 
-	/** @type {Number} [yTick=10] - The distance from the baseline to place each tick value. */
-	export let yTick = -10;
+	/** @type {Number} [labelOffset=-4] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
+	export let labelOffset = -4;
+
+	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
+	export let dx = 0;
+
+	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
+	export let dy = 0;
+
+	function textAnchor(i, st) {
+		if (st === true) {
+			if (i === 0) {
+				return 'start';
+			}
+			if (i === tickVals.length - 1) {
+				return 'end';
+			}
+		}
+		return 'middle';
+	}
+
+	$: tickLen = typeof tickMarkLength === 'number'
+		? tickMarkLength
+		: tickMarkLength === 'short'
+			? -6
+			: 0;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 
@@ -39,52 +63,47 @@
 				ticks($xScale.ticks()) :
 					$xScale.ticks(ticks);
 
-	function textAnchor(i) {
-		if (snapTicks === true) {
-			if (i === 0) {
-				return 'start';
-			}
-			if (i === tickVals.length - 1) {
-				return 'end';
-			}
-		}
-		return 'middle';
-	}
+	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0
 </script>
 
 <g class="axis x-axis" class:snapTicks>
 	{#each tickVals as tick, i (tick)}
+		{#if baseline === true}
+			<line class="baseline" y1='0' y2='0' x1="0" x2={$width} />
+		{/if}
+
 		<g class="tick tick-{i}" transform="translate({$xScale(tick)},{Math.min(...$yRange)})">
-			{#if gridlines !== false}
-				<line class="gridline" y1={$height} y2="0" x1="0" x2="0" />
-			{/if}
-			{#if tickMarks === true}
+			{#if tickMarks === true && tickMarkLength === 'long'}
+				<line
+					class="gridline"
+					x1="0"
+					x2="0"
+					y1={$height}
+					y2="0"
+				/>
+			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
 				<line
 					class="tick-mark"
-					y1={-6}
-					y2={0}
-					x1={isBandwidth ? $xScale.bandwidth() / 2 : 0}
-					x2={isBandwidth ? $xScale.bandwidth() / 2 : 0}
+					x1={halfBand}
+					x2={halfBand}
+					y1={tickGutter}
+					y2={tickGutter + (typeof tickMarkLength === 'number' ? tickMarkLength : tickLen)}
 				/>
 			{/if}
 			<text
-				x={isBandwidth ? ($xScale.bandwidth() / 2 + xTick) : xTick}
-				y={yTick}
-				dx=""
-				dy=""
-				text-anchor={textAnchor(i)}>{formatTick(tick)}</text
+				x={halfBand}
+				y={tickGutter + tickLen + labelOffset}
+				{dx}
+				{dy}
+				text-anchor={textAnchor(i, snapTicks)}>{format(tick)}</text
 			>
 		</g>
 	{/each}
-	{#if baseline === true}
-		<line class="baseline" y1='0' y2='0' x1="0" x2={$width} />
-	{/if}
 </g>
 
 <style>
 	.tick {
-		font-size: 0.725em;
-		font-weight: 200;
+		font-size: 11px;
 	}
 
 	line,

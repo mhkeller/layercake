@@ -218,7 +218,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 5px;
-		overflow: hidden;
 	}
 
 	.block-container :global(.chart-container) {

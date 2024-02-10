@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.9d9c6c04.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.5e8f225d.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.76bd4204.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.1d050b2c.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.c2cf8273.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.71503da6.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.68ce7255.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.383f9163.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.d3a180a9.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.8f2ca6db.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.982313f0.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.edc8e944.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d5f7eeba.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.297935a8.js">
@@ -50,7 +50,7 @@
 		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.18de8bdc.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.cc1afbd5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.6546bb90.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/4.480b1cd4.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/4.9cf9ade2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.78931817.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/hljsDefineSvelte.be9c3964.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_components.f167354c.js"><title>Scatter.html.svelte component</title><!-- HEAD_svelte-1675z5z_START --><!-- HEAD_svelte-1675z5z_END -->
@@ -142,7 +142,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Scatter.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Scatter.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an HTML scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');\\n\\n  /** @type {Number} [r=5] - The circle's radius. */\\n  export let r = 5;\\n\\n  /** @type {String} [fill='#0cf'] - The circle's fill color. */\\n  export let fill = '#0cf';\\n\\n  /** @type {String} [stroke='#000'] - The circle's stroke color. */\\n  export let stroke = '#000';\\n\\n  /** @type {Number} [strokeWidth=1] - The circle's stroke width. */\\n  export let strokeWidth = 1;\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"scatter-group\\\">\\n  {#each $data as d}\\n    \u003Cdiv\\n      class=\\\"circle\\\"\\n      style=\\\"\\n        left: {$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}%;\\n        top: {$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}%;\\n        width: {r * 2}px;\\n        height: {r * 2}px;\\n        background-color: {fill};\\n        border: {strokeWidth}px solid {stroke};\\n      \\\"\\n    />\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .circle {\\n    position: absolute;\\n    transform: translate(-50%, -50%);\\n    border-radius: 50%;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Scatter\",\"/example-ssr/Timeplot\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The circle's radius.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"5\"},{\"title\":\"param\",\"description\":\"The circle's fill color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'#0cf'\"},{\"title\":\"param\",\"description\":\"The circle's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#000'\"},{\"title\":\"param\",\"description\":\"The circle's stroke width.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"1\"}]},\"componentDescription\":\"Generates an HTML scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1a0aa51 = {
+					__sveltekit_myisn3 = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -152,8 +152,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.9d9c6c04.js"),
-						import("../_app/immutable/entry/app.71503da6.js")
+						import("../_app/immutable/entry/start.5e8f225d.js"),
+						import("../_app/immutable/entry/app.68ce7255.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

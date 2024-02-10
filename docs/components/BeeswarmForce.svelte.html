@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.cce3ebed.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.9abfd804.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.0aebba1b.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.9d9c6c04.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.5e8f225d.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.101db06a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.76bd4204.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.1d050b2c.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.673e2a8b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.c2cf8273.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.71503da6.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.68ce7255.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.5bc76508.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.383f9163.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.d3a180a9.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.8f2ca6db.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.af0871f9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.982313f0.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.edc8e944.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.2804f685.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.d5f7eeba.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.297935a8.js">
@@ -50,7 +50,7 @@
 		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.18de8bdc.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.cc1afbd5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.6546bb90.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/4.480b1cd4.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/4.9cf9ade2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.78931817.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/hljsDefineSvelte.be9c3964.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_components.f167354c.js"><title>BeeswarmForce.svelte component</title><!-- HEAD_svelte-1675z5z_START --><!-- HEAD_svelte-1675z5z_END -->
@@ -171,7 +171,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/BeeswarmForce.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"BeeswarmForce.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';\\n\\n  const { data, xGet, height, zGet } = getContext('LayerCake');\\n\\n  const nodes = $data.map((d) => ({ ...d }));\\n\\n  /** @type {Number} [r=4] - The circle radius size in pixels. */\\n  export let r = 4;\\n\\n  /** @type {Number} [strokeWidth=1] - The circle's stroke width in pixels. */\\n  export let strokeWidth = 1;\\n\\n  /** @type {String} [stroke='#fff'] - The circle's stroke color. */\\n  export let stroke = '#fff';\\n\\n  /** @type {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength). */\\n  export let xStrength = 0.95;\\n\\n  /** @type {Number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`. See [the documentation](https://github.com/d3/d3-force#y_strength). */\\n  export let yStrength = 0.075;\\n\\n  /** @type {Function} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `\u003Ctitle>` tag. */\\n  export let getTitle = undefined;\\n\\n  $: simulation = forceSimulation(nodes)\\n    .force('x', forceX().x(d => $xGet(d)).strength(xStrength))\\n    .force('y', forceY().y($height / 2).strength(yStrength))\\n    .force('collide', forceCollide(r))\\n    .stop();\\n\\n  $: {\\n    for ( let i = 0,\\n      n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay()));\\n      i \u003C n;\\n      ++i ) {\\n      simulation.tick();\\n    }\\n  }\\n\u003C/script>\\n\\n\u003Cg class='bee-group'>\\n  {#each simulation.nodes() as node}\\n    \u003Ccircle\\n      fill='{$zGet(node)}'\\n      stroke='{stroke}'\\n      stroke-width='{strokeWidth}'\\n      cx='{node.x}'\\n      cy='{node.y}'\\n      r='{r}'\\n    >\\n      {#if getTitle}\\n        \u003Ctitle>{getTitle(node)}\u003C/title>\\n      {/if}\\n    \u003C/circle>\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/BeeswarmForce\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The circle radius size in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"4\"},{\"title\":\"param\",\"description\":\"The circle's stroke width in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"1\"},{\"title\":\"param\",\"description\":\"The circle's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#fff'\"},{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength).\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"xStrength\",\"default\":\"0.95\"},{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceY`. See [the documentation](https://github.com/d3/d3-force#y_strength).\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"yStrength\",\"default\":\"0.075\"},{\"title\":\"param\",\"description\":\"— An accessor function to get the field on the data element to display as a hover label using a `\u003Ctitle>` tag.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"getTitle\"}]},\"componentDescription\":\"Generates an SVG Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1a0aa51 = {
+					__sveltekit_myisn3 = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						env: {}
 					};
@@ -181,8 +181,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.9d9c6c04.js"),
-						import("../_app/immutable/entry/app.71503da6.js")
+						import("../_app/immutable/entry/start.5e8f225d.js"),
+						import("../_app/immutable/entry/app.68ce7255.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

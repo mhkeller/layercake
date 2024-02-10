@@ -32,23 +32,23 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.d4cTJbwW.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.nfVJSDK7.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.nTtgBwcr.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.2L79u5-U.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Iex9XhB_.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.gFoMMKL-.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.um-Vilx2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.P37s_KnH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Kwf8FJOX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.pJ1mnnAb.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.s7_iKj7K.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CtA4rf38.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.GooPGtyi.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.9fvuP2fv.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.UfJU99ct.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.oiCz_B55.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.zMdpk9aP.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.L7yvgybJ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.oIE_5171.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.ryhBIpq-.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.byCyltpH.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.fA4sVCBz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.YHBGkGt5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.0wOzoJ2Q.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.6q1_wRAi.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.pvvktwr8.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.--yLb8OQ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.gRpQl0aY.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/4.YMYfSkUl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.D177aSsN.js">
@@ -213,7 +213,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/SharedTooltip.percent-range.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"SharedTooltip.percent-range.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates a tooltip that works on multiseries datasets, like multiline charts. It creates a tooltip showing the name of the series and the current value. This version uses percentages so you can use it to render server-side. It finds the nearest data point using the [QuadTree.percent-range.html.svelte](https://layercake.graphics/components/QuadTree.percent-range.html.svelte) component.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { format } from 'd3-format';\\n\\n  import QuadTree from './QuadTree.percent-range.html.svelte';\\n\\n  const { data, width, yScale, config } = getContext('LayerCake');\\n\\n  const commas = format(',');\\n  const titleCase = d => d.replace(/^\\\\w/, w => w.toUpperCase());\\n\\n  /** @type {Function} [formatTitle=d => d] - A function to format the tooltip title, which is `$config.x`. */\\n  export let formatTitle = d => d;\\n\\n  /** @type {Function} [formatKey=d => titleCase(d)] - A function to format the series name. */\\n  export let formatKey = d => titleCase(d);\\n\\n  /** @type {Function} [formatValue=d => isNaN(+d) ? d : commas(d)] - A function to format the value. */\\n  export let formatValue = d => isNaN(+d) ? d : commas(d);\\n\\n  /** @type {Number} [offset=-20] - A y-offset from the hover point, in pixels. */\\n  export let offset = -20;\\n\\n  /** @type {Array} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */\\n  export let dataset = undefined;\\n\\n  const w = 150;\\n  const w2 = w / 2;\\n  let top = 0;\\n\\n  /* --------------------------------------------\\n   * Sort the keys by the highest value\\n   */\\n  function sortResult(result) {\\n    if (Object.keys(result).length === 0) return [];\\n    const rows = Object.keys(result).filter(d => d !== $config.x).map(key => {\\n      return {\\n        key,\\n        value: result[key]\\n      };\\n    }).sort((a, b) => b.value - a.value);\\n\\n    return rows;\\n  }\\n\u003C/script>\\n\\n\u003Cstyle>\\n  .tooltip {\\n    position: absolute;\\n    font-size: 13px;\\n    pointer-events: none;\\n    border: 1px solid #ccc;\\n    background: rgba(255, 255, 255, 0.85);\\n    transform: translate(-50%, -100%);\\n    padding: 5px;\\n    z-index: 15;\\n  }\\n  .line {\\n    position: absolute;\\n    top: 0;\\n    bottom: 0;\\n    width: 1px;\\n    border-left: 1px dotted #666;\\n    pointer-events: none;\\n  }\\n  .tooltip,\\n  .line {\\n    transition: left 250ms ease-out, top 250ms ease-out;\\n  }\\n  .title {\\n    font-weight: bold;\\n  }\\n  .key {\\n    color: #999;\\n  }\\n\u003C/style>\\n\\n\u003CQuadTree\\n  dataset={dataset || $data}\\n  y='x'\\n  let:x\\n  let:y\\n  let:visible\\n  let:found\\n  let:e\\n>\\n  {@const foundSorted = sortResult(found)}\\n  {#if visible === true}\\n    \u003Cdiv\\n      style=\\\"left:{(x / 100) * $width }px;\\\"\\n      class=\\\"line\\\">\u003C/div>\\n    \u003Cdiv\\n      class=\\\"tooltip\\\"\\n      style=\\\"\\n        width:{w}px;\\n        display: { visible ? 'block' : 'none' };\\n        top:calc({$yScale(foundSorted[0].value)}% + {offset}px);\\n        left:{Math.min(Math.max(w2, (x / 100) * $width), $width - w2)}px;\\\"\\n      >\\n        \u003Cdiv class=\\\"title\\\">{formatTitle(found[$config.x])}\u003C/div>\\n        {#each foundSorted as row}\\n          \u003Cdiv class=\\\"row\\\">\u003Cspan class=\\\"key\\\">{formatKey(row.key)}:\u003C/span> {formatValue(row.value)}\u003C/div>\\n        {/each}\\n    \u003C/div>\\n  {/if}\\n\u003C/QuadTree>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/MultiLine\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A function to format the tooltip title, which is `$config.x`.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"formatTitle\",\"default\":\"d=>d\"},{\"title\":\"param\",\"description\":\"A function to format the series name.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"formatKey\",\"default\":\"d=>titleCase(d)\"},{\"title\":\"param\",\"description\":\"A function to format the value.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"formatValue\",\"default\":\"d=>isNaN(+d)?d:commas(d)\"},{\"title\":\"param\",\"description\":\"A y-offset from the hover point, in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"offset\",\"default\":\"-20\"},{\"title\":\"param\",\"description\":\"The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Array\"}},\"name\":\"dataset\"}]},\"componentDescription\":\"Generates a tooltip that works on multiseries datasets, like multiline charts. It creates a tooltip showing the name of the series and the current value. This version uses percentages so you can use it to render server-side. It finds the nearest data point using the [QuadTree.percent-range.html.svelte](https://layercake.graphics/components/QuadTree.percent-range.html.svelte) component.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1yo3wkx = {
+					__sveltekit_1y97kai = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -222,8 +222,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.2L79u5-U.js"),
-						import("../_app/immutable/entry/app.s7_iKj7K.js")
+						import("../_app/immutable/entry/start.gFoMMKL-.js"),
+						import("../_app/immutable/entry/app.CtA4rf38.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

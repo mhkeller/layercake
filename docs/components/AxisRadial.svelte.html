@@ -32,23 +32,23 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.d4cTJbwW.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.nfVJSDK7.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.nTtgBwcr.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.2L79u5-U.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Iex9XhB_.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.gFoMMKL-.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.um-Vilx2.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.P37s_KnH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Kwf8FJOX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.pJ1mnnAb.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.s7_iKj7K.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CtA4rf38.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.GooPGtyi.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.9fvuP2fv.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.UfJU99ct.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.oiCz_B55.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.zMdpk9aP.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.L7yvgybJ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.oIE_5171.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.ryhBIpq-.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.byCyltpH.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.fA4sVCBz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.YHBGkGt5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.0wOzoJ2Q.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.6q1_wRAi.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.pvvktwr8.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.--yLb8OQ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.gRpQl0aY.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/4.YMYfSkUl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.D177aSsN.js">
@@ -157,7 +157,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/AxisRadial.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"AxisRadial.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG radial scale, useful for radar charts.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { width, height, xScale, extents, config } = getContext('LayerCake');\\n\\n  /** @type {Number} [lineLengthFactor=1.1] - How far to extend the lines from the circle's center. A value of `1` puts them at the circle's circumference. */\\n  export let lineLengthFactor = 1.1;\\n\\n  /** @type {Number} [labelPlacementFactor=1.25] - How far to place the labels from the circle's center. A value of `1` puts them at the circle's circumference. */\\n  export let labelPlacementFactor = 1.25;\\n\\n  $: max = $xScale(Math.max(...$extents.x));\\n\\n  $: lineLength = max * lineLengthFactor;\\n  $: labelPlacement = max * labelPlacementFactor;\\n\\n  $: angleSlice = (Math.PI * 2) / $config.x.length;\\n\\n  function anchor (total, i) {\\n    if (i === 0 || i === total / 2) {\\n      return 'middle';\\n    } else if (i \u003C total / 2) {\\n      return 'start';\\n    }\\n    return 'end';\\n  }\\n\u003C/script>\\n\\n\u003Cg\\n  transform=\\\"translate({ $width / 2 }, { $height / 2 })\\\"\\n>\\n  \u003Ccircle\\n    cx=\\\"0\\\"\\n    cy=\\\"0\\\"\\n    r=\\\"{max}\\\"\\n    stroke=\\\"#ccc\\\"\\n    stroke-width=\\\"1\\\"\\n    fill=\\\"#CDCDCD\\\"\\n    fill-opacity=\\\"0.1\\\"\\n  >\u003C/circle>\\n  \u003Ccircle\\n    cx=\\\"0\\\"\\n    cy=\\\"0\\\"\\n    r=\\\"{max / 2}\\\"\\n    stroke=\\\"#ccc\\\"\\n    stroke-width=\\\"1\\\"\\n    fill=\\\"none\\\"\\n  >\u003C/circle>\\n\\n  {#each $config.x as label, i}\\n    {@const thisAngleSlice = angleSlice * i - Math.PI / 2}\\n    \u003Cline\\n      x1=\\\"0\\\"\\n      y1=\\\"0\\\"\\n      x2=\\\"{lineLength * Math.cos(thisAngleSlice)}\\\"\\n      y2=\\\"{lineLength * Math.sin(thisAngleSlice)}\\\"\\n      stroke=\\\"#ccc\\\"\\n      stroke-width=\\\"1\\\"\\n      fill=\\\"none\\\"\\n    >\\n    \u003C/line>\\n    \u003Ctext\\n      text-anchor=\\\"{anchor($config.x.length, i)}\\\"\\n      dy=\\\"0.35em\\\"\\n      font-size=\\\"12px\\\"\\n      transform=\\\"translate({(labelPlacement) * Math.cos(thisAngleSlice)}, {labelPlacement * Math.sin(thisAngleSlice)})\\\">{label}\u003C/text>\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Radar\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"How far to extend the lines from the circle's center. A value of `1` puts them at the circle's circumference.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"lineLengthFactor\",\"default\":\"1.1\"},{\"title\":\"param\",\"description\":\"How far to place the labels from the circle's center. A value of `1` puts them at the circle's circumference.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"labelPlacementFactor\",\"default\":\"1.25\"}]},\"componentDescription\":\"Generates an SVG radial scale, useful for radar charts.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1yo3wkx = {
+					__sveltekit_1y97kai = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -166,8 +166,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.2L79u5-U.js"),
-						import("../_app/immutable/entry/app.s7_iKj7K.js")
+						import("../_app/immutable/entry/start.gFoMMKL-.js"),
+						import("../_app/immutable/entry/app.CtA4rf38.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

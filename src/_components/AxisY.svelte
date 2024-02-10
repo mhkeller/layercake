@@ -48,10 +48,15 @@
 		return sum + charPixelWidth;
 	}
 
-	const tickLenBase = 3;
+	$: tickLen = typeof tickMarkLength === 'number'
+		? tickMarkLength
+		: tickMarkLength === 'short'
+			? labelPosition === 'above' ? widestTickLen : 5
+			: 0;
+
 	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
 
-	$: x1 = (-widestTickLen - tickGutter) + (labelPosition === 'even' ? widestTickLen : 0);
+	$: x1 = -tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen);
 	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
 </script>
 
@@ -70,13 +75,13 @@
 				<line
 					class='tick-mark'
 					{x1}
-					x2='{typeof tickMarkLength === 'number' ? x1 + tickMarkLength : -tickGutter - (labelPosition === 'even' ?  tickLenBase : 0)}'
+					x2={x1 + tickLen}
 					y1={y}
 					y2={y}
 				></line>
 			{/if}
 			<text
-				x='{-widestTickLen - tickGutter}'
+				x='{-widestTickLen - tickGutter - (labelPosition === 'even' ? tickLen : 0)}'
 				{y}
 				{dx}
 				dy='{dy + (labelPosition === 'even' ? 4 : -3)}'

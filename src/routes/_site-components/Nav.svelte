@@ -58,6 +58,56 @@
 
 </script>
 
+
+<div class='{open ? "open" : "closed"} mousecatcher'
+	on:click="{() => open = false}"
+	on:keypress="{() => open = false}"
+></div>
+<div class='container'>
+	<span class="menu-link {open ? "menu-open" : "menu-closed"}"
+		on:click='{toggleOpen}'
+		on:keypress='{toggleOpen}'
+	>{open ? 'Close' : 'Menu'}</span>
+	<a href='/' class='logo'>Layer Cake</a>
+</div>
+
+<ul class="dropdown">
+	<li>
+		<!-- svelte-ignore a11y-no-onchange -->
+		<select on:change={loadPage} bind:value="{segment}">
+			{#if segment.startsWith('/components')}
+				<option value="{segment}" disabled>Select...</option>
+			{/if}
+			{#if segment.startsWith('/guide')}
+				<option value="{segment}" disabled>Select...</option>
+			{/if}
+			<option value="/">All</option>
+			<option class="header" disabled></option>
+			<option class="header" disabled>Client-side</option>
+			{#each examples.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
+				<option value="/example/{example.slug}">{slimName(example.title)}</option>
+			{/each}
+			<option class="header" disabled></option>
+			<option class="header" disabled>Server-side</option>
+			{#each examplesSsr.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
+				<option value="/example-ssr/{example.slug}" >{slimName(example.title)}</option>
+			{/each}
+		</select>
+	</li>
+</ul>
+
+<nav bind:this={nav} class='{open ? "open" : "closed"}'>
+	<ul class='primary'>
+		<li><a class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'><span class="wide-name">Component gallery</span><span class="short-name">Components</span></a></li>
+		<li><a class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
+		<li><a id="github-link" target="_blank" rel="noreferrer" href='https://github.com/mhkeller/layercake'> </a></li>
+	</ul>
+
+	<div class='secondary'>
+		<GuideContents {sections} bind:open={open} />
+	</div>
+</nav>
+
 <style>
 	.mousecatcher {
 		position: fixed;
@@ -358,52 +408,3 @@
 		}
 	}
 </style>
-
-<div class='{open ? "open" : "closed"} mousecatcher'
-	on:click="{() => open = false}"
-	on:keypress="{() => open = false}"
-></div>
-<div class='container'>
-	<span class="menu-link {open ? "menu-open" : "menu-closed"}"
-		on:click='{toggleOpen}'
-		on:keypress='{toggleOpen}'
-	>{open ? 'Close' : 'Menu'}</span>
-	<a href='/' class='logo'>Layer Cake</a>
-</div>
-
-<ul class="dropdown">
-	<li>
-		<!-- svelte-ignore a11y-no-onchange -->
-		<select on:change={loadPage} bind:value="{segment}">
-			{#if segment.startsWith('/components')}
-				<option value="{segment}" disabled>Select...</option>
-			{/if}
-			{#if segment.startsWith('/guide')}
-				<option value="{segment}" disabled>Select...</option>
-			{/if}
-			<option value="/">All</option>
-			<option class="header" disabled></option>
-			<option class="header" disabled>Client-side</option>
-			{#each examples.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
-				<option value="/example/{example.slug}">{slimName(example.title)}</option>
-			{/each}
-			<option class="header" disabled></option>
-			<option class="header" disabled>Server-side</option>
-			{#each examplesSsr.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
-				<option value="/example-ssr/{example.slug}" >{slimName(example.title)}</option>
-			{/each}
-		</select>
-	</li>
-</ul>
-
-<nav bind:this={nav} class='{open ? "open" : "closed"}'>
-	<ul class='primary'>
-		<li><a class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'><span class="wide-name">Component gallery</span><span class="short-name">Components</span></a></li>
-		<li><a class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
-		<li><a id="github-link" target="_blank" rel="noreferrer" href='https://github.com/mhkeller/layercake'> </a></li>
-	</ul>
-
-	<div class='secondary'>
-		<GuideContents {sections} bind:open={open} />
-	</div>
-</nav>

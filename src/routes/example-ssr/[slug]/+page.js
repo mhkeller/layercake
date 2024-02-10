@@ -12,6 +12,6 @@ export async function load({ fetch, params }) {
 			active: '+page'
 		};
 	} else {
-		throw error(500, `Could not load ${url}: ${content.message}`);
+		error(500, `Could not load ${url}: ${content.message}`);
 	}
 }

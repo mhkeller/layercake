@@ -22,7 +22,8 @@
 	$: if (!isServiceWorker) {
 		path = $page.url.pathname;
 		type = path.split('/')[1];
-		segment = `/${path.replace('/', '').replace(/\$/, '')}`;
+		segment = `/${path.replace('/', '')}`;
+		// segment = `/${path.replace('/', '').replace(/\$/, '')}`;
 		slug = path.replace(/\/$/, '').split('/').pop();
 	}
 

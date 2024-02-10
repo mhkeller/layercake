@@ -1,6 +1,8 @@
 import { error } from '@sveltejs/kit';
 
 export const prerender = true
+export const trailingSlash = 'never';
+
 export async function load({ fetch }) {
 	const res = await fetch(`/api/guide-sections.json`);
 	const sections = await res.json();

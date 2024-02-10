@@ -13,8 +13,8 @@
 	/** @type {String} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above') the label. Default is 'above'. */
 	export let labelPosition = 'above';
 
-	/** @type {String|Number} [tickMarkWidth='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
-	export let tickMarkWidth = 'long';
+	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
+	export let tickMarkLength = 'long';
 
 	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
 	export let format = d => d ;
@@ -31,7 +31,7 @@
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = 0;
 
-	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkWidth` to a pixel value). */
+	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
 	export let charPixelWidth = 7.25;
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
@@ -48,7 +48,7 @@
 		return sum + charPixelWidth;
 	}
 
-	const tickWidthEven = 3;
+	const tickLenBase = 3;
 	$: widestTickLen = Math.min(-10, -1 * Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
 
 	$: x1 = (widestTickLen - tickGutter) - (labelPosition === 'even' ? widestTickLen : 0);
@@ -58,7 +58,7 @@
 <g class='axis y-axis'>
 	{#each tickVals as tick (tick)}
 		<g class='tick tick-{tick}' transform='translate({$xRange[0]}, {$yScale(tick) - 1})'>
-			{#if tickMarks === true && tickMarkWidth === 'long'}
+			{#if tickMarks === true && tickMarkLength === 'long'}
 				<line
 					class="gridline"
 					{x1}
@@ -66,11 +66,11 @@
 					y1={y}
 					y2={y}
 				></line>
-			{:else if tickMarks === true && (tickMarkWidth === 'short' || typeof tickMarkWidth === 'number')}
+			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
 				<line
 					class='tick-mark'
 					{x1}
-					x2='{typeof tickMarkWidth === 'number' ? x1 + tickMarkWidth : (isBandwidth || labelPosition === 'even') ? -tickGutter - tickWidthEven : -tickGutter}'
+					x2='{typeof tickMarkLength === 'number' ? x1 + tickMarkLength : (isBandwidth || labelPosition === 'even') ? -tickGutter - tickLenBase : -tickGutter}'
 					y1={y}
 					y2={y}
 				></line>
@@ -79,7 +79,7 @@
 				x='{widestTickLen - tickGutter}'
 				{y}
 				{dx}
-				dy='{dy + (labelPosition === 'even') ? 4 : -3}'
+				dy='{dy + (labelPosition === 'even' ? 4 : -3)}'
 			>{format(tick)}</text>
 		</g>
 	{/each}
@@ -87,8 +87,7 @@
 
 <style>
 	.tick {
-		font-size: 0.725em;
-		font-weight: 200;
+		font-size: 11px;
 	}
 
 	.tick line {

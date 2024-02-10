@@ -214,8 +214,15 @@
 		text-decoration: underline;
 	}
 
+	.block-container {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		overflow: hidden;
+	}
+
 	.block-container :global(.chart-container) {
-		height: 100% !important;
+		flex: 1;
 	}
 
 	h2 {

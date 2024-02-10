@@ -2,7 +2,6 @@
 	import { LayerCake, Svg } from 'layercake';
 
 	import AxisY from '../../_components/AxisY.svelte';
-	import Bar from '../../_components/Bar.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/points.csv';
@@ -16,7 +15,7 @@
 
 	let tickMarks = true;
 	let labelPosition = 'above';
-	let tickMarkWidth = 'long';
+	let tickMarkLength = 'long';
 </script>
 
 <style>
@@ -27,7 +26,7 @@
 		expand to fill it.
 	*/
 	.chart-container {
-		width: calc(100% - 40px);
+		width: 100%;
 		height: 200px;
 	}
 	.props {
@@ -36,7 +35,7 @@
 		display: flex;
 		flex-direction: row;
 		user-select: none;
-		gap: 20px;
+		gap: 10px;
 	}
 	label {
 		display: flex;
@@ -55,8 +54,8 @@
 		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 	</label>
 
-	<select bind:value={tickMarkWidth} disabled={!tickMarks}>
-		<option disabled>tickMarkWidth</option>
+	<select bind:value={tickMarkLength} disabled={!tickMarks}>
+		<option disabled>tickMarkLength</option>
 		<option value="long">long</option>
 		<option value="short">short</option>
 	</select>
@@ -74,7 +73,7 @@
 			<AxisY
 				{tickMarks}
 				{labelPosition}
-				tickMarkWidth={Number.isNaN(+tickMarkWidth) ? tickMarkWidth : +tickMarkWidth}
+				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
 				ticks={4}
 			/>
 		</Svg>

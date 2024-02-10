@@ -12,6 +12,11 @@
 	data.forEach(d => {
 		d[yKey] = +d[yKey];
 	});
+
+	let tickMarks = true;
+	let snapTicks = true;
+	let baseline = true;
+	let tickMarkLength = 'long';
 </script>
 
 <style>
@@ -23,20 +28,59 @@
 	*/
 	.chart-container {
 		width: 100%;
-		height: 250px;
+		height: 200px;
+	}
+	.props {
+		height: 25px;
+		display: flex;
+		flex-direction: row;
+		user-select: none;
+		gap: 10px;
+	}
+	label {
+		display: flex;
+		cursor: pointer;
+		align-items: center;
+	}
+	select {
+		width: 60px;
 	}
 </style>
 
+<div class="props">
+	<label>
+		<input type="checkbox" bind:checked={baseline}/> baseline
+	</label>
+
+	<label>
+		<input type="checkbox" bind:checked={snapTicks}/> snapTicks
+	</label>
+
+	<label>
+		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
+	</label>
+
+	<select bind:value={tickMarkLength} disabled={!tickMarks}>
+		<option disabled>tickMarkLength</option>
+		<option value="long">long</option>
+		<option value="short">short</option>
+	</select>
+
+</div>
+
 <div class="chart-container">
 	<LayerCake
-		padding={{ top: 20, bottom: 20 }}
+		padding={{ bottom: 20 }}
 		x={xKey}
 		y={yKey}
 		data={data}
 	>
 		<Svg>
 			<AxisX
-				baseline={true}
+				{baseline}
+				{tickMarks}
+				{snapTicks}
+				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
 			/>
 		</Svg>
 	</LayerCake>

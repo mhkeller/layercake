@@ -42,6 +42,8 @@
 	}
 	label {
 		display: flex;
+	}
+	label:not(.disabled) {
 		cursor: pointer;
 	}
 </style>
@@ -63,7 +65,7 @@
 		<option value="short">short</option>
 	</select>
 
-	<label>
+	<label class:disabled={labelPosition === 'above'}>
 		<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> snapBaselineLabel
 	</label>
 </div>

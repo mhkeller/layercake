@@ -77,10 +77,10 @@
 		<Svg>
 			<Column/>
 			<AxisX
-				gridlines={false}
+				tickMarks={false}
 			/>
 			<AxisY
-				gridlines={false}
+				tickMarks={false}
 			/>
 		</Svg>
 

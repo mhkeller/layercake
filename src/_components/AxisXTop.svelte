@@ -1,9 +1,10 @@
 <!--
 	@component
-	Generates an SVG x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
+	Generates an SVG top x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
  <script>
 	import { getContext } from 'svelte';
+
 	const { width, height, xScale, yRange } = getContext('LayerCake');
 
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */

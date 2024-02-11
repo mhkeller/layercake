@@ -2,7 +2,6 @@
 	import { LayerCake, Svg } from 'layercake';
 
 	import AxisY from '../../_components/AxisY.svelte';
-	import Line from '../../_components/Line.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/points.csv';
@@ -77,7 +76,6 @@
 				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
 				ticks={4}
 			/>
-			<Line/>
 		</Svg>
 	</LayerCake>
 </div>

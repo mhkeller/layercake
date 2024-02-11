@@ -5,13 +5,13 @@
  <script>
 	import { getContext } from 'svelte';
 
-	const { padding, xRange, yScale, width } = getContext('LayerCake');
+	const { xRange, yScale, width } = getContext('LayerCake');
 
 	/** @type {Boolean} [tickMarks=true] - Show marks next to the tick label. */
 	export let tickMarks = true;
 
-	/** @type {String} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above') the label. Default is 'above'. */
-	export let labelPosition = 'above';
+	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
+	export let labelPosition = 'even';
 
 	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
 	export let tickMarkLength = 'long';

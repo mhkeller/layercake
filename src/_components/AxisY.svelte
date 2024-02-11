@@ -10,11 +10,11 @@
 	/** @type {Boolean} [tickMarks=true] - Show marks next to the tick label. */
 	export let tickMarks = true;
 
-	/** @type {Boolean} [snapBaselineLabel=true] - Adjust the lowest label so that it sits above the tick mark and not even with it. */
-	export let snapBaselineLabel = true;
-
 	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
 	export let labelPosition = 'even';
+
+	/** @type {Boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
+	export let snapBaselineLabel = false;
 
 	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
 	export let tickMarkLength = 'long';

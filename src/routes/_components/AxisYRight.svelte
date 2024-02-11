@@ -14,6 +14,7 @@
 	});
 
 	let tickMarks = true;
+	let snapBaselineLabel = false;
 	let labelPosition = 'above';
 	let tickMarkLength = 'long';
 </script>
@@ -36,6 +37,8 @@
 		flex-direction: row;
 		user-select: none;
 		gap: 10px;
+		margin-bottom: 25px;
+		flex-wrap: wrap;
 	}
 	label {
 		display: flex;
@@ -60,6 +63,9 @@
 		<option value="short">short</option>
 	</select>
 
+	<label>
+		<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> snapBaselineLabel
+	</label>
 </div>
 
 <div class="chart-container">
@@ -73,6 +79,7 @@
 			<AxisYRight
 				{tickMarks}
 				{labelPosition}
+				{snapBaselineLabel}
 				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
 				ticks={4}
 			/>

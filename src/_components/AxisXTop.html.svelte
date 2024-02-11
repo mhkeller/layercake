@@ -1,32 +1,56 @@
 <!--
 	@component
-	Generates an HTML x-axis, useful for server-side rendered charts.  This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
+	Generates an HTML top x-axis, useful for server-side rendered charts.  This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
-<script>
+ <script>
 	import { getContext } from 'svelte';
 
-	const { xScale } = getContext('LayerCake');
-
-	/** @type {Boolean} [gridlines=true] - Extend lines from the ticks into the chart space. */
-	export let gridlines = true;
+	const { width, height, xScale, yRange } = getContext('LayerCake');
 
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
 
+	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
+	export let tickMarkLength = 'long';
+
 	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
 
-	/** @type {Boolean} [snapTicks=false] - Instead of centering the text on the first and the last items, align them to the edges of the chart. */
-	export let snapTicks = false;
+	/** @type {Boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart. */
+	export let snapLabels = false;
 
 	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = d => d;
+	export let format = d => d;
 
 	/** @type {Number|Array|Function} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function. */
 	export let ticks = undefined;
 
-	/** @type {Number} [yTick=-21] - The distance from the baseline to place each tick value, in pixels. */
-	export let yTick = -21;
+	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the yRange min). */
+	export let tickGutter = 0;
+
+	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
+	export let dx = 0;
+
+	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
+	export let dy = 0;
+
+	function textAnchor(i, sl) {
+		if (sl === true) {
+			if (i === 0) {
+				return 'start';
+			}
+			if (i === tickVals.length - 1) {
+				return 'end';
+			}
+		}
+		return 'middle';
+	}
+
+	$: tickLen = typeof tickMarkLength === 'number'
+		? tickMarkLength
+		: tickMarkLength === 'short'
+			? 6
+			: 0;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 
@@ -36,27 +60,43 @@
 			typeof ticks === 'function' ?
 				ticks($xScale.ticks()) :
 					$xScale.ticks(ticks);
+
+	$: halfBand = isBandwidth ? halfBand : 0
 </script>
 
-<div class='axis x-axis' class:snapTicks>
+<div class='axis x-axis' class:snapLabels>
 	{#each tickVals as tick, i (tick)}
-		{#if gridlines !== false}
-			<div class="gridline" style='left:{$xScale(tick)}%;top: 0px;bottom: 0;'></div>
+		{@const tickValPx = $xScale(tick)}
+
+		{#if baseline === true}
+			<div class="baseline" style='top:0; width:100%;'></div>
 		{/if}
-		{#if tickMarks === true}
-			<div class="tick-mark" style='left:{$xScale(tick) + (isBandwidth ? $xScale.bandwidth() / 2 : 0)}%;height:6px;top: -6px;'></div>
+
+		{#if tickMarks === true && tickMarkLength === 'long'}
+			<div
+				class="gridline"
+				style:left={tickValPx + '%'}
+				style='top:0; bottom:0;'
+			></div>
+		{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
+			<div
+				class="tick-mark"
+				style:left={(tickValPx + halfBand) + '%'}
+				style:height={tickLen + 'px'}
+				style:top={(-tickLen - tickGutter) + 'px'}
+			></div>
 		{/if}
 		<div
-			class='tick tick-{ i }'
-			style='left:{$xScale(tick) + (isBandwidth ? $xScale.bandwidth() / 2 : 0)}%;top:0;'>
+			class='tick tick-{i}'
+			style:left={(tickValPx + halfBand) + '%'}
+			style='top:{-tickGutter}px;'>
 			<div
 				class="text"
-				style='top:{(yTick)}px;'>{formatTick(tick)}</div>
+				style:top={(-tickLen + 2) + 'px'}
+				style:transform={`translate(calc(-50% + ${dx}px), calc(-100% + ${dy}px))`}
+			>{format(tick)}</div>
 		</div>
 	{/each}
-	{#if baseline === true}
-		<div class="baseline" style='top: 0;width: 100%;'></div>
-	{/if}
 </div>
 
 <style>
@@ -94,10 +134,10 @@
 		transform: translateX(-50%);
 	}
 	/* This looks a little better at 40 percent than 50 */
-	.axis.snapTicks .tick:last-child {
+	.axis.snapLabels .tick:last-child {
 		transform: translateX(-40%);
 	}
-	.axis.snapTicks .tick.tick-0 {
+	.axis.snapLabels .tick.tick-0 {
 		transform: translateX(40%);
 	}
 </style>

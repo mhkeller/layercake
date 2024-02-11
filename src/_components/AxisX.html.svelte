@@ -82,16 +82,16 @@
 				class="tick-mark"
 				style:left={(tickValPx + halfBand) + '%'}
 				style:height={tickLen + 'px'}
-				style:bottom={-tickLen + 'px'}
+				style:bottom={(-tickLen - tickGutter) + 'px'}
 			></div>
 		{/if}
 		<div
 			class='tick tick-{i}'
 			style:left={(tickValPx + halfBand) + '%'}
-			style='top:100%;'>
+			style='top:calc(100% + {tickGutter}px;'>
 			<div
 				class="text"
-				style:top={(tickGutter + tickLen) + 'px'}
+				style:top={tickLen + 'px'}
 				style:transform={`translate(calc(-50% + ${dx}px), ${dy}px)`}
 			>{format(tick)}</div>
 		</div>

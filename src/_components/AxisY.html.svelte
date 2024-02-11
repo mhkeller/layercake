@@ -2,31 +2,40 @@
 	@component
 	Generates an HTML y-axis.
  -->
-<script>
+ <script>
 	import { getContext } from 'svelte';
 
-	const { padding, xRange, yScale } = getContext('LayerCake');
+	const { xRange, yScale, width } = getContext('LayerCake');
 
-	/** @type {Boolean} [gridlines=true] - Extend lines from the ticks into the chart space */
-	export let gridlines = true;
+	/** @type {Boolean} [tickMarks=true] - Show marks next to the tick label. */
+	export let tickMarks = true;
 
-	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
-	export let tickMarks = false;
+	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
+	export let labelPosition = 'even';
 
-	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
-	export let baseline = false;
+	/** @type {Boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
+	export let snapBaselineLabel = false;
 
-	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = d => d;
+	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
+	export let tickMarkLength = 'long';
+
+	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
+	export let format = d => d ;
 
 	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
 	export let ticks = 4;
 
-	/** @type {Number} [xTick=-4] - How far over to position the text marker. */
-	export let xTick = -4;
+	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
+	export let tickGutter = 0;
 
-	/** @type {Number} [yTick=-1] - How far up and down to position the text marker. */
-	export let yTick = -1;
+	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
+	export let dx = 0;
+
+	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
+	export let dy = -3;
+
+	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
+	export let charPixelWidth = 7.25;
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
 
@@ -36,28 +45,52 @@
 			typeof ticks === 'function' ?
 				ticks($yScale.ticks()) :
 					$yScale.ticks(ticks);
+
+	function calcStringLength(sum, val) {
+		if (val === ',' || val === '.') return sum + charPixelWidth * 0.5;
+		return sum + charPixelWidth;
+	}
+
+	$: tickLen = typeof tickMarkLength === 'number'
+		? tickMarkLength
+		: tickMarkLength === 'short'
+			? labelPosition === 'above' ? widestTickLen : 5
+			: 0;
+
+	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
+
+	$: x1 = -tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen);
+	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
+
+	$: maxTickValPx = Math.max(...tickVals.map($yScale));
 </script>
 
-<div class='axis y-axis' style='transform:translate(-{$padding.left}px, 0)'>
+<div class='axis y-axis'>
 	{#each tickVals as tick, i (tick)}
-		<div class='tick tick-{i}' style='top:{$yScale(tick) + (isBandwidth ? $yScale.bandwidth () / 2 : 0)}%;left:{$xRange[0]}%;'>
-			{#if gridlines !== false}
-				<div class="gridline" style='top:0;left:{isBandwidth ? $padding.left : 0}px;right:-{$padding.left + $padding.right}px;'></div>
-			{/if}
-			{#if baseline !== false && i === 0}
-				<div class="gridline baseline" style='top:0;left:{isBandwidth ? $padding.left : 0};right:-{$padding.left + $padding.right}px;'></div>
-			{/if}
-			{#if tickMarks === true}
-				<div class="tick-mark" style='top:0;left:{isBandwidth ? $padding.left - 6 : 0}px;width:6px;'></div>
+		{@const tickValPx = $yScale(tick)}
+
+		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValPx}%;'>
+			{#if tickMarks === true && tickMarkLength === 'long'}
+				<div
+					class="gridline"
+					style="top:0;"
+					style:left='{x1}px'
+					style:right='0px'
+				></div>
+			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
+				<div
+					class="tick-mark"
+					style="top:0;"
+					style:left='{x1}px'
+					style:right='{$width - (x1 + tickLen)}px'
+				></div>
 			{/if}
 			<div
 				class="text"
-				style='
-					top:{yTick}px;
-					left:{isBandwidth ? ($padding.left + xTick - 4) : 0}px;
-					transform: translate({isBandwidth ? '-100%' : 0}, {isBandwidth ? -50 - Math.floor($yScale.bandwidth() / -2) : '-100'}%);
-				'
-			>{formatTick(tick)}</div>
+				style:top='{y}px'
+				style:left='{-widestTickLen - tickGutter - (labelPosition === 'even' ? tickLen : 0)}px'
+				style:transform='translate({dx}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}px))'
+			>{format(tick)}</div>
 		</div>
 	{/each}
 </div>

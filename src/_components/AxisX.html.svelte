@@ -75,24 +75,24 @@
 		{#if tickMarks === true && tickMarkLength === 'long'}
 			<div
 				class="gridline"
-				style:left={tickValPx + '%'}
+				style:left='{tickValPx}%'
 				style='top:0; bottom:0;'></div>
 		{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
 			<div
 				class="tick-mark"
-				style:left={(tickValPx + halfBand) + '%'}
-				style:height={tickLen + 'px'}
-				style:bottom={(-tickLen - tickGutter) + 'px'}
+				style:left='{tickValPx + halfBand}%'
+				style:height='{tickLen}px'
+				style:bottom='{-tickLen - tickGutter}px'
 			></div>
 		{/if}
 		<div
 			class='tick tick-{i}'
-			style:left={(tickValPx + halfBand) + '%'}
+			style:left='{tickValPx + halfBand}%'
 			style='top:calc(100% + {tickGutter}px;'>
 			<div
 				class="text"
-				style:top={tickLen + 'px'}
-				style:transform={`translate(calc(-50% + ${dx}px), ${dy}px)`}
+				style:top='{tickLen}px'
+				style:transform='translate(calc(-50% + {dx}px), {dy}px)'
 			>{format(tick)}</div>
 		</div>
 	{/each}

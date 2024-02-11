@@ -44,7 +44,7 @@
 					$yScale.ticks(ticks);
 
 	function calcStringLength(sum, val) {
-		if (val === ',') return sum + charPixelWidth * 0.75;
+		if (val === ',' || val === '.') return sum + charPixelWidth * 0.5;
 		return sum + charPixelWidth;
 	}
 

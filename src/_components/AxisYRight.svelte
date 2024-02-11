@@ -10,6 +10,9 @@
 	/** @type {Boolean} [tickMarks=true] - Show marks next to the tick label. */
 	export let tickMarks = true;
 
+	/** @type {Boolean} [snapBaselineLabel=true] - Adjust the lowest label so that it sits above the tick mark and not even with it. */
+	export let snapBaselineLabel = true;
+
 	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
 	export let labelPosition = 'even';
 
@@ -58,6 +61,8 @@
 
 	$: x2 = $width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen);
 	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
+
+	$: maxTickValPx = Math.max(...tickVals.map($yScale));
 </script>
 
 <g class='axis y-axis'>
@@ -84,7 +89,7 @@
 				x='{$width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}'
 				{y}
 				{dx}
-				dy='{dy + (labelPosition === 'even' ? 4 : -3)}'
+				dy='{dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}'
 			>{format(tick)}</text>
 		</g>
 	{/each}

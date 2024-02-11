@@ -15,8 +15,8 @@
 	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
 
-	/** @type {Boolean} [snapTicks=false] - Instead of centering the text on the first and the last items, align them to the edges of the chart. */
-	export let snapTicks = false;
+	/** @type {Boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart. */
+	export let snapLabels = false;
 
 	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
 	export let format = d => d;
@@ -33,8 +33,8 @@
 	/** @type {Number} [dy=12] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = 12;
 
-	function textAnchor(i, st) {
-		if (st === true) {
+	function textAnchor(i, sl) {
+		if (sl === true) {
 			if (i === 0) {
 				return 'start';
 			}
@@ -63,7 +63,7 @@
 	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0
 </script>
 
-<g class="axis x-axis" class:snapTicks>
+<g class="axis x-axis" class:snapLabels>
 	{#each tickVals as tick, i (tick)}
 		{#if baseline === true}
 			<line class="baseline" y1={$height} y2={$height} x1="0" x2={$width} />
@@ -92,7 +92,7 @@
 				y={tickGutter + tickLen}
 				{dx}
 				{dy}
-				text-anchor={textAnchor(i, snapTicks)}>{format(tick)}</text
+				text-anchor={textAnchor(i, snapLabels)}>{format(tick)}</text
 			>
 		</g>
 	{/each}
@@ -118,10 +118,10 @@
 		stroke-dasharray: 0;
 	}
 	/* This looks slightly better */
-	.axis.snapTicks .tick:last-child text {
+	.axis.snapLabels .tick:last-child text {
 		transform: translateX(3px);
 	}
-	.axis.snapTicks .tick.tick-0 text {
+	.axis.snapLabels .tick.tick-0 text {
 		transform: translateX(-3px);
 	}
 </style>

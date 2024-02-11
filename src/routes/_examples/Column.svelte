@@ -81,6 +81,7 @@
 			/>
 			<AxisY
 				tickMarks={false}
+				snapBaselineLabel
 			/>
 		</Svg>
 

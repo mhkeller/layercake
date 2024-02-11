@@ -14,7 +14,7 @@
 	});
 
 	let tickMarks = true;
-	let snapTicks = true;
+	let snapLabels = true;
 	let baseline = true;
 	let tickMarkLength = 'long';
 </script>
@@ -53,7 +53,7 @@
 	</label>
 
 	<label>
-		<input type="checkbox" bind:checked={snapTicks}/> snapTicks
+		<input type="checkbox" bind:checked={snapLabels}/> snapLabels
 	</label>
 
 	<label>
@@ -65,7 +65,6 @@
 		<option value="long">long</option>
 		<option value="short">short</option>
 	</select>
-
 </div>
 
 <div class="chart-container">
@@ -79,7 +78,7 @@
 			<AxisX
 				{baseline}
 				{tickMarks}
-				{snapTicks}
+				{snapLabels}
 				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
 			/>
 		</Svg>

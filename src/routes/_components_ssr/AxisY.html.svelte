@@ -77,7 +77,6 @@ label:not(.disabled) {
 		padding={{ bottom: 35, left: 10 }}
 		x={xKey}
 		y={d => d[yKey]}
-		yDomain={[0, null]}
 		data={data}
 	>
 		<Html>

@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an HTML y-axis.
+	Generates an HTML y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the tickMarks in the middle of the bandwidth.
  -->
  <script>
 	import { getContext } from 'svelte';
@@ -109,9 +109,8 @@
 		height: 100%;
 	}
 	.tick {
-		font-size: 12px;
+		font-size: 11px;
 		width: 100%;
-		font-weight: 100;
 	}
 
 	.gridline {

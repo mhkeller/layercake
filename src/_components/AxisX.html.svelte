@@ -32,7 +32,7 @@
 	export let dx = 0;
 
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = 0;
+	export let dy = 1;
 
 	function textAnchor(i, sl) {
 		if (sl === true) {
@@ -111,8 +111,7 @@
 		height: 100%;
 	}
 	.tick {
-		font-size: .725em;
-		font-weight: 200;
+		font-size: 11px;
 	}
 
 	.gridline {

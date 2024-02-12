@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
+	Generates an HTML y-axis on the right-hand side. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
  <script>
 	import { getContext } from 'svelte';
@@ -31,8 +31,8 @@
 	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
 	export let dx = 0;
 
-	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = 0;
+	/** @type {Number} [dy=-3] - Any optional value passed to the `dy` attribute on the text label. */
+	export let dy = -3;
 
 	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
 	export let charPixelWidth = 7.25;
@@ -59,61 +59,72 @@
 
 	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
 
-	$: x2 = $width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen);
+	// $: x2 = $width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen);
 	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
 
 	$: maxTickValPx = Math.max(...tickVals.map($yScale));
 </script>
 
-<g class='axis y-axis'>
-	{#each tickVals as tick (tick)}
+<div class='axis y-axis'>
+	{#each tickVals as tick, i (tick)}
 		{@const tickValPx = $yScale(tick)}
-		<g class='tick tick-{tick}' transform='translate({$xRange[0]}, {tickValPx})'>
-			{#if tickMarks === true && tickMarkLength === 'long'}
-				<line
-					class="gridline"
-					x1="0"
-					{x2}
-					y1={y}
-					y2={y}
-				></line>
-			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
-				<line
-					class='tick-mark'
-					x1="{$width + tickGutter}"
-					x2='{$width + tickGutter + tickLen}'
-					y1={y}
-					y2={y}
-				></line>
-			{/if}
 
-			<text
-				x='{$width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}'
-				{y}
-				{dx}
-				dy='{dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}'
-			>{format(tick)}</text>
-		</g>
+		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValPx}%;'>
+			{#if tickMarks === true && tickMarkLength === 'long'}
+				<div
+					class="gridline"
+					style='{y}px'
+					style:left='0px'
+					style:right='{labelPosition === 'above' ? -widestTickLen - tickGutter : tickLen}px'
+				></div>
+			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
+				<div
+					class="tick-mark"
+					style:top='{y}px'
+					style:left='{$width + tickGutter}px'
+					style:width='{tickLen}px'
+				></div>
+			{/if}
+			<div
+				class="text"
+				style:top='{y}px'
+				style:left='{$width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}px'
+				style:transform='translate({dx}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}px))'
+			>{format(tick)}</div>
+		</div>
 	{/each}
-</g>
+</div>
 
 <style>
+	.axis,
+	.tick,
+	.tick-mark,
+	.gridline,
+	.baseline,
+	.text {
+		position: absolute;
+	}
+	.axis {
+		width: 100%;
+		height: 100%;
+	}
 	.tick {
 		font-size: 11px;
+		width: 100%;
 	}
 
-	.tick line {
-		stroke: #aaa;
+	.gridline {
+		border-top: 1px dashed #aaa;
 	}
-	.tick .gridline {
-		stroke-dasharray: 2;
-	}
-
-	.tick text {
-		fill: #666;
+	.tick-mark {
+		border-top: 1px solid #aaa;
 	}
 
-	.tick.tick-0 line {
-		stroke-dasharray: 0;
+	.baseline.gridline {
+		border-top-style: solid;
+	}
+
+	.tick .text {
+		color: #666;
 	}
 </style>

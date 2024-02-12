@@ -47,6 +47,7 @@ import SharedTooltipPercentRange from './_components_ssr/SharedTooltip.percent-r
 import AxisXHtml from './_components_ssr/AxisX.html.svelte';
 import AxisXTopHtml from './_components_ssr/AxisXTop.html.svelte';
 import AxisYHtml from './_components_ssr/AxisY.html.svelte';
+import AxisYRightHtml from './_components_ssr/AxisYRight.html.svelte';
 import ScatterHtml from './_components_ssr/Scatter.html.svelte';
 import Key from './_components_ssr/Key.html.svelte';
 import QuadTree from './_components/QuadTree.html.svelte';
@@ -63,6 +64,7 @@ export default [
 			{ slug: 'AxisX.html.svelte', component: AxisXHtml },
 			{ slug: 'AxisXTop.html.svelte', component: AxisXTopHtml },
 			{ slug: 'AxisY.html.svelte', component: AxisYHtml },
+			{ slug: 'AxisYRight.html.svelte', component: AxisYRightHtml },
 			{ slug: 'AxisRadial.svelte', component: AxisRadial }
 		]
 	},

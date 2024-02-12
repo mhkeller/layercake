@@ -31,7 +31,7 @@
 	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
 	export let dx = 0;
 
-	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
+	/** @type {Number} [dy=-3] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = -3;
 
 	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */

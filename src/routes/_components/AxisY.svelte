@@ -14,8 +14,8 @@
 	});
 
 	let tickMarks = true;
-	let snapBaselineLabel = true;
-	let labelPosition = 'above';
+	let snapBaselineLabel = false;
+	let labelPosition = 'even';
 	let tickMarkLength = 'long';
 </script>
 

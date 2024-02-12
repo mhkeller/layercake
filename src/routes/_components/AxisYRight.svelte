@@ -15,7 +15,7 @@
 
 	let tickMarks = true;
 	let snapBaselineLabel = false;
-	let labelPosition = 'above';
+	let labelPosition = 'even';
 	let tickMarkLength = 'long';
 </script>
 
@@ -37,7 +37,7 @@
 		flex-direction: row;
 		user-select: none;
 		gap: 10px;
-		margin-bottom: 25px;
+		margin-bottom: 15px;
 		flex-wrap: wrap;
 	}
 	label {
@@ -72,7 +72,7 @@
 
 <div class="chart-container">
 	<LayerCake
-		padding={{ right: 10, left: 10 }}
+		padding={{ bottom: 25, right: 25 }}
 		x={xKey}
 		y={yKey}
 		data={data}

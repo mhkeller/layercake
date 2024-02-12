@@ -59,7 +59,6 @@
 
 	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
 
-	// $: x2 = $width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen);
 	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
 
 	$: maxTickValPx = Math.max(...tickVals.map($yScale));

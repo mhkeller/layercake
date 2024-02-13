@@ -14,10 +14,12 @@
 	});
 
 	let tickMarks = false;
-	let snapBaselineLabel = false;
+	let snapBaseLabel = false;
 	let labelPosition = 'above';
 	let gridlines = true;
 	let tickMarkLength = undefined;
+	let tickGutter = undefined;
+	let dy = undefined;
 </script>
 
 <style>
@@ -47,6 +49,10 @@
 	label:not(.disabled) {
 		cursor: pointer;
 	}
+	input[type="number"] {
+		width: 50px;
+	}
+
 </style>
 
 <div class="props">
@@ -65,10 +71,12 @@
 	</label>
 
 	<label class:disabled={labelPosition === 'above'}>
-		<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> snapBaselineLabel
+		<input type="checkbox" bind:checked={snapBaseLabel} disabled={labelPosition === 'above'}/> snapBaseLabel
 	</label>
 
 	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength" disabled={!tickMarks}/>
+	<input type="number" bind:value={tickGutter} placeholder="tickGutter"/>
+	<input type="number" bind:value={dy} placeholder="dy"/>
 </div>
 
 <div class="chart-container">
@@ -82,9 +90,11 @@
 			<AxisYRight
 				{tickMarks}
 				{labelPosition}
-				{snapBaselineLabel}
+				{snapBaseLabel}
 				{gridlines}
 				{tickMarkLength}
+				{tickGutter}
+				{dy}
 				ticks={4}
 			/>
 		</Svg>

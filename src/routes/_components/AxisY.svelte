@@ -14,10 +14,12 @@
 	});
 
 	let tickMarks = false;
-	let snapBaselineLabel = false;
+	let snapBaseLabel = false;
 	let gridlines = true;
 	let labelPosition = 'above';
 	let tickMarkLength = undefined;
+	let tickGutter = undefined;
+	let dy = undefined;
 </script>
 
 <style>
@@ -68,10 +70,12 @@
 	</label>
 
 	<label class:disabled={labelPosition === 'above'}>
-		<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> snapBaselineLabel
+		<input type="checkbox" bind:checked={snapBaseLabel} disabled={labelPosition === 'above'}/> snapBaseLabel
 	</label>
 
 	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength" disabled={!tickMarks}/>
+	<input type="number" bind:value={tickGutter} placeholder="tickGutter"/>
+	<input type="number" bind:value={dy} placeholder="dy"/>
 </div>
 
 <div class="chart-container">
@@ -84,10 +88,12 @@
 		<Svg>
 			<AxisY
 				{tickMarks}
-				{snapBaselineLabel}
+				{snapBaseLabel}
 				{labelPosition}
 				{gridlines}
 				{tickMarkLength}
+				{tickGutter}
+				{dy}
 				ticks={4}
 			/>
 		</Svg>

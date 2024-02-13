@@ -18,6 +18,8 @@
 	let snapLabels = true;
 	let baseline = true;
 	let tickMarkLength = 6;
+	let tickGutter = undefined;
+	let dy = undefined;
 </script>
 
 <style>
@@ -67,6 +69,8 @@
 	</label>
 
 	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength" disabled={!tickMarks}/>
+	<input type="number" bind:value={tickGutter} placeholder="tickGutter"/>
+	<input type="number" bind:value={dy} placeholder="dy"/>
 </div>
 
 <div class="chart-container">
@@ -83,6 +87,8 @@
 				{gridlines}
 				{snapLabels}
 				{tickMarkLength}
+				{tickGutter}
+				{dy}
 			/>
 		</Svg>
 	</LayerCake>

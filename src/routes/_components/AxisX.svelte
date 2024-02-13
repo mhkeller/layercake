@@ -66,7 +66,7 @@
 		<input type="checkbox" bind:checked={gridlines}/> gridlines
 	</label>
 
-	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength"/>
+	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength" disabled={!tickMarks}/>
 </div>
 
 <div class="chart-container">

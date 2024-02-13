@@ -16,8 +16,11 @@
 	/** @type {Boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
 	export let snapBaselineLabel = false;
 
-	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
-	export let tickMarkLength = 'long';
+	/** @type {Boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
+	export let gridlines = true;
+
+	/** @type {Number} [tickMarkLength=undefined] - The length of the tick mark. If not set, becomes the length of the widest tick. */
+	export let tickMarkLength = undefined;
 
 	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
 	export let format = d => d ;
@@ -51,11 +54,11 @@
 		return sum + charPixelWidth;
 	}
 
-	$: tickLen = typeof tickMarkLength === 'number'
-		? tickMarkLength
-		: tickMarkLength === 'short'
-			? labelPosition === 'above' ? widestTickLen : 3
-			: 0;
+	$: tickLen = tickMarks === true
+		? labelPosition === 'above'
+			? tickMarkLength ?? widestTickLen
+			: tickMarkLength ?? 6
+		: 0;
 
 	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
 
@@ -69,14 +72,15 @@
 		{@const tickValPx = $yScale(tick)}
 
 		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValPx}%;'>
-			{#if tickMarks === true && tickMarkLength === 'long'}
+			{#if gridlines === true}
 				<div
 					class="gridline"
 					style='{y}px'
 					style:left='0px'
 					style:right='{labelPosition === 'above' ? -widestTickLen - tickGutter : tickLen}px'
 				></div>
-			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
+			{/if}
+			{#if tickMarks === true}
 				<div
 					class="tick-mark"
 					style:top='{y}px'

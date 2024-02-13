@@ -16,7 +16,7 @@
 	let tickMarks = false;
 	let snapBaselineLabel = false;
 	let gridlines = true;
-	let labelPosition = 'even';
+	let labelPosition = 'above';
 	let tickMarkLength = undefined;
 </script>
 
@@ -68,7 +68,7 @@
 		<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> snapBaselineLabel
 	</label>
 
-	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength"/>
+	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength" disabled={!tickMarks}/>
 </div>
 
 <div class="chart-container">

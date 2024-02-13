@@ -13,10 +13,11 @@
 		d[yKey] = +d[yKey];
 	});
 
-	let tickMarks = true;
+	let tickMarks = false;
 	let snapBaselineLabel = false;
-	let labelPosition = 'even';
-	let tickMarkLength = 'long';
+	let labelPosition = 'above';
+	let gridlines = true
+	let tickMarkLength = undefined;
 </script>
 
 <style>
@@ -46,6 +47,9 @@
 	label:not(.disabled) {
 		cursor: pointer;
 	}
+	input[type="number"] {
+		width: 50px;
+	}
 </style>
 
 <div class="props">
@@ -59,22 +63,22 @@
 		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 	</label>
 
-	<select bind:value={tickMarkLength} disabled={!tickMarks}>
-		<option disabled>tickMarkLength</option>
-		<option value="long">long</option>
-		<option value="short">short</option>
-	</select>
+	<label>
+		<input type="checkbox" bind:checked={gridlines}/> gridlines
+	</label>
 
 	<label class:disabled={labelPosition === 'above'}>
 		<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> snapBaselineLabel
 	</label>
+
+	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength" disabled={!tickMarks}/>
 </div>
 
 <div class="chart-container">
 	<LayerCake
 		ssr={true}
 		percentRange={true}
-		padding={{ bottom: 25, right: 25 }}
+		padding={{ bottom: 15, right: 25 }}
 		x={xKey}
 		y={d => d[yKey]}
 		data={data}
@@ -84,7 +88,8 @@
 				{tickMarks}
 				{snapBaselineLabel}
 				{labelPosition}
-				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
+				{gridlines}
+				{tickMarkLength}
 				ticks={4}
 			/>
 		</Html>

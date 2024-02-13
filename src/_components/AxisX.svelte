@@ -13,8 +13,8 @@
 	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
 	export let gridlines = true;
 
-	/** @type {Number} [tickMarkLength] - If set, overrides any auto-calculation. */
-	export let tickMarkLength = undefined;
+	/** @type {Number} [tickMarkLength=6] - The length of the tick mark. */
+	export let tickMarkLength = 6;
 
 	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
@@ -49,11 +49,9 @@
 		return 'middle';
 	}
 
-	$: tickLen = typeof tickMarkLength === 'number'
-		? tickMarkLength
-		: tickMarks === true
-			? 6
-			: 0;
+	$: tickLen = tickMarks === true
+		? tickMarkLength ?? 6
+		: 0;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 

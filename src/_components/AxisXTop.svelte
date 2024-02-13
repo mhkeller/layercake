@@ -10,8 +10,11 @@
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
 
-	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
-	export let tickMarkLength = 'long';
+	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
+	export let gridlines = true;
+
+	/** @type {Number} [tickMarkLength=6] - The length of the tick mark. */
+	export let tickMarkLength = 6;
 
 	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
@@ -46,11 +49,9 @@
 		return 'middle';
 	}
 
-	$: tickLen = typeof tickMarkLength === 'number'
-		? tickMarkLength
-		: tickMarkLength === 'short'
-			? 6
-			: 0;
+	$: tickLen = tickMarks === true
+		? tickMarkLength ?? 6
+		: 0;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 
@@ -71,7 +72,7 @@
 		{/if}
 
 		<g class="tick tick-{i}" transform="translate({$xScale(tick)},{Math.min(...$yRange)})">
-			{#if tickMarks === true && tickMarkLength === 'long'}
+			{#if gridlines === true}
 				<line
 					class="gridline"
 					x1="0"
@@ -79,7 +80,8 @@
 					y1={$height}
 					y2="0"
 				/>
-			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
+			{/if}
+			{#if tickMarks === true}
 				<line
 					class="tick-mark"
 					x1={halfBand}

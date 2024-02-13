@@ -37,23 +37,11 @@
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = 1;
 
-	function textAnchor(i, sl) {
-		if (sl === true) {
-			if (i === 0) {
-				return 'start';
-			}
-			if (i === tickVals.length - 1) {
-				return 'end';
-			}
-		}
-		return 'middle';
-	}
+	$: tickLen = tickMarks === true
+		? tickMarkLength ?? 6
+		: 0;
 
-	$: tickLen = typeof tickMarkLength === 'number'
-		? tickMarkLength
-		: tickMarks === true
-			? 6
-			: 0;
+	$: console.log(tickLen)
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 

@@ -32,7 +32,6 @@
 		height: 200px;
 	}
 	.props {
-		height: 25px;
 		display: flex;
 		flex-direction: row;
 		user-select: none;

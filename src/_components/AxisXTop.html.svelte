@@ -10,8 +10,11 @@
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
 
-	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
-	export let tickMarkLength = 'long';
+	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
+	export let gridlines = true;
+
+	/** @type {Number} [tickMarkLength=6] - The length of the tick mark. */
+	export let tickMarkLength = 6;
 
 	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
@@ -34,23 +37,9 @@
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = 0;
 
-	function textAnchor(i, sl) {
-		if (sl === true) {
-			if (i === 0) {
-				return 'start';
-			}
-			if (i === tickVals.length - 1) {
-				return 'end';
-			}
-		}
-		return 'middle';
-	}
-
-	$: tickLen = typeof tickMarkLength === 'number'
-		? tickMarkLength
-		: tickMarkLength === 'short'
-			? 6
-			: 0;
+	$: tickLen = tickMarks === true
+		? tickMarkLength ?? 6
+		: 0;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 
@@ -61,7 +50,7 @@
 				ticks($xScale.ticks()) :
 					$xScale.ticks(ticks);
 
-	$: halfBand = isBandwidth ? halfBand : 0
+	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0
 </script>
 
 <div class='axis x-axis' class:snapLabels>
@@ -72,13 +61,14 @@
 			<div class="baseline" style='top:0; width:100%;'></div>
 		{/if}
 
-		{#if tickMarks === true && tickMarkLength === 'long'}
+		{#if gridlines === true}
 			<div
 				class="gridline"
 				style:left={tickValPx + '%'}
 				style='top:0; bottom:0;'
 			></div>
-		{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
+		{/if}
+		{#if tickMarks === true}
 			<div
 				class="tick-mark"
 				style:left={(tickValPx + halfBand) + '%'}

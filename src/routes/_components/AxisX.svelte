@@ -32,7 +32,6 @@
 		height: 200px;
 	}
 	.props {
-		height: 25px;
 		display: flex;
 		flex-direction: row;
 		user-select: none;
@@ -61,10 +60,6 @@
 
 	<label>
 		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
-	</label>
-
-	<label>
-		<input type="checkbox" bind:checked={gridlines}/> gridlines
 	</label>
 
 	<label>

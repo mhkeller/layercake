@@ -15,8 +15,9 @@
 
 	let tickMarks = true;
 	let snapLabels = true;
+	let gridlines = true;
 	let baseline = true;
-	let tickMarkLength = 'long';
+	let tickMarkLength = 6;
 </script>
 
 <style>
@@ -31,19 +32,20 @@
 		height: 200px;
 	}
 	.props {
-		height: 25px;
 		display: flex;
 		flex-direction: row;
 		user-select: none;
+		flex-wrap: wrap;
 		gap: 10px;
+		row-gap: 0px;
 	}
 	label {
 		display: flex;
 		cursor: pointer;
 		align-items: center;
 	}
-	select {
-		width: 60px;
+	input[type="number"] {
+		width: 50px;
 	}
 </style>
 
@@ -60,11 +62,11 @@
 		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 	</label>
 
-	<select bind:value={tickMarkLength} disabled={!tickMarks}>
-		<option disabled>tickMarkLength</option>
-		<option value="long">long</option>
-		<option value="short">short</option>
-	</select>
+	<label>
+		<input type="checkbox" bind:checked={gridlines}/> gridlines
+	</label>
+
+	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength"/>
 </div>
 
 <div class="chart-container">
@@ -74,7 +76,6 @@
 		padding={{ top: 25, bottom: 20 }}
 		x={xKey}
 		y={d => d[yKey]}
-		yDomain={[0, null]}
 		{data}
 	>
 		<Html>
@@ -82,7 +83,8 @@
 				{baseline}
 				{tickMarks}
 				{snapLabels}
-				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
+				{gridlines}
+				{tickMarkLength}
 		/>
 		</Html>
 	</LayerCake>

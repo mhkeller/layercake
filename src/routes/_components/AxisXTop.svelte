@@ -15,8 +15,9 @@
 
 	let tickMarks = true;
 	let snapLabels = true;
+	let gridlines = true;
 	let baseline = true;
-	let tickMarkLength = 'long';
+	let tickMarkLength = 6;
 </script>
 
 <style>
@@ -31,18 +32,19 @@
 		height: 200px;
 	}
 	.props {
-		height: 25px;
 		display: flex;
 		flex-direction: row;
 		user-select: none;
+		flex-wrap: wrap;
 		gap: 10px;
+		row-gap: 0px;
 	}
 	label {
 		display: flex;
 		cursor: pointer;
 		align-items: center;
 	}
-	select {
+	input[type="number"] {
 		width: 60px;
 	}
 </style>
@@ -60,12 +62,11 @@
 		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 	</label>
 
-	<select bind:value={tickMarkLength} disabled={!tickMarks}>
-		<option disabled>tickMarkLength</option>
-		<option value="long">long</option>
-		<option value="short">short</option>
-	</select>
+	<label>
+		<input type="checkbox" bind:checked={gridlines}/> gridlines
+	</label>
 
+	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength"/>
 </div>
 
 <div class="chart-container">
@@ -79,8 +80,9 @@
 			<AxisXTop
 				{baseline}
 				{tickMarks}
+				{gridlines}
 				{snapLabels}
-				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
+				{tickMarkLength}
 			/>
 		</Svg>
 	</LayerCake>

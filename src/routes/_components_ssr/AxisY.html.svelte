@@ -13,39 +13,41 @@
 		d[yKey] = +d[yKey];
 	});
 
-	let tickMarks = true;
+	let tickMarks = false;
 	let snapBaselineLabel = false;
+	let gridlines = true;
 	let labelPosition = 'even';
-	let tickMarkLength = 'long';
+	let tickMarkLength = undefined;
 </script>
 
 <style>
-/*
-	The wrapper div needs to have an explicit width and height in CSS.
-	It can also be a flexbox child or CSS grid element.
-	The point being it needs dimensions since the <LayerCake> element will
-	expand to fill it.
-*/
-.chart-container {
-	width: 100%;
-	height: 200px;
-}
-.props {
-	margin-top: 5px;
-	margin-bottom: 25px;
-	height: 25px;
-	display: flex;
-	flex-direction: row;
-	user-select: none;
-	gap: 10px;
-	flex-wrap: wrap;
-}
-label {
-	display: flex;
-}
-label:not(.disabled) {
-	cursor: pointer;
-}
+	/*
+		The wrapper div needs to have an explicit width and height in CSS.
+		It can also be a flexbox child or CSS grid element.
+		The point being it needs dimensions since the <LayerCake> element will
+		expand to fill it.
+	*/
+	.chart-container {
+		width: 100%;
+		height: 200px;
+	}
+	.props {
+		margin-top: 5px;
+		display: flex;
+		flex-direction: row;
+		user-select: none;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+	label {
+		display: flex;
+	}
+	label:not(.disabled) {
+		cursor: pointer;
+	}
+	input[type="number"] {
+		width: 50px;
+	}
 </style>
 
 <div class="props">
@@ -58,23 +60,22 @@ label:not(.disabled) {
 	<label>
 		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 	</label>
-
-	<select bind:value={tickMarkLength} disabled={!tickMarks}>
-		<option disabled>tickMarkLength</option>
-		<option value="long">long</option>
-		<option value="short">short</option>
-	</select>
+	<label>
+		<input type="checkbox" bind:checked={gridlines}/> gridlines
+	</label>
 
 	<label class:disabled={labelPosition === 'above'}>
 		<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> snapBaselineLabel
 	</label>
+
+	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength"/>
 </div>
 
 <div class="chart-container">
 	<LayerCake
 		ssr={true}
 		percentRange={true}
-		padding={{ bottom: 35, left: 10 }}
+		padding={{ bottom: 15, left: 10 }}
 		x={xKey}
 		y={d => d[yKey]}
 		data={data}
@@ -84,7 +85,8 @@ label:not(.disabled) {
 				{tickMarks}
 				{snapBaselineLabel}
 				{labelPosition}
-				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
+				{gridlines}
+				{tickMarkLength}
 				ticks={4}
 		/>
 		</Html>

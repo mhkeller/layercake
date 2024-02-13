@@ -16,8 +16,11 @@
 	/** @type {Boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
 	export let snapBaselineLabel = false;
 
-	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
-	export let tickMarkLength = 'long';
+	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
+	export let gridlines = true;
+
+	/** @type {Number} [tickMarkLength=undefined] - The length of the tick mark. If not set, becomes the length of the widest tick. */
+	export let tickMarkLength = undefined;
 
 	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
 	export let format = d => d ;
@@ -51,11 +54,11 @@
 		return sum + charPixelWidth;
 	}
 
-	$: tickLen = typeof tickMarkLength === 'number'
-		? tickMarkLength
-		: tickMarkLength === 'short'
-			? labelPosition === 'above' ? widestTickLen : 5
-			: 0;
+	$: tickLen = tickMarks === true
+		? labelPosition === 'above'
+			? tickMarkLength ?? widestTickLen
+			: tickMarkLength ?? 6
+		: 0;
 
 	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
 
@@ -70,14 +73,15 @@
 		{@const tickValPx = $yScale(tick)}
 
 		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValPx}%;'>
-			{#if tickMarks === true && tickMarkLength === 'long'}
+			{#if gridlines === true}
 				<div
 					class="gridline"
 					style="top:0;"
 					style:left='{x1}px'
 					style:right='0px'
 				></div>
-			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
+			{/if}
+			{#if tickMarks === true}
 				<div
 					class="tick-mark"
 					style="top:0;"

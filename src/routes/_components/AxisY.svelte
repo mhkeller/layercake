@@ -13,10 +13,11 @@
 		d[yKey] = +d[yKey];
 	});
 
-	let tickMarks = true;
+	let tickMarks = false;
 	let snapBaselineLabel = false;
+	let gridlines = true;
 	let labelPosition = 'even';
-	let tickMarkLength = 'long';
+	let tickMarkLength = undefined;
 </script>
 
 <style>
@@ -46,6 +47,9 @@
 	label:not(.disabled) {
 		cursor: pointer;
 	}
+	input[type="number"] {
+		width: 50px;
+	}
 </style>
 
 <div class="props">
@@ -59,20 +63,20 @@
 		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 	</label>
 
-	<select bind:value={tickMarkLength} disabled={!tickMarks}>
-		<option disabled>tickMarkLength</option>
-		<option value="long">long</option>
-		<option value="short">short</option>
-	</select>
+	<label>
+		<input type="checkbox" bind:checked={gridlines}/> gridlines
+	</label>
 
 	<label class:disabled={labelPosition === 'above'}>
 		<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> snapBaselineLabel
 	</label>
+
+	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength"/>
 </div>
 
 <div class="chart-container">
 	<LayerCake
-		padding={{ bottom: 35, left: 10 }}
+		padding={{ bottom: 15, left: 10 }}
 		x={xKey}
 		y={yKey}
 		data={data}
@@ -82,7 +86,8 @@
 				{tickMarks}
 				{snapBaselineLabel}
 				{labelPosition}
-				tickMarkLength={Number.isNaN(+tickMarkLength) ? tickMarkLength : +tickMarkLength}
+				{gridlines}
+				{tickMarkLength}
 				ticks={4}
 			/>
 		</Svg>

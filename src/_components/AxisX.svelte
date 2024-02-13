@@ -10,8 +10,11 @@
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
 
-	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
-	export let tickMarkLength = 'long';
+	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
+	export let gridlines = true;
+
+	/** @type {Number} [tickMarkLength] - If set, overrides any auto-calculation. */
+	export let tickMarkLength = undefined;
 
 	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
@@ -48,7 +51,7 @@
 
 	$: tickLen = typeof tickMarkLength === 'number'
 		? tickMarkLength
-		: tickMarkLength === 'short'
+		: tickMarks === true
 			? 6
 			: 0;
 
@@ -71,7 +74,7 @@
 		{/if}
 
 		<g class="tick tick-{i}" transform="translate({$xScale(tick)},{Math.max(...$yRange)})">
-			{#if tickMarks === true && tickMarkLength === 'long'}
+			{#if gridlines === true}
 				<line
 					class="gridline"
 					x1="0"
@@ -79,13 +82,14 @@
 					y1={-$height}
 					y2="0"
 				/>
-			{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
+			{/if}
+			{#if tickMarks === true}
 				<line
 					class="tick-mark"
 					x1={halfBand}
 					x2={halfBand}
 					y1={tickGutter}
-					y2={tickGutter + (typeof tickMarkLength === 'number' ? tickMarkLength : tickLen)}
+					y2={tickGutter + tickLen}
 				/>
 			{/if}
 			<text

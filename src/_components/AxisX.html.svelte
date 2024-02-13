@@ -10,8 +10,11 @@
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
 
-	/** @type {String|Number} [tickMarkLength='long'] - Tick mark style. Options: 'long', 'short' or a number in pixels. If 'long', the line extends the full width. If 'short', it will generally be the length of the longest tick label. */
-	export let tickMarkLength = 'long';
+	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
+	export let gridlines = true;
+
+	/** @type {Number} [tickMarkLength=6] - The length of the tick mark. */
+	export let tickMarkLength = 6;
 
 	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
@@ -48,7 +51,7 @@
 
 	$: tickLen = typeof tickMarkLength === 'number'
 		? tickMarkLength
-		: tickMarkLength === 'short'
+		: tickMarks === true
 			? 6
 			: 0;
 
@@ -61,7 +64,7 @@
 				ticks($xScale.ticks()) :
 					$xScale.ticks(ticks);
 
-	$: halfBand = isBandwidth ? halfBand : 0
+	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0
 </script>
 
 <div class='axis x-axis' class:snapLabels>
@@ -72,12 +75,13 @@
 			<div class="baseline" style='top:100%; width:100%;'></div>
 		{/if}
 
-		{#if tickMarks === true && tickMarkLength === 'long'}
+		{#if gridlines === true}
 			<div
 				class="gridline"
 				style:left='{tickValPx}%'
 				style='top:0; bottom:0;'></div>
-		{:else if tickMarks === true && (tickMarkLength === 'short' || typeof tickMarkLength === 'number')}
+		{/if}
+		{#if tickMarks === true}
 			<div
 				class="tick-mark"
 				style:left='{tickValPx + halfBand}%'

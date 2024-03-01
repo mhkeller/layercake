@@ -27,7 +27,7 @@
 		});
 	});
 
-	const formatTickX = d => format(`~s`)(d);
+	const formatLabelX = d => format(`~s`)(d);
 
 	const stackedData = stack(data, seriesNames);
 </script>
@@ -61,8 +61,8 @@
 		<Svg>
 			<AxisX
 				baseline={true}
-				snapTicks={true}
-				formatTick={formatTickX}
+				snapLabels={true}
+				format={formatLabelX}
 			/>
 			<AxisY
 				gridlines={false}

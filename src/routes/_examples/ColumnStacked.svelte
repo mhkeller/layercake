@@ -27,7 +27,7 @@
 		});
 	});
 
-	const formatTickY = d => format(`~s`)(d);
+	const formatLabelY = d => format(`~s`)(d);
 
 	const stackedData = stack(data, seriesNames);
 </script>
@@ -66,7 +66,7 @@
 			<AxisY
 				ticks={4}
 				gridlines={false}
-				formatTick={formatTickY}
+				format={formatLabelY}
 			/>
 			<ColumnStacked/>
 		</Svg>

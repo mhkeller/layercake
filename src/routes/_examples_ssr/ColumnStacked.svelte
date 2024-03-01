@@ -29,7 +29,7 @@
 
 	const series = stackData(data);
 
-	const formatTickY = d => format(`~s`)(d);
+	const formatLabelY = d => format(`~s`)(d);
 </script>
 
 <style>
@@ -68,7 +68,7 @@
 			<AxisY
 				ticks={4}
 				gridlines={false}
-				formatTick={formatTickY}
+				format={formatLabelY}
 			/>
 		</Html>
 		<ScaledSvg>

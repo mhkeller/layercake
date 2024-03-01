@@ -74,7 +74,7 @@
 				gridlines={false}
 				baseline={true}
 				ticks={slimSteps}
-				formatTick={d => +f(d)}
+				format={d => +f(d)}
 			/>
 			<AxisY
 				gridlines={false}

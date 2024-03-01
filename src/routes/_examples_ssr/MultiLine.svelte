@@ -45,8 +45,8 @@
 		};
 	});
 
-	const formatTickX = timeFormat('%b. %e');
-	const formatTickY = d => format(`~s`)(d);
+	const formatLabelX = timeFormat('%b. %e');
+	const formatLabelY = d => format(`~s`)(d);
 </script>
 
 <style>
@@ -80,13 +80,13 @@
 			<AxisX
 				gridlines={false}
 				ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
-				formatTick={formatTickX}
+				format={formatLabelX}
 				snapTicks={true}
 				tickMarks={true}
 			/>
 			<AxisY
 				baseline={true}
-				formatTick={formatTickY}
+				format={formatLabelY}
 			/>
 		</Html>
 
@@ -97,7 +97,7 @@
 		<Html>
 			<GroupLabels/>
 			<SharedTooltip
-				formatTitle={formatTickX}
+				formatTitle={formatLabelX}
 				dataset={data}
 			/>
 		</Html>

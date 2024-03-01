@@ -20,8 +20,8 @@
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ff00cc', '#ff7ac7', '#ffb3c0', '#ffe4b8'];
 
-	const formatTickX = timeFormat('%b. %-d')
-	const formatTickY = d => format(`~s`)(d);
+	const formatLabelX = timeFormat('%b. %-d')
+	const formatLabelY = d => format(`~s`)(d);
 
 	/* --------------------------------------------
 	 * Cast data
@@ -66,11 +66,11 @@
 	>
 		<Svg>
 			<AxisX
-				formatTick={formatTickX}
+				format={formatLabelX}
 				tickMarks={true}
 			/>
 			<AxisY
-				formatTick={formatTickY}
+				format={formatLabelY}
 			/>
 			<AreaStacked/>
 		</Svg>

@@ -29,7 +29,7 @@
 
 	const series = stackData(data);
 
-	const formatTickX = d => format(`~s`)(d);
+	const formatLabelX = d => format(`~s`)(d);
 </script>
 
 <style>
@@ -65,7 +65,7 @@
 			<AxisX
 				baseline={true}
 				snapTicks={true}
-				formatTick={formatTickX}
+				format={formatLabelX}
 			/>
 			<AxisY
 				gridlines={false}

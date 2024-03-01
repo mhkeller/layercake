@@ -43,8 +43,7 @@
 		return memo.concat(group.values);
 	}, []);
 
-	const formatTickX = timeFormat('%b. %e');
-	const formatTickY = d => format(`~s`)(d);
+	const formatLabelX = timeFormat('%b. %e');
 </script>
 
 <style>
@@ -79,7 +78,7 @@
 
 		<Html>
 			<SharedTooltip
-				formatTitle={formatTickX}
+				formatTitle={formatLabelX}
 				dataset={data}
 			/>
 		</Html>

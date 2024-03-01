@@ -70,7 +70,7 @@
 		<Svg>
 			<AxisX
 				ticks={[0, 4, 8, 12, 16, 20, 24].map(d => d * 60 * 60)}
-				formatTick={d => `${Math.floor(d / 60 / 60)}:00`}
+				format={d => `${Math.floor(d / 60 / 60)}:00`}
 			/>
 			<AxisY/>
 			<ScatterSvg

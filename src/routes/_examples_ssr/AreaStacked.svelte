@@ -36,8 +36,8 @@
 
 	const series = stackData(data);
 
-	const formatTickX = timeFormat('%b. %-d')
-	const formatTickY = d => format(`~s`)(d);
+	const formatLabelX = timeFormat('%b. %-d')
+	const formatLabelY = d => format(`~s`)(d);
 </script>
 
 <style>
@@ -69,12 +69,11 @@
 	>
 		<Html>
 			<AxisX
-				formatTick={formatTickX}
+				format={formatLabelX}
 				tickMarks={true}
 			/>
 			<AxisY
-				baseline={true}
-				formatTick={formatTickY}
+				format={formatLabelY}
 			/>
 		</Html>
 		<ScaledSvg>

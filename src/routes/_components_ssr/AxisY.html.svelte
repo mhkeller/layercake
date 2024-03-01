@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, ScaledSvg, Html } from 'layercake';
+	import { LayerCake, Html } from 'layercake';
 
 	import AxisY from '../../_components/AxisY.html.svelte';
 
@@ -18,11 +18,18 @@
 	let gridlines = true;
 	let labelPosition = 'above';
 	let tickMarkLength = undefined;
-	let tickGutter = undefined;
-	let dy = undefined;
+	let tickGutter = 0;
+	let dx = 0;
+	let dy = -3;
 </script>
 
 <style>
+	.component-container {
+		display: flex;
+		flex-direction: row-reverse;
+		gap: 10px;
+		height: 100%;
+	}
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
 		It can also be a flexbox child or CSS grid element.
@@ -30,71 +37,106 @@
 		expand to fill it.
 	*/
 	.chart-container {
-		width: 100%;
-		height: 200px;
+		flex: 1;
 	}
 	.props {
-		margin-top: 5px;
+		flex-grow: 0;
+		flex-shrink: 1;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		user-select: none;
-		gap: 10px;
-		flex-wrap: wrap;
+		overflow-y: auto;
+		font-size: 0.9rem;
 	}
 	label {
 		display: flex;
-	}
-	label:not(.disabled) {
 		cursor: pointer;
+		align-items: center;
 	}
+	input[type="checkbox"] {
+		margin-left: 0;
+	}
+
+	label.number {
+		display: flex;
+		justify-content: space-between;
+	}
+
 	input[type="number"] {
-		width: 50px;
+		max-width: 35px;
+		margin-left: 10px;
+		float: right;
+	}
+	span.disabled {
+		opacity: 0.5;
+	}
+	label.disabled {
+		pointer-events: none;
 	}
 </style>
 
-<div class="props">
-	<select bind:value={labelPosition}>
-		<option disabled>labelPosition</option>
-		<option value="above">above</option>
-		<option value="even">even</option>
-	</select>
+<div class="component-container">
+	<div class="props">
+		<label>
+			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
+		</label>
 
-	<label>
-		<input type="checkbox" bind:checked={tickMarks}/> tickMarks
-	</label>
-	<label>
-		<input type="checkbox" bind:checked={gridlines}/> gridlines
-	</label>
+		<label>
+			<input type="checkbox" bind:checked={gridlines}/> gridlines
+		</label>
 
-	<label class:disabled={labelPosition === 'above'}>
-		<input type="checkbox" bind:checked={snapBaseLabel} disabled={labelPosition === 'above'}/> snapBaseLabel
-	</label>
+		<label class:disabled={labelPosition === 'above'}>
+			<input type="checkbox" bind:checked={snapBaseLabel} disabled={labelPosition === 'above'}/> snapBaseLabel
+		</label>
 
-	<input type="number" bind:value={tickMarkLength} placeholder="tickMarkLength" disabled={!tickMarks}/>
-	<input type="number" bind:value={tickGutter} placeholder="tickGutter"/>
-	<input type="number" bind:value={dy} placeholder="dy"/>
-</div>
+		<label class="number">
+			labelPosition
+			<select bind:value={labelPosition}>
+				<option value="above">above</option>
+				<option value="even">even</option>
+			</select>
+		</label>
 
-<div class="chart-container">
-	<LayerCake
-		ssr={true}
-		percentRange={true}
-		padding={{ bottom: 15, left: 10 }}
-		x={xKey}
-		y={d => d[yKey]}
-		data={data}
-	>
-		<Html>
-			<AxisY
-				{tickMarks}
-				{snapBaseLabel}
-				{labelPosition}
-				{gridlines}
-				{tickMarkLength}
-				{tickGutter}
-				{dy}
-				ticks={4}
-		/>
-		</Html>
-	</LayerCake>
+		<label class="number" class:disabled={!tickMarks}>
+			<span class:disabled={!tickMarks}>tickMarkLength</span>
+			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks}/>
+		</label>
+		<label class="number">
+			tickGutter
+			<input type="number" bind:value={tickGutter} />
+		</label>
+		<label class="number">
+			dx
+			<input type="number" bind:value={dx} />
+		</label>
+		<label class="number">
+			dy
+			<input type="number" bind:value={dy} />
+		</label>
+	</div>
+
+	<div class="chart-container">
+		<LayerCake
+			ssr={true}
+			percentRange={true}
+			padding={{ bottom: 15, left: 10 }}
+			x={xKey}
+			y={d => d[yKey]}
+			data={data}
+		>
+			<Html>
+				<AxisY
+					{tickMarks}
+					{snapBaseLabel}
+					{labelPosition}
+					{gridlines}
+					{tickMarkLength}
+					{tickGutter}
+					{dx}
+					{dy}
+					ticks={4}
+			/>
+			</Html>
+		</LayerCake>
+	</div>
 </div>

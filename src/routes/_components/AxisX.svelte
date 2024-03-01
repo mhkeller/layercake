@@ -46,7 +46,6 @@
 		flex-direction: column;
 		user-select: none;
 		overflow-y: auto;
-		/* gap: 2px; */
 		font-size: 0.9rem;
 	}
 	label {

@@ -77,12 +77,6 @@
 
 <div class="component-container">
 	<div class="props">
-		<select bind:value={labelPosition}>
-			<option disabled>labelPosition</option>
-			<option value="above">above</option>
-			<option value="even">even</option>
-		</select>
-
 		<label>
 			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 		</label>
@@ -95,8 +89,16 @@
 			<input type="checkbox" bind:checked={snapBaseLabel} disabled={labelPosition === 'above'}/> snapBaseLabel
 		</label>
 
+		<label class="number">
+			labelPosition
+			<select bind:value={labelPosition}>
+				<option value="above">above</option>
+				<option value="even">even</option>
+			</select>
+		</label>
+
 		<label class="number" class:disabled={!tickMarks}>
-			tickMarkLength
+			<span class:disabled={!tickMarks}>tickMarkLength</span>
 			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks}/>
 		</label>
 		<label class="number">

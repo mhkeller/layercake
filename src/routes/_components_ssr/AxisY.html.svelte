@@ -14,7 +14,7 @@
 	});
 
 	let tickMarks = false;
-	let snapBaseLabel = false;
+	let snapBaselineLabel = false;
 	let gridlines = true;
 	let labelPosition = 'above';
 	let tickMarkLength = undefined;
@@ -85,16 +85,16 @@
 			<input type="checkbox" bind:checked={gridlines}/> gridlines
 		</label>
 
-		<label class:disabled={labelPosition === 'above'}>
-			<input type="checkbox" bind:checked={snapBaseLabel} disabled={labelPosition === 'above'}/> snapBaseLabel
-		</label>
-
 		<label class="number">
 			labelPosition
 			<select bind:value={labelPosition}>
 				<option value="above">above</option>
 				<option value="even">even</option>
 			</select>
+		</label>
+
+		<label class:disabled={labelPosition === 'above'}>
+			<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> <span class:disabled={labelPosition === 'above'}>snapBaselineLabel</span>
 		</label>
 
 		<label class="number" class:disabled={!tickMarks}>
@@ -127,7 +127,7 @@
 			<Html>
 				<AxisY
 					{tickMarks}
-					{snapBaseLabel}
+					{snapBaselineLabel}
 					{labelPosition}
 					{gridlines}
 					{tickMarkLength}

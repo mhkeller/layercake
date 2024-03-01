@@ -30,7 +30,7 @@
 	async function download () {
 		downloading = true;
 
-		console.log('downloading');
+		// console.log('downloading');
 
 		const cacheBust = new Date().getTime();
 		const files = await (await window.fetch(`/svelte-app.json?${cacheBust}`)).json();
@@ -65,7 +65,7 @@
 			path: `src/routes/+page.svelte`,
 			data: data.main.contents
 		});
-		console.log('here', files);
+		// console.log('here', files);
 		const filteredFiles = uniques(files.filter(Boolean), 'path', false);
 		downloadBlob(toAuto(filteredFiles), `layercake-${ssr ? 'ssr-' : ''}${slug}.zip`);
 		downloading = false;

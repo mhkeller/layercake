@@ -41,8 +41,6 @@
 		? tickMarkLength ?? 6
 		: 0;
 
-	$: console.log(tickLen)
-
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 
 	$: tickVals = Array.isArray(ticks) ? ticks :

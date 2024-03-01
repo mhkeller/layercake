@@ -13,8 +13,8 @@
 		d[yKey] = +d[yKey];
 	});
 
-	let tickMarks = true;
-	let snapLabels = true;
+	let tickMarks = false;
+	let snapLabels = false;
 	let gridlines = true;
 	let baseline = true;
 	let tickMarkLength = 6;

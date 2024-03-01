@@ -13,9 +13,9 @@
 		d[yKey] = +d[yKey];
 	});
 
-	let tickMarks = true;
+	let tickMarks = false;
 	let gridlines = true;
-	let snapLabels = true;
+	let snapLabels = false;
 	let baseline = true;
 	let tickMarkLength = 6;
 	let tickGutter = 0;
@@ -118,7 +118,7 @@
 			padding={{ top: 10, bottom: 20 }}
 			x={xKey}
 			y={yKey}
-			data={data}
+			{data}
 		>
 			<Svg>
 				<AxisX

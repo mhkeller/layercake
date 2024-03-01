@@ -13,8 +13,8 @@
 		d[yKey] = +d[yKey];
 	});
 
-	let tickMarks = true;
-	let snapLabels = true;
+	let tickMarks = false;
+	let snapLabels = false;
 	let baseline = true;
 	let gridlines = true;
 	let tickMarkLength = 6;
@@ -117,7 +117,7 @@
 		<LayerCake
 			ssr={true}
 			percentRange={true}
-			padding={{ top: 20, bottom: 20 }}
+			padding={{ top: 15, bottom: 20 }}
 			x={xKey}
 			y={d => d[yKey]}
 			yDomain={[0, null]}

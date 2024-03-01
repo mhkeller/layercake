@@ -240,6 +240,7 @@
 	h4 {
 		display: block;
 		padding: 7px 0;
+		margin-top: 16px;
 	}
 
 	.subgroup-blocks {

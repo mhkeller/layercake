@@ -78,11 +78,7 @@
 <div class="component-container">
 	<div class="props">
 		<label>
-			<input type="checkbox" bind:checked={baseline}/> baseline
-		</label>
-
-		<label>
-			<input type="checkbox" bind:checked={snapLabels}/> snapLabels
+			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 		</label>
 
 		<label>
@@ -90,7 +86,11 @@
 		</label>
 
 		<label>
-			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
+			<input type="checkbox" bind:checked={baseline}/> baseline
+		</label>
+
+		<label>
+			<input type="checkbox" bind:checked={snapLabels}/> snapLabels
 		</label>
 
 		<label class="number" class:disabled={!tickMarks}>

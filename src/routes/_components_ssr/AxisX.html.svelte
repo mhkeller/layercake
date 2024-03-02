@@ -78,11 +78,7 @@
 <div class="component-container">
 	<div class="props">
 		<label>
-			<input type="checkbox" bind:checked={baseline}/> baseline
-		</label>
-
-		<label>
-			<input type="checkbox" bind:checked={snapLabels}/> snapLabels
+			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
 		</label>
 
 		<label>
@@ -90,7 +86,11 @@
 		</label>
 
 		<label>
-			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
+			<input type="checkbox" bind:checked={baseline}/> baseline
+		</label>
+
+		<label>
+			<input type="checkbox" bind:checked={snapLabels}/> snapLabels
 		</label>
 
 		<label class="number" class:disabled={!tickMarks}>
@@ -117,7 +117,7 @@
 		<LayerCake
 			ssr={true}
 			percentRange={true}
-			padding={{ top: 15, bottom: 20 }}
+			padding={{ top: 10, bottom: 20 }}
 			x={xKey}
 			y={d => d[yKey]}
 			yDomain={[0, null]}

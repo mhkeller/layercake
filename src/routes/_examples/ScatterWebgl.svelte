@@ -54,6 +54,7 @@
 		<Svg>
 			<AxisX/>
 			<AxisY
+				tickMarks={false}
 				ticks={5}
 			/>
 		</Svg>

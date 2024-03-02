@@ -68,15 +68,21 @@
 <g class="axis x-axis" class:snapLabels>
 	{#each tickVals as tick, i (tick)}
 		{#if baseline === true}
-			<line class="baseline" y1={$height} y2={$height} x1="0" x2={$width} />
+			<line
+				class="baseline"
+				y1={$height}
+				y2={$height}
+				x1="0"
+				x2={$width}
+			/>
 		{/if}
 
 		<g class="tick tick-{i}" transform="translate({$xScale(tick)},{Math.max(...$yRange)})">
 			{#if gridlines === true}
 				<line
 					class="gridline"
-					x1="0"
-					x2="0"
+					x1={halfBand}
+					x2={halfBand}
 					y1={-$height}
 					y2="0"
 				/>

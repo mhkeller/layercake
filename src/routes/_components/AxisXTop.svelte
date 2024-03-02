@@ -115,7 +115,7 @@
 
 	<div class="chart-container">
 		<LayerCake
-			padding={{ top: 25, bottom: 10 }}
+			padding={{ top: 15, bottom: 10 }}
 			x={xKey}
 			y={yKey}
 			data={data}
@@ -128,6 +128,7 @@
 					{snapLabels}
 					{tickMarkLength}
 					{tickGutter}
+					{dx}
 					{dy}
 				/>
 			</Svg>

@@ -59,7 +59,7 @@
 			<AxisX
 				baseline={true}
 				format={addCommas}
-				tickMarks={true}
+				tickMarks
 			/>
 			<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
 			<Beeswarm

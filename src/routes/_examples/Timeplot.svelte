@@ -14,7 +14,6 @@
 	const yKey = 'day';
 
 	const r = 4;
-	const padding = 2;
 
 	const daysTransformed = data.map(d => {
 		const parts = d.timestring.split('T');
@@ -63,7 +62,6 @@
 		yDomain={allDays}
 		xScale={scaleTime()}
 		yScale={scaleBand().paddingInner(0.05).round(true)}
-		xPadding={[padding, padding]}
 		data={daysTransformed}
 	>
 

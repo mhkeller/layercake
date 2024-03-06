@@ -90,7 +90,8 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
         </linearGradient>
       <defs>
 
-      <!-- If you want to use the named slot, add the xmlns attribute on the linearGradient element -->
+      <!-- If you want to use the named slot, 
+        add the xmlns attribute on the `<linearGradient>` element -->
       <svelte:fragment slot="defs">
         <linearGradient id="myGradient" gradientTransform="rotate(90)" xmlns="http://www.w3.org/2000/svg">
           <stop offset="20%" stop-color="gold" />

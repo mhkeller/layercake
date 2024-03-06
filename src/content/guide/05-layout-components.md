@@ -79,7 +79,7 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
 <div class="chart-container">
   <LayerCake ...>
     <Svg>
-      <!-- Simply add a defs tag here -->
+      <!-- Simply add a defs tag here, note that this will appear inside the `<g>` element under the main `<svg>` and the top-level `<defs>` tag will be empty -->
       <defs>
         <linearGradient id="myGradient" gradientTransform="rotate(90)">
           <stop offset="20%" stop-color="gold" />

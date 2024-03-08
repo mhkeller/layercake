@@ -13,7 +13,7 @@
 	const yKey = 'myY';
 
 	const r = 3;
-	const padding = 6;
+	const xyPadding = 6;
 
 	data.forEach(d => {
 		d[yKey] = +d[yKey];
@@ -44,11 +44,11 @@
 
 <div class="chart-container">
 	<LayerCake
-		padding={{ top: 0, right: 5, bottom: 20, left: 25 }}
+		padding={{ top: 5, right: 5, bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
-		xPadding={[padding, padding]}
-		yPadding={[padding, padding]}
+		xPadding={[xyPadding, xyPadding]}
+		yPadding={[xyPadding, xyPadding]}
 		data={data}
 	>
 		<Svg>

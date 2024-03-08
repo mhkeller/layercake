@@ -5,8 +5,8 @@
 	import { format } from 'd3-format';
 	import { timeParse, timeFormat } from 'd3-time-format';
 
-	import AxisX from '../../_components/AxisX.html.svelte';
-	import AxisY from '../../_components/AxisY.html.svelte';
+	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 	import AreaStacked from '../../_components/AreaStacked.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv

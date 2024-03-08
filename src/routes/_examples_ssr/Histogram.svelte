@@ -5,8 +5,8 @@
 	import { format } from 'd3-format';
 
 	import Column from '../../_components/Column.svelte';
-	import AxisX from '../../_components/AxisX.html.svelte';
-	import AxisY from '../../_components/AxisY.html.svelte';
+	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 
 	import calcThresholds from '../../_modules/calcThresholds.js';
 

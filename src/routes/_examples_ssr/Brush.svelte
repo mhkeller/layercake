@@ -3,8 +3,8 @@
 
 	import Line from '../../_components/Line.svelte';
 	import Area from '../../_components/Area.svelte';
-	import AxisX from '../../_components/AxisX.html.svelte';
-	import AxisY from '../../_components/AxisY.html.svelte';
+	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 	import Brush from '../../_components/Brush.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv

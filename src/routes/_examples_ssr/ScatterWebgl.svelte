@@ -2,8 +2,8 @@
 	import { LayerCake, WebGL, Html } from 'layercake';
 
 	import ScatterWebGL from '../../_components/Scatter.webgl.svelte';
-	import AxisX from '../../_components/AxisX.html.svelte';
-	import AxisY from '../../_components/AxisY.html.svelte';
+	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 	import QuadTree from '../../_components/QuadTree.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv

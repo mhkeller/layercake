@@ -1,7 +1,7 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import AxisY from '../../_components/AxisY.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/points.csv';

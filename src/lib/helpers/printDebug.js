@@ -31,7 +31,9 @@ function contrast({ r, g, b }) {
 export default function printDebug(obj) {
 	console.log('/********* LayerCake Debug ************/');
 	console.log('Bounding box:');
-	printObject(obj.boundingBox)
+	printObject(obj.boundingBox);
+	console.log('Data:');
+	console.log(indent, obj.data);
 	console.log('Scales:\n');
 	Object.keys(obj.activeGetters).forEach(g => {
 		printScale(g, obj[`${g}Scale`], obj[g]);
@@ -42,7 +44,7 @@ export default function printDebug(obj) {
 function printObject(obj) {
 	Object.entries(obj).forEach(([key, value]) => {
 		console.log(`${indent}${key}:`, value);
-	})
+	});
 }
 
 function printScale(s, scale, acc) {

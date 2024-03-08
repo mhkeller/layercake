@@ -5,8 +5,8 @@
 	import { format } from 'd3-format';
 	import { timeParse, timeFormat } from 'd3-time-format';
 
-	import AxisX from '../../_components/AxisX.html.svelte';
-	import AxisY from '../../_components/AxisY.html.svelte';
+	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 	import AreaStacked from '../../_components/AreaStacked.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
@@ -36,8 +36,8 @@
 
 	const series = stackData(data);
 
-	const formatTickX = timeFormat('%b. %-d')
-	const formatTickY = d => format(`~s`)(d);
+	const formatLabelX = timeFormat('%b. %-d')
+	const formatLabelY = d => format(`~s`)(d);
 </script>
 
 <style>
@@ -69,12 +69,11 @@
 	>
 		<Html>
 			<AxisX
-				formatTick={formatTickX}
+				format={formatLabelX}
 				tickMarks={true}
 			/>
 			<AxisY
-				baseline={true}
-				formatTick={formatTickY}
+				format={formatLabelY}
 			/>
 		</Html>
 		<ScaledSvg>

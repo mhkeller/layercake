@@ -73,7 +73,7 @@
 				gridlines={false}
 				baseline={true}
 				ticks={slimThresholds}
-				formatTick={d => +f(d)}
+				format={d => +f(d)}
 			/>
 			<AxisY
 				gridlines={false}

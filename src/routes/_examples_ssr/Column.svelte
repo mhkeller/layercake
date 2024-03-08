@@ -3,8 +3,8 @@
 	import { scaleBand } from 'd3-scale';
 
 	import Column from '../../_components/Column.svelte';
-	import AxisX from '../../_components/AxisX.html.svelte';
-	import AxisY from '../../_components/AxisY.html.svelte';
+	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 	import Annotations from '../../_components/Annotations.html.svelte';
 	import Arrows from '../../_components/Arrows.svelte';
 	import ArrowheadMarker from '../../_components/ArrowheadMarker.svelte';

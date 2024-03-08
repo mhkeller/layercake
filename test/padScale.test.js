@@ -164,4 +164,3 @@ describe(`discrete range scales`, () => {
 		});
 	});
 });
-console.log('scale squential', scaleSequentialQuantile().range());

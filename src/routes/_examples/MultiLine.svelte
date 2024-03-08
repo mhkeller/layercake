@@ -39,8 +39,8 @@
 		});
 	});
 
-	const formatTickX = timeFormat('%b. %e');
-	const formatTickY = d => format(`~s`)(d);
+	const formatLabelX = timeFormat('%b. %e');
+	const formatLabelY = d => format(`~s`)(d);
 
 	const groupedData = groupLonger(data, seriesNames, {
 		groupTo: zKey,
@@ -77,13 +77,13 @@
 			<AxisX
 				gridlines={false}
 				ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
-				formatTick={formatTickX}
+				format={formatLabelX}
 				snapTicks={true}
 				tickMarks={true}
 			/>
 			<AxisY
 				ticks={4}
-				formatTick={formatTickY}
+				format={formatLabelY}
 			/>
 			<MultiLine/>
 		</Svg>
@@ -91,7 +91,7 @@
 		<Html>
 			<Labels/>
 			<SharedTooltip
-				formatTitle={formatTickX}
+				formatTitle={formatLabelX}
 				dataset={data}
 			/>
 		</Html>

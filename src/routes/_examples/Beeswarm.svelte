@@ -58,8 +58,8 @@
 		<Svg>
 			<AxisX
 				baseline={true}
-				formatTick={addCommas}
-				tickMarks={true}
+				format={addCommas}
+				tickMarks
 			/>
 			<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
 			<Beeswarm

@@ -1,7 +1,7 @@
 <script>
-	import { LayerCake, ScaledSvg, Html } from 'layercake';
+	import { LayerCake, Html } from 'layercake';
 
-	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisYRight from '../../_components/AxisYRight.percent-range.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/points.csv';
@@ -14,13 +14,13 @@
 	});
 
 	let tickMarks = false;
-	let snapLabels = false;
-	let baseline = true;
-	let gridlines = true;
-	let tickMarkLength = 6;
-	let tickGutter = 0;
+	let snapBaselineLabel = false;
+	let labelPosition = 'above';
+	let gridlines = true
+	let tickMarkLength = undefined;
+	let tickGutter = 5;
 	let dx = 0;
-	let dy = 1;
+	let dy = -3;
 </script>
 
 <style>
@@ -85,31 +85,33 @@
 			<input type="checkbox" bind:checked={gridlines}/> gridlines
 		</label>
 
-		<label>
-			<input type="checkbox" bind:checked={baseline}/> baseline
+		<label class="number">
+			labelPosition
+			<select bind:value={labelPosition}>
+				<option value="above">above</option>
+				<option value="even">even</option>
+			</select>
 		</label>
 
-		<label>
-			<input type="checkbox" bind:checked={snapLabels}/> snapLabels
+		<label class:disabled={labelPosition === 'above'}>
+			<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> <span class:disabled={labelPosition === 'above'}>snapBaselineLabel</span>
 		</label>
 
 		<label class="number" class:disabled={!tickMarks}>
 			<span class:disabled={!tickMarks}>tickMarkLength</span>
 			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks}/>
 		</label>
-
 		<label class="number">
 			tickGutter
-			<input type="number" bind:value={tickGutter}/>
+			<input type="number" bind:value={tickGutter} />
 		</label>
-
 		<label class="number">
 			dx
-			<input type="number" bind:value={dx}/>
+			<input type="number" bind:value={dx} />
 		</label>
 		<label class="number">
 			dy
-			<input type="number" bind:value={dy}/>
+			<input type="number" bind:value={dy} />
 		</label>
 	</div>
 
@@ -117,22 +119,22 @@
 		<LayerCake
 			ssr={true}
 			percentRange={true}
-			padding={{ top: 10, bottom: 20 }}
+			padding={{ bottom: 15, right: 25 }}
 			x={xKey}
 			y={d => d[yKey]}
-			yDomain={[0, null]}
 			data={data}
 		>
 			<Html>
-				<AxisX
-					{baseline}
+				<AxisYRight
 					{tickMarks}
+					{snapBaselineLabel}
+					{labelPosition}
 					{gridlines}
-					{snapLabels}
 					{tickMarkLength}
 					{tickGutter}
 					{dx}
 					{dy}
+					ticks={4}
 				/>
 			</Html>
 		</LayerCake>

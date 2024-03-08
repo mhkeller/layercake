@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
+	Generates an HTML x-axis, useful for server-side rendered charts.  This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
 <script>
 	import { getContext } from 'svelte';
@@ -34,20 +34,8 @@
 	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
 	export let dx = 0;
 
-	/** @type {Number} [dy=12] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = 12;
-
-	function textAnchor(i, sl) {
-		if (sl === true) {
-			if (i === 0) {
-				return 'start';
-			}
-			if (i === tickVals.length - 1) {
-				return 'end';
-			}
-		}
-		return 'middle';
-	}
+	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
+	export let dy = 1;
 
 	$: tickLen = tickMarks === true
 		? tickMarkLength ?? 6
@@ -65,72 +53,79 @@
 	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0
 </script>
 
-<g class="axis x-axis" class:snapLabels>
+<div class='axis x-axis' class:snapLabels>
 	{#each tickVals as tick, i (tick)}
+		{@const tickValPx = $xScale(tick)}
+
 		{#if baseline === true}
-			<line
-				class="baseline"
-				y1={$height}
-				y2={$height}
-				x1="0"
-				x2={$width}
-			/>
+			<div class="baseline" style='top:100%; width:100%;'></div>
 		{/if}
 
-		<g class="tick tick-{i}" transform="translate({$xScale(tick)},{Math.max(...$yRange)})">
-			{#if gridlines === true}
-				<line
-					class="gridline"
-					x1={halfBand}
-					x2={halfBand}
-					y1={-$height}
-					y2="0"
-				/>
-			{/if}
-			{#if tickMarks === true}
-				<line
-					class="tick-mark"
-					x1={halfBand}
-					x2={halfBand}
-					y1={tickGutter}
-					y2={tickGutter + tickLen}
-				/>
-			{/if}
-			<text
-				x={halfBand}
-				y={tickGutter + tickLen}
-				{dx}
-				{dy}
-				text-anchor={textAnchor(i, snapLabels)}>{format(tick)}</text
-			>
-		</g>
+		{#if gridlines === true}
+			<div
+				class="gridline"
+				style:left='{tickValPx}%'
+				style='top:0; bottom:0;'></div>
+		{/if}
+		{#if tickMarks === true}
+			<div
+				class="tick-mark"
+				style:left='{tickValPx + halfBand}%'
+				style:height='{tickLen}px'
+				style:bottom='{-tickLen - tickGutter}px'
+			></div>
+		{/if}
+		<div
+			class='tick tick-{i}'
+			style:left='{tickValPx + halfBand}%'
+			style='top:calc(100% + {tickGutter}px);'>
+			<div
+				class="text"
+				style:top='{tickLen}px'
+				style:transform='translate(calc(-50% + {dx}px), {dy}px)'
+			>{format(tick)}</div>
+		</div>
 	{/each}
-</g>
+</div>
 
 <style>
+	.axis,
+	.tick,
+	.tick-mark,
+	.gridline,
+	.baseline {
+		position: absolute;
+	}
+	.axis {
+		width: 100%;
+		height: 100%;
+	}
 	.tick {
 		font-size: 11px;
 	}
 
-	line,
-	.tick line {
-		stroke: #aaa;
-		stroke-dasharray: 2;
+	.gridline {
+		border-left: 1px dashed #aaa;
 	}
 
-	.tick text {
-		fill: #666;
+	.tick-mark {
+		border-left: 1px solid #aaa;
 	}
-
-	.tick .tick-mark,
 	.baseline {
-		stroke-dasharray: 0;
+		border-top: 1px solid #aaa;
 	}
-	/* This looks slightly better */
-	.axis.snapLabels .tick:last-child text {
-		transform: translateX(3px);
+
+	.tick .text {
+		color: #666;
+		position: relative;
+		white-space: nowrap;
+		transform: translateX(-50%);
 	}
-	.axis.snapLabels .tick.tick-0 text {
-		transform: translateX(-3px);
+	/* This looks a little better at 40 percent than 50 */
+	.axis.snapLabels .tick:last-child {
+		transform: translateX(-40%);
+	}
+	.axis.snapLabels .tick.tick-0 {
+		transform: translateX(40%);
 	}
 </style>

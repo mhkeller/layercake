@@ -75,13 +75,14 @@
 		data={data}
 	>
 		<Svg>
-			<Column/>
 			<AxisX
 				gridlines={false}
 			/>
+
 			<AxisY
-				gridlines={false}
+				snapBaselineLabel
 			/>
+			<Column/>
 		</Svg>
 
 		<Html>

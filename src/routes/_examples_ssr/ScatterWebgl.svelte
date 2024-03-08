@@ -2,8 +2,8 @@
 	import { LayerCake, WebGL, Html } from 'layercake';
 
 	import ScatterWebGL from '../../_components/Scatter.webgl.svelte';
-	import AxisX from '../../_components/AxisX.html.svelte';
-	import AxisY from '../../_components/AxisY.html.svelte';
+	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 	import QuadTree from '../../_components/QuadTree.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
@@ -13,7 +13,8 @@
 	const yKey = 'myY';
 
 	const r = 3;
-	const padding = 6;
+	const xyPadding = 6;
+	const padding = { top: 5, right: 5, bottom: 20, left: 25 };
 
 	data.forEach(d => {
 		d[yKey] = +d[yKey];
@@ -46,29 +47,29 @@
 
 <div class="chart-container">
 	<LayerCake
-		position={'absolute'}
+		position='absolute'
 		ssr={true}
 		percentRange={true}
-		padding={{ top: 5, right: 5, bottom: 20, left: 25 }}
+		{padding}
 		x={xKey}
 		y={yKey}
-		xPadding={[padding, padding]}
-		yPadding={[padding, padding]}
+		xPadding={[xyPadding, xyPadding]}
+		yPadding={[xyPadding, xyPadding]}
 		data={data}
 	>
 		<Html>
 			<AxisX/>
-			<AxisY/>
+			<AxisY tickMarks={false}/>
 		</Html>
 	</LayerCake>
 
 	<LayerCake
-		position={'absolute'}
-		padding={{ top: 0, right: 5, bottom: 20, left: 25 }}
+		position='absolute'
+		{padding}
 		x={xKey}
 		y={yKey}
-		xPadding={[padding, padding]}
-		yPadding={[padding, padding]}
+		xPadding={[xyPadding, xyPadding]}
+		yPadding={[xyPadding, xyPadding]}
 		data={data}
 	>
 		<WebGL>

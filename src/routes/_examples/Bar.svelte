@@ -32,7 +32,7 @@
 
 <div class="chart-container">
 	<LayerCake
-		padding={{ top: 0, bottom: 20, left: 35 }}
+		padding={{ bottom: 20, left: 35 }}
 		x={xKey}
 		y={yKey}
 		yScale={scaleBand().paddingInner(0.05)}
@@ -41,12 +41,13 @@
 	>
 		<Svg>
 			<AxisX
-				gridlines={true}
+				tickMarks={true}
 				baseline={true}
 				snapTicks={true}
 			/>
 			<AxisY
-				gridlines={false}
+				tickMarks={false}
+				labelPosition='even'
 			/>
 			<Bar/>
 		</Svg>

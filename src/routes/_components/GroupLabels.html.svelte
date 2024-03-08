@@ -42,9 +42,6 @@
 	const flatten = data => data.reduce((memo, group) => {
 		return memo.concat(group.values);
 	}, []);
-
-	const formatTickX = timeFormat('%b. %e');
-	const formatTickY = d => format(`~s`)(d);
 </script>
 
 <style>

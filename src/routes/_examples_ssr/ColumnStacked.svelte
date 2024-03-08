@@ -5,8 +5,8 @@
 	import { format } from 'd3-format';
 
 	import ColumnStacked from '../../_components/ColumnStacked.svelte';
-	import AxisX from '../../_components/AxisX.html.svelte';
-	import AxisY from '../../_components/AxisY.html.svelte';
+	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/fruitOrdinal.csv';
@@ -29,7 +29,7 @@
 
 	const series = stackData(data);
 
-	const formatTickY = d => format(`~s`)(d);
+	const formatLabelY = d => format(`~s`)(d);
 </script>
 
 <style>
@@ -68,7 +68,7 @@
 			<AxisY
 				ticks={4}
 				gridlines={false}
-				formatTick={formatTickY}
+				format={formatLabelY}
 			/>
 		</Html>
 		<ScaledSvg>

@@ -1,7 +1,7 @@
 <script>
-	import { LayerCake, ScaledSvg, Html } from 'layercake';
+	import { LayerCake, Svg } from 'layercake';
 
-	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisXTop from '../../_components/AxisXTop.svelte';
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/points.csv';
@@ -15,12 +15,12 @@
 
 	let tickMarks = false;
 	let snapLabels = false;
-	let baseline = true;
 	let gridlines = true;
+	let baseline = true;
 	let tickMarkLength = 6;
 	let tickGutter = 0;
 	let dx = 0;
-	let dy = 1;
+	let dy = -4;
 </script>
 
 <style>
@@ -115,16 +115,13 @@
 
 	<div class="chart-container">
 		<LayerCake
-			ssr={true}
-			percentRange={true}
-			padding={{ top: 10, bottom: 20 }}
+			padding={{ top: 20, bottom: 10 }}
 			x={xKey}
-			y={d => d[yKey]}
-			yDomain={[0, null]}
+			y={yKey}
 			data={data}
 		>
-			<Html>
-				<AxisX
+			<Svg>
+				<AxisXTop
 					{baseline}
 					{tickMarks}
 					{gridlines}
@@ -134,7 +131,7 @@
 					{dx}
 					{dy}
 				/>
-			</Html>
+			</Svg>
 		</LayerCake>
 	</div>
 </div>

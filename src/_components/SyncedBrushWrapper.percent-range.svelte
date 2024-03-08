@@ -3,8 +3,8 @@
 
 	import Line from './Line.svelte';
 	import Area from './Area.svelte';
-	import AxisX from './AxisX.html.svelte';
-	import AxisY from './AxisY.html.svelte';
+	import AxisX from './AxisX.percent-range.html.svelte';
+	import AxisY from './AxisY.percent-range.html.svelte';
 	import Brush from './Brush.html.svelte';
 
 	export let min = null;

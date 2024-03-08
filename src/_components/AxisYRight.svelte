@@ -1,8 +1,8 @@
 <!--
 	@component
-	Generates an SVG y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the tickMarks in the middle of the bandwidth.
+	Generates an SVG y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
-<script>
+ <script>
 	import { getContext } from 'svelte';
 
 	const { xRange, yScale, width } = getContext('LayerCake');
@@ -10,13 +10,13 @@
 	/** @type {Boolean} [tickMarks=false] - Show marks next to the tick label. */
 	export let tickMarks = false;
 
-	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
-	export let labelPosition = 'even';
+	/** @type {String} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. */
+	export let labelPosition = 'above';
 
 	/** @type {Boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
 	export let snapBaselineLabel = false;
 
-	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
+	/** @type {Boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
 	export let gridlines = true;
 
 	/** @type {Number} [tickMarkLength=undefined] - The length of the tick mark. If not set, becomes the length of the widest tick. */
@@ -28,8 +28,8 @@
 	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
 	export let ticks = 4;
 
-	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
-	export let tickGutter = 0;
+	/** @type {Number} [tickGutter=5] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
+	export let tickGutter = 5;
 
 	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
 	export let dx = 0;
@@ -62,7 +62,7 @@
 
 	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
 
-	$: x1 = -tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen);
+	$: x2 = $width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen);
 	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
 
 	$: maxTickValPx = Math.max(...tickVals.map($yScale));
@@ -75,8 +75,8 @@
 			{#if gridlines === true}
 				<line
 					class="gridline"
-					{x1}
-					x2='{$width}'
+					x1="0"
+					{x2}
 					y1={y}
 					y2={y}
 				></line>
@@ -84,17 +84,17 @@
 			{#if tickMarks === true}
 				<line
 					class='tick-mark'
-					{x1}
-					x2={x1 + tickLen}
+					x1="{$width + tickGutter}"
+					x2='{$width + tickGutter + tickLen}'
 					y1={y}
 					y2={y}
 				></line>
 			{/if}
+
 			<text
-				x='{x1}'
+				x='{$width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}'
 				{y}
-				dx={dx + (labelPosition === 'even' ? -3 : 0)}
-				text-anchor={labelPosition === 'above' ? 'start' : 'end'}
+				dx={dx + (labelPosition === 'even' ? 3 : 0)}
 				dy='{dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}'
 			>{format(tick)}</text>
 		</g>

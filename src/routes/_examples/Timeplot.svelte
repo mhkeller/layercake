@@ -14,7 +14,6 @@
 	const yKey = 'day';
 
 	const r = 4;
-	const padding = 2;
 
 	const daysTransformed = data.map(d => {
 		const parts = d.timestring.split('T');
@@ -63,14 +62,13 @@
 		yDomain={allDays}
 		xScale={scaleTime()}
 		yScale={scaleBand().paddingInner(0.05).round(true)}
-		xPadding={[padding, padding]}
 		data={daysTransformed}
 	>
 
 		<Svg>
 			<AxisX
 				ticks={[0, 4, 8, 12, 16, 20, 24].map(d => d * 60 * 60)}
-				formatTick={d => `${Math.floor(d / 60 / 60)}:00`}
+				format={d => `${Math.floor(d / 60 / 60)}:00`}
 			/>
 			<AxisY/>
 			<ScatterSvg

@@ -214,8 +214,9 @@
 		text-decoration: underline;
 	}
 
-	.block-container :global(.chart-container) {
-		height: 100% !important;
+	.block-container {
+		display: flex;
+		flex-direction: column;
 	}
 
 	h2 {
@@ -239,22 +240,28 @@
 	h4 {
 		display: block;
 		padding: 7px 0;
+		margin-top: 16px;
 	}
 
+	.subgroup-blocks {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 20px;
+	}
 	.component-block {
-		width: 28%;
-		margin-bottom: 21px;
-		margin-right: 21px;
-		height: 200px;
+		flex-basis: 41%;
+		height: 225px;
 		background-color: #fff;
 		box-shadow: 0 0 12px #ccc;
 		border: 1px solid #ccc;
 		padding: 14px;
 		display: inline-block;
 		vertical-align: top;
+		border-radius: 5px;
 	}
 
-	.component-block:nth-child(3),
+	/* .component-block:nth-child(3),
 	.component-block:nth-child(6),
 	.component-block:nth-child(9),
 	.component-block:nth-child(12),
@@ -262,17 +269,17 @@
 	.component-block:nth-child(18),
 	.component-block:nth-child(21) {
 		margin-right: 0;
-	}
+	} */
 
 	@media (max-width: 1150px) {
 
 		#dek {
 			width: 95%;
 		}
-		.component-block {
+		/* .component-block {
 			width: 43%;
-		}
-		.component-block:nth-child(3),
+		} */
+		/* .component-block:nth-child(3),
 		.component-block:nth-child(6),
 		.component-block:nth-child(9),
 		.component-block:nth-child(12),
@@ -283,18 +290,18 @@
 		}
 		.component-block:nth-child(even) {
 			margin-right: 0 !important;
-		}
+		} */
 	}
 
-	@media (max-width: 860px) {
+	/* @media (max-width: 860px) {
 		.component-block {
 			width: 40%;
 		}
-	}
+	} */
 
 	@media (max-width: 800px) {
 		.component-block {
-			width: 85%;
+			flex-basis: 85%;
 		}
 		#container {
 			padding-right: 1em;

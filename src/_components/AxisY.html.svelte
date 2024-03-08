@@ -86,14 +86,16 @@
 					class="tick-mark"
 					style="top:0;"
 					style:left='{x1}px'
-					style:right='{$width - (x1 + tickLen)}px'
+					style:width='{tickLen}px'
 				></div>
 			{/if}
 			<div
 				class="text"
 				style:top='{y}px'
+				style:text-align='{labelPosition === 'even' ? 'right' : 'left'}'
+				style:width='{widestTickLen}px'
 				style:left='{-widestTickLen - tickGutter - (labelPosition === 'even' ? tickLen : 0)}px'
-				style:transform='translate({dx}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}px))'
+				style:transform='translate({dx + (labelPosition === 'even' ? -3 : 0)}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}px))'
 			>{format(tick)}</div>
 		</div>
 	{/each}

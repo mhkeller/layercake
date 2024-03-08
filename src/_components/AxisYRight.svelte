@@ -94,7 +94,7 @@
 			<text
 				x='{$width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}'
 				{y}
-				{dx}
+				dx={dx + (labelPosition === 'even' ? 3 : 0)}
 				dy='{dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}'
 			>{format(tick)}</text>
 		</g>

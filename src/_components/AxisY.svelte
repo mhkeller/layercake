@@ -91,9 +91,10 @@
 				></line>
 			{/if}
 			<text
-				x='{-widestTickLen - tickGutter - (labelPosition === 'even' ? tickLen : 0)}'
+				x='{x1}'
 				{y}
-				{dx}
+				dx={dx + (labelPosition === 'even' ? -3 : 0)}
+				text-anchor={labelPosition === 'above' ? 'start' : 'end'}
 				dy='{dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}'
 			>{format(tick)}</text>
 		</g>

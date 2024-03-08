@@ -78,7 +78,7 @@
 		<div
 			class='tick tick-{i}'
 			style:left='{tickValPx + halfBand}%'
-			style='top:calc(100% + {tickGutter}px;'>
+			style='top:calc(100% + {tickGutter}px);'>
 			<div
 				class="text"
 				style:top='{tickLen}px'

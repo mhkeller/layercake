@@ -91,7 +91,7 @@
 			<div
 				class="text"
 				style:top='{y}px'
-				style:left='{$width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}px'
+				style:left='calc(100% + {tickGutter + (labelPosition === 'even' ? tickLen : 0)}px)'
 				style:transform='translate({dx + (labelPosition === 'even' ? 3 : 0)}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}px))'
 			>{format(tick)}</div>
 		</div>

@@ -456,6 +456,7 @@
 	$: if ($box_d && debug === true && (ssr === true || typeof window !== 'undefined')) {
 		// Call this as a debounce so that it doesn't get called multiple times as these vars get filled in
 		printDebug_debounced({
+			data: $_data,
 			boundingBox: $box_d,
 			activeGetters: $activeGetters_d,
 			x: config.x,

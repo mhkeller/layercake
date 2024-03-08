@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 8.1.0
+
+> 2024-04-07
+
+Also print the `data` object when `debug` is set.
+
+* [PR#149](https://github.com/mhkeller/layercake/pull/149)
+
 # 8.0.2
 
 > 2023-10-14

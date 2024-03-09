@@ -3,7 +3,7 @@ Changelog
 
 # 8.0.3
 
-> 2024-04-07
+> 2024-03-07
 
 Also print the `data` object when `debug` is set.
 

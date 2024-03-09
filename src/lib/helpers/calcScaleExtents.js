@@ -9,8 +9,8 @@ import isOrdinalDomain from './isOrdinalDomain.js';
  * for the others, calculate an extent
  */
 export default function calcScaleExtents (flatData, getters, activeScales) {
-	const scaleGroups = Object.keys(activeScales).reduce((groups, k) => {
-		const domainType = isOrdinalDomain(activeScales[k]) === true ? 'ordinal' : 'other';
+	const scaleGroups = Object.entries(activeScales).reduce((groups, [k, scaleInfo]) => {
+		const domainType = isOrdinalDomain(scaleInfo.scale) === true ? 'ordinal' : 'other';
 		// @ts-ignore
 		if (!groups[domainType]) groups[domainType] = {};
 		groups[domainType][k] = getters[k];
@@ -20,7 +20,7 @@ export default function calcScaleExtents (flatData, getters, activeScales) {
 	let extents = {};
 	if (scaleGroups.ordinal) {
 		// @ts-ignore
-		extents = calcUniques(flatData, scaleGroups.ordinal, { sort: true });
+		extents = calcUniques(flatData, scaleGroups.ordinal, activeScales);
 	}
 	if (scaleGroups.other) {
 		// @ts-ignore

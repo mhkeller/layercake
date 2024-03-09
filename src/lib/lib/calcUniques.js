@@ -7,12 +7,13 @@
 	returns an object like this:
 	`{ x: [0, 10, 5], y: [-10, 0, 10] }`
 	@param {Array} data A flat array of objects.
-	@param {{x?: Function, y?: Function, z?: Function, r?: Function}} fields An object containing `x`, `y`, `r` or `z` keys that equal an accessor function. If an accessor function returns an array of values, each value will also be evaluated..
+	@param {{x?: Function, y?: Function, z?: Function, r?: Function}} fields An object containing `x`, `y`, `r` or `z` keys that equal an accessor function. If an accessor function returns an array of values, each value will also be evaluated.
+	@param {{x?: { sort: Boolean }, y?: { sort: Boolean }, z?: { sort: Boolean }, r?: { sort: Boolean }}} fieldOptions An object containing `x`, `y`, `r` or `z` keys that provide additional options for each field key in `fields`. The only current option is `sort` which is a Boolean value of whether the results return sorted.
 	@returns {{x?: [min: Number, max: Number]|[min: String, max: String], y?: [min: Number, max: Number]|[min: String, max: String], z?: [min: Number, max: Number]|[min: String, max: String], r?: [min: Number, max: Number]|[min: String, max: String]}} An object with the same structure as `fields` but instead of an accessor, each key contains an array of unique items.
 */
 import { ascending, InternSet } from 'd3-array';
 
-export default function calcUniques (data, fields, { sort = false } = {}) {
+export default function calcUniques (data, fields, fieldOptions = {}) {
 	if (!Array.isArray(data)) {
 		throw new TypeError(`The first argument of calcUniques() must be an array. You passed in a ${typeof data}. If you got this error using the <LayerCake> component, consider passing a flat array to the \`flatData\` prop. More info: https://layercake.graphics/guide/#flatdata`);
 	}
@@ -55,7 +56,7 @@ export default function calcUniques (data, fields, { sort = false } = {}) {
 			}
 		}
 		const results = Array.from(set);
-		if (sort === true) {
+		if (fieldOptions[s]?.sort === true) {
 			results.sort(ascending);
 		}
 		uniques[s] = results;

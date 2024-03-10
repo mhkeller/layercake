@@ -41,12 +41,12 @@
 	>
 		<Svg>
 			<AxisX
-				tickMarks={true}
-				baseline={true}
-				snapTicks={true}
+				tickMarks
+				baseline
+				snapTicks
 			/>
 			<AxisY
-				tickMarks={false}
+				tickMarks
 				labelPosition='even'
 			/>
 			<Bar/>

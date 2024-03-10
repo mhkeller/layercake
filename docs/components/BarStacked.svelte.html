@@ -32,23 +32,23 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.qbmqn9wU.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.nfVJSDK7.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.uMyg-Mkn.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.8McKjAmW.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.O4gFZlXI.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.ra6nUAIR.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.k7CtjUtt.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.P37s_KnH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Kwf8FJOX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.pJ1mnnAb.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.pEfIXzME.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.zQBYankm.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.GooPGtyi.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.3oi4C38q.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.ES6wwIFu.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.oiCz_B55.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.zMdpk9aP.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.5_u9SQP3.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.PauZgD8C.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.ryhBIpq-.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.sYS4I3XL.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.DJO-zfaW.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.I1clC5X0.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.plnXAFy8.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.fzEDaS5G.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.B2SUOK7Z.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.X0tHL2fc.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.BOdAxcUZ.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/4.hCWRAUnC.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.5w7X7G5B.js">
@@ -91,7 +91,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/BarStacked.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"BarStacked.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG stacked bar chart and sets the color via an ordinal scale in `zScale`.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, zGet, yScale } = getContext('LayerCake');\\n\\n  $: columnWidth = d => {\\n    const xVals = $xGet(d);\\n    return xVals[1] - xVals[0];\\n  };\\n\u003C/script>\\n\\n\u003Cg class=\\\"bar-group\\\">\\n  {#each $data as series}\\n    {#each series as d, i}\\n      \u003Crect\\n        class='group-rect'\\n        data-id=\\\"{i}\\\"\\n        x=\\\"{$xGet(d)[0]}\\\"\\n        y=\\\"{$yGet(d)}\\\"\\n        height={$yScale.bandwidth()}\\n        width=\\\"{columnWidth(d)}\\\"\\n        fill={$zGet(series)}\\n      >\u003C/rect>\\n    {/each}\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/BarStacked\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/BarStacked\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[]},\"componentDescription\":\"Generates an SVG stacked bar chart and sets the color via an ordinal scale in `zScale`.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_g7cla3 = {
+					__sveltekit_1njxtug = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -100,8 +100,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.8McKjAmW.js"),
-						import("../_app/immutable/entry/app.pEfIXzME.js")
+						import("../_app/immutable/entry/start.ra6nUAIR.js"),
+						import("../_app/immutable/entry/app.zQBYankm.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

@@ -32,23 +32,23 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.qbmqn9wU.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.nfVJSDK7.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.uMyg-Mkn.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.8McKjAmW.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.O4gFZlXI.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.ra6nUAIR.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.k7CtjUtt.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.P37s_KnH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Kwf8FJOX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.pJ1mnnAb.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.pEfIXzME.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.zQBYankm.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.GooPGtyi.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.3oi4C38q.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.ES6wwIFu.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.oiCz_B55.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.zMdpk9aP.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.5_u9SQP3.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.PauZgD8C.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.ryhBIpq-.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.sYS4I3XL.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.DJO-zfaW.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.I1clC5X0.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.plnXAFy8.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.fzEDaS5G.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.B2SUOK7Z.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.X0tHL2fc.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.BOdAxcUZ.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/4.hCWRAUnC.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.5w7X7G5B.js">
@@ -190,7 +190,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Beeswarm.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Beeswarm.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG Beeswarm chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, zGet, height, config } = getContext('LayerCake');\\n\\n  /** @type {Number} [r=3] - The circle radius size in pixels. */\\n  export let r = 3;\\n\\n  /** @type {Number} [strokeWidth=0] - The circle's stroke width in pixels. */\\n  export let strokeWidth = 0;\\n\\n  /** @type {String} [stroke='#fff'] - The circle's stroke color. */\\n  export let stroke = '#fff';\\n\\n  /** @type {Number} [spacing=1.5] - Whitespace padding between each circle, in pixels */\\n  export let spacing = 1.5;\\n\\n  /** @type {Function} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `\u003Ctitle>` tag. */\\n  export let getTitle = undefined;\\n\\n  $: circles = dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet });\\n\\n  function dodge(data, { rds = 1, x = d => d } = {}) {\\n    const radius2 = rds ** 2;\\n    const circles = data.map(d => ({ x: x(d), [$config.z]: d[$config.z], data: d })).sort((a, b) => a.x - b.x);\\n    const epsilon = 1e-3;\\n    let head = null, tail = null;\\n\\n    // Returns true if circle ⟨x,y⟩ intersects with any circle in the queue.\\n    function intersects(x, y) {\\n      let a = head;\\n      while (a) {\\n        if (radius2 - epsilon > (a.x - x) ** 2 + (a.y - y) ** 2) {\\n          return true;\\n        }\\n        a = a.next;\\n      }\\n      return false;\\n    }\\n\\n    // Place each circle sequentially.\\n    for (const b of circles) {\\n\\n      // Remove circles from the queue that can’t intersect the new circle b.\\n      while (head && head.x \u003C b.x - radius2) head = head.next;\\n\\n      // Choose the minimum non-intersecting tangent.\\n      if (intersects(b.x, b.y = 0)) {\\n        let a = head;\\n        b.y = Infinity;\\n        do {\\n          let y = a.y + Math.sqrt(radius2 - (a.x - b.x) ** 2);\\n          if (y \u003C b.y && !intersects(b.x, y)) b.y = y;\\n          a = a.next;\\n        } while (a);\\n      }\\n\\n      // Add b to the queue.\\n      b.next = null;\\n      if (head === null) head = tail = b;\\n      else tail = tail.next = b;\\n    }\\n\\n    return circles;\\n  }\\n\u003C/script>\\n\\n\u003Cg class='bee-group'>\\n  {#each circles as d}\\n    \u003Ccircle\\n      fill={$zGet(d)}\\n      stroke='{stroke}'\\n      stroke-width='{strokeWidth}'\\n      cx='{d.x}'\\n      cy='{$height - r - spacing - strokeWidth / 2 - d.y}'\\n      r='{r}'\\n    >\\n      {#if getTitle}\\n        \u003Ctitle>{getTitle(d)}\u003C/title>\\n      {/if}\\n    \u003C/circle>\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Beeswarm\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The circle radius size in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"3\"},{\"title\":\"param\",\"description\":\"The circle's stroke width in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"0\"},{\"title\":\"param\",\"description\":\"The circle's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#fff'\"},{\"title\":\"param\",\"description\":\"Whitespace padding between each circle, in pixels\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"spacing\",\"default\":\"1.5\"},{\"title\":\"param\",\"description\":\"— An accessor function to get the field on the data element to display as a hover label using a `\u003Ctitle>` tag.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"getTitle\"}]},\"componentDescription\":\"Generates an SVG Beeswarm chart.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_g7cla3 = {
+					__sveltekit_1njxtug = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -199,8 +199,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.8McKjAmW.js"),
-						import("../_app/immutable/entry/app.pEfIXzME.js")
+						import("../_app/immutable/entry/start.ra6nUAIR.js"),
+						import("../_app/immutable/entry/app.zQBYankm.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

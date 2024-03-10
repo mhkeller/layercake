@@ -62,16 +62,16 @@
 
 	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
 
-	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
+	$: halfBand = isBandwidth ? $yScale.bandwidth() / 2 : 0;
 
-	$: maxTickValPx = Math.max(...tickVals.map($yScale));
+	$: maxTickValPerc = Math.max(...tickVals.map($yScale));
 </script>
 
 <div class='axis y-axis'>
 	{#each tickVals as tick, i (tick)}
-		{@const tickValPx = $yScale(tick)}
+		{@const tickValPerc = $yScale(tick)}
 
-		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValPx}%;'>
+		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValPerc + halfBand}%;'>
 			{#if gridlines === true}
 				<div
 					class="gridline"
@@ -83,16 +83,16 @@
 			{#if tickMarks === true}
 				<div
 					class="tick-mark"
-					style:top='{y}px'
+					style:top='0'
 					style:left='{$width + tickGutter}px'
 					style:width='{tickLen}px'
 				></div>
 			{/if}
 			<div
 				class="text"
-				style:top='{y}px'
+				style:top='0'
 				style:left='calc(100% + {tickGutter + (labelPosition === 'even' ? tickLen : 0)}px)'
-				style:transform='translate({dx + (labelPosition === 'even' ? 3 : 0)}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPx === maxTickValPx) ? -3 : 4)}px))'
+				style:transform='translate({dx + (labelPosition === 'even' ? 3 : 0)}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPerc === maxTickValPerc) ? -3 : 4)}px))'
 			>{format(tick)}</div>
 		</div>
 	{/each}

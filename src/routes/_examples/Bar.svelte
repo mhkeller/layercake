@@ -46,9 +46,8 @@
 				snapTicks
 			/>
 			<AxisY
-				tickMarks={false}
+				tickMarks
 				gridlines={false}
-				labelPosition='even'
 			/>
 			<Bar/>
 		</Svg>

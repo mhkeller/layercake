@@ -44,7 +44,7 @@
 		zScale={scaleOrdinal()}
 		zDomain={xKey}
 		zRange={seriesColors}
-		data={data}
+		{data}
 	>
 		<Html>
 			<ClevelandDotPlot/>

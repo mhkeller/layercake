@@ -83,8 +83,8 @@
 		</Html>
 		<ScaledSvg>
 			<Column
-				fill={'#fff'}
-				stroke={'#000'}
+				fill=#fff'
+				stroke='#000'
 				strokeWidth={1}
 			/>
 		</ScaledSvg>

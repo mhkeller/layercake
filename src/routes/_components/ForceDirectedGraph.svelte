@@ -32,7 +32,7 @@
 
 <div class="chart-container">
 	<LayerCake
-		data={data}
+		{data}
 		x={xKey}
 		z={zKey}
 		zScale={scaleOrdinal()}

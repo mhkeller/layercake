@@ -42,7 +42,7 @@
 		zScale={scaleOrdinal()}
 		zDomain={xKey}
 		zRange={seriesColors}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<ClevelandDotPlot/>

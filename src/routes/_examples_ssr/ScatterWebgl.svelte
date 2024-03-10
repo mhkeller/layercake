@@ -55,7 +55,7 @@
 		y={yKey}
 		xPadding={[xyPadding, xyPadding]}
 		yPadding={[xyPadding, xyPadding]}
-		data={data}
+		{data}
 	>
 		<Html>
 			<AxisX/>
@@ -70,7 +70,7 @@
 		y={yKey}
 		xPadding={[xyPadding, xyPadding]}
 		yPadding={[xyPadding, xyPadding]}
-		data={data}
+		{data}
 	>
 		<WebGL>
 			<ScatterWebGL

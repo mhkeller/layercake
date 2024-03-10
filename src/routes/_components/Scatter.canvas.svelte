@@ -37,12 +37,12 @@
 		y={yKey}
 		xPadding={[padding, padding]}
 		yPadding={[padding, padding]}
-		data={data}
+		{data}
 	>
 		<Canvas>
 			<ScatterCanvas
 				r={r}
-				fill={'#0cf'}
+				fill='#0cf'
 			/>
 		</Canvas>
 	</LayerCake>

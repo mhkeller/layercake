@@ -70,7 +70,7 @@
 		xScale={scaleBand().paddingInner(0.028).round(true)}
 		xDomain={['1979', '1980', '1981', '1982', '1983']}
 		yDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<ScaledSvg>
 			<Column/>
@@ -100,7 +100,7 @@
 		xScale={scaleBand().paddingInner(0.028).round(true)}
 		xDomain={['1979', '1980', '1981', '1982', '1983']}
 		yDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<svelte:fragment slot="defs">

@@ -26,7 +26,7 @@
 <div class="chart-container">
 	<LayerCake
 		padding={{ top: 15 }}
-		data={data}
+		{data}
 	>
 		<Html>
       <CirclePack

@@ -64,7 +64,7 @@
 			ssr
 			percentRange
 			padding={{ top: 1, right: 1, bottom: 1, left: 1 }}
-			x={'key'}
+			x='key'
 			z={d => d.values.length}
 			zScale={scaleQuantize()}
 			zRange={seriesColors}

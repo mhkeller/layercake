@@ -38,7 +38,7 @@
 		x={xKey}
 		y={d => d[yKey]}
 		yDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<Html>
 			<AxisX/>

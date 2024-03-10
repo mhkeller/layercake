@@ -37,7 +37,7 @@
 		y={yKey}
 		yScale={scaleBand().paddingInner(0.05)}
 		xDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<AxisX

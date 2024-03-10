@@ -46,7 +46,7 @@
 		y={yKey}
 		xPadding={[padding, padding]}
 		yPadding={[padding, padding]}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<AxisX
@@ -61,7 +61,7 @@
 		<Canvas>
 			<ScatterCanvas
 				r={r * 1.5}
-				fill={'#0cf'}
+				fill='#0cf'
 			/>
 		</Canvas>
 

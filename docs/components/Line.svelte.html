@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.qbmqn9wU.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.nfVJSDK7.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.uMyg-Mkn.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.u2oaX5Ps.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.jVSjTAj_.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.8McKjAmW.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.O4gFZlXI.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.P37s_KnH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Kwf8FJOX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.pJ1mnnAb.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.UfLYhnvF.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.pEfIXzME.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.GooPGtyi.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.bD-6XWaj.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.3oi4C38q.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.oiCz_B55.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.zMdpk9aP.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.CIsDjO5b.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.5_u9SQP3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.ryhBIpq-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.sYS4I3XL.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.I1clC5X0.js">
@@ -108,7 +108,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Line.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Line.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet } = getContext('LayerCake');\\n\\n  /** @type {String} [stroke='#ab00d6'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */\\n  export let stroke = '#ab00d6';\\n\\n  $: path = 'M' + $data\\n    .map(d => {\\n      return $xGet(d) + ',' + $yGet(d);\\n    })\\n    .join('L');\\n\u003C/script>\\n\\n\u003Cpath class='path-line' d='{path}' {stroke}>\u003C/path>\\n\\n\u003Cstyle>\\n  .path-line {\\n    fill: none;\\n    stroke-linejoin: round;\\n    stroke-linecap: round;\\n    stroke-width: 2;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Brush\",\"/example/Line\",\"/example/MultiLine\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Brush\",\"/example-ssr/Line\",\"/example-ssr/MultiLine\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#ab00d6'\"}]},\"componentDescription\":\"Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_5v3yyg = {
+					__sveltekit_g7cla3 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -117,8 +117,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.u2oaX5Ps.js"),
-						import("../_app/immutable/entry/app.UfLYhnvF.js")
+						import("../_app/immutable/entry/start.8McKjAmW.js"),
+						import("../_app/immutable/entry/app.pEfIXzME.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

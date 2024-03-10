@@ -32,23 +32,23 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.qbmqn9wU.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.nfVJSDK7.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.uMyg-Mkn.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.ra6nUAIR.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.k7CtjUtt.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.6xLSnsFv.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.W8I3yXoR.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.P37s_KnH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Kwf8FJOX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.pJ1mnnAb.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.zQBYankm.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.aUUNDihk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.GooPGtyi.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.ES6wwIFu.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.VVH1i6WU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.oiCz_B55.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.zMdpk9aP.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.PauZgD8C.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.B_QfNiBK.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.ryhBIpq-.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.DJO-zfaW.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.xsHIdWWY.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.I1clC5X0.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.plnXAFy8.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.fzEDaS5G.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.X0tHL2fc.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.WLg-IJOD.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.BOdAxcUZ.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/4.hCWRAUnC.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.5w7X7G5B.js">
@@ -86,7 +86,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/AreaStacked.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"AreaStacked.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape) and sets the color via an ordinal scale in `zScale`. It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { area } from 'd3-shape';\\n\\n  const { data, xGet, yScale, zGet } = getContext('LayerCake');\\n\\n  $: areaGen = area()\\n    .x(d => $xGet(d))\\n    .y0(d => $yScale(d[0]))\\n    .y1(d => $yScale(d[1]));\\n\u003C/script>\\n\\n\u003Cg class=\\\"area-group\\\">\\n  {#each $data as d}\\n    \u003Cpath\\n      class='path-area'\\n      d='{areaGen(d)}'\\n      fill='{$zGet(d)}'\\n    >\u003C/path>\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/AreaStacked\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/AreaStacked\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[]},\"componentDescription\":\"Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape) and sets the color via an ordinal scale in `zScale`. It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1njxtug = {
+					__sveltekit_focf30 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -95,8 +95,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.ra6nUAIR.js"),
-						import("../_app/immutable/entry/app.zQBYankm.js")
+						import("../_app/immutable/entry/start.6xLSnsFv.js"),
+						import("../_app/immutable/entry/app.aUUNDihk.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

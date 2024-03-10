@@ -45,7 +45,7 @@
 				baseline={true}
 				snapTicks={true}
 			/>
-			<AxisY gridlines={false}/>
+			<AxisY gridlines={false} tickMarks/>
 		</Html>
 		<ScaledSvg>
 			<Bar/>

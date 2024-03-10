@@ -75,7 +75,7 @@
 			{#if gridlines === true}
 				<div
 					class="gridline"
-					style='{y}px'
+					style='0'
 					style:left='0px'
 					style:right='{(labelPosition === 'above' ? -widestTickLen : -tickLen) - tickGutter}px'
 				></div>

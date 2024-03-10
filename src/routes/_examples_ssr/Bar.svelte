@@ -43,7 +43,7 @@
 			<AxisX
 				gridlines
 				baseline
-				snapTicks
+				snapLabels
 			/>
 			<AxisY gridlines={false} tickMarks/>
 		</Html>

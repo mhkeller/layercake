@@ -81,11 +81,10 @@
 				gridlines={false}
 				ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
 				format={formatLabelX}
-				snapTicks
+				snapLabels
 				tickMarks
 			/>
 			<AxisY
-				baseline
 				format={formatLabelY}
 			/>
 		</Html>

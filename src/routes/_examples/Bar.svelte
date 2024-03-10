@@ -43,7 +43,7 @@
 			<AxisX
 				tickMarks
 				baseline
-				snapTicks
+				snapLabels
 			/>
 			<AxisY
 				tickMarks

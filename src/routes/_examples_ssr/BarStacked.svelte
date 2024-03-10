@@ -64,7 +64,7 @@
 		<Html>
 			<AxisX
 				baseline
-				snapTicks
+				snapLabels
 				format={formatLabelX}
 			/>
 			<AxisY

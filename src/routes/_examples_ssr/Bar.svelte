@@ -29,8 +29,8 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		padding={{ top: 0, right: 20, bottom: 20, left: 35 }}
 		x='value'
 		y='year'
@@ -41,9 +41,9 @@
 	>
 		<Html>
 			<AxisX
-				gridlines={true}
-				baseline={true}
-				snapTicks={true}
+				gridlines
+				baseline
+				snapTicks
 			/>
 			<AxisY gridlines={false} tickMarks/>
 		</Html>

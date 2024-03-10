@@ -48,8 +48,8 @@
 <div class="chart-container">
 	<LayerCake
 		position='absolute'
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		{padding}
 		x={xKey}
 		y={yKey}

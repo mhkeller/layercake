@@ -67,7 +67,7 @@
 		<Svg>
 			<AxisX
 				format={formatLabelX}
-				tickMarks={true}
+				tickMarks
 			/>
 			<AxisY
 				format={formatLabelY}

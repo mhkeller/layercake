@@ -79,7 +79,7 @@
 
 	<LayerCake
 		position='absolute'
-		ssr={true}
+		ssr
 		data={geojson}
 		z={d => dataLookup.get(d[mapJoinKey])}
 		zScale={scaleQuantize()}

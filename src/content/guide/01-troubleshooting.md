@@ -10,7 +10,7 @@ To get more information about what scales you're using and the calculated `domai
 <LayerCake
   debug={true}
 
-  <!-- Can also be set simply with this -->
+  <!-- Can also be set simply with this Svelte shorthand -->
   debug
 >
 ```

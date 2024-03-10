@@ -90,7 +90,7 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
         </linearGradient>
       <defs>
 
-      <!-- If you want to use the named slot, 
+      <!-- If you want to use the named slot,
         add the xmlns attribute on the `<linearGradient>` element -->
       <svelte:fragment slot="defs">
         <linearGradient id="myGradient" gradientTransform="rotate(90)" xmlns="http://www.w3.org/2000/svg">
@@ -110,6 +110,8 @@ Use this when you want to render SVGs server side, using Rich Harris's [Pancake 
 
 It's often used in conjunction with props `ssr={true}` and `percentRange={true}`.
 
+> When setting a boolean prop to `true`, you can omit the `={true}` portion and only include the prop name, e.g. `<LayerCake ssr percentRange ...>`.
+
 The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. See the [Layout component props](/guide#layout-component-props) section for more information.
 
 ```svelte
@@ -120,8 +122,8 @@ The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. 
 
 <div class="chart-container">
   <LayerCake
-    ssr={true}
-    percentRange={true}
+    ssr
+    percentRange
   >
     <ScaledSvg fixedAspectRatio={16/9}> <!-- Optional fixed aspect ratio -->
     </ScaledSvg>

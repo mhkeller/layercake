@@ -61,8 +61,8 @@
 		data-month="{monthNames[+month.key + 1]}"
 	>
 		<LayerCake
-			ssr={true}
-			percentRange={true}
+			ssr
+			percentRange
 			padding={{ top: 1, right: 1, bottom: 1, left: 1 }}
 			x={'key'}
 			z={d => d.values.length}

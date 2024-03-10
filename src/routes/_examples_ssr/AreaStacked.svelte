@@ -55,8 +55,8 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		padding={{ top: 0, right: 0, bottom: 20, left: 17 }}
 		x={d => d.data[xKey]}
 		y={yKey}
@@ -70,7 +70,7 @@
 		<Html>
 			<AxisX
 				format={formatLabelX}
-				tickMarks={true}
+				tickMarks
 			/>
 			<AxisY
 				format={formatLabelY}

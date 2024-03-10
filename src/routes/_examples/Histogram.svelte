@@ -71,7 +71,7 @@
 		<Svg>
 			<AxisX
 				gridlines={false}
-				baseline={true}
+				baseline
 				ticks={slimThresholds}
 				format={d => +f(d)}
 			/>

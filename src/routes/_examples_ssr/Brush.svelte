@@ -47,8 +47,8 @@
 
 <div class="brushed-chart-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		padding={{ right: 10, bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
@@ -82,8 +82,8 @@
 
 <div class="brush-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		padding={{ top: 5 }}
 		x={xKey}
 		y={yKey}

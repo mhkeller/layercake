@@ -64,8 +64,8 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
@@ -81,11 +81,11 @@
 				gridlines={false}
 				ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
 				format={formatLabelX}
-				snapTicks={true}
-				tickMarks={true}
+				snapTicks
+				tickMarks
 			/>
 			<AxisY
-				baseline={true}
+				baseline
 				format={formatLabelY}
 			/>
 		</Html>

@@ -78,8 +78,8 @@
 				gridlines={false}
 				ticks={data.map(d => d[xKey]).sort((a, b) => a - b)}
 				format={formatLabelX}
-				snapTicks={true}
-				tickMarks={true}
+				snapTicks
+				tickMarks
 			/>
 			<AxisY
 				ticks={4}

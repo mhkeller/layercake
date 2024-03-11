@@ -32,7 +32,7 @@
 		padding={{ top: 10 }}
 		x={xKey}
 		y={yKey}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<Line

@@ -47,9 +47,9 @@
 <div class="chart-wrapper">
 	<div class="chart-container">
 		<LayerCake
-			ssr={true}
-			percentRange={true}
-			padding={{ right: 10, bottom: 20, left: 25 }}
+			ssr
+			percentRange
+			padding={{ bottom: 20, left: 25 }}
 			x={xKey}
 			y={yKey}
 			yDomain={[0, null]}
@@ -82,13 +82,13 @@
 
 	<div class="brush-container">
 		<LayerCake
-			ssr={true}
-			percentRange={true}
+			ssr
+			percentRange
 			padding={{ top: 5 }}
 			x={xKey}
 			y={yKey}
 			yDomain={[0, null]}
-			data={data}
+			{data}
 		>
 			<ScaledSvg>
 				<Line

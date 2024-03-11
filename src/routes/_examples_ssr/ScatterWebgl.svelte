@@ -48,14 +48,14 @@
 <div class="chart-container">
 	<LayerCake
 		position='absolute'
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		{padding}
 		x={xKey}
 		y={yKey}
 		xPadding={[xyPadding, xyPadding]}
 		yPadding={[xyPadding, xyPadding]}
-		data={data}
+		{data}
 	>
 		<Html>
 			<AxisX/>
@@ -70,7 +70,7 @@
 		y={yKey}
 		xPadding={[xyPadding, xyPadding]}
 		yPadding={[xyPadding, xyPadding]}
-		data={data}
+		{data}
 	>
 		<WebGL>
 			<ScatterWebGL

@@ -109,7 +109,7 @@ If this is `true`, Layer Cake will print to the control a helpful debug message.
 <LayerCake
   debug={true}
 
-  <!-- Can also be set simply with this -->
+  <!-- Can also be set simply with this Svelte shorthand -->
   debug
 >
 ```

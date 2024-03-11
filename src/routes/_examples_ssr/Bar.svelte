@@ -29,23 +29,23 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		padding={{ top: 0, right: 20, bottom: 20, left: 35 }}
 		x='value'
 		y='year'
 		yScale={scaleBand().paddingInner(0.05).round(true)}
 		yDomain={['1979', '1980', '1981', '1982', '1983']}
 		xDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<Html>
 			<AxisX
-				gridlines={true}
-				baseline={true}
-				snapTicks={true}
+				gridlines
+				baseline
+				snapLabels
 			/>
-			<AxisY gridlines={false}/>
+			<AxisY gridlines={false} tickMarks/>
 		</Html>
 		<ScaledSvg>
 			<Bar/>

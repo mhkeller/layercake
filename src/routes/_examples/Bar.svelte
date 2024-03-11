@@ -37,17 +37,17 @@
 		y={yKey}
 		yScale={scaleBand().paddingInner(0.05)}
 		xDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<AxisX
 				tickMarks
 				baseline
-				snapTicks
+				snapLabels
 			/>
 			<AxisY
 				tickMarks
-				labelPosition='even'
+				gridlines={false}
 			/>
 			<Bar/>
 		</Svg>

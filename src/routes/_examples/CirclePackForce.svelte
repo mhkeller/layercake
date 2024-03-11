@@ -44,7 +44,7 @@
 
 <div class="chart-container">
 	<LayerCake
-		data={data}
+		{data}
 		x={xKey}
 		r={rKey}
 		z={zKey}

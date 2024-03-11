@@ -5,10 +5,10 @@
  <script>
 	import { getContext } from 'svelte';
 
-	const { xRange, yScale, width } = getContext('LayerCake');
+	const { xRange, yScale } = getContext('LayerCake');
 
-	/** @type {Boolean} [tickMarks=true] - Show marks next to the tick label. */
-	export let tickMarks = true;
+	/** @type {Boolean} [tickMarks=false] - Show marks next to the tick label. */
+	export let tickMarks = false;
 
 	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
 	export let labelPosition = 'even';

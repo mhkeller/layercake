@@ -59,8 +59,8 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		padding={{ top: 20, right: 5, bottom: 20, left: 31 }}
 		x={xKey}
 		y={yKey}
@@ -72,7 +72,7 @@
 		<Html>
 			<AxisX
 				gridlines={false}
-				baseline={true}
+				baseline
 				ticks={slimSteps}
 				format={d => +f(d)}
 			/>
@@ -83,8 +83,8 @@
 		</Html>
 		<ScaledSvg>
 			<Column
-				fill={'#fff'}
-				stroke={'#000'}
+				fill='#fff'
+				stroke='#000'
 				strokeWidth={1}
 			/>
 		</ScaledSvg>

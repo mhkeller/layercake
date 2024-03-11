@@ -120,7 +120,7 @@
 			padding={{ bottom: 15, right: 25 }}
 			x={xKey}
 			y={yKey}
-			data={data}
+			{data}
 		>
 			<Svg>
 				<AxisYRight

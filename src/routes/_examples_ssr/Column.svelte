@@ -61,8 +61,8 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		position='absolute'
 		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
 		x={xKey}
@@ -70,7 +70,7 @@
 		xScale={scaleBand().paddingInner(0.028).round(true)}
 		xDomain={['1979', '1980', '1981', '1982', '1983']}
 		yDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<ScaledSvg>
 			<Column/>
@@ -100,7 +100,7 @@
 		xScale={scaleBand().paddingInner(0.028).round(true)}
 		xDomain={['1979', '1980', '1981', '1982', '1983']}
 		yDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<svelte:fragment slot="defs">

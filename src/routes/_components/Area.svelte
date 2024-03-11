@@ -32,7 +32,7 @@
 		x={xKey}
 		y={yKey}
 		yDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<Area

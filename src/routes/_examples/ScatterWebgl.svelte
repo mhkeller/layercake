@@ -49,7 +49,7 @@
 		y={yKey}
 		xPadding={[xyPadding, xyPadding]}
 		yPadding={[xyPadding, xyPadding]}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<AxisX/>

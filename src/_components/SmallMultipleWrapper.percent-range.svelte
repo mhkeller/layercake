@@ -26,8 +26,8 @@
 </script>
 
 <LayerCake
-	ssr={true}
-	percentRange={true}
+	ssr
+	percentRange
 	padding={{ top: 2, right: 6, bottom: 2, left: 6 }}
 	x={extentGetters.x}
 	y={extentGetters.y}

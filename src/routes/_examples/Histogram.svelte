@@ -71,7 +71,7 @@
 		<Svg>
 			<AxisX
 				gridlines={false}
-				baseline={true}
+				baseline
 				ticks={slimThresholds}
 				format={d => +f(d)}
 			/>
@@ -80,8 +80,8 @@
 				ticks={3}
 			/>
 			<Column
-				fill={'#fff'}
-				stroke={'#000'}
+				fill='#fff'
+				stroke='#000'
 				strokeWidth={1}
 			/>
 		</Svg>

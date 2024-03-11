@@ -73,7 +73,7 @@
 			<AxisY/>
 			<ScatterSvg
 				{r}
-				fill={'rgba(255, 204, 0, 0.75)'}
+				fill='rgba(255, 204, 0, 0.75)'
 			/>
 		</Svg>
 

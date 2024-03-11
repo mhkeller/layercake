@@ -53,7 +53,7 @@
 
 <div class="map-container" style="padding-bottom:{100 / aspectRatio}%">
 	<LayerCake
-		ssr={true}
+		ssr
 		position='absolute'
 		data={geojson}
 		z={d => dataLookup.get(d[mapJoinKey])}

@@ -32,13 +32,13 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
 		x={xKey}
 		y={d => d[yKey]}
 		yDomain={[0, null]}
-		data={data}
+		{data}
 	>
 		<Html>
 			<AxisX/>

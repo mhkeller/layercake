@@ -38,7 +38,7 @@
 		padding={{ top: 20, left: 10, right: 10 }}
 		x={xKey}
 		y={yKey}
-		data={data}
+		{data}
 	>
 		<Html>
 			<Labels

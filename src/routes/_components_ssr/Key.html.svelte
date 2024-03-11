@@ -50,7 +50,7 @@
 		zScale={scaleOrdinal()}
 		zDomain={seriesNames}
 		zRange={seriesColors}
-		data={data}
+		{data}
 	>
 		<Html>
 			<Key

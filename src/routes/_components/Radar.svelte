@@ -36,7 +36,7 @@
 		x={xKey}
 		xDomain={[0, 10]}
 		xRange={({ height }) => [0, height / 2]}
-		data={data}
+		{data}
 	>
 		<Svg>
 			<Radar/>

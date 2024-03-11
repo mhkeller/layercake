@@ -44,14 +44,14 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr={true}
-		percentRange={true}
+		ssr
+		percentRange
 		padding={{ top: 20 }}
 		x={xKey}
 		y={yKey}
 		xPadding={[padding, padding]}
 		yPadding={[padding, padding]}
-		data={data}
+		{data}
 	>
 		<Html>
 			<ScatterHtml

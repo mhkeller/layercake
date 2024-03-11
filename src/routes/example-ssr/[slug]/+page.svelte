@@ -276,7 +276,7 @@
 		<DownloadBtn
 			data={content}
 			slug='{slug}'
-			ssr={true}
+			ssr
 		/>
 	</div>
 

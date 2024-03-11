@@ -57,7 +57,7 @@
 
 		<Svg>
 			<AxisX
-				baseline={true}
+				baseline
 				format={addCommas}
 				tickMarks
 			/>

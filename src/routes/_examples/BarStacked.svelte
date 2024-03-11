@@ -60,8 +60,8 @@
 	>
 		<Svg>
 			<AxisX
-				baseline={true}
-				snapLabels={true}
+				baseline
+				snapLabels
 				format={formatLabelX}
 			/>
 			<AxisY

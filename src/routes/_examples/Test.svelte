@@ -49,7 +49,7 @@
  -->
 
 <LayerCake
- ssr={true}
+ ssr
 >
 
 </LayerCake>

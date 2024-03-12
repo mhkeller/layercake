@@ -7,6 +7,8 @@ Changelog
 
 Following up on 8.0.3, adds `flatData` to the debug printout.
 
+* [PR#180](https://github.com/mhkeller/layercake/pull/180)
+
 # 8.1.0
 
 > 2024-03-11

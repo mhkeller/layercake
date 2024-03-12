@@ -19,8 +19,10 @@ export default function calcScaleExtents (flatData, getters, activeScales) {
 
 	let extents = {};
 	if (scaleGroups.ordinal) {
-		// @ts-ignore
-		extents = calcUniques(flatData, scaleGroups.ordinal, activeScales);
+		const sortOptions = Object.fromEntries(Object.entries(activeScales).map(([k, scaleInfo]) => {
+			return [k, scaleInfo.sort];
+		}));
+		extents = calcUniques(flatData, scaleGroups.ordinal, sortOptions);
 	}
 	if (scaleGroups.other) {
 		// @ts-ignore

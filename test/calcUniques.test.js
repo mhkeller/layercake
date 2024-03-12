@@ -150,7 +150,7 @@ const tests = [
 				{ x: [-4, 4], y: [2, 8] }
 			],
 			{ x: d => d.x, y: d => d.y },
-			{ x: { sort: true }, y: { sort: true } }
+			{ x: true, y: true }
 		],
 		expected: { x: [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4], y: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
 	},
@@ -210,7 +210,7 @@ const tests = [
 				{ teamCity: 'Chicago', backupCity: 'Seattle' }
 			],
 			{ y: d => [d.teamCity, d.backupCity] },
-			{ y: { sort: true } }
+			{ y: true }
 		],
 		expected: { y: ['Chicago', 'Los Angeles', 'New York', 'Seattle'] }
 	},
@@ -241,7 +241,7 @@ const tests = [
 		args: [
 			[0, 10, 11, 1, 2, -1, -10, 4, 2, 4, 5, 6, 7, 7, 0],
 			{ x: d => d },
-			{ x: { sort: true } }
+			{ x: true }
 		],
 		expected: { x: [-10, -1, 0, 1, 2, 4, 5, 6, 7, 10, 11] }
 	},
@@ -264,7 +264,7 @@ const tests = [
 				{ x: '2010-01-05' }
 			],
 			{ x: d => d.x },
-			{ x: { sort: true } }
+			{ x: true }
 		],
 		expected: { x: ['2010-01-02', '2010-01-04', '2010-01-05', '2010-01-06'] }
 	},
@@ -293,7 +293,7 @@ const tests = [
 				{ x: '2010-01-05' }
 			].map(d => ({ x: new Date(d.x) })),
 			{ x: d => d.x },
-			{ x: { sort: true } }
+			{ x: true }
 		],
 		expected: {
 			x: ['2010-01-02', '2010-01-04', '2010-01-05', '2010-01-06'].map(d => new Date(d))
@@ -326,7 +326,7 @@ const tests = [
 				{ x: ['2010-01-05', '2010-02-05'] }
 			].map(d => ({ x: d.x.map((q) => new Date(q)) })),
 			{ x: d => d.x },
-			{ x: { sort: true } }
+			{ x: true }
 		],
 		expected: {
 			x: [
@@ -427,7 +427,7 @@ const tests = [
 				{ x: ['2010-01-05', '2010-02-05'] }
 			],
 			{ x: d => d.x },
-			{ x: { sort: true } }
+			{ x: true }
 		],
 		expected: {
 			x: [

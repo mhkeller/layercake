@@ -1,6 +1,12 @@
 Changelog
 ===
 
+# 8.1.1
+
+> 2024-03-12
+
+Following up on 8.0.3, adds `flatData` to the debug printout.
+
 # 8.1.0
 
 > 2024-03-11

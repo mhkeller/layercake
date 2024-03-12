@@ -478,6 +478,7 @@
 		// Call this as a debounce so that it doesn't get called multiple times as these vars get filled in
 		printDebug_debounced({
 			data: $_data,
+			flatData: typeof flatData !== 'undefined' ? $_flatData : null,
 			boundingBox: $box_d,
 			activeGetters: $activeGetters_d,
 			x: config.x,

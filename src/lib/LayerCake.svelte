@@ -438,6 +438,10 @@
 		yNice: _yNice,
 		zNice: _zNice,
 		rNice: _rNice,
+		xDomainSort: _xDomainSort,
+		yDomainSort: _yDomainSort,
+		zDomainSort: _zDomainSort,
+		rDomainSort: _rDomainSort,
 		xReverse: _xReverse,
 		yReverse: _yReverse,
 		zReverse: _zReverse,
@@ -520,6 +524,10 @@
 			yNice={$_yNice}
 			zNice={$_zNice}
 			rNice={$_rNice}
+			xDomainSort={$_xDomainSort}
+			yDomainSort={$_yDomainSort}
+			zDomainSort={$_zDomainSort}
+			rDomainSort={$_rDomainSort}
 			xReverse={$_xReverse}
 			yReverse={$_yReverse}
 			zReverse={$_zReverse}

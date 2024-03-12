@@ -9,7 +9,7 @@ This adds `xDomainSort`, `yDomainSort`, `zDomainSort` and `rDomainSort` props th
 
 Also updates the API to `calcUniques` helper function to also accept field-specific sort instructions.
 
-* [PR#149](https://github.com/mhkeller/layercake/pull/176)
+* [PR#176](https://github.com/mhkeller/layercake/pull/176)
 
 # 8.0.3
 

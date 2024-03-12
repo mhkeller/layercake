@@ -17,7 +17,7 @@ Also updates the API to `calcUniques` helper function to also accept field-speci
 
 Also print the `data` object when `debug` is set.
 
-* [PR#149](https://github.com/mhkeller/layercake/pull/149)
+* [PR#173](https://github.com/mhkeller/layercake/pull/173)
 
 # 8.0.2
 

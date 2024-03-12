@@ -1,6 +1,16 @@
 Changelog
 ===
 
+# 8.1.0
+
+> 2024-03-11
+
+This adds `xDomainSort`, `yDomainSort`, `zDomainSort` and `rDomainSort` props that will kick in when the scale is ordinal. By default, unique value calculations return a sorted list. You can now use these props to set that to `false` and return the uniques in the order they appeared in the data.
+
+Also updates the API to `calcUniques` helper function to also accept field-specific sort instructions.
+
+* [PR#149](https://github.com/mhkeller/layercake/pull/176)
+
 # 8.0.3
 
 > 2024-03-07

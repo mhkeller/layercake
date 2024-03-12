@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, Svg, flatten, uniques, stack } from 'layercake';
+	import { LayerCake, Svg, flatten, stack } from 'layercake';
 
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { format } from 'd3-format';
@@ -52,7 +52,7 @@
 			y={yKey}
 			z={zKey}
 			xScale={scaleBand().paddingInner(0.02).round(true)}
-			xDomain={uniques(data, xKey)}
+			xDomainSort={false}
 			zScale={scaleOrdinal()}
 			zDomain={seriesNames}
 			zRange={seriesColors}

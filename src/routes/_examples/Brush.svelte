@@ -47,7 +47,7 @@
 
 <div class="brushed-chart-container">
 	<LayerCake
-		padding={{ right: 10, bottom: 20, left: 25 }}
+		padding={{ bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
 		yDomain={[0, null]}

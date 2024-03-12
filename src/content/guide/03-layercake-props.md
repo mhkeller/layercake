@@ -131,7 +131,7 @@ If your `domain` or `range` includes values that are colors, the debug interface
 
 ### padding `Object`
 
-An object that can specify `top`, `right`, `bottom`, or `left` padding in pixels. Any unspecified values are filled in as `0`. Padding operates like CSS `box-sizing: border-box;` where values are subtracted from the parent container's width and height, the same as [a D3 margin convention](https://bl.ocks.org/mbostock/3019563).
+An object that can specify `top`, `right`, `bottom`, or `left` padding in pixels. Any unspecified values are filled in as `0`. Padding operates like CSS `box-sizing: border-box;` where values are subtracted from the parent container's width and height, the same as [a D3 margin convention](https://bl.ocks.org/mbostock/3019563). (It's not called "margin" here because the behavior is more like CSS padding which goes from the outer edge inward, whereas margin goes from the outer edge outward.)
 
 ```svelte
 <LayerCake
@@ -140,8 +140,6 @@ An object that can specify `top`, `right`, `bottom`, or `left` padding in pixels
   padding={ { top: 20, right: 10 } }
 >
 ```
-
-> Another way to set padding is to add it via normal CSS on your target div. The target element is assigned CSS of `box-sizing: border-box;` so padding settings won't affect the width or height. If you set any padding via CSS, the padding object will be ignored.
 
 ### xScale `d3.scaleLinear()`
 
@@ -205,66 +203,23 @@ Same as [xDomain](/guide#xdomain) but for the z scale.
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 
-### xReverse `Boolean=false`
+### xDomainSort `Boolean=true`
 
-Reverse the default x range. By default this is `false` and the range is `[0, width]`.
+Taken into account only when the x-scale is ordinal. It sets whether the calculated unique items come back sorted. It uses [d3.ascending](https://d3js.org/d3-array/sort#ascending) to do the sort calculation.
 
-This is ignored if you set [xRange](/guide#xrange).
+Set this to `false` if you want the unique items to appear in the order they were found in the data.
 
-### yReverse `Boolean=true`
+### yDomainSort `Boolean=true`
 
-Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale in which case this is `false`.
+Same as [xDomainSort](/guide#xdomainsort) but for the y domain.
 
-This is ignored if you set [yRange](/guide#yrange).
+### zDomainSort `Boolean=true`
 
-### zReverse `Boolean=false`
+Same as [xDomainSort](/guide#xdomainsort) but for the z domain.
 
-Reverse the default z range. By default this is `false` and the range is `[0, width]`.
+### rDomainSort `Boolean=true`
 
-This is ignored if you set [zRange](/guide#zrange).
-
-### rReverse `Boolean=false`
-
-Reverse the default r range. By default this is `false` and the range is `[1, 25]`.
-
-This is ignored if you set [rRange](/guide#rrange).
-
-### xRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
-
-Override the default x range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
-
-This overrides setting [xReverse](/guide#xreverse) to `true`.
-
-```svelte
-<LayerCake
-  xRange={ [1, 100] }
->
-```
-It can also be a function:
-
-```svelte
-<LayerCake
-  xRange={ ({ width, height }) => [0, width / 2] }
->
-```
-
-### yRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
-
-Same as [xRange](/guide#xrange) but for the y scale. Override the default y range of `[0, height]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
-
-This overrides setting [yReverse](/guide#yreverse) to `true`.
-
-### zRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
-
-Same as [xRange](/guide#xrange) but for the z scale. Override the default z range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
-
-This overrides setting [zReverse](/guide#zreverse) to `true`.
-
-### rRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
-
-Same as [xRange](/guide#xrange) but for the r scale. Override the default y range of `[1, 25]` by setting it here to an array or function with argument `({ width, height})` that returns an array. The r scale defaults to `d3.scaleSqrt` so make sure you don't use a zero in your range.
-
-This overrides setting [rReverse](/guide#rreverse) to `true`.
+Same as [xDomainSort](/guide#xdomainsort) but for the r domain.
 
 ### xPadding `Array:[leftPixels: Number, rightPixels: Number]`
 
@@ -306,13 +261,74 @@ Same as [xNice](/guide#xnice) but for the z domain.
 
 Same as [xNice](/guide#xnice) but for the r domain.
 
-### extents `Object`
+### xRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
 
-Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension.
+Override the default x range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
+
+This overrides setting [xReverse](/guide#xreverse) to `true`.
 
 ```svelte
 <LayerCake
-  extents={{ x: [0, 100], y: [50, 100] }}
+  xRange={ [1, 100] }
+>
+```
+It can also be a function:
+
+```svelte
+<LayerCake
+  xRange={ ({ width, height }) => [0, width / 2] }
+>
+```
+
+### yRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
+
+Same as [xRange](/guide#xrange) but for the y scale. Override the default y range of `[0, height]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
+
+This overrides setting [yReverse](/guide#yreverse) to `true`.
+
+### zRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
+
+Same as [xRange](/guide#xrange) but for the z scale. Override the default z range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
+
+This overrides setting [zReverse](/guide#zreverse) to `true`.
+
+### rRange `Function|Array:[min: Number, max: Number]|String[]|Number[]`
+
+Same as [xRange](/guide#xrange) but for the r scale. Override the default y range of `[1, 25]` by setting it here to an array or function with argument `({ width, height})` that returns an array. The r scale defaults to `d3.scaleSqrt` so make sure you don't use a zero in your range.
+
+This overrides setting [rReverse](/guide#rreverse) to `true`.
+
+### xReverse `Boolean=false`
+
+Reverse the default x range. By default this is `false` and the range is `[0, width]`.
+
+This is ignored if you set [xRange](/guide#xrange).
+
+### yReverse `Boolean=true`
+
+Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale in which case this is `false`.
+
+This is ignored if you set [yRange](/guide#yrange).
+
+### zReverse `Boolean=false`
+
+Reverse the default z range. By default this is `false` and the range is `[0, width]`.
+
+This is ignored if you set [zRange](/guide#zrange).
+
+### rReverse `Boolean=false`
+
+Reverse the default r range. By default this is `false` and the range is `[1, 25]`.
+
+This is ignored if you set [rRange](/guide#rrange).
+
+### extents `Object`
+
+Manually set the extents of the x, y or r scale. Setting values here will skip any dynamic extent calculation of the data for that dimension. This is similar to setting a fixed domain using `xDomain`, `yDomain`, `rDomain` or `zDomain` with the exception that this prop has the performance improvement of skipping the domain calculation. It may be removed in future versions, however. See [Issue #179](https://github.com/mhkeller/layercake/issues/179).
+
+```svelte
+<LayerCake
+  extents={{ x: [0, 100], y: [50, 100], z: ['apple', 'carrot', 'ginger'] }}
 >
 ```
 

@@ -110,6 +110,14 @@
 	export let zReverse = false;
 	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
 	export let rReverse = false;
+	/** @type {Boolean} [xDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	export let xDomainSort = true;
+	/** @type {Boolean} [yDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	export let yDomainSort = true
+	/** @type {Boolean} [zDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	export let zDomainSort = true;
+	/** @type {Boolean} [rDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	export let rDomainSort = true;
 	/** @type {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}] The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563). */
 	export let padding = {};
 	/** @type {{ x?: [min: Number, max: Number], y?: [min: Number, max: Number], r?: [min: Number, max: Number], z?: [min: Number, max: Number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */
@@ -200,6 +208,10 @@
 	const _yScale = writable(yScale);
 	const _zScale = writable(zScale);
 	const _rScale = writable(rScale);
+	const _xDomainSort = writable(xDomainSort);
+	const _yDomainSort = writable(yDomainSort);
+	const _zDomainSort = writable(zDomainSort);
+	const _rDomainSort = writable(rDomainSort);
 	const _config = writable(config);
 	const _custom = writable(custom);
 
@@ -306,9 +318,14 @@
 	 * in as a domain, which can be a partial domain
 	 */
 	const extents_d = derived(
-		[_flatData, activeGetters_d, _extents, _xScale, _yScale, _rScale, _zScale],
-		([$flatData, $activeGetters, $extents, $_xScale, $_yScale, $_rScale, $_zScale]) => {
-			const scaleLookup = { x: $_xScale, y: $_yScale, r: $_rScale, z: $_zScale };
+		[_flatData, activeGetters_d, _extents, _xScale, _yScale, _rScale, _zScale, _xDomainSort, _yDomainSort, _zDomainSort, _rDomainSort],
+		([$flatData, $activeGetters, $extents, $_xScale, $_yScale, $_rScale, $_zScale, $_xDomainSort, $_yDomainSort, $_zDomainSort, $_rDomainSort]) => {
+			const scaleLookup = {
+				x: { scale: $_xScale, sort: $_xDomainSort },
+				y: { scale: $_yScale, sort: $_yDomainSort },
+				r: { scale: $_rScale, sort: $_rDomainSort },
+				z: { scale: $_zScale, sort: $_zDomainSort }
+			};
 			const getters = filterObject($activeGetters, $extents);
 			const activeScales = Object.fromEntries(Object.keys(getters).map((k) => [k, scaleLookup[k]]));
 
@@ -421,6 +438,10 @@
 		yNice: _yNice,
 		zNice: _zNice,
 		rNice: _rNice,
+		xDomainSort: _xDomainSort,
+		yDomainSort: _yDomainSort,
+		zDomainSort: _zDomainSort,
+		rDomainSort: _rDomainSort,
 		xReverse: _xReverse,
 		yReverse: _yReverse,
 		zReverse: _zReverse,
@@ -503,6 +524,10 @@
 			yNice={$_yNice}
 			zNice={$_zNice}
 			rNice={$_rNice}
+			xDomainSort={$_xDomainSort}
+			yDomainSort={$_yDomainSort}
+			zDomainSort={$_zDomainSort}
+			rDomainSort={$_rDomainSort}
 			xReverse={$_xReverse}
 			yReverse={$_yReverse}
 			zReverse={$_zReverse}

@@ -93,9 +93,13 @@ console.log(extents);
 */
 ```
 
-### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`[, { sort: `Boolean=false`] }: Object)
+### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`[, sortOptions: { sort: `Boolean`, x: `Boolean`, y: `Boolean`, z: `Boolean`, r: `Boolean` }])
 
-The same API and behavior as `calcExtents` but instead of a two-value array of `[min, max]` values, it returns an array of unique items. It returns the values in the order they appear in the data. Optionally pass in `true` in the third options argument to do a simple `.sort()`.
+The same API and behavior as `calcExtents` but instead of a two-value array of `[min, max]` values, it returns an array of unique items.
+
+By default, it returns the values in the order they appear in the data. Optionally pass in `sort: true` in the third options argument to do a `.sort(d3.ascending)`. (See [d3-array sort ascending](https://d3js.org/d3-array/sort#ascending) for details on the sort.)
+
+You can also specify sorts on a per-field basis by passing in booleans for specific keys that appear in your `fields` object such as `{ x: true }`.
 
 ```js
 const uniques = calcUniques(flatData, {
@@ -107,7 +111,41 @@ console.log(uniques);
 /*
 {
   x: [0, 85, 123, 43, 10],
+  y: ['group-3', 'group-2', 'group-1']
+}
+*/
+```
+
+Sort all fields:
+
+```js
+const uniques = calcUniques(flatData, {
+  x: d => d.myX,
+  y: d => d.myY
+}, { sort: true });
+
+console.log(uniques);
+/*
+{
+  x: [0, 10, 43, 85, 123],
   y: ['group-1', 'group-2', 'group-3']
+}
+*/
+```
+
+Sort only the x field:
+
+```js
+const uniques = calcUniques(flatData, {
+  x: d => d.myX,
+  y: d => d.myY
+}, { x: true });
+
+console.log(uniques);
+/*
+{
+  x: [0, 10, 43, 85, 123],
+  y: ['group-3', 'group-2', 'group-1']
 }
 */
 ```

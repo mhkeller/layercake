@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.qbmqn9wU.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/5.L1iD5KWO.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/cleanTitle.g9qNC6PL.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.Yu9Kp5vm.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.mCYqUAOp.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.2-undxuW.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.wz0_zK2G.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.P37s_KnH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Kwf8FJOX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.pJ1mnnAb.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.6H1xFGCF.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.hIF2jBHL.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.GooPGtyi.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.Z_y0RRkg.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.wuufgBtF.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.oiCz_B55.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.zMdpk9aP.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.0XeGhm7b.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.pdBzixzt.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.ryhBIpq-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.AprJvnDK.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.io8Ilumg.js">
@@ -208,7 +208,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/example/Sankey.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"title\":\"+page.svelte\",\"contents\":\"\u003Cscript>\\n  import { LayerCake, Svg } from 'layercake';\\n\\n  import Sankey from './_components/Sankey.svelte';\\n\\n  import data from './_data/sankey-data.js';\\n\u003C/script>\\n\\n\u003Cstyle>\\n  /*\\n    The wrapper div needs to have an explicit width and height in CSS.\\n    It can also be a flexbox child or CSS grid element.\\n    The point being it needs dimensions since the \u003CLayerCake> element will\\n    expand to fill it.\\n  */\\n  .chart-container {\\n    width: 100%;\\n    height: 250px;\\n  }\\n\u003C/style>\\n\\n\u003Cdiv class=\\\"chart-container\\\">\\n  \u003CLayerCake\\n    {data}\\n  >\\n    \u003CSvg>\\n      \u003CSankey\\n        colorNodes={d => '#00bbff'}\\n        colorLinks={d => '#00bbff35'}\\n      />\\n    \u003C/Svg>\\n  \u003C/LayerCake>\\n\u003C/div>\"},\"dek\":\"\",\"components\":[{\"title\":\"./_components/Sankey.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG Sankey chart using [d3-sankey](https://github.com/d3/d3-sankey).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import * as Sankey from 'd3-sankey';\\n\\n  const { data, width, height } = getContext('LayerCake');\\n\\n  /** @type {Function} [colorLinks=d => 'rgba(0, 0, 0, .2)'] - A function to return a color for the links. */\\n  export let colorLinks = d => 'rgba(0, 0, 0, .2)';\\n\\n  /** @type {Function} [colorNodes=d => '#333'] - A function to return a color for each node. */\\n  export let colorNodes = d => '#333';\\n\\n  /** @type {Function} [colorText=d => '#263238'] - A function to return a color for each text label. */\\n  export let colorText = d => '#263238';\\n\\n  /** @type {Number} [nodeWidth=5] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth). */\\n  export let nodeWidth = 5;\\n\\n  /** @type {Number} [nodePadding=10] - The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding). */\\n  export let nodePadding = 10;\\n\\n  /** @type {Function} [linkSort=null] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort). */\\n  export let linkSort = null;\\n\\n  /** @type {Function} [nodeId=d => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId). */\\n  export let nodeId = d => d.id;\\n\\n  /** @type {Function} [nodeAlign=d3.sankeyLeft] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more. */\\n  export let nodeAlign = Sankey.sankeyLeft;\\n\\n  $: sankey = Sankey.sankey()\\n    .nodeAlign(nodeAlign)\\n    .nodeWidth(nodeWidth)\\n    .nodePadding(nodePadding)\\n    .nodeId(nodeId)\\n    .size([$width, $height])\\n    .linkSort(linkSort);\\n\\n  $: sankeyData = sankey($data);\\n\\n  $: link = Sankey.sankeyLinkHorizontal();\\n\\n  $: fontSize = $width \u003C= 320 ? 8 : 12;\\n\u003C/script>\\n\\n\u003Cstyle>\\n  text {\\n    pointer-events: none;\\n  }\\n\u003C/style>\\n\\n\u003Cg class=\\\"sankey-layer\\\">\\n  \u003Cg class='link-group'>\\n    {#each sankeyData.links as d}\\n      \u003Cpath\\n        d={link(d)}\\n        fill='none'\\n        stroke={colorLinks(d)}\\n        stroke-opacity='0.5'\\n        stroke-width={d.width} />\\n    {/each}\\n  \u003C/g>\\n  \u003Cg class='rect-group'>\\n    {#each sankeyData.nodes as d, i}\\n      \u003Crect\\n        x={d.x0}\\n        y={d.y0}\\n        height={d.y1 - d.y0}\\n        width={d.x1 - d.x0}\\n        fill={colorNodes(d)} />\\n      \u003Ctext\\n        x={d.x0 \u003C $width / 4 ? d.x1 + 6 : d.x0 - 6}\\n        y={(d.y1 + d.y0) / 2}\\n        dy=\\\"{(fontSize / 2) - 2}\\\"\\n        style=\\\"fill: {colorText(d)};\\n              font-size: {fontSize}px;\\n              text-anchor: {d.x0 \u003C $width / 4 ? 'start' : 'end'};\\\">\\n        {d.id}\\n      \u003C/text>\\n    {/each}\\n  \u003C/g>\\n\u003C/g>\"}],\"modules\":[{\"title\":\"./_data/sankey-data.js\",\"contents\":\"export default {\\n  nodes: [\\n    { id: 'A1' },\\n    { id: 'A2' },\\n    { id: 'A3' },\\n    { id: 'B1' },\\n    { id: 'B2' },\\n    { id: 'B3' },\\n    { id: 'B4' },\\n    { id: 'C1' },\\n    { id: 'C2' },\\n    { id: 'C3' },\\n    { id: 'D1' },\\n    { id: 'D2' }\\n  ],\\n  links: [\\n    { source: 'A1', target: 'B1', value: 27 },\\n    { source: 'A1', target: 'B2', value: 9 },\\n    { source: 'A2', target: 'B2', value: 5 },\\n    { source: 'A2', target: 'B3', value: 11 },\\n    { source: 'A3', target: 'B2', value: 12 },\\n    { source: 'A3', target: 'B4', value: 7 },\\n    { source: 'B1', target: 'C1', value: 13 },\\n    { source: 'B1', target: 'C2', value: 10 },\\n    { source: 'B4', target: 'C2', value: 5 },\\n    { source: 'B4', target: 'C3', value: 2 },\\n    { source: 'B1', target: 'D1', value: 4 },\\n    { source: 'C3', target: 'D1', value: 1 },\\n    { source: 'C3', target: 'D2', value: 1 }\\n  ]\\n};\"}],\"componentModules\":[],\"componentComponents\":[],\"csvs\":[],\"jsons\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_keq8hm = {
+					__sveltekit_1rp3979 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -217,8 +217,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.Yu9Kp5vm.js"),
-						import("../_app/immutable/entry/app.6H1xFGCF.js")
+						import("../_app/immutable/entry/start.2-undxuW.js"),
+						import("../_app/immutable/entry/app.hIF2jBHL.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 5],

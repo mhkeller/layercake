@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape).
+	Generates an SVG area shape.
  -->
 <script>
 	import { getContext } from 'svelte';
@@ -16,6 +16,7 @@
 		})
 		.join('L');
 
+	/**	@type {String} **/
 	let area;
 
 	$: {

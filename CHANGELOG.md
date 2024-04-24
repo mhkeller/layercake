@@ -7,6 +7,8 @@ Changelog
 
 Excludes `flatData` from the debug printout if it's null.
 
+* [PR#188](https://github.com/mhkeller/layercake/pull/188)
+
 # 8.1.1
 
 > 2024-03-12

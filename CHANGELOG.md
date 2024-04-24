@@ -1,6 +1,12 @@
 Changelog
 ===
 
+# 8.1.2
+
+> 2024-04-24
+
+Excludes `flatData` from the debug printout if it's null.
+
 # 8.1.1
 
 > 2024-03-12

@@ -32,17 +32,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.Cpuaqf3B.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.Cd9UlIMr.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C4zKD4yS.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CYbOBZEU.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.CY9Abpl6.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.CCG9Hd_3.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Ibukg5l7.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/scheduler.BuUXzzgF.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.DZaKZIS6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.9sBpAgZB.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CFOToam3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.BbJvc9HH.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.wNXh9AEM.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.DnpzYzF1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/each.UhD556z0.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.CDJb6DOX.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.Cljlrbwn.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.CxkQx-kD.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.BRAZc1Lz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.DhsUzaVt.js">
@@ -124,7 +124,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Annotations.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Annotations.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Adds text annotations based on a config object that has CSS styles as fields.\\n -->\\n \u003Cscript>\\n   const vals = ['top', 'right', 'bottom', 'left'];\\n\\n   /** @type {Array} annotations - A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options. */\\n   export let annotations = [];\\n\\n   /** @type {Function} [getText=d => d.text] - An accessor function to get the field to display. */\\n  export let getText = d => d.text;\\n\\n  $: fillStyle = d => {\\n    let style = '';\\n    vals.forEach(val => {\\n      if (d[val]) {\\n        style += `${val}:${d[val]};`;\\n      }\\n    });\\n    return style;\\n  };\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"layercake-annotations\\\">\\n  {#each annotations as d, i}\\n    \u003Cdiv\\n      class=\\\"layercake-annotation\\\"\\n      data-id=\\\"{i}\\\"\\n      style=\\\"{fillStyle(d)}\\\"\\n    >{getText(d)}\u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .layercake-annotation {\\n    position: absolute;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Column\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Column\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Array\"},\"name\":\"annotations\"},{\"title\":\"param\",\"description\":\"An accessor function to get the field to display.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"getText\",\"default\":\"d=>d.text\"}]},\"componentDescription\":\"Adds text annotations based on a config object that has CSS styles as fields.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1rkwat0 = {
+					__sveltekit_1p6vldf = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -133,8 +133,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CYbOBZEU.js"),
-						import("../_app/immutable/entry/app.9sBpAgZB.js")
+						import("../_app/immutable/entry/start.CCG9Hd_3.js"),
+						import("../_app/immutable/entry/app.CFOToam3.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

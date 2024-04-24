@@ -34,9 +34,11 @@ export default function printDebug(obj) {
 	printObject(obj.boundingBox);
 	console.log('Data:');
 	console.log(indent, obj.data);
-	console.log('flatData:');
-	console.log(indent, obj.flatData);
-	console.log('Scales:\n');
+	if (obj.flatData) {
+		console.log('flatData:');
+		console.log(indent, obj.flatData);
+	}
+	console.log('Scales:');
 	Object.keys(obj.activeGetters).forEach(g => {
 		printScale(g, obj[`${g}Scale`], obj[g]);
 	});

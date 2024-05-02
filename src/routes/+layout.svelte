@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import '../app.css';
 	import '../hljs.css';
 
@@ -8,7 +8,7 @@
 </script>
 
 
-<!-- <Nav sections={data.sections} /> -->
+<Nav sections={data.sections} />
 <main>
 	<slot />
 </main>

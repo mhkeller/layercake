@@ -89,5 +89,5 @@
 		"svelte": "3 - 5 || >=5.0.0-next.120",
 		"typescript": "^5.0.2"
 	},
-	"svelte": "./dist/index.js1
+	"svelte": "./dist/index.js"
 }

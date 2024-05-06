@@ -32,24 +32,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.D8VLq8ip.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.BmY10De1.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.DHN2NzXR.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CXxhKtuA.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.CMtjtCLW.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.Bjf391Hh.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.CidrUGYv.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.D9nQNyi8.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.DvIg7qsa.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.Vni91L8U.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.Df5WnPKJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.DBj9Vt0q.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.CfD4apJF.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.42KP6Uti.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.CFCBblPQ.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.DnCdyaJs.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.DG4aYTQA.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.fbi-k1SI.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.ClfF0HVi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.D0w64kVl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.CQvyvXFB.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.Co5usZpv.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.r0wi4iv5.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.CCtqPDgx.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.Hu1l_uRZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.CLeW-Hl-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.T3EYnPKM.js">
@@ -207,7 +207,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Map.svg.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Map.svg.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).\\n -->\\n\u003Cscript>\\n  import { getContext, createEventDispatcher } from 'svelte';\\n  import { geoPath } from 'd3-geo';\\n  import { raise } from 'layercake';\\n\\n  const { data, width, height, zGet } = getContext('LayerCake');\\n\\n  /** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */\\n  export let projection;\\n\\n  /** @type {Number} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */\\n  export let fixedAspectRatio = undefined;\\n\\n  /** @type {String} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */\\n  export let fill = undefined;\\n\\n  /** @type {String} [stroke='#333'] - The shape's stroke color. */\\n  export let stroke = '#333';\\n\\n  /** @type {Number} [strokeWidth=0.5] - The shape's stroke width. */\\n  export let strokeWidth = 0.5;\\n\\n  /** @type {Array} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */\\n  export let features = undefined;\\n\\n  /* --------------------------------------------\\n   * Here's how you would do cross-component hovers\\n   */\\n  const dispatch = createEventDispatcher();\\n\\n  $: fitSizeRange = fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height];\\n\\n  $: projectionFn = projection()\\n    .fitSize(fitSizeRange, $data);\\n\\n  $: geoPathFn = geoPath(projectionFn);\\n\\n  function handleMousemove(feature) {\\n    return function handleMousemoveFn(e) {\\n      raise(this);\\n      // When the element gets raised, it flashes 0,0 for a second so skip that\\n      if (e.layerX !== 0 && e.layerY !== 0) {\\n        dispatch('mousemove', { e, props: feature.properties });\\n      }\\n    }\\n  }\\n\u003C/script>\\n\\n\u003Cg\\n  class=\\\"map-group\\\"\\n  on:mouseout={(e) => dispatch('mouseout')}\\n  on:blur={(e) => dispatch('mouseout')}\\n>\\n  {#each (features || $data.features) as feature}\\n    \u003Cpath\\n      class=\\\"feature-path\\\"\\n      fill=\\\"{fill || $zGet(feature.properties)}\\\"\\n      stroke={stroke}\\n      stroke-width={strokeWidth}\\n      d=\\\"{geoPathFn(feature)}\\\"\\n      on:mouseover={(e) => dispatch('mousemove', { e, props: feature.properties })}\\n      on:focus={(e) => dispatch('mousemove', { e, props: feature.properties })}\\n      on:mousemove={handleMousemove(feature)}\\n    >\u003C/path>\\n  {/each}\\n\u003C/g>\\n\\n\u003Cstyle>\\n  /* .feature-path {\\n    stroke: #333;\\n    stroke-width: 0.5px;\\n  } */\\n  .feature-path:hover {\\n    stroke: #000;\\n    stroke-width: 2px;\\n  }\\n  /**\\n   * Disable the outline on feature click.\\n   * Depending on map funtionality and accessiblity issues,\\n   * you may not want this rule. Read more:\\n   * https://developer.mozilla.org/en-US/docs/Web/CSS/:focus\\n   * https://github.com/mhkeller/layercake/issues/63\\n   */\\n  .feature-path:focus {\\n    outline: none;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/MapLayered\",\"/example/MapSvg\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/MapLayered\",\"/example-ssr/MapSvg\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Function\"},\"name\":\"projection\"},{\"title\":\"param\",\"description\":\"By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"fixedAspectRatio\"},{\"title\":\"param\",\"description\":\"The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\"},{\"title\":\"param\",\"description\":\"The shape's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#333'\"},{\"title\":\"param\",\"description\":\"The shape's stroke width.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"0.5\"},{\"title\":\"param\",\"description\":\"A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Array\"}},\"name\":\"features\"}]},\"componentDescription\":\"Generates an SVG map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_wuqj2u = {
+					__sveltekit_kcx5rn = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -216,8 +216,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CXxhKtuA.js"),
-						import("../_app/immutable/entry/app.Vni91L8U.js")
+						import("../_app/immutable/entry/start.Bjf391Hh.js"),
+						import("../_app/immutable/entry/app.Df5WnPKJ.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

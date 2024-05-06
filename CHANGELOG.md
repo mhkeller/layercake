@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 8.1.3
+
+> 2024-05-06
+
+Make compatible with Svelte 5. Note: This does not update the API to use runes, eliminate the use of stores or get rid of reactive statements.
+
+* [PR#190](https://github.com/mhkeller/layercake/pull/190)
+
 # 8.1.2
 
 > 2024-04-24

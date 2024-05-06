@@ -1,6 +1,17 @@
 Changelog
 ===
 
+# 8.1.4
+
+> 2024-05-06
+
+Rebuilt the lockfile because of [this issue with GitHub CI](https://github.com/npm/cli/issues/4828#issuecomment-2077092392). Bumping to a new version just so everyone has the same lockfile.
+
+* [ec415109dc871476f3e4f3756eec52999396a83f](https://github.com/mhkeller/layercake/commit/ec415109dc871476f3e4f3756eec52999396a83f)
+* [0eb3acd71459cbcfd81336e080bb48b90d5be1e3](https://github.com/mhkeller/layercake/commit/0eb3acd71459cbcfd81336e080bb48b90d5be1e3)
+* [14a1ad3fc528c9c5eac2bcdcc768035bf871c83b](https://github.com/mhkeller/layercake/commit/14a1ad3fc528c9c5eac2bcdcc768035bf871c83b)
+
+
 # 8.1.3
 
 > 2024-05-06

@@ -4,8 +4,8 @@
 	@param {String|Function} accessor An optional accessor function. If this is a string, it will be transformed into an accessor for that key.
 	@returns {Array}
 */
-export default function flatten (list, accessor = d => d) {
-	const acc = typeof accessor === 'string' ? d => d[accessor] : accessor;
+export default function flatten(list, accessor = (d) => d) {
+	const acc = typeof accessor === 'string' ? (d) => d[accessor] : accessor;
 	if (Array.isArray(list) && Array.isArray(acc(list[0]))) {
 		let flat = [];
 		const l = list.length;

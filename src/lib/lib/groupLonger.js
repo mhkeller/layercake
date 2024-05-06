@@ -36,28 +36,28 @@
 	@returns {Array} [dataLong] The transformed data that is a list of one object for each group. Each object has `key` and `values` where `key` is the group name and `values` is a list of transformed data.
 */
 
-export default function groupLonger(data, keys, {
-	groupTo = 'group',
-	valueTo = 'value',
-	keepKeys = undefined
-} = {}) {
+export default function groupLonger(
+	data,
+	keys,
+	{ groupTo = 'group', valueTo = 'value', keepKeys = undefined } = {}
+) {
 	if (!Array.isArray(data)) {
-		throw new TypeError('The first argument of groupLonger() must be an array of data')
+		throw new TypeError('The first argument of groupLonger() must be an array of data');
 	}
 	if (!Array.isArray(keys)) {
 		throw new TypeError('The second argument of groupLonger() must be an array of key names');
 	}
 	const keysSet = new Set(keys);
-	const keep = keepKeys || Object.keys(data[0]).filter(d => !keysSet.has(d));
+	const keep = keepKeys || Object.keys(data[0]).filter((d) => !keysSet.has(d));
 
-	return keys.map(key => {
+	return keys.map((key) => {
 		return {
 			[groupTo]: key,
-			values: data.map(d => {
+			values: data.map((d) => {
 				return {
-					...Object.fromEntries(keep.map((k => [k, d[k]]))),
+					...Object.fromEntries(keep.map((k) => [k, d[k]])),
 					[valueTo]: d[key],
-					[groupTo]: key,
+					[groupTo]: key
 				};
 			})
 		};

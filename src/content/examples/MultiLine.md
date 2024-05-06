@@ -1,6 +1,7 @@
 A multiline example with a quadtree tooltip. This is an interesting example because the data exists in a few different structures:
 
 1. We're loading data from a "wide" format CSV file where each series has its own column name.
+
    ```
    [
      {
@@ -19,9 +20,11 @@ A multiline example with a quadtree tooltip. This is an interesting example beca
      },
      ...
    ```
+
    We need to first turn this into...
 
 2. ...a "long" format, where each type of fruit is grouped into its own array and each datapoint is a row. The column name becomes a property on the group whose name we define with the `zKey` variable.
+
    ```
    [
        {

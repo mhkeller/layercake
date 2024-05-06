@@ -2,19 +2,19 @@ import findScaleType from './findScaleType.js';
 import identity from '../utils/identity.js';
 
 function log(sign) {
-	return x => Math.log(sign * x);
+	return (x) => Math.log(sign * x);
 }
 
 function exp(sign) {
-	return x => sign * Math.exp(x);
+	return (x) => sign * Math.exp(x);
 }
 
 function symlog(c) {
-	return x => Math.sign(x) * Math.log1p(Math.abs(x / c));
+	return (x) => Math.sign(x) * Math.log1p(Math.abs(x / c));
 }
 
 function symexp(c) {
-	return x => Math.sign(x) * Math.expm1(Math.abs(x)) * c;
+	return (x) => Math.sign(x) * Math.expm1(Math.abs(x)) * c;
 }
 
 function pow(exponent) {

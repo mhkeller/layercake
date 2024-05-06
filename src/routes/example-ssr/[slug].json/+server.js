@@ -110,7 +110,7 @@ export async function GET({ params }) {
 						title: d.replace('../', './'),
 						contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
 					};
-			  });
+				});
 
 	const componentComponentMatches = getComponentPaths(components.map((d) => d.contents).join(''));
 	const componentComponents =
@@ -121,7 +121,7 @@ export async function GET({ params }) {
 						title: d.replace('./', './_components/'),
 						contents: cleanContents(fs.readFileSync(d.replace('./', 'src/_components/'), 'utf-8'))
 					};
-			  });
+				});
 
 	const response = {
 		main,

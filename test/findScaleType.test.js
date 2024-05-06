@@ -36,10 +36,10 @@ const tests = [
 	{ name: 'scaleDivergingLog', expected: 'log' },
 	{ name: 'scaleDivergingPow', expected: 'pow' },
 	{ name: 'scaleDivergingSqrt', expected: 'sqrt' },
-	{ name: 'scaleDivergingSymlog', expected: 'symlog' },
+	{ name: 'scaleDivergingSymlog', expected: 'symlog' }
 ];
 
-tests.forEach(d => {
+tests.forEach((d) => {
 	const scale = d3Scale[d.name];
 	if (typeof scale !== 'function') {
 		throw new Error(`No D3 scale found for name ${d.name}`);
@@ -48,7 +48,7 @@ tests.forEach(d => {
 });
 
 describe(name, () => {
-	tests.forEach(test => {
+	tests.forEach((test) => {
 		describe(test.name, () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
 				const actual = fn(...test.args);

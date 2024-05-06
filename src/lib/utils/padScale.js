@@ -16,7 +16,7 @@ import findScaleName from '../helpers/findScaleName.js';
 // These scales have a discrete range so they can't be padded
 const unpaddable = ['scaleThreshold', 'scaleQuantile', 'scaleQuantize', 'scaleSequentialQuantile'];
 
-export default function padScale (scale, padding) {
+export default function padScale(scale, padding) {
 	if (typeof scale.range !== 'function') {
 		console.log(scale);
 		throw new Error('Scale method `range` must be a function');
@@ -39,7 +39,7 @@ export default function padScale (scale, padding) {
 
 	const isTime = Object.prototype.toString.call(d0) === '[object Date]';
 
-	const [d1, d2] = scale.domain().map(d => {
+	const [d1, d2] = scale.domain().map((d) => {
 		return isTime ? lift(d.getTime()) : lift(d);
 	});
 	const [r1, r2] = scale.range();
@@ -48,7 +48,7 @@ export default function padScale (scale, padding) {
 
 	const step = (d2 - d1) / (Math.abs(r2 - r1) - paddingLeft - paddingRight); // Math.abs() to properly handle reversed scales
 
-	return [d1 - paddingLeft * step, paddingRight * step + d2].map(d => {
+	return [d1 - paddingLeft * step, paddingRight * step + d2].map((d) => {
 		return isTime ? ground(new Date(d)) : ground(d);
 	});
 }

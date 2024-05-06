@@ -270,7 +270,7 @@ const errorTests = [
 ];
 
 describe(name, () => {
-	tests.forEach(test => {
+	tests.forEach((test) => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
 				const actual = fn(...test.args);
@@ -279,7 +279,7 @@ describe(name, () => {
 		});
 	});
 
-	errorTests.forEach(test => {
+	errorTests.forEach((test) => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should throw error ${test.expected}`, () => {
 				const actual = () => fn(...test.args);

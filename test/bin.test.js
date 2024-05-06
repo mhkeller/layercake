@@ -79,7 +79,7 @@ describe(name, () => {
 		});
 	});
 
-	errorTests.forEach(test => {
+	errorTests.forEach((test) => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should throw error ${test.expected}`, () => {
 				const actual = () => fn(...test.args);

@@ -4,34 +4,34 @@ title: Layout component props
 
 In addition to the [accessibility props](guide#accessibility) described above, all layout components accept the following props:
 
-* [zIndex](guide#zindex) `Number|String`
-* [pointerEvents](guide#pointerevents) `Boolean`
+- [zIndex](guide#zindex) `Number|String`
+- [pointerEvents](guide#pointerevents) `Boolean`
 
 The Svg and ScaledSvg layout components also accept:
 
-* [viewBox](guide#viewbox) `String`
+- [viewBox](guide#viewbox) `String`
 
 And ScaledSvg additionally accepts:
 
-* [fixedAspectRatio](guide#fixedaspectratio) `Number`
+- [fixedAspectRatio](guide#fixedaspectratio) `Number`
 
 The WebGL Component accepts:
 
-* [contextAttributes](guide#contextattributes) `Object`
+- [contextAttributes](guide#contextattributes) `Object`
 
 Each layout component also export an `element` prop that you can bind to and represents the HTML element that wraps the layout component. These are also available as slot props.
 
-* In the `Html` component, `element` equals the `<div>` tag.
-* In the `Svg` component, `element` equals the `<svg>` tag.
-  * This layout component also has a `innerElement` binding to the `<g>` tag, which wraps all of the content.
-* In the `ScaledSvg` component, `element` equals the `<svg>` tag.
-* In the `Canvas` component, `element` equals the `<canvas>` tag.
-* In the `WebGL` component, `element` equals the `<canvas>` tag.
+- In the `Html` component, `element` equals the `<div>` tag.
+- In the `Svg` component, `element` equals the `<svg>` tag.
+  - This layout component also has a `innerElement` binding to the `<g>` tag, which wraps all of the content.
+- In the `ScaledSvg` component, `element` equals the `<svg>` tag.
+- In the `Canvas` component, `element` equals the `<canvas>` tag.
+- In the `WebGL` component, `element` equals the `<canvas>` tag.
 
 The `Canvas` and the `WebGL` components also export a `context` variable that you can bind to and is also available as a slot prop.
 
-* In the `Canvas` component, `context` equals `element.getContext('2d')`.
-* In the `WebGL` component, `context` equals `element.getContext('webgl')`.
+- In the `Canvas` component, `context` equals `element.getContext('2d')`.
+- In the `WebGL` component, `context` equals `element.getContext('webgl')`.
 
 ```svelte
 <script>
@@ -128,4 +128,3 @@ For WebGL components, you can pass in an object that gets passed as the second a
   </WebGL>
 </LayerCake>
 ```
-

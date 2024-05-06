@@ -7,13 +7,13 @@
  *
  * --------------------------------------------
  */
-export default function parseCssValue (d, i, width, height) {
+export default function parseCssValue(d, i, width, height) {
 	if (!d) return 0;
 	if (typeof d === 'number') {
 		return d;
 	}
 	if (d.indexOf('%') > -1) {
-		return ((+d.replace('%', '')) / 100) * (i ? height : width);
+		return (+d.replace('%', '') / 100) * (i ? height : width);
 	}
 	return +d.replace('px', '');
 }

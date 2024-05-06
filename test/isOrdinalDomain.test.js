@@ -37,16 +37,15 @@ const tests = [
 	{ name: 'scaleDivergingLog', expected: false },
 	{ name: 'scaleDivergingPow', expected: false },
 	{ name: 'scaleDivergingSqrt', expected: false },
-	{ name: 'scaleDivergingSymlog', expected: false },
-
+	{ name: 'scaleDivergingSymlog', expected: false }
 ];
 
-tests.forEach(d => {
+tests.forEach((d) => {
 	d.args = [d3Scale[d.name]()];
 });
 
 describe(name, () => {
-	tests.forEach(test => {
+	tests.forEach((test) => {
 		describe(test.name, () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
 				const actual = fn(...test.args);

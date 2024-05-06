@@ -248,6 +248,7 @@ Here's an example showing a scatter plot.
   }
 </style>
 ```
+
 In the component, you access the canvas context with `const { gl } = getContext('gl');`. This value is on a different context from the `getContext('LayerCake')` one because you could have multiple WebGL layers and there wouldn't be an easy way to grab the right one.
 
 > Since the `gl` value is a normal WebGL context, the underlying canvas element is accessible under `gl.canvas`.

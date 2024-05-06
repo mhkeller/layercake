@@ -11,11 +11,11 @@ const tests = [
 	{ args: [{ x: 'a', y: 'b', z: undefined }], expected: { x: 'a', y: 'b' } },
 	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: 10 }], expected: { y: 'b' } },
 	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: false }], expected: { y: 'b' } },
-	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: undefined }], expected: { x: 'a', y: 'b' } },
+	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: undefined }], expected: { x: 'a', y: 'b' } }
 ];
 
 describe(name, () => {
-	tests.forEach(test => {
+	tests.forEach((test) => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
 				const actual = fn(...test.args);

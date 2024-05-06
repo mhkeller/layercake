@@ -8,9 +8,9 @@ Since Layer Cake components live inside your project, you have full control over
 
 Each of these components exposes props that will help with accessibility. These are the props that are common to all layout components:
 
-* `label` → Sets [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
-* `labelledBy` → Sets [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)
-* `describedBy` → Sets [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby)
+- `label` → Sets [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
+- `labelledBy` → Sets [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby)
+- `describedBy` → Sets [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby)
 
 ```svelte
 <LayerCake>
@@ -58,10 +58,10 @@ And becomes...
 
 ```html
 <div class="layercake-container">
-  <div class="layercake-layout-html">
-    <title>A chart title of some kind.</title>
-    <!-- Components go here -->
-  </div>
+	<div class="layercake-layout-html">
+		<title>A chart title of some kind.</title>
+		<!-- Components go here -->
+	</div>
 </div>
 ```
 
@@ -80,10 +80,10 @@ And becomes...
 
 ```html
 <div class="layercake-container">
-  <div class="layercake-layout-svg">
-    <div>A chart title of some kind in custom HTML.</div>
-    <!-- Components go here -->
-  </div>
+	<div class="layercake-layout-svg">
+		<div>A chart title of some kind in custom HTML.</div>
+		<!-- Components go here -->
+	</div>
 </div>
 ```
 
@@ -105,9 +105,9 @@ And becomes...
 
 ```html
 <div class="layercake-container">
-  <div class="layercake-layout-canvas">
-    <canvas>A description of the chart to display when canvas is unavailable.</canvas>
-  </div>
+	<div class="layercake-layout-canvas">
+		<canvas>A description of the chart to display when canvas is unavailable.</canvas>
+	</div>
 </div>
 ```
 
@@ -126,8 +126,8 @@ And becomes...
 
 ```html
 <div class="layercake-container">
-  <div class="layercake-layout-canvas">
-    <canvas>A description of the chart to display when canvas is unavailable.</canvas>
-  </div>
+	<div class="layercake-layout-canvas">
+		<canvas>A description of the chart to display when canvas is unavailable.</canvas>
+	</div>
 </div>
 ```

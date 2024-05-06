@@ -34,19 +34,14 @@
 
 import { stack as d3Stack } from 'd3-shape';
 
-export default function stack(data, keys, {
-	value,
-	order,
-	offset
-} = {}) {
+export default function stack(data, keys, { value, order, offset } = {}) {
 	if (typeof data !== 'object') {
-		throw new TypeError('The first argument of stack() must be an array or data object')
+		throw new TypeError('The first argument of stack() must be an array or data object');
 	}
 	if (!Array.isArray(keys)) {
 		throw new TypeError('The second argument of stack() must be an array of key names');
 	}
-	let stacker = d3Stack()
-			.keys(keys);
+	let stacker = d3Stack().keys(keys);
 
 	if (value) {
 		stacker = stacker.value(value);

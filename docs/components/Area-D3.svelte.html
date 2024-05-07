@@ -32,31 +32,31 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.D8VLq8ip.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.BmY10De1.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.DHN2NzXR.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DLGRoJLo.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.X4iwm1Rr.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.rW39hFrq.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.DchREiNX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.D9nQNyi8.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.DvIg7qsa.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.bQcz0ecq.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CMKutKRb.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.DBj9Vt0q.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.CfD4apJF.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.42KP6Uti.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.CFCBblPQ.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BytfQN4N.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.2eAO53G9.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.fbi-k1SI.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.ClfF0HVi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.D0w64kVl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.CQvyvXFB.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.Co5usZpv.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.CBY_UH10.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.CmP16Ep_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.Hu1l_uRZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.CLeW-Hl-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.T3EYnPKM.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.Bp0JMqW5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.BOXRkFVx.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.D8IyHUIu.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/4.By_wXqBy.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/4.CHXTC0Ew.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/html.pu-OIvc1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.DPn4pLDi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/hljsDefineSvelte.C5yA7T4x.js">
@@ -117,7 +117,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Area-D3.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Area-D3.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { area, curveLinear } from 'd3-shape';\\n\\n  const { data, xGet, yGet, yScale } = getContext('LayerCake');\\n\\n  /** @type {String} [fill='#ab00d610'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */\\n  export let fill = '#ab00d610';\\n\\n  /** @type {Function} [curve=curveLinear] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses. */\\n  export let curve = curveLinear;\\n\\n  $: path = area()\\n    .x($xGet)\\n    .y1($yGet)\\n    .y0(d => $yScale(0))\\n    .curve(curve);\\n    // .defined($y)\\n\u003C/script>\\n\\n\u003Cpath class='path-area' d='{path($data)}' {fill}>\u003C/path>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'#ab00d610'\"},{\"title\":\"param\",\"description\":\"An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"curve\",\"default\":\"curveLinear\"}]},\"componentDescription\":\"Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_y4rgsx = {
+					__sveltekit_1u6hs45 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -126,8 +126,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DLGRoJLo.js"),
-						import("../_app/immutable/entry/app.bQcz0ecq.js")
+						import("../_app/immutable/entry/start.rW39hFrq.js"),
+						import("../_app/immutable/entry/app.CMKutKRb.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

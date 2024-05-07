@@ -32,31 +32,31 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.D8VLq8ip.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.BmY10De1.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.DHN2NzXR.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DLGRoJLo.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.X4iwm1Rr.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.rW39hFrq.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.DchREiNX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.D9nQNyi8.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.DvIg7qsa.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.bQcz0ecq.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CMKutKRb.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.DBj9Vt0q.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.CfD4apJF.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.42KP6Uti.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.CFCBblPQ.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BytfQN4N.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.2eAO53G9.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.fbi-k1SI.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.ClfF0HVi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.D0w64kVl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.CQvyvXFB.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.Co5usZpv.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.CBY_UH10.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.CmP16Ep_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.Hu1l_uRZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.CLeW-Hl-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.T3EYnPKM.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/pointsFour.Bp0JMqW5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples_ssr.BOXRkFVx.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/ClevelandDotPlot.percent-range.html.D8IyHUIu.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/4.By_wXqBy.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/4.CHXTC0Ew.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/html.pu-OIvc1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/downloadBlob.DPn4pLDi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/hljsDefineSvelte.C5yA7T4x.js">
@@ -128,7 +128,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Tooltip.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Tooltip.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates a hover tooltip. It creates a slot with an exposed variable via `let:detail` that contains information about the event. Use the slot to populate the body of the tooltip using the exposed variable `detail`.\\n -->\\n\u003Cscript>\\n  /** @type {Object} evt - A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`. */\\n  export let evt = {};\\n\\n  /** @type {Number} [offset=-35] - A y-offset from the hover point, in pixels. */\\n  export let offset = -35;\\n\u003C/script>\\n\\n\u003Cstyle>\\n  .tooltip {\\n    position: absolute;\\n    width: 150px;\\n    border: 1px solid #ccc;\\n    font-size: 13px;\\n    background: rgba(255, 255, 255, 0.85);\\n    transform: translate(-50%, -100%);\\n    padding: 5px;\\n    z-index: 15;\\n  }\\n\u003C/style>\\n\\n{#if evt.detail}\\n  \u003Cdiv\\n    class=\\\"tooltip\\\"\\n    style=\\\"\\n      top:{evt.detail.e.layerY + offset}px;\\n      left:{evt.detail.e.layerX}px;\\n    \\\"\\n  >\\n    \u003Cslot detail={evt.detail}>\u003C/slot>\\n  \u003C/div>\\n{/if}\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/MapSvg\",\"/example/MultiLine\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Object\"},\"name\":\"evt\"},{\"title\":\"param\",\"description\":\"A y-offset from the hover point, in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"offset\",\"default\":\"-35\"}]},\"componentDescription\":\"Generates a hover tooltip. It creates a slot with an exposed variable via `let:detail` that contains information about the event. Use the slot to populate the body of the tooltip using the exposed variable `detail`.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_y4rgsx = {
+					__sveltekit_1u6hs45 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -137,8 +137,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DLGRoJLo.js"),
-						import("../_app/immutable/entry/app.bQcz0ecq.js")
+						import("../_app/immutable/entry/start.rW39hFrq.js"),
+						import("../_app/immutable/entry/app.CMKutKRb.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

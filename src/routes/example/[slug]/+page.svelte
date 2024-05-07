@@ -16,9 +16,12 @@
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	export let data
-	let {slug, content, active} = data
-	$: ({slug, content, active} = data)
+	/** @type {import('./$types').PageData} */
+	export let data;
+	let {slug, content, active} = data;
+	$: if (slug !== data.slug) {
+		({slug, content, active} = data);
+	}
 
 	function markdownToHtml (text) {
 		return md.render(text);

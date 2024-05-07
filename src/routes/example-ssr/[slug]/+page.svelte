@@ -16,9 +16,11 @@
 		linkify: true
 	});
 
-	export let data
-	let {slug, content, active} = data
-	$: ({slug, content, active} = data)
+	/** @type {import('./$types').PageData} */
+	export let data;
+	$: slug = data.slug;
+	$: content = data.content;
+	$: active = data.active;
 
 	function markdownToHtml (text) {
 		return md.render(text);

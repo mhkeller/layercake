@@ -18,6 +18,7 @@
 
 	/** @type {import('./$types').PageData} */
 	export let data;
+	let {slug, content, active} = data;
 	$: slug = data.slug;
 	$: content = data.content;
 	$: active = data.active;

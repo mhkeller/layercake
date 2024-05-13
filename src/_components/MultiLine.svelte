@@ -4,16 +4,18 @@
  -->
 <script>
 	import { getContext } from 'svelte';
+	import { line, curveLinear } from 'd3-shape';
 
 	const { data, xGet, yGet, zGet } = getContext('LayerCake');
 
-	$: path = values => {
-		return 'M' + values
-			.map(d => {
-				return $xGet(d) + ',' + $yGet(d);
-			})
-			.join('L');
-	};
+	/** @type {Function} [curve=curveLinear] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses. */
+	export let curve = curveLinear
+
+	$: path = line()
+    .x($xGet)
+    .y($yGet)
+    .curve(curve)
+		// .defined($x)
 </script>
 
 <g class="line-group">

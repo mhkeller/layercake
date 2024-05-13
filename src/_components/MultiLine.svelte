@@ -15,7 +15,7 @@
     .x($xGet)
     .y($yGet)
     .curve(curve)
-		// .defined($x)
+		// .defined($y)
 </script>
 
 <g class="line-group">

@@ -18,7 +18,6 @@ const unpaddable = ['scaleThreshold', 'scaleQuantile', 'scaleQuantize', 'scaleSe
 
 export default function padScale (scale, padding) {
 	if (typeof scale.range !== 'function') {
-		console.log(scale);
 		throw new Error('Scale method `range` must be a function');
 	}
 	if (typeof scale.domain !== 'function') {

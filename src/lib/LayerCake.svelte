@@ -131,6 +131,8 @@
 
 	/** @type {Boolean} debug Enable debug printing to the console. Useful to inspect your scales and dimensions. */
 	export let debug = false;
+	/** @type {Boolean} [verbose=true] Show warnings in the console. */
+	export let verbose = true;
 
 	/**
 	 * Make this reactive
@@ -289,15 +291,17 @@
 			b.left = $padding.left;
 			b.width = b.right - b.left;
 			b.height = b.bottom - b.top;
-			if (b.width <= 0 && isMounted === true) {
-				console.warn(
-					'[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?'
-				);
-			}
-			if (b.height <= 0 && isMounted === true) {
-				console.warn(
-					'[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?'
-				);
+			if (verbose === true) {
+				if (b.width <= 0 && isMounted === true) {
+					console.warn(
+						'[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?'
+					);
+				}
+				if (b.height <= 0 && isMounted === true) {
+					console.warn(
+						'[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?'
+					);
+				}
 			}
 			return b;
 		}

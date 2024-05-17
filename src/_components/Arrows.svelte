@@ -3,7 +3,7 @@
 	Adds SVG swoopy arrows based on a config object. It attaches arrows to divs, which are created by another component such as [Annotations.html.svelte](https://layercake.graphics/components/Annotations.html.svelte).
  -->
 <script>
-	import { getContext, onMount } from 'svelte';
+	import { getContext, onMount, tick } from 'svelte';
 	import { swoopyArrow, getElPosition, parseCssValue } from '../_modules/arrowUtils.js';
 
 	/** @type {Array} annotations - A list of annotation objects. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options. */
@@ -17,7 +17,7 @@
 
 	let container;
 
-	const { width, height } = getContext('LayerCake');
+	const { width, height, xScale, yScale, x, y } = getContext('LayerCake');
 
 	/* --------------------------------------------
 	 * Some lookups to convert between x, y / width, height terminology
@@ -37,7 +37,8 @@
 	// Make sure the `.chart-container` and `.layercake-annotation`
 	// selectors match what you have in your project
 	// otherwise it won't find anything
-	onMount(() => {
+	onMount(async () => {
+		await tick();
 		annotationEls = Array.from(
 			container.closest(containerClass)
 				.querySelectorAll(annotationClass)
@@ -65,9 +66,14 @@
 
 			/* --------------------------------------------
 			 * Parse where we're drawing to
+			 * If we're passing in a percentage as a string then we need to convert it to pixel values
+			 * Otherwise pass it to our xGet and yGet functions
 			 */
-			const targetCoords = [arrow.target.x, arrow.target.y].map((q, j) => {
-				return parseCssValue(q, j, w, h);
+			const targetCoords = [arrow.target.x || $x(arrow.target), arrow.target.y || $y(arrow.target)].map((q, j) => {
+				const val = typeof q === 'string' && q.includes('%')
+					? parseCssValue(q, j, w, h)
+					: j ? $yScale(q) : $xScale(q);
+				return val + (arrow.target[`d${lookups[j].position}`] || 0);
 			});
 
 			/* --------------------------------------------

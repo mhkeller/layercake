@@ -5,7 +5,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	const { xGet, yGet } = getContext('LayerCake');
+	const { xGet, yGet, percentRange } = getContext('LayerCake');
 
 	/** @type {Array} annotations - A list of annotation objects. */
 	export let annotations = [];
@@ -14,9 +14,9 @@
 	export let getText = d => d.text;
 
 	/** @type {Boolean} [percentRange=false] - If `true` will set the `top` and `left` CSS positions to percentages instead of pixels. */
-	export let percentRange = false;
+	export let pr = $percentRange;
 
-	$: units = percentRange === true ? '%' : 'px';
+	$: units = pr === true ? '%' : 'px';
 </script>
 
 <div class="layercake-annotations">
@@ -24,7 +24,8 @@
 		<div
 			class="layercake-annotation"
 			data-id="{i}"
-			style="top:{$yGet(d)}{units};left:{$xGet(d)}{units};"
+			style:left={`calc(${$xGet(d)}${units} + ${d.dx || 0}px)`}
+			style:top={`calc(${$yGet(d)}${units} + ${d.dy || 0}px)`}
 		>{getText(d)}</div>
 	{/each}
 </div>

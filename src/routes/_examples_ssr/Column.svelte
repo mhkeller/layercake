@@ -5,7 +5,7 @@
 	import Column from '../../_components/Column.svelte';
 	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
 	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
-	import Annotations from '../../_components/Annotations.html.svelte';
+	import Annotations from '../../_components/AnnotationsData.html.svelte';
 	import Arrows from '../../_components/Arrows.svelte';
 	import ArrowheadMarker from '../../_components/ArrowheadMarker.svelte';
 
@@ -18,8 +18,10 @@
 	const annotations = [
 		{
 			text: 'Example text...',
-			top: '18%',
-			left: '30%',
+			[xKey]: '1980',
+			[yKey]: 14,
+			dx: 15, // Optional pixel values
+			dy: -5,
 			arrows: [{
 				clockwise: false, // true or false, defaults to true
 				source: {
@@ -28,8 +30,12 @@
 					dy: -7
 				},
 				target: {
-					x: '28%',
-					y: '75%'
+					// These can be expressed in our data units if passed under the data keys
+					[xKey]: '1980',
+					[yKey]: 4.5,
+					// Optional adjustments
+					dx: 2,
+					dy: 5
 				}
 			},
 			{
@@ -39,8 +45,9 @@
 					dx: 5
 				},
 				target: {
+					// Or if they are percentage strings they can be passed directly
 					x: '68%',
-					y: '48%'
+					y: '48%',
 				}
 			}]
 		}
@@ -81,8 +88,8 @@
 				gridlines={false}
 			/>
 			<AxisY
-				ticks={4}
 				gridlines={false}
+				snapBaselineLabel
 			/>
 			<Annotations {annotations}/>
 		</Html>

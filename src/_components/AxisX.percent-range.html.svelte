@@ -5,7 +5,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	const { width, height, xScale, yRange } = getContext('LayerCake');
+	const { xScale, percentRange } = getContext('LayerCake');
 
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
@@ -37,6 +37,9 @@
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = 1;
 
+	/** @type {String} [units='%'] - Whether this component should use percentage or pixel values. Options: '%' or 'px'. */
+	export let units = $percentRange === true ? '%' : 'px';
+
 	$: tickLen = tickMarks === true
 		? tickMarkLength ?? 6
 		: 0;
@@ -64,20 +67,20 @@
 		{#if gridlines === true}
 			<div
 				class="gridline"
-				style:left='{tickValPx}%'
+				style:left='{tickValPx}{units}'
 				style='top:0; bottom:0;'></div>
 		{/if}
 		{#if tickMarks === true}
 			<div
 				class="tick-mark"
-				style:left='{tickValPx + halfBand}%'
+				style:left='{tickValPx + halfBand}{units}'
 				style:height='{tickLen}px'
 				style:bottom='{-tickLen - tickGutter}px'
 			></div>
 		{/if}
 		<div
 			class='tick tick-{i}'
-			style:left='{tickValPx + halfBand}%'
+			style:left='{tickValPx + halfBand}{units}'
 			style='top:calc(100% + {tickGutter}px);'>
 			<div
 				class="text"

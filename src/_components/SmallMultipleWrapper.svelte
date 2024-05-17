@@ -22,7 +22,6 @@
 
 	$: xDomain.set(scale === 'shared' ? fullExtents.x : extents.x);
 	$: yDomain.set(scale === 'shared' ? fullExtents.y : extents.y);
-
 </script>
 
 <LayerCake

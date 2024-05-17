@@ -32,6 +32,8 @@
 	/** @type {Function} [nodeAlign=d3.sankeyLeft] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more. */
 	export let nodeAlign = Sankey.sankeyLeft;
 
+	const link = Sankey.sankeyLinkHorizontal();
+
 	$: sankey = Sankey.sankey()
 		.nodeAlign(nodeAlign)
 		.nodeWidth(nodeWidth)
@@ -41,8 +43,6 @@
 		.linkSort(linkSort);
 
 	$: sankeyData = sankey($data);
-
-	$: link = Sankey.sankeyLinkHorizontal();
 
 	$: fontSize = $width <= 320 ? 8 : 12;
 </script>

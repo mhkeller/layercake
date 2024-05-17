@@ -32,7 +32,7 @@
 				background-color: {fill};
 				border: {strokeWidth}px solid {stroke};
 			"
-		/>
+		></div>
 	{/each}
 </div>
 

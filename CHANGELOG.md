@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 8.2.0
+
+> 2024-05-17
+
+Adds an option to suppress layout warnings. By default, Layer Cake warns you when you create a div that is too small. But sometimes you want to create a chart inside a hidden element or something and make the chart expand. In these cases, the warnings are annoying.
+
+* [PR#200](https://github.com/mhkeller/layercake/pull/200)
+
 # 8.1.4
 
 > 2024-05-06

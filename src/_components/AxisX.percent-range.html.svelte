@@ -37,7 +37,7 @@
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = 1;
 
-	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange=true` it defaults to '%'. Options: '%' or 'px'. */
+	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange=true` it defaults to `'%'`. Options: `'%'` or `'px'`. */
 	export let units = $percentRange === true ? '%' : 'px';
 
 	$: tickLen = tickMarks === true

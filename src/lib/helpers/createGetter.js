@@ -1,6 +1,6 @@
 export default function createGetter ([$acc, $scale]) {
-	return d => {
-		const val = $acc(d);
+	return (d, i) => {
+		const val = $acc(d, i);
 		if (Array.isArray(val)) {
 			return val.map(v => $scale(v));
 		}

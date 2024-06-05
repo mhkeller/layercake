@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 8.3.0
+
+> 2024-06-04
+
+A very minor update. This adds an index variable `i` to key accessor functions mostly for consistency with the callback signature of a for-loop and to support possible unorthodox arrangments where a row is accessed not from `$data` but from `somethingElse[i]` in the accessor function.
+
+* [PR#207](https://github.com/mhkeller/layercake/pull/207)
+
 # 8.2.0
 
 > 2024-05-17

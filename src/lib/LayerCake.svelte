@@ -123,6 +123,9 @@
 	/** @type {{ x?: [min: Number, max: Number], y?: [min: Number, max: Number], r?: [min: Number, max: Number], z?: [min: Number, max: Number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */
 	export let extents = {};
 
+	/** @type {{ xScale?: Function, yScale?: Function, rScale?: Function, zScale?: Function }} [deriveScales] Alter one or more scales basd values of others. */
+	export let deriveScales = {};
+
 	/** @type {Array} [flatData=data] A flat version of data. */
 	export let flatData = undefined;
 
@@ -216,6 +219,7 @@
 	const _rDomainSort = writable(rDomainSort);
 	const _config = writable(config);
 	const _custom = writable(custom);
+	const _deriveScales = writable(deriveScales);
 
 	$: $_percentRange = percentRange;
 	$: $_containerWidth = containerWidth;
@@ -254,6 +258,7 @@
 	$: $_rScale = rScale;
 	$: $_custom = custom;
 	$: $_config = config;
+	$: $_deriveScales = deriveScales;
 
 	/* --------------------------------------------
 	 * Create derived values
@@ -424,7 +429,28 @@
 		return $width / $height;
 	});
 
+	const derivedScales = Object.fromEntries(Object.entries($_deriveScales).map(([name, fn]) => {
+		return [name, writable(fn({
+			xScale: $xScale_d.copy(),
+			yScale: $yScale_d.copy(),
+			zScale: $zScale_d.copy(),
+			rScale: $rScale_d.copy()
+		}))]
+	}));
+
+	$: if ($_deriveScales) {
+		for (const [name, fn] of Object.entries($_deriveScales)) {
+			derivedScales[name].set(fn({
+				xScale: $xScale_d.copy(),
+				yScale: $yScale_d.copy(),
+				zScale: $zScale_d.copy(),
+				rScale: $rScale_d.copy()
+			}));
+		}
+	}
+
 	$: context = {
+		...derivedScales,
 		activeGetters: activeGetters_d,
 		width: width_d,
 		height: height_d,

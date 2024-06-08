@@ -4,6 +4,7 @@ import MapSvg from './_examples/MapSvg.svelte';
 import Column from './_examples/Column.svelte';
 import AreaStacked from './_examples/AreaStacked.svelte';
 import ColumnStacked from './_examples/ColumnStacked.svelte';
+import ColumnGrouped from './_examples/ColumnGrouped.svelte';
 import MultiLine from './_examples/MultiLine.svelte';
 import MapLayered from './_examples/MapLayered.svelte';
 import Bar from './_examples/Bar.svelte';
@@ -51,5 +52,6 @@ export default [
 	{ replPath: '9d0e23f494f645b4a9623c46474462f6?version=3.46.2', title: 'Beeswarm, force layout', slug: 'BeeswarmForce', component: BeeswarmForce },
 	// { replPath: '', title: 'Force-directed graph', slug: 'ForceDirectedGraph', component: ForceDirectedGraph },
 	{ replPath: '1879eb5e27f74784a69b65a11844f373?version=3.46.2', title: 'Circle pack, force layout', slug: 'CirclePackForce', component: CirclePackForce },
+	{ replPath: '', title: 'Grouped column', slug: 'ColumnGrouped', component: ColumnGrouped },
 ];
 

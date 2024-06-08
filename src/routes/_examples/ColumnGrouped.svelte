@@ -11,13 +11,13 @@
 	const groupName = 'year';
 	const subgroupNames = ['apples', 'bananas'];
 
-	const subgroups = groupLonger(data, subgroupNames);
-	const flatData = flatten(subgroups, d => d.values);
-
+	const subgroupKey = 'subgroup';
 	const xKey = groupName;
   const yKey = 'value';
-	const subgroupKey = 'subgroup';
 
+	// TODO, make this easier to understand
+	const subgroups = groupLonger(data, subgroupNames);
+	const flatData = flatten(subgroups, d => d.values.map(q => ({ ...q, [subgroupKey]: q.group })));
 	const groups = data.map(d => {
 		return {
 			[xKey]: d[xKey],
@@ -69,7 +69,7 @@
     yDomain={[0, null]}
     data={groups}
 		{flatData}
-		debug={false}
+		debug={true}
   >
     <Svg>
       <AxisX

@@ -35,6 +35,7 @@
 		padding={{ bottom: 20, left: 35 }}
 		x={xKey}
 		y={yKey}
+		xNice={2}
 		yScale={scaleBand().paddingInner(0.05)}
 		xDomain={[0, null]}
 		{data}

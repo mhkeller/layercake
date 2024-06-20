@@ -396,6 +396,7 @@
 		],
 		createScale('z')
 	);
+	const xDomain_d_possibly_nice = derived(xScale_d, $xScale_d => $xScale_d.domain());
 	const zGet_d = derived([_z, zScale_d], createGetter);
 
 	const rScale_d = derived(
@@ -457,7 +458,7 @@
 		padding: padding_d,
 		flatData: _flatData,
 		extents: extents_d,
-		xDomain: xDomain_d,
+		xDomain: xDomain_d_possibly_nice,
 		yDomain: yDomain_d,
 		zDomain: zDomain_d,
 		rDomain: rDomain_d,

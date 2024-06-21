@@ -23,6 +23,62 @@
 	let dy = 0;
 </script>
 
+<div class="component-container">
+	<div class="props">
+		<label>
+			<input type="checkbox" bind:checked={tickMarks} /> tickMarks
+		</label>
+
+		<label>
+			<input type="checkbox" bind:checked={gridlines} /> gridlines
+		</label>
+
+		<label>
+			<input type="checkbox" bind:checked={baseline} /> baseline
+		</label>
+
+		<label>
+			<input type="checkbox" bind:checked={snapLabels} /> snapLabels
+		</label>
+
+		<label class="number" class:disabled={!tickMarks}>
+			<span class:disabled={!tickMarks}>tickMarkLength</span>
+			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks} />
+		</label>
+
+		<label class="number">
+			tickGutter
+			<input type="number" bind:value={tickGutter} />
+		</label>
+
+		<label class="number">
+			dx
+			<input type="number" bind:value={dx} />
+		</label>
+		<label class="number">
+			dy
+			<input type="number" bind:value={dy} />
+		</label>
+	</div>
+
+	<div class="chart-container">
+		<LayerCake ssr percentRange padding={{ top: 15, bottom: 10 }} x={xKey} y={d => d[yKey]} {data}>
+			<Html>
+				<AxisXTop
+					{baseline}
+					{tickMarks}
+					{snapLabels}
+					{gridlines}
+					{tickMarkLength}
+					{tickGutter}
+					{dx}
+					{dy}
+				/>
+			</Html>
+		</LayerCake>
+	</div>
+</div>
+
 <style>
 	.component-container {
 		display: flex;
@@ -53,7 +109,7 @@
 		cursor: pointer;
 		align-items: center;
 	}
-	input[type="checkbox"] {
+	input[type='checkbox'] {
 		margin-left: 0;
 	}
 
@@ -62,7 +118,7 @@
 		justify-content: space-between;
 	}
 
-	input[type="number"] {
+	input[type='number'] {
 		max-width: 35px;
 		margin-left: 10px;
 		float: right;
@@ -74,66 +130,3 @@
 		pointer-events: none;
 	}
 </style>
-
-<div class="component-container">
-	<div class="props">
-		<label>
-			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
-		</label>
-
-		<label>
-			<input type="checkbox" bind:checked={gridlines}/> gridlines
-		</label>
-
-		<label>
-			<input type="checkbox" bind:checked={baseline}/> baseline
-		</label>
-
-		<label>
-			<input type="checkbox" bind:checked={snapLabels}/> snapLabels
-		</label>
-
-		<label class="number" class:disabled={!tickMarks}>
-			<span class:disabled={!tickMarks}>tickMarkLength</span>
-			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks}/>
-		</label>
-
-		<label class="number">
-			tickGutter
-			<input type="number" bind:value={tickGutter}/>
-		</label>
-
-		<label class="number">
-			dx
-			<input type="number" bind:value={dx}/>
-		</label>
-		<label class="number">
-			dy
-			<input type="number" bind:value={dy}/>
-		</label>
-	</div>
-
-	<div class="chart-container">
-		<LayerCake
-			ssr
-			percentRange
-			padding={{ top: 15, bottom: 10 }}
-			x={xKey}
-			y={d => d[yKey]}
-			{data}
-		>
-			<Html>
-				<AxisXTop
-					{baseline}
-					{tickMarks}
-					{snapLabels}
-					{gridlines}
-					{tickMarkLength}
-					{tickGutter}
-					{dx}
-					{dy}
-			/>
-			</Html>
-		</LayerCake>
-	</div>
-</div>

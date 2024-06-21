@@ -26,8 +26,7 @@
 	/** @type {Array} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */
 	export let features = undefined;
 
-	$: projectionFn = projection()
-		.fitSize([$width, $height], $data);
+	$: projectionFn = projection().fitSize([$width, $height], $data);
 
 	$: geoPathFn = geoPath(projectionFn);
 

@@ -44,14 +44,14 @@ This is likely due to some other JavaScript error on the page. A small rectangle
 
 ### The library isn't building properly
 
-Layer Cake is *almost entirely* a basic Svelte component. The exception is the [index.js](https://github.com/mhkeller/layercake/blob/bc13c6c38d54abc16d20ef37878fa707bf48a3bf/src/index.js) file, which is an esm module. This file, though, is non-essential to how the library works and is just a pointer for the rest of the library's imports. If you copy Layer Cake's source into your project directly and import the individual components, it should build just like any other Svelte component in your project.
+Layer Cake is _almost entirely_ a basic Svelte component. The exception is the [index.js](https://github.com/mhkeller/layercake/blob/bc13c6c38d54abc16d20ef37878fa707bf48a3bf/src/index.js) file, which is an esm module. This file, though, is non-essential to how the library works and is just a pointer for the rest of the library's imports. If you copy Layer Cake's source into your project directly and import the individual components, it should build just like any other Svelte component in your project.
 
 For example:
 
 ```svelte
 <script>
-  import LayerCake from './layercake/src/LayerCake.svelte';
-  import Svg from './layercake/src/layouts/Svg.svelte';
+	import LayerCake from './layercake/src/LayerCake.svelte';
+	import Svg from './layercake/src/layouts/Svg.svelte';
 	// etc...
 </script>
 ```

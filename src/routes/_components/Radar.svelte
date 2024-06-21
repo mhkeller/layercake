@@ -18,6 +18,14 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake x={xKey} xDomain={[0, 10]} xRange={({ height }) => [0, height / 2]} {data}>
+		<Svg>
+			<Radar />
+		</Svg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -30,16 +38,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		x={xKey}
-		xDomain={[0, 10]}
-		xRange={({ height }) => [0, height / 2]}
-		{data}
-	>
-		<Svg>
-			<Radar/>
-		</Svg>
-	</LayerCake>
-</div>

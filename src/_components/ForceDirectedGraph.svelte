@@ -5,12 +5,7 @@
 <script>
 	// Based on this example https://observablehq.com/@d3/force-directed-graph
 	import { getContext } from 'svelte';
-	import {
-		forceSimulation,
-		forceLink,
-		forceManyBody,
-		forceCenter
-	} from 'd3-force';
+	import { forceSimulation, forceLink, forceManyBody, forceCenter } from 'd3-force';
 
 	const { data, width, height, zGet, x } = getContext('LayerCake');
 
@@ -42,17 +37,17 @@
 		// .on('tick', simulationUpdate)
 		.stop();
 
-		// $: {
-		// 	for ( let i = 0; i < ticks; i += 1 ) {
-		// 		requestAnimationFrame(() => {
-		// 			simulation.tick();
-		// 			nodes = [...nodes];
-		// 			links = [...links];
-		// 		});
-		// 	}
-		// }
+	// $: {
+	// 	for ( let i = 0; i < ticks; i += 1 ) {
+	// 		requestAnimationFrame(() => {
+	// 			simulation.tick();
+	// 			nodes = [...nodes];
+	// 			links = [...links];
+	// 		});
+	// 	}
+	// }
 
-	function simulationUpdate (i) {
+	function simulationUpdate(i) {
 		simulation.tick();
 		nodes = [...nodes];
 		links = [...links];
@@ -67,31 +62,27 @@
 
 	$: if (simulation) {
 		simulationUpdate(0);
-	};
+	}
 </script>
-	{#each links as link}
-		<g stroke='{linkColor}' stroke-opacity='{linkOpacity}'>
-			<line
-				x1='{link.source.x}'
-				y1='{link.source.y}'
-				x2='{link.target.x}'
-				y2='{link.target.y}'
-			>
-				<title>{$x(link.source)}</title>
-			</line>
-		</g>
-	{/each}
 
-	{#each nodes as point}
-    <circle
-			class='node'
-			r={nodeRadius}
-			fill={nodeColor || $zGet(point)}
-			stroke-width={nodeStrokeWidth}
-			stroke={nodeStrokeColor}
-			cx='{point.x}'
-			cy='{point.y}'
-		>
-    	<title>{$x(point)}</title>
-		</circle>
-	{/each}
+{#each links as link}
+	<g stroke={linkColor} stroke-opacity={linkOpacity}>
+		<line x1={link.source.x} y1={link.source.y} x2={link.target.x} y2={link.target.y}>
+			<title>{$x(link.source)}</title>
+		</line>
+	</g>
+{/each}
+
+{#each nodes as point}
+	<circle
+		class="node"
+		r={nodeRadius}
+		fill={nodeColor || $zGet(point)}
+		stroke-width={nodeStrokeWidth}
+		stroke={nodeStrokeColor}
+		cx={point.x}
+		cy={point.y}
+	>
+		<title>{$x(point)}</title>
+	</circle>
+{/each}

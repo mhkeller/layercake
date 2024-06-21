@@ -4,9 +4,9 @@ import { error } from '@sveltejs/kit';
 export async function load({ fetch }) {
 	const res = await fetch('guide.json');
 	const data = await res.json();
-	
+
 	if (res.status === 200) {
-		return {sections: data};
+		return { sections: data };
 	} else {
 		error(500, `Could not load.`);
 	}

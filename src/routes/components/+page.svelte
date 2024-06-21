@@ -22,7 +22,7 @@
 					component,
 					classes,
 					group: classes.filter(d => d !== 'percent-range')[0]
-				 }
+				};
 			})
 		};
 	});
@@ -60,14 +60,11 @@
 			window.addEventListener('resize', onresize, true);
 
 			// wait for fonts to load...
-			const timeouts = [
-				setTimeout(onresize, 1000),
-				setTimeout(onresize, 5000)
-			];
+			const timeouts = [setTimeout(onresize, 1000), setTimeout(onresize, 5000)];
 		}
 	});
 
-	function onresize () {
+	function onresize() {
 		if (container) {
 			const { top } = container.getBoundingClientRect();
 			positions = [].map.call(anchors, anchor => {
@@ -76,7 +73,7 @@
 		}
 	}
 
-	function onscroll () {
+	function onscroll() {
 		const top = -window.scrollY;
 
 		let i = anchors.length;
@@ -98,8 +95,8 @@
 
 <svelte:head>
 	<title>LayerCake - Component gallery</title>
-	<meta name="og:title" content="Layer Cake — Component gallery">
-	<meta name="twitter:title" content="Layer Cake — Component gallery">
+	<meta name="og:title" content="Layer Cake — Component gallery" />
+	<meta name="twitter:title" content="Layer Cake — Component gallery" />
 </svelte:head>
 
 <sidebar>
@@ -108,9 +105,9 @@
 			<li>
 				<!-- {console.log(activeSection, slugify(componentGroup.name))} -->
 				<a
-					class='section {activeSection === slugify(componentGroup.name) ? 'active' : ''}'
-					href='/components#{slugify(componentGroup.name)}'
-				>{componentGroup.name}</a>
+					class="section {activeSection === slugify(componentGroup.name) ? 'active' : ''}"
+					href="/components#{slugify(componentGroup.name)}">{componentGroup.name}</a
+				>
 			</li>
 		{/each}
 	</ul>
@@ -120,23 +117,48 @@
 	<h2>Components</h2>
 
 	<div id="dek">
-		<p>Because Layer Cake doesn't come with any pre-built components, here are a few options to get you started. These are meant to serve as starting points for many common chart types. They have a few built-in options to be flexible for handling different scenarios so they can be reused as much as possible. For example, the <a href="/components/Scatter.svg.svelte" target="_blank">Scatter</a> components support both linear and ordinal scales so you can use them in configurations like a regular <a href="/example/Scatter" target="_blank">Scatter plot</a> but also charts like the <a href="/example/Timeplot" target="_blank">Time of Day</a> plot where the y-scale is made up of groups.</p>
+		<p>
+			Because Layer Cake doesn't come with any pre-built components, here are a few options to get
+			you started. These are meant to serve as starting points for many common chart types. They
+			have a few built-in options to be flexible for handling different scenarios so they can be
+			reused as much as possible. For example, the <a
+				href="/components/Scatter.svg.svelte"
+				target="_blank">Scatter</a
+			>
+			components support both linear and ordinal scales so you can use them in configurations like a
+			regular <a href="/example/Scatter" target="_blank">Scatter plot</a> but also charts like the
+			<a href="/example/Timeplot" target="_blank">Time of Day</a> plot where the y-scale is made up of
+			groups.
+		</p>
 
-		<p>Some componens have HTML, SVG and Canvas versions and those marked as <span class="label percent-range">%-range</span> are optimized to be used server-side with the <a href="/guide#percentrange"><code>percentRange={true}</code></a> prop.</p>
+		<p>
+			Some componens have HTML, SVG and Canvas versions and those marked as <span
+				class="label percent-range">%-range</span
+			>
+			are optimized to be used server-side with the
+			<a href="/guide#percentrange"><code>percentRange={true}</code></a> prop.
+		</p>
 	</div>
 
 	{#each componentGroups as componentGroup}
-		<h3 id="{slugify(componentGroup.name)}">{componentGroup.name}</h3>
+		<h3 id={slugify(componentGroup.name)}>{componentGroup.name}</h3>
 		<div class="component-blocks">
 			{#each Object.entries(groupBy(componentGroup.components, d => d.group)) as [subgroup, items]}
 				<h4>{formatSubgroup(subgroup)}</h4>
 				<div class="subgroup-blocks">
 					{#each items as item}
 						<div class="component-block">
-							<div class="component-name" ><span><a href="/components/{item.slug}">{item.name || formatName(item.slug)}</a></span> {@html item.classes.map(d => `<span class="label ${d}">${d.replace('percent-', '%-')}</span>`).join('')}</div>
+							<div class="component-name">
+								<span
+									><a href="/components/{item.slug}">{item.name || formatName(item.slug)}</a></span
+								>
+								{@html item.classes
+									.map(d => `<span class="label ${d}">${d.replace('percent-', '%-')}</span>`)
+									.join('')}
+							</div>
 							<div class="block-container">
 								{#if item.component}
-									<svelte:component this={item.component}/>
+									<svelte:component this={item.component} />
 								{:else}
 									{item.slug}
 								{/if}
@@ -272,7 +294,6 @@
 	} */
 
 	@media (max-width: 1150px) {
-
 		#dek {
 			width: 95%;
 		}
@@ -368,5 +389,4 @@
 			/* padding-right: 8em; */
 		}
 	}
-
 </style>

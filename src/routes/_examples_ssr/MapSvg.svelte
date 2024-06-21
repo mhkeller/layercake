@@ -37,6 +37,22 @@
 	const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 </script>
 
+<div class="map-container" style="padding-bottom:{100 / aspectRatio}%">
+	<LayerCake
+		ssr
+		position="absolute"
+		data={geojson}
+		z={d => dataLookup.get(d[mapJoinKey])}
+		zScale={scaleQuantize()}
+		zRange={colors}
+		{flatData}
+	>
+		<ScaledSvg fixedAspectRatio={aspectRatio}>
+			<MapSvg fixedAspectRatio={aspectRatio} {projection} />
+		</ScaledSvg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -50,24 +66,3 @@
 		width: 100%;
 	}
 </style>
-
-<div class="map-container" style="padding-bottom:{100 / aspectRatio}%">
-	<LayerCake
-		ssr
-		position='absolute'
-		data={geojson}
-		z={d => dataLookup.get(d[mapJoinKey])}
-		zScale={scaleQuantize()}
-		zRange={colors}
-		{flatData}
-	>
-		<ScaledSvg
-			fixedAspectRatio={aspectRatio}
-		>
-			<MapSvg
-				fixedAspectRatio={aspectRatio}
-				{projection}
-			/>
-		</ScaledSvg>
-	</LayerCake>
-</div>

@@ -29,7 +29,7 @@
 	$: xGetter = x === 'x' ? $xGet : $yGet;
 	$: yGetter = y === 'y' ? $yGet : $xGet;
 
-	function findItem (evt) {
+	function findItem(evt) {
 		e = evt;
 
 		const xLayerKey = `layer${x.toUpperCase()}`;
@@ -44,11 +44,22 @@
 	}
 
 	$: finder = quadtree()
-		.extent([[-1, -1], [$width + 1, $height + 1]])
+		.extent([
+			[-1, -1],
+			[$width + 1, $height + 1]
+		])
 		.x(xGetter)
 		.y(yGetter)
 		.addAll(dataset || $data);
 </script>
+
+<div
+	class="bg"
+	on:mousemove={findItem}
+	on:mouseout={() => (visible = false)}
+	on:blur={() => (visible = false)}
+></div>
+<slot x={xGetter(found) || 0} y={yGetter(found) || 0} {found} {visible} {e}></slot>
 
 <style>
 	.bg {
@@ -59,17 +70,3 @@
 		left: 0;
 	}
 </style>
-
-<div
-	class="bg"
-	on:mousemove="{findItem}"
-	on:mouseout="{() => visible = false}"
-	on:blur="{() => visible = false}"
-></div>
-<slot
-	x={xGetter(found) || 0}
-	y={yGetter(found) || 0}
-	{found}
-	{visible}
-	{e}
-></slot>

@@ -34,8 +34,7 @@
 
 	$: fitSizeRange = fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height];
 
-	$: projectionFn = projection()
-		.fitSize(fitSizeRange, $data);
+	$: projectionFn = projection().fitSize(fitSizeRange, $data);
 
 	$: geoPathFn = geoPath(projectionFn);
 
@@ -46,24 +45,20 @@
 			if (e.layerX !== 0 && e.layerY !== 0) {
 				dispatch('mousemove', { e, props: feature.properties });
 			}
-		}
+		};
 	}
 </script>
 
-<g
-	class="map-group"
-	on:mouseout={(e) => dispatch('mouseout')}
-	on:blur={(e) => dispatch('mouseout')}
->
-	{#each (features || $data.features) as feature}
+<g class="map-group" on:mouseout={e => dispatch('mouseout')} on:blur={e => dispatch('mouseout')}>
+	{#each features || $data.features as feature}
 		<path
 			class="feature-path"
-			fill="{fill || $zGet(feature.properties)}"
-			stroke={stroke}
+			fill={fill || $zGet(feature.properties)}
+			{stroke}
 			stroke-width={strokeWidth}
-			d="{geoPathFn(feature)}"
-			on:mouseover={(e) => dispatch('mousemove', { e, props: feature.properties })}
-			on:focus={(e) => dispatch('mousemove', { e, props: feature.properties })}
+			d={geoPathFn(feature)}
+			on:mouseover={e => dispatch('mousemove', { e, props: feature.properties })}
+			on:focus={e => dispatch('mousemove', { e, props: feature.properties })}
 			on:mousemove={handleMousemove(feature)}
 		></path>
 	{/each}

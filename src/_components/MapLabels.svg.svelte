@@ -24,19 +24,14 @@
 
 	$: fitSizeRange = fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height];
 
-	$: projectionFn = projection()
-		.fitSize(fitSizeRange, $data);
+	$: projectionFn = projection().fitSize(fitSizeRange, $data);
 </script>
 
 <g class="map-labels">
-{#each (features || $data.features) as d}
-	{@const coords = projectionFn(getCoordinates(d))}
-	<text
-		class="map-label"
-		x="{coords[0]}"
-		y="{coords[1]}"
-	>{getLabel(d)}</text>
-{/each}
+	{#each features || $data.features as d}
+		{@const coords = projectionFn(getCoordinates(d))}
+		<text class="map-label" x={coords[0]} y={coords[1]}>{getLabel(d)}</text>
+	{/each}
 </g>
 
 <style>

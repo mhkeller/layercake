@@ -44,14 +44,16 @@
 	style:pointer-events={pointerEvents === false ? 'none' : null}
 	style:top={$padding.top + 'px'}
 	style:left={$padding.left + 'px'}
-	style:width={`calc(100% - ${($padding.left + $padding.right)}px)`}
-	style:height={`calc(100% - ${($padding.top + $padding.bottom)}px)`}
+	style:width={`calc(100% - ${$padding.left + $padding.right}px)`}
+	style:height={`calc(100% - ${$padding.top + $padding.bottom}px)`}
 	style="right:0px; bottom:0px;"
 	aria-label={label}
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}
 >
-	<slot name="title">{#if title}<title>{title}</title>{/if}</slot>
+	<slot name="title"
+		>{#if title}<title>{title}</title>{/if}</slot
+	>
 
 	<defs>
 		<slot name="defs"></slot>

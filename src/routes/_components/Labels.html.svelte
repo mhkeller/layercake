@@ -12,13 +12,20 @@
 	data.forEach(d => {
 		d[xKey] = +d[xKey];
 		d[yKey] = +d[yKey];
-	})
+	});
 
 	const labels = data.filter((d, i) => {
 		return i % 6 === 0;
 	});
-
 </script>
+
+<div class="chart-container">
+	<LayerCake padding={{ top: 20, left: 10, right: 10 }} x={xKey} y={yKey} {data}>
+		<Html>
+			<Labels getLabelName={d => d[xKey]} {labels} />
+		</Html>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -32,19 +39,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 20, left: 10, right: 10 }}
-		x={xKey}
-		y={yKey}
-		{data}
-	>
-		<Html>
-			<Labels
-				getLabelName={d => d[xKey]}
-				{labels}
-			/>
-		</Html>
-	</LayerCake>
-</div>

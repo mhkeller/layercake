@@ -19,19 +19,14 @@
 		{@const xVals = $xGet(row)}
 		<g class="dot-row">
 			<line
-				x1="{Math.min(...xVals)}"
-				y1="{yVal + midHeight}"
-				x2="{Math.max(...xVals)}"
-				y2="{yVal + midHeight}"
+				x1={Math.min(...xVals)}
+				y1={yVal + midHeight}
+				x2={Math.max(...xVals)}
+				y2={yVal + midHeight}
 			></line>
 
 			{#each xVals as circleX, i}
-				<circle
-					cx="{circleX}"
-					cy="{yVal + midHeight}"
-					r="{r}"
-					fill="{$zScale($config.x[i])}"
-				></circle>
+				<circle cx={circleX} cy={yVal + midHeight} {r} fill={$zScale($config.x[i])}></circle>
 			{/each}
 		</g>
 	{/each}

@@ -23,6 +23,69 @@
 	let dy = 0;
 </script>
 
+<div class="component-container">
+	<div class="props">
+		<label>
+			<input type="checkbox" bind:checked={tickMarks} /> tickMarks
+		</label>
+
+		<label>
+			<input type="checkbox" bind:checked={gridlines} /> gridlines
+		</label>
+
+		<label class="number">
+			labelPosition
+			<select bind:value={labelPosition}>
+				<option value="above">above</option>
+				<option value="even">even</option>
+			</select>
+		</label>
+
+		<label class:disabled={labelPosition === 'above'}>
+			<input
+				type="checkbox"
+				bind:checked={snapBaselineLabel}
+				disabled={labelPosition === 'above'}
+			/> <span class:disabled={labelPosition === 'above'}>snapBaselineLabel</span>
+		</label>
+
+		<label class="number" class:disabled={!tickMarks}>
+			<span class:disabled={!tickMarks}>tickMarkLength</span>
+			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks} />
+		</label>
+		<label class="number">
+			tickGutter
+			<input type="number" bind:value={tickGutter} />
+		</label>
+		<label class="number">
+			dx
+			<input type="number" bind:value={dx} />
+		</label>
+		<label class="number">
+			dy
+			<input type="number" bind:value={dy} />
+		</label>
+	</div>
+
+	<div class="chart-container">
+		<LayerCake padding={{ bottom: 15, left: 10 }} x={xKey} y={yKey} {data}>
+			<Svg>
+				<AxisY
+					{tickMarks}
+					{snapBaselineLabel}
+					{labelPosition}
+					{gridlines}
+					{tickMarkLength}
+					{tickGutter}
+					{dx}
+					{dy}
+					ticks={4}
+				/>
+			</Svg>
+		</LayerCake>
+	</div>
+</div>
+
 <style>
 	.component-container {
 		display: flex;
@@ -53,7 +116,7 @@
 		cursor: pointer;
 		align-items: center;
 	}
-	input[type="checkbox"] {
+	input[type='checkbox'] {
 		margin-left: 0;
 	}
 
@@ -62,7 +125,7 @@
 		justify-content: space-between;
 	}
 
-	input[type="number"] {
+	input[type='number'] {
 		max-width: 35px;
 		margin-left: 10px;
 		float: right;
@@ -74,67 +137,3 @@
 		pointer-events: none;
 	}
 </style>
-
-<div class="component-container">
-	<div class="props">
-		<label>
-			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
-		</label>
-
-		<label>
-			<input type="checkbox" bind:checked={gridlines}/> gridlines
-		</label>
-
-		<label class="number">
-			labelPosition
-			<select bind:value={labelPosition}>
-				<option value="above">above</option>
-				<option value="even">even</option>
-			</select>
-		</label>
-
-		<label class:disabled={labelPosition === 'above'}>
-			<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> <span class:disabled={labelPosition === 'above'}>snapBaselineLabel</span>
-		</label>
-
-		<label class="number" class:disabled={!tickMarks}>
-			<span class:disabled={!tickMarks}>tickMarkLength</span>
-			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks}/>
-		</label>
-		<label class="number">
-			tickGutter
-			<input type="number" bind:value={tickGutter} />
-		</label>
-		<label class="number">
-			dx
-			<input type="number" bind:value={dx} />
-		</label>
-		<label class="number">
-			dy
-			<input type="number" bind:value={dy} />
-		</label>
-	</div>
-
-	<div class="chart-container">
-		<LayerCake
-			padding={{ bottom: 15, left: 10 }}
-			x={xKey}
-			y={yKey}
-			{data}
-		>
-			<Svg>
-				<AxisY
-					{tickMarks}
-					{snapBaselineLabel}
-					{labelPosition}
-					{gridlines}
-					{tickMarkLength}
-					{tickGutter}
-					{dx}
-					{dy}
-					ticks={4}
-				/>
-			</Svg>
-		</LayerCake>
-	</div>
-</div>

@@ -30,7 +30,7 @@
 	// console.log('data', data);
 	// console.log('imports', imports);
 
-	async function download () {
+	async function download() {
 		downloading = true;
 
 		// const cacheBust = new Date().getTime();
@@ -60,7 +60,9 @@
 		// 	files[idx].data = JSON.stringify(pkg, null, '  ');
 		// }
 		// files.push(...data.components.map(component => ({ path: `src/${component.title.replace('./', '')}`, data: component.contents })));
-		files.push(...data.modules.map(mod => ({ path: mod.slug.replace('./', ''), data: mod.contents })));
+		files.push(
+			...data.modules.map(mod => ({ path: mod.slug.replace('./', ''), data: mod.contents }))
+		);
 		// files.push(...data.componentModules.map(mod => ({ path: `src/${mod.title.replace('../', '')}`, data: mod.contents })));
 		// files.push(...data.componentComponents.map(mod => ({ path: `src/${mod.title}`, data: mod.contents })));
 		// files.push(...data.csvs.map(mod => ({ path: `src/${mod.title.replace('../', '')}`, data: mod.contents })));
@@ -74,12 +76,20 @@
 		if (filteredFiles.length === 1) {
 			downloadBlob(filteredFiles[0].data, `layercake-${slug}`, true);
 		} else {
-			const betterSlug = slug.split('.')
+			const betterSlug = slug.split('.');
 			downloadBlob(toAuto(filteredFiles), `layercake-${betterSlug[0]}.zip`);
 		}
 		downloading = false;
 	}
 </script>
+
+<button
+	disabled={downloading}
+	on:click={download}
+	title="download zip file"
+	class="icon"
+	style="background-image: url(/icons/download.svg)">Download &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button
+>
 
 <style>
 	button {
@@ -100,7 +110,7 @@
 		height: 2em;
 		background: transparent no-repeat 100% 0px;
 		background-size: 1.6em 1.6em;
-		opacity: .6;
+		opacity: 0.6;
 	}
 
 	.icon:before {
@@ -126,20 +136,22 @@
 	}
 
 	@keyframes zoom-in {
-		0% { transform: scale(0); opacity: 0 }
-		100% { transform: scale(1); opacity: 1; }
+		0% {
+			transform: scale(0);
+			opacity: 0;
+		}
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
 	}
 
 	@keyframes fade-in {
-		0% { opacity: 0 }
-		100% { opacity: 0.6 }
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 0.6;
+		}
 	}
 </style>
-
-<button
-	disabled={downloading}
-	on:click={download}
-	title='download zip file'
-	class='icon'
-	style='background-image: url(/icons/download.svg)'
->Download &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>

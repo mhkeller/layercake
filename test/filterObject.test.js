@@ -11,7 +11,7 @@ const tests = [
 	{ args: [{ x: 'a', y: 'b', z: undefined }], expected: { x: 'a', y: 'b' } },
 	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: 10 }], expected: { y: 'b' } },
 	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: false }], expected: { y: 'b' } },
-	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: undefined }], expected: { x: 'a', y: 'b' } },
+	{ args: [{ x: 'a', y: 'b', z: undefined }, { x: undefined }], expected: { x: 'a', y: 'b' } }
 ];
 
 describe(name, () => {

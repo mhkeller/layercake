@@ -14,6 +14,28 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		ssr
+		percentRange
+		padding={{ top: 0, right: 20, bottom: 20, left: 35 }}
+		x="value"
+		y="year"
+		yScale={scaleBand().paddingInner(0.05).round(true)}
+		yDomain={['1979', '1980', '1981', '1982', '1983']}
+		xDomain={[0, null]}
+		{data}
+	>
+		<Html>
+			<AxisX gridlines baseline snapLabels />
+			<AxisY gridlines={false} tickMarks />
+		</Html>
+		<ScaledSvg>
+			<Bar />
+		</ScaledSvg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -26,30 +48,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		ssr
-		percentRange
-		padding={{ top: 0, right: 20, bottom: 20, left: 35 }}
-		x='value'
-		y='year'
-		yScale={scaleBand().paddingInner(0.05).round(true)}
-		yDomain={['1979', '1980', '1981', '1982', '1983']}
-		xDomain={[0, null]}
-		{data}
-	>
-		<Html>
-			<AxisX
-				gridlines
-				baseline
-				snapLabels
-			/>
-			<AxisY gridlines={false} tickMarks/>
-		</Html>
-		<ScaledSvg>
-			<Bar/>
-		</ScaledSvg>
-	</LayerCake>
-
-</div>

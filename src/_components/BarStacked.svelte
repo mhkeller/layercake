@@ -17,12 +17,12 @@
 	{#each $data as series}
 		{#each series as d, i}
 			<rect
-				class='group-rect'
-				data-id="{i}"
-				x="{$xGet(d)[0]}"
-				y="{$yGet(d)}"
+				class="group-rect"
+				data-id={i}
+				x={$xGet(d)[0]}
+				y={$yGet(d)}
 				height={$yScale.bandwidth()}
-				width="{columnWidth(d)}"
+				width={columnWidth(d)}
 				fill={$zGet(series)}
 			></rect>
 		{/each}

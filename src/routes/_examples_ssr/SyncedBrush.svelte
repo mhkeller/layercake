@@ -12,12 +12,7 @@
 	const xKey = 'myX';
 	const yKey = 'myY';
 
-	const datasets = [
-		pointsOne,
-		pointsTwo,
-		pointsThree,
-		pointsFour
-	];
+	const datasets = [pointsOne, pointsTwo, pointsThree, pointsFour];
 
 	datasets.forEach(dataset => {
 		dataset.forEach(d => {
@@ -27,6 +22,19 @@
 
 	const colors = ['#00e047', '#00bbff', '#ff00cc', '#ffcc00'];
 </script>
+
+<div class="small-multiple-container">
+	{#each datasets as dataset, i}
+		<SyncedBrushWrapper
+			data={dataset}
+			{xKey}
+			{yKey}
+			bind:min={brushExtents[0]}
+			bind:max={brushExtents[1]}
+			stroke={colors[i]}
+		/>
+	{/each}
+</div>
 
 <style>
 	/*
@@ -44,16 +52,3 @@
 		align-content: space-between;
 	}
 </style>
-
-<div class="small-multiple-container">
-	{#each datasets as dataset, i}
-		<SyncedBrushWrapper
-			data={dataset}
-			{xKey}
-			{yKey}
-			bind:min={brushExtents[0]}
-			bind:max={brushExtents[1]}
-			stroke={colors[i]}
-		/>
-	{/each}
-</div>

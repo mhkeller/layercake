@@ -22,10 +22,10 @@
 	const projection = geoAlbersUsa;
 
 	/* --------------------------------------------
-	* Create lookups to more easily join our data
-	* `dataJoinKey` is the name of the field in the data
-	* `mapJoinKey` is the name of the field in the map file
-	*/
+	 * Create lookups to more easily join our data
+	 * `dataJoinKey` is the name of the field in the data
+	 * `mapJoinKey` is the name of the field in the map file
+	 */
 	const dataJoinKey = 'name';
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
@@ -49,36 +49,15 @@
 	const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 </script>
 
-<style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-		The height is being set inline with a CSS `aspect-ratio` property.
-	*/
-	.map-container {
-		position: relative;
-		width: 100%;
-	}
-</style>
-
 <div class="map-container" style="aspect-ratio:{aspectRatio};">
-	<LayerCake
-		position='absolute'
-		data={geojson}
-		{flatData}
-	>
+	<LayerCake position="absolute" data={geojson} {flatData}>
 		<Canvas>
-			<MapCanvas
-				{projection}
-				fill='#fff'
-			/>
+			<MapCanvas {projection} fill="#fff" />
 		</Canvas>
 	</LayerCake>
 
 	<LayerCake
-		position='absolute'
+		position="absolute"
 		ssr
 		data={geojson}
 		z={d => dataLookup.get(d[mapJoinKey])}
@@ -86,9 +65,7 @@
 		zRange={colors}
 		{flatData}
 	>
-		<ScaledSvg
-			fixedAspectRatio={aspectRatio}
-		>
+		<ScaledSvg fixedAspectRatio={aspectRatio}>
 			<MapSvg
 				fixedAspectRatio={aspectRatio}
 				{projection}
@@ -106,3 +83,17 @@
 		</Html>
 	</LayerCake>
 </div>
+
+<style>
+	/*
+		The wrapper div needs to have an explicit width and height in CSS.
+		It can also be a flexbox child or CSS grid element.
+		The point being it needs dimensions since the <LayerCake> element will
+		expand to fill it.
+		The height is being set inline with a CSS `aspect-ratio` property.
+	*/
+	.map-container {
+		position: relative;
+		width: 100%;
+	}
+</style>

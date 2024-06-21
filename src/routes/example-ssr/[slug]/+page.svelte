@@ -18,19 +18,19 @@
 
 	/** @type {import('./$types').PageData} */
 	export let data;
-	let {slug, content, active} = data;
+	let { slug, content, active } = data;
 	$: slug = data.slug;
 	$: content = data.content;
 	$: active = data.active;
 
-	function markdownToHtml (text) {
+	function markdownToHtml(text) {
 		return md.render(text);
 	}
 
-	function highlight (str, title) {
+	function highlight(str, title) {
 		const parts = title.split('.');
 		let ext = parts[parts.length - 1];
-		if (ext === 'csv') ext = 'diff'
+		if (ext === 'csv') ext = 'diff';
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
@@ -49,7 +49,7 @@
 
 	$: example = exampleLookup.get(slug.toLowerCase());
 
-	function copyToClipboard () {
+	function copyToClipboard() {
 		const text = pages.filter(d => cleanTitle(d.title) === active)[0].contents;
 		if (window.clipboardData && window.clipboardData.setData) {
 			return window.clipboardData.setData('Text', text);
@@ -69,8 +69,60 @@
 			}
 		}
 	}
-
 </script>
+
+<svelte:head>
+	<title>{example.title}</title>
+</svelte:head>
+
+<div class="main" data-label="Server-side">
+	<h1>
+		{example.title}<a
+			class="edit-repl"
+			href="https://svelte.dev/repl/{example.replPath}"
+			target="_blank"
+			rel="noreferrer">Edit</a
+		>
+	</h1>
+
+	<div class="chart-hero" data-slug={slug.toLowerCase()}>
+		<svelte:component this={example.component} />
+	</div>
+
+	<div class="download">
+		<DownloadBtn data={content} {slug} ssr />
+	</div>
+
+	{#if content.dek}
+		<div class="dek">
+			{@html markdownToHtml(content.dek)}
+		</div>
+	{/if}
+
+	<div id="pages" class={content.dek ? 'has-dek' : ''}>
+		<ul id="page-nav">
+			{#each pages as page}
+				<li
+					class="tab {active === cleanTitle(page.title) ? 'active' : ''}"
+					on:click={() => (active = cleanTitle(page.title))}
+				>
+					{page.title}
+				</li>
+			{/each}
+		</ul>
+		<div id="contents-container">
+			<div class="copy" on:click={copyToClipboard}></div>
+			{#each pages as page}
+				<div
+					class="contents"
+					style="display: {active === cleanTitle(page.title) ? 'block' : 'none'};"
+				>
+					<pre>{@html highlight(page.contents, page.title)}</pre>
+				</div>
+			{/each}
+		</div>
+	</div>
+</div>
 
 <style>
 	.main {
@@ -98,7 +150,7 @@
 		position: relative;
 	}
 
-	.chart-hero[data-slug^="map"] {
+	.chart-hero[data-slug^='map'] {
 		max-width: 526px;
 	}
 
@@ -181,7 +233,6 @@
 		border-bottom: 2px solid #000;
 	}
 
-
 	.copy {
 		position: absolute;
 		top: 0;
@@ -212,7 +263,7 @@
 		/* font-size: 12px; */
 		text-transform: lowercase;
 		font-family: monospace;
-		color: rgba(0,0,0,0.5);
+		color: rgba(0, 0, 0, 0.5);
 		background-color: #f0f0f0;
 		padding: 2px 5px;
 		margin-left: 7px;
@@ -263,52 +314,3 @@
 		}
 	}
 </style>
-
-<svelte:head>
-	<title>{example.title}</title>
-</svelte:head>
-
-<div class="main" data-label="Server-side">
-	<h1>{example.title}<a class="edit-repl" href="https://svelte.dev/repl/{example.replPath}" target="_blank" rel="noreferrer">Edit</a></h1>
-
-	<div class="chart-hero" data-slug={slug.toLowerCase()}>
-		<svelte:component this={example.component} />
-	</div>
-
-	<div class="download">
-		<DownloadBtn
-			data={content}
-			slug='{slug}'
-			ssr
-		/>
-	</div>
-
-	{#if content.dek}
-		<div class="dek">
-			{@html markdownToHtml(content.dek)}
-		</div>
-	{/if}
-
-	<div id="pages" class="{content.dek ? 'has-dek' : ''}">
-		<ul id="page-nav">
-			{#each pages as page}
-				<li
-					class="tab {active === cleanTitle(page.title) ? 'active' : ''}"
-					on:click="{() => active = cleanTitle(page.title)}"
-				>{page.title}</li>
-			{/each}
-		</ul>
-		<div id="contents-container">
-			<div
-				class="copy"
-				on:click={copyToClipboard}
-			></div>
-			{#each pages as page}
-				<div class="contents" style="display: {active === cleanTitle(page.title) ? 'block' : 'none'};">
-					<pre>{@html highlight(page.contents, page.title)}</pre>
-				</div>
-			{/each}
-		</div>
-	</div>
-
-</div>

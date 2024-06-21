@@ -10,9 +10,24 @@ const tests = [
 	{ args: [1], input: ['a', 'b'], expected: d => d[1], expectedOutput: 'b' },
 	{ args: [d => d[0]], input: ['a', 'b'], expected: d => d[0], expectedOutput: 'a' },
 	{ args: [d => d.x], input: { x: 1 }, expected: d => d.x, expectedOutput: 1 },
-	{ args: [['x0', 'x1']], input: { x0: 0, x1: 1 }, expected: d => ['x0', 'x1'].map(k => d[k]), expectedOutput: [0, 1] },
-	{ args: [[d => d.x0, d => d.x1]], input: { x0: 0, x1: 1 }, expected: d => [d => d.x0, d => d.x1].map(k => k(d)), expectedOutput: [0, 1] },
-	{ args: [['x0', d => d.x1]], input: { x0: 0, x1: 1 }, expected: d => [d => d.x0, d => d.x1].map(k => k(d)), expectedOutput: [0, 1] }
+	{
+		args: [['x0', 'x1']],
+		input: { x0: 0, x1: 1 },
+		expected: d => ['x0', 'x1'].map(k => d[k]),
+		expectedOutput: [0, 1]
+	},
+	{
+		args: [[d => d.x0, d => d.x1]],
+		input: { x0: 0, x1: 1 },
+		expected: d => [d => d.x0, d => d.x1].map(k => k(d)),
+		expectedOutput: [0, 1]
+	},
+	{
+		args: [['x0', d => d.x1]],
+		input: { x0: 0, x1: 1 },
+		expected: d => [d => d.x0, d => d.x1].map(k => k(d)),
+		expectedOutput: [0, 1]
+	}
 ];
 
 describe(name, () => {

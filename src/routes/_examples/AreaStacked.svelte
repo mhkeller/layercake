@@ -20,16 +20,14 @@
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ff00cc', '#ff7ac7', '#ffb3c0', '#ffe4b8'];
 
-	const formatLabelX = timeFormat('%b. %-d')
+	const formatLabelX = timeFormat('%b. %-d');
 	const formatLabelY = d => format(`~s`)(d);
 
 	/* --------------------------------------------
 	 * Cast data
 	 */
 	data.forEach(d => {
-		d[xKey] = typeof d[xKey] === 'string'
-			? xKeyCast(d[xKey])
-			: d[xKey];
+		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
 
 		seriesNames.forEach(name => {
 			d[name] = +d[name];
@@ -38,19 +36,6 @@
 
 	const stackedData = stack(data, seriesNames);
 </script>
-
-<style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
-	.chart-container {
-		width: 100%;
-		height: 250px;
-	}
-</style>
 
 <div class="chart-container">
 	<LayerCake
@@ -65,14 +50,22 @@
 		data={stackedData}
 	>
 		<Svg>
-			<AxisX
-				format={formatLabelX}
-				tickMarks
-			/>
-			<AxisY
-				format={formatLabelY}
-			/>
-			<AreaStacked/>
+			<AxisX format={formatLabelX} tickMarks />
+			<AxisY format={formatLabelY} />
+			<AreaStacked />
 		</Svg>
 	</LayerCake>
 </div>
+
+<style>
+	/*
+		The wrapper div needs to have an explicit width and height in CSS.
+		It can also be a flexbox child or CSS grid element.
+		The point being it needs dimensions since the <LayerCake> element will
+		expand to fill it.
+	*/
+	.chart-container {
+		width: 100%;
+		height: 250px;
+	}
+</style>

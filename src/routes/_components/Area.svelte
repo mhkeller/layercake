@@ -14,6 +14,14 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake x={xKey} y={yKey} yDomain={[0, null]} {data}>
+		<Svg>
+			<Area fill="#ff7ac7" />
+		</Svg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -26,18 +34,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		x={xKey}
-		y={yKey}
-		yDomain={[0, null]}
-		{data}
-	>
-		<Svg>
-			<Area
-				fill="#ff7ac7"
-			/>
-		</Svg>
-	</LayerCake>
-</div>

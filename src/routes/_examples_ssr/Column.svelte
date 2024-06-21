@@ -22,34 +22,36 @@
 			[yKey]: 14,
 			dx: 15, // Optional pixel values
 			dy: -5,
-			arrows: [{
-				clockwise: false, // true or false, defaults to true
-				source: {
-					anchor: 'left-bottom', // can be `{left, middle, right},{top-middle-bottom}`
-					dx: -2,
-					dy: -7
+			arrows: [
+				{
+					clockwise: false, // true or false, defaults to true
+					source: {
+						anchor: 'left-bottom', // can be `{left, middle, right},{top-middle-bottom}`
+						dx: -2,
+						dy: -7
+					},
+					target: {
+						// These can be expressed in our data units if passed under the data keys
+						[xKey]: '1980',
+						[yKey]: 4.5,
+						// Optional adjustments
+						dx: 2,
+						dy: 5
+					}
 				},
-				target: {
-					// These can be expressed in our data units if passed under the data keys
-					[xKey]: '1980',
-					[yKey]: 4.5,
-					// Optional adjustments
-					dx: 2,
-					dy: 5
+				{
+					source: {
+						anchor: 'right-bottom',
+						dy: -7,
+						dx: 5
+					},
+					target: {
+						// Or if they are percentage strings they can be passed directly
+						x: '68%',
+						y: '48%'
+					}
 				}
-			},
-			{
-				source: {
-					anchor: 'right-bottom',
-					dy: -7,
-					dx: 5
-				},
-				target: {
-					// Or if they are percentage strings they can be passed directly
-					x: '68%',
-					y: '48%',
-				}
-			}]
+			]
 		}
 	];
 
@@ -58,19 +60,11 @@
 	});
 </script>
 
-<style>
-	.chart-container {
-		width: 100%;
-		height: 400px;
-		position: relative;
-	}
-</style>
-
 <div class="chart-container">
 	<LayerCake
 		ssr
 		percentRange
-		position='absolute'
+		position="absolute"
 		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
 		x={xKey}
 		y={yKey}
@@ -80,18 +74,13 @@
 		{data}
 	>
 		<ScaledSvg>
-			<Column/>
+			<Column />
 		</ScaledSvg>
 
 		<Html>
-			<AxisX
-				gridlines={false}
-			/>
-			<AxisY
-				gridlines={false}
-				snapBaselineLabel
-			/>
-			<Annotations {annotations}/>
+			<AxisX gridlines={false} />
+			<AxisY gridlines={false} snapBaselineLabel />
+			<Annotations {annotations} />
 		</Html>
 	</LayerCake>
 
@@ -100,7 +89,7 @@
 		since the arrows are hard to draw within the viewbox
 	-->
 	<LayerCake
-		position='absolute'
+		position="absolute"
 		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
 		x={xKey}
 		y={yKey}
@@ -111,9 +100,17 @@
 	>
 		<Svg>
 			<svelte:fragment slot="defs">
-				<ArrowheadMarker/>
+				<ArrowheadMarker />
 			</svelte:fragment>
-			<Arrows {annotations}/>
+			<Arrows {annotations} />
 		</Svg>
 	</LayerCake>
 </div>
+
+<style>
+	.chart-container {
+		width: 100%;
+		height: 400px;
+		position: relative;
+	}
+</style>

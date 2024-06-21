@@ -1,7 +1,7 @@
 <script>
 	import { LayerCake, ScaledSvg, Html, takeEvery } from 'layercake';
-  import { extent, bin } from 'd3-array';
-  import { scaleBand } from 'd3-scale';
+	import { extent, bin } from 'd3-array';
+	import { scaleBand } from 'd3-scale';
 	import { format } from 'd3-format';
 
 	import Column from '../../_components/Column.svelte';
@@ -22,12 +22,41 @@
 	const domain = extent(data);
 
 	$: steps = calcThresholds(domain, binCount);
-	$: hist = bin()
-		.domain(domain)
-		.thresholds(steps);
+	$: hist = bin().domain(domain).thresholds(steps);
 
 	$: slimSteps = takeEvery(steps, 7);
 </script>
+
+<div class="input-container" style="position: absolute;right:10px;z-index: 9;">
+	<input style="margin:0;" type="range" min="4" max="100" step="4" bind:value={binCount} />
+	<span
+		class="counter-container"
+		style="display:inline-block;vertical-align:top;width: 70px;text-align:right;"
+		>{binCount} bins</span
+	>
+</div>
+
+<div class="chart-container">
+	<LayerCake
+		ssr
+		percentRange
+		padding={{ top: 20, right: 5, bottom: 20, left: 31 }}
+		x={xKey}
+		y={yKey}
+		xDomain={steps}
+		xScale={scaleBand().paddingInner(0)}
+		yDomain={[0, null]}
+		data={hist(data)}
+	>
+		<Html>
+			<AxisX gridlines={false} baseline ticks={slimSteps} format={d => +f(d)} />
+			<AxisY gridlines={false} ticks={3} />
+		</Html>
+		<ScaledSvg>
+			<Column fill="#fff" stroke="#000" strokeWidth={1} />
+		</ScaledSvg>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -45,48 +74,3 @@
 		height: auto;
 	}
 </style>
-
-<div class="input-container" style="position: absolute;right:10px;z-index: 9;">
-	<input
-		style="margin:0;"
-		type="range"
-		min="4"
-		max="100"
-		step="4"
-		bind:value={binCount}
-	/> <span class="counter-container" style="display:inline-block;vertical-align:top;width: 70px;text-align:right;">{binCount} bins</span>
-</div>
-
-<div class="chart-container">
-	<LayerCake
-		ssr
-		percentRange
-		padding={{ top: 20, right: 5, bottom: 20, left: 31 }}
-		x={xKey}
-		y={yKey}
-		xDomain={steps}
-		xScale={scaleBand().paddingInner(0)}
-		yDomain={[0, null]}
-		data={hist(data)}
-	>
-		<Html>
-			<AxisX
-				gridlines={false}
-				baseline
-				ticks={slimSteps}
-				format={d => +f(d)}
-			/>
-			<AxisY
-				gridlines={false}
-				ticks={3}
-			/>
-		</Html>
-		<ScaledSvg>
-			<Column
-				fill='#fff'
-				stroke='#000'
-				strokeWidth={1}
-			/>
-		</ScaledSvg>
-	</LayerCake>
-</div>

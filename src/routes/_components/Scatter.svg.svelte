@@ -18,6 +18,21 @@
 	const color = '#0cf';
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 10 }}
+		x={xKey}
+		y={yKey}
+		xPadding={[padding, padding]}
+		yPadding={[padding, padding]}
+		{data}
+	>
+		<Svg>
+			<ScatterSvg {r} fill={color} />
+		</Svg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -30,21 +45,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 10 }}
-		x={xKey}
-		y={yKey}
-		xPadding={[padding, padding]}
-		yPadding={[padding, padding]}
-		{data}
-	>
-		<Svg>
-			<ScatterSvg
-				{r}
-				fill={color}
-			/>
-		</Svg>
-	</LayerCake>
-</div>

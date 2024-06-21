@@ -28,16 +28,15 @@
 	/** @type {Array} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
 	export let features = undefined;
 
-	$: projectionFn = projection()
-		.fitSize([$width, $height], $data);
+	$: projectionFn = projection().fitSize([$width, $height], $data);
 </script>
 
 <div class="points">
-<!-- To scale the circle by size, set width and height to `$rGet(d.properties)` -->
-{#each (features || $data.features) as d}
-	<div
-		class="point"
-		style="
+	<!-- To scale the circle by size, set width and height to `$rGet(d.properties)` -->
+	{#each features || $data.features as d}
+		<div
+			class="point"
+			style="
 			top: {projectionFn(d.geometry.coordinates)[1]}px;
 			left: {projectionFn(d.geometry.coordinates)[0]}px;
 			width: {r * 2}px;
@@ -47,9 +46,8 @@
 			background-color: {fill};
 			opacity: {opacity};
 		"
-	>
-	</div>
-{/each}
+		></div>
+	{/each}
 </div>
 
 <style>

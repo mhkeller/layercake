@@ -16,7 +16,7 @@ import findScaleName from '../helpers/findScaleName.js';
 // These scales have a discrete range so they can't be padded
 const unpaddable = ['scaleThreshold', 'scaleQuantile', 'scaleQuantize', 'scaleSequentialQuantile'];
 
-export default function padScale (scale, padding) {
+export default function padScale(scale, padding) {
 	if (typeof scale.range !== 'function') {
 		throw new Error('Scale method `range` must be a function');
 	}

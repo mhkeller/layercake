@@ -18,7 +18,7 @@
 
 	/** @type {import('./$types').PageData} */
 	export let data;
-	let {slug, content, active} = data;
+	let { slug, content, active } = data;
 	$: slug = data.slug;
 	$: content = data.content;
 	$: active = data.active;
@@ -38,15 +38,15 @@
 
 	const lookup = new Map();
 	components
-		.flatMap((d) => d.components)
-		.forEach((d) => {
+		.flatMap(d => d.components)
+		.forEach(d => {
 			lookup.set(d.slug, d);
 		});
 
 	$: component = lookup.get(slug);
 
 	function printTypes(type) {
-		const joinEls = (els) => els.map((d) => `\`${d.name}\``).join(' &vert; ');
+		const joinEls = els => els.map(d => `\`${d.name}\``).join(' &vert; ');
 		if (type.name) {
 			return `\`${type.name}\``;
 		}
@@ -82,7 +82,7 @@
 	if (content.hasjsDoctable === true) {
 		jsdocTableBody = `${content.jsdocParsed.tags
 			.map(
-				(d) =>
+				d =>
 					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(
 						d.type
 					)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`

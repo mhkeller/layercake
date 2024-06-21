@@ -47,7 +47,9 @@
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}
 >
-	<slot name="title">{#if title}<title>{title}</title>{/if}</slot>
+	<slot name="title"
+		>{#if title}<title>{title}</title>{/if}</slot
+	>
 
 	<defs>
 		<slot name="defs"></slot>
@@ -55,7 +57,8 @@
 	<g
 		bind:this={innerElement}
 		class="layercake-layout-svg_g"
-		transform="translate({$padding.left}, {$padding.top})">
+		transform="translate({$padding.left}, {$padding.top})"
+	>
 		<slot {element}></slot>
 	</g>
 </svg>

@@ -1,7 +1,7 @@
-export default function downloadBlob (blob, filename, createBlob = false) {
+export default function downloadBlob(blob, filename, createBlob = false) {
 	let myBlob;
 	if (createBlob === true) {
-		myBlob = new Blob([blob], {type: "octet/stream"});
+		myBlob = new Blob([blob], { type: 'octet/stream' });
 	} else {
 		myBlob = blob;
 	}
@@ -14,4 +14,4 @@ export default function downloadBlob (blob, filename, createBlob = false) {
 	link.click();
 	URL.revokeObjectURL(url);
 	link.remove();
-};
+}

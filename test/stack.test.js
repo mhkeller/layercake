@@ -7,26 +7,49 @@ import fn from '../src/lib/lib/stack.js';
 const name = 'stack';
 
 const data = [
-	{ month: '2015-01-01', apples: 320,  bananas: 480,  cherries: 640, dates: 400 },
-	{ month: '2015-02-01', apples: 640,  bananas: 960,  cherries: 740, dates: 500 },
+	{ month: '2015-01-01', apples: 320, bananas: 480, cherries: 640, dates: 400 },
+	{ month: '2015-02-01', apples: 640, bananas: 960, cherries: 740, dates: 500 },
 	{ month: '2015-03-01', apples: 1600, bananas: 1440, cherries: 920, dates: 600 },
-	{ month: '2015-04-01', apples: 3840, bananas: 1920, cherries: 960, dates: 700 },
+	{ month: '2015-04-01', apples: 3840, bananas: 1920, cherries: 960, dates: 700 }
 ];
 
 const data2 = [
-	{ month: '2015-01-01', apples: [320],  bananas: [480],  cherries: [640], dates: [400] },
-	{ month: '2015-02-01', apples: [640],  bananas: [960],  cherries: [740], dates: [500] },
+	{ month: '2015-01-01', apples: [320], bananas: [480], cherries: [640], dates: [400] },
+	{ month: '2015-02-01', apples: [640], bananas: [960], cherries: [740], dates: [500] },
 	{ month: '2015-03-01', apples: [1600], bananas: [1440], cherries: [920], dates: [600] },
-	{ month: '2015-04-01', apples: [3840], bananas: [1920], cherries: [960], dates: [700] },
+	{ month: '2015-04-01', apples: [3840], bananas: [1920], cherries: [960], dates: [700] }
 ];
 
 const data3 = [
-	{ month: '2015-01-01', apples: {x: 320},  bananas: {x: 480},  cherries: {x: 640}, dates: {x: 400} },
-	{ month: '2015-02-01', apples: {x: 640},  bananas: {x: 960},  cherries: {x: 740}, dates: {x: 500} },
-	{ month: '2015-03-01', apples: {x: 1600}, bananas: {x: 1440}, cherries: {x: 920}, dates: {x: 600} },
-	{ month: '2015-04-01', apples: {x: 3840}, bananas: {x: 1920}, cherries: {x: 960}, dates: {x: 700} },
+	{
+		month: '2015-01-01',
+		apples: { x: 320 },
+		bananas: { x: 480 },
+		cherries: { x: 640 },
+		dates: { x: 400 }
+	},
+	{
+		month: '2015-02-01',
+		apples: { x: 640 },
+		bananas: { x: 960 },
+		cherries: { x: 740 },
+		dates: { x: 500 }
+	},
+	{
+		month: '2015-03-01',
+		apples: { x: 1600 },
+		bananas: { x: 1440 },
+		cherries: { x: 920 },
+		dates: { x: 600 }
+	},
+	{
+		month: '2015-04-01',
+		apples: { x: 3840 },
+		bananas: { x: 1920 },
+		cherries: { x: 960 },
+		dates: { x: 700 }
+	}
 ];
-
 
 const tests = [
 	{

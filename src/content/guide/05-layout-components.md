@@ -17,28 +17,29 @@ Here are the four layout components: HTML, Svg, ScaledSvg, Canvas and WebGL cont
 ```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
-  import { LayerCake, Html } from 'layercake';
+	import { LayerCake, Html } from 'layercake';
 </script>
 
 <div class="chart-container">
-  <LayerCake ...>
-    <Html zIndex={1}> <!-- Optional z-index -->
-      ...
-    </Html>
-  </LayerCake>
+	<LayerCake ...>
+		<Html zIndex={1}>
+			<!-- Optional z-index -->
+			...
+		</Html>
+	</LayerCake>
 </div>
 
 <style>
-  /*
+	/*
   	The wrapper div needs to have an explicit width and height in CSS.
   	It can also be a flexbox child or CSS grid element.
   	The point being it needs dimensions since the <LayerCake> element will
   	expand to fill it.
   */
-  .chart-container {
-    width: 100%;
-    height: 300px;
-  }
+	.chart-container {
+		width: 100%;
+		height: 300px;
+	}
 </style>
 ```
 
@@ -49,27 +50,26 @@ The SVG layout component also accepts a `viewBox` prop. See the [Layout componen
 ```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
-  import { LayerCake, Svg } from 'layercake';
+	import { LayerCake, Svg } from 'layercake';
 </script>
 
 <div class="chart-container">
-  <LayerCake ...>
-    <Svg zIndex={2}> <!-- Optional z-index -->
-    </Svg>
-  </LayerCake>
+	<LayerCake ...>
+		<Svg zIndex={2}><!-- Optional z-index --></Svg>
+	</LayerCake>
 </div>
 
 <style>
-  /*
+	/*
     The wrapper div needs to have an explicit width and height in CSS.
     It can also be a flexbox child or CSS grid element.
     The point being it needs dimensions since the <LayerCake> element will
     expand to fill it.
   */
-  .chart-container {
-    width: 100%;
-    height: 300px;
-  }
+	.chart-container {
+		width: 100%;
+		height: 300px;
+	}
 </style>
 ```
 
@@ -77,30 +77,34 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
 
 ```svelte
 <div class="chart-container">
-  <LayerCake ...>
-    <Svg>
-      <!-- Simply add a defs tag here, note that this will
+	<LayerCake ...>
+		<Svg>
+			<!-- Simply add a defs tag here, note that this will
         appear inside the `<g>` element under the
         main `<svg>` and the top-level `<defs>`
         tag will be empty -->
-      <defs>
-        <linearGradient id="myGradient" gradientTransform="rotate(90)">
-          <stop offset="20%" stop-color="gold" />
-          <stop offset="90%" stop-color="red" />
-        </linearGradient>
-      <defs>
-
-      <!-- If you want to use the named slot,
+			<defs>
+				<linearGradient id="myGradient" gradientTransform="rotate(90)">
+					<stop offset="20%" stop-color="gold" />
+					<stop offset="90%" stop-color="red" />
+				</linearGradient>
+				<defs>
+					<!-- If you want to use the named slot,
         add the xmlns attribute on the `<linearGradient>` element -->
-      <svelte:fragment slot="defs">
-        <linearGradient id="myGradient" gradientTransform="rotate(90)" xmlns="http://www.w3.org/2000/svg">
-          <stop offset="20%" stop-color="gold" />
-          <stop offset="90%" stop-color="red" />
-        </linearGradient>
-      </svelte:fragment>
-
-    </Svg>
-  </LayerCake>
+					<svelte:fragment slot="defs">
+						<linearGradient
+							id="myGradient"
+							gradientTransform="rotate(90)"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<stop offset="20%" stop-color="gold" />
+							<stop offset="90%" stop-color="red" />
+						</linearGradient>
+					</svelte:fragment>
+				</defs></defs
+			></Svg
+		>
+	</LayerCake>
 </div>
 ```
 
@@ -117,17 +121,13 @@ The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. 
 ```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
-  import { LayerCake, ScaledSvg } from 'layercake';
+	import { LayerCake, ScaledSvg } from 'layercake';
 </script>
 
 <div class="chart-container">
-  <LayerCake
-    ssr
-    percentRange
-  >
-    <ScaledSvg fixedAspectRatio={16/9}> <!-- Optional fixed aspect ratio -->
-    </ScaledSvg>
-  </LayerCake>
+	<LayerCake ssr percentRange>
+		<ScaledSvg fixedAspectRatio={16 / 9}><!-- Optional fixed aspect ratio --></ScaledSvg>
+	</LayerCake>
 </div>
 
 <style>
@@ -137,10 +137,10 @@ The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. 
 		The point being it needs dimensions since the <LayerCake> element will
 		expand to fill it.
 	*/
-  .chart-container {
-    width: 100%;
-    height: 300px;
-  }
+	.chart-container {
+		width: 100%;
+		height: 300px;
+	}
 </style>
 ```
 
@@ -151,17 +151,18 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
 ```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
-  import { LayerCake, Canvas } from 'layercake';
+	import { LayerCake, Canvas } from 'layercake';
 
-  import CanvasLayer from './components/CanvasLayer.svelte'
+	import CanvasLayer from './components/CanvasLayer.svelte';
 </script>
 
 <div class="chart-container">
-  <LayerCake ...>
-    <Canvas zIndex={3}> <!-- Optional z-index -->
-      <CanvasLayer/>
-    </Canvas>
-  </LayerCake>
+	<LayerCake ...>
+		<Canvas zIndex={3}>
+			<!-- Optional z-index -->
+			<CanvasLayer />
+		</Canvas>
+	</LayerCake>
 </div>
 
 <style>
@@ -171,10 +172,10 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
 		The point being it needs dimensions since the <LayerCake> element will
 		expand to fill it.
 	*/
-  .chart-container {
-    width: 100%;
-    height: 300px;
-  }
+	.chart-container {
+		width: 100%;
+		height: 300px;
+	}
 </style>
 ```
 
@@ -225,14 +226,13 @@ Here's an example showing a scatter plot.
 ```svelte
 <!-- { filename: 'App.svelte' } -->
 <script>
-  import { LayerCake, WebGL } from 'layercake';
+	import { LayerCake, WebGL } from 'layercake';
 </script>
 
 <div class="chart-container">
-  <LayerCake ...>
-    <WebGL zIndex={4}> <!-- Optional z-index -->
-    </WebGL>
-  </LayerCake>
+	<LayerCake ...>
+		<WebGL zIndex={4}><!-- Optional z-index --></WebGL>
+	</LayerCake>
 </div>
 
 <style>
@@ -242,12 +242,13 @@ Here's an example showing a scatter plot.
 		The point being it needs dimensions since the <LayerCake> element will
 		expand to fill it.
 	*/
-  .chart-container {
-    width: 100%;
-    height: 300px;
-  }
+	.chart-container {
+		width: 100%;
+		height: 300px;
+	}
 </style>
 ```
+
 In the component, you access the canvas context with `const { gl } = getContext('gl');`. This value is on a different context from the `getContext('LayerCake')` one because you could have multiple WebGL layers and there wouldn't be an easy way to grab the right one.
 
 > Since the `gl` value is a normal WebGL context, the underlying canvas element is accessible under `gl.canvas`.

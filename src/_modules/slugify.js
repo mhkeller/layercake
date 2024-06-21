@@ -2,13 +2,14 @@ import emoji from 'emoji-regex';
 
 const whitespace = /\s/g;
 
-export default function slugger (string, maintainCase, store) {
+export default function slugger(string, maintainCase, store) {
 	const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g;
 	const replacement = '-';
 
 	if (typeof string !== 'string') return '';
 	if (!maintainCase) string = string.toLowerCase();
-	const slug = string.trim()
+	const slug = string
+		.trim()
 		.split('(')[0]
 		.replace(re, '')
 		.replace(emoji(), '')

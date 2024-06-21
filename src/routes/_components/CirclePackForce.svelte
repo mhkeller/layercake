@@ -25,8 +25,32 @@
 	const seriesNames = [...seriesNameSet];
 
 	let manyBodyStrength = 3;
-	let xStrength = 0.1
+	let xStrength = 0.1;
 </script>
+
+<div class="input-container">
+	<label><input type="radio" bind:group={groupBy} value="true" />GroupBy `true`</label>
+	<label><input type="radio" bind:group={groupBy} value="false" />GroupBy `false`</label>
+</div>
+
+<div class="chart-container">
+	<LayerCake
+		{data}
+		x={xKey}
+		r={rKey}
+		z={zKey}
+		xScale={scaleBand()}
+		xDomain={seriesNames}
+		rRange={[3, 12]}
+		zScale={scaleOrdinal()}
+		zDomain={seriesNames}
+		zRange={seriesColors}
+	>
+		<Svg>
+			<ForceLayout {manyBodyStrength} {xStrength} groupBy={JSON.parse(groupBy)} nodeStroke="#000" />
+		</Svg>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -46,32 +70,3 @@
 		margin-right: 7px;
 	}
 </style>
-
-<div class="input-container">
-	<label><input type="radio" bind:group={groupBy} value="true"/>GroupBy `true`</label>
-	<label><input type="radio" bind:group={groupBy} value="false"/>GroupBy `false`</label>
-</div>
-
-<div class="chart-container">
-	<LayerCake
-		{data}
-		x={xKey}
-		r={rKey}
-		z={zKey}
-		xScale={scaleBand()}
-		xDomain={seriesNames}
-		rRange={[3, 12]}
-		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
-		zRange={seriesColors}
-	>
-		<Svg>
-			<ForceLayout
-				{manyBodyStrength}
-				{xStrength}
-				groupBy={JSON.parse(groupBy)}
-				nodeStroke='#000'
-			/>
-		</Svg>
-	</LayerCake>
-</div>

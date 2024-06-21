@@ -19,7 +19,7 @@ function cleanContents(str) {
 function getJsPaths(example) {
 	const match = example.match(/\.\/.+\.js('|")/gm);
 	if (match) {
-		return match.map((d) => d.replace('../../', '').replace(/('|")/g, ''));
+		return match.map(d => d.replace('../../', '').replace(/('|")/g, ''));
 	}
 	return [];
 }
@@ -39,7 +39,7 @@ export async function GET({ params }) {
 
 	const fromMain = cleanMain(component);
 
-	const modules = getJsPaths(component).map((d) => {
+	const modules = getJsPaths(component).map(d => {
 		return {
 			slug: d.replace('../', ''),
 			contents: cleanContents(readFileSync(d.replace('./', 'src/'), 'utf-8'))
@@ -59,16 +59,16 @@ export async function GET({ params }) {
 		return {
 			group: i === 0 ? 'Regular' : 'SSR',
 			matches: readdirFilterSync(d, { fullPath: true })
-				.map((q) => {
+				.map(q => {
 					return {
 						path: q,
 						contents: readFileSync(q, 'utf-8')
 					};
 				})
-				.filter((q) => {
+				.filter(q => {
 					return q.contents.includes(slug);
 				})
-				.map((q) => {
+				.map(q => {
 					const name = q.path.split('/').pop().replace('.svelte', '');
 					return `/example${i === 1 ? '-ssr' : ''}/${name}`;
 				})

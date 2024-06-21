@@ -5,7 +5,7 @@
  *
  * --------------------------------------------
  */
-export default function getElPosition (el) {
+export default function getElPosition(el) {
 	const annotationBbox = el.getBoundingClientRect();
 	const parentBbox = el.parentNode.getBoundingClientRect();
 	const coords = {

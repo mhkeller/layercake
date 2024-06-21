@@ -23,14 +23,11 @@
 			window.addEventListener('resize', onresize, true);
 
 			// wait for fonts to load...
-			const timeouts = [
-				setTimeout(onresize, 1000),
-				setTimeout(onresize, 5000)
-			];
+			const timeouts = [setTimeout(onresize, 1000), setTimeout(onresize, 5000)];
 		}
 	});
 
-	function onresize () {
+	function onresize() {
 		if (container) {
 			const { top } = container.getBoundingClientRect();
 			positions = [].map.call(anchors, anchor => {
@@ -39,7 +36,7 @@
 		}
 	}
 
-	function onscroll () {
+	function onscroll() {
 		const top = -window.scrollY;
 
 		let i = anchors.length;
@@ -58,6 +55,46 @@
 		}
 	}
 </script>
+
+<svelte:head>
+	<title>LayerCake - Guide</title>
+	<meta name="og:title" content="Layer Cake — Guide" />
+	<meta name="twitter:title" content="Layer Cake — Guide" />
+</svelte:head>
+
+<sidebar>
+	<GuideContents sections={data.sections} bind:activeGuideSection />
+</sidebar>
+
+<div id="container" class="content" bind:this={container}>
+	<section id="toc">
+		<h3>Table of contents</h3>
+		<ul>
+			{#each data.sections as section}
+				<li>
+					<a href="#{section.slug}"
+						>- {section.slug.replace(/^\w/, d => d.toUpperCase()).replaceAll('-', ' ')}</a
+					>
+				</li>
+			{/each}
+		</ul>
+	</section>
+	{#each data.sections as section}
+		<section id={section.slug}>
+			<h2>
+				{section.metadata.title}
+				<small
+					><a
+						href="https://github.com/mhkeller/layercake/edit/master/src/content/guide/{section.file}"
+						target="_blank"
+						rel="noreferrer">edit this section</a
+					></small
+				>
+			</h2>
+			{@html section.html}
+		</section>
+	{/each}
+</div>
 
 <style>
 	sidebar {
@@ -104,9 +141,9 @@
 	section :global(pre) :global(h2) {
 		/*margin: 0 0 1em 0;*/
 		padding: 0.2em 0;
-		border-bottom: 1px solid rgba(0,0,0,0.1);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		font-size: 1.2em;
-		color: rgba(0,0,0,0.5);
+		color: rgba(0, 0, 0, 0.5);
 	}
 
 	section :global(.code-block) {
@@ -124,7 +161,7 @@
 		border-radius: 2px 2px 0 0;
 		border-top: 1px solid #eee;
 		font-family: 'Inconsolata', monospace;
-		color: rgba(0,0,0,0.4);
+		color: rgba(0, 0, 0, 0.4);
 		line-height: 1;
 	}
 
@@ -167,7 +204,8 @@
 
 	section :global(p) {
 		margin: 0 0 1em 0;
-		font-family: Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		font-family: Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+			'Segoe UI Symbol';
 		/* font-weight: 300; */
 		color: #181818;
 		line-height: 1.5;
@@ -226,7 +264,8 @@
 		border: none;
 	}
 
-	section :global(.code-block) :global(pre), section :global(.CodeMirror) {
+	section :global(.code-block) :global(pre),
+	section :global(.CodeMirror) {
 		background-color: #f9f9f9;
 		border-left: 2px solid #eee;
 		padding: 8px;
@@ -238,11 +277,13 @@
 		/* border-radius: 3px; */
 	}
 
-	section :global(p), section :global(ul) {
+	section :global(p),
+	section :global(ul) {
 		max-width: 48em;
 	}
 
-	section :global(ul), section :global(ol) {
+	section :global(ul),
+	section :global(ol) {
 		line-height: 1.5;
 	}
 
@@ -290,14 +331,16 @@
 		width: 100%;
 	}
 
-	section :global(td), section :global(th) {
+	section :global(td),
+	section :global(th) {
 		text-align: left;
 		border-bottom: 1px solid #eee;
 		padding: 0.2em 0.5em 0.2em 0;
 		line-height: 1.8;
 	}
 
-	section :global(table) :global(code), section :global(table) :global(span) {
+	section :global(table) :global(code),
+	section :global(table) :global(span) {
 		white-space: pre;
 	}
 
@@ -314,7 +357,6 @@
 			padding-left: 15em;
 			padding-right: 8em;
 		}
-
 
 		h2 {
 			padding: 4rem 0 0 0;
@@ -348,33 +390,3 @@
 		text-decoration: underline;
 	}
 </style>
-
-<svelte:head>
-	<title>LayerCake - Guide</title>
-	<meta name="og:title" content="Layer Cake — Guide">
-	<meta name="twitter:title" content="Layer Cake — Guide">
-</svelte:head>
-
-<sidebar>
-	<GuideContents sections={data.sections} bind:activeGuideSection/>
-</sidebar>
-
-<div id="container" class='content' bind:this={container}>
-	<section id="toc">
-		<h3>Table of contents</h3>
-		<ul>
-			{#each data.sections as section}
-				<li><a href="#{section.slug}">- {section.slug.replace(/^\w/, d => d.toUpperCase()).replaceAll('-', ' ')}</a></li>
-			{/each}
-		</ul>
-	</section>
-	{#each data.sections as section}
-		<section id='{section.slug}'>
-			<h2>
-				{section.metadata.title}
-				<small><a href='https://github.com/mhkeller/layercake/edit/master/src/content/guide/{section.file}' target="_blank" rel="noreferrer">edit this section</a></small>
-			</h2>
-			{@html section.html}
-		</section>
-	{/each}
-</div>

@@ -7,10 +7,7 @@ const name = 'calcUniques';
 const tests = [
 	{ args: [[0, 1, 2], {}], expected: {} },
 	{
-		args: [
-			[undefined, null, NaN, false, NaN, null],
-			{ x: d => d }
-		],
+		args: [[undefined, null, NaN, false, NaN, null], { x: d => d }],
 		expected: { x: [undefined, null, NaN, false] }
 	},
 	{
@@ -238,19 +235,11 @@ const tests = [
 	},
 	// sort true numbers
 	{
-		args: [
-			[0, 10, 11, 1, 2, -1, -10, 4, 2, 4, 5, 6, 7, 7, 0],
-			{ x: d => d },
-			{ x: true }
-		],
+		args: [[0, 10, 11, 1, 2, -1, -10, 4, 2, 4, 5, 6, 7, 7, 0], { x: d => d }, { x: true }],
 		expected: { x: [-10, -1, 0, 1, 2, 4, 5, 6, 7, 10, 11] }
 	},
 	{
-		args: [
-			[0, 10, 11, 1, 2, -1, -10, 4, 2, 4, 5, 6, 7, 7, 0],
-			{ x: d => d },
-			{ sort: true }
-		],
+		args: [[0, 10, 11, 1, 2, -1, -10, 4, 2, 4, 5, 6, 7, 7, 0], { x: d => d }, { sort: true }],
 		expected: { x: [-10, -1, 0, 1, 2, 4, 5, 6, 7, 10, 11] }
 	},
 	// sort true dates as strings
@@ -278,7 +267,7 @@ const tests = [
 				{ x: '2010-01-05' }
 			],
 			{ x: d => d.x },
-		  { sort: true }
+			{ sort: true }
 		],
 		expected: { x: ['2010-01-02', '2010-01-04', '2010-01-05', '2010-01-06'] }
 	},
@@ -324,7 +313,7 @@ const tests = [
 				{ x: ['2010-01-04', '2010-02-04'] },
 				{ x: ['2010-01-06', '2010-02-06'] },
 				{ x: ['2010-01-05', '2010-02-05'] }
-			].map(d => ({ x: d.x.map((q) => new Date(q)) })),
+			].map(d => ({ x: d.x.map(q => new Date(q)) })),
 			{ x: d => d.x },
 			{ x: true }
 		],
@@ -350,7 +339,7 @@ const tests = [
 				{ x: ['2010-01-04', '2010-02-04'] },
 				{ x: ['2010-01-06', '2010-02-06'] },
 				{ x: ['2010-01-05', '2010-02-05'] }
-			].map(d => ({ x: d.x.map((q) => new Date(q)) })),
+			].map(d => ({ x: d.x.map(q => new Date(q)) })),
 			{ x: d => d.x }
 		],
 		expected: {
@@ -488,18 +477,28 @@ const tests = [
 const errorTests = [
 	{
 		args: [[]],
-		expected: /^TypeError: The second argument of calcUniques\(\) must be an object with field names as keys as accessor functions as values\.$/
+		expected:
+			/^TypeError: The second argument of calcUniques\(\) must be an object with field names as keys as accessor functions as values\.$/
 	},
 	{
 		// Old-style API with array of objects as second argument
-		args: [[
-			{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 3, y: 4 }, { x: 4, y: 5 }
-		], [{ field: 'x', accessor: d => d.x }]],
-		expected: /^TypeError: The second argument of calcUniques\(\) must be an object with field names as keys as accessor functions as values.$/
+		args: [
+			[
+				{ x: 0, y: 1 },
+				{ x: 1, y: 2 },
+				{ x: 2, y: 3 },
+				{ x: 3, y: 4 },
+				{ x: 4, y: 5 }
+			],
+			[{ field: 'x', accessor: d => d.x }]
+		],
+		expected:
+			/^TypeError: The second argument of calcUniques\(\) must be an object with field names as keys as accessor functions as values.$/
 	},
 	{
 		args: [{}],
-		expected: /^TypeError: The first argument of calcUniques\(\) must be an array\. You passed in a object.*/
+		expected:
+			/^TypeError: The first argument of calcUniques\(\) must be an array\. You passed in a object.*/
 	}
 ];
 

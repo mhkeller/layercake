@@ -1,7 +1,7 @@
 <script>
 	import { LayerCake, Svg, Html, ScaledSvg, WebGL } from 'layercake';
-
 </script>
+
 <!--
 
 	position={}
@@ -48,8 +48,4 @@
 
  -->
 
-<LayerCake
- ssr
->
-
-</LayerCake>
+<LayerCake ssr></LayerCake>

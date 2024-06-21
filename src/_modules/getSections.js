@@ -3,7 +3,7 @@ import path from 'path';
 import * as fleece from 'golden-fleece';
 import hljs from 'highlight.js';
 
-import * as marked from './marked.js'
+import * as marked from './marked.js';
 import processMarkdown from './processMarkdown.js';
 import slugify from './slugify.js';
 import hljsDefineSvelte from './hljsDefineSvelte.js';
@@ -25,19 +25,20 @@ const unescaped = Object.keys(escaped).reduce(
 	{}
 );
 
-function unescape (str) {
+function unescape(str) {
 	return String(str).replace(/&.+?;/g, match => unescaped[match] || match);
 }
 
-const blockTypes = 'blockquote html heading hr list listitem paragraph table tablerow tablecell'.split(' ');
+const blockTypes =
+	'blockquote html heading hr list listitem paragraph table tablerow tablecell'.split(' ');
 
-function extractMeta (line, lang) {
+function extractMeta(line, lang) {
 	try {
 		if (lang === 'html' && line.startsWith('<!--') && line.endsWith('-->')) {
 			return fleece.evaluate(line.slice(4, -3).trim());
 		}
 
-		if (lang === 'js' || lang === 'json' && line.startsWith('/*') && line.endsWith('*/')) {
+		if (lang === 'js' || (lang === 'json' && line.startsWith('/*') && line.endsWith('*/'))) {
 			return fleece.evaluate(line.slice(2, -2).trim());
 		}
 	} catch (err) {
@@ -47,7 +48,7 @@ function extractMeta (line, lang) {
 }
 
 // https://github.com/darkskyapp/string-hash/blob/master/index.js
-function getHash (str) {
+function getHash(str) {
 	let hash = 5381;
 	let i = str.length;
 
@@ -139,20 +140,23 @@ export default function (returnHtml = true) {
 				const title = main.meta.title;
 				// if (!title) console.error(`Missing title for demo in ${file}`);
 
-				demos.set(hash, JSON.stringify({
-					title: title || 'Example from guide',
-					components: group.blocks
-						.filter(block => block.lang === 'html' || block.lang === 'js')
-						.map(block => {
-							const [name, type] = (block.meta.filename || '').split('.');
-							return {
-								name: name || 'App',
-								type: type || 'html',
-								source: block.source
-							};
-						}),
-					json5: json5 && json5.source
-				}));
+				demos.set(
+					hash,
+					JSON.stringify({
+						title: title || 'Example from guide',
+						components: group.blocks
+							.filter(block => block.lang === 'html' || block.lang === 'js')
+							.map(block => {
+								const [name, type] = (block.meta.filename || '').split('.');
+								return {
+									name: name || 'App',
+									type: type || 'html',
+									source: block.source
+								};
+							}),
+						json5: json5 && json5.source
+					})
+				);
 			});
 
 			const subsections = [];
@@ -183,8 +187,12 @@ export default function (returnHtml = true) {
 			// Nicer formatting for function calls and args
 			while ((match = pattern.exec(html))) {
 				const formatted = match[2].replace(/((\w+)\.)?(\w+)\((.+)?\)/, (m, $1, $2, $3, $4 = '') => {
-					if ($1) return `<span class="function">${$1}</span>${$3}<span class="call">(<span class="arguments">${$4}</span>)</span>`;
-					return m.replace(`(${$4})`, `<span class="call">(<span class="arguments">${$4}</span>)</span>`);
+					if ($1)
+						return `<span class="function">${$1}</span>${$3}<span class="call">(<span class="arguments">${$4}</span>)</span>`;
+					return m.replace(
+						`(${$4})`,
+						`<span class="call">(<span class="arguments">${$4}</span>)</span>`
+					);
 				});
 				html = html.replace(match[2], formatted);
 			}

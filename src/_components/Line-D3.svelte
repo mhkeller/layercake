@@ -12,16 +12,13 @@
 	export let stroke = '#ab00d6';
 
 	/** @type {Function} [curve=curveLinear] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses. */
-	export let curve = curveLinear
+	export let curve = curveLinear;
 
-	$: path = line()
-		.x($xGet)
-		.y($yGet)
-		.curve(curve);
-		// .defined($y)
+	$: path = line().x($xGet).y($yGet).curve(curve);
+	// .defined($y)
 </script>
 
-<path class='path-line' d='{path($data)}' {stroke}></path>
+<path class="path-line" d={path($data)} {stroke}></path>
 
 <style>
 	.path-line {
@@ -31,5 +28,3 @@
 		stroke-width: 2;
 	}
 </style>
-
-

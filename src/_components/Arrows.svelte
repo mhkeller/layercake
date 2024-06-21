@@ -39,13 +39,10 @@
 	// otherwise it won't find anything
 	onMount(async () => {
 		await tick();
-		annotationEls = Array.from(
-			container.closest(containerClass)
-				.querySelectorAll(annotationClass)
-		);
+		annotationEls = Array.from(container.closest(containerClass).querySelectorAll(annotationClass));
 	});
 
-	function setPath (w, h) {
+	function setPath(w, h) {
 		return (anno, i, arrow) => {
 			const el = annotationEls[i];
 
@@ -55,8 +52,19 @@
 			 */
 			const arrowSource = getElPosition(el);
 			const sourceCoords = arrow.source.anchor.split('-').map((q, j) => {
-				const point = q === 'middle' ? arrowSource[lookups[j].css] + (arrowSource[lookups[j].dimension] / 2) : arrowSource[q];
-				return point + (parseCssValue(arrow.source[`d${lookups[j].position}`], i, arrowSource.width, arrowSource.height));
+				const point =
+					q === 'middle'
+						? arrowSource[lookups[j].css] + arrowSource[lookups[j].dimension] / 2
+						: arrowSource[q];
+				return (
+					point +
+					parseCssValue(
+						arrow.source[`d${lookups[j].position}`],
+						i,
+						arrowSource.width,
+						arrowSource.height
+					)
+				);
 			});
 
 			/* --------------------------------------------
@@ -69,10 +77,16 @@
 			 * If we're passing in a percentage as a string then we need to convert it to pixel values
 			 * Otherwise pass it to our xGet and yGet functions
 			 */
-			const targetCoords = [arrow.target.x || $x(arrow.target), arrow.target.y || $y(arrow.target)].map((q, j) => {
-				const val = typeof q === 'string' && q.includes('%')
-					? parseCssValue(q, j, w, h)
-					: j ? $yScale(q) : $xScale(q);
+			const targetCoords = [
+				arrow.target.x || $x(arrow.target),
+				arrow.target.y || $y(arrow.target)
+			].map((q, j) => {
+				const val =
+					typeof q === 'string' && q.includes('%')
+						? parseCssValue(q, j, w, h)
+						: j
+							? $yScale(q)
+							: $xScale(q);
 				return val + (arrow.target[`d${lookups[j].position}`] || 0);
 			});
 
@@ -91,19 +105,17 @@
 </script>
 
 <g bind:this={container}>
-{#if annotations.length}
-	<g class="swoops">
-		{#each annotations as anno, i}
-			{#if anno.arrows}
-				{#each anno.arrows as arrow}
-					<path
-						marker-end='url(#arrowhead)'
-						d='{d(anno, i, arrow)}'></path>
-				{/each}
-			{/if}
-		{/each}
-	</g>
-{/if}
+	{#if annotations.length}
+		<g class="swoops">
+			{#each annotations as anno, i}
+				{#if anno.arrows}
+					{#each anno.arrows as arrow}
+						<path marker-end="url(#arrowhead)" d={d(anno, i, arrow)}></path>
+					{/each}
+				{/if}
+			{/each}
+		</g>
+	{/if}
 </g>
 
 <style>

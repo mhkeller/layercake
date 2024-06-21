@@ -2,7 +2,7 @@
 	@component
 	Generates an HTML y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the tickMarks in the middle of the bandwidth.
  -->
- <script>
+<script>
 	import { getContext } from 'svelte';
 
 	const { xRange, yScale } = getContext('LayerCake');
@@ -23,7 +23,7 @@
 	export let tickMarkLength = undefined;
 
 	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let format = d => d ;
+	export let format = d => d;
 
 	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
 	export let ticks = 4;
@@ -42,25 +42,30 @@
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
 
-	$: tickVals = Array.isArray(ticks) ? ticks :
-		isBandwidth ?
-			$yScale.domain() :
-			typeof ticks === 'function' ?
-				ticks($yScale.ticks()) :
-					$yScale.ticks(ticks);
+	$: tickVals = Array.isArray(ticks)
+		? ticks
+		: isBandwidth
+			? $yScale.domain()
+			: typeof ticks === 'function'
+				? ticks($yScale.ticks())
+				: $yScale.ticks(ticks);
 
 	function calcStringLength(sum, val) {
 		if (val === ',' || val === '.') return sum + charPixelWidth * 0.5;
 		return sum + charPixelWidth;
 	}
 
-	$: tickLen = tickMarks === true
-		? labelPosition === 'above'
-			? tickMarkLength ?? widestTickLen
-			: tickMarkLength ?? 6
-		: 0;
+	$: tickLen =
+		tickMarks === true
+			? labelPosition === 'above'
+				? tickMarkLength ?? widestTickLen
+				: tickMarkLength ?? 6
+			: 0;
 
-	$: widestTickLen = Math.max(10, Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0))));
+	$: widestTickLen = Math.max(
+		10,
+		Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0)))
+	);
 
 	$: x1 = -tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen);
 	$: halfBand = isBandwidth ? $yScale.bandwidth() / 2 : 0;
@@ -68,35 +73,31 @@
 	$: maxTickValPerc = Math.max(...tickVals.map($yScale));
 </script>
 
-<div class='axis y-axis'>
+<div class="axis y-axis">
 	{#each tickVals as tick, i (tick)}
 		{@const tickValPerc = $yScale(tick)}
 
-		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValPerc + halfBand}%;'>
+		<div class="tick tick-{i}" style="left:{$xRange[0]}%;top:{tickValPerc + halfBand}%;">
 			{#if gridlines === true}
-				<div
-					class="gridline"
-					style="top:0;"
-					style:left='{x1}px'
-					style:right='0px'
-				></div>
+				<div class="gridline" style="top:0;" style:left="{x1}px" style:right="0px"></div>
 			{/if}
 			{#if tickMarks === true}
-				<div
-					class="tick-mark"
-					style:top='0'
-					style:left='{x1}px'
-					style:width='{tickLen}px'
-				></div>
+				<div class="tick-mark" style:top="0" style:left="{x1}px" style:width="{tickLen}px"></div>
 			{/if}
 			<div
 				class="text"
-				style:top='0'
-				style:text-align='{labelPosition === 'even' ? 'right' : 'left'}'
-				style:width='{widestTickLen}px'
-				style:left='{-widestTickLen - tickGutter - (labelPosition === 'even' ? tickLen : 0)}px'
-				style:transform='translate({dx + (labelPosition === 'even' ? -3 : 0)}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPerc === maxTickValPerc) ? -3 : 4)}px))'
-			>{format(tick)}</div>
+				style:top="0"
+				style:text-align={labelPosition === 'even' ? 'right' : 'left'}
+				style:width="{widestTickLen}px"
+				style:left="{-widestTickLen - tickGutter - (labelPosition === 'even' ? tickLen : 0)}px"
+				style:transform="translate({dx + (labelPosition === 'even' ? -3 : 0)}px, calc(-50% + {dy +
+					(labelPosition === 'above' ||
+					(snapBaselineLabel === true && tickValPerc === maxTickValPerc)
+						? -3
+						: 4)}px))"
+			>
+				{format(tick)}
+			</div>
 		</div>
 	{/each}
 </div>

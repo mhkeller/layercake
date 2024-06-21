@@ -59,5 +59,8 @@
 	aria-label={label}
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}
-><slot name="fallback">{#if fallback}{fallback}{/if}</slot></canvas>
+	><slot name="fallback"
+		>{#if fallback}{fallback}{/if}</slot
+	></canvas
+>
 <slot {element} {context}></slot>

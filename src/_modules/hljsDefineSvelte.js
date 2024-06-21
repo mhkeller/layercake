@@ -3,18 +3,18 @@
  */
 export default function hljsDefineSvelte(hljs) {
 	return {
-		subLanguage: "xml",
+		subLanguage: 'xml',
 		contains: [
-			hljs.COMMENT("<!--", "-->", {
-				relevance: 10,
+			hljs.COMMENT('<!--', '-->', {
+				relevance: 10
 			}),
 			{
 				begin: /^(\s*)(<script(\s*context="module")?>)/gm,
 				end: /^(\s*)(<\/script>)/gm,
-				subLanguage: "javascript",
+				subLanguage: 'javascript',
 				excludeBegin: true,
 				excludeEnd: true,
-				contains:[
+				contains: [
 					{
 						begin: /^(\s*)(\$:)/gm,
 						end: /(\s*)/gm,
@@ -25,15 +25,15 @@ export default function hljsDefineSvelte(hljs) {
 			{
 				begin: /^(\s*)(<style.*>)/gm,
 				end: /^(\s*)(<\/style>)/gm,
-				subLanguage: "css",
+				subLanguage: 'css',
 				excludeBegin: true,
-				excludeEnd: true,
+				excludeEnd: true
 			},
 			{
 				begin: /\{/gm,
 				end: /\}/gm,
-				subLanguage: "javascript",
-				contains:[
+				subLanguage: 'javascript',
+				contains: [
 					{
 						begin: /[\{]/,
 						end: /[\}]/,
@@ -41,10 +41,10 @@ export default function hljsDefineSvelte(hljs) {
 					},
 					{
 						begin: /([#:\/@])(if|else|each|await|then|catch|debug|html)/gm,
-						className:'keyword',
-						relevance: 10,
+						className: 'keyword',
+						relevance: 10
 					}
-				],
+				]
 			}
 		]
 	};

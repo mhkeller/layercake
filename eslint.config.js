@@ -35,7 +35,6 @@ export default [
 			'package-lock.json',
 			'yarn.lock',
 			'static/'
-
 		]
 	}
 ];

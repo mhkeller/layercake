@@ -359,30 +359,30 @@ Here's an example showing passing different data formats for extent calculation 
 
 ```svelte
 <script>
-  import { LayerCake } from 'LayerCake';
+	import { LayerCake } from 'LayerCake';
 
-  const data = [
-    {
-      key: 'apples',
-      values: [{month: '2015-03-01', value: 3840}, /*...*/]
-    },
-    {
-      key: 'bananas',
-      values: [{month: '2015-03-01', value: 1920}, /*...*/]
-    },
-  ];
+	const data = [
+		{
+			key: 'apples',
+			values: [{ month: '2015-03-01', value: 3840 } /*...*/]
+		},
+		{
+			key: 'bananas',
+			values: [{ month: '2015-03-01', value: 1920 } /*...*/]
+		}
+	];
 
-  const flatData = [
-    { month: '2015-03-01', value: 3840, group: 'apples' },
-    { month: '2015-02-01', value: 1600, group: 'apples' },
-    { month: '2015-01-01', value: 640, group:  'apples' },
-    { month: '2015-00-01', value: 320, group:  'apples' },
+	const flatData = [
+		{ month: '2015-03-01', value: 3840, group: 'apples' },
+		{ month: '2015-02-01', value: 1600, group: 'apples' },
+		{ month: '2015-01-01', value: 640, group: 'apples' },
+		{ month: '2015-00-01', value: 320, group: 'apples' },
 
-    { month: '2015-03-01', value: 1920, group: 'bananas' },
-    { month: '2015-02-01', value: 1440, group: 'bananas' },
-    { month: '2015-01-01', value: 960, group:  'bananas' },
-    { month: '2015-00-01', value: 480, group:  'bananas' }
-  ];
+		{ month: '2015-03-01', value: 1920, group: 'bananas' },
+		{ month: '2015-02-01', value: 1440, group: 'bananas' },
+		{ month: '2015-01-01', value: 960, group: 'bananas' },
+		{ month: '2015-00-01', value: 480, group: 'bananas' }
+	];
 </script>
 
 <div class="chart-container">

@@ -123,11 +123,11 @@
 					r: (context, props) => {
 						// const m = window.devicePixelRatio > 1 ? 4.0 : 2.0
 						// If using an r-scale, set width here
-						return props.points.map(() => props.pointWidth);
+						return props.points.map(p => props.pointWidth);
 					},
 					stroke_size: (context, props) => {
 						// If using an r-scale, set that here
-						return props.points.map(() => 0);
+						return props.points.map(p => 0);
 					}
 				},
 				uniforms: {

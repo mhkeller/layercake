@@ -32,7 +32,7 @@
 
 {#each uniquePoints as point, i}
 	<path
-		style:stroke={stroke}
+		style="stroke: {stroke}"
 		class="voronoi-cell"
 		d={voronoi.renderCell(i)}
 		on:mouseover={() => {

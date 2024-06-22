@@ -45,7 +45,7 @@ function extractMeta(line, lang) {
 				return fleece.evaluate(line.slice(2, -2).trim());
 			}
 		}
-		return null
+		return null;
 	} catch (err) {
 		console.error(err);
 		return null;

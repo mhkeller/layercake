@@ -97,8 +97,8 @@
 	on:mousedown|stopPropagation={reset}
 	on:touchstart|stopPropagation={reset}
 	role="slider"
-	aria-valuemin="{min}"
-	aria-valuemax="{max}"
+	aria-valuemin={min}
+	aria-valuemax={max}
 	aria-valuetext="{min} to {max}"
 	tabindex="0"
 >
@@ -109,8 +109,8 @@
 			on:touchstart|stopPropagation={move}
 			style="left: {left}%; right: {right}%"
 			role="slider"
-			aria-valuemin="{min}"
-			aria-valuemax="{max}"
+			aria-valuemin={min}
+			aria-valuemax={max}
 			aria-valuetext="{min} to {max}"
 			tabindex="0"
 		></div>
@@ -120,8 +120,8 @@
 			on:touchstart|stopPropagation={adjust_min}
 			style="left: {left}%"
 			role="slider"
-			aria-valuemin="{min}"
-			aria-valuemax="{max}"
+			aria-valuemin={min}
+			aria-valuemax={max}
 			aria-valuetext="{min} to {max}"
 			tabindex="0"
 		></div>
@@ -131,8 +131,8 @@
 			on:touchstart|stopPropagation={adjust_max}
 			style="right: {right}%"
 			role="slider"
-			aria-valuemin="{min}"
-			aria-valuemax="{max}"
+			aria-valuemin={min}
+			aria-valuemax={max}
 			aria-valuetext="{min} to {max}"
 			tabindex="0"
 		></div>

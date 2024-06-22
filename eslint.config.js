@@ -19,9 +19,9 @@ export default [
 	},
 	// Keep in some unused variables for examples and components to show defaults
 	{
-		"files": ["**/_examples/*.svelte", "**/_components/*.svelte"],
-		"rules": {
-			"no-unused-vars": "off",
+		files: ['**/_examples/*.svelte', '**/_components/*.svelte'],
+		rules: {
+			'no-unused-vars': 'off'
 		}
 	},
 

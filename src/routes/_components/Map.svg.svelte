@@ -46,9 +46,7 @@
 		{flatData}
 	>
 		<Svg>
-			<MapSvg
-				{projection}
-			/>
+			<MapSvg {projection} />
 		</Svg>
 	</LayerCake>
 </div>

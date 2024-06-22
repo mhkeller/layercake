@@ -49,7 +49,12 @@
 	}
 </script>
 
-<g class="map-group" on:mouseout={() => dispatch('mouseout')} on:blur={() => dispatch('mouseout')} role="tooltip">
+<g
+	class="map-group"
+	on:mouseout={() => dispatch('mouseout')}
+	on:blur={() => dispatch('mouseout')}
+	role="tooltip"
+>
 	{#each features || $data.features as feature}
 		<path
 			class="feature-path"

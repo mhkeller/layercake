@@ -5,8 +5,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	const { data, xGet, yGet, x, yRange, xScale, y, height} =
-		getContext('LayerCake');
+	const { data, xGet, yGet, x, yRange, xScale, y, height } = getContext('LayerCake');
 
 	/** @type {String} [fill='#00e047'] - The shape's fill color. */
 	export let fill = '#00e047';

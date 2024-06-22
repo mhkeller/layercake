@@ -67,30 +67,34 @@ The data is now an array of values. The `month` values you can't see because sne
 
 ```js
 [
+  // apples
 	[
 		[0, 3840],
 		[0, 1600],
 		[0, 640],
 		[0, 320]
-	], // apples
+	],
+  // bananas
 	[
 		[3840, 5760],
 		[1600, 3040],
 		[640, 1600],
 		[320, 800]
-	], // bananas
+	],
+  // cherries
 	[
 		[5760, 6720],
 		[3040, 4000],
 		[1600, 2240],
 		[800, 1440]
-	], // cherries
+	],
+  // dates
 	[
 		[6720, 7120],
 		[4000, 4400],
 		[2240, 2640],
 		[1440, 1840]
-	] // dates
+	]
 ];
 ```
 

@@ -1,6 +1,14 @@
 Changelog
 ===
 
+# 8.3.1
+
+> 2024-06-22
+
+Security update
+
+* [PR#212](https://github.com/mhkeller/layercake/pull/212)
+
 # 8.3.0
 
 > 2024-06-04

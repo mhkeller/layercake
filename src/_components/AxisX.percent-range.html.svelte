@@ -37,7 +37,7 @@
 	export let dx = 0;
 
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = 1;
+	export let dy = 0;
 
 	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange=true` it defaults to `'%'`. Options: `'%'` or `'px'`. */
 	export let units = $percentRange === true ? '%' : 'px';
@@ -60,7 +60,7 @@
 
 <div class='axis x-axis' class:snapLabels>
 	{#each tickVals as tick, i (tick)}
-		{@const tickValPx = $xScale(tick)}
+		{@const tickValUnits = $xScale(tick)}
 
 		{#if baseline === true}
 			<div class="baseline" style='top:100%; width:100%;'></div>
@@ -69,20 +69,20 @@
 		{#if gridlines === true}
 			<div
 				class="gridline"
-				style:left='{tickValPx}{units}'
+				style:left='{tickValUnits}{units}'
 				style='top:0; bottom:0;'></div>
 		{/if}
 		{#if tickMarks === true}
 			<div
 				class="tick-mark"
-				style:left='{tickValPx + halfBand}{units}'
+				style:left='{tickValUnits + halfBand}{units}'
 				style:height='{tickLen}px'
 				style:bottom='{-tickLen - tickGutter}px'
 			></div>
 		{/if}
 		<div
 			class='tick tick-{i}'
-			style:left='{tickValPx + halfBand}{units}'
+			style:left='{tickValUnits + halfBand}{units}'
 			style='top:calc(100% + {tickGutter}px);'>
 			<div
 				class="text"

@@ -1,11 +1,13 @@
 <!--
 	@component
 	Generates an HTML y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the tickMarks in the middle of the bandwidth.
+
+	If you have `percentRange=true` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts.
  -->
  <script>
 	import { getContext } from 'svelte';
 
-	const { xRange, yScale } = getContext('LayerCake');
+	const { xRange, yScale, percentRange } = getContext('LayerCake');
 
 	/** @type {Boolean} [tickMarks=false] - Show marks next to the tick label. */
 	export let tickMarks = false;
@@ -40,6 +42,11 @@
 	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
 	export let charPixelWidth = 7.25;
 
+	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange=true` it defaults to `'%'`. Options: `'%'` or `'px'`. */
+	export let units = $percentRange === true ? '%' : 'px';
+
+	$:console.log({units})
+
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
 
 	$: tickVals = Array.isArray(ticks) ? ticks :
@@ -65,14 +72,14 @@
 	$: x1 = -tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen);
 	$: halfBand = isBandwidth ? $yScale.bandwidth() / 2 : 0;
 
-	$: maxTickValPerc = Math.max(...tickVals.map($yScale));
+	$: maxTickValUnits = Math.max(...tickVals.map($yScale));
 </script>
 
 <div class='axis y-axis'>
 	{#each tickVals as tick, i (tick)}
-		{@const tickValPerc = $yScale(tick)}
+		{@const tickValUnits = $yScale(tick)}
 
-		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValPerc + halfBand}%;'>
+		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValUnits + halfBand}{units};'>
 			{#if gridlines === true}
 				<div
 					class="gridline"
@@ -95,7 +102,7 @@
 				style:text-align='{labelPosition === 'even' ? 'right' : 'left'}'
 				style:width='{widestTickLen}px'
 				style:left='{-widestTickLen - tickGutter - (labelPosition === 'even' ? tickLen : 0)}px'
-				style:transform='translate({dx + (labelPosition === 'even' ? -3 : 0)}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValPerc === maxTickValPerc) ? -3 : 4)}px))'
+				style:transform='translate({dx + (labelPosition === 'even' ? -3 : 0)}px, calc(-50% + {dy + (labelPosition === 'above' || (snapBaselineLabel === true && tickValUnits === maxTickValUnits) ? -3 : 4)}px))'
 			>{format(tick)}</div>
 		</div>
 	{/each}

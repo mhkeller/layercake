@@ -30,9 +30,6 @@
 		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
 	});
 
-	let evt;
-	let hideTooltip = true;
-
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
 	const flatData = geojson.features.map(d => d.properties);
@@ -51,8 +48,6 @@
 		<Svg>
 			<MapSvg
 				{projection}
-				on:mousemove={event => (evt = hideTooltip = event)}
-				on:mouseout={() => (hideTooltip = true)}
 			/>
 		</Svg>
 	</LayerCake>

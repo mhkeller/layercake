@@ -2,7 +2,6 @@
 	import { LayerCake, Svg, Html } from 'layercake';
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
-	import { format } from 'd3-format';
 
 	import MultiLine from '../../_components/MultiLine.svelte';
 	import SharedTooltip from '../../_components/SharedTooltip.html.svelte';

@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, Svg, Html } from 'layercake';
+	import { LayerCake, Svg } from 'layercake';
 	import { scaleOrdinal } from 'd3-scale';
 	import { schemeCategory10 } from 'd3-scale-chromatic';
 

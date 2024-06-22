@@ -30,7 +30,6 @@
 
 	const w = 150;
 	const w2 = w / 2;
-	let top = 0;
 
 	/* --------------------------------------------
 	 * Sort the keys by the highest value

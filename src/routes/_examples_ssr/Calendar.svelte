@@ -61,7 +61,7 @@
 			data={month.values}
 		>
 			<ScaledSvg>
-				<CalendarMonth calcCellSize={(w, h) => 100 / 7} />
+				<CalendarMonth calcCellSize={() => 100 / 7} />
 			</ScaledSvg>
 		</LayerCake>
 	</div>

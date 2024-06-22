@@ -60,7 +60,7 @@
 			window.addEventListener('resize', onresize, true);
 
 			// wait for fonts to load...
-			const timeouts = [setTimeout(onresize, 1000), setTimeout(onresize, 5000)];
+			// const timeouts = [setTimeout(onresize, 1000), setTimeout(onresize, 5000)];
 		}
 	});
 
@@ -152,6 +152,7 @@
 								<span
 									><a href="/components/{item.slug}">{item.name || formatName(item.slug)}</a></span
 								>
+								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 								{@html item.classes
 									.map(d => `<span class="label ${d}">${d.replace('percent-', '%-')}</span>`)
 									.join('')}

@@ -8,9 +8,9 @@
 
 	export let sections;
 
-	let slug = '';
+	// let slug = '';
 	let path;
-	let type;
+	// let type;
 
 	// I was getting a weird artifact of a service-worker.js
 	// being requested. it's fixed now but keep this for
@@ -21,13 +21,13 @@
 
 	$: if (!isServiceWorker) {
 		path = $page.url.pathname;
-		type = path.split('/')[1];
+		// type = path.split('/')[1];
 		segment = `/${path.replace('/', '')}`;
 		// segment = `/${path.replace('/', '').replace(/\$/, '')}`;
-		slug = path.replace(/\/$/, '').split('/').pop();
+		// slug = path.replace(/\/$/, '').split('/').pop();
 	}
 
-	let basePath = '/';
+	// let basePath = '/';
 	let open = false;
 
 	let nav;
@@ -58,12 +58,14 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	class="{open ? 'open' : 'closed'} mousecatcher"
 	on:click={() => (open = false)}
 	on:keypress={() => (open = false)}
 ></div>
 <div class="container">
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<span
 		class="menu-link {open ? 'menu-open' : 'menu-closed'}"
 		on:click={toggleOpen}
@@ -74,7 +76,6 @@
 
 <ul class="dropdown">
 	<li>
-		<!-- svelte-ignore a11y-no-onchange -->
 		<select on:change={loadPage} bind:value={segment}>
 			{#if segment.startsWith('/components')}
 				<option value={segment} disabled>Select...</option>

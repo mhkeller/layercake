@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, Svg, WebGL, Html } from 'layercake';
+	import { LayerCake, Svg, Html } from 'layercake';
 
 	import ScatterSvg from '../../_components/Scatter.svg.svelte';
 	import QuadTree from '../../_components/QuadTree.html.svelte';

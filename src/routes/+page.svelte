@@ -23,7 +23,7 @@
   im${''}port Labels f${''}rom './components/Labels.svelte';
 
 	const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }];
-<\/scr${''}ipt>
+</scr${''}ipt>
 
 <sty${''}le>
 	.chart-container {
@@ -104,6 +104,7 @@
 	</div>
 
 	<div class="code-example">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		<pre>{@html hljs.highlight(codeExample, { language: 'svelte' }).value}</pre>
 	</div>
 

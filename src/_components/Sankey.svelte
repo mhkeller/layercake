@@ -9,13 +9,13 @@
 	const { data, width, height } = getContext('LayerCake');
 
 	/** @type {Function} [colorLinks=d => 'rgba(0, 0, 0, .2)'] - A function to return a color for the links. */
-	export let colorLinks = d => 'rgba(0, 0, 0, .2)';
+	export let colorLinks = () => 'rgba(0, 0, 0, .2)';
 
 	/** @type {Function} [colorNodes=d => '#333'] - A function to return a color for each node. */
-	export let colorNodes = d => '#333';
+	export let colorNodes = () => '#333';
 
 	/** @type {Function} [colorText=d => '#263238'] - A function to return a color for each text label. */
-	export let colorText = d => '#263238';
+	export let colorText = () => '#263238';
 
 	/** @type {Number} [nodeWidth=5] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth). */
 	export let nodeWidth = 5;
@@ -60,7 +60,7 @@
 		{/each}
 	</g>
 	<g class="rect-group">
-		{#each sankeyData.nodes as d, i}
+		{#each sankeyData.nodes as d}
 			<rect x={d.x0} y={d.y0} height={d.y1 - d.y0} width={d.x1 - d.x0} fill={colorNodes(d)} />
 			<text
 				x={d.x0 < $width / 4 ? d.x1 + 6 : d.x0 - 6}

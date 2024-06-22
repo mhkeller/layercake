@@ -18,7 +18,7 @@
 				{parentKey}
 				spacing={5}
 				sortBy={(a, b) => b.depth - a.depth}
-				labelVisibilityThreshold={r => false}
+				labelVisibilityThreshold={() => false}
 				stroke="#00bbff"
 			/>
 		</Html>

@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, Svg, Html } from 'layercake';
+	import { LayerCake, Svg } from 'layercake';
 	import { scaleOrdinal, scaleBand } from 'd3-scale';
 
 	import ForceLayout from '../../_components/CirclePackForce.svelte';

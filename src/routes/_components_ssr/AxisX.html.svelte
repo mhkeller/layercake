@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, ScaledSvg, Html } from 'layercake';
+	import { LayerCake, Html } from 'layercake';
 
 	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
 

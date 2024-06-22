@@ -95,6 +95,7 @@
 
 	{#if content.dek}
 		<div class="dek">
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html markdownToHtml(content.dek)}
 		</div>
 	{/if}
@@ -102,6 +103,8 @@
 	<div id="pages" class={content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<li
 					class="tab {active === cleanTitle(page.title) ? 'active' : ''}"
 					on:click={() => (active = cleanTitle(page.title))}
@@ -111,12 +114,15 @@
 			{/each}
 		</ul>
 		<div id="contents-container">
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div class="copy" on:click={copyToClipboard}></div>
 			{#each pages as page}
 				<div
 					class="contents"
 					style="display: {active === cleanTitle(page.title) ? 'block' : 'none'};"
 				>
+					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					<pre>{@html highlight(page.contents, page.title)}</pre>
 				</div>
 			{/each}

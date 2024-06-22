@@ -25,7 +25,7 @@ export default [
 			'.DS_Store',
 			'node_modules',
 			'/build',
-			'/docs',
+			'**/docs/**',
 			'/.svelte-kit',
 			'/package',
 			'.env',
@@ -34,7 +34,8 @@ export default [
 			'pnpm-lock.yaml',
 			'package-lock.json',
 			'yarn.lock',
-			'static/'
+			'static/',
+			'**/marked.js'
 		]
 	}
 ];

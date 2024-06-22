@@ -12,7 +12,6 @@ export default function makeAccessor(acc) {
 				return typeof k !== 'function' ? d[k] : k(d);
 			});
 	} else if (typeof acc !== 'function') {
-		// eslint-disable-line no-else-return
 		return d => d[acc];
 	}
 	return acc;

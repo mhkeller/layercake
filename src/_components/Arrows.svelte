@@ -28,7 +28,7 @@
 		{ dimension: 'height', css: 'top', position: 'y' }
 	];
 
-	let d = (anno, i, arrow) => '';
+	let d = () => '';
 	let annotationEls;
 
 	// This searches the DOM for the HTML annotations

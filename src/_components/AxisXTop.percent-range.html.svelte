@@ -5,7 +5,7 @@
 <script>
 	import { getContext } from 'svelte';
 
-	const { width, height, xScale, yRange } = getContext('LayerCake');
+	const { xScale } = getContext('LayerCake');
 
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;

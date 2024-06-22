@@ -54,6 +54,7 @@
 	on:mousemove={findItem}
 	on:mouseout={() => (visible = false)}
 	on:blur={() => (visible = false)}
+	role="tooltip"
 ></div>
 <slot x={xGetter(found) || 0} y={yGetter(found) || 0} {found} {visible} {e}></slot>
 

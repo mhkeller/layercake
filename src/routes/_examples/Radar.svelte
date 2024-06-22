@@ -1,6 +1,5 @@
 <script>
 	import { LayerCake, Svg } from 'layercake';
-	import { scaleLinear } from 'd3-scale';
 
 	import Radar from '../../_components/Radar.svelte';
 	import AxisRadial from '../../_components/AxisRadial.svelte';

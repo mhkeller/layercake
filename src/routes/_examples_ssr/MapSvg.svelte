@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, ScaledSvg, Html } from 'layercake';
+	import { LayerCake, ScaledSvg } from 'layercake';
 	import { feature } from 'topojson-client';
 	import { geoIdentity } from 'd3-geo';
 	import { scaleQuantize } from 'd3-scale';

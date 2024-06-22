@@ -9,7 +9,7 @@
 <div class="chart-container">
 	<LayerCake padding={{ top: 10 }} {data}>
 		<Svg>
-			<Sankey colorNodes={d => '#00bbff'} colorLinks={d => '#00bbff35'} />
+			<Sankey colorNodes={() => '#00bbff'} colorLinks={() => '#00bbff35'} />
 		</Svg>
 	</LayerCake>
 </div>

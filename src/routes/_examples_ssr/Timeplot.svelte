@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, ScaledSvg, Html, calcExtents } from 'layercake';
+	import { LayerCake, Html, calcExtents } from 'layercake';
 	import { timeDay } from 'd3-time';
 	import { scaleBand, scaleTime } from 'd3-scale';
 

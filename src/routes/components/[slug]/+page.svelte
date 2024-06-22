@@ -132,10 +132,12 @@
 	</div>
 
 	<div class="dek">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html markdownToHtml(content.componentDescription)}
 	</div>
 	{#if content.hasjsDoctable === true}
 		<div id="params-table">
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html markdownToHtml(jsdocTable)}
 		</div>
 	{/if}
@@ -164,6 +166,7 @@
 	<div id="pages" class={content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
+				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<li
 					class="tab {active === page.slug ? 'active' : ''}"
 					on:click={() => (active = page.slug)}
@@ -174,9 +177,12 @@
 			{/each}
 		</ul>
 		<div id="contents-container">
+			<!-- svelte-ignore element_invalid_self_closing_tag -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div class="copy" on:click={copyToClipboard} on:keypress={copyToClipboard} />
 			{#each pages as page}
 				<div class="contents" style="display: {active === page.slug ? 'block' : 'none'};">
+					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					<pre>{@html highlight(page.contents, page.slug)}</pre>
 				</div>
 			{/each}

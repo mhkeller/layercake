@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, Svg, Html } from 'layercake';
+	import { LayerCake, Svg } from 'layercake';
 	import { scaleBand } from 'd3-scale';
 
 	import Column from '../../_components/Column.svelte';

@@ -71,7 +71,7 @@
 	$: stratified = stratifier(dataset);
 
 	$: root = hierarchy(stratified)
-		.sum((d, i) => {
+		.sum(d => {
 			return d.data[valueKey] || 1;
 		})
 		.sort(sortBy);
@@ -89,9 +89,13 @@
 		<div class="circle-group" data-id={d.data.id} data-visible={labelVisibilityThreshold(d.r)}>
 			<div
 				class="circle"
-				style="left:{d.x}px;top:{d.y}px;width:{d.r * 2}px;height:{d.r *
-					2}px;background-color:{fill};border: {strokeWidth}px solid {stroke};"
-			/>
+				style:left="{d.x}px"
+				style:top="{d.y}px"
+				style:width="{d.r * 2}px"
+				style:height="{d.r * 2}px"
+				style:background-color={fill}
+				style:border="{strokeWidth}px solid {stroke}"
+			></div>
 			<div
 				class="text-group"
 				style="

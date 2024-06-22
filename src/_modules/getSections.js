@@ -42,7 +42,7 @@ function extractMeta(line, lang) {
 			return fleece.evaluate(line.slice(2, -2).trim());
 		}
 	} catch (err) {
-		// TODO report these errors, don't just squelch them
+		console.error(err);
 		return null;
 	}
 }

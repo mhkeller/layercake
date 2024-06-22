@@ -23,7 +23,7 @@
 			window.addEventListener('resize', onresize, true);
 
 			// wait for fonts to load...
-			const timeouts = [setTimeout(onresize, 1000), setTimeout(onresize, 5000)];
+			// const timeouts = [setTimeout(onresize, 1000), setTimeout(onresize, 5000)];
 		}
 	});
 
@@ -91,6 +91,7 @@
 					></small
 				>
 			</h2>
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html section.html}
 		</section>
 	{/each}

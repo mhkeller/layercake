@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, Svg, Canvas } from 'layercake';
+	import { LayerCake, Canvas } from 'layercake';
 
 	import ScatterCanvas from '../../_components/Scatter.canvas.svelte';
 

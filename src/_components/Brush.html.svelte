@@ -96,6 +96,8 @@
 	class="brush-outer"
 	on:mousedown|stopPropagation={reset}
 	on:touchstart|stopPropagation={reset}
+	role="button"
+	tabindex="0"
 >
 	{#if min !== null}
 		<div
@@ -103,18 +105,24 @@
 			on:mousedown|stopPropagation={move}
 			on:touchstart|stopPropagation={move}
 			style="left: {left}%; right: {right}%"
+			role="button"
+			tabindex="0"
 		></div>
 		<div
 			class="brush-handle"
 			on:mousedown|stopPropagation={adjust_min}
 			on:touchstart|stopPropagation={adjust_min}
 			style="left: {left}%"
+			role="button"
+			tabindex="0"
 		></div>
 		<div
 			class="brush-handle"
 			on:mousedown|stopPropagation={adjust_max}
 			on:touchstart|stopPropagation={adjust_max}
 			style="right: {right}%"
+			role="button"
+			tabindex="0"
 		></div>
 	{/if}
 </div>

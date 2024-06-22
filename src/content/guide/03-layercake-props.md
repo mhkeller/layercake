@@ -355,7 +355,7 @@ In order for Layer Cake to measure the extents of your data, it needs a flat arr
 
 > The library also exports a flattening function to handle common use cases if you need to flatten your data and you don't already have a flat version. See the [flatten](/guide#flatten) helper function for more info.
 
-Here's an example showing passing different data formats for extent calculation versus what is used by layer components.
+Here's an example showing passing different data formats for extent calculation versus data formats used by layer components.
 
 ```svelte
 <script>
@@ -364,24 +364,24 @@ Here's an example showing passing different data formats for extent calculation 
   const data = [
     {
       key: 'apples',
-      values: [{month: '2015-03-01', value: 3840}, ...]
+      values: [{month: '2015-03-01', value: 3840}, /*...*/]
     },
     {
       key: 'bananas',
-      values: [{month: '2015-03-01', value: 1920}, ...]
+      values: [{month: '2015-03-01', value: 1920}, /*...*/]
     },
   ];
 
   const flatData = [
-    {month: '2015-03-01', value: 3840, group: 'apples'},
-    {month: '2015-02-01', value: 1600, group: 'apples'},
-    {month: '2015-01-01', value: 640, group:  'apples'},
-    {month: '2015-00-01', value: 320, group:  'apples'},
+    { month: '2015-03-01', value: 3840, group: 'apples' },
+    { month: '2015-02-01', value: 1600, group: 'apples' },
+    { month: '2015-01-01', value: 640, group:  'apples' },
+    { month: '2015-00-01', value: 320, group:  'apples' },
 
-    {month: '2015-03-01', value: 1920, group: 'bananas'},
-    {month: '2015-02-01', value: 1440, group: 'bananas'},
-    {month: '2015-01-01', value: 960, group:  'bananas'},
-    {month: '2015-00-01', value: 480, group:  'bananas'}
+    { month: '2015-03-01', value: 1920, group: 'bananas' },
+    { month: '2015-02-01', value: 1440, group: 'bananas' },
+    { month: '2015-01-01', value: 960, group:  'bananas' },
+    { month: '2015-00-01', value: 480, group:  'bananas' }
   ];
 </script>
 

@@ -32,24 +32,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.D8VLq8ip.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.BmY10De1.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.DHN2NzXR.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CuaEv1fO.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.BLq9KVSo.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.ZUmzy4n0.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Bxguu-gh.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.D9nQNyi8.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.DvIg7qsa.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.FtIyHEir.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CoF5cnyJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.DBj9Vt0q.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.CfD4apJF.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.42KP6Uti.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.CFCBblPQ.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BXwThHIM.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.kekVhrT5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.fbi-k1SI.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.ClfF0HVi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.DoakdLUF.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.Dmn0rBKP.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.Co5usZpv.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.DUn4FYbe.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.Cew1_tjQ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.Hu1l_uRZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.Dk-Y3t-D.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.BA8_9pjl.js">
@@ -166,7 +166,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Column.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Column.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG column chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, x, yRange, xScale, y, height, zGet, zScale, z } = getContext('LayerCake');\\n\\n  /** @type {String} [fill='#00e047'] - The shape's fill color. */\\n  export let fill = '#00e047';\\n\\n  /** @type {String} [stroke='#000'] - The shape's stroke color. */\\n  export let stroke = '#000';\\n\\n  /** @type {Number} [strokeWidth=0] - The shape's stroke width. */\\n  export let strokeWidth = 0;\\n\\n  /** @type {Boolean} [false] - Show the numbers for each column */\\n  export let showLabels = false;\\n\\n  $: columnWidth = d => {\\n    const vals = $xGet(d);\\n    return Math.abs(vals[1] - vals[0]);\\n  };\\n\\n  $: columnHeight = d => {\\n    return $yRange[0] - $yGet(d);\\n  };\\n\u003C/script>\\n\\n\u003Cg class=\\\"column-group\\\">\\n  {#each $data as d, i}\\n    {@const colHeight = columnHeight(d)}\\n    {@const xGot = $xGet(d)}\\n    {@const xPos = Array.isArray(xGot) ? xGot[0] : xGot}\\n    {@const colWidth = $xScale.bandwidth ? $xScale.bandwidth() : columnWidth(d)}\\n    {@const yValue = $y(d)}\\n    \u003Crect\\n      class='group-rect'\\n      data-id=\\\"{i}\\\"\\n      data-range=\\\"{$x(d)}\\\"\\n      data-count=\\\"{yValue}\\\"\\n      x=\\\"{xPos}\\\"\\n      y=\\\"{$yGet(d)}\\\"\\n      width=\\\"{colWidth}\\\"\\n      height=\\\"{colHeight}\\\"\\n      {fill}\\n      {stroke}\\n      stroke-width=\\\"{strokeWidth}\\\"\\n    />\\n    {#if showLabels && yValue}\\n      \u003Ctext x=\\\"{xPos + colWidth / 2}\\\" y=\\\"{$height - colHeight - 5}\\\" text-anchor=\\\"middle\\\">{yValue}\u003C/text>\\n    {/if}\\n  {/each}\\n\u003C/g>\\n\\n\u003Cstyle>\\n  text {\\n    font-size: 12px;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Column\",\"/example/Histogram\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Column\",\"/example-ssr/Histogram\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The shape's fill color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'#00e047'\"},{\"title\":\"param\",\"description\":\"The shape's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#000'\"},{\"title\":\"param\",\"description\":\"The shape's stroke width.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"0\"},{\"title\":\"param\",\"description\":\"Show the numbers for each column\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Boolean\"}},\"name\":\"false\"}]},\"componentDescription\":\"Generates an SVG column chart.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_krbbde = {
+					__sveltekit_1dxxv21 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -175,8 +175,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CuaEv1fO.js"),
-						import("../_app/immutable/entry/app.FtIyHEir.js")
+						import("../_app/immutable/entry/start.ZUmzy4n0.js"),
+						import("../_app/immutable/entry/app.CoF5cnyJ.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

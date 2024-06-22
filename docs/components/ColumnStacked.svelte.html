@@ -32,24 +32,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.D8VLq8ip.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.BmY10De1.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.DHN2NzXR.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CuaEv1fO.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.BLq9KVSo.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.ZUmzy4n0.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Bxguu-gh.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.D9nQNyi8.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.DvIg7qsa.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.FtIyHEir.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CoF5cnyJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.DBj9Vt0q.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.CfD4apJF.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.42KP6Uti.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.CFCBblPQ.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BXwThHIM.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.kekVhrT5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.fbi-k1SI.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.ClfF0HVi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.DoakdLUF.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.Dmn0rBKP.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.Co5usZpv.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.DUn4FYbe.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.Cew1_tjQ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.Hu1l_uRZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.Dk-Y3t-D.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.BA8_9pjl.js">
@@ -95,7 +95,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/ColumnStacked.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"ColumnStacked.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG column chart. It uses the z-scale for color assignments and aassumes both `xScale` and `zScale` are ordinal scales.  It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, zGet, xScale } = getContext('LayerCake');\\n\u003C/script>\\n\\n\u003Cg class=\\\"column-group\\\">\\n  {#each $data as series, i}\\n    {#each series as d}\\n      {@const yVals = $yGet(d)}\\n      {@const columnHeight = yVals[0] - yVals[1]}\\n      \u003Crect\\n        class='group-rect'\\n        data-id=\\\"{i}\\\"\\n        x=\\\"{$xGet(d)}\\\"\\n        y=\\\"{yVals[1]}\\\"\\n        width={$xScale.bandwidth()}\\n        height=\\\"{columnHeight}\\\"\\n        fill={$zGet(series)}\\n      >\u003C/rect>\\n    {/each}\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/ColumnStacked\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/ColumnStacked\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[]},\"componentDescription\":\"Generates an SVG column chart. It uses the z-scale for color assignments and aassumes both `xScale` and `zScale` are ordinal scales.  It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_krbbde = {
+					__sveltekit_1dxxv21 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -104,8 +104,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CuaEv1fO.js"),
-						import("../_app/immutable/entry/app.FtIyHEir.js")
+						import("../_app/immutable/entry/start.ZUmzy4n0.js"),
+						import("../_app/immutable/entry/app.CoF5cnyJ.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

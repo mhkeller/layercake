@@ -9,8 +9,6 @@
 
 	/** @type {String} [fill='#00bbff'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
 	export let fill = '#00bbff';
-
-	$: console.log({ $xDomain })
 </script>
 
 <g class="bar-group">

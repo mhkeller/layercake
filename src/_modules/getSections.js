@@ -34,13 +34,18 @@ const blockTypes =
 
 function extractMeta(line, lang) {
 	try {
-		if (lang === 'html' && line.startsWith('<!--') && line.endsWith('-->')) {
-			return fleece.evaluate(line.slice(4, -3).trim());
+		if (lang === 'html' || lang === 'svelte') {
+			if (line.startsWith('<!--') && line.endsWith('-->')) {
+				return fleece.evaluate(line.slice(4, -3).trim());
+			}
 		}
 
-		if (lang === 'js' || (lang === 'json' && line.startsWith('/*') && line.endsWith('*/'))) {
-			return fleece.evaluate(line.slice(2, -2).trim());
+		if (lang === 'js' || lang === 'json') {
+			if (line.startsWith('/*') && line.endsWith('*/')) {
+				return fleece.evaluate(line.slice(2, -2).trim());
+			}
 		}
+		return null
 	} catch (err) {
 		console.error(err);
 		return null;
@@ -85,7 +90,7 @@ export default function (returnHtml = true) {
 
 				const lines = source.split('\n');
 
-				const meta = extractMeta(lines[0], lang);
+				const meta = extractMeta(lines[0].trim(), lang);
 
 				let prefix = '';
 				let className = 'code-block';
@@ -107,7 +112,6 @@ export default function (returnHtml = true) {
 						className += ' named';
 					}
 				}
-
 				if (group) group.blocks.push({ meta: meta || {}, lang, source });
 
 				if (meta && meta.hidden) return '';

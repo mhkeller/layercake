@@ -156,14 +156,13 @@
 		font-size: 16px;
 		padding: 6px 12px 4px 12px;
 		display: inline-block;
-		/* position: absolute; */
-		top: 0;
+		position: relative;
+		top: 2px;
 		border-left: 2px solid #eee;
+		border-right: 2px solid #eee;
 		border-radius: 2px 2px 0 0;
 		border-top: 1px solid #eee;
 		font-family: 'Inconsolata', monospace;
-		color: rgba(0, 0, 0, 0.4);
-		line-height: 1;
 	}
 
 	section :global(h3) {
@@ -268,6 +267,7 @@
 	section :global(.code-block) :global(pre),
 	section :global(.CodeMirror) {
 		background-color: #f9f9f9;
+		border-top: 2px solid #eee;
 		border-left: 2px solid #eee;
 		padding: 8px;
 		margin: 0 0 1em 0;

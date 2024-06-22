@@ -4,3 +4,4 @@ package-lock.json
 yarn.lock
 docs
 README.md
+static/**/*

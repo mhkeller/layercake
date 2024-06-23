@@ -44,12 +44,9 @@
 */
 import { bin as d3Bin } from 'd3-array';
 
-export default function bin(data, value, {
-	domain,
-	thresholds
-} = {}) {
+export default function bin(data, value, { domain, thresholds } = {}) {
 	if (typeof data !== 'object') {
-		throw new TypeError('The first argument of bin() must be an array or data object')
+		throw new TypeError('The first argument of bin() must be an array or data object');
 	}
 	let hist = d3Bin();
 

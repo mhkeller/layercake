@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, Svg, Html } from 'layercake';
+	import { LayerCake, Svg } from 'layercake';
 	import { scaleOrdinal } from 'd3-scale';
 	import { schemeCategory10 } from 'd3-scale-chromatic';
 
@@ -17,6 +17,21 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		{data}
+		x={xKey}
+		z={zKey}
+		zScale={scaleOrdinal()}
+		zDomain={Array.from(seriesNames)}
+		zRange={[...schemeCategory10]}
+	>
+		<Svg>
+			<ForceDirectedGraph linkDistance={5} manyBodyStrength={-20} ticks={100} />
+		</Svg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -29,22 +44,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		{data}
-		x={xKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zDomain={Array.from(seriesNames)}
-		zRange={[...schemeCategory10]}
-	>
-		<Svg>
-			<ForceDirectedGraph
-				linkDistance={5}
-				manyBodyStrength={-20}
-				ticks={100}
-			/>
-		</Svg>
-	</LayerCake>
-</div>

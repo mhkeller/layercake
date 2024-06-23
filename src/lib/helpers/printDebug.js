@@ -1,11 +1,11 @@
-import { rgb } from 'd3-color'
+import { rgb } from 'd3-color';
 
 import findScaleName from './findScaleName.js';
 import t from './toTitleCase.js';
 
 const indent = '    ';
 
-function getRgb(clr){
+function getRgb(clr) {
 	const { r, g, b, opacity: o } = rgb(clr);
 	if (![r, g, b].every(c => c >= 0 && c <= 255)) {
 		return false;
@@ -19,7 +19,7 @@ function getRgb(clr){
  * https://stackoverflow.com/a/596243
  */
 function contrast({ r, g, b }) {
-	const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+	const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
 	return luminance > 0.6 ? 'black' : 'white';
 }
 

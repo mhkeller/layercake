@@ -3,7 +3,6 @@
 	Generates an SVG calendar chart.
  -->
 <script>
-
 	import { getContext } from 'svelte';
 	import { timeFormat } from 'd3-time-format';
 	import { timeDay } from 'd3-time';
@@ -41,7 +40,10 @@
 		const minDate = $extents.x[0];
 		const parts = minDate.split('-').map(d => +d);
 
-		days = timeDay.range(new Date(Date.UTC(parts[0], parts[1] - 1, 1)), new Date(Date.UTC(parts[0], parts[1], 1)));
+		days = timeDay.range(
+			new Date(Date.UTC(parts[0], parts[1] - 1, 1)),
+			new Date(Date.UTC(parts[0], parts[1], 1))
+		);
 	}
 
 	$: rectX = day => getDayOfWeek(day) * cellSize;
@@ -60,12 +62,13 @@
 {#each days as day}
 	<rect
 		class="day"
-		width="{cellSize}"
-		height="{cellSize}"
-		x="{rectX(day)}"
-		y="{rectY(day)}"
+		width={cellSize}
+		height={cellSize}
+		x={rectX(day)}
+		y={rectY(day)}
 		style="fill:{fillColor(day)};"
-		on:mouseenter="{showCount(day)}"
+		on:mouseenter={showCount(day)}
+		role="tooltip"
 	/>
 {/each}
 

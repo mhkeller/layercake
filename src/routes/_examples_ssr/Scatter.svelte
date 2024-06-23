@@ -22,6 +22,25 @@
 	const strokeWidth = 1.5;
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		ssr
+		percentRange
+		padding={{ top: 10, right: 5, bottom: 20, left: 25 }}
+		x={xKey}
+		y={yKey}
+		xPadding={[padding, padding]}
+		yPadding={[padding, padding]}
+		{data}
+	>
+		<Html>
+			<AxisX />
+			<AxisY />
+			<Scatter {r} {fill} {stroke} {strokeWidth} />
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -34,29 +53,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		ssr
-		percentRange
-		padding={{ top: 10, right: 5, bottom: 20, left: 25 }}
-		x={xKey}
-		y={yKey}
-		xPadding={[padding, padding]}
-		yPadding={[padding, padding]}
-		{data}
-	>
-
-		<Html>
-			<AxisX/>
-			<AxisY/>
-			<Scatter
-				{r}
-				{fill}
-				{stroke}
-				{strokeWidth}
-			/>
-		</Html>
-
-	</LayerCake>
-</div>

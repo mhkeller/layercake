@@ -17,7 +17,7 @@
 	export let stroke = '#000'; // Not yet implemented
 	// export let strokeWidth = 0;
 
-	function hexToRgbPercent (hex) {
+	function hexToRgbPercent(hex) {
 		let str = hex.replace('#', '');
 		if (str.length === 3) {
 			str = str[0] + str[0] + str[1] + str[1] + str[2] + str[2];
@@ -27,7 +27,7 @@
 
 	const { gl } = getContext('gl');
 
-	function resize () {
+	function resize() {
 		if ($gl) {
 			const canvas = $gl.canvas;
 			// Lookup the size the browser is displaying the canvas.
@@ -46,7 +46,7 @@
 
 	let regl;
 
-	function render () {
+	function render() {
 		if ($gl) {
 			regl = reglWrapper({
 				gl: $gl,
@@ -123,11 +123,11 @@
 					r: (context, props) => {
 						// const m = window.devicePixelRatio > 1 ? 4.0 : 2.0
 						// If using an r-scale, set width here
-						return props.points.map(point => props.pointWidth);
+						return props.points.map(p => props.pointWidth);
 					},
 					stroke_size: (context, props) => {
-						// If using an r-scale, set width here
-						return props.points.map(point => 0);
+						// If using an r-scale, set that here
+						return props.points.map(p => 0);
 					}
 				},
 				uniforms: {
@@ -165,6 +165,5 @@
 		}
 	}
 
-	$: ($width, $height, $gl, resize(), render());
-
+	$: $width, $height, $gl, resize(), render();
 </script>

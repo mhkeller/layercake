@@ -2,7 +2,7 @@
 	@component
 	Generates an SVG top x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
- <script>
+<script>
 	import { getContext } from 'svelte';
 
 	const { width, height, xScale, yRange } = getContext('LayerCake');
@@ -49,37 +49,30 @@
 		return 'middle';
 	}
 
-	$: tickLen = tickMarks === true
-		? tickMarkLength ?? 6
-		: 0;
+	$: tickLen = tickMarks === true ? tickMarkLength ?? 6 : 0;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 
-	$: tickVals = Array.isArray(ticks) ? ticks :
-		isBandwidth ?
-			$xScale.domain() :
-			typeof ticks === 'function' ?
-				ticks($xScale.ticks()) :
-					$xScale.ticks(ticks);
+	$: tickVals = Array.isArray(ticks)
+		? ticks
+		: isBandwidth
+			? $xScale.domain()
+			: typeof ticks === 'function'
+				? ticks($xScale.ticks())
+				: $xScale.ticks(ticks);
 
-	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0
+	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
 </script>
 
 <g class="axis x-axis" class:snapLabels>
 	{#each tickVals as tick, i (tick)}
 		{#if baseline === true}
-			<line class="baseline" y1='0' y2='0' x1="0" x2={$width} />
+			<line class="baseline" y1="0" y2="0" x1="0" x2={$width} />
 		{/if}
 
 		<g class="tick tick-{i}" transform="translate({$xScale(tick)},{Math.min(...$yRange)})">
 			{#if gridlines === true}
-				<line
-					class="gridline"
-					x1="0"
-					x2="0"
-					y1={$height}
-					y2="0"
-				/>
+				<line class="gridline" x1="0" x2="0" y1={$height} y2="0" />
 			{/if}
 			{#if tickMarks === true}
 				<line
@@ -90,12 +83,8 @@
 					y2={-tickLen - tickGutter}
 				/>
 			{/if}
-			<text
-				x={halfBand}
-				y={-tickGutter - tickLen}
-				{dx}
-				{dy}
-				text-anchor={textAnchor(i, snapLabels)}>{format(tick)}</text
+			<text x={halfBand} y={-tickGutter - tickLen} {dx} {dy} text-anchor={textAnchor(i, snapLabels)}
+				>{format(tick)}</text
 			>
 		</g>
 	{/each}

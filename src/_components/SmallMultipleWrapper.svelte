@@ -33,8 +33,6 @@
 	yDomain={$yDomain}
 >
 	<Svg>
-		<Line
-			stroke={'#000'}
-		/>
+		<Line stroke={'#000'} />
 	</Svg>
 </LayerCake>

@@ -2,7 +2,6 @@
 	import { LayerCake, Svg, Html } from 'layercake';
 	import { scaleOrdinal } from 'd3-scale';
 	import { timeParse, timeFormat } from 'd3-time-format';
-	import { format } from 'd3-format';
 
 	import MultiLine from '../../_components/MultiLine.svelte';
 	import SharedTooltip from '../../_components/SharedTooltip.html.svelte';
@@ -39,25 +38,13 @@
 
 	// Make a flat array of the `values` of our nested series
 	// we can pluck the `value` field from each item in the array to measure extents
-	const flatten = data => data.reduce((memo, group) => {
-		return memo.concat(group.values);
-	}, []);
+	const flatten = data =>
+		data.reduce((memo, group) => {
+			return memo.concat(group.values);
+		}, []);
 
 	const formatLabelX = timeFormat('%b. %e');
 </script>
-
-<style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
-	.chart-container {
-		width: 100%;
-		height: 250px;
-	}
-</style>
 
 <div class="chart-container">
 	<LayerCake
@@ -73,14 +60,24 @@
 		data={dataLong}
 	>
 		<Svg>
-			<MultiLine/>
+			<MultiLine />
 		</Svg>
 
 		<Html>
-			<SharedTooltip
-				formatTitle={formatLabelX}
-				dataset={data}
-			/>
+			<SharedTooltip formatTitle={formatLabelX} dataset={data} />
 		</Html>
 	</LayerCake>
 </div>
+
+<style>
+	/*
+		The wrapper div needs to have an explicit width and height in CSS.
+		It can also be a flexbox child or CSS grid element.
+		The point being it needs dimensions since the <LayerCake> element will
+		expand to fill it.
+	*/
+	.chart-container {
+		width: 100%;
+		height: 250px;
+	}
+</style>

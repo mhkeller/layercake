@@ -18,7 +18,7 @@ const data = [
 
 const tests = [
 	{
-		args: [data.map((d) => d.myX)],
+		args: [data.map(d => d.myX)],
 		expected: [[0, 1, 1], [2, 2], [4, 4], [7], [8]]
 	},
 	{
@@ -32,7 +32,7 @@ const tests = [
 		]
 	},
 	{
-		args: [data, (d) => d.myX],
+		args: [data, d => d.myX],
 		expected: [
 			[{ myX: 0 }, { myX: 1 }, { myX: 1 }],
 			[{ myX: 2 }, { myX: 2 }],
@@ -42,7 +42,7 @@ const tests = [
 		]
 	},
 	{
-		args: [data, (d) => d.myX, { domain: [0, 6] }],
+		args: [data, d => d.myX, { domain: [0, 6] }],
 		expected: [
 			[{ myX: 0 }],
 			[{ myX: 1 }, { myX: 1 }],
@@ -53,7 +53,7 @@ const tests = [
 		]
 	},
 	{
-		args: [data, (d) => d.myX, { thresholds: [0, 3, 7] }],
+		args: [data, d => d.myX, { thresholds: [0, 3, 7] }],
 		expected: [
 			[{ myX: 0 }, { myX: 1 }, { myX: 2 }, { myX: 2 }, { myX: 1 }],
 			[{ myX: 4 }, { myX: 4 }],
@@ -70,7 +70,7 @@ const errorTests = [
 ];
 
 describe(name, () => {
-	tests.forEach((test) => {
+	tests.forEach(test => {
 		describe(JSON.stringify(test.args), () => {
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
 				const actual = JSON.parse(JSON.stringify(fn(...test.args)));

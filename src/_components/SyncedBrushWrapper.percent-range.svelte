@@ -18,31 +18,10 @@
 	$: {
 		brushedData = data.slice((min || 0) * data.length, (max || 1) * data.length);
 		if (brushedData.length < 2) {
-			brushedData = data.slice(min * data.length, min * data.length + 2)
+			brushedData = data.slice(min * data.length, min * data.length + 2);
 		}
 	}
 </script>
-
-<style>
-	.chart-wrapper {
-		width: 48%;
-		height: 40%;
-	}
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
-	.chart-container {
-		width: 100%;
-		height: 80%;
-	}
-	.brush-container {
-		width: 100%;
-		height: 20%;
-	}
-</style>
 
 <div class="chart-wrapper">
 	<div class="chart-container">
@@ -65,45 +44,45 @@
 						return filtered;
 					}}
 				/>
-				<AxisY
-					ticks={2}
-				/>
+				<AxisY ticks={2} />
 			</Html>
 			<ScaledSvg>
-				<Line
-					{stroke}
-				/>
-				<Area
-					fill={`${stroke}10`}
-				/>
+				<Line {stroke} />
+				<Area fill={`${stroke}10`} />
 			</ScaledSvg>
 		</LayerCake>
 	</div>
 
 	<div class="brush-container">
-		<LayerCake
-			ssr
-			percentRange
-			padding={{ top: 5 }}
-			x={xKey}
-			y={yKey}
-			yDomain={[0, null]}
-			{data}
-		>
+		<LayerCake ssr percentRange padding={{ top: 5 }} x={xKey} y={yKey} yDomain={[0, null]} {data}>
 			<ScaledSvg>
-				<Line
-					{stroke}
-				/>
-				<Area
-					fill={`${stroke}10`}
-				/>
+				<Line {stroke} />
+				<Area fill={`${stroke}10`} />
 			</ScaledSvg>
 			<Html>
-				<Brush
-					bind:min={min}
-					bind:max={max}
-				/>
+				<Brush bind:min bind:max />
 			</Html>
 		</LayerCake>
 	</div>
 </div>
+
+<style>
+	.chart-wrapper {
+		width: 48%;
+		height: 40%;
+	}
+	/*
+		The wrapper div needs to have an explicit width and height in CSS.
+		It can also be a flexbox child or CSS grid element.
+		The point being it needs dimensions since the <LayerCake> element will
+		expand to fill it.
+	*/
+	.chart-container {
+		width: 100%;
+		height: 80%;
+	}
+	.brush-container {
+		width: 100%;
+		height: 20%;
+	}
+</style>

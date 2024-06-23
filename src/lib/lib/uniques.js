@@ -6,7 +6,7 @@
 	@returns {Array}
 */
 
-export default function uniques (list, accessor, transform = true) {
+export default function uniques(list, accessor, transform = true) {
 	if (!Array.isArray(list)) {
 		console.error('LayerCake error: Input value to `uniques` must be a list.');
 		return null;

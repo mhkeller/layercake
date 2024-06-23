@@ -32,19 +32,6 @@
 	const stackedData = stack(data, seriesNames);
 </script>
 
-<style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
-	.chart-container {
-		width: 100%;
-		height: 250px;
-	}
-</style>
-
 <div class="chart-container">
 	<LayerCake
 		padding={{ top: 0, bottom: 20, left: 35 }}
@@ -59,15 +46,22 @@
 		data={stackedData}
 	>
 		<Svg>
-			<AxisX
-				baseline
-				snapLabels
-				format={formatLabelX}
-			/>
-			<AxisY
-				gridlines={false}
-			/>
-			<BarStacked/>
+			<AxisX baseline snapLabels format={formatLabelX} />
+			<AxisY gridlines={false} />
+			<BarStacked />
 		</Svg>
 	</LayerCake>
 </div>
+
+<style>
+	/*
+		The wrapper div needs to have an explicit width and height in CSS.
+		It can also be a flexbox child or CSS grid element.
+		The point being it needs dimensions since the <LayerCake> element will
+		expand to fill it.
+	*/
+	.chart-container {
+		width: 100%;
+		height: 250px;
+	}
+</style>

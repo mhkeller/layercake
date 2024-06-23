@@ -22,10 +22,36 @@
 			[titleKey]: d[titleKey],
 			[zKey]: d[zKey],
 			[xKey]: +d[xKey].split('-')[0]
-		}
-	})
-
+		};
+	});
 </script>
+
+<div class="chart-container">
+	<LayerCake
+		padding={{ bottom: 15 }}
+		x={xKey}
+		z={zKey}
+		zScale={scaleOrdinal()}
+		zRange={seriesColors}
+		data={dataTransformed}
+		let:width
+	>
+		<Svg>
+			<AxisX />
+			<Beeswarm
+				r={width < 400 ? r / 1.25 : r}
+				strokeWidth={1}
+				xStrength={0.95}
+				yStrength={0.075}
+				getTitle={d => d[titleKey]}
+			/>
+		</Svg>
+
+		<Html pointerEvents={false}>
+			<Key shape="circle" />
+		</Html>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -39,32 +65,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class='chart-container'>
-	<LayerCake
-		padding={{bottom: 15}}
-		x={xKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zRange={seriesColors}
-		data={dataTransformed}
-		let:width
-	>
-
-		<Svg>
-			<AxisX/>
-			<Beeswarm
-				r={width < 400 ? r / 1.25 : r}
-				strokeWidth={1}
-				xStrength={0.95}
-				yStrength={0.075}
-				getTitle={d => d[titleKey]}
-			/>
-		</Svg>
-
-		<Html pointerEvents={false}>
-			<Key shape='circle' />
-		</Html>
-
-	</LayerCake>
-</div>

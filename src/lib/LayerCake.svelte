@@ -105,7 +105,7 @@
 	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
 	export let xReverse = false;
 	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using an ordinal scale with a `.bandwidth` method for `yScale`. Ignored if you set the `yRange` prop. */
-	export let yReverse = undefined
+	export let yReverse = undefined;
 	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
 	export let zReverse = false;
 	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
@@ -113,7 +113,7 @@
 	/** @type {Boolean} [xDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
 	export let xDomainSort = true;
 	/** @type {Boolean} [yDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
-	export let yDomainSort = true
+	export let yDomainSort = true;
 	/** @type {Boolean} [zDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
 	export let zDomainSort = true;
 	/** @type {Boolean} [rDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
@@ -137,9 +137,12 @@
 	/**
 	 * Make this reactive
 	 */
-	$: yReverseValue = typeof yReverse === 'undefined'
-		? typeof yScale.bandwidth === 'function' ? false : true
-		: yReverse;
+	$: yReverseValue =
+		typeof yReverse === 'undefined'
+			? typeof yScale.bandwidth === 'function'
+				? false
+				: true
+			: yReverse;
 
 	/* --------------------------------------------
 	 * Keep track of whether the component has mounted
@@ -322,8 +325,32 @@
 	 * in as a domain, which can be a partial domain
 	 */
 	const extents_d = derived(
-		[_flatData, activeGetters_d, _extents, _xScale, _yScale, _rScale, _zScale, _xDomainSort, _yDomainSort, _zDomainSort, _rDomainSort],
-		([$flatData, $activeGetters, $extents, $_xScale, $_yScale, $_rScale, $_zScale, $_xDomainSort, $_yDomainSort, $_zDomainSort, $_rDomainSort]) => {
+		[
+			_flatData,
+			activeGetters_d,
+			_extents,
+			_xScale,
+			_yScale,
+			_rScale,
+			_zScale,
+			_xDomainSort,
+			_yDomainSort,
+			_zDomainSort,
+			_rDomainSort
+		],
+		([
+			$flatData,
+			$activeGetters,
+			$extents,
+			$_xScale,
+			$_yScale,
+			$_rScale,
+			$_zScale,
+			$_xDomainSort,
+			$_yDomainSort,
+			$_zDomainSort,
+			$_rDomainSort
+		]) => {
 			const scaleLookup = {
 				x: { scale: $_xScale, sort: $_xDomainSort },
 				y: { scale: $_yScale, sort: $_yDomainSort },
@@ -331,7 +358,7 @@
 				z: { scale: $_zScale, sort: $_zDomainSort }
 			};
 			const getters = filterObject($activeGetters, $extents);
-			const activeScales = Object.fromEntries(Object.keys(getters).map((k) => [k, scaleLookup[k]]));
+			const activeScales = Object.fromEntries(Object.keys(getters).map(k => [k, scaleLookup[k]]));
 
 			if (Object.keys(getters).length > 0) {
 				const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
@@ -498,7 +525,7 @@
 			xScale: $xScale_d,
 			yScale: $yScale_d,
 			zScale: $zScale_d,
-			rScale: $rScale_d,
+			rScale: $rScale_d
 		});
 	}
 </script>

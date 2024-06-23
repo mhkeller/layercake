@@ -16,14 +16,11 @@ The component also exports an `element` prop that represents the main wrapper, i
 
 ```svelte
 <script>
-  let mainElement;
+	let mainElement;
 </script>
 
-<LayerCake
-  bind:element={mainElement}
-  let:element
->
-  {console.log(mainElement === element)}
+<LayerCake bind:element={mainElement} let:element>
+	{console.log(mainElement === element)}
 </LayerCake>
 ```
 
@@ -55,14 +52,13 @@ Here's an overview using the `d3.stack()` to make a horizontal bar chart, which 
 
 ```js
 const data = [
-  {month: new Date(2015, 3, 1), apples: 3840, bananas: 1920, cherries: 960, dates: 400},
-  {month: new Date(2015, 2, 1), apples: 1600, bananas: 1440, cherries: 960, dates: 400},
-  {month: new Date(2015, 1, 1), apples: 640,  bananas: 960,  cherries: 640, dates: 400},
-  {month: new Date(2015, 0, 1), apples: 320,  bananas: 480,  cherries: 640, dates: 400}
+	{ month: new Date(2015, 3, 1), apples: 3840, bananas: 1920, cherries: 960, dates: 400 },
+	{ month: new Date(2015, 2, 1), apples: 1600, bananas: 1440, cherries: 960, dates: 400 },
+	{ month: new Date(2015, 1, 1), apples: 640, bananas: 960, cherries: 640, dates: 400 },
+	{ month: new Date(2015, 0, 1), apples: 320, bananas: 480, cherries: 640, dates: 400 }
 ];
 
-const stack = d3.stack()
-  .keys(['apples', 'bananas', 'cherries', 'dates']);
+const stack = d3.stack().keys(['apples', 'bananas', 'cherries', 'dates']);
 
 const series = stack(data);
 ```
@@ -71,11 +67,35 @@ The data is now an array of values. The `month` values you can't see because sne
 
 ```js
 [
-  [[   0, 3840], [   0, 1600], [   0,  640], [   0,  320]], // apples
-  [[3840, 5760], [1600, 3040], [ 640, 1600], [ 320,  800]], // bananas
-  [[5760, 6720], [3040, 4000], [1600, 2240], [ 800, 1440]], // cherries
-  [[6720, 7120], [4000, 4400], [2240, 2640], [1440, 1840]]  // dates
-]
+	// apples
+	[
+		[0, 3840],
+		[0, 1600],
+		[0, 640],
+		[0, 320]
+	],
+	// bananas
+	[
+		[3840, 5760],
+		[1600, 3040],
+		[640, 1600],
+		[320, 800]
+	],
+	// cherries
+	[
+		[5760, 6720],
+		[3040, 4000],
+		[1600, 2240],
+		[800, 1440]
+	],
+	// dates
+	[
+		[6720, 7120],
+		[4000, 4400],
+		[2240, 2640],
+		[1440, 1840]
+	]
+];
 ```
 
 The x- and y-accessors would then look like this:
@@ -247,7 +267,7 @@ Same as [xPadding](/guide#xpadding) but for the r domain.
 
 ### xNice `Boolean=false|Number`
 
-Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice.  Can also pass `count` number as argument for greater control.
+Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice. Can also pass `count` number as argument for greater control.
 
 ### yNice `Boolean=false|Number`
 
@@ -272,6 +292,7 @@ This overrides setting [xReverse](/guide#xreverse) to `true`.
   xRange={ [1, 100] }
 >
 ```
+
 It can also be a function:
 
 ```svelte
@@ -334,39 +355,45 @@ Manually set the extents of the x, y or r scale. Setting values here will skip a
 
 ### flatData `Array`
 
-In order for Layer Cake to measure the extents of your data, it needs a flat array of items that the x, y, z and r accessors can find. If your data is not flat (often the case if your renderers prefer a nested format such as in [multi-series line](/example/MultiLine) charts or GeoJSON such as in [maps](/example/MapSvg)), you can tell it to measure extents against a flat version. This *will not* change the shape of the data that gets passed to components — it is only for extent calculation.
+In order for Layer Cake to measure the extents of your data, it needs a flat array of items that the x, y, z and r accessors can find. If your data is not flat (often the case if your renderers prefer a nested format such as in [multi-series line](/example/MultiLine) charts or GeoJSON such as in [maps](/example/MapSvg)), you can tell it to measure extents against a flat version. This _will not_ change the shape of the data that gets passed to components — it is only for extent calculation.
 
 > The library also exports a flattening function to handle common use cases if you need to flatten your data and you don't already have a flat version. See the [flatten](/guide#flatten) helper function for more info.
 
-Here's an example showing passing different data formats for extent calculation versus what is used by layer components.
+Here's an example showing passing different data formats for extent calculation versus data formats used by layer components.
 
 ```svelte
 <script>
-  import { LayerCake } from 'LayerCake';
+	import { LayerCake } from 'LayerCake';
 
-  const data = [
-    {
-      key: 'apples',
-      values: [{month: '2015-03-01', value: 3840}, ...]
-    },
-    {
-      key: 'bananas',
-      values: [{month: '2015-03-01', value: 1920}, ...]
-    },
-  ];
+	const data = [
+		{
+			key: 'apples',
+			values: [{ month: '2015-03-01', value: 3840 } /*...*/]
+		},
+		{
+			key: 'bananas',
+			values: [{ month: '2015-03-01', value: 1920 } /*...*/]
+		}
+	];
 
-  const flatData = [
-    {month: '2015-03-01', value: 3840, group: 'apples'},
-    {month: '2015-02-01', value: 1600, group: 'apples'},
-    {month: '2015-01-01', value: 640, group:  'apples'},
-    {month: '2015-00-01', value: 320, group:  'apples'},
+	const flatData = [
+		{ month: '2015-03-01', value: 3840, group: 'apples' },
+		{ month: '2015-02-01', value: 1600, group: 'apples' },
+		{ month: '2015-01-01', value: 640, group: 'apples' },
+		{ month: '2015-00-01', value: 320, group: 'apples' },
 
-    {month: '2015-03-01', value: 1920, group: 'bananas'},
-    {month: '2015-02-01', value: 1440, group: 'bananas'},
-    {month: '2015-01-01', value: 960, group:  'bananas'},
-    {month: '2015-00-01', value: 480, group:  'bananas'}
-  ];
+		{ month: '2015-03-01', value: 1920, group: 'bananas' },
+		{ month: '2015-02-01', value: 1440, group: 'bananas' },
+		{ month: '2015-01-01', value: 960, group: 'bananas' },
+		{ month: '2015-00-01', value: 480, group: 'bananas' }
+	];
 </script>
+
+<div class="chart-container">
+	<LayerCake x="month" y="value" {data} {flatData}>
+		<!-- Components go here -->
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -375,22 +402,11 @@ Here's an example showing passing different data formats for extent calculation 
 		The point being it needs dimensions since the <LayerCake> element will
 		expand to fill it.
 	*/
-  .chart-container {
-    width: 100%;
-    height: 300px;
-  }
+	.chart-container {
+		width: 100%;
+		height: 300px;
+	}
 </style>
-
-<div class="chart-container">
-  <LayerCake
-    x='month'
-    y='value'
-    {data}
-    {flatData}
-  >
-    <!-- Components go here -->
-  </LayerCake>
-</div>
 ```
 
 ### ssr `Boolean=false`

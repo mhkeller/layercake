@@ -1,6 +1,5 @@
 <script>
 	import { LayerCake, Svg } from 'layercake';
-	import { scaleLinear } from 'd3-scale';
 
 	import Radar from '../../_components/Radar.svelte';
 	import AxisRadial from '../../_components/AxisRadial.svelte';
@@ -20,6 +19,21 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 30, right: 0, bottom: 7, left: 0 }}
+		x={xKey}
+		xDomain={[0, 10]}
+		xRange={({ height }) => [0, height / 2]}
+		{data}
+	>
+		<Svg>
+			<AxisRadial />
+			<Radar />
+		</Svg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -32,18 +46,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 30, right: 0, bottom: 7, left: 0 }}
-		x={xKey}
-		xDomain={[0, 10]}
-		xRange={({ height }) => [0, height / 2]}
-		{data}
-	>
-		<Svg>
-			<AxisRadial/>
-			<Radar/>
-		</Svg>
-	</LayerCake>
-</div>

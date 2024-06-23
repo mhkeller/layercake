@@ -10,32 +10,49 @@
 			text: 'Arrows...',
 			top: '18%',
 			left: '30%',
-			arrows: [{
-				clockwise: false, // true or false, defaults to true
-				source: {
-					anchor: 'left-bottom', // can be `{left, middle, right},{top-middle-bottom}`
-					dx: -2,
-					dy: -7
+			arrows: [
+				{
+					clockwise: false, // true or false, defaults to true
+					source: {
+						anchor: 'left-bottom', // can be `{left, middle, right},{top-middle-bottom}`
+						dx: -2,
+						dy: -7
+					},
+					target: {
+						x: '28%',
+						y: '75%'
+					}
 				},
-				target: {
-					x: '28%',
-					y: '75%'
+				{
+					source: {
+						anchor: 'right-bottom',
+						dy: -7,
+						dx: 5
+					},
+					target: {
+						x: '68%',
+						y: '48%'
+					}
 				}
-			},
-			{
-				source: {
-					anchor: 'right-bottom',
-					dy: -7,
-					dx: 5
-				},
-				target: {
-					x: '68%',
-					y: '48%'
-				}
-			}]
+			]
 		}
 	];
 </script>
+
+<div class="chart-container">
+	<LayerCake>
+		<Html>
+			<Annotations {annotations} />
+		</Html>
+
+		<Svg>
+			<svelte:fragment slot="defs">
+				<ArrowheadMarker />
+			</svelte:fragment>
+			<Arrows {annotations} />
+		</Svg>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -49,18 +66,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake>
-		<Html>
-			<Annotations {annotations}/>
-		</Html>
-
-		<Svg>
-			<svelte:fragment slot="defs">
-				<ArrowheadMarker/>
-			</svelte:fragment>
-			<Arrows {annotations}/>
-		</Svg>
-	</LayerCake>
-</div>

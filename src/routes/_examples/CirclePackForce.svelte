@@ -15,8 +15,30 @@
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
 
 	let manyBodyStrength = 3;
-	let xStrength = 0.1
+	let xStrength = 0.1;
 </script>
+
+<div class="input-container">
+	<label><input type="radio" bind:group={groupBy} value="true" />Group by category</label>
+	<label><input type="radio" bind:group={groupBy} value="false" />Clump together</label>
+</div>
+
+<div class="chart-container">
+	<LayerCake
+		{data}
+		x={xKey}
+		r={rKey}
+		z={zKey}
+		xScale={scaleBand()}
+		rRange={[3, 12]}
+		zScale={scaleOrdinal()}
+		zRange={seriesColors}
+	>
+		<Svg>
+			<ForceLayout {manyBodyStrength} {xStrength} groupBy={JSON.parse(groupBy)} nodeStroke="#000" />
+		</Svg>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -36,30 +58,3 @@
 		margin-right: 7px;
 	}
 </style>
-
-<div class="input-container">
-	<label><input type="radio" bind:group={groupBy} value="true"/>Group by category</label>
-	<label><input type="radio" bind:group={groupBy} value="false"/>Clump together</label>
-</div>
-
-<div class="chart-container">
-	<LayerCake
-		{data}
-		x={xKey}
-		r={rKey}
-		z={zKey}
-		xScale={scaleBand()}
-		rRange={[3, 12]}
-		zScale={scaleOrdinal()}
-		zRange={seriesColors}
-	>
-		<Svg>
-			<ForceLayout
-				{manyBodyStrength}
-				{xStrength}
-				groupBy={JSON.parse(groupBy)}
-				nodeStroke='#000'
-			/>
-		</Svg>
-	</LayerCake>
-</div>

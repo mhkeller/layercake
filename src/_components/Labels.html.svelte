@@ -5,26 +5,28 @@
 <script>
 	import { getContext } from 'svelte';
 
-  const { xGet, yGet } = getContext('LayerCake');
+	const { xGet, yGet } = getContext('LayerCake');
 
 	/** @type {Array} labels - An array of objects that contain a field containing text label and data fields. */
-  export let labels;
+	export let labels;
 
 	/** @type {Function} getLabelName= - An accessor function to return the label field on your objects in the `labels` array. */
-  export let getLabelName;
+	export let getLabelName;
 
 	/** @type {Function} [formatLabelName=d => d] - An optional formatting function. */
-  export let formatLabelName = d => d;
+	export let formatLabelName = d => d;
 </script>
 
 {#each labels as d}
 	<div
-    class="label"
-    style="
+		class="label"
+		style="
       top:{$yGet(d)}px;
       left:{$xGet(d)}px;
     "
-  >{formatLabelName(getLabelName(d))}</div>
+	>
+		{formatLabelName(getLabelName(d))}
+	</div>
 {/each}
 
 <style>

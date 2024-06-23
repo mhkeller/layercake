@@ -43,19 +43,6 @@
 	const addCommas = format(',');
 </script>
 
-<style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
-	.chart-container {
-		width: 100%;
-		height: 250px;
-	}
-</style>
-
 <div class="chart-container">
 	<LayerCake
 		padding={{ top: 20 }}
@@ -68,24 +55,35 @@
 		<Svg>
 			<MapSvg
 				{projection}
-				on:mousemove={event => evt = hideTooltip= event}
-				on:mouseout={() => hideTooltip = true}
+				on:mousemove={event => (evt = hideTooltip = event)}
+				on:mouseout={() => (hideTooltip = true)}
 			/>
 		</Svg>
 
-		<Html
-			pointerEvents={false}
-		>
+		<Html pointerEvents={false}>
 			{#if hideTooltip !== true}
-				<Tooltip
-					{evt}
-					let:detail
-				>
+				<Tooltip {evt} let:detail>
 					{#each Object.entries(detail.props) as [key, value]}
-						<div class="row"><span>{key}:</span> {typeof value === 'number' ? addCommas(value) : value}</div>
+						<div class="row">
+							<span>{key}:</span>
+							{typeof value === 'number' ? addCommas(value) : value}
+						</div>
 					{/each}
 				</Tooltip>
 			{/if}
 		</Html>
 	</LayerCake>
 </div>
+
+<style>
+	/*
+		The wrapper div needs to have an explicit width and height in CSS.
+		It can also be a flexbox child or CSS grid element.
+		The point being it needs dimensions since the <LayerCake> element will
+		expand to fill it.
+	*/
+	.chart-container {
+		width: 100%;
+		height: 250px;
+	}
+</style>

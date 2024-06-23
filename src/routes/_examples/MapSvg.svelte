@@ -41,6 +41,40 @@
 	const addCommas = format(',');
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		data={geojson}
+		z={d => dataLookup.get(d[mapJoinKey])[colorKey]}
+		zScale={scaleQuantize()}
+		zRange={colors}
+		{flatData}
+	>
+		<Svg>
+			<MapSvg
+				{projection}
+				on:mousemove={event => (evt = hideTooltip = event)}
+				on:mouseout={() => (hideTooltip = true)}
+			/>
+		</Svg>
+
+		<Html pointerEvents={false}>
+			{#if hideTooltip !== true}
+				<Tooltip {evt} let:detail>
+					<!-- For the tooltip, do another data join because the hover event only has the data from the geography data -->
+					{@const tooltipData = { ...detail.props, ...dataLookup.get(detail.props[mapJoinKey]) }}
+					{#each Object.entries(tooltipData) as [key, value]}
+						{@const keyCapitalized = key.replace(/^\w/, d => d.toUpperCase())}
+						<div class="row">
+							<span>{keyCapitalized}:</span>
+							{typeof value === 'number' ? addCommas(value) : value}
+						</div>
+					{/each}
+				</Tooltip>
+			{/if}
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -53,39 +87,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		data={geojson}
-		z={d => dataLookup.get(d[mapJoinKey])[colorKey]}
-		zScale={scaleQuantize()}
-		zRange={colors}
-		{flatData}
-	>
-		<Svg>
-			<MapSvg
-				{projection}
-				on:mousemove={event => evt = hideTooltip = event}
-				on:mouseout={() => hideTooltip = true}
-			/>
-		</Svg>
-
-		<Html
-			pointerEvents={false}
-		>
-			{#if hideTooltip !== true}
-				<Tooltip
-					{evt}
-					let:detail
-				>
-					<!-- For the tooltip, do another data join because the hover event only has the data from the geography data -->
-					{@const tooltipData = { ...detail.props, ...dataLookup.get(detail.props[mapJoinKey]) }}
-					{#each Object.entries(tooltipData) as [key, value]}
-						{@const keyCapitalized = key.replace(/^\w/, d => d.toUpperCase())}
-						<div class="row"><span>{keyCapitalized}:</span> {typeof value === 'number' ? addCommas(value) : value}</div>
-					{/each}
-				</Tooltip>
-			{/if}
-		</Html>
-	</LayerCake>
-</div>

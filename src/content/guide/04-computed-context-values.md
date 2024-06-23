@@ -5,13 +5,9 @@ title: Computed context values
 In addition to the values you set on the LayerCake component, additional properties are computed and exposed on the context. These are also exposed as slot props via the `let:` keyword on the `<LayerCake>` component such as:
 
 ```svelte
-  <LayerCake
-    let:xScale
-    let:yGet
-    let:containerWidth
-  >
-    <!-- Components... -->
-  </LayerCake>
+<LayerCake let:xScale let:yGet let:containerWidth>
+	<!-- Components... -->
+</LayerCake>
 ```
 
 ### activeGetters `Object`
@@ -32,14 +28,12 @@ An object that has a key for each dimension of data you have provided an accesso
 The aspect ratio of the chart, `width / height`. As a slot prop, you could use it to selectively display some components over others:
 
 ```svelte
-<LayerCake
-  let:aspectRatio
->
-  {#if aspectRatio > 1}
-    <LayoutOne/>
-  {:else}
-    <LayoutTwo/>
-  {/if}
+<LayerCake let:aspectRatio>
+	{#if aspectRatio > 1}
+		<LayoutOne />
+	{:else}
+		<LayoutTwo />
+	{/if}
 </LayerCake>
 ```
 
@@ -102,15 +96,12 @@ The x accessor. This will always be a function regardless of whether you passed 
 
 ```svelte
 <script>
-  import { getContext } from 'svelte';
-  const { data, x, y } = getContext('LayerCake');
+	import { getContext } from 'svelte';
+	const { data, x, y } = getContext('LayerCake');
 </script>
 
 {#each $data as d}
-  <circle
-    cx="{$xScale($x(d))}"
-    cy="{$yScale($y(d))}"
-  />
+	<circle cx={$xScale($x(d))} cy={$yScale($y(d))} />
 {/each}
 ```
 
@@ -174,17 +165,16 @@ Here are a few examples to show how it working and what it's equivalent to:
 
 ```svelte
 <script>
-import { getContext } from 'svelte';
+	import { getContext } from 'svelte';
 
-const { data, x, xScale, xGet } = getContext('LayerCake');
+	const { data, x, xScale, xGet } = getContext('LayerCake');
 
-// data === [{ myX: 'hello', myY: 'hi }];
+	// data === [{ myX: 'hello', myY: 'hi }];
 </script>
 
 {#each data as d}
-  <!-- These are equivalent: -->
-  d.myX === $x(d);
-  $xScale(d.myX) === $xScale($x(d)) === $xGet(d);
+	<!-- These are equivalent: -->
+	d.myX === $x(d); $xScale(d.myX) === $xScale($x(d)) === $xGet(d);
 {/each}
 ```
 
@@ -192,18 +182,13 @@ Here's an example from a simple scatter plot:
 
 ```svelte
 <script>
-  import { getContext } from 'svelte';
+	import { getContext } from 'svelte';
 
-  const { data, xGet, yGet } = getContext('LayerCake');
+	const { data, xGet, yGet } = getContext('LayerCake');
 </script>
 
 {#each $data as d}
-  <circle
-    cx={$xGet(d)}
-    cy={$yGet(d)}
-    r="5"
-    fill="#000"
-  />
+	<circle cx={$xGet(d)} cy={$yGet(d)} r="5" fill="#000" />
 {/each}
 ```
 

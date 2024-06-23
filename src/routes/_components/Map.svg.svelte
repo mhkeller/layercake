@@ -30,14 +30,26 @@
 		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
 	});
 
-	let evt;
-	let hideTooltip = true;
-
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
 	const flatData = geojson.features.map(d => d.properties);
 	const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 </script>
+
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 10 }}
+		data={geojson}
+		z={colorKey}
+		zScale={scaleQuantize()}
+		zRange={colors}
+		{flatData}
+	>
+		<Svg>
+			<MapSvg {projection} />
+		</Svg>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -51,22 +63,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 10 }}
-		data={geojson}
-		z={colorKey}
-		zScale={scaleQuantize()}
-		zRange={colors}
-		{flatData}
-	>
-		<Svg>
-			<MapSvg
-				{projection}
-				on:mousemove={event => evt = hideTooltip= event}
-				on:mouseout={() => hideTooltip = true}
-			/>
-		</Svg>
-	</LayerCake>
-</div>

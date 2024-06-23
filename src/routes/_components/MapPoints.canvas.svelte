@@ -21,6 +21,14 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake padding={{ top: 10 }} data={geojson}>
+		<Canvas>
+			<MapPointsCanvas {projection} {features} />
+		</Canvas>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -33,17 +41,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 10 }}
-		data={geojson}
-	>
-		<Canvas>
-			<MapPointsCanvas
-				{projection}
-				{features}
-			/>
-		</Canvas>
-	</LayerCake>
-</div>

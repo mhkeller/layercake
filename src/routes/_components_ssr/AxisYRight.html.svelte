@@ -16,7 +16,7 @@
 	let tickMarks = false;
 	let snapBaselineLabel = false;
 	let labelPosition = 'above';
-	let gridlines = true
+	let gridlines = true;
 	let tickMarkLength = undefined;
 	let tickGutter = 5;
 	let dx = 0;
@@ -30,67 +30,14 @@
 	// }, 500);
 </script>
 
-<style>
-	.component-container {
-		display: flex;
-		flex-direction: row-reverse;
-		gap: 10px;
-		height: 100%;
-	}
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
-	.chart-container {
-		flex: 1;
-		position: relative;
-	}
-	.props {
-		flex-grow: 0;
-		flex-shrink: 1;
-		display: flex;
-		flex-direction: column;
-		user-select: none;
-		overflow-y: auto;
-		font-size: 0.9rem;
-	}
-	label {
-		display: flex;
-		cursor: pointer;
-		align-items: center;
-	}
-	input[type="checkbox"] {
-		margin-left: 0;
-	}
-
-	label.number {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	input[type="number"] {
-		max-width: 35px;
-		margin-left: 10px;
-		float: right;
-	}
-	span.disabled {
-		opacity: 0.5;
-	}
-	label.disabled {
-		pointer-events: none;
-	}
-</style>
-
 <div class="component-container">
 	<div class="props">
 		<label>
-			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
+			<input type="checkbox" bind:checked={tickMarks} /> tickMarks
 		</label>
 
 		<label>
-			<input type="checkbox" bind:checked={gridlines}/> gridlines
+			<input type="checkbox" bind:checked={gridlines} /> gridlines
 		</label>
 
 		<label class="number">
@@ -102,12 +49,16 @@
 		</label>
 
 		<label class:disabled={labelPosition === 'above'}>
-			<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> <span class:disabled={labelPosition === 'above'}>snapBaselineLabel</span>
+			<input
+				type="checkbox"
+				bind:checked={snapBaselineLabel}
+				disabled={labelPosition === 'above'}
+			/> <span class:disabled={labelPosition === 'above'}>snapBaselineLabel</span>
 		</label>
 
 		<label class="number" class:disabled={!tickMarks}>
 			<span class:disabled={!tickMarks}>tickMarkLength</span>
-			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks}/>
+			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks} />
 		</label>
 		<label class="number">
 			tickGutter
@@ -125,15 +76,7 @@
 
 	<div class="chart-container">
 		<div class="mini-container">
-			<LayerCake
-				ssr
-				percentRange
-				position='absolute'
-				{padding}
-				x={xKey}
-				y={d => d[yKey]}
-				{data}
-			>
+			<LayerCake ssr percentRange position="absolute" {padding} x={xKey} y={d => d[yKey]} {data}>
 				<Html>
 					<AxisYRight
 						{tickMarks}
@@ -175,3 +118,56 @@
 		</div> -->
 	</div>
 </div>
+
+<style>
+	.component-container {
+		display: flex;
+		flex-direction: row-reverse;
+		gap: 10px;
+		height: 100%;
+	}
+	/*
+		The wrapper div needs to have an explicit width and height in CSS.
+		It can also be a flexbox child or CSS grid element.
+		The point being it needs dimensions since the <LayerCake> element will
+		expand to fill it.
+	*/
+	.chart-container {
+		flex: 1;
+		position: relative;
+	}
+	.props {
+		flex-grow: 0;
+		flex-shrink: 1;
+		display: flex;
+		flex-direction: column;
+		user-select: none;
+		overflow-y: auto;
+		font-size: 0.9rem;
+	}
+	label {
+		display: flex;
+		cursor: pointer;
+		align-items: center;
+	}
+	input[type='checkbox'] {
+		margin-left: 0;
+	}
+
+	label.number {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	input[type='number'] {
+		max-width: 35px;
+		margin-left: 10px;
+		float: right;
+	}
+	span.disabled {
+		opacity: 0.5;
+	}
+	label.disabled {
+		pointer-events: none;
+	}
+</style>

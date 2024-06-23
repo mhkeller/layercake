@@ -31,6 +31,34 @@
 	const addCommas = format(',');
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		padding={{ bottom: 15 }}
+		x={xKey}
+		z={zKey}
+		zScale={scaleOrdinal()}
+		zRange={seriesColors}
+		data={dataTransformed}
+		let:width
+	>
+		<Svg>
+			<AxisX baseline format={addCommas} tickMarks />
+			<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
+			<Beeswarm r={width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d.data[titleKey]} />
+		</Svg>
+
+		<Html pointerEvents={false}>
+			<Key
+				align="end"
+				shape="circle"
+				lookup={{
+					USA: 'U.S.'
+				}}
+			/>
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -43,41 +71,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class='chart-container'>
-	<LayerCake
-		padding={{bottom: 15}}
-		x={xKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zRange={seriesColors}
-		data={dataTransformed}
-		let:width
-	>
-
-		<Svg>
-			<AxisX
-				baseline
-				format={addCommas}
-				tickMarks
-			/>
-			<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
-			<Beeswarm
-				r={width < 400 ? r / 1.6 : r}
-				spacing={1}
-				getTitle={d => d.data[titleKey] }
-			/>
-		</Svg>
-
-		<Html pointerEvents={false}>
-			<Key
-				align='end'
-				shape='circle'
-				lookup={{
-					USA: 'U.S.'
-				}}
-			/>
-		</Html>
-
-	</LayerCake>
-</div>

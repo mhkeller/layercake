@@ -26,6 +26,31 @@
 	}
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 10, right: 5, bottom: 20, left: 25 }}
+		x={xKey}
+		y={yKey}
+		xPadding={[padding, padding]}
+		yPadding={[padding, padding]}
+		{data}
+	>
+		<Svg>
+			<AxisX gridlines={false} />
+			<AxisY gridlines={false} ticks={4} />
+		</Svg>
+
+		<Canvas>
+			<ScatterCanvas r={r * 1.5} fill="#0cf" />
+		</Canvas>
+
+		<Svg>
+			<ScatterSvg {r} fill={color} />
+			<Voronoi stroke="#333" on:voronoi-mouseover={logEvent} />
+		</Svg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -38,42 +63,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 10, right: 5, bottom: 20, left: 25 }}
-		x={xKey}
-		y={yKey}
-		xPadding={[padding, padding]}
-		yPadding={[padding, padding]}
-		{data}
-	>
-		<Svg>
-			<AxisX
-				gridlines={false}
-			/>
-			<AxisY
-				gridlines={false}
-				ticks={4}
-			/>
-		</Svg>
-
-		<Canvas>
-			<ScatterCanvas
-				r={r * 1.5}
-				fill='#0cf'
-			/>
-		</Canvas>
-
-		<Svg>
-			<ScatterSvg
-				{r}
-				fill={color}
-			/>
-			<Voronoi
-				stroke="#333"
-				on:voronoi-mouseover={logEvent}
-			/>
-		</Svg>
-	</LayerCake>
-</div>

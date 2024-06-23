@@ -8,9 +8,9 @@
 
 	export let sections;
 
-	let slug = '';
+	// let slug = '';
 	let path;
-	let type;
+	// let type;
 
 	// I was getting a weird artifact of a service-worker.js
 	// being requested. it's fixed now but keep this for
@@ -21,25 +21,25 @@
 
 	$: if (!isServiceWorker) {
 		path = $page.url.pathname;
-		type = path.split('/')[1];
+		// type = path.split('/')[1];
 		segment = `/${path.replace('/', '')}`;
 		// segment = `/${path.replace('/', '').replace(/\$/, '')}`;
-		slug = path.replace(/\/$/, '').split('/').pop();
+		// slug = path.replace(/\/$/, '').split('/').pop();
 	}
 
-	let basePath = '/';
+	// let basePath = '/';
 	let open = false;
 
 	let nav;
 
 	const slimName = d => d.split(' (')[0];
 
-	function loadPage () {
+	function loadPage() {
 		open = false;
 		goto(this.value || '/');
 	}
 
-	function toggleOpen () {
+	function toggleOpen() {
 		// if the menu is closing, scroll back to the top *after* it
 		// shuts. otherwise, scroll back to the top immediately
 		// (just in case the user reopened before it happened).
@@ -56,53 +56,77 @@
 		}
 		open = !open;
 	}
-
 </script>
 
-
-<div class='{open ? "open" : "closed"} mousecatcher'
-	on:click="{() => open = false}"
-	on:keypress="{() => open = false}"
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div
+	class="{open ? 'open' : 'closed'} mousecatcher"
+	on:click={() => (open = false)}
+	on:keypress={() => (open = false)}
 ></div>
-<div class='container'>
-	<span class="menu-link {open ? 'menu-open' : 'menu-closed'}" on:click='{toggleOpen}' on:keypress='{toggleOpen}'>{open ? 'Close' : 'Menu'}</span>
-	<a href='/' class='logo'>Layer Cake</a>
+<div class="container">
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<span
+		class="menu-link {open ? 'menu-open' : 'menu-closed'}"
+		on:click={toggleOpen}
+		on:keypress={toggleOpen}>{open ? 'Close' : 'Menu'}</span
+	>
+	<a href="/" class="logo">Layer Cake</a>
 </div>
 
 <ul class="dropdown">
 	<li>
-		<!-- svelte-ignore a11y-no-onchange -->
-		<select on:change={loadPage} bind:value="{segment}">
+		<select on:change={loadPage} bind:value={segment}>
 			{#if segment.startsWith('/components')}
-				<option value="{segment}" disabled>Select...</option>
+				<option value={segment} disabled>Select...</option>
 			{/if}
 			{#if segment.startsWith('/guide')}
-				<option value="{segment}" disabled>Select...</option>
+				<option value={segment} disabled>Select...</option>
 			{/if}
 			<option value="/">All</option>
 			<option class="header" disabled></option>
 			<option class="header" disabled>Client-side</option>
-			{#each examples.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
+			{#each examples.slice().sort((a, b) => (a.title < b.title ? -1 : 1)) as example}
 				<option value="/example/{example.slug}">{slimName(example.title)}</option>
 			{/each}
 			<option class="header" disabled></option>
 			<option class="header" disabled>Server-side</option>
-			{#each examplesSsr.slice().sort((a, b) => a.title < b.title ? -1 : 1) as example}
-				<option value="/example-ssr/{example.slug}" >{slimName(example.title)}</option>
+			{#each examplesSsr.slice().sort((a, b) => (a.title < b.title ? -1 : 1)) as example}
+				<option value="/example-ssr/{example.slug}">{slimName(example.title)}</option>
 			{/each}
 		</select>
 	</li>
 </ul>
 
-<nav bind:this={nav} class='{open ? "open" : "closed"}'>
-	<ul class='primary'>
-		<li><a class='{segment === "/components" ? "active" : ""}' href='/components' on:click='{() => open = false}'><span class="wide-name">Component gallery</span><span class="short-name">Components</span></a></li>
-		<li><a class='{segment === "/guide" ? "active" : ""}' href='/guide' on:click='{() => open = false}'>Guide</a></li>
-		<li><a id="github-link" target="_blank" rel="noreferrer" href='https://github.com/mhkeller/layercake'> </a></li>
+<nav bind:this={nav} class={open ? 'open' : 'closed'}>
+	<ul class="primary">
+		<li>
+			<a
+				class={segment === '/components' ? 'active' : ''}
+				href="/components"
+				on:click={() => (open = false)}
+				><span class="wide-name">Component gallery</span><span class="short-name">Components</span
+				></a
+			>
+		</li>
+		<li>
+			<a class={segment === '/guide' ? 'active' : ''} href="/guide" on:click={() => (open = false)}
+				>Guide</a
+			>
+		</li>
+		<li>
+			<a
+				id="github-link"
+				target="_blank"
+				rel="noreferrer"
+				href="https://github.com/mhkeller/layercake"
+			>
+			</a>
+		</li>
 	</ul>
 
-	<div class='secondary'>
-		<GuideContents {sections} bind:open={open} />
+	<div class="secondary">
+		<GuideContents {sections} bind:open />
 	</div>
 </nav>
 
@@ -126,8 +150,12 @@
 	}
 
 	@keyframes fadein {
-		from { opacity: 0; }
-		to { opacity: 1; }
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 
 	.container {
@@ -136,8 +164,8 @@
 		height: 2.5em;
 		background-color: #fff;
 		color: #000;
-		border-bottom: 1px solid rgb(170,30,30, 0.1);
-		font-family: "SignPainter", Helvetica, sans-serif ;
+		border-bottom: 1px solid rgb(170, 30, 30, 0.1);
+		font-family: 'SignPainter', Helvetica, sans-serif;
 		z-index: 12;
 	}
 
@@ -171,10 +199,10 @@
 		width: 14em;
 		height: calc(100vh - 2.5em);
 		top: 2.5em;
-		font-family: "SignPainter", Helvetica, sans-serif ;
+		font-family: 'SignPainter', Helvetica, sans-serif;
 		background-color: white;
-		transform: translate(-100%,0);
-		transition: transform 0.2s cubic-bezier(.17,.67,.24,.99);
+		transform: translate(-100%, 0);
+		transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.24, 0.99);
 		border-right: 1px solid #eee;
 		z-index: 12;
 		padding: 1em;
@@ -183,7 +211,7 @@
 
 	.open {
 		transform: translate(0, 0);
-		transition: transform 0.3s cubic-bezier(.17,.67,.24,.99);
+		transition: transform 0.3s cubic-bezier(0.17, 0.67, 0.24, 0.99);
 		overflow-y: auto;
 	}
 

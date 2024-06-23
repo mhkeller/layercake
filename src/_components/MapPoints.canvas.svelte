@@ -28,8 +28,7 @@
 	/** @type {Array} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
 	export let features = undefined;
 
-	$: projectionFn = projection()
-		.fitSize([$width, $height], $data);
+	$: projectionFn = projection().fitSize([$width, $height], $data);
 
 	$: featuresToDraw = features || $data.features;
 	$: {

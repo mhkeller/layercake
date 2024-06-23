@@ -14,6 +14,22 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake padding={{ top: 0, bottom: 20, left: 30 }} {data}>
+		<Html>
+			<CirclePack
+				{idKey}
+				{valueKey}
+				fill="#ff00cc"
+				stroke="#9f0080"
+				textColor="#61004e"
+				textStroke="#ffdbf8"
+				textStrokeWidth={1}
+			/>
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -26,22 +42,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 0, bottom: 20, left: 30 }}
-		{data}
-	>
-		<Html>
-      <CirclePack
-        idKey={idKey}
-        valueKey={valueKey}
-				fill='#ff00cc'
-				stroke='#9f0080'
-				textColor='#61004e'
-				textStroke='#ffdbf8'
-				textStrokeWidth={1}
-      />
-		</Html>
-	</LayerCake>
-</div>

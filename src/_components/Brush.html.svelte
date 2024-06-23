@@ -64,7 +64,7 @@
 	const clear = () => {
 		min = null;
 		max = null;
-	}
+	};
 
 	const reset = handler((start, p) => {
 		min = clamp(Math.min(start.p, p), 0, 1);
@@ -91,11 +91,51 @@
 	$: right = 100 * (1 - max);
 </script>
 
-<div bind:this={brush} class="brush-outer" on:mousedown|stopPropagation={reset} on:touchstart|stopPropagation={reset}>
+<div
+	bind:this={brush}
+	class="brush-outer"
+	on:mousedown|stopPropagation={reset}
+	on:touchstart|stopPropagation={reset}
+	role="slider"
+	aria-valuemin={min}
+	aria-valuemax={max}
+	aria-valuetext="{min} to {max}"
+	tabindex="0"
+>
 	{#if min !== null}
-		<div class="brush-inner" on:mousedown|stopPropagation={move} on:touchstart|stopPropagation={move} style="left: {left}%; right: {right}%"></div>
-		<div class="brush-handle" on:mousedown|stopPropagation={adjust_min} on:touchstart|stopPropagation={adjust_min} style="left: {left}%"></div>
-		<div class="brush-handle" on:mousedown|stopPropagation={adjust_max} on:touchstart|stopPropagation={adjust_max} style="right: {right}%"></div>
+		<div
+			class="brush-inner"
+			on:mousedown|stopPropagation={move}
+			on:touchstart|stopPropagation={move}
+			style="left: {left}%; right: {right}%"
+			role="slider"
+			aria-valuemin={min}
+			aria-valuemax={max}
+			aria-valuetext="{min} to {max}"
+			tabindex="0"
+		></div>
+		<div
+			class="brush-handle"
+			on:mousedown|stopPropagation={adjust_min}
+			on:touchstart|stopPropagation={adjust_min}
+			style="left: {left}%"
+			role="slider"
+			aria-valuemin={min}
+			aria-valuemax={max}
+			aria-valuetext="{min} to {max}"
+			tabindex="0"
+		></div>
+		<div
+			class="brush-handle"
+			on:mousedown|stopPropagation={adjust_max}
+			on:touchstart|stopPropagation={adjust_max}
+			style="right: {right}%"
+			role="slider"
+			aria-valuemin={min}
+			aria-valuemax={max}
+			aria-valuetext="{min} to {max}"
+			tabindex="0"
+		></div>
 	{/if}
 </div>
 

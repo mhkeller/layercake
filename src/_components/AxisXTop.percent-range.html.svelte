@@ -42,54 +42,52 @@
 	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`. */
 	export let units = $percentRange === true ? '%' : 'px';
 
-	$: tickLen = tickMarks === true
-		? tickMarkLength ?? 6
-		: 0;
+	$: tickLen = tickMarks === true ? tickMarkLength ?? 6 : 0;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 
-	$: tickVals = Array.isArray(ticks) ? ticks :
-		isBandwidth ?
-			$xScale.domain() :
-			typeof ticks === 'function' ?
-				ticks($xScale.ticks()) :
-					$xScale.ticks(ticks);
+	$: tickVals = Array.isArray(ticks)
+		? ticks
+		: isBandwidth
+			? $xScale.domain()
+			: typeof ticks === 'function'
+				? ticks($xScale.ticks())
+				: $xScale.ticks(ticks);
 
-	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0
+	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
 </script>
 
-<div class='axis x-axis' class:snapLabels>
+<div class="axis x-axis" class:snapLabels>
 	{#each tickVals as tick, i (tick)}
 		{@const tickValUnits = $xScale(tick)}
 
 		{#if baseline === true}
-			<div class="baseline" style='top:0; width:100%;'></div>
+			<div class="baseline" style="top:0; width:100%;"></div>
 		{/if}
 
 		{#if gridlines === true}
-			<div
-				class="gridline"
-				style:left="{tickValUnits}{units}"
-				style='top:0; bottom:0;'
-			></div>
+			<div class="gridline" style:left="{tickValUnits}{units}" style="top:0; bottom:0;"></div>
 		{/if}
 		{#if tickMarks === true}
 			<div
 				class="tick-mark"
-				style:left={tickValUnits + halfBand}{units}
+				style:left="{tickValUnits + halfBand}{units}"
 				style:height="{tickLen}px"
 				style:top="{-tickLen - tickGutter}px"
 			></div>
 		{/if}
 		<div
-			class='tick tick-{i}'
-			style:left={tickValUnits + halfBand}{units}
-			style='top:{-tickGutter}px;'>
+			class="tick tick-{i}"
+			style:left="{tickValUnits + halfBand}{units}"
+			style="top:{-tickGutter}px;"
+		>
 			<div
 				class="text"
-				style:top={(-tickLen + 2) + 'px'}
+				style:top={-tickLen + 2 + 'px'}
 				style:transform={`translate(calc(-50% + ${dx}px), calc(-100% + ${dy}px))`}
-			>{format(tick)}</div>
+			>
+				{format(tick)}
+			</div>
 		</div>
 	{/each}
 </div>

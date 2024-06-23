@@ -3,10 +3,8 @@
 	Generates an HTML y-axis on the right-hand side. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
 
 	Although this is marked as a percent-range component, you can also use it with a normal scale with no configuration needed. By default, if you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts. Set the `units` prop to either `'%'` or `'px'` to override the default behavior.
-
-	```html
  -->
- <script>
+<script>
 	import { getContext } from 'svelte';
 
 	const { xRange, yScale, width, percentRange } = getContext('LayerCake');

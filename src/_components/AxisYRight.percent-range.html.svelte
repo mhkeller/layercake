@@ -47,6 +47,9 @@
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
 
+	$:console.log({units})
+
+
 	$: tickVals = Array.isArray(ticks) ? ticks :
 		isBandwidth ?
 			$yScale.domain() :
@@ -76,7 +79,7 @@
 	{#each tickVals as tick, i (tick)}
 		{@const tickValUnits = $yScale(tick)}
 
-		<div class='tick tick-{i}' style='left:{$xRange[0]}%;top:{tickValUnits + halfBand}{units};'>
+		<div class='tick tick-{i}' style='left:{$xRange[0]}{units};top:{tickValUnits + halfBand}{units};'>
 			{#if gridlines === true}
 				<div
 					class="gridline"

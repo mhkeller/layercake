@@ -2,7 +2,7 @@
 	@component
 	Generates an HTML y-axis on the right-hand side. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
 
-	If you have `percentRange=true` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts.
+	If you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts.
  -->
  <script>
 	import { getContext } from 'svelte';
@@ -42,7 +42,7 @@
 	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
 	export let charPixelWidth = 7.25;
 
-	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange=true` it defaults to `'%'`. Options: `'%'` or `'px'`. */
+	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`. */
 	export let units = $percentRange === true ? '%' : 'px';
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';

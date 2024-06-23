@@ -2,7 +2,7 @@
 	@component
 	Generates an HTML top x-axis, useful for server-side rendered charts.  This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
 
-	If you have `percentRange=true` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts.
+	If you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts.
  -->
  <script>
 	import { getContext } from 'svelte';
@@ -39,7 +39,7 @@
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = 0;
 
-	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange=true` it defaults to `'%'`. Options: `'%'` or `'px'`. */
+	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`. */
 	export let units = $percentRange === true ? '%' : 'px';
 
 	$: tickLen = tickMarks === true

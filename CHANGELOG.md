@@ -1,5 +1,13 @@
 # Changelog
 
+# 8.3.3
+
+> 2024-06-23
+
+Add SvelteKit default settings for prettier and eslint with a few exceptions.
+
+- [PR#215](https://github.com/mhkeller/layercake/pull/215)
+
 # 8.3.2
 
 > 2024-06-23

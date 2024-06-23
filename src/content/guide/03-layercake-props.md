@@ -322,6 +322,38 @@ Reverse the default r range. By default this is `false` and the range is `[1, 25
 
 This is ignored if you set [rRange](/guide#rrange).
 
+### deriveScales `{Object.<string, function({xScale, yScale, zScale, rScale}): D3Scale>}`
+
+Sometimes you want to create scales that are based on one of your main x, y, z or r scales, such as for [grouped column](/example/ColumnGrouped) charts where you have two x-axis scales, one that uses the bandwidth of the other as its range.
+
+Use this prop to create a scale derived from others. It takes an object where each key is an arbitrary name for the derived scale. The value is a function that receives an object with available scales and returns the new scale.
+
+The key names becomes stores on the LayerCake context object.
+
+> Scales are copied with `.copy()` before being passed in so you can't accidentally alter them.
+
+```svelte
+<LayerCake
+  xScale={scaleBand().paddingInner(0.1).round(true)}
+  rScale={scaleBand().paddingInner(0).round(true)}
+  rDomain={['apples', 'bananas']}
+
+  deriveScales={{
+    subgroupScale: ({ xScale, rScale }) => {
+      rScale.range([0, xScale.bandwidth()]);
+ 	    return rScale;
+    },
+    someOtherScale: ({ yScale, zScale}) => {
+      // Do whatever you want here
+      // as long as you return a D3 Scale
+      yScale.domain([yScale.domain()[0], zScale.domain()[1]])
+      return yScale;
+    }
+  }}
+>
+```
+
+
 ### extents `Object`
 
 Manually set the extents of the x, y or r scale. Setting values here will skip any dynamic extent calculation of the data for that dimension. This is similar to setting a fixed domain using `xDomain`, `yDomain`, `rDomain` or `zDomain` with the exception that this prop has the performance improvement of skipping the domain calculation. It may be removed in future versions, however. See [Issue #179](https://github.com/mhkeller/layercake/issues/179).

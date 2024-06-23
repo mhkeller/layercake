@@ -1,6 +1,6 @@
 {
 	"name": "layercake",
-	"version": "8.3.2",
+	"version": "8.3.3",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

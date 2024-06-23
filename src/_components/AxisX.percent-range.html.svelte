@@ -2,7 +2,7 @@
 	@component
 	Generates an HTML x-axis, useful for server-side rendered charts. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
 
-	If you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts.
+	Although this is marked as a percent-range component, you can also use it with a normal scale with no cofiguration needed. By default, if you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts.
  -->
 <script>
 	import { getContext } from 'svelte';

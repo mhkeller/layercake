@@ -76,15 +76,7 @@
 
 	<div class="chart-container">
 		<div class="mini-container">
-			<LayerCake
-				ssr
-				percentRange
-				position='absolute'
-				{padding}
-				x={xKey}
-				y={d => d[yKey]}
-				{data}
-			>
+			<LayerCake ssr percentRange position="absolute" {padding} x={xKey} y={d => d[yKey]} {data}>
 				<Html>
 					<AxisYRight
 						{tickMarks}

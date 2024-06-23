@@ -33,11 +33,11 @@
 <div class="component-container">
 	<div class="props">
 		<label>
-			<input type="checkbox" bind:checked={tickMarks}/> tickMarks
+			<input type="checkbox" bind:checked={tickMarks} /> tickMarks
 		</label>
 
 		<label>
-			<input type="checkbox" bind:checked={gridlines}/> gridlines
+			<input type="checkbox" bind:checked={gridlines} /> gridlines
 		</label>
 
 		<label class="number">
@@ -49,12 +49,16 @@
 		</label>
 
 		<label class:disabled={labelPosition === 'above'}>
-			<input type="checkbox" bind:checked={snapBaselineLabel} disabled={labelPosition === 'above'}/> <span class:disabled={labelPosition === 'above'}>snapBaselineLabel</span>
+			<input
+				type="checkbox"
+				bind:checked={snapBaselineLabel}
+				disabled={labelPosition === 'above'}
+			/> <span class:disabled={labelPosition === 'above'}>snapBaselineLabel</span>
 		</label>
 
 		<label class="number" class:disabled={!tickMarks}>
 			<span class:disabled={!tickMarks}>tickMarkLength</span>
-			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks}/>
+			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks} />
 		</label>
 		<label class="number">
 			tickGutter
@@ -72,15 +76,7 @@
 
 	<div class="chart-container">
 		<div class="mini-container">
-			<LayerCake
-				ssr
-				percentRange
-				position='absolute'
-				{padding}
-				x={xKey}
-				y={d => d[yKey]}
-				{data}
-			>
+			<LayerCake ssr percentRange position="absolute" {padding} x={xKey} y={d => d[yKey]} {data}>
 				<Html>
 					<AxisY
 						{tickMarks}
@@ -92,7 +88,7 @@
 						{dx}
 						{dy}
 						ticks={4}
-				/>
+					/>
 				</Html>
 			</LayerCake>
 		</div>

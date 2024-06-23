@@ -415,6 +415,12 @@
 	);
 	const rGet_d = derived([_r, rScale_d], createGetter);
 
+	// Create new _Domains in case we ran `.nice()` over our domain on scale initialization
+	const xDomain_d_possibly_nice = derived(xScale_d, $xScale_d => $xScale_d.domain());
+	const yDomain_d_possibly_nice = derived(yScale_d, $yScale_d => $yScale_d.domain());
+	const zDomain_d_possibly_nice = derived(zScale_d, $zScale_d => $zScale_d.domain());
+	const rDomain_d_possibly_nice = derived(rScale_d, $rScale_d => $rScale_d.domain());
+
 	const xRange_d = derived([xScale_d], getRange);
 	const yRange_d = derived([yScale_d], getRange);
 	const zRange_d = derived([zScale_d], getRange);
@@ -457,10 +463,10 @@
 		padding: padding_d,
 		flatData: _flatData,
 		extents: extents_d,
-		xDomain: xDomain_d,
-		yDomain: yDomain_d,
-		zDomain: zDomain_d,
-		rDomain: rDomain_d,
+		xDomain: xDomain_d_possibly_nice,
+		yDomain: yDomain_d_possibly_nice,
+		zDomain: zDomain_d_possibly_nice,
+		rDomain: rDomain_d_possibly_nice,
 		xRange: xRange_d,
 		yRange: yRange_d,
 		zRange: zRange_d,

@@ -1,5 +1,21 @@
 # Changelog
 
+# 8.3.2
+
+> 2024-06-23
+
+Fixes a problem where if a user niced one of their scales, that change would not be reflected in the \_Domain stores. Many thanks to @jnsprnw for the fix!
+
+- [PR#214](https://github.com/mhkeller/layercake/pull/214)
+
+# 8.3.1
+
+> 2024-06-22
+
+Security update
+
+- [PR#212](https://github.com/mhkeller/layercake/pull/212)
+
 # 8.3.0
 
 > 2024-06-04

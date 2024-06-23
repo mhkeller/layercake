@@ -21,6 +21,13 @@
 	let tickGutter = 5;
 	let dx = 0;
 	let dy = -3;
+
+	const padding = { bottom: 15, right: 25 };
+
+	// let alternate = false;
+	// setInterval(() => {
+	// 	alternate = !alternate;
+	// }, 500);
 </script>
 
 <div class="component-container">
@@ -68,28 +75,55 @@
 	</div>
 
 	<div class="chart-container">
-		<LayerCake
-			ssr
-			percentRange
-			padding={{ bottom: 15, right: 25 }}
-			x={xKey}
-			y={d => d[yKey]}
-			{data}
-		>
-			<Html>
-				<AxisYRight
-					{tickMarks}
-					{snapBaselineLabel}
-					{labelPosition}
-					{gridlines}
-					{tickMarkLength}
-					{tickGutter}
-					{dx}
-					{dy}
-					ticks={4}
-				/>
-			</Html>
-		</LayerCake>
+		<div class="mini-container">
+			<LayerCake
+				ssr
+				percentRange
+				position='absolute'
+				{padding}
+				x={xKey}
+				y={d => d[yKey]}
+				{data}
+			>
+				<Html>
+					<AxisYRight
+						{tickMarks}
+						{snapBaselineLabel}
+						{labelPosition}
+						{gridlines}
+						{tickMarkLength}
+						{tickGutter}
+						{dx}
+						{dy}
+						ticks={4}
+					/>
+				</Html>
+			</LayerCake>
+		</div>
+
+		<!-- <div class="mini-container" style:display={alternate === true ? 'block' : 'none'}>
+			<LayerCake
+				position='absolute'
+				{padding}
+				x={xKey}
+				y={d => d[yKey]}
+				{data}
+			>
+				<Html>
+					<AxisYRight
+						{tickMarks}
+						{snapBaselineLabel}
+						{labelPosition}
+						{gridlines}
+						{tickMarkLength}
+						{tickGutter}
+						{dx}
+						{dy}
+						ticks={4}
+					/>
+				</Html>
+			</LayerCake>
+		</div> -->
 	</div>
 </div>
 
@@ -108,6 +142,7 @@
 	*/
 	.chart-container {
 		flex: 1;
+		position: relative;
 	}
 	.props {
 		flex-grow: 0;

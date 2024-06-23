@@ -47,9 +47,6 @@
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
 
-	$:console.log({units})
-
-
 	$: tickVals = Array.isArray(ticks) ? ticks :
 		isBandwidth ?
 			$yScale.domain() :

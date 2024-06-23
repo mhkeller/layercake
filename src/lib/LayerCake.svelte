@@ -122,10 +122,8 @@
 	export let padding = {};
 	/** @type {{ x?: [min: Number, max: Number], y?: [min: Number, max: Number], r?: [min: Number, max: Number], z?: [min: Number, max: Number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */
 	export let extents = {};
-
-	/** @type {{ xScale?: Function, yScale?: Function, rScale?: Function, zScale?: Function }} [deriveScales] Alter one or more scales basd values of others. */
+	/** @type {Object.<string, function({xScale, yScale, zScale, rScale}): D3Scale>} [deriveScales] Create new scales based on values of others. Takes an object where each key is an arbitrary name for the derived scale. The value is a function that receives an object with available scales and returns the new scale. */
 	export let deriveScales = {};
-
 	/** @type {Array} [flatData=data] A flat version of data. */
 	export let flatData = undefined;
 

@@ -1,11 +1,13 @@
 <!--
 	@component
 	Generates an HTML top x-axis, useful for server-side rendered charts.  This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
+
+	Although this is marked as a percent-range component, you can also use it with a normal scale with no configuration needed. By default, if you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts. Set the `units` prop to either `'%'` or `'px'` to override the default behavior.
  -->
- <script>
+<script>
 	import { getContext } from 'svelte';
 
-	const { width, height, xScale, yRange } = getContext('LayerCake');
+	const { xScale, percentRange } = getContext('LayerCake');
 
 	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
@@ -37,6 +39,9 @@
 	/** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
 	export let dy = 0;
 
+	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`. */
+	export let units = $percentRange === true ? '%' : 'px';
+
 	$: tickLen = tickMarks === true
 		? tickMarkLength ?? 6
 		: 0;
@@ -55,7 +60,7 @@
 
 <div class='axis x-axis' class:snapLabels>
 	{#each tickVals as tick, i (tick)}
-		{@const tickValPx = $xScale(tick)}
+		{@const tickValUnits = $xScale(tick)}
 
 		{#if baseline === true}
 			<div class="baseline" style='top:0; width:100%;'></div>
@@ -64,21 +69,21 @@
 		{#if gridlines === true}
 			<div
 				class="gridline"
-				style:left={tickValPx + '%'}
+				style:left="{tickValUnits}{units}"
 				style='top:0; bottom:0;'
 			></div>
 		{/if}
 		{#if tickMarks === true}
 			<div
 				class="tick-mark"
-				style:left={(tickValPx + halfBand) + '%'}
-				style:height={tickLen + 'px'}
-				style:top={(-tickLen - tickGutter) + 'px'}
+				style:left={tickValUnits + halfBand}{units}
+				style:height="{tickLen}px"
+				style:top="{-tickLen - tickGutter}px"
 			></div>
 		{/if}
 		<div
 			class='tick tick-{i}'
-			style:left={(tickValPx + halfBand) + '%'}
+			style:left={tickValUnits + halfBand}{units}
 			style='top:{-tickGutter}px;'>
 			<div
 				class="text"

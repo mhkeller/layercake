@@ -21,6 +21,13 @@
 	let tickGutter = 0;
 	let dx = 0;
 	let dy = 0;
+
+	const padding = { top: 15, bottom: 10 };
+
+	// let alternate = false;
+	// setInterval(() => {
+	// 	alternate = !alternate;
+	// }, 500);
 </script>
 
 <style>
@@ -38,6 +45,7 @@
 	*/
 	.chart-container {
 		flex: 1;
+		position: relative;
 	}
 	.props {
 		flex-grow: 0;
@@ -114,26 +122,52 @@
 	</div>
 
 	<div class="chart-container">
-		<LayerCake
-			ssr
-			percentRange
-			padding={{ top: 15, bottom: 10 }}
-			x={xKey}
-			y={d => d[yKey]}
-			{data}
-		>
-			<Html>
-				<AxisXTop
-					{baseline}
-					{tickMarks}
-					{snapLabels}
-					{gridlines}
-					{tickMarkLength}
-					{tickGutter}
-					{dx}
-					{dy}
-			/>
-			</Html>
-		</LayerCake>
+		<div class="mini-container" data-which="percent-range">
+			<LayerCake
+				ssr
+				percentRange
+				position='absolute'
+				{padding}
+				x={xKey}
+				y={d => d[yKey]}
+				{data}
+			>
+				<Html>
+					<AxisXTop
+						{baseline}
+						{tickMarks}
+						{snapLabels}
+						{gridlines}
+						{tickMarkLength}
+						{tickGutter}
+						{dx}
+						{dy}
+				/>
+				</Html>
+			</LayerCake>
+		</div>
+
+		<!-- <div class="mini-container" style:display={alternate === false ? 'none' : 'block'}>
+			<LayerCake
+				position='absolute'
+				{padding}
+				x={xKey}
+				y={d => d[yKey]}
+				{data}
+			>
+				<Html>
+					<AxisXTop
+						{baseline}
+						{tickMarks}
+						{snapLabels}
+						{gridlines}
+						{tickMarkLength}
+						{tickGutter}
+						{dx}
+						{dy}
+				/>
+				</Html>
+			</LayerCake>
+		</div> -->
 	</div>
 </div>

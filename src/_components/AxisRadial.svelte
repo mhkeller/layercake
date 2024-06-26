@@ -20,6 +20,8 @@
 
 	$: angleSlice = (Math.PI * 2) / $config.x.length;
 
+	/** @param {Number} total
+	 *  @param {Number} i */
 	function anchor(total, i) {
 		if (i === 0 || i === total / 2) {
 			return 'middle';

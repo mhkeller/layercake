@@ -19,13 +19,13 @@
 	/** @type {Boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
 	export let gridlines = true;
 
-	/** @type {Number} [tickMarkLength=undefined] - The length of the tick mark. If not set, becomes the length of the widest tick. */
+	/** @type {Number|undefined} [tickMarkLength=undefined] - The length of the tick mark. If not set, becomes the length of the widest tick. */
 	export let tickMarkLength = undefined;
 
-	/** @type {Function} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
+	/** @type {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
 	export let format = d => d;
 
-	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
+	/** @type {Number|Array<Number>|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
 	export let ticks = 4;
 
 	/** @type {Number} [tickGutter=5] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
@@ -42,6 +42,7 @@
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
 
+	/** @type {Array<Number>} */
 	$: tickVals = Array.isArray(ticks)
 		? ticks
 		: isBandwidth
@@ -50,6 +51,8 @@
 				? ticks($yScale.ticks())
 				: $yScale.ticks(ticks);
 
+	/** @param {Number} sum
+	 *  @param {String} val */
 	function calcStringLength(sum, val) {
 		if (val === ',' || val === '.') return sum + charPixelWidth * 0.5;
 		return sum + charPixelWidth;

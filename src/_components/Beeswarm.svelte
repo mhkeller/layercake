@@ -19,7 +19,7 @@
 	/** @type {Number} [spacing=1.5] - Whitespace padding between each circle, in pixels */
 	export let spacing = 1.5;
 
-	/** @type {Function} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `<title>` tag. */
+	/** @type {Function|undefined} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `<title>` tag. */
 	export let getTitle = undefined;
 
 	$: circles = dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet });

@@ -86,7 +86,6 @@
 					y2={tickGutter + tickLen}
 				/>
 			{/if}
-			@param {Number} i/** @param {Boolean} sl */
 			<text x={halfBand} y={tickGutter + tickLen} {dx} {dy} text-anchor={textAnchor(i, snapLabels)}
 				>{format(tick)}</text
 			>

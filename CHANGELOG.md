@@ -1,5 +1,13 @@
 # Changelog
 
+# 8.3.4
+
+> 2024-06-23
+
+Better types.
+
+- [PR#223](https://github.com/mhkeller/layercake/pull/223)
+
 # 8.3.3
 
 > 2024-06-23

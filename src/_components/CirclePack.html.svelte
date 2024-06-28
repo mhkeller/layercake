@@ -12,7 +12,7 @@
 	/** @type {String} [idKey='id'] - The key on each object where the id value lives. */
 	export let idKey = 'id';
 
-	/** @type {String} [parentKey] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack). */
+	/** @type {String|undefined} [parentKey] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack). */
 	export let parentKey = undefined;
 
 	/** @type {String} [valueKey='value'] - The key on each object where the data value lives. */

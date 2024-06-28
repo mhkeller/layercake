@@ -25,7 +25,7 @@
 	/** @type {Number} [offset=-20] - A y-offset from the hover point, in pixels. */
 	export let offset = -20;
 
-	/** @type {Array} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */
+	/** @type {Array<Object>|undefined} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */
 	export let dataset = undefined;
 
 	const w = 150;

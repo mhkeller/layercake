@@ -16,7 +16,7 @@
 	/** @type {Boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	/** @type {Number} [fixedAspectRatio=1`] A number to set the aspect ratio onto the viewBox. */
+	/** @type {Number} [fixedAspectRatio=1] A number to set the aspect ratio onto the viewBox. */
 	export let fixedAspectRatio = 1;
 
 	/** @type {String} [viewBox=`0 0 100 ${100 / fixedAspectRatio}`] A string passed to the `viewBox` property on the `<svg>` tag. */

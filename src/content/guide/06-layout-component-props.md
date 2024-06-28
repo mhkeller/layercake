@@ -52,7 +52,7 @@ The `Canvas` and the `WebGL` components also export a `context` variable that yo
 </LayerCake>
 ```
 
-### zIndex `Number|String`
+### zIndex `Number|undefined`
 
 This lets you fine-tune your layering and is useful if you want your layers to build in a certain order but have a different appearance than their DOM order.
 
@@ -62,7 +62,7 @@ This lets you fine-tune your layering and is useful if you want your layers to b
 </LayerCake>
 ```
 
-### pointerEvents `Boolean`
+### pointerEvents `Boolean|undefined`
 
 Useful for tooltip layers that need to be display above chart elements but not capture mouse events. Defaults to no `pointer-events` CSS being set. Set to `false` to set `pointer-events: none;`
 
@@ -74,7 +74,7 @@ Useful for tooltip layers that need to be display above chart elements but not c
 
 ### viewBox `String`
 
-On Svg components, this defaults to `undefined` and `0 0 100 100` for ScaledSvg.
+For Svg components, this defaults to `''` and for ScaledSvg it defaults to `0 0 100 100`.
 
 ```svelte
 <LayerCake ...>
@@ -82,9 +82,9 @@ On Svg components, this defaults to `undefined` and `0 0 100 100` for ScaledSvg.
 </LayerCake>
 ```
 
-### fixedAspectRatio `Number`
+### fixedAspectRatio `Number=1`
 
-For ScaledSvg components, you can pass in a set aspect ratio. See the [server-side rendered Map](/example-ssr/MapSvg) for an example.
+For ScaledSvg components, you can pass in a set aspect ratio. See the [server-side rendered Map](/example-ssr/MapSvg) for an example. Default is `1`.
 
 ```svelte
 <LayerCake ...>
@@ -92,7 +92,7 @@ For ScaledSvg components, you can pass in a set aspect ratio. See the [server-si
 </LayerCake>
 ```
 
-### contextAttributes `Object`
+### contextAttributes `Object|undefined`
 
 For WebGL components, you can pass in an object that gets passed as the second argument to `canvas.getContext()`. See the [WebGL docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext) for more details on what those attributes can be.
 

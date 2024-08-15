@@ -9,16 +9,16 @@
 
 	const { xRange, yScale, width, percentRange } = getContext('LayerCake');
 
-	/** @type {Boolean} [tickMarks=true] - Show marks next to the tick label. */
+	/** @type {boolean} [tickMarks=true] - Show marks next to the tick label. */
 	export let tickMarks = true;
 
 	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
 	export let labelPosition = 'even';
 
-	/** @type {Boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
+	/** @type {boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
 	export let snapBaselineLabel = false;
 
-	/** @type {Boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
+	/** @type {boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
 	export let gridlines = true;
 
 	/** @type {Number|undefined} [tickMarkLength=undefined] - The length of the tick mark. If not set, becomes the length of the widest tick. */

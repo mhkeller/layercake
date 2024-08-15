@@ -9,7 +9,7 @@
 	/** @type {HTMLCanvasElement|undefined} [element] The `<canvas>` tag. Useful for bindings. */
 	export let element = undefined;
 
-	/** @type {Number|undefined} [zIndex] The layer's z-index. */
+	/** @type {number|undefined} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
 
 	/** @type {Boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */

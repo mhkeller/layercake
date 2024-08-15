@@ -25,7 +25,7 @@
 	@param {Array} data The data to be stacked.
 	@param {Array|Function} keys The group names to stack, passed to `stack.keys()`.
 	@param {Object} options Options object
-	@param {String|Number|Function} [options.value] An accessor function passed to `stack.value()`. If this is a string or number, it will be transformed into an accessor for that key.
+	@param {String|number|Function} [options.value] An accessor function passed to `stack.value()`. If this is a string or number, it will be transformed into an accessor for that key.
 	@param {Array|Function} [options.order] The stack order passed to `stack.order()`.
 	@param {Function} [options.offset] The offset function passed to `stack.offset()`.
 

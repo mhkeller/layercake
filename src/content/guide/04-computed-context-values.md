@@ -23,7 +23,7 @@ An object that has a key for each dimension of data you have provided an accesso
 }
 ```
 
-### aspectRatio `Number`
+### aspectRatio `number`
 
 The aspect ratio of the chart, `width / height`. As a slot prop, you could use it to selectively display some components over others:
 
@@ -51,11 +51,11 @@ Or, [xDomain](/guide#xdomain) and the other domain props can be used to set manu
 
 Having access to this field can help you not repeat yourself in specifying things twice or in scenarios where Layer Cake is doing a transformation on that original value, like in accessors or domain inputs, and you want to know about the original value.
 
-### containerWidth `Number`
+### containerWidth `number`
 
 The width of the parent container – the div element that contains the `<LayerCake>` component. Unlike [width](/guide#width), this value does not take into account any margin. As a variable on the Layer Cake slot so you can access it with `let:containerWidth`.
 
-### containerHeight `Number`
+### containerHeight `number`
 
 The height of the parent container – the div element that contains the `<LayerCake>` component. Unlike [height](/guide#height), this value does not take into account any margin. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:containerHeight`.
 
@@ -74,11 +74,11 @@ This value could differ from the domain of your scale if you are manually settin
 }
 ```
 
-### width `Number`
+### width `number`
 
 The width of the drawable space for the chart. This is the width of the parent container taking into account any margin. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:width`.
 
-### height `Number`
+### height `number`
 
 The width of the drawable space for the chart. This is the height of the parent container taking into account any margin. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:height`.
 
@@ -117,7 +117,7 @@ Same as [x](/guide#x-1) but for the z dimension.
 
 Same as [x](/guide#x-1) but for the r dimension.
 
-### xDomain `Array:[min: Number, max: Number]`
+### xDomain `Array:[min: number, max: number]`
 
 The calculated extent of the x-dimension of the data. This is the extent of the data taking into account any manual settings passed in for [xDomain](/guide#xdomain).
 
@@ -125,33 +125,33 @@ For example, if the extent of the data is `[10, 100]` and you set the xDomain pr
 
 It's equivalent to calling `$xScale.domain()`.
 
-### yDomain `Array:[min: Number, max: Number]`
+### yDomain `Array:[min: number, max: number]`
 
 Same as [xDomain](/guide#xdomain-1) above but for the y domain.
 
-### zDomain `Array:[min: Number, max: Number]`
+### zDomain `Array:[min: number, max: number]`
 
 Same as [xDomain](/guide#xdomain-1) above but for the z domain.
 
-### rDomain `Array:[min: Number, max: Number]`
+### rDomain `Array:[min: number, max: number]`
 
 Same as [xDomain](/guide#xdomain-1) above but for the r domain.
 
-### xRange `Array:[min: Number, max: Number]`
+### xRange `Array:[min: number, max: number]`
 
 The range used for the x-scale. This is usually `[0, width]` unless it's been manually set via the [xRange](/guide#xrange) prop.
 
 It's equivalent to calling `$xScale.range()`.
 
-### yRange `Array:[min: Number, max: Number]`
+### yRange `Array:[min: number, max: number]`
 
 Same as [xRange](/guide#xrange-1) above but for the y domain.
 
-### zRange `Array:[min: Number, max: Number]`
+### zRange `Array:[min: number, max: number]`
 
 Same as [xRange](/guide#xrange-1) above but for the z domain.
 
-### rRange `Array:[min: Number, max: Number]`
+### rRange `Array:[min: number, max: number]`
 
 Same as [xRange](/guide#xrange-1) above but for the r domain.
 

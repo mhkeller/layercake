@@ -8,10 +8,10 @@
 
 	const { data, width, height, xGet, config } = getContext('LayerCake');
 
-	/**	@type {String} [fill='#f0c'] The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
+	/**	@type {string} [fill='#f0c'] The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
 	export let fill = '#f0c';
 
-	/**	@type {String} [stroke='#f0c'] The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
+	/**	@type {string} [stroke='#f0c'] The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
 	export let stroke = '#f0c';
 
 	/**	@type {Number} [stroke=2] The radar's stroke color. */
@@ -23,10 +23,10 @@
 	/**	@type {Number} [r=4.5] Each circle's radius. */
 	export let r = 4.5;
 
-	/**	@type {String} [circleFill="#f0c"] Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
+	/**	@type {string} [circleFill="#f0c"] Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
 	export let circleFill = '#f0c';
 
-	/**	@type {String} [circleStroke="#fff"] Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
+	/**	@type {string} [circleStroke="#fff"] Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
 	export let circleStroke = '#fff';
 
 	/**	@type {Number} [circleStrokeWidth=1] Each circle's stroke width. */

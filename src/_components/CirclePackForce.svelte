@@ -14,10 +14,10 @@
 	/** @type {Number} [xStrength=0.1] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */
 	export let xStrength = 0.1;
 
-	/** @type {String|undefined} [nodeColor] Set a color manually otherwise it will default to the `zScale`. */
+	/** @type {string|undefined} [nodeColor] Set a color manually otherwise it will default to the `zScale`. */
 	export let nodeColor = undefined;
 
-	/** @type {String} [nodeStroke='#fff'] - The circle's stroke color. */
+	/** @type {string} [nodeStroke='#fff'] - The circle's stroke color. */
 	export let nodeStroke = '#fff';
 
 	/** @type {Number} [nodeStrokeWidth=1] - The circle's stroke width, in pixels. */

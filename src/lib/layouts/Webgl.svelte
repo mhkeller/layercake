@@ -21,16 +21,16 @@
 	/** @type {WebGLRenderingContext|undefined} [context] The `<canvas>`'s WebGL context. Useful for bindings. */
 	export let context = undefined;
 
-	/** @type {String} [fallback] Text to display if the browser won't render a canvas tag. You can also set arbitrary HTML via the "fallback" slot but this is fine if you just need text. If you use the "fallback" slot, this prop is ignored. */
+	/** @type {string} [fallback] Text to display if the browser won't render a canvas tag. You can also set arbitrary HTML via the "fallback" slot but this is fine if you just need text. If you use the "fallback" slot, this prop is ignored. */
 	export let fallback = '';
 
-	/** @type {String|undefined} [label] A string passed to the `aria-label` property on the `<canvas>` tag. */
+	/** @type {string|undefined} [label] A string passed to the `aria-label` property on the `<canvas>` tag. */
 	export let label = undefined;
 
-	/** @type {String|undefined} [labelledBy] A string passed to the `aria-labelledby` property on the `<canvas>` tag. */
+	/** @type {string|undefined} [labelledBy] A string passed to the `aria-labelledby` property on the `<canvas>` tag. */
 	export let labelledBy = undefined;
 
-	/** @type {String|undefined} [describedBy] A string passed to the `aria-describedby` property on the `<canvas>` tag. */
+	/** @type {string|undefined} [describedBy] A string passed to the `aria-describedby` property on the `<canvas>` tag. */
 	export let describedBy = undefined;
 
 	let testGl;

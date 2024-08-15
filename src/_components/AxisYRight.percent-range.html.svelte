@@ -12,7 +12,7 @@
 	/** @type {Boolean} [tickMarks=true] - Show marks next to the tick label. */
 	export let tickMarks = true;
 
-	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
+	/** @type {string} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
 	export let labelPosition = 'even';
 
 	/** @type {Boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
@@ -42,7 +42,7 @@
 	/** @type {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
 	export let charPixelWidth = 7.25;
 
-	/** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`. */
+	/** @type {string} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`. */
 	export let units = $percentRange === true ? '%' : 'px';
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';
@@ -57,7 +57,7 @@
 				: $yScale.ticks(ticks);
 
 	/** @param {Number} sum
-	 *  @param {String} val */
+	 *  @param {string} val */
 	function calcStringLength(sum, val) {
 		if (val === ',' || val === '.') return sum + charPixelWidth * 0.5;
 		return sum + charPixelWidth;

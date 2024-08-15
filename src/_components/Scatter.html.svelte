@@ -10,10 +10,10 @@
 	/** @type {Number} [r=5] - The circle's radius. */
 	export let r = 5;
 
-	/** @type {String} [fill='#0cf'] - The circle's fill color. */
+	/** @type {string} [fill='#0cf'] - The circle's fill color. */
 	export let fill = '#0cf';
 
-	/** @type {String} [stroke='#000'] - The circle's stroke color. */
+	/** @type {string} [stroke='#000'] - The circle's stroke color. */
 	export let stroke = '#000';
 
 	/** @type {Number} [strokeWidth=1] - The circle's stroke width. */

@@ -34,7 +34,6 @@ A list of data items. If this is not a flat data array of objects, you'll also n
 >
 ```
 
-
 ### x `string|Function|number|Array<string|Function|number>|undefined`
 
 The key in each row of data that corresponds to the x-field. This can be a string, number (usually relating to an index of an array), an accessor function, or any combination of those types. This property gets converted to a function when you access it through the context.
@@ -180,7 +179,6 @@ Same as [xScale](/guide#xscale) but for the z scale. The default is `d3.scaleLin
 
 Same as [xScale](/guide#xscale) but for the r scale. The default is [`d3.scaleSqrt()`](https://github.com/d3/d3-scale#scalesqrt).
 
-
 ### xDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
 Set a min or max on the x scale. If you want to inherit the value from the data's extent, set that value to `null`.
@@ -282,7 +280,6 @@ Same as [xNice](/guide#xnice) but for the z domain.
 ### rNice `Boolean=false|number`
 
 Same as [xNice](/guide#xnice) but for the r domain.
-
 
 ### xRange `Function|Array:[min: number, max: number]|Array<Number|string>`
 

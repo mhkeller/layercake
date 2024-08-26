@@ -14,10 +14,10 @@
 	let found = {};
 	let e = {};
 
-	/** @type {String} [x='x'] – The dimension to search across when moving the mouse left and right. */
+	/** @type {string} [x='x'] – The dimension to search across when moving the mouse left and right. */
 	export let x = 'x';
 
-	/** @type {String} [y='y'] – The dimension to search across when moving the mouse up and down. */
+	/** @type {string} [y='y'] – The dimension to search across when moving the mouse up and down. */
 	export let y = 'y';
 
 	/** @type {number|undefined} [searchRadius] – The number of pixels to search around the mouse's location. This is the third argument passed to [`quadtree.find`](https://github.com/d3/d3-quadtree#quadtree_find) and by default a value of `undefined` means an unlimited range. */

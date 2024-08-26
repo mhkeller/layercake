@@ -14,13 +14,13 @@
 	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
 	export let projection;
 
-	/** @type {String} [stroke='#ccc'] - The shape's stroke color. */
+	/** @type {string} [stroke='#ccc'] - The shape's stroke color. */
 	export let stroke = '#ccc';
 
 	/** @type {number} [strokeWidth=1] - The shape's stroke width. */
 	export let strokeWidth = 1;
 
-	/** @type {String|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
+	/** @type {string|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
 	export let fill = undefined;
 
 	/** @type {Array|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */

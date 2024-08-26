@@ -16,7 +16,7 @@
 	/** @type {number} [strokeWidth=1] - The circle's stroke width in pixels. */
 	export let strokeWidth = 1;
 
-	/** @type {String} [stroke='#fff'] - The circle's stroke color. */
+	/** @type {string} [stroke='#fff'] - The circle's stroke color. */
 	export let stroke = '#fff';
 
 	/** @type {number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength). */

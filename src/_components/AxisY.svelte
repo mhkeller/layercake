@@ -10,7 +10,7 @@
 	/** @type {Boolean} [tickMarks=false] - Show marks next to the tick label. */
 	export let tickMarks = false;
 
-	/** @type {String} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
+	/** @type {string} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'. */
 	export let labelPosition = 'even';
 
 	/** @type {Boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */

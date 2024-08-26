@@ -9,7 +9,7 @@ In addition to the [accessibility props](guide#accessibility) described above, a
 
 The Svg and ScaledSvg layout components also accept:
 
-- [viewBox](guide#viewbox) `String`
+- [viewBox](guide#viewbox) `string`
 
 And ScaledSvg additionally accepts:
 
@@ -72,7 +72,7 @@ Useful for tooltip layers that need to be display above chart elements but not c
 </LayerCake>
 ```
 
-### viewBox `String`
+### viewBox `string`
 
 For Svg components, this defaults to `''` and for ScaledSvg it defaults to `0 0 100 100`.
 

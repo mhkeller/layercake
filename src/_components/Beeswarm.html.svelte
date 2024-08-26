@@ -13,7 +13,7 @@
 	/** @type {number} [strokeWidth=0] - The circle's stroke width in pixels. */
 	export let strokeWidth = 0;
 
-	/** @type {String} [stroke='#fff'] - The circle's stroke color. */
+	/** @type {string} [stroke='#fff'] - The circle's stroke color. */
 	export let stroke = '#fff';
 
 	/** @type {number} [spacing=1.5] - Spacing, in pixels, between each circle. */

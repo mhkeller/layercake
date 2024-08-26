@@ -3,10 +3,10 @@
 	Generates an SVG marker containing a marker for a triangle makes a nice arrowhead. Add it to the named slot called "defs" on the SVG layout component.
  -->
 <script>
-	/** @type {String} [fill='#000'] – The arrowhead's fill color. */
+	/** @type {string} [fill='#000'] – The arrowhead's fill color. */
 	export let fill = '#000';
 
-	/** @type {String} [stroke='#000'] – The arrowhead's fill color. */
+	/** @type {string} [stroke='#000'] – The arrowhead's fill color. */
 	export let stroke = '#000';
 </script>
 

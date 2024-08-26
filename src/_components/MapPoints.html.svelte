@@ -13,10 +13,10 @@
 	/** @type {number} [r=3.5] - The point's radius. */
 	export let r = 3.5;
 
-	/** @type {String} [fill='yellow'] - The point's fill color. */
+	/** @type {string} [fill='yellow'] - The point's fill color. */
 	export let fill = 'yellow';
 
-	/** @type {String} [stroke='#000'] - The point's stroke color. */
+	/** @type {string} [stroke='#000'] - The point's stroke color. */
 	export let stroke = '#000';
 
 	/** @type {number} [strokeWidth=1] - The point's stroke width, in pixels. */

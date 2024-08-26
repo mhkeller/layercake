@@ -35,7 +35,6 @@
 	]
 
 	@param {Array} data The data to be binned.
-
 	@param {string|number|Function} [value] Optional. An accessor function passed to `bin.value()`. Defaults to an identity function. If this is a string or number, it will be transformed into an accessor for that key.
 	@param {Object} options Options object
 	@param {Array} [options.domain] Optional. The domain passed to `bin.domain()`. Pass in your own domain if you'd like, otherwise computed automatically.

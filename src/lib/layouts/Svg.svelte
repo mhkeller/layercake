@@ -14,7 +14,7 @@
 	/** @type {number|undefined} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
 
-	/** @type {Boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
+	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
 	/** @type {string|undefined} [viewBox] A string passed to the `viewBox` property on the `<svg>` tag. */

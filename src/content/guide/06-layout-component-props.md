@@ -4,8 +4,8 @@ title: Layout component props
 
 In addition to the [accessibility props](guide#accessibility) described above, all layout components accept the following props:
 
-- [zIndex](guide#zindex) `number|String`
-- [pointerEvents](guide#pointerevents) `Boolean`
+- [zIndex](guide#zindex) `number|string`
+- [pointerEvents](guide#pointerevents) `boolean`
 
 The Svg and ScaledSvg layout components also accept:
 
@@ -62,7 +62,7 @@ This lets you fine-tune your layering and is useful if you want your layers to b
 </LayerCake>
 ```
 
-### pointerEvents `Boolean|undefined`
+### pointerEvents `boolean|undefined`
 
 Useful for tooltip layers that need to be display above chart elements but not capture mouse events. Defaults to no `pointer-events` CSS being set. Set to `false` to set `pointer-events: none;`
 

@@ -23,7 +23,7 @@
 	/** @type {number} [nodeStrokeWidth=1] - The circle's stroke width, in pixels. */
 	export let nodeStrokeWidth = 1;
 
-	/** @type {Boolean} [groupBy=true] - Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center. */
+	/** @type {boolean} [groupBy=true] - Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center. */
 	export let groupBy = true;
 
 	/* --------------------------------------------

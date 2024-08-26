@@ -9,19 +9,19 @@
 
 	const { xScale, percentRange } = getContext('LayerCake');
 
-	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
+	/** @type {boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
 
-	/** @type {Boolean} [gridlines=true] - Show gridlines extending into the chart area. */
+	/** @type {boolean} [gridlines=true] - Show gridlines extending into the chart area. */
 	export let gridlines = true;
 
 	/** @type {number} [tickMarkLength=6] - The length of the tick mark. */
 	export let tickMarkLength = 6;
 
-	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
+	/** @type {boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
 
-	/** @type {Boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart. */
+	/** @type {boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart. */
 	export let snapLabels = false;
 
 	/** @type {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */

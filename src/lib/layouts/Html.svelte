@@ -13,7 +13,7 @@
 	/** @type {number|undefined} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
 
-	/** @type {Boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
+	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
 	/** @type {string|undefined} [role] A string passed to the `aria-role` on the `<div>` tag. This is `undefined` by default but will be set by default to `'figure'` if `label`, `labelledby` or `describedby` is set. That default will be overridden by whatever is passed in. */

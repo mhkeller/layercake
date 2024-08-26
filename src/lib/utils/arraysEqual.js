@@ -5,7 +5,7 @@
 	of making a set
 	@param {Array} arr1 An array to test
 	@param {Array} arr2 An array to test against
-	@returns {Boolean} Whether they contain all and only the same items
+	@returns {boolean} Whether they contain all and only the same items
  */
 export default function arraysEqual(arr1, arr2) {
 	if (arr1.length !== arr2.length) return false;

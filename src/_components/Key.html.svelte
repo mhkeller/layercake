@@ -14,7 +14,7 @@
 	/** @type {Function|Object|undefined} [lookup] - Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value. */
 	export let lookup = undefined;
 
-	/** @type {Boolean} [capitalize=true] - Capitalize the first character. */
+	/** @type {boolean} [capitalize=true] - Capitalize the first character. */
 	export let capitalize = true;
 
 	const { zDomain, zScale } = getContext('LayerCake');

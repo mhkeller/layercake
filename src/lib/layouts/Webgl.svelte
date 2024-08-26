@@ -12,7 +12,7 @@
 	/** @type {number|undefined} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
 
-	/** @type {Boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
+	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
 	/** @type {Object|undefined} [contextAttributes] The second argument passed to canvas.getContext. See the WebGL docs [for more info](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext). */

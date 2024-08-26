@@ -96,7 +96,7 @@ console.log(extents);
 */
 ```
 
-### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`[, sortOptions: { sort: `Boolean`, x: `Boolean`, y: `Boolean`, z: `Boolean`, r: `Boolean` }])
+### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`[, sortOptions: { sort: `boolean`, x: `boolean`, y: `boolean`, z: `boolean`, r: `boolean` }])
 
 The same API and behavior as `calcExtents` but instead of a two-value array of `[min, max]` values, it returns an array of unique items.
 
@@ -495,7 +495,7 @@ stack(data, ['apples', 'bananas', 'cherries', 'dates'])
 ]
 ```
 
-### uniques(data: `Array`[, accessor: `string|Function`, transform: `Boolean=true`])
+### uniques(data: `Array`[, accessor: `string|Function`, transform: `boolean=true`])
 
 A function to get the unique values from a list. If **accessor** is specified, the uniqueness will be compared using that and, by default, the values in the returned list of unique values will be values returned by the accessor. Accessor can also be the string name of the key. Pass `false` to the **transform** argument if you want to return the original elements, which will be the first one that appears for every unique value. The default for **transform** is `true`.
 

@@ -21,13 +21,13 @@
 
 	const printDebug_debounced = debounce(printDebug, 200);
 
-	/** @type {Boolean} [ssr=false] Whether this chart should be rendered server side. */
+	/** @type {boolean} [ssr=false] Whether this chart should be rendered server side. */
 	export let ssr = false;
-	/** @type {Boolean} [pointerEvents=true] Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction. */
+	/** @type {boolean} [pointerEvents=true] Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction. */
 	export let pointerEvents = true;
 	/** @type {string} [position='relative'] Determine the positioning of the wrapper div. Set this to `'absolute'` when you want to stack cakes. */
 	export let position = 'relative';
-	/** @type {Boolean} [percentRange=false] If `true`, set all scale ranges to `[0, 100]`. Ranges reversed via `xReverse`, `yReverse`, `zReverse` or `rReverse` props will continue to be reversed as usual. */
+	/** @type {boolean} [percentRange=false] If `true`, set all scale ranges to `[0, 100]`. Ranges reversed via `xReverse`, `yReverse`, `zReverse` or `rReverse` props will continue to be reversed as usual. */
 	export let percentRange = false;
 
 	/** @type {number} [width=containerWidth] Override the automated width. */
@@ -71,13 +71,13 @@
 	export let zDomain = undefined;
 	/** @type {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [rDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let rDomain = undefined;
-	/** @type {Boolean|number} [xNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. */
+	/** @type {boolean|number} [xNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. */
 	export let xNice = false;
-	/** @type {Boolean|number} [yNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the y domain. */
+	/** @type {boolean|number} [yNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the y domain. */
 	export let yNice = false;
-	/** @type {Boolean|number} [zNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the z domain. */
+	/** @type {boolean|number} [zNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the z domain. */
 	export let zNice = false;
-	/** @type {Boolean} [rNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the r domain. */
+	/** @type {boolean} [rNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the r domain. */
 	export let rNice = false;
 	/** @type {[leftPixels: number, rightPixels: number]|undefined} [xPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let xPadding = undefined;
@@ -103,21 +103,21 @@
 	export let zRange = undefined;
 	/** @type {[min: number, max: number]|Function|Array<string|number>|undefined} [rRange] Override the default r range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `rReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
 	export let rRange = undefined;
-	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
+	/** @type {boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
 	export let xReverse = false;
-	/** @type {Boolean|undefined} [yReverse=true] Reverse the default y range. By default this is set dynamically and will be `true` – setting the range to `[height, 0]` – unless the `yScale` has a `.bandwidth` method. Dynamic behavior is overridden if the user sets the prop. Ignored if you set the `yRange` prop. */
+	/** @type {boolean|undefined} [yReverse=true] Reverse the default y range. By default this is set dynamically and will be `true` – setting the range to `[height, 0]` – unless the `yScale` has a `.bandwidth` method. Dynamic behavior is overridden if the user sets the prop. Ignored if you set the `yRange` prop. */
 	export let yReverse = undefined;
-	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
+	/** @type {boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
 	export let zReverse = false;
-	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
+	/** @type {boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
 	export let rReverse = false;
-	/** @type {Boolean} [xDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	/** @type {boolean} [xDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
 	export let xDomainSort = true;
-	/** @type {Boolean} [yDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	/** @type {boolean} [yDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
 	export let yDomainSort = true;
-	/** @type {Boolean} [zDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	/** @type {boolean} [zDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
 	export let zDomainSort = true;
-	/** @type {Boolean} [rDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	/** @type {boolean} [rDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
 	export let rDomainSort = true;
 	/** @type {{top?: number, right?: number, bottom?: number, left?: number}} [padding={}] The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563). */
 	export let padding = {};
@@ -130,9 +130,9 @@
 	/** @type {Object} custom Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants. */
 	export let custom = {};
 
-	/** @type {Boolean} debug Enable debug printing to the console. Useful to inspect your scales and dimensions. */
+	/** @type {boolean} debug Enable debug printing to the console. Useful to inspect your scales and dimensions. */
 	export let debug = false;
-	/** @type {Boolean} [verbose=true] Show warnings in the console. */
+	/** @type {boolean} [verbose=true] Show warnings in the console. */
 	export let verbose = true;
 
 	/**

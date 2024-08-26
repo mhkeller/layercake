@@ -16,7 +16,7 @@ The component has the following props:
   - Optional. An accessor function passed to [`bin.value()`](https://github.com/d3/d3-array#bin_value). If this is a string, it will be transformed into an accessor for that key.
 - **domain** `Array`
   - Optional. The domain passed to [`bin.domain()`](https://github.com/d3/d3-array#bin_domain).
-- **thresholds** `Number|Array|Function`
+- **thresholds** `number|Array|Function`
   - Optional. The thresholds passed to [`bin.thresholds()`](https://github.com/d3/d3-array#bin_thresholds). Optional. Can be a number, array or function.
 
 See the [stacked bar chart](/example/BarStacked) for an example:
@@ -403,7 +403,7 @@ el.parentNode.appendChild(el);
 
 This is useful for hovering over SVG maps so that the hovered-over feature is not obstructed by neighboring shapes. See how it's used in the [SVG map component](/example/MapSvg).
 
-### scaleCanvas(ctx: `CanvasRenderingContext2D`, width: `Number`, height: `Number`)
+### scaleCanvas(ctx: `CanvasRenderingContext2D`, width: `number`, height: `number`)
 
 Scale your canvas size to retina screens. This function will modify the canvas, if necessary, and return an object with the new `width` and `height` as properties.
 

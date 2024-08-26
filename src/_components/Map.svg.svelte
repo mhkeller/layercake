@@ -12,7 +12,7 @@
 	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
 	export let projection;
 
-	/** @type {Number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
+	/** @type {number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
 	export let fixedAspectRatio = undefined;
 
 	/** @type {String|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
@@ -21,7 +21,7 @@
 	/** @type {String} [stroke='#333'] - The shape's stroke color. */
 	export let stroke = '#333';
 
-	/** @type {Number} [strokeWidth=0.5] - The shape's stroke width. */
+	/** @type {number} [strokeWidth=0.5] - The shape's stroke width. */
 	export let strokeWidth = 0.5;
 
 	/** @type {Array<Object>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */

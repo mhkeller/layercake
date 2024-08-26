@@ -13,7 +13,7 @@
 	/** @type {String} [stroke='#000'] - The shape's stroke color. */
 	export let stroke = '#000';
 
-	/** @type {Number} [strokeWidth=0] - The shape's stroke width. */
+	/** @type {number} [strokeWidth=0] - The shape's stroke width. */
 	export let strokeWidth = 0;
 
 	/** @type {Boolean} [false] - Show the numbers for each column */

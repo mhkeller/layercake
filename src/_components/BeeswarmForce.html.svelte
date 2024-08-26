@@ -10,19 +10,19 @@
 
 	const nodes = $data.map(d => ({ ...d }));
 
-	/** @type {Number} [r=4] - The circle radius size in pixels. */
+	/** @type {number} [r=4] - The circle radius size in pixels. */
 	export let r = 4;
 
-	/** @type {Number} [strokeWidth=0.5] - The circle's stroke width in pixels. */
+	/** @type {number} [strokeWidth=0.5] - The circle's stroke width in pixels. */
 	export let strokeWidth = 0.5;
 
-	/** @type {String} [stroke='#fff'] - The circle's stroke color. */
+	/** @type {string} [stroke='#fff'] - The circle's stroke color. */
 	export let stroke = '#fff';
 
-	/** @type {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */
+	/** @type {number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */
 	export let xStrength = 0.95;
 
-	/** @type {Number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more. */
+	/** @type {number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more. */
 	export let yStrength = 0.075;
 
 	/** @type {Function|undefined} [getTitle] — An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production. */

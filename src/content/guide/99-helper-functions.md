@@ -4,7 +4,7 @@ title: Helper functions
 
 Layer Cake exposes some commonly-used helper functions. If you don't use them, they will be tree-shaken so there's no added bloat!
 
-### bin(data: `Array`[, accessor: `String|Function`, { domain: `Array`, thresholds: `Array` }])
+### bin(data: `Array`[, accessor: `string|Function`, { domain: `Array`, thresholds: `Array` }])
 
 This is a wrapper around the `bin` function in [d3-array](https://github.com/d3/d3-array#bins). It's useful for histograms.
 
@@ -12,11 +12,11 @@ The component has the following props:
 
 - **data** `Array|Object`
   - The data to be binned.
-- **value** `Function|String`
+- **value** `Function|string`
   - Optional. An accessor function passed to [`bin.value()`](https://github.com/d3/d3-array#bin_value). If this is a string, it will be transformed into an accessor for that key.
 - **domain** `Array`
   - Optional. The domain passed to [`bin.domain()`](https://github.com/d3/d3-array#bin_domain).
-- **thresholds** `Number|Array|Function`
+- **thresholds** `number|Array|Function`
   - Optional. The thresholds passed to [`bin.thresholds()`](https://github.com/d3/d3-array#bin_thresholds). Optional. Can be a number, array or function.
 
 See the [stacked bar chart](/example/BarStacked) for an example:
@@ -185,7 +185,7 @@ console.log(uniques);
 */
 ```
 
-### flatten(data: `Array`[, accessor: `String|Function`])
+### flatten(data: `Array`[, accessor: `string|Function`])
 
 Flatten an array one-level down. Handy for preparing data from stacked layouts whose extents can easily be calculated. This is equivalent to `Array.prototype.flat()` but is kept in for old versions of node that support that or other browser compatibility.
 
@@ -315,7 +315,7 @@ Becomes...
 ];
 ```
 
-### groupLonger(data: `Array`, keys: `String[]`[, { groupTo: `String='group'`, valueTo: `String='value'`, keepKeys: `String[]` }])
+### groupLonger(data: `Array`, keys: `string[]`[, { groupTo: `string='group'`, valueTo: `string='value'`, keepKeys: `string[]` }])
 
 This function is useful for data that you get in a "wide" format that you want to break into a multi-series chart.
 
@@ -376,14 +376,14 @@ The component has the following props:
 
 - **data** `Array|Object`
   - The data to be transformed.
-- **keys** `String[]`
+- **keys** `string[]`
   - The series names to break out out into separate groups.
 - **options** `Object` Options object
-- **options.groupTo** `String='group'`
+- **options.groupTo** `string='group'`
   - Optional. This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
-- **options.valueTo** `String='value'`
+- **options.valueTo** `string='value'`
   - Optional. The name of the new field on each row of data to store the value under. Defaults to 'value'.
-- **options.keepKeys** `String[]`
+- **options.keepKeys** `string[]`
   - Optional. Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data.
 
 It returns:
@@ -403,7 +403,7 @@ el.parentNode.appendChild(el);
 
 This is useful for hovering over SVG maps so that the hovered-over feature is not obstructed by neighboring shapes. See how it's used in the [SVG map component](/example/MapSvg).
 
-### scaleCanvas(ctx: `CanvasRenderingContext2D`, width: `Number`, height: `Number`)
+### scaleCanvas(ctx: `CanvasRenderingContext2D`, width: `number`, height: `number`)
 
 Scale your canvas size to retina screens. This function will modify the canvas, if necessary, and return an object with the new `width` and `height` as properties.
 
@@ -447,7 +447,7 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 </script>
 ```
 
-### stack(data: `Array|Object`[, keys: `String[]`, { domain: `Array`, thresholds: `Array` }])
+### stack(data: `Array|Object`[, keys: `string[]`, { domain: `Array`, thresholds: `Array` }])
 
 This function is a wrapper around the `stack` function in [d3-shape](https://github.com/d3/d3-shape#stacks).
 
@@ -455,10 +455,10 @@ The component has the following props:
 
 - **data** `Array|Object`
   - The data to be stacked.
-- **keys** `String[]`
+- **keys** `string[]`
   - The series names to stack, passed to [`stack.keys()`](https://github.com/d3/d3-shape#stack_keys).
 - **options** `Object` Options object
-- **options.value** `Function|String`
+- **options.value** `Function|string`
   - Optional. An accessor function passed to [`stack.value()`](https://github.com/d3/d3-shape#stack_value). If this is a string, it will be transformed into an accessor for that key.
 - **options.order** `Array|Function`
   - Optional. The stack order passed to [`stack.order()`](https://github.com/d3/d3-shape#stack_order).
@@ -495,7 +495,7 @@ stack(data, ['apples', 'bananas', 'cherries', 'dates'])
 ]
 ```
 
-### uniques(data: `Array`[, accessor: `String|Function`, transform: `Boolean=true`])
+### uniques(data: `Array`[, accessor: `string|Function`, transform: `Boolean=true`])
 
 A function to get the unique values from a list. If **accessor** is specified, the uniqueness will be compared using that and, by default, the values in the returned list of unique values will be values returned by the accessor. Accessor can also be the string name of the key. Pass `false` to the **transform** argument if you want to return the original elements, which will be the first one that appears for every unique value. The default for **transform** is `true`.
 

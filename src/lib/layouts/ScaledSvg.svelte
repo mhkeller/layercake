@@ -10,29 +10,29 @@
 	/** @type {Element|undefined} [element] The layer's `<svg>` tag. Useful for bindings. */
 	export let element = undefined;
 
-	/** @type {Number|undefined} [zIndex] The layer's z-index. */
+	/** @type {number|undefined} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
 
 	/** @type {Boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	/** @type {Number} [fixedAspectRatio=1] A number to set the aspect ratio onto the viewBox. */
+	/** @type {number} [fixedAspectRatio=1] A number to set the aspect ratio onto the viewBox. */
 	export let fixedAspectRatio = 1;
 
-	/** @type {String} [viewBox=`0 0 100 ${100 / fixedAspectRatio}`] A string passed to the `viewBox` property on the `<svg>` tag. */
+	/** @type {string} [viewBox=`0 0 100 ${100 / fixedAspectRatio}`] A string passed to the `viewBox` property on the `<svg>` tag. */
 	export let viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
 	$: viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
 
-	/** @type {String|undefined} [label] A string passed to the `aria-label` on the `<svg>` tag. */
+	/** @type {string|undefined} [label] A string passed to the `aria-label` on the `<svg>` tag. */
 	export let label = undefined;
 
-	/** @type {String|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` tag. */
+	/** @type {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` tag. */
 	export let labelledBy = undefined;
 
-	/** @type {String|undefined} [describedBy] A string passed to `aria-describedby` property on the `<svg>` tag. */
+	/** @type {string|undefined} [describedBy] A string passed to `aria-describedby` property on the `<svg>` tag. */
 	export let describedBy = undefined;
 
-	/** @type {String|undefined} [title] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the "title" slot but this is a convenient shorthand. If you use the "title" slot, this prop is ignored. */
+	/** @type {string|undefined} [title] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the "title" slot but this is a convenient shorthand. If you use the "title" slot, this prop is ignored. */
 	export let title = undefined;
 </script>
 

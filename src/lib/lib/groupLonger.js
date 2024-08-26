@@ -29,9 +29,9 @@
 	@param {Array} data The data to be transformed.
 	@param {Array} keys The groups names to break out into separate groups.
 	@param {Object} options Options object
-	@param {String} [options.groupTo='group'] This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
-	@param {String} [options.valueTo='value'] The name of the new field on each row of data to store the value under. Defaults to 'value'.
-	@param {String[]} [options.keepKeys] Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data.
+	@param {string} [options.groupTo='group'] This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
+	@param {string} [options.valueTo='value'] The name of the new field on each row of data to store the value under. Defaults to 'value'.
+	@param {string[]} [options.keepKeys] Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data.
 
 	@returns {Array} [dataLong] The transformed data that is a list of one object for each group. Each object has `key` and `values` where `key` is the group name and `values` is a list of transformed data.
 */

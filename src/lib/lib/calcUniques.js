@@ -11,7 +11,8 @@ import { ascending, InternSet } from 'd3-array';
 	@param {Array} data A flat array of.
 	@param {{x?: Function, y?: Function, z?: Function, r?: Function}} fields An object containing `x`, `y`, `r` or `z` keys that equal an accessor function. If an accessor function returns an array of values, each value will also be evaluated.
 	@param {{ sort?: Boolean, x?: Boolean , y?: Boolean , z?: Boolean , r?: Boolean }} sortOptions An object containing `sort`, `x`, `y`, `r` or `z` keys with Boolean values that designate how results should be sorted. Default is un-sorted. Pass in `sort: true` to sort all fields or specify fields individually.
-	@returns {{x?: [min: Number, max: Number]|[min: string, max: string], y?: [min: Number, max: Number]|[min: string, max: string], z?: [min: Number, max: Number]|[min: string, max: string], r?: [min: Number, max: Number]|[min: string, max: string]}} An object with the same structure as `fields` but instead of an accessor, each key contains an array of unique items.
+
+	@returns {{x?: [min: number, max: number]|[min: string, max: string], y?: [min: number, max: number]|[min: string, max: string], z?: [min: number, max: number]|[min: string, max: string], r?: [min: number, max: number]|[min: string, max: string]}} An object with the same structure as `fields` but instead of an accessor, each key contains an array of unique items.
 */
 export default function calcUniques(data, fields, sortOptions = {}) {
 	if (!Array.isArray(data)) {

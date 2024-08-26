@@ -34,7 +34,8 @@ A list of data items. If this is not a flat data array of objects, you'll also n
 >
 ```
 
-### x `string|Function|Number|Array<string|Function|Number>|undefined`
+
+### x `string|Function|number|Array<string|Function|number>|undefined`
 
 The key in each row of data that corresponds to the x-field. This can be a string, number (usually relating to an index of an array), an accessor function, or any combination of those types. This property gets converted to a function when you access it through the context.
 
@@ -109,15 +110,15 @@ The x- and y-accessors would then look like this:
 
 Calls to `x(dataRow)` in this scenario will return the two-value array. Calls to `xGet(dataRow)` will return a two-value array, mapped through the [xScale](/guide#xscale).
 
-### y `string|Function|Number|Array<string|Function|Number>|undefined`
+### y `string|Function|number|Array<string|Function|number>|undefined`
 
 Same as [x](/guide#x) but for the y dimension.
 
-### z `string|Function|Number|Array<string|Function|Number>|undefined`
+### z `string|Function|number|Array<string|Function|number>|undefined`
 
 Same as [x](/guide#x) but for the z dimension.
 
-### r `string|Function|Number|Array<string|Function|Number>|undefined`
+### r `string|Function|number|Array<string|Function|number>|undefined`
 
 Same as [x](/guide#x) but for the r dimension.
 
@@ -179,7 +180,8 @@ Same as [xScale](/guide#xscale) but for the z scale. The default is `d3.scaleLin
 
 Same as [xScale](/guide#xscale) but for the r scale. The default is [`d3.scaleSqrt()`](https://github.com/d3/d3-scale#scalesqrt).
 
-### xDomain `Array:[min: Number|null, max: Number|null]|Array<Number|string>|Function`
+
+### xDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
 Set a min or max on the x scale. If you want to inherit the value from the data's extent, set that value to `null`.
 
@@ -211,15 +213,15 @@ If you set a [`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoi
 >
 ```
 
-### yDomain `Array:[min: Number|null, max: Number|null]|Array<Number|string>|Function`
+### yDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
 Same as [xDomain](/guide#xdomain) but for the y scale.
 
-### zDomain `Array:[min: Number|null, max: Number|null]|Array<Number|string>|Function`
+### zDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
 Same as [xDomain](/guide#xdomain) but for the z scale.
 
-### rDomain `Array:[min: Number|null, max: Number|null]|Array<Number|string>|Function`
+### rDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 
@@ -241,7 +243,7 @@ Same as [xDomainSort](/guide#xdomainsort) but for the z domain.
 
 Same as [xDomainSort](/guide#xdomainsort) but for the r domain.
 
-### xPadding `Array:[leftPixels: Number, rightPixels: Number]`
+### xPadding `Array:[leftPixels: number, rightPixels: number]`
 
 Assign a pixel value to add to the min or max of the x scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. This is useful for adding extra space to a scatter plot so that your circles don't interfere with your y-axis. It's better than fussing with the range since you don't need to add a magic number to other components, like axes.
 
@@ -253,35 +255,36 @@ It will log out a warning if you try to use it on a scale that has a domain or r
 >
 ```
 
-### yPadding `Array:[leftPixels: Number, rightPixels: Number]`
+### yPadding `Array:[leftPixels: number, rightPixels: number]`
 
 Same as [xPadding](/guide#xpadding) but for the y domain.
 
-### zPadding `Array:[leftPixels: Number, rightPixels: Number]`
+### zPadding `Array:[leftPixels: number, rightPixels: number]`
 
 Same as [xPadding](/guide#xpadding) but for the z domain.
 
-### rPadding `Array:[leftPixels: Number, rightPixels: Number]`
+### rPadding `Array:[leftPixels: number, rightPixels: number]`
 
 Same as [xPadding](/guide#xpadding) but for the r domain.
 
-### xNice `Boolean=false|Number`
+### xNice `Boolean=false|number`
 
 Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice. Can also pass `count` number as argument for greater control.
 
-### yNice `Boolean=false|Number`
+### yNice `Boolean=false|number`
 
 Same as [xNice](/guide#xnice) but for the y domain.
 
-### zNice `Boolean=false|Number`
+### zNice `Boolean=false|number`
 
 Same as [xNice](/guide#xnice) but for the z domain.
 
-### rNice `Boolean=false|Number`
+### rNice `Boolean=false|number`
 
 Same as [xNice](/guide#xnice) but for the r domain.
 
-### xRange `Function|Array:[min: Number, max: Number]|Array<Number|string>`
+
+### xRange `Function|Array:[min: number, max: number]|Array<Number|string>`
 
 Override the default x range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
 
@@ -301,19 +304,19 @@ It can also be a function:
 >
 ```
 
-### yRange `Function|Array:[min: Number, max: Number]|Array<Number|string>`
+### yRange `Function|Array:[min: number, max: Number]|Array<number|string>`
 
 Same as [xRange](/guide#xrange) but for the y scale. Override the default y range of `[0, height]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
 
 This overrides setting [yReverse](/guide#yreverse) to `true`.
 
-### zRange `Function|Array:[min: Number, max: Number]|Array<Number|string>`
+### zRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
 Same as [xRange](/guide#xrange) but for the z scale. Override the default z range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
 
 This overrides setting [zReverse](/guide#zreverse) to `true`.
 
-### rRange `Function|Array:[min: Number, max: Number]|Array<Number|string>`
+### rRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
 Same as [xRange](/guide#xrange) but for the r scale. Override the default y range of `[1, 25]` by setting it here to an array or function with argument `({ width, height})` that returns an array. The r scale defaults to `d3.scaleSqrt` so make sure you don't use a zero in your range.
 

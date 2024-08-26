@@ -27,7 +27,7 @@
 	/** @type {string} [stroke='#999'] - The circle's stroke color. */
 	export let stroke = '#999';
 
-	/** @type {Number} [strokeWidth=1] - The circle's stroke width, in pixels. */
+	/** @type {number} [strokeWidth=1] - The circle's stroke width, in pixels. */
 	export let strokeWidth = 1;
 
 	/** @type {string} [textColor='#333'] - The label text color. */
@@ -36,13 +36,13 @@
 	/** @type {string} [textStroke='#000'] - The label text's stroke color. */
 	export let textStroke = '#000';
 
-	/** @type {Number} [textStrokeWidth=0] - The label text's stroke width, in pixels. */
+	/** @type {number} [textStrokeWidth=0] - The label text's stroke width, in pixels. */
 	export let textStrokeWidth = 0;
 
 	/** @type {Function} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice. */
 	export let sortBy = (a, b) => b.value - a.value; // 'depth' is also a popular choice
 
-	/** @type {Number} [spacing=0] - Whitespace padding between each circle, in pixels. */
+	/** @type {number} [spacing=0] - Whitespace padding between each circle, in pixels. */
 	export let spacing = 0;
 
 	/* --------------------------------------------

@@ -17,7 +17,7 @@
 	/** @type {string} [stroke='#ccc'] - The shape's stroke color. */
 	export let stroke = '#ccc';
 
-	/** @type {Number} [strokeWidth=1] - The shape's stroke width. */
+	/** @type {number} [strokeWidth=1] - The shape's stroke width. */
 	export let strokeWidth = 1;
 
 	/** @type {string|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */

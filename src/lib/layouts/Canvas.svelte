@@ -15,7 +15,7 @@
 	/** @type {CanvasRenderingContext2D|undefined} [context] The `<canvas>`'s 2d context. Useful for bindings. */
 	export let context = undefined;
 
-	/** @type {Number|undefined} [zIndex] The layer's z-index. */
+	/** @type {number|undefined} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
 
 	/** @type {Boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */

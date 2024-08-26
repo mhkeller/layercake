@@ -4,7 +4,7 @@ title: Layout component props
 
 In addition to the [accessibility props](guide#accessibility) described above, all layout components accept the following props:
 
-- [zIndex](guide#zindex) `Number|string`
+- [zIndex](guide#zindex) `number|String`
 - [pointerEvents](guide#pointerevents) `Boolean`
 
 The Svg and ScaledSvg layout components also accept:
@@ -13,7 +13,7 @@ The Svg and ScaledSvg layout components also accept:
 
 And ScaledSvg additionally accepts:
 
-- [fixedAspectRatio](guide#fixedaspectratio) `Number`
+- [fixedAspectRatio](guide#fixedaspectratio) `number`
 
 The WebGL Component accepts:
 
@@ -52,7 +52,7 @@ The `Canvas` and the `WebGL` components also export a `context` variable that yo
 </LayerCake>
 ```
 
-### zIndex `Number|undefined`
+### zIndex `number|undefined`
 
 This lets you fine-tune your layering and is useful if you want your layers to build in a certain order but have a different appearance than their DOM order.
 
@@ -82,7 +82,7 @@ For Svg components, this defaults to `''` and for ScaledSvg it defaults to `0 0 
 </LayerCake>
 ```
 
-### fixedAspectRatio `Number=1`
+### fixedAspectRatio `number=1`
 
 For ScaledSvg components, you can pass in a set aspect ratio. See the [server-side rendered Map](/example-ssr/MapSvg) for an example. Default is `1`.
 

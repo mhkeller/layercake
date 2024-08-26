@@ -7,16 +7,16 @@
 
 	const { data, xGet, zGet, height, config } = getContext('LayerCake');
 
-	/** @type {Number} [r=3] - The circle radius size in pixels. */
+	/** @type {number} [r=3] - The circle radius size in pixels. */
 	export let r = 3;
 
-	/** @type {Number} [strokeWidth=0] - The circle's stroke width in pixels. */
+	/** @type {number} [strokeWidth=0] - The circle's stroke width in pixels. */
 	export let strokeWidth = 0;
 
 	/** @type {string} [stroke='#fff'] - The circle's stroke color. */
 	export let stroke = '#fff';
 
-	/** @type {Number} [spacing=1.5] - Spacing, in pixels, between each circle. */
+	/** @type {number} [spacing=1.5] - Spacing, in pixels, between each circle. */
 	export let spacing = 1.5;
 
 	/** @type {Function} [getTitle] — An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production. */

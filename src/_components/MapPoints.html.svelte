@@ -10,7 +10,7 @@
 	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
 	export let projection;
 
-	/** @type {Number} [r=3.5] - The point's radius. */
+	/** @type {number} [r=3.5] - The point's radius. */
 	export let r = 3.5;
 
 	/** @type {string} [fill='yellow'] - The point's fill color. */
@@ -19,10 +19,10 @@
 	/** @type {string} [stroke='#000'] - The point's stroke color. */
 	export let stroke = '#000';
 
-	/** @type {Number} [strokeWidth=1] - The point's stroke width, in pixels. */
+	/** @type {number} [strokeWidth=1] - The point's stroke width, in pixels. */
 	export let strokeWidth = 1;
 
-	/** @type {Number} [opacity=1] - The point's opacity. */
+	/** @type {number} [opacity=1] - The point's opacity. */
 	export let opacity = 1;
 
 	/** @type {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */

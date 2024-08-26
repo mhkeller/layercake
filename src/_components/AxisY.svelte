@@ -51,7 +51,6 @@
 				? ticks($yScale.ticks())
 				: $yScale.ticks(ticks);
 
-
 	/** @param {number} sum
 	 *  @param {String} val */
 	function calcStringLength(sum, val) {

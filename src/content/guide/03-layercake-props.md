@@ -121,7 +121,7 @@ Same as [x](/guide#x) but for the z dimension.
 
 Same as [x](/guide#x) but for the r dimension.
 
-### debug `Boolean`
+### debug `boolean`
 
 If this is `true`, Layer Cake will print to the control a helpful debug message.
 
@@ -223,21 +223,21 @@ Same as [xDomain](/guide#xdomain) but for the z scale.
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 
-### xDomainSort `Boolean=true`
+### xDomainSort `boolean=true`
 
 Taken into account only when the x-scale is ordinal. It sets whether the calculated unique items come back sorted. It uses [d3.ascending](https://d3js.org/d3-array/sort#ascending) to do the sort calculation.
 
 Set this to `false` if you want the unique items to appear in the order they were found in the data.
 
-### yDomainSort `Boolean=true`
+### yDomainSort `boolean=true`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the y domain.
 
-### zDomainSort `Boolean=true`
+### zDomainSort `boolean=true`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the z domain.
 
-### rDomainSort `Boolean=true`
+### rDomainSort `boolean=true`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the r domain.
 
@@ -265,19 +265,19 @@ Same as [xPadding](/guide#xpadding) but for the z domain.
 
 Same as [xPadding](/guide#xpadding) but for the r domain.
 
-### xNice `Boolean=false|Number`
+### xNice `boolean=false|Number`
 
 Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice. Can also pass `count` number as argument for greater control.
 
-### yNice `Boolean=false|Number`
+### yNice `boolean=false|Number`
 
 Same as [xNice](/guide#xnice) but for the y domain.
 
-### zNice `Boolean=false|Number`
+### zNice `boolean=false|Number`
 
 Same as [xNice](/guide#xnice) but for the z domain.
 
-### rNice `Boolean=false|Number`
+### rNice `boolean=false|Number`
 
 Same as [xNice](/guide#xnice) but for the r domain.
 
@@ -319,25 +319,25 @@ Same as [xRange](/guide#xrange) but for the r scale. Override the default y rang
 
 This overrides setting [rReverse](/guide#rreverse) to `true`.
 
-### xReverse `Boolean=false`
+### xReverse `boolean=false`
 
 Reverse the default x range. By default this is `false` and the range is `[0, width]`.
 
 This is ignored if you set [xRange](/guide#xrange).
 
-### yReverse `Boolean=true`
+### yReverse `boolean=true`
 
 Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale in which case this is `false`.
 
 This is ignored if you set [yRange](/guide#yrange).
 
-### zReverse `Boolean=false`
+### zReverse `boolean=false`
 
 Reverse the default z range. By default this is `false` and the range is `[0, width]`.
 
 This is ignored if you set [zRange](/guide#zrange).
 
-### rReverse `Boolean=false`
+### rReverse `boolean=false`
 
 Reverse the default r range. By default this is `false` and the range is `[1, 25]`.
 
@@ -409,13 +409,13 @@ Here's an example showing passing different data formats for extent calculation 
 </style>
 ```
 
-### ssr `Boolean=false`
+### ssr `boolean=false`
 
 Set whether this chart should be rendered server side. This is best used in conjunction with the [ScaledSvg](guide#scaledsvg) component or HTML components that are set to use percentage scales since you won't know the size of the container at render time.
 
 Use it in conjunction with [`percentRange={true}`](guide#percentrange) to easily set up your scales for a percent coordinate systems.
 
-### percentRange `Boolean=false`
+### percentRange `boolean=false`
 
 When rendering charts server side, you pretty much always want your scale range to be `[0, 100]` since you won't be able to base the range off of the target container's width. Use this convenience helper to set the ranges for any field that has an accessor to just that.
 

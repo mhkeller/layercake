@@ -281,7 +281,7 @@ Same as [xNice](/guide#xnice) but for the z domain.
 
 Same as [xNice](/guide#xnice) but for the r domain.
 
-### xRange `Function|Array:[min: number, max: number]|Array<Number|string>`
+### xRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
 Override the default x range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
 
@@ -301,7 +301,7 @@ It can also be a function:
 >
 ```
 
-### yRange `Function|Array:[min: number, max: Number]|Array<number|string>`
+### yRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
 Same as [xRange](/guide#xrange) but for the y scale. Override the default y range of `[0, height]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
 

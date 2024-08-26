@@ -3,10 +3,7 @@
 	"compilerOptions": {
 		"moduleResolution": "bundler",
 		"module": "es2020",
-		"lib": [
-			"es2020",
-			"DOM"
-		],
+		"lib": ["es2020", "DOM"],
 		"target": "es2020",
 		/**
 			svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
@@ -26,14 +23,6 @@
 		"checkJs": true,
 		"strict": true
 	},
-	"include": [
-		"./src/**/*.d.ts",
-		"./src/**/*.js",
-		"./src/**/*.ts",
-		"./src/**/*.svelte"
-	],
-	"exclude": [
-		"./src/_data/*",
-		"./src/scripts/**/*"
-	]
+	"include": ["./src/**/*.d.ts", "./src/**/*.js", "./src/**/*.ts", "./src/**/*.svelte"],
+	"exclude": ["./src/_data/*", "./src/scripts/**/*"]
 }

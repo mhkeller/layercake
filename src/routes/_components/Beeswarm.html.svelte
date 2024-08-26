@@ -26,6 +26,23 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		x={xKey}
+		z={zKey}
+		zScale={scaleOrdinal()}
+		zDomain={[...seriesNames].sort()}
+		zRange={seriesColors}
+		data={dataTransformed}
+		let:width
+	>
+		<Html>
+			<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
+			<BeeswarmHtml r={width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d.data[titleKey]} />
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -38,25 +55,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class='chart-container'>
-	<LayerCake
-		x={xKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zDomain={[...seriesNames].sort()}
-		zRange={seriesColors}
-		data={dataTransformed}
-		let:width
-	>
-
-		<Html>
-			<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
-			<BeeswarmHtml
-				r={width < 400 ? r / 1.6 : r}
-				spacing={1}
-				getTitle={d => d.data[titleKey] }
-			/>
-		</Html>
-	</LayerCake>
-</div>

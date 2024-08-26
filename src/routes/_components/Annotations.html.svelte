@@ -17,6 +17,14 @@
 	];
 </script>
 
+<div class="chart-container">
+	<LayerCake padding={{ top: 0, right: 0, bottom: 20, left: 20 }}>
+		<Html>
+			<Annotations {annotations} />
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -29,13 +37,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
-	>
-		<Html>
-			<Annotations {annotations}/>
-		</Html>
-	</LayerCake>
-</div>

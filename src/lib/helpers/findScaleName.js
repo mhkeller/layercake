@@ -32,7 +32,7 @@ export default function findScaleName(scale) {
 	/**
 	 * Sequential versus divergin
 	 */
-	let modifier = ''
+	let modifier = '';
 	// @ts-ignore
 	if (scale.interpolator) {
 		// @ts-ignore
@@ -75,13 +75,34 @@ export default function findScaleName(scale) {
 		return f('threshold');
 	}
 
-	if (arraysEqual(Object.keys(scale), ['invert', 'range', 'domain', 'unknown', 'copy', 'ticks', 'tickFormat', 'nice'])) {
+	if (
+		arraysEqual(Object.keys(scale), [
+			'invert',
+			'range',
+			'domain',
+			'unknown',
+			'copy',
+			'ticks',
+			'tickFormat',
+			'nice'
+		])
+	) {
 		return f('identity');
 	}
 
 	if (
 		arraysEqual(Object.keys(scale), [
-			'invert', 'domain', 'range', 'rangeRound', 'round', 'clamp', 'unknown', 'copy', 'ticks', 'tickFormat', 'nice'
+			'invert',
+			'domain',
+			'range',
+			'rangeRound',
+			'round',
+			'clamp',
+			'unknown',
+			'copy',
+			'ticks',
+			'tickFormat',
+			'nice'
 		])
 	) {
 		return f('radial');
@@ -97,12 +118,12 @@ export default function findScaleName(scale) {
 	 */
 	// @ts-ignore
 	if (scale.domain()[0] instanceof Date) {
-		const d = new Date;
+		const d = new Date();
 		let s;
 		// @ts-ignore
-		d.getDay = () => s = 'time';
+		d.getDay = () => (s = 'time');
 		// @ts-ignore
-		d.getUTCDay = () => s = 'utc';
+		d.getUTCDay = () => (s = 'utc');
 
 		// @ts-ignore
 		scale.tickFormat(0, '%a')(d);

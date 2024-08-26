@@ -1,4 +1,4 @@
-export default function createGetter ([$acc, $scale]) {
+export default function createGetter([$acc, $scale]) {
 	return (d, i) => {
 		const val = $acc(d, i);
 		if (Array.isArray(val)) {

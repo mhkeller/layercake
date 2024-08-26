@@ -9,12 +9,12 @@
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
-	/** @type {String} [stroke] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly. */
+	/** @type {String|undefined} [stroke] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly. */
 	export let stroke = undefined;
 
 	let dispatcher = createEventDispatcher();
 
-	function log (point) {
+	function log(point) {
 		console.log(point, point.data);
 		dispatcher('voronoi-mouseover', point);
 	}
@@ -30,6 +30,21 @@
 	$: voronoi = Delaunay.from(uniquePoints).voronoi([0, 0, $width, $height]);
 </script>
 
+{#each uniquePoints as point, i}
+	<path
+		style="stroke: {stroke}"
+		class="voronoi-cell"
+		d={voronoi.renderCell(i)}
+		on:mouseover={() => {
+			log(point);
+		}}
+		on:focus={() => {
+			log(point);
+		}}
+		role="tooltip"
+	></path>
+{/each}
+
 <style>
 	.voronoi-cell {
 		fill: none;
@@ -44,13 +59,3 @@
 		stroke-width: 3px;
 	}
 </style>
-
-{#each uniquePoints as point, i}
-	<path
-		style:stroke
-		class="voronoi-cell"
-		d={voronoi.renderCell(i)}
-		on:mouseover="{() => { log(point) }}"
-		on:focus="{() => { log(point) }}"
-	></path>
-{/each}

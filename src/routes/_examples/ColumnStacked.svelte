@@ -32,6 +32,28 @@
 	const stackedData = stack(data, seriesNames);
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
+		x={d => d.data[xKey]}
+		y={yKey}
+		z={zKey}
+		xScale={scaleBand().paddingInner(0.02).round(true)}
+		xDomainSort={false}
+		zScale={scaleOrdinal()}
+		zDomain={seriesNames}
+		zRange={seriesColors}
+		flatData={flatten(stackedData)}
+		data={stackedData}
+	>
+		<Svg>
+			<AxisX gridlines={false} />
+			<AxisY ticks={4} gridlines={false} format={formatLabelY} />
+			<ColumnStacked />
+		</Svg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -44,31 +66,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-			padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
-			x={d => d.data[xKey]}
-			y={yKey}
-			z={zKey}
-			xScale={scaleBand().paddingInner(0.02).round(true)}
-			xDomainSort={false}
-			zScale={scaleOrdinal()}
-			zDomain={seriesNames}
-			zRange={seriesColors}
-			flatData={flatten(stackedData)}
-			data={stackedData}
-	>
-		<Svg>
-			<AxisX
-				gridlines={false}
-			/>
-			<AxisY
-				ticks={4}
-				gridlines={false}
-				format={formatLabelY}
-			/>
-			<ColumnStacked/>
-		</Svg>
-	</LayerCake>
-</div>

@@ -25,6 +25,27 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 10 }}
+		x={xKey}
+		y={yKey}
+		z={zKey}
+		zScale={scaleOrdinal()}
+		zDomain={seriesNames}
+		zRange={seriesColors}
+		{data}
+	>
+		<Html>
+			<Key shape="square" />
+			<div class="padding"></div>
+			<Key shape="circle" />
+			<div class="padding"></div>
+			<Key shape="line" />
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -40,30 +61,3 @@
 		margin: 13px 0;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 10 }}
-		x={xKey}
-		y={yKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
-		zRange={seriesColors}
-		{data}
-	>
-		<Html>
-			<Key
-				shape='square'
-			/>
-			<div class="padding"></div>
-			<Key
-			shape='circle'
-			/>
-			<div class="padding"></div>
-			<Key
-				shape='line'
-			/>
-		</Html>
-	</LayerCake>
-</div>

@@ -38,7 +38,11 @@ npm install --save layercake
   import Scatter from './components/Scatter.svelte';
   import Labels from './components/Labels.svelte';
 
-  const data = [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }];
+  const data = [
+    { x: 0, y: 1 },
+    { x: 1, y: 2 },
+    { x: 2, y: 3 }
+  ];
 </script>
 
 <style>

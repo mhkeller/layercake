@@ -13,7 +13,7 @@
 	/** @type {Function} [getText=d => d.text] - An accessor function to get the field to display. */
 	export let getText = d => d.text;
 
-	/** @type {Boolean} [percentRange=false] - If `true` will set the `top` and `left` CSS positions to percentages instead of pixels. */
+	/** @type {boolean} [percentRange=false] - If `true` will set the `top` and `left` CSS positions to percentages instead of pixels. */
 	export let pr = $percentRange;
 
 	$: units = pr === true ? '%' : 'px';
@@ -23,10 +23,12 @@
 	{#each annotations as d, i}
 		<div
 			class="layercake-annotation"
-			data-id="{i}"
+			data-id={i}
 			style:left={`calc(${$xGet(d)}${units} + ${d.dx || 0}px)`}
 			style:top={`calc(${$yGet(d)}${units} + ${d.dy || 0}px)`}
-		>{getText(d)}</div>
+		>
+			{getText(d)}
+		</div>
 	{/each}
 </div>
 
@@ -35,4 +37,3 @@
 		position: absolute;
 	}
 </style>
-

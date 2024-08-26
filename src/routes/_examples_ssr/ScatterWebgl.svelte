@@ -21,6 +21,48 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		position="absolute"
+		ssr
+		percentRange
+		{padding}
+		x={xKey}
+		y={yKey}
+		xPadding={[xyPadding, xyPadding]}
+		yPadding={[xyPadding, xyPadding]}
+		{data}
+	>
+		<Html>
+			<AxisX />
+			<AxisY tickMarks={false} />
+		</Html>
+	</LayerCake>
+
+	<LayerCake
+		position="absolute"
+		{padding}
+		x={xKey}
+		y={yKey}
+		xPadding={[xyPadding, xyPadding]}
+		yPadding={[xyPadding, xyPadding]}
+		{data}
+	>
+		<WebGL>
+			<ScatterWebGL {r} />
+		</WebGL>
+
+		<Html>
+			<QuadTree let:x let:y let:visible>
+				<div
+					class="circle"
+					style="top:{y}px;left:{x}px;display: {visible ? 'block' : 'none'};"
+				></div>
+			</QuadTree>
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -37,58 +79,10 @@
 	.circle {
 		position: absolute;
 		border-radius: 50%;
-		background-color: rgba(171,0, 214);
+		background-color: rgba(171, 0, 214);
 		transform: translate(-50%, -50%);
 		pointer-events: none;
 		width: 10px;
 		height: 10px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		position='absolute'
-		ssr
-		percentRange
-		{padding}
-		x={xKey}
-		y={yKey}
-		xPadding={[xyPadding, xyPadding]}
-		yPadding={[xyPadding, xyPadding]}
-		{data}
-	>
-		<Html>
-			<AxisX/>
-			<AxisY tickMarks={false}/>
-		</Html>
-	</LayerCake>
-
-	<LayerCake
-		position='absolute'
-		{padding}
-		x={xKey}
-		y={yKey}
-		xPadding={[xyPadding, xyPadding]}
-		yPadding={[xyPadding, xyPadding]}
-		{data}
-	>
-		<WebGL>
-			<ScatterWebGL
-				{r}
-			/>
-		</WebGL>
-
-		<Html>
-			<QuadTree
-				let:x
-				let:y
-				let:visible
-			>
-				<div
-					class="circle"
-					style="top:{y}px;left:{x}px;display: { visible ? 'block' : 'none' };"
-				></div>
-			</QuadTree>
-		</Html>
-	</LayerCake>
-</div>

@@ -10,5 +10,9 @@ rm -rf src/scripts/svelte-app/src/routes/_data
 rm -rf src/scripts/svelte-app/src/routes/_components
 # mkdir src/scripts/svelte-app/src/routes/components
 
+# `svelte-check` gets confused by having another `svelte.config.js`,
+# so it's renamed and manually added in `build-svelte-app-json.js`
+mv src/scripts/svelte-app/svelte.config.js src/scripts/svelte-app/svelte.config.js.template
+
 # build svelte-app.json
 node src/scripts/build-svelte-app-json.js `find src/scripts/svelte-app -type f`

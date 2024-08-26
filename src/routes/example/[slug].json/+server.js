@@ -12,7 +12,7 @@ function cleanContents(str) {
 function getJsonPaths(example) {
 	const match = example.match(/\.\/.+\.json/gm);
 	if (match) {
-		return match.map((d) => d.replace('../../', ''));
+		return match.map(d => d.replace('../../', ''));
 	}
 	return [];
 }
@@ -20,7 +20,7 @@ function getJsonPaths(example) {
 function getJsPaths(example) {
 	const match = example.match(/\.\/.+\.js('|")/gm);
 	if (match) {
-		return match.map((d) => d.replace('../../', '').replace(/('|")/g, ''));
+		return match.map(d => d.replace('../../', '').replace(/('|")/g, ''));
 	}
 	return [];
 }
@@ -28,7 +28,7 @@ function getJsPaths(example) {
 function getCsvPaths(example) {
 	const match = example.match(/\.\/.+\.csv/gm);
 	if (match) {
-		return match.map((d) => d.replace('../../', ''));
+		return match.map(d => d.replace('../../', ''));
 	}
 	return [];
 }
@@ -45,7 +45,7 @@ function cleanMain(example) {
 function getComponentPaths(example) {
 	const match = example.match(/\.?\.\/.+svelte/gm);
 	if (match) {
-		return match.map((d) => d.replace('../../', ''));
+		return match.map(d => d.replace('../../', ''));
 	}
 	return [];
 }
@@ -74,56 +74,56 @@ export async function GET({ params }) {
 	const dekPath = `src/content/examples/${slug}.md`;
 	const dek = fs.existsSync(dekPath) ? fs.readFileSync(dekPath, 'utf-8') : '';
 
-	const components = getComponentPaths(example).map((d) => {
+	const components = getComponentPaths(example).map(d => {
 		return {
 			title: `./${d}`,
 			contents: cleanContents(fs.readFileSync(`src/${d}`, 'utf-8'))
 		};
 	});
 
-	const modules = getJsPaths(example).map((d) => {
+	const modules = getJsPaths(example).map(d => {
 		return {
 			title: d.replace('../', ''),
 			contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
 		};
 	});
 
-	const jsons = getJsonPaths(example).map((d) => {
+	const jsons = getJsonPaths(example).map(d => {
 		return {
 			title: d.replace('../', ''),
 			contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
 		};
 	});
 
-	const csvs = getCsvPaths(example).map((d) => {
+	const csvs = getCsvPaths(example).map(d => {
 		return {
 			title: d.replace('../', ''),
 			contents: cleanContents(fs.readFileSync(d.replace('./../', 'src/'), 'utf-8'))
 		};
 	});
 
-	const componentModulesMatches = getComponentJsPaths(components.map((d) => d.contents).join(''));
+	const componentModulesMatches = getComponentJsPaths(components.map(d => d.contents).join(''));
 	const componentModules =
 		componentModulesMatches === null
 			? []
-			: componentModulesMatches.map((d) => {
+			: componentModulesMatches.map(d => {
 					return {
 						title: d.replace('../', './'),
 						contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
 					};
-			  });
+				});
 
-	const componentComponentMatches = getComponentPaths(components.map((d) => d.contents).join(''));
+	const componentComponentMatches = getComponentPaths(components.map(d => d.contents).join(''));
 	const componentComponents =
 		componentComponentMatches === null
 			? []
-			: componentComponentMatches.map((d) => {
+			: componentComponentMatches.map(d => {
 					// console.log('d', d, d.replace('./', './_components/'));
 					return {
 						title: d.replace('./', './_components/'),
 						contents: cleanContents(fs.readFileSync(d.replace('./', 'src/_components/'), 'utf-8'))
 					};
-			  });
+				});
 
 	// console.log(componentComponents);
 
@@ -138,5 +138,5 @@ export async function GET({ params }) {
 		jsons
 	};
 
-	return json(response)
+	return json(response);
 }

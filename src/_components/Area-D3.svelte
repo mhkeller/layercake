@@ -19,7 +19,7 @@
 		.y1($yGet)
 		.y0(d => $yScale(0))
 		.curve(curve);
-		// .defined($y)
+	// .defined($y)
 </script>
 
-<path class='path-area' d='{path($data)}' {fill}></path>
+<path class="path-area" d={path($data)} {fill}></path>

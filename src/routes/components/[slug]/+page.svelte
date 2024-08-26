@@ -18,7 +18,7 @@
 
 	/** @type {import('./$types').PageData} */
 	export let data;
-	let {slug, content, active} = data;
+	let { slug, content, active } = data;
 	$: slug = data.slug;
 	$: content = data.content;
 	$: active = data.active;
@@ -38,15 +38,15 @@
 
 	const lookup = new Map();
 	components
-		.flatMap((d) => d.components)
-		.forEach((d) => {
+		.flatMap(d => d.components)
+		.forEach(d => {
 			lookup.set(d.slug, d);
 		});
 
 	$: component = lookup.get(slug);
 
 	function printTypes(type) {
-		const joinEls = (els) => els.map((d) => `\`${d.name}\``).join(' &vert; ');
+		const joinEls = els => els.map(d => `\`${d.name}\``).join(' &vert; ');
 		if (type.name) {
 			return `\`${type.name}\``;
 		}
@@ -82,7 +82,7 @@
 	if (content.hasjsDoctable === true) {
 		jsdocTableBody = `${content.jsdocParsed.tags
 			.map(
-				(d) =>
+				d =>
 					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(
 						d.type
 					)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`
@@ -132,10 +132,12 @@
 	</div>
 
 	<div class="dek">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html markdownToHtml(content.componentDescription)}
 	</div>
 	{#if content.hasjsDoctable === true}
 		<div id="params-table">
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html markdownToHtml(jsdocTable)}
 		</div>
 	{/if}
@@ -164,6 +166,7 @@
 	<div id="pages" class={content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
+				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<li
 					class="tab {active === page.slug ? 'active' : ''}"
 					on:click={() => (active = page.slug)}
@@ -174,9 +177,12 @@
 			{/each}
 		</ul>
 		<div id="contents-container">
+			<!-- svelte-ignore element_invalid_self_closing_tag -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div class="copy" on:click={copyToClipboard} on:keypress={copyToClipboard} />
 			{#each pages as page}
 				<div class="contents" style="display: {active === page.slug ? 'block' : 'none'};">
+					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					<pre>{@html highlight(page.contents, page.slug)}</pre>
 				</div>
 			{/each}

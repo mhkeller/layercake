@@ -16,10 +16,6 @@
 
 <g class="area-group">
 	{#each $data as d}
-		<path
-			class='path-area'
-			d='{areaGen(d)}'
-			fill='{$zGet(d)}'
-		></path>
+		<path class="path-area" d={areaGen(d)} fill={$zGet(d)}></path>
 	{/each}
 </g>

@@ -19,12 +19,42 @@
 
 	let brushedData;
 	$: {
-		brushedData = data.slice((brushExtents[0] || 0) * data.length, (brushExtents[1] || 1) * data.length);
+		brushedData = data.slice(
+			(brushExtents[0] || 0) * data.length,
+			(brushExtents[1] || 1) * data.length
+		);
 		if (brushedData.length < 2) {
-			brushedData = data.slice(brushExtents[0] * data.length, brushExtents[0] * data.length + 2)
+			brushedData = data.slice(brushExtents[0] * data.length, brushExtents[0] * data.length + 2);
 		}
 	}
 </script>
+
+<div class="brushed-chart-container">
+	<LayerCake
+		padding={{ top: 20, bottom: 20 }}
+		x={xKey}
+		y={yKey}
+		yDomain={[0, null]}
+		data={brushedData}
+	>
+		<Svg>
+			<Line stroke="#00e047" />
+			<Area fill="#00e04710" />
+		</Svg>
+	</LayerCake>
+</div>
+
+<div class="brush-container">
+	<LayerCake padding={{ top: 5 }} x={xKey} y={yKey} yDomain={[0, null]} {data}>
+		<Svg>
+			<Line stroke="#00e047" />
+			<Area fill="#00e04710" />
+		</Svg>
+		<Html>
+			<Brush bind:min={brushExtents[0]} bind:max={brushExtents[1]} />
+		</Html>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -42,44 +72,3 @@
 		height: 20%;
 	}
 </style>
-
-<div class="brushed-chart-container">
-	<LayerCake
-		padding={{ top: 20, bottom: 20 }}
-		x={xKey}
-		y={yKey}
-		yDomain={[0, null]}
-		data={brushedData}
-	>
-		<Svg>
-			<Line
-				stroke='#00e047'
-			/>
-			<Area
-				fill='#00e04710'
-			/>
-		</Svg>
-	</LayerCake>
-</div>
-
-<div class="brush-container">
-	<LayerCake
-		padding={{ top: 5 }}
-		x={xKey}
-		y={yKey}
-		yDomain={[0, null]}
-		{data}
-	>
-		<Svg>
-			<Line
-				stroke='#00e047'
-			/>
-			<Area
-				fill='#00e04710'
-			/>
-		</Svg>
-		<Html>
-			<Brush bind:min={brushExtents[0]} bind:max={brushExtents[1]}/>
-		</Html>
-	</LayerCake>
-</div>

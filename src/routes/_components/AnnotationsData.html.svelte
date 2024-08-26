@@ -29,6 +29,26 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 0, right: 0, left: 20 }}
+		x={xKey}
+		y={yKey}
+		xScale={scaleBand().paddingInner(0.02).round(true)}
+		xDomain={['1979', '1980', '1981', '1982', '1983']}
+		yDomain={[0, null]}
+		{data}
+	>
+		<Svg>
+			<Column />
+		</Svg>
+
+		<Html>
+			<AnnotationsData {annotations} />
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -41,23 +61,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 0, right: 0, left: 20 }}
-		x={xKey}
-		y={yKey}
-		xScale={scaleBand().paddingInner(0.02).round(true)}
-		xDomain={['1979', '1980', '1981', '1982', '1983']}
-		yDomain={[0, null]}
-		{data}
-	>
-		<Svg>
-			<Column/>
-		</Svg>
-
-		<Html>
-			<AnnotationsData {annotations}/>
-		</Html>
-	</LayerCake>
-</div>

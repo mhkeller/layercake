@@ -37,8 +37,7 @@ const tests = [
 	{ name: 'scaleDivergingLog', expected: false },
 	{ name: 'scaleDivergingPow', expected: false },
 	{ name: 'scaleDivergingSqrt', expected: false },
-	{ name: 'scaleDivergingSymlog', expected: false },
-
+	{ name: 'scaleDivergingSymlog', expected: false }
 ];
 
 tests.forEach(d => {

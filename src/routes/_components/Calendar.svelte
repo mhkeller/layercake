@@ -8,7 +8,20 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import dates from '../../_data/dates-april.csv';
 
-	const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	const monthNames = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	];
 
 	const datesTransformed = dates.map(d => {
 		d.date = new Date(d.timestring);
@@ -28,6 +41,29 @@
 
 	const sortedData = byMonthByDate.sort((a, b) => a.key - b.key);
 </script>
+
+{#each sortedData as month, i}
+	<div
+		class="calendar-container"
+		style="width:calc({80 / sortedData.length}% - {gutter}px);{i === 0
+			? `margin-right:${gutter * 2}px`
+			: ''}"
+		data-month={monthNames[+month.key + 1]}
+	>
+		<LayerCake
+			padding={{ right: 20 }}
+			x="key"
+			z={d => d.values.length}
+			zScale={scaleQuantize()}
+			zRange={seriesColors}
+			data={month.values}
+		>
+			<Svg>
+				<CalendarMonth />
+			</Svg>
+		</LayerCake>
+	</div>
+{/each}
 
 <style>
 	/*
@@ -53,24 +89,3 @@
 		transform: translate(0, -100%);
 	}
 </style>
-
-{#each sortedData as month, i}
-	<div
-		class="calendar-container"
-		style="width:calc({80 / sortedData.length}% - {gutter}px);{i === 0 ? `margin-right:${gutter * 2}px` : ''}"
-		data-month="{monthNames[+month.key + 1]}"
-	>
-		<LayerCake
-			padding={{ right: 20 }}
-			x='key'
-			z={d => d.values.length}
-			zScale={scaleQuantize()}
-			zRange={seriesColors}
-			data={month.values}
-		>
-			<Svg>
-				<CalendarMonth/>
-			</Svg>
-		</LayerCake>
-	</div>
-{/each}

@@ -1,5 +1,5 @@
 <script>
-	import { LayerCake, ScaledSvg, Html, calcExtents } from 'layercake';
+	import { LayerCake, Html, calcExtents } from 'layercake';
 	import { timeDay } from 'd3-time';
 	import { scaleBand, scaleTime } from 'd3-scale';
 
@@ -18,7 +18,10 @@
 
 	const daysTransformed = data.map(d => {
 		const parts = d.timestring.split('T');
-		const time = parts[1].replace('Z', '').split(':').map(q => +q);
+		const time = parts[1]
+			.replace('Z', '')
+			.split(':')
+			.map(q => +q);
 		d[xKey] = time[0] * 60 * 60 + time[1] * 60 + time[2];
 		d[yKey] = parts[0];
 		return d;
@@ -33,26 +36,25 @@
 	});
 
 	// Convert to string even though it is one to make Typescript happy
-	const minDate = extents.x[0].toString().split('T')[0].split('-').map(d => +d);
-	const maxDate = extents.x[1].toString().split('T')[0].split('-').map(d => +d);
+	const minDate = extents.x[0]
+		.toString()
+		.split('T')[0]
+		.split('-')
+		.map(d => +d);
+	const maxDate = extents.x[1]
+		.toString()
+		.split('T')[0]
+		.split('-')
+		.map(d => +d);
 
-	const allDays = timeDay.range(new Date(Date.UTC(minDate[0], minDate[1] - 1, minDate[2])), new Date(Date.UTC(maxDate[0], maxDate[1] - 1, maxDate[2] + 1)))
-		.map(d => d.toISOString().split('T')[0]).sort();
-
+	const allDays = timeDay
+		.range(
+			new Date(Date.UTC(minDate[0], minDate[1] - 1, minDate[2])),
+			new Date(Date.UTC(maxDate[0], maxDate[1] - 1, maxDate[2] + 1))
+		)
+		.map(d => d.toISOString().split('T')[0])
+		.sort();
 </script>
-
-<style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
-	.chart-container {
-		width: 100%;
-		height: 250px;
-	}
-</style>
 
 <div class="chart-container">
 	<LayerCake
@@ -73,12 +75,21 @@
 				ticks={[0, 4, 8, 12, 16, 20, 24].map(d => d * 60 * 60)}
 				format={d => `${Math.floor(d / 60 / 60)}:00`}
 			/>
-			<AxisY/>
-			<Scatter
-				{r}
-				fill='rgba(255, 204, 0, 0.75)'
-				strokeWidth={0}
-			/>
+			<AxisY />
+			<Scatter {r} fill="rgba(255, 204, 0, 0.75)" strokeWidth={0} />
 		</Html>
 	</LayerCake>
 </div>
+
+<style>
+	/*
+		The wrapper div needs to have an explicit width and height in CSS.
+		It can also be a flexbox child or CSS grid element.
+		The point being it needs dimensions since the <LayerCake> element will
+		expand to fill it.
+	*/
+	.chart-container {
+		width: 100%;
+		height: 250px;
+	}
+</style>

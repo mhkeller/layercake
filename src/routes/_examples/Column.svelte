@@ -22,34 +22,36 @@
 			[yKey]: 14,
 			dx: 15, // Optional pixel values
 			dy: -5,
-			arrows: [{
-				clockwise: false, // true or false, defaults to true
-				source: {
-					anchor: 'left-bottom', // can be `{left, middle, right},{top-middle-bottom}`
-					dx: -2,
-					dy: -7
+			arrows: [
+				{
+					clockwise: false, // true or false, defaults to true
+					source: {
+						anchor: 'left-bottom', // can be `{left, middle, right},{top-middle-bottom}`
+						dx: -2,
+						dy: -7
+					},
+					target: {
+						// These can be expressed in our data units if passed under the data keys
+						[xKey]: '1980',
+						[yKey]: 4.5,
+						// Optional adjustments
+						dx: 2,
+						dy: 5
+					}
 				},
-				target: {
-					// These can be expressed in our data units if passed under the data keys
-					[xKey]: '1980',
-					[yKey]: 4.5,
-					// Optional adjustments
-					dx: 2,
-					dy: 5
+				{
+					source: {
+						anchor: 'right-bottom',
+						dy: -7,
+						dx: 5
+					},
+					target: {
+						// Or if they are percentage strings they can be passed directly
+						x: '68%',
+						y: '48%'
+					}
 				}
-			},
-			{
-				source: {
-					anchor: 'right-bottom',
-					dy: -7,
-					dx: 5
-				},
-				target: {
-					// Or if they are percentage strings they can be passed directly
-					x: '68%',
-					y: '48%',
-				}
-			}]
+			]
 		}
 	];
 
@@ -57,6 +59,36 @@
 		d[yKey] = +d[yKey];
 	});
 </script>
+
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
+		x={xKey}
+		y={yKey}
+		xScale={scaleBand().paddingInner(0.02).round(true)}
+		xDomain={['1979', '1980', '1981', '1982', '1983']}
+		yDomain={[0, null]}
+		{data}
+	>
+		<Svg>
+			<AxisX gridlines={false} />
+
+			<AxisY snapBaselineLabel />
+			<Column />
+		</Svg>
+
+		<Html>
+			<Annotations {annotations} />
+		</Html>
+
+		<Svg>
+			<svelte:fragment slot="defs">
+				<ArrowheadMarker />
+			</svelte:fragment>
+			<Arrows {annotations} />
+		</Svg>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -70,37 +102,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
-		x={xKey}
-		y={yKey}
-		xScale={scaleBand().paddingInner(0.02).round(true)}
-		xDomain={['1979', '1980', '1981', '1982', '1983']}
-		yDomain={[0, null]}
-		{data}
-	>
-		<Svg>
-			<AxisX
-				gridlines={false}
-			/>
-
-			<AxisY
-				snapBaselineLabel
-			/>
-			<Column/>
-		</Svg>
-
-		<Html>
-			<Annotations {annotations}/>
-		</Html>
-
-		<Svg>
-			<svelte:fragment slot="defs">
-				<ArrowheadMarker/>
-			</svelte:fragment>
-			<Arrows {annotations}/>
-		</Svg>
-	</LayerCake>
-</div>

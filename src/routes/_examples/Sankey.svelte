@@ -6,6 +6,14 @@
 	import data from '../../_data/sankey-data.js';
 </script>
 
+<div class="chart-container">
+	<LayerCake {data}>
+		<Svg>
+			<Sankey colorNodes={d => '#00bbff'} colorLinks={d => '#00bbff35'} />
+		</Svg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -18,16 +26,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		{data}
-	>
-		<Svg>
-			<Sankey
-				colorNodes={d => '#00bbff'}
-				colorLinks={d => '#00bbff35'}
-			/>
-		</Svg>
-	</LayerCake>
-</div>

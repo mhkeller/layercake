@@ -23,10 +23,10 @@
 	const projection = geoAlbersUsa;
 
 	/* --------------------------------------------
-	* Create lookups to more easily join our data
-	* `dataJoinKey` is the name of the field in the data
-	* `mapJoinKey` is the name of the field in the map file
-	*/
+	 * Create lookups to more easily join our data
+	 * `dataJoinKey` is the name of the field in the data
+	 * `mapJoinKey` is the name of the field in the map file
+	 */
 	const dataJoinKey = 'name';
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
@@ -47,6 +47,33 @@
 	const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		data={geojson}
+		z={d => dataLookup.get(d[mapJoinKey])}
+		zScale={scaleQuantize()}
+		zRange={colors}
+		{flatData}
+	>
+		<Canvas>
+			<MapCanvas {projection} fill="#fff" />
+		</Canvas>
+
+		<Svg>
+			<MapSvg {projection} features={geojson.features.slice(40, 50)} />
+		</Svg>
+
+		<Html pointerEvents={false}>
+			<MapLabels
+				{projection}
+				features={labelsToDisplay}
+				getCoordinates={d => d[labelCoordinatesKey]}
+				getLabel={d => d[labelNameKey]}
+			/>
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -59,38 +86,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		data={geojson}
-		z={d => dataLookup.get(d[mapJoinKey])}
-		zScale={scaleQuantize()}
-		zRange={colors}
-		{flatData}
-	>
-		<Canvas>
-			<MapCanvas
-				{projection}
-				fill='#fff'
-			/>
-		</Canvas>
-
-		<Svg>
-			<MapSvg
-				{projection}
-				features={geojson.features.slice(40, 50)}
-			/>
-		</Svg>
-
-		<Html
-			pointerEvents={false}
-		>
-			<MapLabels
-				{projection}
-				features={labelsToDisplay}
-				getCoordinates={d => d[labelCoordinatesKey]}
-				getLabel={d => d[labelNameKey]}
-			/>
-		</Html>
-	</LayerCake>
-</div>

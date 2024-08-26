@@ -2,12 +2,32 @@
 	export let status;
 	export let error;
 
-	const dev = process.env.NODE_ENV === 'development';
+	// const dev = process.env.NODE_ENV === 'development';
 </script>
 
+<h1>hiase</h1>
+<svelte:head>
+	<title>{status}</title>
+</svelte:head>
+
+{#if error}
+	<div class="error">
+		<h1>{status}</h1>
+
+		<p>{error.message}</p>
+
+		{#if error.stack}
+			<pre>{error.stack}</pre>
+		{/if}
+	</div>
+{/if}
+
 <style>
-	:global(body) {background: #f0c !important}
-	h1, p {
+	:global(body) {
+		background: #f0c !important;
+	}
+	h1,
+	p {
 		margin: 0 auto;
 	}
 
@@ -31,20 +51,3 @@
 		}
 	}
 </style>
-<h1>hiase</h1>
-<svelte:head>
-	<title>{status}</title>
-</svelte:head>
-
-{#if error}
-
-	<div class="error">
-		<h1>{status}</h1>
-
-		<p>{error.message}</p>
-
-		{#if error.stack}
-			<pre>{error.stack}</pre>
-		{/if}
-	</div>
-{/if}

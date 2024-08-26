@@ -4,9 +4,8 @@
 
 	import Nav from './_site-components/Nav.svelte';
 
-	export let data
+	export let data;
 </script>
-
 
 <Nav sections={data.sections} />
 <main>

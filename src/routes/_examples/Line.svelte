@@ -17,6 +17,23 @@
 	});
 </script>
 
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
+		x={xKey}
+		y={yKey}
+		yDomain={[0, null]}
+		{data}
+	>
+		<Svg>
+			<AxisX />
+			<AxisY ticks={4} />
+			<Line />
+			<Area />
+		</Svg>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -29,22 +46,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
-		x={xKey}
-		y={yKey}
-		yDomain={[0, null]}
-		{data}
-	>
-		<Svg>
-			<AxisX/>
-			<AxisY
-				ticks={4}
-			/>
-			<Line/>
-			<Area/>
-		</Svg>
-	</LayerCake>
-</div>

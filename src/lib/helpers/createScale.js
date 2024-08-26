@@ -2,8 +2,19 @@ import defaultScales from '../settings/defaultScales.js';
 import padScale from '../utils/padScale.js';
 import getDefaultRange from '../settings/getDefaultRange.js';
 
-export default function createScale (s) {
-	return function scaleCreator ([$scale, $extents, $domain, $padding, $nice, $reverse, $width, $height, $range, $percentScale]) {
+export default function createScale(s) {
+	return function scaleCreator([
+		$scale,
+		$extents,
+		$domain,
+		$padding,
+		$nice,
+		$reverse,
+		$width,
+		$height,
+		$range,
+		$percentScale
+	]) {
 		if ($extents === null) {
 			return null;
 		}
@@ -15,7 +26,7 @@ export default function createScale (s) {
 		/* --------------------------------------------
 		 * Set the domain
 		 */
-		scale.domain($domain)
+		scale.domain($domain);
 
 		/* --------------------------------------------
 		 * Set the range of the scale to our default if
@@ -25,10 +36,7 @@ export default function createScale (s) {
 		 */
 		if (
 			!scale.interpolator ||
-			(
-				typeof scale.interpolator === 'function'
-				&& scale.interpolator().name.startsWith('identity')
-			)
+			(typeof scale.interpolator === 'function' && scale.interpolator().name.startsWith('identity'))
 		) {
 			scale.range(defaultRange);
 		}
@@ -41,7 +49,9 @@ export default function createScale (s) {
 			if (typeof scale.nice === 'function') {
 				scale.nice(typeof $nice === 'number' ? $nice : undefined);
 			} else {
-				console.error(`[Layer Cake] You set \`${s}Nice: true\` but the ${s}Scale does not have a \`.nice\` method. Ignoring...`);
+				console.error(
+					`[Layer Cake] You set \`${s}Nice: true\` but the ${s}Scale does not have a \`.nice\` method. Ignoring...`
+				);
 			}
 		}
 

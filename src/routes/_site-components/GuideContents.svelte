@@ -12,10 +12,29 @@
 		};
 	});
 
-	function close () {
+	function close() {
 		open = false;
 	}
 </script>
+
+<ul class="guide-toc">
+	{#each guideSections as section}
+		<li>
+			<a
+				class="section {section.slug === activeGuideSection ? 'active' : ''}"
+				href="/guide#{section.slug}"
+				on:click={close}>{section.metadata.title}</a
+			>
+			{#each section.subsections as subsection}
+				<a
+					class="subsection {subsection.slug === activeGuideSection ? 'active' : ''}"
+					href="/guide#{subsection.slug}"
+					on:click={close}>{subsection.title}</a
+				>
+			{/each}
+		</li>
+	{/each}
+</ul>
 
 <style>
 	.guide-toc {
@@ -48,7 +67,7 @@
 	.subsection {
 		display: block;
 		/*font-weight: 500;*/
-		color:#727272;
+		color: #727272;
 		font-size: 1em;
 		margin: 0;
 		padding-top: 0.075em;
@@ -56,26 +75,8 @@
 		line-height: 1.25em;
 	}
 
-	.section.active, .subsection.active {
+	.section.active,
+	.subsection.active {
 		color: #ff3e00;
 	}
 </style>
-
-<ul class='guide-toc'>
-	{#each guideSections as section}
-		<li>
-			<a
-				class='section {section.slug === activeGuideSection ? "active": ""}'
-				href='/guide#{section.slug}'
-				on:click='{close}'
-			>{section.metadata.title}</a>
-			{#each section.subsections as subsection}
-				<a
-					class='subsection {subsection.slug === activeGuideSection ? "active": ""}'
-					href='/guide#{subsection.slug}'
-					on:click='{close}'
-				>{subsection.title}</a>
-			{/each}
-		</li>
-	{/each}
-</ul>

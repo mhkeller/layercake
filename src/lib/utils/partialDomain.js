@@ -6,7 +6,7 @@
 	@param {Number[]} directive A two-value array of numbers that will have any nulls filled in from the `domain` array
 	@returns {Number[]} The filled in domain
 */
-export default function partialDomain (domain = [], directive) {
+export default function partialDomain(domain = [], directive) {
 	if (Array.isArray(directive) === true) {
 		return directive.map((d, i) => {
 			if (d === null) {

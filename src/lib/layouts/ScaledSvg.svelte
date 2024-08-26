@@ -7,32 +7,32 @@
 
 	const { padding } = getContext('LayerCake');
 
-	/** @type {Element} [element] The layer's `<svg>` tag. Useful for bindings. */
+	/** @type {Element|undefined} [element] The layer's `<svg>` tag. Useful for bindings. */
 	export let element = undefined;
 
-	/** @type {Number} [zIndex] The layer's z-index. */
+	/** @type {Number|undefined} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
 
-	/** @type {Boolean} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
+	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	/** @type {Number} [fixedAspectRatio=1`] A number to set the aspect ratio onto the viewBox. */
+	/** @type {Number} [fixedAspectRatio=1] A number to set the aspect ratio onto the viewBox. */
 	export let fixedAspectRatio = 1;
 
 	/** @type {String} [viewBox=`0 0 100 ${100 / fixedAspectRatio}`] A string passed to the `viewBox` property on the `<svg>` tag. */
 	export let viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
 	$: viewBox = `0 0 100 ${100 / fixedAspectRatio}`;
 
-	/** @type {String} [label] A string passed to the `aria-label` on the `<svg>` tag. */
+	/** @type {String|undefined} [label] A string passed to the `aria-label` on the `<svg>` tag. */
 	export let label = undefined;
 
-	/** @type {String} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` tag. */
+	/** @type {String|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` tag. */
 	export let labelledBy = undefined;
 
-	/** @type {String} [describedBy] A string passed to `aria-describedby` property on the `<svg>` tag. */
+	/** @type {String|undefined} [describedBy] A string passed to `aria-describedby` property on the `<svg>` tag. */
 	export let describedBy = undefined;
 
-	/** @type {String} [title] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the "title" slot but this is a convenient shorthand. If you use the "title" slot, this prop is ignored. */
+	/** @type {String|undefined} [title] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the "title" slot but this is a convenient shorthand. If you use the "title" slot, this prop is ignored. */
 	export let title = undefined;
 </script>
 
@@ -44,14 +44,16 @@
 	style:pointer-events={pointerEvents === false ? 'none' : null}
 	style:top={$padding.top + 'px'}
 	style:left={$padding.left + 'px'}
-	style:width={`calc(100% - ${($padding.left + $padding.right)}px)`}
-	style:height={`calc(100% - ${($padding.top + $padding.bottom)}px)`}
+	style:width={`calc(100% - ${$padding.left + $padding.right}px)`}
+	style:height={`calc(100% - ${$padding.top + $padding.bottom}px)`}
 	style="right:0px; bottom:0px;"
 	aria-label={label}
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}
 >
-	<slot name="title">{#if title}<title>{title}</title>{/if}</slot>
+	<slot name="title"
+		>{#if title}<title>{title}</title>{/if}</slot
+	>
 
 	<defs>
 		<slot name="defs"></slot>

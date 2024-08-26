@@ -21,11 +21,30 @@
 		});
 	});
 
-	const stackData = stack()
-		.keys(seriesNames);
+	const stackData = stack().keys(seriesNames);
 
 	const series = stackData(data);
 </script>
+
+<div class="chart-container">
+	<LayerCake
+		padding={{ top: 10 }}
+		x={d => d.data[xKey]}
+		y={yKey}
+		z={zKey}
+		xScale={scaleBand().paddingInner(0.02).round(true)}
+		xDomain={uniques(data, xKey)}
+		zScale={scaleOrdinal()}
+		zDomain={seriesNames}
+		zRange={seriesColors}
+		flatData={flatten(series)}
+		data={series}
+	>
+		<Svg>
+			<ColumnStacked />
+		</Svg>
+	</LayerCake>
+</div>
 
 <style>
 	/*
@@ -39,24 +58,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
- 			padding={{ top: 10 }}
- 			x={d => d.data[xKey]}
- 			y={yKey}
- 			z={zKey}
- 			xScale={scaleBand().paddingInner(0.02).round(true)}
- 			xDomain={uniques(data, xKey)}
-			zScale={scaleOrdinal()}
-			zDomain={seriesNames}
-			zRange={seriesColors}
- 			flatData={flatten(series)}
- 			data={series}
-	>
-		<Svg>
-			<ColumnStacked/>
-		</Svg>
-	</LayerCake>
-
-</div>

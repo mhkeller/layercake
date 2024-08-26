@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 function calcBaseRange(s, width, height, reverse, percentRange) {
 	let min;
 	let max;

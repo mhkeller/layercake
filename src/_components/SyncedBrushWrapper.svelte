@@ -18,10 +18,49 @@
 	$: {
 		brushedData = data.slice((min || 0) * data.length, (max || 1) * data.length);
 		if (brushedData.length < 2) {
-			brushedData = data.slice(min * data.length, min * data.length + 2)
+			brushedData = data.slice(min * data.length, min * data.length + 2);
 		}
 	}
 </script>
+
+<div class="chart-wrapper">
+	<div class="chart-container">
+		<LayerCake
+			padding={{ bottom: 20, left: 25 }}
+			x={xKey}
+			y={yKey}
+			yDomain={[0, null]}
+			data={brushedData}
+		>
+			<Svg>
+				<AxisX
+					ticks={ticks => {
+						const filtered = ticks.filter(t => t % 1 === 0);
+						if (filtered.length > 7) {
+							return filtered.filter((t, i) => i % 2 === 0);
+						}
+						return filtered;
+					}}
+				/>
+				<AxisY ticks={2} />
+				<Line {stroke} />
+				<Area fill={`${stroke}10`} />
+			</Svg>
+		</LayerCake>
+	</div>
+
+	<div class="brush-container">
+		<LayerCake padding={{ top: 5 }} x={xKey} y={yKey} yDomain={[0, null]} {data}>
+			<Svg>
+				<Line {stroke} />
+				<Area fill={`${stroke}10`} />
+			</Svg>
+			<Html>
+				<Brush bind:min bind:max />
+			</Html>
+		</LayerCake>
+	</div>
+</div>
 
 <style>
 	.chart-wrapper {
@@ -43,61 +82,3 @@
 		height: 20%;
 	}
 </style>
-
-<div class="chart-wrapper">
-	<div class="chart-container">
-		<LayerCake
-			padding={{ bottom: 20, left: 25 }}
-			x={xKey}
-			y={yKey}
-			yDomain={[0, null]}
-			data={brushedData}
-		>
-			<Svg>
-				<AxisX
-					ticks={ticks => {
-						const filtered = ticks.filter(t => t % 1 === 0);
-						if (filtered.length > 7) {
-							return filtered.filter((t, i) => i % 2 === 0);
-						}
-						return filtered;
-					}}
-				/>
-				<AxisY
-					ticks={2}
-				/>
-				<Line
-					{stroke}
-				/>
-				<Area
-					fill={`${stroke}10`}
-				/>
-			</Svg>
-		</LayerCake>
-	</div>
-
-	<div class="brush-container">
-		<LayerCake
-			padding={{ top: 5 }}
-			x={xKey}
-			y={yKey}
-			yDomain={[0, null]}
-			{data}
-		>
-			<Svg>
-				<Line
-					{stroke}
-				/>
-				<Area
-					fill={`${stroke}10`}
-				/>
-			</Svg>
-			<Html>
-				<Brush
-					bind:min={min}
-					bind:max={max}
-				/>
-			</Html>
-		</LayerCake>
-	</div>
-</div>

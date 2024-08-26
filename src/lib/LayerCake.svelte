@@ -21,13 +21,13 @@
 
 	const printDebug_debounced = debounce(printDebug, 200);
 
-	/** @type {Boolean} [ssr=false] Whether this chart should be rendered server side. */
+	/** @type {boolean} [ssr=false] Whether this chart should be rendered server side. */
 	export let ssr = false;
-	/** @type {Boolean} [pointerEvents=true] Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction. */
+	/** @type {boolean} [pointerEvents=true] Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction. */
 	export let pointerEvents = true;
 	/** @type {String} [position='relative'] Determine the positioning of the wrapper div. Set this to `'absolute'` when you want to stack cakes. */
 	export let position = 'relative';
-	/** @type {Boolean} [percentRange=false] If `true`, set all scale ranges to `[0, 100]`. Ranges reversed via `xReverse`, `yReverse`, `zReverse` or `rReverse` props will continue to be reversed as usual. */
+	/** @type {boolean} [percentRange=false] If `true`, set all scale ranges to `[0, 100]`. Ranges reversed via `xReverse`, `yReverse`, `zReverse` or `rReverse` props will continue to be reversed as usual. */
 	export let percentRange = false;
 
 	/** @type {Number} [width=containerWidth] Override the automated width. */
@@ -40,7 +40,7 @@
 	/** @type {Number} [containerHeight=100] The bound container height. */
 	export let containerHeight = height || 100;
 
-	/**	@type {Element} [element] The .layercake-container `<div>` tag. Useful for bindings. */
+	/**	@type {Element|undefined} [element] The .layercake-container `<div>` tag. Useful for bindings. */
 	export let element = undefined;
 
 	/* --------------------------------------------
@@ -50,41 +50,41 @@
 	 *
 	 */
 
-	/** @type {String|Function|Number|Array} x The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|Array<String|Function|Number>|undefined} x The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
 	export let x = undefined;
-	/** @type {String|Function|Number|Array} y The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|Array<String|Function|Number>|undefined} y The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
 	export let y = undefined;
-	/** @type {String|Function|Number|Array} z The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|Array<String|Function|Number>|undefined} z The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
 	export let z = undefined;
-	/** @type {String|Function|Number|Array} r The r accessor. The key in each row of data that corresponds to the r-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
+	/** @type {String|Function|Number|Array<String|Function|Number>|undefined} r The r accessor. The key in each row of data that corresponds to the r-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
 	export let r = undefined;
 
-	/** @type {Array|Object} [data=[]] If `data` is not a flat array of objects and you want to use any of the scales, set a flat version of the data via the `flatData` prop. */
+	/** @type {Array<Object>|Object} [data=[]] If `data` is not a flat array of objects and you want to use any of the scales, set a flat version of the data via the `flatData` prop. */
 	export let data = [];
 
-	/** @type {[min: Number|null, max: Number|null]|String[]|Number[]|Function} [xDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
+	/** @type {[min: Number|null, max: Number|null]|Array<String|Number>|Function|undefined} [xDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let xDomain = undefined;
-	/** @type {[min: Number|null, max: Number|null]|String[]|Number[]|Function} [yDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`.  Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
+	/** @type {[min: Number|null, max: Number|null]|Array<String|Number>|Function|undefined} [yDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`.  Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let yDomain = undefined;
-	/** @type {[min: Number|null, max: Number|null]|String[]|Number[]|Function} [zDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
+	/** @type {[min: Number|null, max: Number|null]|Array<String|Number>|Function|undefined} [zDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let zDomain = undefined;
-	/** @type {[min: Number|null, max: Number|null]|String[]|Number[]|Function} [rDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
+	/** @type {[min: Number|null, max: Number|null]|Array<String|Number>|Function|undefined} [rDomain] Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values. */
 	export let rDomain = undefined;
-	/** @type {Boolean|Number} [xNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. */
+	/** @type {boolean|Number} [xNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. */
 	export let xNice = false;
-	/** @type {Boolean|Number} [yNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the y domain. */
+	/** @type {boolean|Number} [yNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the y domain. */
 	export let yNice = false;
-	/** @type {Boolean|Number} [zNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the z domain. */
+	/** @type {boolean|Number} [zNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the z domain. */
 	export let zNice = false;
-	/** @type {Boolean} [rNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the r domain. */
+	/** @type {boolean} [rNice=false] Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the r domain. */
 	export let rNice = false;
-	/** @type {[leftPixels: Number, rightPixels: Number]} [xPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
+	/** @type {[leftPixels: Number, rightPixels: Number]|undefined} [xPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let xPadding = undefined;
-	/** @type {[leftPixels: Number, rightPixels: Number]} [yPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
+	/** @type {[leftPixels: Number, rightPixels: Number]|undefined} [yPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let yPadding = undefined;
-	/** @type {[leftPixels: Number, rightPixels: Number]} [zPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
+	/** @type {[leftPixels: Number, rightPixels: Number]|undefined} [zPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let zPadding = undefined;
-	/** @type {[leftPixels: Number, rightPixels: Number]} [rPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
+	/** @type {[leftPixels: Number, rightPixels: Number]|undefined} [rPadding] Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. */
 	export let rPadding = undefined;
 	/** @type {Function} [xScale=d3.scaleLinear] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let xScale = defaultScales.x;
@@ -94,29 +94,29 @@
 	export let zScale = defaultScales.z;
 	/** @type {Function} [rScale=d3.scaleSqrt] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let rScale = defaultScales.r;
-	/** @type {[min: Number, max: Number]|Function|String[]|Number[]} [xRange] Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `xReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
+	/** @type {[min: Number, max: Number]|Function|Array<String|Number>|undefined} [xRange] Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `xReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
 	export let xRange = undefined;
-	/** @type {[min: Number, max: Number]|Function|String[]|Number[]} [xRange] Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `yReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
+	/** @type {[min: Number, max: Number]|Function|Array<String|Number>|undefined} [xRange] Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `yReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
 	export let yRange = undefined;
-	/** @type {[min: Number, max: Number]|Function|String[]|Number[]} [zRange] Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `zReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
+	/** @type {[min: Number, max: Number]|Function|Array<String|Number>|undefined} [zRange] Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `zReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
 	export let zRange = undefined;
-	/** @type {[min: Number, max: Number]|Function|String[]|Number[]} [rRange] Override the default r range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `rReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
+	/** @type {[min: Number, max: Number]|Function|Array<String|Number>|undefined} [rRange] Override the default r range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `rReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */
 	export let rRange = undefined;
-	/** @type {Boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
+	/** @type {boolean} [xReverse=false] Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop. */
 	export let xReverse = false;
-	/** @type {Boolean} [yReverse=true] Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using an ordinal scale with a `.bandwidth` method for `yScale`. Ignored if you set the `yRange` prop. */
-	export let yReverse = undefined
-	/** @type {Boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
+	/** @type {boolean|undefined} [yReverse=true] Reverse the default y range. By default this is set dynamically and will be `true` – setting the range to `[height, 0]` – unless the `yScale` has a `.bandwidth` method. Dynamic behavior is overridden if the user sets the prop. Ignored if you set the `yRange` prop. */
+	export let yReverse = undefined;
+	/** @type {boolean} [zReverse=false] Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop. */
 	export let zReverse = false;
-	/** @type {Boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
+	/** @type {boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
 	export let rReverse = false;
-	/** @type {Boolean} [xDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	/** @type {boolean} [xDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
 	export let xDomainSort = true;
-	/** @type {Boolean} [yDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
-	export let yDomainSort = true
-	/** @type {Boolean} [zDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	/** @type {boolean} [yDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	export let yDomainSort = true;
+	/** @type {boolean} [zDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
 	export let zDomainSort = true;
-	/** @type {Boolean} [rDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	/** @type {boolean} [rDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
 	export let rDomainSort = true;
 	/** @type {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}] The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563). */
 	export let padding = {};
@@ -124,23 +124,26 @@
 	export let extents = {};
 	/** @type {Object.<string, function({xScale, yScale, zScale, rScale}): D3Scale>} [deriveScales] Create new scales based on values of others. Takes an object where each key is an arbitrary name for the derived scale. The value is a function that receives an object with available scales and returns the new scale. */
 	export let deriveScales = {};
-	/** @type {Array} [flatData=data] A flat version of data. */
+	/** @type {Array<Object|Array<any>>|undefined} [flatData=data] A flat version of data. */
 	export let flatData = undefined;
 
 	/** @type {Object} custom Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants. */
 	export let custom = {};
 
-	/** @type {Boolean} debug Enable debug printing to the console. Useful to inspect your scales and dimensions. */
+	/** @type {boolean} debug Enable debug printing to the console. Useful to inspect your scales and dimensions. */
 	export let debug = false;
-	/** @type {Boolean} [verbose=true] Show warnings in the console. */
+	/** @type {boolean} [verbose=true] Show warnings in the console. */
 	export let verbose = true;
 
 	/**
 	 * Make this reactive
 	 */
-	$: yReverseValue = typeof yReverse === 'undefined'
-		? typeof yScale.bandwidth === 'function' ? false : true
-		: yReverse;
+	$: yReverseValue =
+		typeof yReverse === 'undefined'
+			? typeof yScale.bandwidth === 'function'
+				? false
+				: true
+			: yReverse;
 
 	/* --------------------------------------------
 	 * Keep track of whether the component has mounted
@@ -325,8 +328,32 @@
 	 * in as a domain, which can be a partial domain
 	 */
 	const extents_d = derived(
-		[_flatData, activeGetters_d, _extents, _xScale, _yScale, _rScale, _zScale, _xDomainSort, _yDomainSort, _zDomainSort, _rDomainSort],
-		([$flatData, $activeGetters, $extents, $_xScale, $_yScale, $_rScale, $_zScale, $_xDomainSort, $_yDomainSort, $_zDomainSort, $_rDomainSort]) => {
+		[
+			_flatData,
+			activeGetters_d,
+			_extents,
+			_xScale,
+			_yScale,
+			_rScale,
+			_zScale,
+			_xDomainSort,
+			_yDomainSort,
+			_zDomainSort,
+			_rDomainSort
+		],
+		([
+			$flatData,
+			$activeGetters,
+			$extents,
+			$_xScale,
+			$_yScale,
+			$_rScale,
+			$_zScale,
+			$_xDomainSort,
+			$_yDomainSort,
+			$_zDomainSort,
+			$_rDomainSort
+		]) => {
 			const scaleLookup = {
 				x: { scale: $_xScale, sort: $_xDomainSort },
 				y: { scale: $_yScale, sort: $_yDomainSort },
@@ -334,7 +361,7 @@
 				z: { scale: $_zScale, sort: $_zDomainSort }
 			};
 			const getters = filterObject($activeGetters, $extents);
-			const activeScales = Object.fromEntries(Object.keys(getters).map((k) => [k, scaleLookup[k]]));
+			const activeScales = Object.fromEntries(Object.keys(getters).map(k => [k, scaleLookup[k]]));
 
 			if (Object.keys(getters).length > 0) {
 				const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
@@ -418,6 +445,12 @@
 	);
 	const rGet_d = derived([_r, rScale_d], createGetter);
 
+	// Create new _Domains in case we ran `.nice()` over our domain on scale initialization
+	const xDomain_d_possibly_nice = derived(xScale_d, $xScale_d => $xScale_d.domain());
+	const yDomain_d_possibly_nice = derived(yScale_d, $yScale_d => $yScale_d.domain());
+	const zDomain_d_possibly_nice = derived(zScale_d, $zScale_d => $zScale_d.domain());
+	const rDomain_d_possibly_nice = derived(rScale_d, $rScale_d => $rScale_d.domain());
+
 	const xRange_d = derived([xScale_d], getRange);
 	const yRange_d = derived([yScale_d], getRange);
 	const zRange_d = derived([zScale_d], getRange);
@@ -481,10 +514,10 @@
 		padding: padding_d,
 		flatData: _flatData,
 		extents: extents_d,
-		xDomain: xDomain_d,
-		yDomain: yDomain_d,
-		zDomain: zDomain_d,
-		rDomain: rDomain_d,
+		xDomain: xDomain_d_possibly_nice,
+		yDomain: yDomain_d_possibly_nice,
+		zDomain: zDomain_d_possibly_nice,
+		rDomain: rDomain_d_possibly_nice,
 		xRange: xRange_d,
 		yRange: yRange_d,
 		zRange: zRange_d,
@@ -516,7 +549,7 @@
 			xScale: $xScale_d,
 			yScale: $yScale_d,
 			zScale: $zScale_d,
-			rScale: $rScale_d,
+			rScale: $rScale_d
 		});
 	}
 </script>

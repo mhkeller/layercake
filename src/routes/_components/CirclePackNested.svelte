@@ -10,6 +10,21 @@
 	const parentKey = 'parent';
 </script>
 
+<div class="chart-container">
+	<LayerCake padding={{ top: 15 }} {data}>
+		<Html>
+			<CirclePack
+				{idKey}
+				{parentKey}
+				spacing={5}
+				sortBy={(a, b) => b.depth - a.depth}
+				labelVisibilityThreshold={r => false}
+				stroke="#00bbff"
+			/>
+		</Html>
+	</LayerCake>
+</div>
+
 <style>
 	/*
 		The wrapper div needs to have an explicit width and height in CSS.
@@ -22,21 +37,3 @@
 		height: 250px;
 	}
 </style>
-
-<div class="chart-container">
-	<LayerCake
-		padding={{ top: 15 }}
-		{data}
-	>
-		<Html>
-      <CirclePack
-        idKey={idKey}
-        parentKey={parentKey}
-				spacing={5}
-				sortBy={(a, b) => b.depth - a.depth}
-				labelVisibilityThreshold={r => false}
-				stroke="#00bbff"
-      />
-		</Html>
-	</LayerCake>
-</div>

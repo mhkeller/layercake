@@ -38,24 +38,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.B685fjVw.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.DihtRuWg.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.D4RKhXhC.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.BFqdojTQ.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.GkC9o0fq.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.L98Y0KIF.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.BaBqqzMW.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.B7mK2QHg.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Bg3Cf5Pi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BBxqkkLV.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.Cfv_WNeZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.DNYiTfVC.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.DfQvOzx6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.Cg80y6Fz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.BSwEoech.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.CjHaxd_I.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.BtRenXJH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.CzO9ncG6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.w-fjc9ue.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.VwM39mxy.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.DudUxdVv.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.CreErKyT.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.B6O7iAHJ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.B472hsjU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.BcxJ-X_w.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.iN1Wf0lE.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.DGC6QDUM.js">
@@ -136,7 +136,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/ClevelandDotPlot.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"ClevelandDotPlot.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG Cleveland dot plot, also known as a lollipop-chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, yScale, zScale, config } = getContext('LayerCake');\\n\\n  /** @type {Number} [r=5] - The circle radius. */\\n  export let r = 5;\\n\\n  $: midHeight = $yScale.bandwidth() / 2;\\n\u003C/script>\\n\\n\u003Cg class=\\\"dot-plot\\\">\\n  {#each $data as row}\\n    {@const yVal = $yGet(row)}\\n    {@const xVals = $xGet(row)}\\n    \u003Cg class=\\\"dot-row\\\">\\n      \u003Cline\\n        x1={Math.min(...xVals)}\\n        y1={yVal + midHeight}\\n        x2={Math.max(...xVals)}\\n        y2={yVal + midHeight}\\n      >\u003C/line>\\n\\n      {#each xVals as circleX, i}\\n        \u003Ccircle cx={circleX} cy={yVal + midHeight} {r} fill={$zScale($config.x[i])}>\u003C/circle>\\n      {/each}\\n    \u003C/g>\\n  {/each}\\n\u003C/g>\\n\\n\u003Cstyle>\\n  line {\\n    stroke-width: 1px;\\n    stroke: #000;\\n  }\\n  circle {\\n    stroke: #000;\\n    stroke-width: 1px;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/ClevelandDotPlot\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The circle radius.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"5\"}]},\"componentDescription\":\"Generates an SVG Cleveland dot plot, also known as a lollipop-chart.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_bn8xjq = {
+					__sveltekit_1gt2390 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -145,8 +145,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.BFqdojTQ.js"),
-						import("../_app/immutable/entry/app.BBxqkkLV.js")
+						import("../_app/immutable/entry/start.L98Y0KIF.js"),
+						import("../_app/immutable/entry/app.Cfv_WNeZ.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

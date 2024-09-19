@@ -38,24 +38,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.B685fjVw.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.DihtRuWg.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.D4RKhXhC.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.BFqdojTQ.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.GkC9o0fq.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.L98Y0KIF.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.BaBqqzMW.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.B7mK2QHg.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Bg3Cf5Pi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BBxqkkLV.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.Cfv_WNeZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.DNYiTfVC.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.DfQvOzx6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.Cg80y6Fz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.BSwEoech.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.CjHaxd_I.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.BtRenXJH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.CzO9ncG6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.w-fjc9ue.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.VwM39mxy.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.DudUxdVv.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.CreErKyT.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.B6O7iAHJ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.B472hsjU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.BcxJ-X_w.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.iN1Wf0lE.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.DGC6QDUM.js">
@@ -171,7 +171,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Map.canvas.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Map.canvas.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates a canvas map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { scaleCanvas } from 'layercake';\\n  import { geoPath } from 'd3-geo';\\n\\n  const { data, width, height, zGet } = getContext('LayerCake');\\n\\n  const { ctx } = getContext('canvas');\\n\\n  /** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */\\n  export let projection;\\n\\n  /** @type {String} [stroke='#ccc'] - The shape's stroke color. */\\n  export let stroke = '#ccc';\\n\\n  /** @type {Number} [strokeWidth=1] - The shape's stroke width. */\\n  export let strokeWidth = 1;\\n\\n  /** @type {String|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */\\n  export let fill = undefined;\\n\\n  /** @type {Array|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */\\n  export let features = undefined;\\n\\n  $: projectionFn = projection().fitSize([$width, $height], $data);\\n\\n  $: geoPathFn = geoPath(projectionFn);\\n\\n  $: featuresToDraw = features || $data.features;\\n\\n  $: {\\n    if ($ctx && geoPath) {\\n      scaleCanvas($ctx, $width, $height);\\n      $ctx.clearRect(0, 0, $width, $height);\\n\\n      featuresToDraw.forEach(feature => {\\n        $ctx.beginPath();\\n        // Set the context here since setting it in `$: geoPath` is a circular reference\\n        geoPathFn.context($ctx);\\n        geoPathFn(feature);\\n\\n        $ctx.fillStyle = fill || $zGet(feature.properties);\\n        $ctx.fill();\\n\\n        $ctx.lineWidth = strokeWidth;\\n        $ctx.strokeStyle = stroke;\\n        $ctx.stroke();\\n      });\\n    }\\n  }\\n\u003C/script>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/MapLayered\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/MapLayered\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Function\"},\"name\":\"projection\"},{\"title\":\"param\",\"description\":\"The shape's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#ccc'\"},{\"title\":\"param\",\"description\":\"The shape's stroke width.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"1\"},{\"title\":\"param\",\"description\":\"The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"UnionType\",\"elements\":[{\"type\":\"NameExpression\",\"name\":\"String\"},{\"type\":\"UndefinedLiteral\"}]}},\"name\":\"fill\"},{\"title\":\"param\",\"description\":\"A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"UnionType\",\"elements\":[{\"type\":\"NameExpression\",\"name\":\"Array\"},{\"type\":\"UndefinedLiteral\"}]}},\"name\":\"features\"}]},\"componentDescription\":\"Generates a canvas map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_bn8xjq = {
+					__sveltekit_1gt2390 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -180,8 +180,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.BFqdojTQ.js"),
-						import("../_app/immutable/entry/app.BBxqkkLV.js")
+						import("../_app/immutable/entry/start.L98Y0KIF.js"),
+						import("../_app/immutable/entry/app.Cfv_WNeZ.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

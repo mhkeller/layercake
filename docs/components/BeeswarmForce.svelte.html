@@ -38,24 +38,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.B685fjVw.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.DihtRuWg.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.D4RKhXhC.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.QuPhqfVc.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.BqQpByVJ.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.BFqdojTQ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.GkC9o0fq.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.B7mK2QHg.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Bg3Cf5Pi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.DyMvpAzN.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BBxqkkLV.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.DNYiTfVC.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.DfQvOzx6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.Cg80y6Fz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.BSwEoech.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.DlRRY-iq.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.CjHaxd_I.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.CzO9ncG6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.w-fjc9ue.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.VwM39mxy.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.DudUxdVv.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.CreErKyT.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.DJX3WsgK.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.B6O7iAHJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.BcxJ-X_w.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.iN1Wf0lE.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.DGC6QDUM.js">
@@ -189,7 +189,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/BeeswarmForce.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"BeeswarmForce.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';\\n\\n  const { data, xGet, height, zGet } = getContext('LayerCake');\\n\\n  const nodes = $data.map(d => ({ ...d }));\\n\\n  /** @type {Number} [r=4] - The circle radius size in pixels. */\\n  export let r = 4;\\n\\n  /** @type {Number} [strokeWidth=1] - The circle's stroke width in pixels. */\\n  export let strokeWidth = 1;\\n\\n  /** @type {String} [stroke='#fff'] - The circle's stroke color. */\\n  export let stroke = '#fff';\\n\\n  /** @type {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength). */\\n  export let xStrength = 0.95;\\n\\n  /** @type {Number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`. See [the documentation](https://github.com/d3/d3-force#y_strength). */\\n  export let yStrength = 0.075;\\n\\n  /** @type {Function|undefined} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `\u003Ctitle>` tag. */\\n  export let getTitle = undefined;\\n\\n  $: simulation = forceSimulation(nodes)\\n    .force(\\n      'x',\\n      forceX()\\n        .x(d => $xGet(d))\\n        .strength(xStrength)\\n    )\\n    .force(\\n      'y',\\n      forceY()\\n        .y($height / 2)\\n        .strength(yStrength)\\n    )\\n    .force('collide', forceCollide(r))\\n    .stop();\\n\\n  $: {\\n    for (\\n      let i = 0,\\n        n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay()));\\n      i \u003C n;\\n      ++i\\n    ) {\\n      simulation.tick();\\n    }\\n  }\\n\u003C/script>\\n\\n\u003Cg class=\\\"bee-group\\\">\\n  {#each simulation.nodes() as node}\\n    \u003Ccircle fill={$zGet(node)} {stroke} stroke-width={strokeWidth} cx={node.x} cy={node.y} {r}>\\n      {#if getTitle}\\n        \u003Ctitle>{getTitle(node)}\u003C/title>\\n      {/if}\\n    \u003C/circle>\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/BeeswarmForce\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The circle radius size in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"4\"},{\"title\":\"param\",\"description\":\"The circle's stroke width in pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"1\"},{\"title\":\"param\",\"description\":\"The circle's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#fff'\"},{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength).\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"xStrength\",\"default\":\"0.95\"},{\"title\":\"param\",\"description\":\"The value passed into the `.strength` method on `forceY`. See [the documentation](https://github.com/d3/d3-force#y_strength).\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"yStrength\",\"default\":\"0.075\"},{\"title\":\"param\",\"description\":\"— An accessor function to get the field on the data element to display as a hover label using a `\u003Ctitle>` tag.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"UnionType\",\"elements\":[{\"type\":\"NameExpression\",\"name\":\"Function\"},{\"type\":\"UndefinedLiteral\"}]}},\"name\":\"getTitle\"}]},\"componentDescription\":\"Generates an SVG Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_req9x7 = {
+					__sveltekit_bn8xjq = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -198,8 +198,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.QuPhqfVc.js"),
-						import("../_app/immutable/entry/app.DyMvpAzN.js")
+						import("../_app/immutable/entry/start.BFqdojTQ.js"),
+						import("../_app/immutable/entry/app.BBxqkkLV.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

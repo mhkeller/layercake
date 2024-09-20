@@ -21,9 +21,6 @@ const config = {
 			'$lib/*': './src/lib/*',
 			layercake: './src/lib/index.js',
 			'layercake/*': './src/lib/*'
-		},
-		prerender: {
-			handleHttpError: 'warn'
 		}
 
 		// 	optimizeDeps: {

@@ -85,7 +85,7 @@
 				d =>
 					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(
 						d.type
-					)}|${d.description.replace(/^(-|–|—)/g, '').trim()}`
+					)}|${d.description?.replace(/^(-|–|—)/g, '').trim()}`
 			)
 			.join('\n')}`;
 		jsdocTable = content.jsdocParsed.tags.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';

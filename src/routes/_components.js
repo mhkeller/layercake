@@ -64,8 +64,8 @@ export default [
 			{ slug: 'AxisX.percent-range.html.svelte', component: AxisXHtml },
 			{ slug: 'AxisXTop.percent-range.html.svelte', component: AxisXTopHtml },
 			{ slug: 'AxisY.percent-range.html.svelte', component: AxisYHtml },
-			{ slug: 'AxisYRight.percent-range.html.svelte', component: AxisYRightHtml }
-			// { slug: 'AxisRadial.svelte', component: AxisRadial }
+			{ slug: 'AxisYRight.percent-range.html.svelte', component: AxisYRightHtml },
+			{ slug: 'AxisRadial.svelte', component: AxisRadial }
 		]
 	},
 	{

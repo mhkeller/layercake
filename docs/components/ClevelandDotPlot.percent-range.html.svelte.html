@@ -38,24 +38,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.B685fjVw.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.DihtRuWg.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.D4RKhXhC.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.BKHplYC4.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.H_PZnkab.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.BPpFU7LH.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.D17iOrfd.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.B7mK2QHg.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.Bg3Cf5Pi.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.DqVYhDeu.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CDvd-Zuy.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.DNYiTfVC.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.DfQvOzx6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.Cg80y6Fz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.BSwEoech.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BRjVTlzr.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.K0Ftfcio.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.CzO9ncG6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.w-fjc9ue.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.VwM39mxy.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.DudUxdVv.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.CreErKyT.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.CIiCevOa.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.BwDP2Wj1.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.BcxJ-X_w.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.gUlqoosD.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.BgefLfU-.js">
@@ -150,7 +150,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/ClevelandDotPlot.percent-range.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"ClevelandDotPlot.percent-range.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an HTML Cleveland dot plot, also known as a lollipop-chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, zScale, yScale, config } = getContext('LayerCake');\\n\\n  /** @type {Number} [r=5] - The circle radius. */\\n  export let r = 5;\\n\\n  $: midHeight = $yScale.bandwidth() / 2;\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"dot-plot\\\">\\n  {#each $data as row}\\n    {@const scaledYValue = $yGet(row)}\\n    {@const scaledXValues = $xGet(row)}\\n    \u003Cdiv class=\\\"dot-row\\\">\\n      \u003Cdiv\\n        class=\\\"line\\\"\\n        style=\\\"\\n          left: {Math.min(...scaledXValues)}%;\\n          top: {scaledYValue + midHeight}%;\\n          right: {100 - Math.max(...scaledXValues)}%;\\n        \\\"\\n      >\u003C/div>\\n\\n      {#each scaledXValues as circleX, i}\\n        \u003Cdiv\\n          class=\\\"circle\\\"\\n          style=\\\"\\n            left: {circleX}%;\\n            top: {scaledYValue + midHeight}%;\\n            width: {r * 2}px;\\n            height: {r * 2}px;\\n            background: {$zScale($config.x[i])};\\n          \\\"\\n        >\u003C/div>\\n      {/each}\\n    \u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .line {\\n    position: absolute;\\n    border-bottom: 1px solid #000;\\n  }\\n  .circle {\\n    position: absolute;\\n    border-radius: 50%;\\n    border: 1px solid #000;\\n    stroke: #000;\\n    transform: translate(-50%, -50%);\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/ClevelandDotPlot\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The circle radius.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"5\"}]},\"componentDescription\":\"Generates an HTML Cleveland dot plot, also known as a lollipop-chart.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_8up4z9 = {
+					__sveltekit_x35b7b = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -159,8 +159,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.BKHplYC4.js"),
-						import("../_app/immutable/entry/app.DqVYhDeu.js")
+						import("../_app/immutable/entry/start.BPpFU7LH.js"),
+						import("../_app/immutable/entry/app.CDvd-Zuy.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

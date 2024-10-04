@@ -5,7 +5,7 @@
 	@returns {Function}
 */
 const debounce = (func, timeout = 300) => {
-	/** @type {string | number | NodeJS.Timeout | undefined} */
+	/** @type {ReturnType<typeof setTimeout>} */
 	let timer;
 	return (/** @type {any[]} */ ...args) => {
 		clearTimeout(timer);

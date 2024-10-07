@@ -1,8 +1,8 @@
 /**
 	A simple debounce function taken from here https://www.freecodecamp.org/news/javascript-debounce-example/
 	@param {Function} func The function to debounce.
-	@param {number} timeout The time in ms to wait.
-	@returns {Function}
+	@param {number} timeout The time in ms to wait before calling `func`
+	@returns {(...args: unknown[]) => void} Returns a debounced version of `func`.
 */
 const debounce = (func, timeout = 300) => {
 	/** @type {ReturnType<typeof setTimeout>} */

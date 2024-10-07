@@ -54,7 +54,7 @@ export default function padScale(scale, padding) {
 	const [d1, d2] = scale.domain().map(d => {
 		return isTime ? lift(d.getTime()) : lift(d);
 	});
-	const [r1, r2] = /** @type {any[]} */ (scale.range());
+	const [r1, r2] = /** @type {[number, number]} */ (scale.range());
 	const paddingLeft = padding[0] || 0;
 	const paddingRight = padding[1] || 0;
 

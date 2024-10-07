@@ -15,10 +15,7 @@ const unpaddable = ['scaleThreshold', 'scaleQuantile', 'scaleQuantize', 'scaleSe
  *           import('d3-scale').ScaleBand<any> |
  *           import('d3-scale').ScalePoint<any> |
  *           import('d3-scale').ScaleSequential<any, any> |
- *           import('d3-scale').ScaleDiverging<any, any> |
- *           import('d3-scale').ScaleQuantile<any, any> |
- *           import('d3-scale').ScaleQuantize<any, any> |
- *           import('d3-scale').ScaleThreshold<any, any>} Scale
+ *           import('d3-scale').ScaleDiverging<any, any>} Scale
  */
 
 /**

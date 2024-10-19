@@ -1,5 +1,18 @@
 # Changelog
 
+# 9.0.0
+
+> Not yet on npm
+
+*Breaking changes*
+
+* `extent` prop is deprecated https://github.com/mhkeller/layercake/issues/179
+* Ordinal domain is not returned as sorted by default https://github.com/mhkeller/layercake/issues/147
+
+*Other changes*
+
+* https://github.com/mhkeller/layercake/pull/240 Adds a `default` export to package.json.
+
 # 8.3.4
 
 > 2024-06-23

@@ -27,7 +27,7 @@
 		"@types/d3": "^7.4.3",
 		"@types/markdown-it": "^14.1.1",
 		"@types/node": "^20.12.8",
-		"cookie": "^0.6.0",
+		"cookie": "^0.7.0",
 		"d3-collection": "^1.0.7",
 		"d3-delaunay": "^6.0.4",
 		"d3-force": "^3.0.0",

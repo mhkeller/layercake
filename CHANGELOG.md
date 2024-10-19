@@ -4,7 +4,7 @@
 
 > 2024-10-19
 
-*  Updates to Svelte 5 🎉
+*  Updates to Svelte 5 🎉 https://github.com/mhkeller/layercake/pull/242
 *  Adds a `default` export to package.json https://github.com/mhkeller/layercake/pull/240
 
 # 8.3.4

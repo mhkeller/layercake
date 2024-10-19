@@ -40,6 +40,7 @@
 		"do-not-zip": "^1.0.0",
 		"doctrine": "^3.0.0",
 		"emoji-regex": "^10.3.0",
+		"esm": "^3.2.25",
 		"golden-fleece": "^1.0.9",
 		"highlight.js": "^11.9.0",
 		"indian-ocean": "^4.0.3",

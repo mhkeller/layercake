@@ -13,7 +13,7 @@
 	/** @type {Function} getLabel - An accessor function to get the field to display. */
 	export let getLabel;
 
-	/** @type {Number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
+	/** @type {number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
 	export let fixedAspectRatio = undefined;
 
 	/** @type {Function} [getCoordinates=d => d.geometry.coordinates] - An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format. */

@@ -13,7 +13,7 @@
 		"update_template": "sh ./src/scripts/update_template.sh",
 		"prebuild": "npm run update_template",
 		"deploy": "npm run build && git add -A && git commit -am 'auto-deploy' && git push origin main",
-		"test": "mocha --require esm test/*.test.js"
+		"test": "mocha test/*.test.js"
 	},
 	"license": "MIT",
 	"type": "module",
@@ -40,13 +40,12 @@
 		"do-not-zip": "^1.0.0",
 		"doctrine": "^3.0.0",
 		"emoji-regex": "^10.3.0",
-		"esm": "^3.2.25",
 		"golden-fleece": "^1.0.9",
 		"highlight.js": "^11.9.0",
 		"indian-ocean": "^4.0.3",
 		"markdown-it": "^14.1.0",
 		"marked": "^12.0.2",
-		"mocha": "^10.4.0",
+		"mocha": "^10.7.3",
 		"prettier": "^3.2.5",
 		"prettier-plugin-svelte": "^3.2.3",
 		"publint": "^0.2.7",

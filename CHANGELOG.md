@@ -1,17 +1,11 @@
 # Changelog
 
-# 9.0.0
+# 8.4.0
 
-> Not yet on npm
+> 2024-10-19
 
-*Breaking changes*
-
-* `extent` prop is deprecated https://github.com/mhkeller/layercake/issues/179
-* Ordinal domain is not returned as sorted by default https://github.com/mhkeller/layercake/issues/147
-
-*Other changes*
-
-* https://github.com/mhkeller/layercake/pull/240 Adds a `default` export to package.json.
+*  Updates to Svelte 5 🎉
+*  Adds a `default` export to package.json https://github.com/mhkeller/layercake/pull/240
 
 # 8.3.4
 

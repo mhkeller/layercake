@@ -38,24 +38,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.B685fjVw.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.DihtRuWg.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.D4RKhXhC.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.Bpw4dvvj.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Yu3DVtRK.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.B0wmHSmQ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.C07_Srvu.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.B3Do0ZXm.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.W79Utxw_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.DI_U7HGz.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.B5ekLNC4.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.CmtI0EPl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.DMXaGV_-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.DC_MlXxY.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.CfugqxwE.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BEt-IUF-.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.1UV5W5pH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.DSgXU-YJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.B1rLQBbq.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.B5gl02A_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.C8KVTQwS.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.D9Eu9FIL.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.BbGttWuu.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.DQXSEgIk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.BiWaB4Wu.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.Dxdjqc8E.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.BSRmhrTK.js">
@@ -144,7 +144,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Scatter.svg.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Scatter.svg.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');\\n\\n  /** @type {Number} [r=5] – The circle's radius. */\\n  export let r = 5;\\n\\n  /** @type {String} [fill='#0cf'] – The circle's fill color. */\\n  export let fill = '#0cf';\\n\\n  /** @type {String} [stroke='#000'] – The circle's stroke color. */\\n  export let stroke = '#000';\\n\\n  /** @type {Number} [strokeWidth=0] – The circle's stroke width. */\\n  export let strokeWidth = 0;\\n\u003C/script>\\n\\n\u003Cg class=\\\"scatter-group\\\">\\n  {#each $data as d}\\n    \u003Ccircle\\n      cx={$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}\\n      cy={$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}\\n      {r}\\n      {fill}\\n      {stroke}\\n      stroke-width={strokeWidth}\\n    />\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Scatter\",\"/example/Timeplot\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"– The circle's radius.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"5\"},{\"title\":\"param\",\"description\":\"– The circle's fill color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'#0cf'\"},{\"title\":\"param\",\"description\":\"– The circle's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#000'\"},{\"title\":\"param\",\"description\":\"– The circle's stroke width.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"0\"}]},\"componentDescription\":\"Generates an SVG scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1tv26tx = {
+					__sveltekit_mpbu43 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -153,8 +153,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.Bpw4dvvj.js"),
-						import("../_app/immutable/entry/app.DI_U7HGz.js")
+						import("../_app/immutable/entry/start.B0wmHSmQ.js"),
+						import("../_app/immutable/entry/app.B5ekLNC4.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

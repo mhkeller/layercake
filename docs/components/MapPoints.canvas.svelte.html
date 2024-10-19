@@ -38,24 +38,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.B685fjVw.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.DihtRuWg.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.D4RKhXhC.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.Bpw4dvvj.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Yu3DVtRK.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.B0wmHSmQ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.C07_Srvu.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.B3Do0ZXm.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.W79Utxw_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.DI_U7HGz.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.B5ekLNC4.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.CmtI0EPl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.DMXaGV_-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.DC_MlXxY.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.CfugqxwE.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BEt-IUF-.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.1UV5W5pH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.DSgXU-YJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.B1rLQBbq.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.B5gl02A_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.C8KVTQwS.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.D9Eu9FIL.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.BbGttWuu.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.DQXSEgIk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.BiWaB4Wu.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.Dxdjqc8E.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.BSRmhrTK.js">
@@ -174,7 +174,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/MapPoints.canvas.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"MapPoints.canvas.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { scaleCanvas } from 'layercake';\\n\\n  const { data, width, height } = getContext('LayerCake');\\n\\n  const { ctx } = getContext('canvas');\\n\\n  /** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */\\n  export let projection;\\n\\n  /** @type {Number} [r=3.5] - The point's radius. */\\n  export let r = 3.5;\\n\\n  /** @type {String} [fill='yellow'] - The point's fill color. */\\n  export let fill = 'yellow';\\n\\n  /** @type {String} [stroke='#000'] - The point's stroke color. */\\n  export let stroke = '#000';\\n\\n  /** @type {Number} [strokeWidth=1] - The point's stroke width. */\\n  export let strokeWidth = 1;\\n\\n  /** @type {Array\u003CObject>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */\\n  export let features = undefined;\\n\\n  $: projectionFn = projection().fitSize([$width, $height], $data);\\n\\n  $: featuresToDraw = features || $data.features;\\n  $: {\\n    if ($ctx) {\\n      scaleCanvas($ctx, $width, $height);\\n      $ctx.clearRect(0, 0, $width, $height);\\n\\n      // To scale the circle by size, set width and height to `$rGet(d.properties)`\\n      featuresToDraw.forEach(d => {\\n        $ctx.beginPath();\\n        const coordinates = projectionFn(d.geometry.coordinates);\\n        $ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);\\n        $ctx.fillStyle = fill;\\n        $ctx.fill();\\n        $ctx.lineWidth = strokeWidth;\\n        $ctx.strokeStyle = stroke;\\n        $ctx.stroke();\\n      });\\n    }\\n  }\\n\u003C/script>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Function\"},\"name\":\"projection\"},{\"title\":\"param\",\"description\":\"The point's radius.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"3.5\"},{\"title\":\"param\",\"description\":\"The point's fill color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'yellow'\"},{\"title\":\"param\",\"description\":\"The point's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#000'\"},{\"title\":\"param\",\"description\":\"The point's stroke width.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"1\"},{\"title\":\"param\",\"description\":\"A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"UnionType\",\"elements\":[{\"type\":\"TypeApplication\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Array\"},\"applications\":[{\"type\":\"NameExpression\",\"name\":\"Object\"}]},{\"type\":\"UndefinedLiteral\"}]}},\"name\":\"features\"}]},\"componentDescription\":\"Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1tv26tx = {
+					__sveltekit_mpbu43 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -183,8 +183,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.Bpw4dvvj.js"),
-						import("../_app/immutable/entry/app.DI_U7HGz.js")
+						import("../_app/immutable/entry/start.B0wmHSmQ.js"),
+						import("../_app/immutable/entry/app.B5ekLNC4.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

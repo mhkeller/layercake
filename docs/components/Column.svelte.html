@@ -38,24 +38,24 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.B685fjVw.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.DihtRuWg.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.D4RKhXhC.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.Bpw4dvvj.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Yu3DVtRK.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.B0wmHSmQ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.C07_Srvu.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.B3Do0ZXm.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.W79Utxw_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.DI_U7HGz.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.B5ekLNC4.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.CmtI0EPl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/if.DMXaGV_-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-component.DC_MlXxY.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.CfugqxwE.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BEt-IUF-.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.1UV5W5pH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.CzR0xuCU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Brush.html.DSgXU-YJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/class.B1rLQBbq.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/lifecycle.B5gl02A_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/store.C8KVTQwS.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/select.D9Eu9FIL.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/stores.BbGttWuu.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/stores.DQXSEgIk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/GuideContents.BiWaB4Wu.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_examples.Dxdjqc8E.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dots.BSRmhrTK.js">
@@ -172,7 +172,7 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Column.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Column.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG column chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, x, yRange, xScale, y, height } = getContext('LayerCake');\\n\\n  /** @type {String} [fill='#00e047'] - The shape's fill color. */\\n  export let fill = '#00e047';\\n\\n  /** @type {String} [stroke='#000'] - The shape's stroke color. */\\n  export let stroke = '#000';\\n\\n  /** @type {Number} [strokeWidth=0] - The shape's stroke width. */\\n  export let strokeWidth = 0;\\n\\n  /** @type {boolean} [false] - Show the numbers for each column */\\n  export let showLabels = false;\\n\\n  $: columnWidth = d => {\\n    const vals = $xGet(d);\\n    return Math.abs(vals[1] - vals[0]);\\n  };\\n\\n  $: columnHeight = d => {\\n    return $yRange[0] - $yGet(d);\\n  };\\n\u003C/script>\\n\\n\u003Cg class=\\\"column-group\\\">\\n  {#each $data as d, i}\\n    {@const colHeight = columnHeight(d)}\\n    {@const xGot = $xGet(d)}\\n    {@const xPos = Array.isArray(xGot) ? xGot[0] : xGot}\\n    {@const colWidth = $xScale.bandwidth ? $xScale.bandwidth() : columnWidth(d)}\\n    {@const yValue = $y(d)}\\n    \u003Crect\\n      class=\\\"group-rect\\\"\\n      data-id={i}\\n      data-range={$x(d)}\\n      data-count={yValue}\\n      x={xPos}\\n      y={$yGet(d)}\\n      width={colWidth}\\n      height={colHeight}\\n      {fill}\\n      {stroke}\\n      stroke-width={strokeWidth}\\n    />\\n    {#if showLabels && yValue}\\n      \u003Ctext x={xPos + colWidth / 2} y={$height - colHeight - 5} text-anchor=\\\"middle\\\">{yValue}\u003C/text>\\n    {/if}\\n  {/each}\\n\u003C/g>\\n\\n\u003Cstyle>\\n  text {\\n    font-size: 12px;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Column\",\"/example/Histogram\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Column\",\"/example-ssr/Histogram\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The shape's fill color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'#00e047'\"},{\"title\":\"param\",\"description\":\"The shape's stroke color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"stroke\",\"default\":\"'#000'\"},{\"title\":\"param\",\"description\":\"The shape's stroke width.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"strokeWidth\",\"default\":\"0\"},{\"title\":\"param\",\"description\":\"Show the numbers for each column\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"boolean\"}},\"name\":\"false\"}]},\"componentDescription\":\"Generates an SVG column chart.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1tv26tx = {
+					__sveltekit_mpbu43 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -181,8 +181,8 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.Bpw4dvvj.js"),
-						import("../_app/immutable/entry/app.DI_U7HGz.js")
+						import("../_app/immutable/entry/start.B0wmHSmQ.js"),
+						import("../_app/immutable/entry/app.B5ekLNC4.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

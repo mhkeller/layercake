@@ -18,6 +18,7 @@
 	import printDebug from './helpers/printDebug.js';
 
 	import defaultScales from './settings/defaultScales.js';
+	import getCompleteDomain from './utils/getCompleteDomain.js';
 
 	const printDebug_debounced = debounce(printDebug, 200);
 
@@ -120,8 +121,6 @@
 	export let rDomainSort = true;
 	/** @type {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}] The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563). */
 	export let padding = {};
-	/** @type {{ x?: [min: Number, max: Number], y?: [min: Number, max: Number], r?: [min: Number, max: Number], z?: [min: Number, max: Number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */
-	export let extents = {};
 
 	/** @type {Array<Object|Array<any>>|undefined} [flatData=data] A flat version of data. */
 	export let flatData = undefined;
@@ -181,7 +180,6 @@
 	const _percentRange = writable(percentRange);
 	const _containerWidth = writable(containerWidth);
 	const _containerHeight = writable(containerHeight);
-	const _extents = writable(filterObject(extents));
 	const _data = writable(data);
 	const _flatData = writable(flatData || data);
 	const _padding = writable(padding);
@@ -223,7 +221,6 @@
 	$: $_percentRange = percentRange;
 	$: $_containerWidth = containerWidth;
 	$: $_containerHeight = containerHeight;
-	$: $_extents = filterObject(extents);
 	$: $_data = data;
 	$: $_flatData = flatData || data;
 	$: $_padding = padding;
@@ -328,11 +325,14 @@
 		[
 			_flatData,
 			activeGetters_d,
-			_extents,
 			_xScale,
 			_yScale,
 			_rScale,
 			_zScale,
+			_xDomain,
+			_yDomain,
+			_zDomain,
+			_rDomain,
 			_xDomainSort,
 			_yDomainSort,
 			_zDomainSort,
@@ -341,11 +341,14 @@
 		([
 			$flatData,
 			$activeGetters,
-			$extents,
 			$_xScale,
 			$_yScale,
 			$_rScale,
 			$_zScale,
+			$xDomain,
+			$yDomain,
+			$zDomain,
+			$rDomain,
 			$_xDomainSort,
 			$_yDomainSort,
 			$_zDomainSort,
@@ -357,12 +360,25 @@
 				r: { scale: $_rScale, sort: $_rDomainSort },
 				z: { scale: $_zScale, sort: $_zDomainSort }
 			};
-			const getters = filterObject($activeGetters, $extents);
+
+			/**
+			 * Skip any extents that the user already set a min and max for
+			 */
+			const extents = Object.fromEntries(
+				[
+					['x', getCompleteDomain($xDomain)],
+					['y', getCompleteDomain($yDomain)],
+					['z', getCompleteDomain($zDomain)],
+					['r', getCompleteDomain($rDomain)]
+				].filter(([_, v]) => v !== false)
+			);
+
+			const getters = filterObject($activeGetters, extents);
 			const activeScales = Object.fromEntries(Object.keys(getters).map(k => [k, scaleLookup[k]]));
 
 			if (Object.keys(getters).length > 0) {
 				const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
-				return { ...calculatedExtents, ...$extents };
+				return { ...calculatedExtents, ...extents };
 			} else {
 				return {};
 			}

@@ -380,7 +380,7 @@
 				const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
 				return { ...calculatedExtents, ...extents };
 			} else {
-				return {};
+				return extents;
 			}
 		}
 	);

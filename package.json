@@ -5,7 +5,7 @@
 	"homepage": "https://layercake.graphics/",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/mhkeller/layercake"
+		"url": "git+https://github.com/mhkeller/layercake.git"
 	},
 	"scripts": {
 		"dev": "vite dev",

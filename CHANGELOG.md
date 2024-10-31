@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.4.1
+
+> 2024-10-31
+
+* Add `homepage`, `repository` and `description` field to package.json
+
 # 8.4.0
 
 > 2024-10-19

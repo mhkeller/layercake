@@ -1,6 +1,12 @@
 {
 	"name": "layercake",
 	"version": "8.4.0",
+	"description": "graphics framework for sveltejs",
+	"homepage": "https://layercake.graphics/",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mhkeller/layercake"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

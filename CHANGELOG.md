@@ -1,10 +1,15 @@
 # Changelog
 
+# 8.4.2
+
+* Modify the `repository` url per publint's recommendation.
+
 # 8.4.1
 
 > 2024-10-31
 
 * Add `homepage`, `repository` and `description` field to package.json
+  * [b4c50181679a8f14f239e5931243f4a840c7f339](https://github.com/mhkeller/layercake/commit/b4c50181679a8f14f239e5931243f4a840c7f339)
 
 # 8.4.0
 

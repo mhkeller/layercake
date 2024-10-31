@@ -3,6 +3,7 @@
 # 8.4.2
 
 * Modify the `repository` url per publint's recommendation.
+  * [4a9e39c28631283b51003f730887ec5b4fe0767a](https://github.com/mhkeller/layercake/commit/4a9e39c28631283b51003f730887ec5b4fe0767a)
 
 # 8.4.1
 

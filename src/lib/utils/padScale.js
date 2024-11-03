@@ -6,8 +6,8 @@
 	Padding contributed by @veltman.
 	See here for discussion of transforms: https://github.com/d3/d3-scale/issues/150
 	@param {Function} scale A D3 scale funcion
-	@param {Number[]} padding A two-value array of numbers specifying padding in pixels
-	@returns {Number[]} The padded domain
+	@param {number[]} padding A two-value array of numbers specifying padding in pixels
+	@returns {number[]} The padded domain
 */
 import isOrdinalDomain from '../helpers/isOrdinalDomain.js';
 import getPadFunctions from '../helpers/getPadFunctions.js';

@@ -38,17 +38,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.W1EbrBh7.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.BANlpn_J.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/WgEFfh2m.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.Bw6US2v6.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CAV5aQSN.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Cxro91qv.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CFuv5F_r.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.DQpvpU-s.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.DsCWa0yz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BBz-090T.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dj9Kk6jQ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DRWsSqFg.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/IEQ67wLA.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.7pGj4YQP.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.B-tDgHDj.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Cwne2hEM.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/LAHbaaU8.js">
@@ -141,15 +141,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/AnnotationsData.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"AnnotationsData.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Adds text annotations that get their x and y placement using the `xScale` and `yScale`.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { xGet, yGet, percentRange } = getContext('LayerCake');\\n\\n  /** @type {Array} annotations - A list of annotation objects. */\\n  export let annotations = [];\\n\\n  /** @type {Function} [getText=d => d.text] - An accessor function to get the field to display. */\\n  export let getText = d => d.text;\\n\\n  /** @type {boolean} [percentRange=false] - If `true` will set the `top` and `left` CSS positions to percentages instead of pixels. */\\n  export let pr = $percentRange;\\n\\n  $: units = pr === true ? '%' : 'px';\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"layercake-annotations\\\">\\n  {#each annotations as d, i}\\n    \u003Cdiv\\n      class=\\\"layercake-annotation\\\"\\n      data-id={i}\\n      style:left={`calc(${$xGet(d)}${units} + ${d.dx || 0}px)`}\\n      style:top={`calc(${$yGet(d)}${units} + ${d.dy || 0}px)`}\\n    >\\n      {getText(d)}\\n    \u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .layercake-annotation {\\n    position: absolute;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Column\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Column\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"A list of annotation objects.\",\"type\":{\"type\":\"NameExpression\",\"name\":\"Array\"},\"name\":\"annotations\"},{\"title\":\"param\",\"description\":\"An accessor function to get the field to display.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"getText\",\"default\":\"d=>d.text\"},{\"title\":\"param\",\"description\":\"If `true` will set the `top` and `left` CSS positions to percentages instead of pixels.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"boolean\"}},\"name\":\"percentRange\",\"default\":\"false\"}]},\"componentDescription\":\"Adds text annotations that get their x and y placement using the `xScale` and `yScale`.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_dibuqe = {
+					__sveltekit_1etmjen = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.BANlpn_J.js"),
-						import("../_app/immutable/entry/app.DQpvpU-s.js")
+						import("../_app/immutable/entry/start.Bw6US2v6.js"),
+						import("../_app/immutable/entry/app.DsCWa0yz.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

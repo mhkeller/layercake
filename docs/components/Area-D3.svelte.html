@@ -38,17 +38,17 @@
 		<link href="../_app/immutable/assets/ClevelandDotPlot.percent-range.W1EbrBh7.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.BpGMeeIN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/BnT8nAEN.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.BANlpn_J.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/WgEFfh2m.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Cxro91qv.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CFuv5F_r.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.1G3e1gmn.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.DQpvpU-s.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BBz-090T.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dj9Kk6jQ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DRWsSqFg.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/IEQ67wLA.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.D0aAi_nD.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.7pGj4YQP.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Cwne2hEM.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/LAHbaaU8.js">
@@ -121,15 +121,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Area-D3.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Area-D3.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { area, curveLinear } from 'd3-shape';\\n\\n  const { data, xGet, yGet, yScale } = getContext('LayerCake');\\n\\n  /** @type {String} [fill='#ab00d610'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */\\n  export let fill = '#ab00d610';\\n\\n  /** @type {Function} [curve=curveLinear] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses. */\\n  export let curve = curveLinear;\\n\\n  $: path = area()\\n    .x($xGet)\\n    .y1($yGet)\\n    .y0(d => $yScale(0))\\n    .curve(curve);\\n  // .defined($y)\\n\u003C/script>\\n\\n\u003Cpath class=\\\"path-area\\\" d={path($data)} {fill}>\u003C/path>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"String\"}},\"name\":\"fill\",\"default\":\"'#ab00d610'\"},{\"title\":\"param\",\"description\":\"An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Function\"}},\"name\":\"curve\",\"default\":\"curveLinear\"}]},\"componentDescription\":\"Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape).\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_a7yqsc = {
+					__sveltekit_dibuqe = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.BpGMeeIN.js"),
-						import("../_app/immutable/entry/app.1G3e1gmn.js")
+						import("../_app/immutable/entry/start.BANlpn_J.js"),
+						import("../_app/immutable/entry/app.DQpvpU-s.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

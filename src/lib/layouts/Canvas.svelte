@@ -15,22 +15,22 @@
 	/** @type {CanvasRenderingContext2D|undefined} [context] The `<canvas>`'s 2d context. Useful for bindings. */
 	export let context = undefined;
 
-	/** @type {Number|undefined} [zIndex] The layer's z-index. */
+	/** @type {number|undefined} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
 
 	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	/** @type {String} [fallback] Text to display if the browser won't render a canvas tag. You can also set arbitrary HTML via the "fallback" slot but this is fine if you just need text. If you use the "fallback" slot, this prop is ignored. */
+	/** @type {string} [fallback] Text to display if the browser won't render a canvas tag. You can also set arbitrary HTML via the "fallback" slot but this is fine if you just need text. If you use the "fallback" slot, this prop is ignored. */
 	export let fallback = '';
 
-	/** @type {String|undefined} [label] A string passed to the `aria-label` on the `<canvas>` tag. */
+	/** @type {string|undefined} [label] A string passed to the `aria-label` on the `<canvas>` tag. */
 	export let label = undefined;
 
-	/** @type {String|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<canvas>` tag. */
+	/** @type {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<canvas>` tag. */
 	export let labelledBy = undefined;
 
-	/** @type {String|undefined} [describedBy] A string passed to `aria-describedby` property on the `<canvas>` tag. */
+	/** @type {string|undefined} [describedBy] A string passed to `aria-describedby` property on the `<canvas>` tag. */
 	export let describedBy = undefined;
 
 	const cntxt = {

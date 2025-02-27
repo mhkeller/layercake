@@ -56,6 +56,7 @@
 	role="tooltip"
 >
 	{#each features || $data.features as feature}
+		<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 		<path
 			class="feature-path"
 			fill={fill || $zGet(feature.properties)}
@@ -63,7 +64,6 @@
 			stroke-width={strokeWidth}
 			d={geoPathFn(feature)}
 			on:mouseover={e => dispatch('mousemove', { e, props: feature.properties })}
-			on:focus={e => dispatch('mousemove', { e, props: feature.properties })}
 			on:mousemove={handleMousemove(feature)}
 			role="tooltip"
 		></path>

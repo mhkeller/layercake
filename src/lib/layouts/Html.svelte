@@ -10,22 +10,22 @@
 	/** @type {Element|undefined} [element] The layer's outermost `<div>` tag. Useful for bindings. */
 	export let element = undefined;
 
-	/** @type {Number|undefined} [zIndex] The layer's z-index. */
+	/** @type {number|undefined} [zIndex] The layer's z-index. */
 	export let zIndex = undefined;
 
 	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
 	export let pointerEvents = undefined;
 
-	/** @type {String|undefined} [role] A string passed to the `aria-role` on the `<div>` tag. This is `undefined` by default but will be set by default to `'figure'` if `label`, `labelledby` or `describedby` is set. That default will be overridden by whatever is passed in. */
+	/** @type {string|undefined} [role] A string passed to the `aria-role` on the `<div>` tag. This is `undefined` by default but will be set by default to `'figure'` if `label`, `labelledby` or `describedby` is set. That default will be overridden by whatever is passed in. */
 	export let role = undefined;
 
-	/** @type {String|undefined} [label] A string passed to the `aria-label` on the `<div>` tag. */
+	/** @type {string|undefined} [label] A string passed to the `aria-label` on the `<div>` tag. */
 	export let label = undefined;
 
-	/** @type {String|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<div>` tag. */
+	/** @type {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<div>` tag. */
 	export let labelledBy = undefined;
 
-	/** @type {String|undefined} [describedBy] A string passed to `aria-describedby` property on the `<div>` tag. */
+	/** @type {string|undefined} [describedBy] A string passed to `aria-describedby` property on the `<div>` tag. */
 	export let describedBy = undefined;
 
 	$: roleVal = role || (label || labelledBy || describedBy ? 'figure' : undefined);

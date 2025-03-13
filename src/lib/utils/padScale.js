@@ -27,7 +27,7 @@ const unpaddable = ['scaleThreshold', 'scaleQuantile', 'scaleQuantize', 'scaleSe
 	See here for discussion of transforms: https://github.com/d3/d3-scale/issues/150
 	@param {Scale} scale A D3 scale funcion
 	@param {[number, number]} padding A two-value array of numbers specifying padding in pixels
-	@returns {number[]} The padded domain
+	@returns {[number, number]} The padded domain
 */
 export default function padScale(scale, padding) {
 	if (typeof scale.range !== 'function') {

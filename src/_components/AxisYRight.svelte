@@ -61,8 +61,8 @@
 	$: tickLen =
 		tickMarks === true
 			? labelPosition === 'above'
-				? tickMarkLength ?? widestTickLen
-				: tickMarkLength ?? 6
+				? (tickMarkLength ?? widestTickLen)
+				: (tickMarkLength ?? 6)
 			: 0;
 
 	$: widestTickLen = Math.max(

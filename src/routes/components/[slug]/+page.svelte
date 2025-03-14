@@ -46,21 +46,10 @@
 	$: component = lookup.get(slug);
 
 	function printTypes(type) {
-		const joinEls = els => els.map(d => `\`${d.name}\``).join(' &vert; ');
-		if (type.name) {
-			return `\`${type.name}\``;
-		}
-		if (type.type.elements) {
-			return `(${joinEls(type.type.elements)})`;
-		}
-		if (type.expression) {
-			if (type.expression.name) {
-				return `\`${type.expression.name}\``;
-			}
-			if (type.expression.elements) {
-				return `(${joinEls(type.expression.elements)})`;
-			}
-		}
+		return type
+			.split('|')
+			.map(d => `\`${d}\``)
+			.join(' &vert; ');
 	}
 
 	function printDefault(def) {
@@ -68,8 +57,8 @@
 		return `\`${def}\``;
 	}
 
-	function printRequired(type) {
-		const str = type.type !== 'OptionalType' ? 'yes' : 'no';
+	function printRequired(required) {
+		const str = required ? 'yes' : 'no';
 		return `<center>${str}</center>`;
 	}
 
@@ -80,15 +69,15 @@
 	let jsdocTable = '';
 
 	if (content.hasjsDoctable === true) {
-		jsdocTableBody = `${content.jsdocParsed.tags
+		jsdocTableBody = `${content.jsdocParsed
 			.map(
 				d =>
-					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.default)}|${printRequired(
-						d.type
+					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.defaultValue)}|${printRequired(
+						d.required
 					)}|${d.description?.replace(/^(-|–|—)/g, '').trim()}`
 			)
 			.join('\n')}`;
-		jsdocTable = content.jsdocParsed.tags.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
+		jsdocTable = content.jsdocParsed.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
 	}
 
 	function copyToClipboard() {

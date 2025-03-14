@@ -3,7 +3,6 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
 	import { getContext } from 'svelte';
 
 	const { data, width, height } = getContext('LayerCake');
@@ -11,6 +10,7 @@
 	/* --------------------------------------------
 	 * Require a D3 projection function
 	 */
+	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
 	export let projection;
 
 	/** @type {Number} [r=3.5] - The point's radius. */

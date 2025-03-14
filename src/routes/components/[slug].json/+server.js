@@ -75,10 +75,11 @@ export async function GET({ params }) {
 		};
 	});
 
-	const componentDescription = doctrine.parse(
-		fromMain.split('<script>')[0].replace('<!--', '').replace('-->', '')
-	).tags[0].description;
-
+	const componentDescription = fromMain
+		.split('<script>')[0]
+		.replace('<!--', '')
+		.replace('-->', '')
+		.split('@component')[1];
 	const jsdocPropertyMatches = fromMain.matchAll(/(@type [^\n]*) \*\/[\s]+export/gm);
 	const jsdocParsed = [...jsdocPropertyMatches].map(match => {
 		const [, jsdocComment] = match;

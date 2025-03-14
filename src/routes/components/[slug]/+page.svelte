@@ -46,10 +46,13 @@
 	$: component = lookup.get(slug);
 
 	function printTypes(type) {
-		return type
-			.split('|')
-			.map(d => `\`${d}\``)
-			.join(' &vert; ');
+		if (type.includes('|')) {
+			const escaped = type
+				.split('|')
+				.map(d => `\`${d}\``)
+				.join(' &vert; ');
+			return `(${escaped})`;
+		} else return `\`${type}\``;
 	}
 
 	function printDefault(def) {

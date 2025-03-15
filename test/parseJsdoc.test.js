@@ -48,6 +48,17 @@ const tests = [
 			defaultValue: null,
 			description: `If this is a number, it passes that along to D3.`
 		}
+	},
+	{
+		input: `@type {Function} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the \`depth\` key is also a popular choice.`,
+		expected: {
+			kind: 'type',
+			type: 'Function',
+			name: 'sortBy',
+			required: false,
+			defaultValue: `(a, b) => b.value - a.value`,
+			description: `The order in which circle's are drawn. Sorting on the \`depth\` key is also a popular choice.`
+		}
 	}
 ];
 

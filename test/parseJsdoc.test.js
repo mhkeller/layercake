@@ -64,7 +64,7 @@ const tests = [
 
 describe(name, () => {
 	tests.forEach(test => {
-		describe(test.input, () => {
+		describe(`${name}("${test.input}")`, () => {
 			const actual = fn(test.input);
 			it(`should equal ${JSON.stringify(test.expected)}`, () => {
 				assert.deepStrictEqual(actual, test.expected);

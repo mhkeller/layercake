@@ -91,6 +91,7 @@
 	$: right = 100 * (1 - max);
 </script>
 
+<!-- TODO Add keyboard accessibility. See https://github.com/mhkeller/layercake/pull/258 -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	bind:this={brush}

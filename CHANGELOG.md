@@ -1,5 +1,13 @@
 # Changelog
 
+# 8.4.3
+
+> 2025-03-20
+
+* Update dependencies
+  * [fe5e400886ab14f469ebd2352068d63e818350e9](https://github.com/mhkeller/layercake/commit/fe5e400886ab14f469ebd2352068d63e818350e9)
+  * [b49e7f6774a5177f90f130eb601b70fdf6ee7619](https://github.com/mhkeller/layercake/commit/b49e7f6774a5177f90f130eb601b70fdf6ee7619)
+
 # 8.4.2
 
 * Modify the `repository` url per publint's recommendation.

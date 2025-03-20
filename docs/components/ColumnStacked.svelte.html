@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CHgbfImA.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/zhiPurkU.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.DxkovAFS.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CcP9f7-Z.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DGgq1KgZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.ChvnOt_N.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.DbfQwnqm.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CS1UFJiM.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BFUG-AO4.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DfoHP0UB.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/-JVGrOUV.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.Dp7artTr.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.CZyTPgKW.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CO3l9hkp.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CnFsemDU.js">
@@ -98,15 +98,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/ColumnStacked.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"ColumnStacked.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG column chart. It uses the z-scale for color assignments and aassumes both `xScale` and `zScale` are ordinal scales.  It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, zGet, xScale } = getContext('LayerCake');\\n\u003C/script>\\n\\n\u003Cg class=\\\"column-group\\\">\\n  {#each $data as series, i}\\n    {#each series as d}\\n      {@const yVals = $yGet(d)}\\n      {@const columnHeight = yVals[0] - yVals[1]}\\n      \u003Crect\\n        class=\\\"group-rect\\\"\\n        data-id={i}\\n        x={$xGet(d)}\\n        y={yVals[1]}\\n        width={$xScale.bandwidth()}\\n        height={columnHeight}\\n        fill={$zGet(series)}\\n      >\u003C/rect>\\n    {/each}\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/ColumnStacked\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/ColumnStacked\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[]},\"componentDescription\":\"Generates an SVG column chart. It uses the z-scale for color assignments and aassumes both `xScale` and `zScale` are ordinal scales.  It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1d4lsl4 = {
+					__sveltekit_1frjehr = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CHgbfImA.js"),
-						import("../_app/immutable/entry/app.ChvnOt_N.js")
+						import("../_app/immutable/entry/start.DxkovAFS.js"),
+						import("../_app/immutable/entry/app.DbfQwnqm.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

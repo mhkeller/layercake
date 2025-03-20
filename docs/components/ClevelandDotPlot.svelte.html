@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CHgbfImA.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/zhiPurkU.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.DxkovAFS.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CcP9f7-Z.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DGgq1KgZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.ChvnOt_N.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.DbfQwnqm.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CS1UFJiM.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BFUG-AO4.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DfoHP0UB.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/-JVGrOUV.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.Dp7artTr.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.CZyTPgKW.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CO3l9hkp.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CnFsemDU.js">
@@ -133,15 +133,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/ClevelandDotPlot.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"ClevelandDotPlot.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG Cleveland dot plot, also known as a lollipop-chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, yScale, zScale, config } = getContext('LayerCake');\\n\\n  /** @type {Number} [r=5] - The circle radius. */\\n  export let r = 5;\\n\\n  $: midHeight = $yScale.bandwidth() / 2;\\n\u003C/script>\\n\\n\u003Cg class=\\\"dot-plot\\\">\\n  {#each $data as row}\\n    {@const yVal = $yGet(row)}\\n    {@const xVals = $xGet(row)}\\n    \u003Cg class=\\\"dot-row\\\">\\n      \u003Cline\\n        x1={Math.min(...xVals)}\\n        y1={yVal + midHeight}\\n        x2={Math.max(...xVals)}\\n        y2={yVal + midHeight}\\n      >\u003C/line>\\n\\n      {#each xVals as circleX, i}\\n        \u003Ccircle cx={circleX} cy={yVal + midHeight} {r} fill={$zScale($config.x[i])}>\u003C/circle>\\n      {/each}\\n    \u003C/g>\\n  {/each}\\n\u003C/g>\\n\\n\u003Cstyle>\\n  line {\\n    stroke-width: 1px;\\n    stroke: #000;\\n  }\\n  circle {\\n    stroke: #000;\\n    stroke-width: 1px;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/ClevelandDotPlot\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":{\"description\":\"\",\"tags\":[{\"title\":\"param\",\"description\":\"The circle radius.\",\"type\":{\"type\":\"OptionalType\",\"expression\":{\"type\":\"NameExpression\",\"name\":\"Number\"}},\"name\":\"r\",\"default\":\"5\"}]},\"componentDescription\":\"Generates an SVG Cleveland dot plot, also known as a lollipop-chart.\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1d4lsl4 = {
+					__sveltekit_1frjehr = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CHgbfImA.js"),
-						import("../_app/immutable/entry/app.ChvnOt_N.js")
+						import("../_app/immutable/entry/start.DxkovAFS.js"),
+						import("../_app/immutable/entry/app.DbfQwnqm.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

@@ -28,7 +28,7 @@
 		"@sveltejs/adapter-static": "^3.0.5",
 		"@sveltejs/kit": "^2.7.1",
 		"@sveltejs/package": "^2.3.1",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@types/d3": "^7.4.3",
 		"@types/markdown-it": "^14.1.1",
 		"@types/node": "^20.12.8",
@@ -62,7 +62,7 @@
 		"topojson-client": "^3.1.0",
 		"typescript": "^5.4.5",
 		"underscore": "^1.13.6",
-		"vite": "^5.4.9",
+		"vite": "^6.2.2",
 		"yootils": "^0.3.1"
 	},
 	"dependencies": {

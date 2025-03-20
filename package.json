@@ -44,7 +44,6 @@
 		"d3-time-format": "^4.1.0",
 		"degit": "^2.8.4",
 		"do-not-zip": "^1.0.0",
-		"doctrine": "^3.0.0",
 		"emoji-regex": "^10.3.0",
 		"golden-fleece": "^1.0.9",
 		"highlight.js": "^11.9.0",

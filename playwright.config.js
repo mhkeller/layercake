@@ -78,6 +78,7 @@ export default defineConfig({
 	/* Run your local dev server before starting the tests */
 	webServer: {
 		command: 'npm run build && npm run preview',
-		port: 4173
+		port: 4173,
+		reuseExistingServer: true
 	}
 });

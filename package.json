@@ -24,6 +24,7 @@
 	"license": "MIT",
 	"type": "module",
 	"devDependencies": {
+		"@playwright/test": "^1.51.1",
 		"@rollup/plugin-dsv": "^3.0.4",
 		"@sveltejs/adapter-static": "^3.0.5",
 		"@sveltejs/kit": "^2.7.1",

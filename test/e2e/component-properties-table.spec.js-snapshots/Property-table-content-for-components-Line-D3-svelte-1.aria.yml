@@ -1,0 +1,25 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "stroke String '#ab00d6' no The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+      - cell "stroke String":
+        - strong: stroke
+        - code: String
+      - cell "'#ab00d6'":
+        - code: "'#ab00d6'"
+      - cell "no"
+      - cell "The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color."
+    - row "curve Function curveLinear no An optional D3 interpolation function. See d3-shape for options. Pass this function in uncalled, i.e. without the open-close parentheses.":
+      - cell "curve Function":
+        - strong: curve
+        - code: Function
+      - cell "curveLinear":
+        - code: curveLinear
+      - cell "no"
+      - cell "An optional D3 interpolation function. See d3-shape for options. Pass this function in uncalled, i.e. without the open-close parentheses.":
+        - link "d3-shape"

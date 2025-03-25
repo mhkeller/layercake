@@ -1,0 +1,31 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "labels Array None yes An array of objects that contain a field containing text label and data fields.":
+      - cell "labels Array":
+        - strong: labels
+        - code: Array
+      - cell "None"
+      - cell "yes"
+      - cell "An array of objects that contain a field containing text label and data fields."
+    - row "getLabelName Function None yes = - An accessor function to return the label field on your objects in the labels array.":
+      - cell "getLabelName Function":
+        - strong: getLabelName
+        - code: Function
+      - cell "None"
+      - cell "yes"
+      - cell "= - An accessor function to return the label field on your objects in the labels array.":
+        - code: labels
+    - row "formatLabelName Function d=>d no An optional formatting function.":
+      - cell "formatLabelName Function":
+        - strong: formatLabelName
+        - code: Function
+      - cell "d=>d":
+        - code: d=>d
+      - cell "no"
+      - cell "An optional formatting function."

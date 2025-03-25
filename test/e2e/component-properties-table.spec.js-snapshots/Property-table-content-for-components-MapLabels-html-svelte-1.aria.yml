@@ -1,0 +1,49 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - 'row "projection Function None yes A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+      - cell "projection Function":
+        - strong: projection
+        - code: Function
+      - cell "None"
+      - cell "yes"
+      - 'cell "A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+        - code: "projection={geoAlbersUsa}"
+    - row "fixedAspectRatio (Number | undefined) None no By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
+      - cell "fixedAspectRatio (Number | undefined)":
+        - strong: fixedAspectRatio
+        - code: Number
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here."
+    - row "getLabel Function None yes An accessor function to get the field to display.":
+      - cell "getLabel Function":
+        - strong: getLabel
+        - code: Function
+      - cell "None"
+      - cell "yes"
+      - cell "An accessor function to get the field to display."
+    - row "getCoordinates Function d=>d.geometry.coordinates no An accessor function to get the [x, y] coordinate field. Defaults to a GeoJSON feature format.":
+      - cell "getCoordinates Function":
+        - strong: getCoordinates
+        - code: Function
+      - cell "d=>d.geometry.coordinates":
+        - code: d=>d.geometry.coordinates
+      - cell "no"
+      - cell "An accessor function to get the [x, y] coordinate field. Defaults to a GeoJSON feature format.":
+        - code: "[x, y]"
+    - row "features (undefined | undefined) None no A list of labels as GeoJSON features. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
+      - cell "features (undefined | undefined)":
+        - strong: features
+        - code: undefined
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "A list of labels as GeoJSON features. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
+        - code: $data.features

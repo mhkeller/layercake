@@ -1,0 +1,33 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "lineLengthFactor Number 1.1 no How far to extend the lines from the circle's center. A value of 1 puts them at the circle's circumference.":
+      - cell "lineLengthFactor Number":
+        - strong: lineLengthFactor
+        - code: Number
+      - cell "1.1":
+        - code: "1.1"
+      - cell "no"
+      - cell "How far to extend the lines from the circle's center. A value of 1 puts them at the circle's circumference.":
+        - code: "1"
+    - row /labelPlacementFactor Number \d+\.\d+ no How far to place the labels from the circle's center\. A value of 1 puts them at the circle's circumference\./:
+      - cell "labelPlacementFactor Number":
+        - strong: labelPlacementFactor
+        - code: Number
+      - cell /\d+\.\d+/:
+        - code: /\d+\.\d+/
+      - cell "no"
+      - cell "How far to place the labels from the circle's center. A value of 1 puts them at the circle's circumference.":
+        - code: "1"
+    - row "total Number None yes undefined":
+      - cell "total Number":
+        - strong: total
+        - code: Number
+      - cell "None"
+      - cell "yes"
+      - cell "undefined"

@@ -45,7 +45,6 @@
 		"d3-time-format": "^4.1.0",
 		"degit": "^2.8.4",
 		"do-not-zip": "^1.0.0",
-		"doctrine": "^3.0.0",
 		"emoji-regex": "^10.3.0",
 		"golden-fleece": "^1.0.9",
 		"highlight.js": "^11.9.0",
@@ -63,7 +62,7 @@
 		"topojson-client": "^3.1.0",
 		"typescript": "^5.4.5",
 		"underscore": "^1.13.6",
-		"vite": "^6.2.2",
+		"vite": "^6.2.3",
 		"yootils": "^0.3.1"
 	},
 	"dependencies": {

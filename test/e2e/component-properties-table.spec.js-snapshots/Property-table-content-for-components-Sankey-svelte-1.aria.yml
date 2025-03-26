@@ -1,0 +1,82 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "colorLinks Function d => 'rgba(0, 0, 0, .2)' no A function to return a color for the links.":
+      - cell "colorLinks Function":
+        - strong: colorLinks
+        - code: Function
+      - cell "d => 'rgba(0, 0, 0, .2)'":
+        - code: d => 'rgba(0, 0, 0, .2)'
+      - cell "no"
+      - cell "A function to return a color for the links."
+    - row /colorNodes Function d => '#\d+' no A function to return a color for each node\./:
+      - cell "colorNodes Function":
+        - strong: colorNodes
+        - code: Function
+      - cell /d => '#\d+'/:
+        - code: /d => '#\d+'/
+      - cell "no"
+      - cell "A function to return a color for each node."
+    - row /colorText Function d => '#\d+' no A function to return a color for each text label\./:
+      - cell "colorText Function":
+        - strong: colorText
+        - code: Function
+      - cell /d => '#\d+'/:
+        - code: /d => '#\d+'/
+      - cell "no"
+      - cell "A function to return a color for each text label."
+    - row "nodeWidth Number 5 no The width of each node, in pixels, passed to sankey.nodeWidth.":
+      - cell "nodeWidth Number":
+        - strong: nodeWidth
+        - code: Number
+      - cell "5":
+        - code: "5"
+      - cell "no"
+      - cell "The width of each node, in pixels, passed to sankey.nodeWidth.":
+        - link "sankey.nodeWidth":
+          - code: sankey.nodeWidth
+    - row /nodePadding Number \d+ no The padding between nodes, passed to sankey\.nodePadding\./:
+      - cell "nodePadding Number":
+        - strong: nodePadding
+        - code: Number
+      - cell /\d+/:
+        - code: /\d+/
+      - cell "no"
+      - cell "The padding between nodes, passed to sankey.nodePadding.":
+        - link "sankey.nodePadding":
+          - code: sankey.nodePadding
+    - row "linkSort (Function | null) null no How to sort the links, passed to sankey.linkSort.":
+      - cell "linkSort (Function | null)":
+        - strong: linkSort
+        - code: Function
+        - code: "null"
+      - cell "null":
+        - code: "null"
+      - cell "no"
+      - cell "How to sort the links, passed to sankey.linkSort.":
+        - link "sankey.linkSort":
+          - code: sankey.linkSort
+    - row "nodeId Function d => d.id no The ID field accessor, passed to sankey.nodeId.":
+      - cell "nodeId Function":
+        - strong: nodeId
+        - code: Function
+      - cell "d => d.id":
+        - code: d => d.id
+      - cell "no"
+      - cell "The ID field accessor, passed to sankey.nodeId.":
+        - link "sankey.nodeId":
+          - code: sankey.nodeId
+    - row "nodeAlign Function d3.sankeyLeft no An alignment function to position the Sankey blocks. See the d3-sankey documentation for more.":
+      - cell "nodeAlign Function":
+        - strong: nodeAlign
+        - code: Function
+      - cell "d3.sankeyLeft":
+        - code: d3.sankeyLeft
+      - cell "no"
+      - cell "An alignment function to position the Sankey blocks. See the d3-sankey documentation for more.":
+        - link "d3-sankey documentation"

@@ -46,10 +46,10 @@
         - code: "0.5"
       - cell "no"
       - cell "The shape's stroke width."
-    - row "features (undefined | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
-      - cell "features (undefined | undefined)":
+    - row "features (Array<Object> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
+      - cell "features (Array<Object> | undefined)":
         - strong: features
-        - code: undefined
+        - code: Array<Object>
         - code: undefined
       - cell "None"
       - cell "no"

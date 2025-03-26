@@ -6,28 +6,28 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "colorLinks Function d=>'rgba(0, 0, 0, .2)' no A function to return a color for the links.":
+    - row "colorLinks Function d => 'rgba(0, 0, 0, .2)' no A function to return a color for the links.":
       - cell "colorLinks Function":
         - strong: colorLinks
         - code: Function
-      - cell "d=>'rgba(0, 0, 0, .2)'":
-        - code: d=>'rgba(0, 0, 0, .2)'
+      - cell "d => 'rgba(0, 0, 0, .2)'":
+        - code: d => 'rgba(0, 0, 0, .2)'
       - cell "no"
       - cell "A function to return a color for the links."
-    - row /colorNodes Function d=>'#\d+' no A function to return a color for each node\./:
+    - row /colorNodes Function d => '#\d+' no A function to return a color for each node\./:
       - cell "colorNodes Function":
         - strong: colorNodes
         - code: Function
-      - cell /d=>'#\d+'/:
-        - code: /d=>'#\d+'/
+      - cell /d => '#\d+'/:
+        - code: /d => '#\d+'/
       - cell "no"
       - cell "A function to return a color for each node."
-    - row /colorText Function d=>'#\d+' no A function to return a color for each text label\./:
+    - row /colorText Function d => '#\d+' no A function to return a color for each text label\./:
       - cell "colorText Function":
         - strong: colorText
         - code: Function
-      - cell /d=>'#\d+'/:
-        - code: /d=>'#\d+'/
+      - cell /d => '#\d+'/:
+        - code: /d => '#\d+'/
       - cell "no"
       - cell "A function to return a color for each text label."
     - row "nodeWidth Number 5 no The width of each node, in pixels, passed to sankey.nodeWidth.":
@@ -50,23 +50,23 @@
       - cell "The padding between nodes, passed to sankey.nodePadding.":
         - link "sankey.nodePadding":
           - code: sankey.nodePadding
-    - row "linkSort (Function | undefined) null no How to sort the links, passed to sankey.linkSort.":
-      - cell "linkSort (Function | undefined)":
+    - row "linkSort (Function | null) null no How to sort the links, passed to sankey.linkSort.":
+      - cell "linkSort (Function | null)":
         - strong: linkSort
         - code: Function
-        - code: undefined
+        - code: "null"
       - cell "null":
         - code: "null"
       - cell "no"
       - cell "How to sort the links, passed to sankey.linkSort.":
         - link "sankey.linkSort":
           - code: sankey.linkSort
-    - row "nodeId Function d=>d.id no The ID field accessor, passed to sankey.nodeId.":
+    - row "nodeId Function d => d.id no The ID field accessor, passed to sankey.nodeId.":
       - cell "nodeId Function":
         - strong: nodeId
         - code: Function
-      - cell "d=>d.id":
-        - code: d=>d.id
+      - cell "d => d.id":
+        - code: d => d.id
       - cell "no"
       - cell "The ID field accessor, passed to sankey.nodeId.":
         - link "sankey.nodeId":

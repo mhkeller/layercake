@@ -33,10 +33,10 @@
         - link "quadtree.find":
           - code: quadtree.find
         - code: undefined
-    - row "dataset (undefined | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
-      - cell "dataset (undefined | undefined)":
+    - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
+      - cell "dataset (Array<Object> | undefined)":
         - strong: dataset
-        - code: undefined
+        - code: Array<Object>
         - code: undefined
       - cell "None"
       - cell "no"

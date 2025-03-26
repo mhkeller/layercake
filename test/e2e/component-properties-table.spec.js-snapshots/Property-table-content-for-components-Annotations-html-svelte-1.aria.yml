@@ -20,11 +20,11 @@
         - code: "'10px'"
         - code: "'5%'"
         - link "Column"
-    - row "getText Function d=>d.text no An accessor function to get the field to display.":
+    - row "getText Function d => d.text no An accessor function to get the field to display.":
       - cell "getText Function":
         - strong: getText
         - code: Function
-      - cell "d=>d.text":
-        - code: d=>d.text
+      - cell "d => d.text":
+        - code: d => d.text
       - cell "no"
       - cell "An accessor function to get the field to display."

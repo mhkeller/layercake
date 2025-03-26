@@ -19,7 +19,10 @@
 		"update_template": "sh ./src/scripts/update_template.sh",
 		"prebuild": "npm run update_template",
 		"deploy": "npm run build && git add -A && git commit -am 'auto-deploy' && git push origin main",
-		"test": "mocha test/*.test.js"
+		"test:lib": "mocha test/*.test.js",
+		"test:playwright:setup": "playwright install chromium",
+		"test:playwright": "playwright test",
+		"test": "npm run test:lib && npm run test:playwright"
 	},
 	"license": "MIT",
 	"type": "module",

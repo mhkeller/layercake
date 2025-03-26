@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DoeQQ3Ab.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/m3P0UYYC.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.CMl4rqdf.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/O82ZteeY.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.D9Y5IOMP.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BKTRw0o-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.E-aA1An4.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.B4HWCOXr.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CtZ_RwMT.js">
@@ -101,15 +101,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/BarStacked.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"BarStacked.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG stacked bar chart and sets the color via an ordinal scale in `zScale`.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, zGet, yScale } = getContext('LayerCake');\\n\\n  $: columnWidth = d => {\\n    const xVals = $xGet(d);\\n    return xVals[1] - xVals[0];\\n  };\\n\u003C/script>\\n\\n\u003Cg class=\\\"bar-group\\\">\\n  {#each $data as series}\\n    {#each series as d, i}\\n      \u003Crect\\n        class=\\\"group-rect\\\"\\n        data-id={i}\\n        x={$xGet(d)[0]}\\n        y={$yGet(d)}\\n        height={$yScale.bandwidth()}\\n        width={columnWidth(d)}\\n        fill={$zGet(series)}\\n      >\u003C/rect>\\n    {/each}\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/BarStacked\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/BarStacked\"]}],\"hasjsDoctable\":false,\"jsdocParsed\":[],\"componentDescription\":\"\\n  Generates an SVG stacked bar chart and sets the color via an ordinal scale in `zScale`.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1fxeamy = {
+					__sveltekit_1vbbscc = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DoeQQ3Ab.js"),
-						import("../_app/immutable/entry/app.D9Y5IOMP.js")
+						import("../_app/immutable/entry/start.CMl4rqdf.js"),
+						import("../_app/immutable/entry/app.BKTRw0o-.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

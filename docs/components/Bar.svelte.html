@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DoeQQ3Ab.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/m3P0UYYC.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.CMl4rqdf.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/O82ZteeY.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.D9Y5IOMP.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BKTRw0o-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.E-aA1An4.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.B4HWCOXr.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CtZ_RwMT.js">
@@ -115,15 +115,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Bar.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Bar.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG bar chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');\\n\\n  /** @type {String} [fill='#00bbff'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */\\n  export let fill = '#00bbff';\\n\u003C/script>\\n\\n\u003Cg class=\\\"bar-group\\\">\\n  {#each $data as d, i}\\n    \u003Crect\\n      class=\\\"group-rect\\\"\\n      data-id={i}\\n      x={$xScale.range()[0]}\\n      y={$yGet(d)}\\n      height={$yScale.bandwidth()}\\n      width={$xGet(d)}\\n      {fill}\\n    >\u003C/rect>\\n  {/each}\\n\u003C/g>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Bar\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Bar\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"String\",\"name\":\"fill\",\"required\":false,\"defaultValue\":\"'#00bbff'\",\"description\":\"The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.\"}],\"componentDescription\":\"\\n  Generates an SVG bar chart.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1fxeamy = {
+					__sveltekit_1vbbscc = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DoeQQ3Ab.js"),
-						import("../_app/immutable/entry/app.D9Y5IOMP.js")
+						import("../_app/immutable/entry/start.CMl4rqdf.js"),
+						import("../_app/immutable/entry/app.BKTRw0o-.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

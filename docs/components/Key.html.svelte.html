@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CMl4rqdf.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/O82ZteeY.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.Coaz2Ydu.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DdyRLstU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BKTRw0o-.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.Di8jc9-M.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.B4HWCOXr.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.osLL4Az-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CtZ_RwMT.js">
@@ -188,15 +188,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Key.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Key.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Creates a key for ordinal scales on `zScale`.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  /** @type {String} [shape='square'] - The shape for each item. Can be 'circle', 'line', or 'square'; */\\n  export let shape = 'square';\\n\\n  /** @type {String} [align='start'] - Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'. */\\n  export let align = 'start';\\n\\n  /** @type {Function|Object|undefined} [lookup] - Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value. */\\n  export let lookup = undefined;\\n\\n  /** @type {boolean} [capitalize=true] - Capitalize the first character. */\\n  export let capitalize = true;\\n\\n  const { zDomain, zScale } = getContext('LayerCake');\\n\\n  function cap(val) {\\n    return String(val).replace(/^\\\\w/, d => d.toUpperCase());\\n  }\\n\\n  function displayName(val) {\\n    if (lookup) {\\n      return typeof lookup === 'function' ? lookup(val) : lookup[val] || val;\\n    }\\n    return capitalize === true ? cap(val) : val;\\n  }\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"key\\\" style=\\\"justify-content: {align === 'end' ? 'flex-end' : align};\\\">\\n  {#each $zDomain as item}\\n    \u003Cdiv class=\\\"key-item\\\">\\n      \u003Cdiv\\n        class=\\\"chip chip__{shape}\\\"\\n        style=\\\"background: {shape === `line`\\n          ? `linear-gradient(-45deg, #ffffff 40%, ${$zScale(item)} 41%, ${$zScale(item)} 59%, #ffffff 60%)`\\n          : $zScale(item)};\\\"\\n      >\u003C/div>\\n      \u003Cdiv class=\\\"name\\\">{displayName(item)}\u003C/div>\\n    \u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .key {\\n    display: flex;\\n  }\\n  .key-item {\\n    margin-right: 14px;\\n  }\\n  .chip {\\n    display: inline-block;\\n    position: relative;\\n    width: 12px;\\n    height: 12px;\\n  }\\n  .chip__circle {\\n    border-radius: 50%;\\n  }\\n  .chip__line:after {\\n    content: '';\\n    position: absolute;\\n    border-width: 3px;\\n    width: 14px;\\n    transform: rotate(-45deg);\\n    transform-origin: 14px 5px;\\n  }\\n  .name {\\n    display: inline;\\n    font-size: 14px;\\n    text-shadow:\\n      -1px -1px 0 #fff,\\n      1px -1px 0 #fff,\\n      -1px 1px 0 #fff,\\n      1px 1px 0 #fff;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Beeswarm\",\"/example/BeeswarmForce\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"String\",\"name\":\"shape\",\"required\":false,\"defaultValue\":\"'square'\",\"description\":\"The shape for each item. Can be 'circle', 'line', or 'square';\"},{\"kind\":\"type\",\"type\":\"String\",\"name\":\"align\",\"required\":false,\"defaultValue\":\"'start'\",\"description\":\"Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'.\"},{\"kind\":\"type\",\"type\":\"Function|Object|undefined\",\"name\":\"lookup\",\"required\":false,\"defaultValue\":null,\"description\":\"Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value.\"},{\"kind\":\"type\",\"type\":\"boolean\",\"name\":\"capitalize\",\"required\":false,\"defaultValue\":\"true\",\"description\":\"Capitalize the first character.\"}],\"componentDescription\":\"\\n  Creates a key for ordinal scales on `zScale`.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1vbbscc = {
+					__sveltekit_8uo8wn = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CMl4rqdf.js"),
-						import("../_app/immutable/entry/app.BKTRw0o-.js")
+						import("../_app/immutable/entry/start.Coaz2Ydu.js"),
+						import("../_app/immutable/entry/app.Di8jc9-M.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

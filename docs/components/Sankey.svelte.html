@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.CMl4rqdf.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/O82ZteeY.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.Coaz2Ydu.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DdyRLstU.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BKTRw0o-.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.Di8jc9-M.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.B4HWCOXr.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.osLL4Az-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CtZ_RwMT.js">
@@ -214,15 +214,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Sankey.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Sankey.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG Sankey chart using [d3-sankey](https://github.com/d3/d3-sankey).\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import * as Sankey from 'd3-sankey';\\n\\n  const { data, width, height } = getContext('LayerCake');\\n\\n  /** @type {Function} [colorLinks=d => 'rgba(0, 0, 0, .2)'] - A function to return a color for the links. */\\n  export let colorLinks = () => 'rgba(0, 0, 0, .2)';\\n\\n  /** @type {Function} [colorNodes=d => '#333'] - A function to return a color for each node. */\\n  export let colorNodes = () => '#333';\\n\\n  /** @type {Function} [colorText=d => '#263238'] - A function to return a color for each text label. */\\n  export let colorText = () => '#263238';\\n\\n  /** @type {Number} [nodeWidth=5] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth). */\\n  export let nodeWidth = 5;\\n\\n  /** @type {Number} [nodePadding=10] - The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding). */\\n  export let nodePadding = 10;\\n\\n  /** @type {Function|null} [linkSort=null] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort). */\\n  export let linkSort = null;\\n\\n  /** @type {Function} [nodeId=d => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId). */\\n  export let nodeId = d => d.id;\\n\\n  /** @type {Function} [nodeAlign=d3.sankeyLeft] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more. */\\n  export let nodeAlign = Sankey.sankeyLeft;\\n\\n  const link = Sankey.sankeyLinkHorizontal();\\n\\n  $: sankey = Sankey.sankey()\\n    .nodeAlign(nodeAlign)\\n    .nodeWidth(nodeWidth)\\n    .nodePadding(nodePadding)\\n    .nodeId(nodeId)\\n    .size([$width, $height])\\n    .linkSort(linkSort);\\n\\n  $: sankeyData = sankey($data);\\n\\n  $: fontSize = $width \u003C= 320 ? 8 : 12;\\n\u003C/script>\\n\\n\u003Cg class=\\\"sankey-layer\\\">\\n  \u003Cg class=\\\"link-group\\\">\\n    {#each sankeyData.links as d}\\n      \u003Cpath\\n        d={link(d)}\\n        fill=\\\"none\\\"\\n        stroke={colorLinks(d)}\\n        stroke-opacity=\\\"0.5\\\"\\n        stroke-width={d.width}\\n      />\\n    {/each}\\n  \u003C/g>\\n  \u003Cg class=\\\"rect-group\\\">\\n    {#each sankeyData.nodes as d}\\n      \u003Crect x={d.x0} y={d.y0} height={d.y1 - d.y0} width={d.x1 - d.x0} fill={colorNodes(d)} />\\n      \u003Ctext\\n        x={d.x0 \u003C $width / 4 ? d.x1 + 6 : d.x0 - 6}\\n        y={(d.y1 + d.y0) / 2}\\n        dy={fontSize / 2 - 2}\\n        style=\\\"fill: {colorText(d)};\\n              font-size: {fontSize}px;\\n              text-anchor: {d.x0 \u003C $width / 4 ? 'start' : 'end'};\\\"\\n      >\\n        {d.id}\\n      \u003C/text>\\n    {/each}\\n  \u003C/g>\\n\u003C/g>\\n\\n\u003Cstyle>\\n  text {\\n    pointer-events: none;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Sankey\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"Function\",\"name\":\"colorLinks\",\"required\":false,\"defaultValue\":\"d => 'rgba(0, 0, 0, .2)'\",\"description\":\"A function to return a color for the links.\"},{\"kind\":\"type\",\"type\":\"Function\",\"name\":\"colorNodes\",\"required\":false,\"defaultValue\":\"d => '#333'\",\"description\":\"A function to return a color for each node.\"},{\"kind\":\"type\",\"type\":\"Function\",\"name\":\"colorText\",\"required\":false,\"defaultValue\":\"d => '#263238'\",\"description\":\"A function to return a color for each text label.\"},{\"kind\":\"type\",\"type\":\"Number\",\"name\":\"nodeWidth\",\"required\":false,\"defaultValue\":\"5\",\"description\":\"The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth).\"},{\"kind\":\"type\",\"type\":\"Number\",\"name\":\"nodePadding\",\"required\":false,\"defaultValue\":\"10\",\"description\":\"The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding).\"},{\"kind\":\"type\",\"type\":\"Function|null\",\"name\":\"linkSort\",\"required\":false,\"defaultValue\":\"null\",\"description\":\"How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort).\"},{\"kind\":\"type\",\"type\":\"Function\",\"name\":\"nodeId\",\"required\":false,\"defaultValue\":\"d => d.id\",\"description\":\"The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).\"},{\"kind\":\"type\",\"type\":\"Function\",\"name\":\"nodeAlign\",\"required\":false,\"defaultValue\":\"d3.sankeyLeft\",\"description\":\"An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more.\"}],\"componentDescription\":\"\\n  Generates an SVG Sankey chart using [d3-sankey](https://github.com/d3/d3-sankey).\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1vbbscc = {
+					__sveltekit_8uo8wn = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.CMl4rqdf.js"),
-						import("../_app/immutable/entry/app.BKTRw0o-.js")
+						import("../_app/immutable/entry/start.Coaz2Ydu.js"),
+						import("../_app/immutable/entry/app.Di8jc9-M.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

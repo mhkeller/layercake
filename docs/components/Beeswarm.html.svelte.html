@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.D4XrEbjI.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/DaAYyN-V.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.SVHH3TcT.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Dp_Uo6UJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BojyYCF1.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CeZ3t-TQ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.WAKfxkLI.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.4IDBqlTM.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CtZ_RwMT.js">
@@ -230,15 +230,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Beeswarm.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Beeswarm.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an HTML Beeswarm chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, zGet, height, config } = getContext('LayerCake');\\n\\n  /** @type {Number} [r=3] - The circle radius size in pixels. */\\n  export let r = 3;\\n\\n  /** @type {Number} [strokeWidth=0] - The circle's stroke width in pixels. */\\n  export let strokeWidth = 0;\\n\\n  /** @type {String} [stroke='#fff'] - The circle's stroke color. */\\n  export let stroke = '#fff';\\n\\n  /** @type {Number} [spacing=1.5] - Spacing, in pixels, between each circle. */\\n  export let spacing = 1.5;\\n\\n  /** @type {Function|undefined} [getTitle] - An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production. */\\n  export let getTitle = undefined;\\n\\n  $: circles = dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet });\\n\\n  function dodge(data, { rds = 1, x = d => d } = {}) {\\n    const radius2 = rds ** 2;\\n    const circles = data\\n      .map(d => ({ x: x(d), [$config.z]: d[$config.z], data: d }))\\n      .sort((a, b) => a.x - b.x);\\n    const epsilon = 1e-3;\\n    let head = null,\\n      tail = null;\\n\\n    // Returns true if circle ⟨x,y⟩ intersects with any circle in the queue.\\n    function intersects(x, y) {\\n      let a = head;\\n      while (a) {\\n        if (radius2 - epsilon > (a.x - x) ** 2 + (a.y - y) ** 2) {\\n          return true;\\n        }\\n        a = a.next;\\n      }\\n      return false;\\n    }\\n\\n    // Place each circle sequentially.\\n    for (const b of circles) {\\n      // Remove circles from the queue that can’t intersect the new circle b.\\n      while (head && head.x \u003C b.x - radius2) head = head.next;\\n\\n      // Choose the minimum non-intersecting tangent.\\n      if (intersects(b.x, (b.y = 0))) {\\n        let a = head;\\n        b.y = Infinity;\\n        do {\\n          let y = a.y + Math.sqrt(radius2 - (a.x - b.x) ** 2);\\n          if (y \u003C b.y && !intersects(b.x, y)) b.y = y;\\n          a = a.next;\\n        } while (a);\\n      }\\n\\n      // Add b to the queue.\\n      b.next = null;\\n      if (head === null) head = tail = b;\\n      else tail = tail.next = b;\\n    }\\n\\n    return circles;\\n  }\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"bee-group\\\">\\n  {#each circles as d}\\n    \u003Cdiv\\n      class=\\\"bee\\\"\\n      style=\\\"\\n        background:{$zGet(d)};\\n        border-color:{stroke};\\n        border-width:{strokeWidth};\\n        left:{d.x}px;\\n        top:{$height - r - spacing - strokeWidth / 2 - d.y}px;\\n        width:{r * 2}px;\\n        height:{r * 2}px;\\n      \\\"\\n    >\\n      {#if getTitle}\\n        \u003Cdiv class=\\\"title\\\">{getTitle(d)}\u003C/div>\\n      {/if}\\n    \u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .bee {\\n    position: absolute;\\n    border-style: solid;\\n    border-radius: 50%;\\n    transform: translate(-50%, -50%);\\n  }\\n  .title {\\n    display: none;\\n    white-space: nowrap;\\n    padding: 0 3px;\\n    border-radius: 3px;\\n    font-size: 12px;\\n    pointer-events: none;\\n    position: absolute;\\n    top: -15px;\\n    left: 5px;\\n    z-index: 9999;\\n  }\\n  .bee:hover .title {\\n    display: block;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"Number\",\"name\":\"r\",\"required\":false,\"defaultValue\":\"3\",\"description\":\"The circle radius size in pixels.\"},{\"kind\":\"type\",\"type\":\"Number\",\"name\":\"strokeWidth\",\"required\":false,\"defaultValue\":\"0\",\"description\":\"The circle's stroke width in pixels.\"},{\"kind\":\"type\",\"type\":\"String\",\"name\":\"stroke\",\"required\":false,\"defaultValue\":\"'#fff'\",\"description\":\"The circle's stroke color.\"},{\"kind\":\"type\",\"type\":\"Number\",\"name\":\"spacing\",\"required\":false,\"defaultValue\":\"1.5\",\"description\":\"Spacing, in pixels, between each circle.\"},{\"kind\":\"type\",\"type\":\"Function|undefined\",\"name\":\"getTitle\",\"required\":false,\"defaultValue\":null,\"description\":\"An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.\"}],\"componentDescription\":\"\\n  Generates an HTML Beeswarm chart.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1f07pu8 = {
+					__sveltekit_a50v5m = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.D4XrEbjI.js"),
-						import("../_app/immutable/entry/app.BojyYCF1.js")
+						import("../_app/immutable/entry/start.SVHH3TcT.js"),
+						import("../_app/immutable/entry/app.CeZ3t-TQ.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

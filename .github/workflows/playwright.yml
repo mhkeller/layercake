@@ -15,8 +15,6 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm ci
-      - name: Install Playwright Browsers
-        run: npm run test:playwright:setup
       - name: Run Playwright tests
         run: npm run test:playwright
       - uses: actions/upload-artifact@v4

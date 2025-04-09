@@ -48,7 +48,7 @@
 		style="width:calc({80 / sortedData.length}% - {gutter}px);{i === 0
 			? `margin-right:${gutter * 2}px`
 			: ''}"
-		data-month={monthNames[+month.key + 1]}
+		data-month={monthNames[+month.key]}
 	>
 		<LayerCake
 			padding={{ right: 20 }}

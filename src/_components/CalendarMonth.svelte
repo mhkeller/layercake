@@ -67,7 +67,7 @@
 		x={rectX(day)}
 		y={rectY(day)}
 		style="fill:{fillColor(day)};"
-		on:mouseenter={showCount(day)}
+		on:mouseenter={() => showCount(day)}
 		role="tooltip"
 	/>
 {/each}

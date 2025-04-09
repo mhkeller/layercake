@@ -22,7 +22,7 @@
 		"test:lib": "mocha test/*.test.js",
 		"pretest:playwright": "playwright install chromium",
 		"test:playwright": "playwright test",
-		"test": "npm run test:lib && npm run test:playwright:setup && npm run test:playwright"
+		"test": "npm run test:lib && npm run test:playwright"
 	},
 	"license": "MIT",
 	"type": "module",

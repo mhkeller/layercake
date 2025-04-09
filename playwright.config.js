@@ -74,7 +74,6 @@ export default defineConfig({
 		toHaveScreenshot: {
 			maxDiffPixelRatio: 0.02,
 			maxDiffPixels: 100,
-			pathTemplate: '{testDir}/screenshots/{arg}{ext}'
 		}
 	},
 	/* Run your local dev server before starting the tests */

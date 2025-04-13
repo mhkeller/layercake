@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.SVHH3TcT.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Dp_Uo6UJ.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.C0zY-RjY.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BrNOTQI-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.CeZ3t-TQ.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CSPRmjdZ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.4IDBqlTM.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.BnmWdcTD.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CtZ_RwMT.js">
@@ -120,15 +120,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Line.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Line.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG line shape.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet } = getContext('LayerCake');\\n\\n  /** @type {String} [stroke='#ab00d6'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */\\n  export let stroke = '#ab00d6';\\n\\n  $: path =\\n    'M' +\\n    $data\\n      .map(d => {\\n        return $xGet(d) + ',' + $yGet(d);\\n      })\\n      .join('L');\\n\u003C/script>\\n\\n\u003Cpath class=\\\"path-line\\\" d={path} {stroke}>\u003C/path>\\n\\n\u003Cstyle>\\n  .path-line {\\n    fill: none;\\n    stroke-linejoin: round;\\n    stroke-linecap: round;\\n    stroke-width: 2;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Brush\",\"/example/Line\",\"/example/MultiLine\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Brush\",\"/example-ssr/Line\",\"/example-ssr/MultiLine\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"String\",\"name\":\"stroke\",\"required\":false,\"defaultValue\":\"'#ab00d6'\",\"description\":\"The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.\"}],\"componentDescription\":\"\\n  Generates an SVG line shape.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_a50v5m = {
+					__sveltekit_1nr8ot2 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.SVHH3TcT.js"),
-						import("../_app/immutable/entry/app.CeZ3t-TQ.js")
+						import("../_app/immutable/entry/start.C0zY-RjY.js"),
+						import("../_app/immutable/entry/app.CSPRmjdZ.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

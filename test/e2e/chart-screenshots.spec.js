@@ -7,33 +7,26 @@ componentFilenames.forEach(filename => {
 	const url = `/components/${filename.replace('.svelte.html', '.svelte')}`;
 
 	test(`Snapshot for ${url}`, async ({ page }) => {
-		let options = {};
-		if (
+		const timeout =
 			url.endsWith('CirclePack.html.svelte') ||
 			url.endsWith('CirclePackForce.svelte') ||
 			url.endsWith('BeeswarmForce.svelte')
-		) {
-			options['maxDiffPixelRatio'] = 0.01;
-			options['timeout'] = 10000;
-		}
+				? 10_000
+				: undefined; // use default
 
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot(options);
+		await expect(page.locator('.chart-hero')).toHaveScreenshot({ timeout });
 	});
 });
 
 const exampleFilenames = readdirSync('./docs/example').filter(i => i.endsWith('.html'));
 exampleFilenames.forEach(filename => {
 	const url = `/example/${filename.replace('.html', '')}`;
-
 	test(`Snapshot for ${url}`, async ({ page }) => {
-		let options = {};
-		if (url.endsWith('CirclePackForce')) {
-			options['maxDiffPixelRatio'] = 0.01;
-			options['timeout'] = 10000;
-		}
+		const timeout = url.endsWith('CirclePackForce') ? 10_000 : undefined;
+
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot(options);
+		await expect(page.locator('.chart-hero')).toHaveScreenshot({ timeout });
 	});
 });
 
@@ -42,8 +35,7 @@ exampleSsrFilenames.forEach(filename => {
 	const url = `/example-ssr/${filename.replace('.html', '')}`;
 
 	test(`Snapshot for ${url}`, async ({ page }) => {
-		let options = {};
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot(options);
+		await expect(page.locator('.chart-hero')).toHaveScreenshot();
 	});
 });

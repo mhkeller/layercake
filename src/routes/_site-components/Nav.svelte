@@ -120,6 +120,7 @@
 				target="_blank"
 				rel="noreferrer"
 				href="https://github.com/mhkeller/layercake"
+				aria-label="Layer Cake GitHub Repository"
 			>
 			</a>
 		</li>

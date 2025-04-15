@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.aGTi9ego.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/CeVZhiQJ.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.DD_iBoqT.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DkrV24BN.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.CpDbxf9a.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BBwHq8gb.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BiIxfh5N.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.H4Mo8i1y.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BpV-ndy-.js">
@@ -221,15 +221,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/SharedTooltip.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"SharedTooltip.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates a tooltip that works on multiseries datasets, like multiline charts. It creates a tooltip showing the name of the series and the current value. It finds the nearest data point using the [QuadTree.html.svelte](https://layercake.graphics/components/QuadTree.html.svelte) component.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { format } from 'd3-format';\\n\\n  import QuadTree from './QuadTree.html.svelte';\\n\\n  const { data, width, yScale, config } = getContext('LayerCake');\\n\\n  const commas = format(',');\\n  const titleCase = d => d.replace(/^\\\\w/, w => w.toUpperCase());\\n\\n  /** @type {Function} [formatTitle=d => d] - A function to format the tooltip title, which is `$config.x`. */\\n  export let formatTitle = d => d;\\n\\n  /** @type {Function} [formatValue=d => isNaN(+d) ? d : commas(d)] - A function to format the value. */\\n  export let formatValue = d => (isNaN(+d) ? d : commas(d));\\n\\n  /** @type {Function} [formatKey=d => titleCase(d)] - A function to format the series name. */\\n  export let formatKey = d => titleCase(d);\\n\\n  /** @type {Number} [offset=-20] - A y-offset from the hover point, in pixels. */\\n  export let offset = -20;\\n\\n  /** @type {Array\u003CObject>|undefined} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format. */\\n  export let dataset = undefined;\\n\\n  const w = 150;\\n  const w2 = w / 2;\\n\\n  /* --------------------------------------------\\n   * Sort the keys by the highest value\\n   */\\n  function sortResult(result) {\\n    if (Object.keys(result).length === 0) return [];\\n    const rows = Object.keys(result)\\n      .filter(d => d !== $config.x)\\n      .map(key => {\\n        return {\\n          key,\\n          value: result[key]\\n        };\\n      })\\n      .sort((a, b) => b.value - a.value);\\n\\n    return rows;\\n  }\\n\u003C/script>\\n\\n\u003CQuadTree dataset={dataset || $data} y=\\\"x\\\" let:x let:y let:visible let:found let:e>\\n  {@const foundSorted = sortResult(found)}\\n  {#if visible === true}\\n    \u003Cdiv style=\\\"left:{x}px;\\\" class=\\\"line\\\">\u003C/div>\\n    \u003Cdiv\\n      class=\\\"tooltip\\\"\\n      style=\\\"\\n        width:{w}px;\\n        display: {visible ? 'block' : 'none'};\\n        top:{$yScale(foundSorted[0].value) + offset}px;\\n        left:{Math.min(Math.max(w2, x), $width - w2)}px;\\\"\\n    >\\n      \u003Cdiv class=\\\"title\\\">{formatTitle(found[$config.x])}\u003C/div>\\n      {#each foundSorted as row}\\n        \u003Cdiv class=\\\"row\\\">\\n          \u003Cspan class=\\\"key\\\">{formatKey(row.key)}:\u003C/span>\\n          {formatValue(row.value)}\\n        \u003C/div>\\n      {/each}\\n    \u003C/div>\\n  {/if}\\n\u003C/QuadTree>\\n\\n\u003Cstyle>\\n  .tooltip {\\n    position: absolute;\\n    font-size: 13px;\\n    pointer-events: none;\\n    border: 1px solid #ccc;\\n    background: rgba(255, 255, 255, 0.85);\\n    transform: translate(-50%, -100%);\\n    padding: 5px;\\n    z-index: 15;\\n    pointer-events: none;\\n  }\\n  .line {\\n    position: absolute;\\n    top: 0;\\n    bottom: 0;\\n    width: 1px;\\n    border-left: 1px dotted #666;\\n    pointer-events: none;\\n  }\\n  .tooltip,\\n  .line {\\n    transition:\\n      left 250ms ease-out,\\n      top 250ms ease-out;\\n  }\\n  .title {\\n    font-weight: bold;\\n  }\\n  .key {\\n    color: #999;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/MultiLine\"]},{\"group\":\"SSR\",\"matches\":[]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"Function\",\"name\":\"formatTitle\",\"required\":false,\"defaultValue\":\"d => d\",\"description\":\"A function to format the tooltip title, which is `$config.x`.\"},{\"kind\":\"type\",\"type\":\"Function\",\"name\":\"formatValue\",\"required\":false,\"defaultValue\":\"d => isNaN(+d) ? d : commas(d)\",\"description\":\"A function to format the value.\"},{\"kind\":\"type\",\"type\":\"Function\",\"name\":\"formatKey\",\"required\":false,\"defaultValue\":\"d => titleCase(d)\",\"description\":\"A function to format the series name.\"},{\"kind\":\"type\",\"type\":\"Number\",\"name\":\"offset\",\"required\":false,\"defaultValue\":\"-20\",\"description\":\"A y-offset from the hover point, in pixels.\"},{\"kind\":\"type\",\"type\":\"Array\u003CObject>|undefined\",\"name\":\"dataset\",\"required\":false,\"defaultValue\":null,\"description\":\"The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.\"}],\"componentDescription\":\"\\n  Generates a tooltip that works on multiseries datasets, like multiline charts. It creates a tooltip showing the name of the series and the current value. It finds the nearest data point using the [QuadTree.html.svelte](https://layercake.graphics/components/QuadTree.html.svelte) component.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1izdw2l = {
+					__sveltekit_8v3rrq = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.aGTi9ego.js"),
-						import("../_app/immutable/entry/app.CpDbxf9a.js")
+						import("../_app/immutable/entry/start.DD_iBoqT.js"),
+						import("../_app/immutable/entry/app.BBwHq8gb.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

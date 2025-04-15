@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.aGTi9ego.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/CeVZhiQJ.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.DD_iBoqT.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DkrV24BN.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.CpDbxf9a.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BBwHq8gb.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BiIxfh5N.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.H4Mo8i1y.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BpV-ndy-.js">
@@ -147,15 +147,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/ClevelandDotPlot.percent-range.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"ClevelandDotPlot.percent-range.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an HTML Cleveland dot plot, also known as a lollipop-chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, zScale, yScale, config } = getContext('LayerCake');\\n\\n  /** @type {Number} [r=5] - The circle radius. */\\n  export let r = 5;\\n\\n  $: midHeight = $yScale.bandwidth() / 2;\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"dot-plot\\\">\\n  {#each $data as row}\\n    {@const scaledYValue = $yGet(row)}\\n    {@const scaledXValues = $xGet(row)}\\n    \u003Cdiv class=\\\"dot-row\\\">\\n      \u003Cdiv\\n        class=\\\"line\\\"\\n        style=\\\"\\n          left: {Math.min(...scaledXValues)}%;\\n          top: {scaledYValue + midHeight}%;\\n          right: {100 - Math.max(...scaledXValues)}%;\\n        \\\"\\n      >\u003C/div>\\n\\n      {#each scaledXValues as circleX, i}\\n        \u003Cdiv\\n          class=\\\"circle\\\"\\n          style=\\\"\\n            left: {circleX}%;\\n            top: {scaledYValue + midHeight}%;\\n            width: {r * 2}px;\\n            height: {r * 2}px;\\n            background: {$zScale($config.x[i])};\\n          \\\"\\n        >\u003C/div>\\n      {/each}\\n    \u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .line {\\n    position: absolute;\\n    border-bottom: 1px solid #000;\\n  }\\n  .circle {\\n    position: absolute;\\n    border-radius: 50%;\\n    border: 1px solid #000;\\n    stroke: #000;\\n    transform: translate(-50%, -50%);\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/ClevelandDotPlot\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"Number\",\"name\":\"r\",\"required\":false,\"defaultValue\":\"5\",\"description\":\"The circle radius.\"}],\"componentDescription\":\"\\n  Generates an HTML Cleveland dot plot, also known as a lollipop-chart.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_1izdw2l = {
+					__sveltekit_8v3rrq = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.aGTi9ego.js"),
-						import("../_app/immutable/entry/app.CpDbxf9a.js")
+						import("../_app/immutable/entry/start.DD_iBoqT.js"),
+						import("../_app/immutable/entry/app.BBwHq8gb.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

@@ -12,7 +12,8 @@ const componentFilenames = readdirSync('./docs/components')
 				'ColumnStacked.svelte.html',
 				'GroupLabels.html.svelte.html'
 			].includes(i)
-	);
+	); // skipping components without properties
+
 componentFilenames.forEach(filename => {
 	const url = `/components/${filename.replace('.svelte.html', '.svelte')}`;
 
@@ -21,5 +22,3 @@ componentFilenames.forEach(filename => {
 		await expect(page.locator('div#params-table table')).toMatchAriaSnapshot();
 	});
 });
-
-['AreaStacked.svelte', 'BarStacked.svelte', 'ColumnStacked.svelte', 'GroupLabels.html.svelte'];

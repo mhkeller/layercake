@@ -1,0 +1,22 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "min Number None yes The brush's min value. Useful to bind to.":
+      - cell "min Number":
+        - strong: min
+        - code: Number
+      - cell "None"
+      - cell "yes"
+      - cell "The brush's min value. Useful to bind to."
+    - row "max Number None yes The brush's max value. Useful to bind to.":
+      - cell "max Number":
+        - strong: max
+        - code: Number
+      - cell "None"
+      - cell "yes"
+      - cell "The brush's max value. Useful to bind to."

@@ -1,4 +1,6 @@
 <script>
+	import { run } from 'svelte/legacy';
+
 	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
@@ -16,12 +18,24 @@
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	/** @type {import('./$types').PageData} */
-	export let data;
-	let { slug, content, active } = data;
-	$: slug = data.slug;
-	$: content = data.content;
-	$: active = data.active;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {import('./$types').PageData} data
+	 */
+
+	/** @type {Props} */
+	let { data } = $props();
+	let { slug, content, active } = $state(data);
+	run(() => {
+		slug = data.slug;
+	});
+	run(() => {
+		content = data.content;
+	});
+	run(() => {
+		active = data.active;
+	});
 
 	function markdownToHtml(text) {
 		return md.render(text);
@@ -34,20 +48,20 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [content.main]
+	let pages = $derived([content.main]
 		.concat(content.components)
 		.concat(content.componentModules)
 		.concat(content.modules)
 		.concat(content.componentComponents)
 		.concat(content.jsons)
-		.concat(content.csvs);
+		.concat(content.csvs));
 
 	const exampleLookup = new Map();
 	examples.forEach(exmpl => {
 		exampleLookup.set(exmpl.slug, exmpl);
 	});
 
-	$: example = exampleLookup.get(slug);
+	let example = $derived(exampleLookup.get(slug));
 
 	function copyToClipboard() {
 		const text = pages.filter(d => cleanTitle(d.title) === active)[0].contents;
@@ -86,7 +100,7 @@
 	</h1>
 
 	<div class="chart-hero">
-		<svelte:component this={example.component} />
+		<example.component />
 	</div>
 
 	<div class="download">
@@ -106,8 +120,8 @@
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<li
 					class="tab {active === cleanTitle(page.title) ? 'active' : ''}"
-					on:click={() => (active = cleanTitle(page.title))}
-					on:keypress={() => (active = cleanTitle(page.title))}
+					onclick={() => (active = cleanTitle(page.title))}
+					onkeypress={() => (active = cleanTitle(page.title))}
 				>
 					{page.title}
 				</li>
@@ -115,7 +129,7 @@
 		</ul>
 		<div id="contents-container">
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="copy" on:click={copyToClipboard} on:keypress={copyToClipboard}></div>
+			<div class="copy" onclick={copyToClipboard} onkeypress={copyToClipboard}></div>
 			{#each pages as page}
 				<div
 					class="contents"

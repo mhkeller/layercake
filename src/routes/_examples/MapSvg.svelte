@@ -30,8 +30,8 @@
 		dataLookup.set(d[dataJoinKey], d);
 	});
 
-	let evt;
-	let hideTooltip = true;
+	let evt = $state();
+	let hideTooltip = $state(true);
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
@@ -59,17 +59,19 @@
 
 		<Html pointerEvents={false}>
 			{#if hideTooltip !== true}
-				<Tooltip {evt} let:detail>
-					<!-- For the tooltip, do another data join because the hover event only has the data from the geography data -->
-					{@const tooltipData = { ...detail.props, ...dataLookup.get(detail.props[mapJoinKey]) }}
-					{#each Object.entries(tooltipData) as [key, value]}
-						{@const keyCapitalized = key.replace(/^\w/, d => d.toUpperCase())}
-						<div class="row">
-							<span>{keyCapitalized}:</span>
-							{typeof value === 'number' ? addCommas(value) : value}
-						</div>
-					{/each}
-				</Tooltip>
+				<Tooltip {evt} >
+					{#snippet children({ detail })}
+										<!-- For the tooltip, do another data join because the hover event only has the data from the geography data -->
+						{@const tooltipData = { ...detail.props, ...dataLookup.get(detail.props[mapJoinKey]) }}
+						{#each Object.entries(tooltipData) as [key, value]}
+							{@const keyCapitalized = key.replace(/^\w/, d => d.toUpperCase())}
+							<div class="row">
+								<span>{keyCapitalized}:</span>
+								{typeof value === 'number' ? addCommas(value) : value}
+							</div>
+						{/each}
+														{/snippet}
+								</Tooltip>
 			{/if}
 		</Html>
 	</LayerCake>

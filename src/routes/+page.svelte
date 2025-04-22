@@ -120,7 +120,7 @@
 						rel="noreferrer">Edit</a
 					>
 				</h4>
-				<svelte:component this={example.component} />
+				<example.component />
 			</div>
 		{/each}
 	</div>
@@ -163,7 +163,7 @@
 						rel="noreferrer">Edit</a
 					>
 				</h4>
-				<svelte:component this={example.component} />
+				<example.component />
 			</div>
 		{/each}
 	</div>

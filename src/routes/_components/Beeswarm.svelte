@@ -34,13 +34,15 @@
 		zDomain={[...seriesNames].sort()}
 		zRange={seriesColors}
 		data={dataTransformed}
-		let:width
+		
 	>
-		<Svg>
-			<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
-			<Beeswarm r={width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d.data[titleKey]} />
-		</Svg>
-	</LayerCake>
+		{#snippet children({ width })}
+				<Svg>
+				<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
+				<Beeswarm r={width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d.data[titleKey]} />
+			</Svg>
+					{/snippet}
+		</LayerCake>
 </div>
 
 <style>

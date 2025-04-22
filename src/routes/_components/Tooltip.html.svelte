@@ -32,8 +32,8 @@
 		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
 	});
 
-	let evt;
-	let hideTooltip = true;
+	let evt = $state();
+	let hideTooltip = $state(true);
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
@@ -62,14 +62,16 @@
 
 		<Html pointerEvents={false}>
 			{#if hideTooltip !== true}
-				<Tooltip {evt} let:detail>
-					{#each Object.entries(detail.props) as [key, value]}
-						<div class="row">
-							<span>{key}:</span>
-							{typeof value === 'number' ? addCommas(value) : value}
-						</div>
-					{/each}
-				</Tooltip>
+				<Tooltip {evt} >
+					{#snippet children({ detail })}
+										{#each Object.entries(detail.props) as [key, value]}
+							<div class="row">
+								<span>{key}:</span>
+								{typeof value === 'number' ? addCommas(value) : value}
+							</div>
+						{/each}
+														{/snippet}
+								</Tooltip>
 			{/if}
 		</Html>
 	</LayerCake>

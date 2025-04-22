@@ -1,8 +1,14 @@
 <script>
-	// import { afterUpdate } from 'svelte';
-	export let open = false;
-	export let activeGuideSection = undefined;
-	export let sections = [];
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {boolean} [open] - import { afterUpdate } from 'svelte';
+	 * @property {any} [activeGuideSection]
+	 * @property {any} [sections]
+	 */
+
+	/** @type {Props} */
+	let { open = $bindable(false), activeGuideSection = undefined, sections = [] } = $props();
 
 	const guideSections = sections.map(section => {
 		return {
@@ -23,13 +29,13 @@
 			<a
 				class="section {section.slug === activeGuideSection ? 'active' : ''}"
 				href="/guide#{section.slug}"
-				on:click={close}>{section.metadata.title}</a
+				onclick={close}>{section.metadata.title}</a
 			>
 			{#each section.subsections as subsection}
 				<a
 					class="subsection {subsection.slug === activeGuideSection ? 'active' : ''}"
 					href="/guide#{subsection.slug}"
-					on:click={close}>{subsection.title}</a
+					onclick={close}>{subsection.title}</a
 				>
 			{/each}
 		</li>

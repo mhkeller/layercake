@@ -82,9 +82,11 @@
 		</Html>
 
 		<Svg>
-			<svelte:fragment slot="defs">
-				<ArrowheadMarker />
-			</svelte:fragment>
+			{#snippet defs()}
+					
+					<ArrowheadMarker />
+				
+					{/snippet}
 			<Arrows {annotations} />
 		</Svg>
 	</LayerCake>

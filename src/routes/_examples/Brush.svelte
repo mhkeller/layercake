@@ -1,4 +1,6 @@
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { LayerCake, Svg, Html } from 'layercake';
 
 	import Line from '../../_components/Line.svelte';
@@ -10,7 +12,7 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/points.csv';
 
-	let brushExtents = [null, null];
+	let brushExtents = $state([null, null]);
 
 	const xKey = 'myX';
 	const yKey = 'myY';
@@ -19,8 +21,8 @@
 		d[yKey] = +d[yKey];
 	});
 
-	let brushedData;
-	$: {
+	let brushedData = $state();
+	run(() => {
 		brushedData = data.slice(
 			(brushExtents[0] || 0) * data.length,
 			(brushExtents[1] || 1) * data.length
@@ -28,7 +30,7 @@
 		if (brushedData.length < 2) {
 			brushedData = data.slice(brushExtents[0] * data.length, brushExtents[0] * data.length + 2);
 		}
-	}
+	});
 </script>
 
 <div class="brushed-chart-container">

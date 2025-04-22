@@ -31,9 +31,11 @@
 	>
 		<Html>
 			<ScatterHtml {r} />
-			<QuadTreePercentRange let:x let:y let:visible>
-				<div class="circle" style="top:{y}%;left:{x}%;display: {visible ? 'block' : 'none'};"></div>
-			</QuadTreePercentRange>
+			<QuadTreePercentRange   >
+				{#snippet children({ x, y, visible })}
+								<div class="circle" style="top:{y}%;left:{x}%;display: {visible ? 'block' : 'none'};"></div>
+											{/snippet}
+						</QuadTreePercentRange>
 		</Html>
 	</LayerCake>
 </div>

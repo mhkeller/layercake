@@ -1,8 +1,7 @@
 <script>
-	export let status;
-	export let error;
+	let { status, error } = $props();
 
-	// const dev = process.env.NODE_ENV === 'development';
+	
 </script>
 
 <h1>hiase</h1>

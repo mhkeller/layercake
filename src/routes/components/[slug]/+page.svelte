@@ -1,4 +1,6 @@
 <script>
+	import { run } from 'svelte/legacy';
+
 	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
@@ -16,12 +18,24 @@
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	/** @type {import('./$types').PageData} */
-	export let data;
-	let { slug, content, active } = data;
-	$: slug = data.slug;
-	$: content = data.content;
-	$: active = data.active;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {import('./$types').PageData} data
+	 */
+
+	/** @type {Props} */
+	let { data } = $props();
+	let { slug, content, active } = $state(data);
+	run(() => {
+		slug = data.slug;
+	});
+	run(() => {
+		content = data.content;
+	});
+	run(() => {
+		active = data.active;
+	});
 
 	function markdownToHtml(text) {
 		return md.render(text);
@@ -34,7 +48,7 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [content.main].concat(content.modules);
+	let pages = $derived([content.main].concat(content.modules));
 
 	const lookup = new Map();
 	components
@@ -43,7 +57,7 @@
 			lookup.set(d.slug, d);
 		});
 
-	$: component = lookup.get(slug);
+	let component = $derived(lookup.get(slug));
 
 	function printTypes(type) {
 		if (type.includes('|')) {
@@ -69,7 +83,7 @@
 |-----|-------|--------|-----------|`;
 
 	let jsdocTableBody = '';
-	let jsdocTable = '';
+	let jsdocTable = $state('');
 
 	if (content.hasjsDoctable === true) {
 		jsdocTableBody = `${content.jsdocParsed
@@ -116,7 +130,7 @@
 	<h1>{component.slug} component</h1>
 
 	<div class="chart-hero">
-		<svelte:component this={component.component} />
+		<component.component />
 	</div>
 
 	<div class="download">
@@ -161,8 +175,8 @@
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<li
 					class="tab {active === page.slug ? 'active' : ''}"
-					on:click={() => (active = page.slug)}
-					on:keypress={() => (active = page.slug)}
+					onclick={() => (active = page.slug)}
+					onkeypress={() => (active = page.slug)}
 				>
 					{page.slug}
 				</li>
@@ -171,7 +185,7 @@
 		<div id="contents-container">
 			<!-- svelte-ignore element_invalid_self_closing_tag -->
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="copy" on:click={copyToClipboard} on:keypress={copyToClipboard} />
+			<div class="copy" onclick={copyToClipboard} onkeypress={copyToClipboard}></div>
 			{#each pages as page}
 				<div class="contents" style="display: {active === page.slug ? 'block' : 'none'};">
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->

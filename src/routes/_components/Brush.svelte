@@ -20,11 +20,13 @@
 	});
 
 	let brushedData = $state();
-	run(() => {
+	$effect(() => {
 		brushedData = data.slice(
 			(brushExtents[0] || 0) * data.length,
 			(brushExtents[1] || 1) * data.length
 		);
+	});
+	$effect(() => {
 		if (brushedData.length < 2) {
 			brushedData = data.slice(brushExtents[0] * data.length, brushExtents[0] * data.length + 2);
 		}

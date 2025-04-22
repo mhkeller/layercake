@@ -1,17 +1,16 @@
-<!-- @migration-task Error while migrating Svelte code: Can't migrate code with afterUpdate. Please migrate by hand. -->
 <script>
-	import { afterUpdate } from 'svelte';
 	import GuideContents from '../_site-components/GuideContents.svelte';
 
-	export let data;
+	/** @type {import('./$types').PageProps} */
+	let { data } = $props();
 
 	let container;
 	let positions = [];
 	let lastId = 'introduction';
-	let activeGuideSection;
+	let activeGuideSection = $state();
 
 	let anchors = [];
-	afterUpdate(() => {
+	$effect(() => {
 		if (typeof window !== 'undefined') {
 			anchors = container.querySelectorAll('[id]');
 			lastId = window.location.hash.slice(1);
@@ -19,12 +18,6 @@
 
 			onresize();
 			onscroll();
-
-			window.addEventListener('scroll', onscroll, true);
-			window.addEventListener('resize', onresize, true);
-
-			// wait for fonts to load...
-			// const timeouts = [setTimeout(onresize, 1000), setTimeout(onresize, 5000)];
 		}
 	});
 
@@ -56,6 +49,8 @@
 		}
 	}
 </script>
+
+<svelte:window {onscroll} {onresize} />
 
 <svelte:head>
 	<title>LayerCake - Guide</title>

@@ -1,6 +1,4 @@
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
@@ -21,7 +19,7 @@
 
 	let segment = $state('');
 
-	run(() => {
+	$effect(() => {
 		if (!isServiceWorker) {
 			path = $page.url.pathname;
 			// type = path.split('/')[1];

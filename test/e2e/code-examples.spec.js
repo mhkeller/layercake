@@ -2,15 +2,17 @@ import { test, expect } from '@playwright/test';
 
 import { existsSync, statSync } from 'fs';
 
-test(`Navigate between code samples`, async ({ page }) => {
-	await page.goto(`example/Bar`);
-	await page.getByText('./_components/Bar.svelte', { exact: true }).click();
-	await expect(page.locator('#contents-container')).toContainText(`Generates an SVG bar chart.`);
+['example', 'example-ssr'].forEach(path => {
+	test(`Navigate between code samples for "${path}/Bar"`, async ({ page }) => {
+		await page.goto(`${path}/Bar`);
+		await page.getByText('./_components/Bar.svelte', { exact: true }).click();
+		await expect(page.locator('#contents-container')).toContainText(`Generates an SVG bar chart.`);
 
-	await page.getByText('+page.svelte', { exact: true }).click();
-	await expect(page.locator('#contents-container')).toContainText(
-		`import { LayerCake, Svg } from 'layercake';`
-	);
+		await page.getByText('+page.svelte', { exact: true }).click();
+		await expect(page.locator('#contents-container')).toContainText(
+			`import Bar from './_components/Bar.svelte';`
+		);
+	});
 });
 
 test(`Download zip file`, async ({ page }) => {

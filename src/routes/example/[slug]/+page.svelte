@@ -10,31 +10,15 @@
 
 	import examples from '../../_examples.js';
 
-	const md = new MarkdownIt({
-		html: true,
-		linkify: true
-	});
+	const md = new MarkdownIt({ html: true, linkify: true });
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	/**
-	 * @typedef {Object} Props
-	 * @property {import('./$types').PageData} data
-	 */
-
-	/** @type {Props} */
+	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
-	let { slug, content, active } = $state(data);
-	run(() => {
-		slug = data.slug;
-	});
-	run(() => {
-		content = data.content;
-	});
-	run(() => {
-		active = data.active;
-	});
+
+	let active = $derived(data.active);
 
 	function markdownToHtml(text) {
 		return md.render(text);
@@ -48,13 +32,13 @@
 	}
 
 	let pages = $derived(
-		[content.main]
-			.concat(content.components)
-			.concat(content.componentModules)
-			.concat(content.modules)
-			.concat(content.componentComponents)
-			.concat(content.jsons)
-			.concat(content.csvs)
+		[data.content.main]
+			.concat(data.content.components)
+			.concat(data.content.componentModules)
+			.concat(data.content.modules)
+			.concat(data.content.componentComponents)
+			.concat(data.content.jsons)
+			.concat(data.content.csvs)
 	);
 
 	const exampleLookup = new Map();
@@ -62,7 +46,7 @@
 		exampleLookup.set(exmpl.slug, exmpl);
 	});
 
-	let example = $derived(exampleLookup.get(slug));
+	let example = $derived(exampleLookup.get(data.slug));
 
 	function copyToClipboard() {
 		const text = pages.filter(d => cleanTitle(d.title) === active)[0].contents;
@@ -105,17 +89,17 @@
 	</div>
 
 	<div class="download">
-		<DownloadBtn data={content} {slug} />
+		<DownloadBtn data={data.content} slug={data.slug} />
 	</div>
 
-	{#if content.dek}
+	{#if data.content.dek}
 		<div class="dek">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-			{@html markdownToHtml(content.dek)}
+			{@html markdownToHtml(data.content.dek)}
 		</div>
 	{/if}
 
-	<div id="pages" class={content.dek ? 'has-dek' : ''}>
+	<div id="pages" class={data.content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->

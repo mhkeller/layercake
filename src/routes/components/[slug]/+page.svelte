@@ -10,31 +10,15 @@
 
 	import components from '../../_components.js';
 
-	const md = new MarkdownIt({
-		html: true,
-		linkify: true
-	});
+	const md = new MarkdownIt({ html: true, linkify: true });
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	/**
-	 * @typedef {Object} Props
-	 * @property {import('./$types').PageData} data
-	 */
-
-	/** @type {Props} */
+	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
-	let { slug, content, active } = $state(data);
-	run(() => {
-		slug = data.slug;
-	});
-	run(() => {
-		content = data.content;
-	});
-	run(() => {
-		active = data.active;
-	});
+
+	let active = $derived(data.slug);
 
 	function markdownToHtml(text) {
 		return md.render(text);
@@ -47,7 +31,7 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	let pages = $derived([content.main].concat(content.modules));
+	let pages = $derived([data.content.main].concat(data.content.modules));
 
 	const lookup = new Map();
 	components
@@ -56,7 +40,7 @@
 			lookup.set(d.slug, d);
 		});
 
-	let component = $derived(lookup.get(slug));
+	let component = $derived(lookup.get(data.slug));
 
 	function printTypes(type) {
 		if (type.includes('|')) {
@@ -84,8 +68,8 @@
 	let jsdocTableBody = '';
 	let jsdocTable = $state('');
 
-	if (content.hasjsDoctable === true) {
-		jsdocTableBody = `${content.jsdocParsed
+	if (data.content.hasjsDoctable === true) {
+		jsdocTableBody = `${data.content.jsdocParsed
 			.map(
 				d =>
 					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.defaultValue)}|${printRequired(
@@ -93,7 +77,7 @@
 					)}|${d.description?.replace(/^(-|–|—)/g, '').trim()}`
 			)
 			.join('\n')}`;
-		jsdocTable = content.jsdocParsed.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
+		jsdocTable = data.content.jsdocParsed.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
 	}
 
 	function copyToClipboard() {
@@ -133,29 +117,30 @@
 	</div>
 
 	<div class="download">
-		<DownloadComponentBtn data={content} {slug} />
+		<DownloadComponentBtn data={data.content} slug={data.slug} />
 	</div>
 
 	<div class="dek">
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html markdownToHtml(content.componentDescription)}
+		{@html markdownToHtml(data.content.componentDescription)}
 	</div>
-	{#if content.hasjsDoctable === true}
+	{#if data.content.hasjsDoctable === true}
 		<div id="params-table">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html markdownToHtml(jsdocTable)}
 		</div>
 	{/if}
 	<div id="used-in">
-		{#if content.usedIn[0].matches.length > 0 || content.usedIn[1].matches.length > 0}
+		{#if data.content.usedIn[0].matches.length > 0 || data.content.usedIn[1].matches.length > 0}
 			<h3>
-				Used in these{content.usedIn[0].matches.length === 0 && content.usedIn[1].matches.length > 0
+				Used in these{data.content.usedIn[0].matches.length === 0 &&
+				data.content.usedIn[1].matches.length > 0
 					? ' SSR'
 					: ''} examples:
 			</h3>
-			{#each content.usedIn as group}
+			{#each data.content.usedIn as group}
 				{#if group.matches.length > 0}
-					{#if group.group === 'SSR' && content.usedIn[0].matches.length > 0}
+					{#if group.group === 'SSR' && data.content.usedIn[0].matches.length > 0}
 						<h3>SSR Examples:</h3>
 					{/if}
 					<ul>
@@ -168,7 +153,7 @@
 		{/if}
 	</div>
 
-	<div id="pages" class={content.dek ? 'has-dek' : ''}>
+	<div id="pages" class={data.content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->

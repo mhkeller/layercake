@@ -18,23 +18,10 @@
 		linkify: true
 	});
 
-	/**
-	 * @typedef {Object} Props
-	 * @property {import('./$types').PageData} data
-	 */
-
-	/** @type {Props} */
+	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
-	let { slug, content, active } = $state(data);
-	run(() => {
-		slug = data.slug;
-	});
-	run(() => {
-		content = data.content;
-	});
-	run(() => {
-		active = data.active;
-	});
+
+	let active = $derived(data.active);
 
 	function markdownToHtml(text) {
 		return md.render(text);
@@ -48,13 +35,13 @@
 	}
 
 	let pages = $derived(
-		[content.main]
-			.concat(content.components)
-			.concat(content.componentModules)
-			.concat(content.modules)
-			.concat(content.componentComponents)
-			.concat(content.jsons)
-			.concat(content.csvs)
+		[data.content.main]
+			.concat(data.content.components)
+			.concat(data.content.componentModules)
+			.concat(data.content.modules)
+			.concat(data.content.componentComponents)
+			.concat(data.content.jsons)
+			.concat(data.content.csvs)
 	);
 
 	const exampleLookup = new Map();
@@ -62,7 +49,7 @@
 		exampleLookup.set(exmpl.slug.toLowerCase(), exmpl);
 	});
 
-	let example = $derived(exampleLookup.get(slug.toLowerCase()));
+	let example = $derived(exampleLookup.get(data.slug.toLowerCase()));
 
 	function copyToClipboard() {
 		const text = pages.filter(d => cleanTitle(d.title) === active)[0].contents;
@@ -100,22 +87,22 @@
 		>
 	</h1>
 
-	<div class="chart-hero" data-slug={slug.toLowerCase()}>
+	<div class="chart-hero" data-slug={data.slug.toLowerCase()}>
 		<example.component />
 	</div>
 
 	<div class="download">
-		<DownloadBtn data={content} {slug} ssr />
+		<DownloadBtn data={data.content} slug={data.slug} ssr />
 	</div>
 
-	{#if content.dek}
+	{#if data.content.dek}
 		<div class="dek">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-			{@html markdownToHtml(content.dek)}
+			{@html markdownToHtml(data.content.dek)}
 		</div>
 	{/if}
 
-	<div id="pages" class={content.dek ? 'has-dek' : ''}>
+	<div id="pages" class={data.content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
 				<!-- svelte-ignore a11y_click_events_have_key_events -->

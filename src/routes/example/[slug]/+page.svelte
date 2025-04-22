@@ -1,6 +1,4 @@
 <script>
-	import { run } from 'svelte/legacy';
-
 	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 

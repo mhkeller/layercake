@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	import GuideContents from './GuideContents.svelte';
 	import examples from '../_examples.js';
@@ -15,13 +15,13 @@
 	// I was getting a weird artifact of a service-worker.js
 	// being requested. it's fixed now but keep this for
 	// good measure
-	let isServiceWorker = $derived($page.url.pathname === '/service-worker.js');
+	let isServiceWorker = $derived(page.url.pathname === '/service-worker.js');
 
 	let segment = $state('');
 
 	$effect(() => {
 		if (!isServiceWorker) {
-			path = $page.url.pathname;
+			path = page.url.pathname;
 			// type = path.split('/')[1];
 			segment = `/${path.replace('/', '')}`;
 			// segment = `/${path.replace('/', '').replace(/\$/, '')}`;

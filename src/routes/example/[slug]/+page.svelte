@@ -18,7 +18,6 @@
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {import('./$types').PageData} data
@@ -48,13 +47,15 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	let pages = $derived([content.main]
-		.concat(content.components)
-		.concat(content.componentModules)
-		.concat(content.modules)
-		.concat(content.componentComponents)
-		.concat(content.jsons)
-		.concat(content.csvs));
+	let pages = $derived(
+		[content.main]
+			.concat(content.components)
+			.concat(content.componentModules)
+			.concat(content.modules)
+			.concat(content.componentComponents)
+			.concat(content.jsons)
+			.concat(content.csvs)
+	);
 
 	const exampleLookup = new Map();
 	examples.forEach(exmpl => {

@@ -25,10 +25,12 @@
 	let thresholds = $derived(calcThresholds(domain, binCount));
 	let slimThresholds = $derived(takeEvery(thresholds, 5));
 
-	let binnedData = $derived(bin(data, d => d, {
-		domain,
-		thresholds
-	}));
+	let binnedData = $derived(
+		bin(data, d => d, {
+			domain,
+			thresholds
+		})
+	);
 </script>
 
 <div class="input-container" style="position: absolute;right:10px;z-index: 9;">

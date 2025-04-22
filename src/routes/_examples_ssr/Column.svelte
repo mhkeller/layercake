@@ -100,10 +100,8 @@
 	>
 		<Svg>
 			{#snippet defs()}
-					
-					<ArrowheadMarker />
-				
-					{/snippet}
+				<ArrowheadMarker />
+			{/snippet}
 			<Arrows {annotations} />
 		</Svg>
 	</LayerCake>

@@ -62,16 +62,16 @@
 
 		<Html pointerEvents={false}>
 			{#if hideTooltip !== true}
-				<Tooltip {evt} >
+				<Tooltip {evt}>
 					{#snippet children({ detail })}
-										{#each Object.entries(detail.props) as [key, value]}
+						{#each Object.entries(detail.props) as [key, value]}
 							<div class="row">
 								<span>{key}:</span>
 								{typeof value === 'number' ? addCommas(value) : value}
 							</div>
 						{/each}
-														{/snippet}
-								</Tooltip>
+					{/snippet}
+				</Tooltip>
 			{/if}
 		</Html>
 	</LayerCake>

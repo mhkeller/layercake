@@ -34,10 +34,9 @@
 		zScale={scaleOrdinal()}
 		zRange={seriesColors}
 		data={dataTransformed}
-		
 	>
 		{#snippet children({ width })}
-				<Svg>
+			<Svg>
 				<AxisX />
 				<Beeswarm
 					r={width < 400 ? r / 1.25 : r}
@@ -51,8 +50,8 @@
 			<Html pointerEvents={false}>
 				<Key shape="circle" />
 			</Html>
-					{/snippet}
-		</LayerCake>
+		{/snippet}
+	</LayerCake>
 </div>
 
 <style>

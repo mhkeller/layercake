@@ -1,7 +1,5 @@
 <script>
 	let { status, error } = $props();
-
-	
 </script>
 
 <h1>hiase</h1>

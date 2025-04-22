@@ -1,5 +1,4 @@
 <script>
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {boolean} [open] - import { afterUpdate } from 'svelte';

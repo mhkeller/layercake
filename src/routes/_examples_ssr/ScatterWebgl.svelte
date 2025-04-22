@@ -53,14 +53,14 @@
 		</WebGL>
 
 		<Html>
-			<QuadTree   >
+			<QuadTree>
 				{#snippet children({ x, y, visible })}
-								<div
+					<div
 						class="circle"
 						style="top:{y}px;left:{x}px;display: {visible ? 'block' : 'none'};"
 					></div>
-											{/snippet}
-						</QuadTree>
+				{/snippet}
+			</QuadTree>
 		</Html>
 	</LayerCake>
 </div>

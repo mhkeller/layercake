@@ -205,8 +205,8 @@
 
 	section :global(p) {
 		margin: 0 0 1em 0;
-		font-family: Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-			'Segoe UI Symbol';
+		font-family:
+			Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 		/* font-weight: 300; */
 		color: #181818;
 		line-height: 1.5;

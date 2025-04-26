@@ -16,7 +16,7 @@
 	/** @type {Number} [strokeWidth=0] - The shape's stroke width. */
 	export let strokeWidth = 0;
 
-	/** @type {boolean} [false] - Show the numbers for each column */
+	/** @type {boolean} [showLabels=false] - Show the numbers for each column */
 	export let showLabels = false;
 
 	$: columnWidth = d => {

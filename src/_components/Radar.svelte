@@ -14,7 +14,7 @@
 	/**	@type {String} [stroke='#f0c'] - The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
 	export let stroke = '#f0c';
 
-	/**	@type {Number} [stroke=2] - The radar's stroke color. */
+	/**	@type {Number} [strokeWidth=2] - The radar's stroke color. */
 	export let strokeWidth = 2;
 
 	/**	@type {Number} [fillOpacity=0.5] - The radar's fill opacity. */

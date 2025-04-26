@@ -22,9 +22,9 @@
         - code: "'#f0c'"
       - cell "no"
       - cell "The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color."
-    - row "stroke Number 2 no The radar's stroke color.":
-      - cell "stroke Number":
-        - strong: stroke
+    - row "strokeWidth Number 2 no The radar's stroke color.":
+      - cell "strokeWidth Number":
+        - strong: strokeWidth
         - code: Number
       - cell "2":
         - code: "2"

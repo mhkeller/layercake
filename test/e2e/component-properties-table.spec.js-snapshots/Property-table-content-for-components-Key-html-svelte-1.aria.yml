@@ -1,41 +1,41 @@
 - table:
-  - rowgroup:
-    - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
-  - rowgroup:
-    - row "shape String 'square' no The shape for each item. Can be 'circle', 'line', or 'square';":
-      - cell "shape String":
-        - strong: shape
-        - code: String
-      - cell "'square'":
-        - code: "'square'"
-      - cell "no"
-      - cell "The shape for each item. Can be 'circle', 'line', or 'square';"
-    - row "align String 'start' no Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'.":
-      - cell "align String":
-        - strong: align
-        - code: String
-      - cell "'start'":
-        - code: "'start'"
-      - cell "no"
-      - cell "Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'."
-    - row "lookup (Function | Object | undefined) None no Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value.":
-      - cell "lookup (Function | Object | undefined)":
-        - strong: lookup
-        - code: Function
-        - code: Object
-        - code: undefined
-      - cell "None"
-      - cell "no"
-      - cell "Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value."
-    - row "capitalize boolean true no Capitalize the first character.":
-      - cell "capitalize boolean":
-        - strong: capitalize
-        - code: boolean
-      - cell "true":
-        - code: "true"
-      - cell "no"
-      - cell "Capitalize the first character."
+    - rowgroup:
+        - row "Param Default Required Description":
+            - cell "Param"
+            - cell "Default"
+            - cell "Required"
+            - cell "Description"
+    - rowgroup:
+        - row "shape String 'square' no The shape for each item. Can be 'circle', 'line', or 'square';":
+            - cell "shape String":
+                - strong: shape
+                - code: String
+            - cell "'square'":
+                - code: "'square'"
+            - cell "no"
+            - cell "The shape for each item. Can be 'circle', 'line', or 'square';"
+        - row "align String 'start' no Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'.":
+            - cell "align String":
+                - strong: align
+                - code: String
+            - cell "'start'":
+                - code: "'start'"
+            - cell "no"
+            - cell "Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'."
+        - row "lookup (Function | Object | undefined) None no Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value.":
+            - cell "lookup (Function | Object | undefined)":
+                - strong: lookup
+                - code: Function
+                - code: Object
+                - code: undefined
+            - cell "None"
+            - cell "no"
+            - cell "Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value."
+        - row "capitalize boolean true no Capitalize the first character.":
+            - cell "capitalize boolean":
+                - strong: capitalize
+                - code: boolean
+            - cell "true":
+                - code: 'true'
+            - cell "no"
+            - cell "Capitalize the first character."

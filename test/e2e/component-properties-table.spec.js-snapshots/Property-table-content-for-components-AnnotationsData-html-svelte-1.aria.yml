@@ -1,34 +1,34 @@
 - table:
-  - rowgroup:
-    - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
-  - rowgroup:
-    - row "annotations Array None yes A list of annotation objects.":
-      - cell "annotations Array":
-        - strong: annotations
-        - code: Array
-      - cell "None"
-      - cell "yes"
-      - cell "A list of annotation objects."
-    - row "getText Function d => d.text no An accessor function to get the field to display.":
-      - cell "getText Function":
-        - strong: getText
-        - code: Function
-      - cell "d => d.text":
-        - code: d => d.text
-      - cell "no"
-      - cell "An accessor function to get the field to display."
-    - row "percentRange boolean false no If true will set the top and left CSS positions to percentages instead of pixels.":
-      - cell "percentRange boolean":
-        - strong: percentRange
-        - code: boolean
-      - cell "false":
-        - code: "false"
-      - cell "no"
-      - cell "If true will set the top and left CSS positions to percentages instead of pixels.":
-        - code: "true"
-        - code: top
-        - code: left
+    - rowgroup:
+        - row "Param Default Required Description":
+            - cell "Param"
+            - cell "Default"
+            - cell "Required"
+            - cell "Description"
+    - rowgroup:
+        - row "annotations Array None yes A list of annotation objects.":
+            - cell "annotations Array":
+                - strong: annotations
+                - code: Array
+            - cell "None"
+            - cell "yes"
+            - cell "A list of annotation objects."
+        - row "getText Function d => d.text no An accessor function to get the field to display.":
+            - cell "getText Function":
+                - strong: getText
+                - code: Function
+            - cell "d => d.text":
+                - code: d => d.text
+            - cell "no"
+            - cell "An accessor function to get the field to display."
+        - row "percentRange boolean false no If true will set the top and left CSS positions to percentages instead of pixels.":
+            - cell "percentRange boolean":
+                - strong: percentRange
+                - code: boolean
+            - cell "false":
+                - code: 'false'
+            - cell "no"
+            - cell "If true will set the top and left CSS positions to percentages instead of pixels.":
+                - code: 'true'
+                - code: top
+                - code: left

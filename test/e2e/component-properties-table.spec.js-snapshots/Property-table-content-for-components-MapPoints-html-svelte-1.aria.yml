@@ -1,65 +1,65 @@
 - table:
-  - rowgroup:
-    - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
-  - rowgroup:
-    - 'row "projection Function None yes A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
-      - cell "projection Function":
-        - strong: projection
-        - code: Function
-      - cell "None"
-      - cell "yes"
-      - 'cell "A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
-        - code: "projection={geoAlbersUsa}"
-    - row "r Number 3.5 no The point's radius.":
-      - cell "r Number":
-        - strong: r
-        - code: Number
-      - cell "3.5":
-        - code: "3.5"
-      - cell "no"
-      - cell "The point's radius."
-    - row "fill String 'yellow' no The point's fill color.":
-      - cell "fill String":
-        - strong: fill
-        - code: String
-      - cell "'yellow'":
-        - code: "'yellow'"
-      - cell "no"
-      - cell "The point's fill color."
-    - row /stroke String '#\d+' no The point's stroke color\./:
-      - cell "stroke String":
-        - strong: stroke
-        - code: String
-      - cell /'#\d+'/:
-        - code: /'#\d+'/
-      - cell "no"
-      - cell "The point's stroke color."
-    - row "strokeWidth Number 1 no The point's stroke width, in pixels.":
-      - cell "strokeWidth Number":
-        - strong: strokeWidth
-        - code: Number
-      - cell "1":
-        - code: "1"
-      - cell "no"
-      - cell "The point's stroke width, in pixels."
-    - row "opacity Number 1 no The point's opacity.":
-      - cell "opacity Number":
-        - strong: opacity
-        - code: Number
-      - cell "1":
-        - code: "1"
-      - cell "no"
-      - cell "The point's opacity."
-    - row "features (Array<Object> | undefined) None no A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
-      - cell "features (Array<Object> | undefined)":
-        - strong: features
-        - code: Array<Object>
-        - code: undefined
-      - cell "None"
-      - cell "no"
-      - cell "A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
-        - code: $data.features
+    - rowgroup:
+        - row "Param Default Required Description":
+            - cell "Param"
+            - cell "Default"
+            - cell "Required"
+            - cell "Description"
+    - rowgroup:
+        - 'row "projection Function None yes A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+            - cell "projection Function":
+                - strong: projection
+                - code: Function
+            - cell "None"
+            - cell "yes"
+            - 'cell "A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+                - code: 'projection={geoAlbersUsa}'
+        - row "r Number 3.5 no The point's radius.":
+            - cell "r Number":
+                - strong: r
+                - code: Number
+            - cell "3.5":
+                - code: '3.5'
+            - cell "no"
+            - cell "The point's radius."
+        - row "fill String 'yellow' no The point's fill color.":
+            - cell "fill String":
+                - strong: fill
+                - code: String
+            - cell "'yellow'":
+                - code: "'yellow'"
+            - cell "no"
+            - cell "The point's fill color."
+        - row /stroke String '#\d+' no The point's stroke color\./:
+            - cell "stroke String":
+                - strong: stroke
+                - code: String
+            - cell /'#\d+'/:
+                - code: /'#\d+'/
+            - cell "no"
+            - cell "The point's stroke color."
+        - row "strokeWidth Number 1 no The point's stroke width, in pixels.":
+            - cell "strokeWidth Number":
+                - strong: strokeWidth
+                - code: Number
+            - cell "1":
+                - code: '1'
+            - cell "no"
+            - cell "The point's stroke width, in pixels."
+        - row "opacity Number 1 no The point's opacity.":
+            - cell "opacity Number":
+                - strong: opacity
+                - code: Number
+            - cell "1":
+                - code: '1'
+            - cell "no"
+            - cell "The point's opacity."
+        - row "features (Array<Object> | undefined) None no A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
+            - cell "features (Array<Object> | undefined)":
+                - strong: features
+                - code: Array<Object>
+                - code: undefined
+            - cell "None"
+            - cell "no"
+            - cell "A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
+                - code: $data.features

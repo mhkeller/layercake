@@ -1,43 +1,43 @@
 - table:
-  - rowgroup:
-    - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
-  - rowgroup:
-    - row "x String 'x' no The dimension to search across when moving the mouse left and right.":
-      - cell "x String":
-        - strong: x
-        - code: String
-      - cell "'x'":
-        - code: "'x'"
-      - cell "no"
-      - cell "The dimension to search across when moving the mouse left and right."
-    - row "y String 'y' no The dimension to search across when moving the mouse up and down.":
-      - cell "y String":
-        - strong: "y"
-        - code: String
-      - cell "'y'":
-        - code: "'y'"
-      - cell "no"
-      - cell "The dimension to search across when moving the mouse up and down."
-    - row "searchRadius (Number | undefined) None no The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
-      - cell "searchRadius (Number | undefined)":
-        - strong: searchRadius
-        - code: Number
-        - code: undefined
-      - cell "None"
-      - cell "no"
-      - cell "The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
-        - link "quadtree.find":
-          - code: quadtree.find
-        - code: undefined
-    - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
-      - cell "dataset (Array<Object> | undefined)":
-        - strong: dataset
-        - code: Array<Object>
-        - code: undefined
-      - cell "None"
-      - cell "no"
-      - cell "The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format."
+    - rowgroup:
+        - row "Param Default Required Description":
+            - cell "Param"
+            - cell "Default"
+            - cell "Required"
+            - cell "Description"
+    - rowgroup:
+        - row "x String 'x' no The dimension to search across when moving the mouse left and right.":
+            - cell "x String":
+                - strong: x
+                - code: String
+            - cell "'x'":
+                - code: "'x'"
+            - cell "no"
+            - cell "The dimension to search across when moving the mouse left and right."
+        - row "y String 'y' no The dimension to search across when moving the mouse up and down.":
+            - cell "y String":
+                - strong: 'y'
+                - code: String
+            - cell "'y'":
+                - code: "'y'"
+            - cell "no"
+            - cell "The dimension to search across when moving the mouse up and down."
+        - row "searchRadius (Number | undefined) None no The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
+            - cell "searchRadius (Number | undefined)":
+                - strong: searchRadius
+                - code: Number
+                - code: undefined
+            - cell "None"
+            - cell "no"
+            - cell "The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
+                - link "quadtree.find":
+                    - code: quadtree.find
+                - code: undefined
+        - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
+            - cell "dataset (Array<Object> | undefined)":
+                - strong: dataset
+                - code: Array<Object>
+                - code: undefined
+            - cell "None"
+            - cell "no"
+            - cell "The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format."

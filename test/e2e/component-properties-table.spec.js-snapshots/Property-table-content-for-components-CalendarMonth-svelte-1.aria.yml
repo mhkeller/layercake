@@ -1,16 +1,16 @@
 - table:
-  - rowgroup:
-    - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
-  - rowgroup:
-    - row "calcCellSize Function (w, h) => Math.min(w / 7, h / 5) no A function givn the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom.":
-      - cell "calcCellSize Function":
-        - strong: calcCellSize
-        - code: Function
-      - cell "(w, h) => Math.min(w / 7, h / 5)":
-        - code: (w, h) => Math.min(w / 7, h / 5)
-      - cell "no"
-      - cell "A function givn the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom."
+    - rowgroup:
+        - row "Param Default Required Description":
+            - cell "Param"
+            - cell "Default"
+            - cell "Required"
+            - cell "Description"
+    - rowgroup:
+        - row "calcCellSize Function (w, h) => Math.min(w / 7, h / 5) no A function givn the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom.":
+            - cell "calcCellSize Function":
+                - strong: calcCellSize
+                - code: Function
+            - cell "(w, h) => Math.min(w / 7, h / 5)":
+                - code: (w, h) => Math.min(w / 7, h / 5)
+            - cell "no"
+            - cell "A function givn the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom."

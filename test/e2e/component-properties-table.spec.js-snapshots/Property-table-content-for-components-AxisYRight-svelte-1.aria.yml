@@ -1,49 +1,49 @@
 - table:
-  - rowgroup:
-    - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
-  - rowgroup:
-    - row "tickMarks boolean false no Show marks next to the tick label.":
-      - cell "tickMarks boolean":
-        - strong: tickMarks
-        - code: boolean
-      - cell "false":
-        - code: "false"
-      - cell "no"
-      - cell "Show marks next to the tick label."
-    - row "labelPosition String 'above' no Whether the label sits even with its value ('even') or sits on top ('above') the tick mark.":
-      - cell "labelPosition String":
-        - strong: labelPosition
-        - code: String
-      - cell "'above'":
-        - code: "'above'"
-      - cell "no"
-      - cell "Whether the label sits even with its value ('even') or sits on top ('above') the tick mark."
-    - row "snapBaselineLabel boolean false no When labelPosition='even', adjust the lowest label so that it sits above the tick mark.":
-      - cell "snapBaselineLabel boolean":
-        - strong: snapBaselineLabel
-        - code: boolean
-      - cell "false":
-        - code: "false"
-      - cell "no"
-      - cell "When labelPosition='even', adjust the lowest label so that it sits above the tick mark."
-    - row "gridlines boolean true no When labelPosition='even', adjust the lowest label so that it sits above the tick mark.":
-      - cell "gridlines boolean":
-        - strong: gridlines
-        - code: boolean
-      - cell "true":
-        - code: "true"
-      - cell "no"
-      - cell "When labelPosition='even', adjust the lowest label so that it sits above the tick mark."
-    - row "tickMarkLength (Number | undefined) undefined no The length of the tick mark. If not set, becomes the length of the widest tick.":
-      - cell "tickMarkLength (Number | undefined)":
-        - strong: tickMarkLength
-        - code: Number
-        - code: undefined
-      - cell "undefined":
-        - code: undefined
-      - cell "no"
-      - cell "The length of the tick mark. If not set, becomes the length of the widest tick."
+    - rowgroup:
+        - row "Param Default Required Description":
+            - cell "Param"
+            - cell "Default"
+            - cell "Required"
+            - cell "Description"
+    - rowgroup:
+        - row "tickMarks boolean false no Show marks next to the tick label.":
+            - cell "tickMarks boolean":
+                - strong: tickMarks
+                - code: boolean
+            - cell "false":
+                - code: 'false'
+            - cell "no"
+            - cell "Show marks next to the tick label."
+        - row "labelPosition String 'above' no Whether the label sits even with its value ('even') or sits on top ('above') the tick mark.":
+            - cell "labelPosition String":
+                - strong: labelPosition
+                - code: String
+            - cell "'above'":
+                - code: "'above'"
+            - cell "no"
+            - cell "Whether the label sits even with its value ('even') or sits on top ('above') the tick mark."
+        - row "snapBaselineLabel boolean false no When labelPosition='even', adjust the lowest label so that it sits above the tick mark.":
+            - cell "snapBaselineLabel boolean":
+                - strong: snapBaselineLabel
+                - code: boolean
+            - cell "false":
+                - code: 'false'
+            - cell "no"
+            - cell "When labelPosition='even', adjust the lowest label so that it sits above the tick mark."
+        - row "gridlines boolean true no When labelPosition='even', adjust the lowest label so that it sits above the tick mark.":
+            - cell "gridlines boolean":
+                - strong: gridlines
+                - code: boolean
+            - cell "true":
+                - code: 'true'
+            - cell "no"
+            - cell "When labelPosition='even', adjust the lowest label so that it sits above the tick mark."
+        - row "tickMarkLength (Number | undefined) undefined no The length of the tick mark. If not set, becomes the length of the widest tick.":
+            - cell "tickMarkLength (Number | undefined)":
+                - strong: tickMarkLength
+                - code: Number
+                - code: undefined
+            - cell "undefined":
+                - code: undefined
+            - cell "no"
+            - cell "The length of the tick mark. If not set, becomes the length of the widest tick."

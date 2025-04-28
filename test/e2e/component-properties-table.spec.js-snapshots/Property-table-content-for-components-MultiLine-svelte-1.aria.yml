@@ -1,17 +1,17 @@
 - table:
-  - rowgroup:
-    - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
-  - rowgroup:
-    - row "curve Function curveLinear no An optional D3 interpolation function. See d3-shape for options. Pass this function in uncalled, i.e. without the open-close parentheses.":
-      - cell "curve Function":
-        - strong: curve
-        - code: Function
-      - cell "curveLinear":
-        - code: curveLinear
-      - cell "no"
-      - cell "An optional D3 interpolation function. See d3-shape for options. Pass this function in uncalled, i.e. without the open-close parentheses.":
-        - link "d3-shape"
+    - rowgroup:
+        - row "Param Default Required Description":
+            - cell "Param"
+            - cell "Default"
+            - cell "Required"
+            - cell "Description"
+    - rowgroup:
+        - row "curve Function curveLinear no An optional D3 interpolation function. See d3-shape for options. Pass this function in uncalled, i.e. without the open-close parentheses.":
+            - cell "curve Function":
+                - strong: curve
+                - code: Function
+            - cell "curveLinear":
+                - code: curveLinear
+            - cell "no"
+            - cell "An optional D3 interpolation function. See d3-shape for options. Pass this function in uncalled, i.e. without the open-close parentheses.":
+                - link "d3-shape"

@@ -1,24 +1,24 @@
 - table:
-  - rowgroup:
-    - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
-  - rowgroup:
-    - row "r Number 5 no The circle's radius.":
-      - cell "r Number":
-        - strong: r
-        - code: Number
-      - cell "5":
-        - code: "5"
-      - cell "no"
-      - cell "The circle's radius."
-    - row "fill String '#0cf' no The circle's fill color.":
-      - cell "fill String":
-        - strong: fill
-        - code: String
-      - cell "'#0cf'":
-        - code: "'#0cf'"
-      - cell "no"
-      - cell "The circle's fill color."
+    - rowgroup:
+        - row "Param Default Required Description":
+            - cell "Param"
+            - cell "Default"
+            - cell "Required"
+            - cell "Description"
+    - rowgroup:
+        - row "r Number 5 no The circle's radius.":
+            - cell "r Number":
+                - strong: r
+                - code: Number
+            - cell "5":
+                - code: '5'
+            - cell "no"
+            - cell "The circle's radius."
+        - row "fill String '#0cf' no The circle's fill color.":
+            - cell "fill String":
+                - strong: fill
+                - code: String
+            - cell "'#0cf'":
+                - code: "'#0cf'"
+            - cell "no"
+            - cell "The circle's fill color."

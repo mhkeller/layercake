@@ -1,48 +1,48 @@
 - table:
-  - rowgroup:
-    - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
-  - rowgroup:
-    - row "r Number 3 no The circle radius size in pixels.":
-      - cell "r Number":
-        - strong: r
-        - code: Number
-      - cell "3":
-        - code: "3"
-      - cell "no"
-      - cell "The circle radius size in pixels."
-    - row "strokeWidth Number 0 no The circle's stroke width in pixels.":
-      - cell "strokeWidth Number":
-        - strong: strokeWidth
-        - code: Number
-      - cell "0":
-        - code: "0"
-      - cell "no"
-      - cell "The circle's stroke width in pixels."
-    - row "stroke String '#fff' no The circle's stroke color.":
-      - cell "stroke String":
-        - strong: stroke
-        - code: String
-      - cell "'#fff'":
-        - code: "'#fff'"
-      - cell "no"
-      - cell "The circle's stroke color."
-    - row "spacing Number 1.5 no Spacing, in pixels, between each circle.":
-      - cell "spacing Number":
-        - strong: spacing
-        - code: Number
-      - cell "1.5":
-        - code: "1.5"
-      - cell "no"
-      - cell "Spacing, in pixels, between each circle."
-    - row "getTitle (Function | undefined) None no An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.":
-      - cell "getTitle (Function | undefined)":
-        - strong: getTitle
-        - code: Function
-        - code: undefined
-      - cell "None"
-      - cell "no"
-      - cell "An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production."
+    - rowgroup:
+        - row "Param Default Required Description":
+            - cell "Param"
+            - cell "Default"
+            - cell "Required"
+            - cell "Description"
+    - rowgroup:
+        - row "r Number 3 no The circle radius size in pixels.":
+            - cell "r Number":
+                - strong: r
+                - code: Number
+            - cell "3":
+                - code: '3'
+            - cell "no"
+            - cell "The circle radius size in pixels."
+        - row "strokeWidth Number 0 no The circle's stroke width in pixels.":
+            - cell "strokeWidth Number":
+                - strong: strokeWidth
+                - code: Number
+            - cell "0":
+                - code: '0'
+            - cell "no"
+            - cell "The circle's stroke width in pixels."
+        - row "stroke String '#fff' no The circle's stroke color.":
+            - cell "stroke String":
+                - strong: stroke
+                - code: String
+            - cell "'#fff'":
+                - code: "'#fff'"
+            - cell "no"
+            - cell "The circle's stroke color."
+        - row "spacing Number 1.5 no Spacing, in pixels, between each circle.":
+            - cell "spacing Number":
+                - strong: spacing
+                - code: Number
+            - cell "1.5":
+                - code: '1.5'
+            - cell "no"
+            - cell "Spacing, in pixels, between each circle."
+        - row "getTitle (Function | undefined) None no An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.":
+            - cell "getTitle (Function | undefined)":
+                - strong: getTitle
+                - code: Function
+                - code: undefined
+            - cell "None"
+            - cell "no"
+            - cell "An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production."

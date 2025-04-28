@@ -1,49 +1,49 @@
 - table:
-    - rowgroup:
-        - row "Param Default Required Description":
-            - cell "Param"
-            - cell "Default"
-            - cell "Required"
-            - cell "Description"
-    - rowgroup:
-        - row "formatTitle Function d => d no A function to format the tooltip title, which is $config.x.":
-            - cell "formatTitle Function":
-                - strong: formatTitle
-                - code: Function
-            - cell "d => d":
-                - code: d => d
-            - cell "no"
-            - cell "A function to format the tooltip title, which is $config.x.":
-                - code: $config.x
-        - 'row "formatValue Function d => isNaN(+d) ? d : commas(d) no A function to format the value."':
-            - cell "formatValue Function":
-                - strong: formatValue
-                - code: Function
-            - 'cell "d => isNaN(+d) ? d : commas(d)"':
-                - code: 'd => isNaN(+d) ? d : commas(d)'
-            - cell "no"
-            - cell "A function to format the value."
-        - row "formatKey Function d => titleCase(d) no A function to format the series name.":
-            - cell "formatKey Function":
-                - strong: formatKey
-                - code: Function
-            - cell "d => titleCase(d)":
-                - code: d => titleCase(d)
-            - cell "no"
-            - cell "A function to format the series name."
-        - row /offset Number -\d+ no A y-offset from the hover point, in pixels\./:
-            - cell "offset Number":
-                - strong: offset
-                - code: Number
-            - cell /-\d+/:
-                - code: /-\d+/
-            - cell "no"
-            - cell "A y-offset from the hover point, in pixels."
-        - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
-            - cell "dataset (Array<Object> | undefined)":
-                - strong: dataset
-                - code: Array<Object>
-                - code: undefined
-            - cell "None"
-            - cell "no"
-            - cell "The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format."
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "formatTitle Function d => d no A function to format the tooltip title, which is $config.x.":
+      - cell "formatTitle Function":
+        - strong: formatTitle
+        - code: Function
+      - cell "d => d":
+        - code: d => d
+      - cell "no"
+      - cell "A function to format the tooltip title, which is $config.x.":
+        - code: $config.x
+    - 'row "formatValue Function d => isNaN(+d) ? d : commas(d) no A function to format the value."':
+      - cell "formatValue Function":
+        - strong: formatValue
+        - code: Function
+      - 'cell "d => isNaN(+d) ? d : commas(d)"':
+        - code: "d => isNaN(+d) ? d : commas(d)"
+      - cell "no"
+      - cell "A function to format the value."
+    - row "formatKey Function d => titleCase(d) no A function to format the series name.":
+      - cell "formatKey Function":
+        - strong: formatKey
+        - code: Function
+      - cell "d => titleCase(d)":
+        - code: d => titleCase(d)
+      - cell "no"
+      - cell "A function to format the series name."
+    - row /offset Number -\d+ no A y-offset from the hover point, in pixels\./:
+      - cell "offset Number":
+        - strong: offset
+        - code: Number
+      - cell /-\d+/:
+        - code: /-\d+/
+      - cell "no"
+      - cell "A y-offset from the hover point, in pixels."
+    - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
+      - cell "dataset (Array<Object> | undefined)":
+        - strong: dataset
+        - code: Array<Object>
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format."

@@ -1,107 +1,107 @@
 - table:
-    - rowgroup:
-        - row "Param Default Required Description":
-            - cell "Param"
-            - cell "Default"
-            - cell "Required"
-            - cell "Description"
-    - rowgroup:
-        - row "idKey String 'id' no The key on each object where the id value lives.":
-            - cell "idKey String":
-                - strong: idKey
-                - code: String
-            - cell "'id'":
-                - code: "'id'"
-            - cell "no"
-            - cell "The key on each object where the id value lives."
-        - row "parentKey (String | undefined) None no Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
-            - cell "parentKey (String | undefined)":
-                - strong: parentKey
-                - code: String
-                - code: undefined
-            - cell "None"
-            - cell "no"
-            - cell "Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
-                - link "nested"
-                - link "grouping of circles"
-        - row "valueKey String 'value' no The key on each object where the data value lives.":
-            - cell "valueKey String":
-                - strong: valueKey
-                - code: String
-            - cell "'value'":
-                - code: "'value'"
-            - cell "no"
-            - cell "The key on each object where the data value lives."
-        - row /labelVisibilityThreshold Function r => r > \d+ no By default, only show the text inside a circle if its radius exceeds a certain size\. Provide your own function for different behavior\./:
-            - cell "labelVisibilityThreshold Function":
-                - strong: labelVisibilityThreshold
-                - code: Function
-            - cell /r => r > \d+/:
-                - code: /r => r > \d+/
-            - cell "no"
-            - cell "By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior."
-        - row "fill String '#fff' no The circle's fill color.":
-            - cell "fill String":
-                - strong: fill
-                - code: String
-            - cell "'#fff'":
-                - code: "'#fff'"
-            - cell "no"
-            - cell "The circle's fill color."
-        - row /stroke String '#\d+' no The circle's stroke color\./:
-            - cell "stroke String":
-                - strong: stroke
-                - code: String
-            - cell /'#\d+'/:
-                - code: /'#\d+'/
-            - cell "no"
-            - cell "The circle's stroke color."
-        - row "strokeWidth Number 1 no The circle's stroke width, in pixels.":
-            - cell "strokeWidth Number":
-                - strong: strokeWidth
-                - code: Number
-            - cell "1":
-                - code: '1'
-            - cell "no"
-            - cell "The circle's stroke width, in pixels."
-        - row /textColor String '#\d+' no The label text color\./:
-            - cell "textColor String":
-                - strong: textColor
-                - code: String
-            - cell /'#\d+'/:
-                - code: /'#\d+'/
-            - cell "no"
-            - cell "The label text color."
-        - row /textStroke String '#\d+' no The label text's stroke color\./:
-            - cell "textStroke String":
-                - strong: textStroke
-                - code: String
-            - cell /'#\d+'/:
-                - code: /'#\d+'/
-            - cell "no"
-            - cell "The label text's stroke color."
-        - row "textStrokeWidth Number 0 no The label text's stroke width, in pixels.":
-            - cell "textStrokeWidth Number":
-                - strong: textStrokeWidth
-                - code: Number
-            - cell "0":
-                - code: '0'
-            - cell "no"
-            - cell "The label text's stroke width, in pixels."
-        - row "sortBy Function (a, b) => b.value - a.value no The order in which circle's are drawn. Sorting on the depth key is also a popular choice.":
-            - cell "sortBy Function":
-                - strong: sortBy
-                - code: Function
-            - cell "(a, b) => b.value - a.value":
-                - code: (a, b) => b.value - a.value
-            - cell "no"
-            - cell "The order in which circle's are drawn. Sorting on the depth key is also a popular choice.":
-                - code: depth
-        - row "spacing Number 0 no Whitespace padding between each circle, in pixels.":
-            - cell "spacing Number":
-                - strong: spacing
-                - code: Number
-            - cell "0":
-                - code: '0'
-            - cell "no"
-            - cell "Whitespace padding between each circle, in pixels."
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "idKey String 'id' no The key on each object where the id value lives.":
+      - cell "idKey String":
+        - strong: idKey
+        - code: String
+      - cell "'id'":
+        - code: "'id'"
+      - cell "no"
+      - cell "The key on each object where the id value lives."
+    - row "parentKey (String | undefined) None no Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
+      - cell "parentKey (String | undefined)":
+        - strong: parentKey
+        - code: String
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
+        - link "nested"
+        - link "grouping of circles"
+    - row "valueKey String 'value' no The key on each object where the data value lives.":
+      - cell "valueKey String":
+        - strong: valueKey
+        - code: String
+      - cell "'value'":
+        - code: "'value'"
+      - cell "no"
+      - cell "The key on each object where the data value lives."
+    - row /labelVisibilityThreshold Function r => r > \d+ no By default, only show the text inside a circle if its radius exceeds a certain size\. Provide your own function for different behavior\./:
+      - cell "labelVisibilityThreshold Function":
+        - strong: labelVisibilityThreshold
+        - code: Function
+      - cell /r => r > \d+/:
+        - code: /r => r > \d+/
+      - cell "no"
+      - cell "By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior."
+    - row "fill String '#fff' no The circle's fill color.":
+      - cell "fill String":
+        - strong: fill
+        - code: String
+      - cell "'#fff'":
+        - code: "'#fff'"
+      - cell "no"
+      - cell "The circle's fill color."
+    - row /stroke String '#\d+' no The circle's stroke color\./:
+      - cell "stroke String":
+        - strong: stroke
+        - code: String
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "The circle's stroke color."
+    - row "strokeWidth Number 1 no The circle's stroke width, in pixels.":
+      - cell "strokeWidth Number":
+        - strong: strokeWidth
+        - code: Number
+      - cell "1":
+        - code: "1"
+      - cell "no"
+      - cell "The circle's stroke width, in pixels."
+    - row /textColor String '#\d+' no The label text color\./:
+      - cell "textColor String":
+        - strong: textColor
+        - code: String
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "The label text color."
+    - row /textStroke String '#\d+' no The label text's stroke color\./:
+      - cell "textStroke String":
+        - strong: textStroke
+        - code: String
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "The label text's stroke color."
+    - row "textStrokeWidth Number 0 no The label text's stroke width, in pixels.":
+      - cell "textStrokeWidth Number":
+        - strong: textStrokeWidth
+        - code: Number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "The label text's stroke width, in pixels."
+    - row "sortBy Function (a, b) => b.value - a.value no The order in which circle's are drawn. Sorting on the depth key is also a popular choice.":
+      - cell "sortBy Function":
+        - strong: sortBy
+        - code: Function
+      - cell "(a, b) => b.value - a.value":
+        - code: (a, b) => b.value - a.value
+      - cell "no"
+      - cell "The order in which circle's are drawn. Sorting on the depth key is also a popular choice.":
+        - code: depth
+    - row "spacing Number 0 no Whitespace padding between each circle, in pixels.":
+      - cell "spacing Number":
+        - strong: spacing
+        - code: Number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "Whitespace padding between each circle, in pixels."

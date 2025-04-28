@@ -1,40 +1,40 @@
 - table:
-    - rowgroup:
-        - row "Param Default Required Description":
-            - cell "Param"
-            - cell "Default"
-            - cell "Required"
-            - cell "Description"
-    - rowgroup:
-        - row "r Number 5 no The circle's radius.":
-            - cell "r Number":
-                - strong: r
-                - code: Number
-            - cell "5":
-                - code: '5'
-            - cell "no"
-            - cell "The circle's radius."
-        - row "fill String '#0cf' no The circle's fill color.":
-            - cell "fill String":
-                - strong: fill
-                - code: String
-            - cell "'#0cf'":
-                - code: "'#0cf'"
-            - cell "no"
-            - cell "The circle's fill color."
-        - row /stroke String '#\d+' no The circle's stroke color\./:
-            - cell "stroke String":
-                - strong: stroke
-                - code: String
-            - cell /'#\d+'/:
-                - code: /'#\d+'/
-            - cell "no"
-            - cell "The circle's stroke color."
-        - row "strokeWidth Number 0 no The circle's stroke width.":
-            - cell "strokeWidth Number":
-                - strong: strokeWidth
-                - code: Number
-            - cell "0":
-                - code: '0'
-            - cell "no"
-            - cell "The circle's stroke width."
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "r Number 5 no The circle's radius.":
+      - cell "r Number":
+        - strong: r
+        - code: Number
+      - cell "5":
+        - code: "5"
+      - cell "no"
+      - cell "The circle's radius."
+    - row "fill String '#0cf' no The circle's fill color.":
+      - cell "fill String":
+        - strong: fill
+        - code: String
+      - cell "'#0cf'":
+        - code: "'#0cf'"
+      - cell "no"
+      - cell "The circle's fill color."
+    - row /stroke String '#\d+' no The circle's stroke color\./:
+      - cell "stroke String":
+        - strong: stroke
+        - code: String
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "The circle's stroke color."
+    - row "strokeWidth Number 0 no The circle's stroke width.":
+      - cell "strokeWidth Number":
+        - strong: strokeWidth
+        - code: Number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "The circle's stroke width."

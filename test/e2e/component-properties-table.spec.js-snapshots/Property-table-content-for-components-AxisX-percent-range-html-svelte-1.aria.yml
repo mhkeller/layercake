@@ -1,48 +1,48 @@
 - table:
-    - rowgroup:
-        - row "Param Default Required Description":
-            - cell "Param"
-            - cell "Default"
-            - cell "Required"
-            - cell "Description"
-    - rowgroup:
-        - row "tickMarks boolean false no Show a vertical mark for each tick.":
-            - cell "tickMarks boolean":
-                - strong: tickMarks
-                - code: boolean
-            - cell "false":
-                - code: 'false'
-            - cell "no"
-            - cell "Show a vertical mark for each tick."
-        - row "gridlines boolean true no Show gridlines extending into the chart area.":
-            - cell "gridlines boolean":
-                - strong: gridlines
-                - code: boolean
-            - cell "true":
-                - code: 'true'
-            - cell "no"
-            - cell "Show gridlines extending into the chart area."
-        - row "tickMarkLength Number 6 no The length of the tick mark.":
-            - cell "tickMarkLength Number":
-                - strong: tickMarkLength
-                - code: Number
-            - cell "6":
-                - code: '6'
-            - cell "no"
-            - cell "The length of the tick mark."
-        - row "baseline boolean false no Show a solid line at the bottom.":
-            - cell "baseline boolean":
-                - strong: baseline
-                - code: boolean
-            - cell "false":
-                - code: 'false'
-            - cell "no"
-            - cell "Show a solid line at the bottom."
-        - row "snapLabels boolean false no Instead of centering the text labels on the first and the last items, align them to the edges of the chart.":
-            - cell "snapLabels boolean":
-                - strong: snapLabels
-                - code: boolean
-            - cell "false":
-                - code: 'false'
-            - cell "no"
-            - cell "Instead of centering the text labels on the first and the last items, align them to the edges of the chart."
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "tickMarks boolean false no Show a vertical mark for each tick.":
+      - cell "tickMarks boolean":
+        - strong: tickMarks
+        - code: boolean
+      - cell "false":
+        - code: "false"
+      - cell "no"
+      - cell "Show a vertical mark for each tick."
+    - row "gridlines boolean true no Show gridlines extending into the chart area.":
+      - cell "gridlines boolean":
+        - strong: gridlines
+        - code: boolean
+      - cell "true":
+        - code: "true"
+      - cell "no"
+      - cell "Show gridlines extending into the chart area."
+    - row "tickMarkLength Number 6 no The length of the tick mark.":
+      - cell "tickMarkLength Number":
+        - strong: tickMarkLength
+        - code: Number
+      - cell "6":
+        - code: "6"
+      - cell "no"
+      - cell "The length of the tick mark."
+    - row "baseline boolean false no Show a solid line at the bottom.":
+      - cell "baseline boolean":
+        - strong: baseline
+        - code: boolean
+      - cell "false":
+        - code: "false"
+      - cell "no"
+      - cell "Show a solid line at the bottom."
+    - row "snapLabels boolean false no Instead of centering the text labels on the first and the last items, align them to the edges of the chart.":
+      - cell "snapLabels boolean":
+        - strong: snapLabels
+        - code: boolean
+      - cell "false":
+        - code: "false"
+      - cell "no"
+      - cell "Instead of centering the text labels on the first and the last items, align them to the edges of the chart."

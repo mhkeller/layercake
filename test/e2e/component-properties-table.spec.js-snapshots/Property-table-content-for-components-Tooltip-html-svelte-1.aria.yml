@@ -1,26 +1,26 @@
 - table:
-    - rowgroup:
-        - row "Param Default Required Description":
-            - cell "Param"
-            - cell "Default"
-            - cell "Required"
-            - cell "Description"
-    - rowgroup:
-        - row "evt Object None yes A svelte event created via dispatch with event information under evt.detail.e.":
-            - cell "evt Object":
-                - strong: evt
-                - code: Object
-            - cell "None"
-            - cell "yes"
-            - cell "A svelte event created via dispatch with event information under evt.detail.e.":
-                - link "dispatch":
-                    - code: dispatch
-                - code: evt.detail.e
-        - row /offset Number -\d+ no A y-offset from the hover point, in pixels\./:
-            - cell "offset Number":
-                - strong: offset
-                - code: Number
-            - cell /-\d+/:
-                - code: /-\d+/
-            - cell "no"
-            - cell "A y-offset from the hover point, in pixels."
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "evt Object None yes A svelte event created via dispatch with event information under evt.detail.e.":
+      - cell "evt Object":
+        - strong: evt
+        - code: Object
+      - cell "None"
+      - cell "yes"
+      - cell "A svelte event created via dispatch with event information under evt.detail.e.":
+        - link "dispatch":
+          - code: dispatch
+        - code: evt.detail.e
+    - row /offset Number -\d+ no A y-offset from the hover point, in pixels\./:
+      - cell "offset Number":
+        - strong: offset
+        - code: Number
+      - cell /-\d+/:
+        - code: /-\d+/
+      - cell "no"
+      - cell "A y-offset from the hover point, in pixels."

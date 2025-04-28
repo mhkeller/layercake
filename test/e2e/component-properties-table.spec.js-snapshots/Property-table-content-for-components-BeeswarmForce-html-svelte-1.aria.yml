@@ -1,64 +1,64 @@
 - table:
-    - rowgroup:
-        - row "Param Default Required Description":
-            - cell "Param"
-            - cell "Default"
-            - cell "Required"
-            - cell "Description"
-    - rowgroup:
-        - row "r Number 4 no The circle radius size in pixels.":
-            - cell "r Number":
-                - strong: r
-                - code: Number
-            - cell "4":
-                - code: '4'
-            - cell "no"
-            - cell "The circle radius size in pixels."
-        - row "strokeWidth Number 0.5 no The circle's stroke width in pixels.":
-            - cell "strokeWidth Number":
-                - strong: strokeWidth
-                - code: Number
-            - cell "0.5":
-                - code: '0.5'
-            - cell "no"
-            - cell "The circle's stroke width in pixels."
-        - row "stroke String '#fff' no The circle's stroke color.":
-            - cell "stroke String":
-                - strong: stroke
-                - code: String
-            - cell "'#fff'":
-                - code: "'#fff'"
-            - cell "no"
-            - cell "The circle's stroke color."
-        - row /xStrength Number \d+\.\d+ no The value passed into the \.strength method on forceX, which is used as the 'x' property on the simulation\. See the documentation for more\./:
-            - cell "xStrength Number":
-                - strong: xStrength
-                - code: Number
-            - cell /\d+\.\d+/:
-                - code: /\d+\.\d+/
-            - cell "no"
-            - cell "The value passed into the .strength method on forceX, which is used as the 'x' property on the simulation. See the documentation for more.":
-                - code: .strength
-                - code: forceX
-                - code: "'x'"
-                - link "the documentation"
-        - row /yStrength Number \d+\.\d+ no The value passed into the \.strength method on forceY, which is used as the 'y' property on the simulation\. See the documentation for more\./:
-            - cell "yStrength Number":
-                - strong: yStrength
-                - code: Number
-            - cell /\d+\.\d+/:
-                - code: /\d+\.\d+/
-            - cell "no"
-            - cell "The value passed into the .strength method on forceY, which is used as the 'y' property on the simulation. See the documentation for more.":
-                - code: .strength
-                - code: forceY
-                - code: "'y'"
-                - link "the documentation"
-        - row "getTitle (Function | undefined) None no An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.":
-            - cell "getTitle (Function | undefined)":
-                - strong: getTitle
-                - code: Function
-                - code: undefined
-            - cell "None"
-            - cell "no"
-            - cell "An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production."
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "r Number 4 no The circle radius size in pixels.":
+      - cell "r Number":
+        - strong: r
+        - code: Number
+      - cell "4":
+        - code: "4"
+      - cell "no"
+      - cell "The circle radius size in pixels."
+    - row "strokeWidth Number 0.5 no The circle's stroke width in pixels.":
+      - cell "strokeWidth Number":
+        - strong: strokeWidth
+        - code: Number
+      - cell "0.5":
+        - code: "0.5"
+      - cell "no"
+      - cell "The circle's stroke width in pixels."
+    - row "stroke String '#fff' no The circle's stroke color.":
+      - cell "stroke String":
+        - strong: stroke
+        - code: String
+      - cell "'#fff'":
+        - code: "'#fff'"
+      - cell "no"
+      - cell "The circle's stroke color."
+    - row /xStrength Number \d+\.\d+ no The value passed into the \.strength method on forceX, which is used as the 'x' property on the simulation\. See the documentation for more\./:
+      - cell "xStrength Number":
+        - strong: xStrength
+        - code: Number
+      - cell /\d+\.\d+/:
+        - code: /\d+\.\d+/
+      - cell "no"
+      - cell "The value passed into the .strength method on forceX, which is used as the 'x' property on the simulation. See the documentation for more.":
+        - code: .strength
+        - code: forceX
+        - code: "'x'"
+        - link "the documentation"
+    - row /yStrength Number \d+\.\d+ no The value passed into the \.strength method on forceY, which is used as the 'y' property on the simulation\. See the documentation for more\./:
+      - cell "yStrength Number":
+        - strong: yStrength
+        - code: Number
+      - cell /\d+\.\d+/:
+        - code: /\d+\.\d+/
+      - cell "no"
+      - cell "The value passed into the .strength method on forceY, which is used as the 'y' property on the simulation. See the documentation for more.":
+        - code: .strength
+        - code: forceY
+        - code: "'y'"
+        - link "the documentation"
+    - row "getTitle (Function | undefined) None no An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.":
+      - cell "getTitle (Function | undefined)":
+        - strong: getTitle
+        - code: Function
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production."

@@ -70,11 +70,6 @@ export default defineConfig({
 		//   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
 		// },
 	],
-	expect: {
-		toHaveScreenshot: {
-			maxDiffPixelRatio: 0.02,
-		}
-	},
 	/* Run your local dev server before starting the tests */
 	webServer: {
 		command: 'npm run build && npm run preview',

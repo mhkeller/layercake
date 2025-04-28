@@ -5,3 +5,4 @@ yarn.lock
 docs
 README.md
 static/**/*
+test/e2e/**/*.yml

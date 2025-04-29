@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 import { readdirSync } from 'fs';
 
 const options = {
-	threshold: 0.3
+	threshold: 0.2
 };
 
 const componentFilenames = readdirSync('./docs/components').filter(i => i.endsWith('svelte.html'));

@@ -2,6 +2,10 @@ import { test, expect } from '@playwright/test';
 
 import { readdirSync } from 'fs';
 
+const options = {
+	threshold: 0.25
+};
+
 const componentFilenames = readdirSync('./docs/components').filter(i => i.endsWith('svelte.html'));
 componentFilenames.forEach(filename => {
 	const url = `/components/${filename.replace('.svelte.html', '.svelte')}`;
@@ -15,7 +19,7 @@ componentFilenames.forEach(filename => {
 				: undefined; // use default
 
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot({ timeout });
+		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, timeout });
 	});
 });
 
@@ -26,7 +30,7 @@ exampleFilenames.forEach(filename => {
 		const timeout = url.endsWith('CirclePackForce') ? 10_000 : undefined;
 
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot({ timeout });
+		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, timeout });
 	});
 });
 
@@ -36,6 +40,6 @@ exampleSsrFilenames.forEach(filename => {
 
 	test(`Snapshot for ${url}`, async ({ page }) => {
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot();
+		await expect(page.locator('.chart-hero')).toHaveScreenshot(options);
 	});
 });

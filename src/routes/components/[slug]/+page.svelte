@@ -16,7 +16,7 @@
 	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
 
-	let active = $derived(data.slug);
+	let active = $derived(data.active);
 
 	function markdownToHtml(text) {
 		return md.render(text);

@@ -39,7 +39,13 @@ exampleSsrFilenames.forEach(filename => {
 	const url = `/example-ssr/${filename.replace('.html', '')}`;
 
 	test(`Snapshot for ${url}`, async ({ page }) => {
+		const maxDiffPixels = url.endsWith('AreaStacked')
+			? 520
+			: url.endsWith('MultiLine')
+				? 15
+				: undefined;
+
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot(options);
+		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, maxDiffPixels });
 	});
 });

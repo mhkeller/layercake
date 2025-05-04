@@ -19,11 +19,16 @@
 		"update_template": "sh ./src/scripts/update_template.sh",
 		"prebuild": "npm run update_template",
 		"deploy": "npm run build && git add -A && git commit -am 'auto-deploy' && git push origin main",
-		"test": "mocha test/*.test.js"
+		"test:init:snapshots": "playwright test --update-snapshots",
+		"test:lib": "mocha test/*.test.js",
+		"pretest:playwright": "playwright install chromium",
+		"test:playwright": "playwright test",
+		"test": "npm run test:lib && npm run test:playwright"
 	},
 	"license": "MIT",
 	"type": "module",
 	"devDependencies": {
+		"@playwright/test": "^1.51.1",
 		"@rollup/plugin-dsv": "^3.0.4",
 		"@sveltejs/adapter-static": "^3.0.5",
 		"@sveltejs/kit": "^2.7.1",

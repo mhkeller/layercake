@@ -12,13 +12,6 @@
 
 	const { ctx } = getContext('canvas');
 
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Number} [r] - The circle's radius.
@@ -28,12 +21,7 @@
 	 */
 
 	/** @type {Props} */
-	let {
-		r = 5,
-		fill = '#0cf',
-		stroke = '#000',
-		strokeWidth = 1
-	} = $props();
+	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
 	run(() => {
 		if ($ctx) {

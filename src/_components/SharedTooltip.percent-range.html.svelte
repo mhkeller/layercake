@@ -13,15 +13,6 @@
 	const commas = format(',');
 	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
 
-	
-
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Function} [formatTitle] - A function to format the tooltip title, which is `$config.x`.
@@ -62,7 +53,7 @@
 	}
 </script>
 
-<QuadTree dataset={dataset || $data} y="x"     >
+<QuadTree dataset={dataset || $data} y="x">
 	{#snippet children({ x, y, visible, found, e })}
 		{@const foundSorted = sortResult(found)}
 		{#if visible === true}

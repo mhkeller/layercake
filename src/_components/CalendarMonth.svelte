@@ -11,7 +11,6 @@
 
 	const { width, height, data, x, z, zScale, extents } = getContext('LayerCake');
 
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Function} [calcCellSize] - A function givn the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom.

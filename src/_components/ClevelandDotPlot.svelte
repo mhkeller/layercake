@@ -7,7 +7,6 @@
 
 	const { data, xGet, yGet, yScale, zScale, config } = getContext('LayerCake');
 
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Number} [r] - The circle radius.

@@ -7,11 +7,6 @@
 
 	const { xGet, yGet, percentRange } = getContext('LayerCake');
 
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Array} [annotations] - A list of annotation objects.

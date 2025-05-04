@@ -7,12 +7,7 @@
 
 	import Line from './Line.svelte';
 
-	let {
-		data,
-		fullExtents,
-		scale,
-		extentGetters
-	} = $props();
+	let { data, fullExtents, scale, extentGetters } = $props();
 
 	const tweenOptions = {
 		duration: 300,

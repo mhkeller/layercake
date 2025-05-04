@@ -8,9 +8,6 @@
 
 	const { data, xGet, yGet, yScale } = getContext('LayerCake');
 
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {String} [fill] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
@@ -20,11 +17,13 @@
 	/** @type {Props} */
 	let { fill = '#ab00d610', curve = curveLinear } = $props();
 
-	let path = $derived(area()
-		.x($xGet)
-		.y1($yGet)
-		.y0(d => $yScale(0))
-		.curve(curve));
+	let path = $derived(
+		area()
+			.x($xGet)
+			.y1($yGet)
+			.y0(d => $yScale(0))
+			.curve(curve)
+	);
 	// .defined($y)
 </script>
 

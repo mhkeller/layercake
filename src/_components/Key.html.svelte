@@ -5,13 +5,6 @@
 <script>
 	import { getContext } from 'svelte';
 
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {String} [shape] - The shape for each item. Can be 'circle', 'line', or 'square';
@@ -21,12 +14,7 @@
 	 */
 
 	/** @type {Props} */
-	let {
-		shape = 'square',
-		align = 'start',
-		lookup = undefined,
-		capitalize = true
-	} = $props();
+	let { shape = 'square', align = 'start', lookup = undefined, capitalize = true } = $props();
 
 	const { zDomain, zScale } = getContext('LayerCake');
 

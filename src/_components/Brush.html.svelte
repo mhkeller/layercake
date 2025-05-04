@@ -7,9 +7,6 @@
 
 	import { clamp } from 'yootils';
 
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Number} min - The brush's min value. Useful to bind to.

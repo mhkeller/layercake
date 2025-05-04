@@ -14,13 +14,6 @@
 	let found = $state({});
 	let e = $state({});
 
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {String} [x] - The dimension to search across when moving the mouse left and right.
@@ -31,13 +24,7 @@
 	 */
 
 	/** @type {Props} */
-	let {
-		x = 'x',
-		y = 'y',
-		searchRadius = undefined,
-		dataset = undefined,
-		children
-	} = $props();
+	let { x = 'x', y = 'y', searchRadius = undefined, dataset = undefined, children } = $props();
 
 	let xGetter = $derived(x === 'x' ? $xGet : $yGet);
 	let yGetter = $derived(y === 'y' ? $yGet : $xGet);
@@ -52,14 +39,16 @@
 		visible = Object.keys(found).length > 0;
 	}
 
-	let finder = $derived(quadtree()
-		.extent([
-			[-1, -1],
-			[$width + 1, $height + 1]
-		])
-		.x(xGetter)
-		.y(yGetter)
-		.addAll(dataset || $data));
+	let finder = $derived(
+		quadtree()
+			.extent([
+				[-1, -1],
+				[$width + 1, $height + 1]
+			])
+			.x(xGetter)
+			.y(yGetter)
+			.addAll(dataset || $data)
+	);
 </script>
 
 <div
@@ -69,7 +58,7 @@
 	onblur={() => (visible = false)}
 	role="tooltip"
 ></div>
-{@render children?.({ x: xGetter(found) || 0, y: yGetter(found) || 0, found, visible, e, })}
+{@render children?.({ x: xGetter(found) || 0, y: yGetter(found) || 0, found, visible, e })}
 
 <style>
 	.bg {

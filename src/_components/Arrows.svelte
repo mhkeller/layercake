@@ -8,11 +8,6 @@
 	import { getContext, onMount, tick } from 'svelte';
 	import { swoopyArrow, getElPosition, parseCssValue } from '../_modules/arrowUtils.js';
 
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Array} [annotations] - A list of annotation objects. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.
@@ -21,7 +16,11 @@
 	 */
 
 	/** @type {Props} */
-	let { annotations = [], annotationClass = '.layercake-annotation', containerClass = '.chart-container' } = $props();
+	let {
+		annotations = [],
+		annotationClass = '.layercake-annotation',
+		containerClass = '.chart-container'
+	} = $props();
 
 	let container = $state();
 

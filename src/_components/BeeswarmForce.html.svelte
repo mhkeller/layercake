@@ -12,17 +12,6 @@
 
 	const nodes = $data.map(d => ({ ...d }));
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Number} [r] - The circle radius size in pixels.
@@ -43,21 +32,23 @@
 		getTitle = undefined
 	} = $props();
 
-	let simulation = $derived(forceSimulation(nodes)
-		.force(
-			'x',
-			forceX()
-				.x(d => $xGet(d))
-				.strength(xStrength)
-		)
-		.force(
-			'y',
-			forceY()
-				.y($height / 2)
-				.strength(yStrength)
-		)
-		.force('collide', forceCollide(r + strokeWidth / 2))
-		.stop());
+	let simulation = $derived(
+		forceSimulation(nodes)
+			.force(
+				'x',
+				forceX()
+					.x(d => $xGet(d))
+					.strength(xStrength)
+			)
+			.force(
+				'y',
+				forceY()
+					.y($height / 2)
+					.strength(yStrength)
+			)
+			.force('collide', forceCollide(r + strokeWidth / 2))
+			.stop()
+	);
 
 	run(() => {
 		for (

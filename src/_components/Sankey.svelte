@@ -8,21 +8,6 @@
 
 	const { data, width, height } = getContext('LayerCake');
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Function} [colorLinks] - A function to return a color for the links.
@@ -49,13 +34,15 @@
 
 	const link = Sankey.sankeyLinkHorizontal();
 
-	let sankey = $derived(Sankey.sankey()
-		.nodeAlign(nodeAlign)
-		.nodeWidth(nodeWidth)
-		.nodePadding(nodePadding)
-		.nodeId(nodeId)
-		.size([$width, $height])
-		.linkSort(linkSort));
+	let sankey = $derived(
+		Sankey.sankey()
+			.nodeAlign(nodeAlign)
+			.nodeWidth(nodeWidth)
+			.nodePadding(nodePadding)
+			.nodeId(nodeId)
+			.size([$width, $height])
+			.linkSort(linkSort)
+	);
 
 	let sankeyData = $derived(sankey($data));
 

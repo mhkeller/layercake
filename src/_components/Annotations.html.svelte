@@ -5,9 +5,6 @@
 <script>
 	const vals = ['top', 'right', 'bottom', 'left'];
 
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Array} [annotations] - A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.

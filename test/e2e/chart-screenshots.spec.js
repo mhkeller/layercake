@@ -28,7 +28,7 @@ exampleFilenames.forEach(filename => {
 	const url = `/example/${filename.replace('.html', '')}`;
 	test(`Snapshot for ${url}`, async ({ page }) => {
 		const timeout = url.endsWith('CirclePackForce') ? 10_000 : undefined;
-		const threshold = url.endsWith('AreaStacked') ? 0.5 : options['threshold'];
+		const threshold = url.endsWith('AreaStacked') ? 0.4 : options['threshold'];
 
 		await page.goto(url);
 		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, timeout, threshold });
@@ -40,7 +40,7 @@ exampleSsrFilenames.forEach(filename => {
 	const url = `/example-ssr/${filename.replace('.html', '')}`;
 	test(`Snapshot for ${url}`, async ({ page }) => {
 		const threshold =
-			url.endsWith('AreaStacked') || url.endsWith('MultiLine') ? 0.5 : options['threshold'];
+			url.endsWith('AreaStacked') || url.endsWith('MultiLine') ? 0.4 : options['threshold'];
 
 		await page.goto(url);
 		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, threshold });

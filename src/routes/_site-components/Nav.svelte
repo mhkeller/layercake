@@ -1,36 +1,38 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	import GuideContents from './GuideContents.svelte';
 	import examples from '../_examples.js';
 	import examplesSsr from '../_examples_ssr.js';
 
-	export let sections;
+	let { sections } = $props();
 
 	// let slug = '';
-	let path;
+	let path = $state();
 	// let type;
 
 	// I was getting a weird artifact of a service-worker.js
 	// being requested. it's fixed now but keep this for
 	// good measure
-	$: isServiceWorker = $page.url.pathname === '/service-worker.js';
+	let isServiceWorker = $derived(page.url.pathname === '/service-worker.js');
 
-	let segment = '';
+	let segment = $state('');
 
-	$: if (!isServiceWorker) {
-		path = $page.url.pathname;
-		// type = path.split('/')[1];
-		segment = `/${path.replace('/', '')}`;
-		// segment = `/${path.replace('/', '').replace(/\$/, '')}`;
-		// slug = path.replace(/\/$/, '').split('/').pop();
-	}
+	$effect(() => {
+		if (!isServiceWorker) {
+			path = page.url.pathname;
+			// type = path.split('/')[1];
+			segment = `/${path.replace('/', '')}`;
+			// segment = `/${path.replace('/', '').replace(/\$/, '')}`;
+			// slug = path.replace(/\/$/, '').split('/').pop();
+		}
+	});
 
 	// let basePath = '/';
-	let open = false;
+	let open = $state(false);
 
-	let nav;
+	let nav = $state();
 
 	const slimName = d => d.split(' (')[0];
 
@@ -61,22 +63,22 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	class="{open ? 'open' : 'closed'} mousecatcher"
-	on:click={() => (open = false)}
-	on:keypress={() => (open = false)}
+	onclick={() => (open = false)}
+	onkeypress={() => (open = false)}
 ></div>
 <div class="container">
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<span
 		class="menu-link {open ? 'menu-open' : 'menu-closed'}"
-		on:click={toggleOpen}
-		on:keypress={toggleOpen}>{open ? 'Close' : 'Menu'}</span
+		onclick={toggleOpen}
+		onkeypress={toggleOpen}>{open ? 'Close' : 'Menu'}</span
 	>
 	<a href="/" class="logo">Layer Cake</a>
 </div>
 
 <ul class="dropdown">
 	<li>
-		<select on:change={loadPage} bind:value={segment}>
+		<select onchange={loadPage} bind:value={segment}>
 			{#if segment.startsWith('/components')}
 				<option value={segment} disabled>Select...</option>
 			{/if}
@@ -104,13 +106,13 @@
 			<a
 				class={segment === '/components' ? 'active' : ''}
 				href="/components"
-				on:click={() => (open = false)}
+				onclick={() => (open = false)}
 				><span class="wide-name">Component gallery</span><span class="short-name">Components</span
 				></a
 			>
 		</li>
 		<li>
-			<a class={segment === '/guide' ? 'active' : ''} href="/guide" on:click={() => (open = false)}
+			<a class={segment === '/guide' ? 'active' : ''} href="/guide" onclick={() => (open = false)}
 				>Guide</a
 			>
 		</li>

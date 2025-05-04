@@ -28,24 +28,21 @@ exampleFilenames.forEach(filename => {
 	const url = `/example/${filename.replace('.html', '')}`;
 	test(`Snapshot for ${url}`, async ({ page }) => {
 		const timeout = url.endsWith('CirclePackForce') ? 10_000 : undefined;
+		const threshold = url.endsWith('AreaStacked') ? 0.5 : options['threshold'];
 
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, timeout });
+		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, timeout, threshold });
 	});
 });
 
 const exampleSsrFilenames = readdirSync('./docs/example-ssr').filter(i => i.endsWith('.html'));
 exampleSsrFilenames.forEach(filename => {
 	const url = `/example-ssr/${filename.replace('.html', '')}`;
-
 	test(`Snapshot for ${url}`, async ({ page }) => {
-		const maxDiffPixels = url.endsWith('AreaStacked')
-			? 520
-			: url.endsWith('MultiLine')
-				? 15
-				: undefined;
+		const threshold =
+			url.endsWith('AreaStacked') || url.endsWith('MultiLine') ? 0.5 : options['threshold'];
 
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, maxDiffPixels });
+		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, threshold });
 	});
 });

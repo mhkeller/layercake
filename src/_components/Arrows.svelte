@@ -10,10 +10,10 @@
 	export let annotations = [];
 
 	/** @type {String} [annotationClass='.layercake-annotation'] - The class name of the text annotation divs. */
-	export let containerClass = '.chart-container';
+	export let annotationClass = '.layercake-annotation';
 
 	/** @type {String} [containerClass='.chart-container'] - The class name / CSS selector of the parent element of the `<LayerCake>` component. This is used to crawl the DOM for the text annotations. */
-	export let annotationClass = '.layercake-annotation';
+	export let containerClass = '.chart-container';
 
 	let container;
 

@@ -132,7 +132,7 @@
 			make it even easier for charts. All of these examples below (except for their canvas
 			components) will load and be responsive without client-side JavaScript. The advantage is that
 			you can see the chart as soon as the page loads, avoiding blank placeholder spaces. HTML
-			charts use percentage-based scales and SVG charts take advanage of certain <a
+			charts use percentage-based scales and SVG charts take advantage of certain <a
 				href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox"
 				target="_blank"
 				rel="noreferrer">viewBox</a

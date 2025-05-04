@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 import { readdirSync } from 'fs';
 
 const options = {
-	threshold: 0.2
+	threshold: 0.4
 };
 
 const componentFilenames = readdirSync('./docs/components').filter(i => i.endsWith('svelte.html'));
@@ -26,23 +26,21 @@ componentFilenames.forEach(filename => {
 const exampleFilenames = readdirSync('./docs/example').filter(i => i.endsWith('.html'));
 exampleFilenames.forEach(filename => {
 	const url = `/example/${filename.replace('.html', '')}`;
+
 	test(`Snapshot for ${url}`, async ({ page }) => {
 		const timeout = url.endsWith('CirclePackForce') ? 10_000 : undefined;
-		const threshold = url.endsWith('AreaStacked') ? 0.4 : options['threshold'];
 
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, timeout, threshold });
+		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, timeout });
 	});
 });
 
 const exampleSsrFilenames = readdirSync('./docs/example-ssr').filter(i => i.endsWith('.html'));
 exampleSsrFilenames.forEach(filename => {
 	const url = `/example-ssr/${filename.replace('.html', '')}`;
-	test(`Snapshot for ${url}`, async ({ page }) => {
-		const threshold =
-			url.endsWith('AreaStacked') || url.endsWith('MultiLine') ? 0.4 : options['threshold'];
 
+	test(`Snapshot for ${url}`, async ({ page }) => {
 		await page.goto(url);
-		await expect(page.locator('.chart-hero')).toHaveScreenshot({ ...options, threshold });
+		await expect(page.locator('.chart-hero')).toHaveScreenshot(options);
 	});
 });

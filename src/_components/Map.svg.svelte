@@ -9,34 +9,47 @@
 
 	const { data, width, height, zGet } = getContext('LayerCake');
 
-	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
-	export let projection;
+	
 
-	/** @type {Number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
-	export let fixedAspectRatio = undefined;
+	
 
-	/** @type {String|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
-	export let fill = undefined;
+	
 
-	/** @type {String} [stroke='#333'] - The shape's stroke color. */
-	export let stroke = '#333';
+	
 
-	/** @type {Number} [strokeWidth=0.5] - The shape's stroke width. */
-	export let strokeWidth = 0.5;
+	
 
-	/** @type {Array<Object>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */
-	export let features = undefined;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {Number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
+	 * @property {String|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.
+	 * @property {String} [stroke] - The shape's stroke color.
+	 * @property {Number} [strokeWidth] - The shape's stroke width.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset.
+	 */
+
+	/** @type {Props} */
+	let {
+		projection,
+		fixedAspectRatio = undefined,
+		fill = undefined,
+		stroke = '#333',
+		strokeWidth = 0.5,
+		features = undefined
+	} = $props();
 
 	/* --------------------------------------------
 	 * Here's how you would do cross-component hovers
 	 */
 	const dispatch = createEventDispatcher();
 
-	$: fitSizeRange = fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height];
+	let fitSizeRange = $derived(fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height]);
 
-	$: projectionFn = projection().fitSize(fitSizeRange, $data);
+	let projectionFn = $derived(projection().fitSize(fitSizeRange, $data));
 
-	$: geoPathFn = geoPath(projectionFn);
+	let geoPathFn = $derived(geoPath(projectionFn));
 
 	function handleMousemove(feature) {
 		return function handleMousemoveFn(e) {
@@ -51,8 +64,8 @@
 
 <g
 	class="map-group"
-	on:mouseout={() => dispatch('mouseout')}
-	on:blur={() => dispatch('mouseout')}
+	onmouseout={() => dispatch('mouseout')}
+	onblur={() => dispatch('mouseout')}
 	role="tooltip"
 >
 	{#each features || $data.features as feature}
@@ -63,8 +76,8 @@
 			{stroke}
 			stroke-width={strokeWidth}
 			d={geoPathFn(feature)}
-			on:mouseover={e => dispatch('mousemove', { e, props: feature.properties })}
-			on:mousemove={handleMousemove(feature)}
+			onmouseover={e => dispatch('mousemove', { e, props: feature.properties })}
+			onmousemove={handleMousemove(feature)}
 			role="tooltip"
 		></path>
 	{/each}

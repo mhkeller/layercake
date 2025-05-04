@@ -3,28 +3,43 @@
 	Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different. This technique comes from @plmrry.
  -->
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { getContext } from 'svelte';
 	import { forceSimulation, forceX, forceManyBody, forceCollide, forceCenter } from 'd3-force';
 
 	const { data, width, height, xScale, xGet, rGet, zGet } = getContext('LayerCake');
 
-	/** @type {Number} [manyBodyStrength=5] - The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more. */
-	export let manyBodyStrength = 5;
+	
 
-	/** @type {Number} [xStrength=0.1] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */
-	export let xStrength = 0.1;
+	
 
-	/** @type {String|undefined} [nodeColor] - Set a color manually otherwise it will default to the `zScale`. */
-	export let nodeColor = undefined;
+	
 
-	/** @type {String} [nodeStroke='#fff'] - The circle's stroke color. */
-	export let nodeStroke = '#fff';
+	
 
-	/** @type {Number} [nodeStrokeWidth=1] - The circle's stroke width, in pixels. */
-	export let nodeStrokeWidth = 1;
+	
 
-	/** @type {boolean} [groupBy=true] - Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center. */
-	export let groupBy = true;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {Number} [manyBodyStrength] - The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more.
+	 * @property {Number} [xStrength] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.
+	 * @property {String|undefined} [nodeColor] - Set a color manually otherwise it will default to the `zScale`.
+	 * @property {String} [nodeStroke] - The circle's stroke color.
+	 * @property {Number} [nodeStrokeWidth] - The circle's stroke width, in pixels.
+	 * @property {boolean} [groupBy] - Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center.
+	 */
+
+	/** @type {Props} */
+	let {
+		manyBodyStrength = 5,
+		xStrength = 0.1,
+		nodeColor = undefined,
+		nodeStroke = '#fff',
+		nodeStrokeWidth = 1,
+		groupBy = true
+	} = $props();
 
 	/* --------------------------------------------
 	 * Make a copy because the simulation will alter the objects
@@ -33,7 +48,7 @@
 
 	const simulation = forceSimulation(initialNodes);
 
-	let nodes = [];
+	let nodes = $state([]);
 
 	simulation.on('tick', () => {
 		nodes = simulation.nodes();
@@ -42,7 +57,7 @@
 	/* ----------------------------------------------
 	 * When variables change, set forces and restart the simulation
 	 */
-	$: {
+	run(() => {
 		simulation
 			.force(
 				'x',
@@ -63,7 +78,7 @@
 			.force('center', forceCenter($width / 2, $height / 2))
 			.alpha(1)
 			.restart();
-	}
+	});
 </script>
 
 {#each nodes as point}

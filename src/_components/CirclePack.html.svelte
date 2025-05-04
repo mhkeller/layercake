@@ -3,47 +3,68 @@
 	Generates an HTML circle pack chart using [d3-hierarchy](https://github.com/d3/d3-hierarchy).
  -->
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { stratify, pack, hierarchy } from 'd3-hierarchy';
 	import { getContext } from 'svelte';
 	import { format } from 'd3-format';
 
 	const { width, height, data } = getContext('LayerCake');
 
-	/** @type {String} [idKey='id'] - The key on each object where the id value lives. */
-	export let idKey = 'id';
+	
 
-	/** @type {String|undefined} [parentKey] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack). */
-	export let parentKey = undefined;
+	
 
-	/** @type {String} [valueKey='value'] - The key on each object where the data value lives. */
-	export let valueKey = 'value';
+	
 
-	/** @type {Function} [labelVisibilityThreshold=r => r > 25] - By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior. */
-	export let labelVisibilityThreshold = r => r > 25;
+	
 
-	/** @type {String} [fill='#fff'] - The circle's fill color. */
-	export let fill = '#fff';
+	
 
-	/** @type {String} [stroke='#999'] - The circle's stroke color. */
-	export let stroke = '#999';
+	
 
-	/** @type {Number} [strokeWidth=1] - The circle's stroke width, in pixels. */
-	export let strokeWidth = 1;
+	
 
-	/** @type {String} [textColor='#333'] - The label text color. */
-	export let textColor = '#333';
+	
 
-	/** @type {String} [textStroke='#000'] - The label text's stroke color. */
-	export let textStroke = '#000';
+	
 
-	/** @type {Number} [textStrokeWidth=0] - The label text's stroke width, in pixels. */
-	export let textStrokeWidth = 0;
+	
 
-	/** @type {Function} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice. */
-	export let sortBy = (a, b) => b.value - a.value; // 'depth' is also a popular choice
+	
 
-	/** @type {Number} [spacing=0] - Whitespace padding between each circle, in pixels. */
-	export let spacing = 0;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {String} [idKey] - The key on each object where the id value lives.
+	 * @property {String|undefined} [parentKey] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack).
+	 * @property {String} [valueKey] - The key on each object where the data value lives.
+	 * @property {Function} [labelVisibilityThreshold] - By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior.
+	 * @property {String} [fill] - The circle's fill color.
+	 * @property {String} [stroke] - The circle's stroke color.
+	 * @property {Number} [strokeWidth] - The circle's stroke width, in pixels.
+	 * @property {String} [textColor] - The label text color.
+	 * @property {String} [textStroke] - The label text's stroke color.
+	 * @property {Number} [textStrokeWidth] - The label text's stroke width, in pixels.
+	 * @property {Function} [sortBy] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice. - 'depth' is also a popular choice
+	 * @property {Number} [spacing] - Whitespace padding between each circle, in pixels.
+	 */
+
+	/** @type {Props} */
+	let {
+		idKey = 'id',
+		parentKey = undefined,
+		valueKey = 'value',
+		labelVisibilityThreshold = r => r > 25,
+		fill = '#fff',
+		stroke = '#999',
+		strokeWidth = 1,
+		textColor = '#333',
+		textStroke = '#000',
+		textStrokeWidth = 0,
+		sortBy = (a, b) => b.value - a.value,
+		spacing = 0
+	} = $props();
 
 	/* --------------------------------------------
 	 * This component will automatically group your data
@@ -51,34 +72,36 @@
 	 * Stash $data here so we can add our own parent
 	 * if there's no `parentKey`
 	 */
-	let parent = {};
-	$: dataset = $data;
+	let parent = $state({});
+	let dataset = $derived($data);
 
-	$: if (parentKey === undefined) {
-		parent = { [idKey]: 'all' };
-		dataset = [...dataset, parent];
-	}
+	run(() => {
+		if (parentKey === undefined) {
+			parent = { [idKey]: 'all' };
+			dataset = [...dataset, parent];
+		}
+	});
 
-	$: stratifier = stratify()
+	let stratifier = $derived(stratify()
 		.id(d => d[idKey])
 		.parentId(d => {
 			if (d[idKey] === parent[idKey]) return '';
 			return d[parentKey] || parent[idKey];
-		});
+		}));
 
-	$: packer = pack().size([$width, $height]).padding(spacing);
+	let packer = $derived(pack().size([$width, $height]).padding(spacing));
 
-	$: stratified = stratifier(dataset);
+	let stratified = $derived(stratifier(dataset));
 
-	$: root = hierarchy(stratified)
+	let root = $derived(hierarchy(stratified)
 		.sum(d => {
 			return d.data[valueKey] || 1;
 		})
-		.sort(sortBy);
+		.sort(sortBy));
 
-	$: packed = packer(root);
+	let packed = $derived(packer(root));
 
-	$: descendants = packed.descendants();
+	let descendants = $derived(packed.descendants());
 
 	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
 	const commas = format(',');

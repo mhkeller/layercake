@@ -3,6 +3,8 @@
 	Generates a canvas map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 	import { geoPath } from 'd3-geo';
@@ -11,28 +13,40 @@
 
 	const { ctx } = getContext('canvas');
 
-	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
-	export let projection;
+	
 
-	/** @type {String} [stroke='#ccc'] - The shape's stroke color. */
-	export let stroke = '#ccc';
+	
 
-	/** @type {Number} [strokeWidth=1] - The shape's stroke width. */
-	export let strokeWidth = 1;
+	
 
-	/** @type {String|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
-	export let fill = undefined;
+	
 
-	/** @type {Array|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */
-	export let features = undefined;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {String} [stroke] - The shape's stroke color.
+	 * @property {Number} [strokeWidth] - The shape's stroke width.
+	 * @property {String|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.
+	 * @property {Array|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset.
+	 */
 
-	$: projectionFn = projection().fitSize([$width, $height], $data);
+	/** @type {Props} */
+	let {
+		projection,
+		stroke = '#ccc',
+		strokeWidth = 1,
+		fill = undefined,
+		features = undefined
+	} = $props();
 
-	$: geoPathFn = geoPath(projectionFn);
+	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
 
-	$: featuresToDraw = features || $data.features;
+	let geoPathFn = $derived(geoPath(projectionFn));
 
-	$: {
+	let featuresToDraw = $derived(features || $data.features);
+
+	run(() => {
 		if ($ctx && geoPath) {
 			scaleCanvas($ctx, $width, $height);
 			$ctx.clearRect(0, 0, $width, $height);
@@ -51,5 +65,5 @@
 				$ctx.stroke();
 			});
 		}
-	}
+	});
 </script>

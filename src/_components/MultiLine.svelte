@@ -8,10 +8,16 @@
 
 	const { data, xGet, yGet, zGet } = getContext('LayerCake');
 
-	/** @type {Function} [curve=curveLinear] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses. */
-	export let curve = curveLinear;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {Function} [curve] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses.
+	 */
 
-	$: path = line().x($xGet).y($yGet).curve(curve);
+	/** @type {Props} */
+	let { curve = curveLinear } = $props();
+
+	let path = $derived(line().x($xGet).y($yGet).curve(curve));
 	// .defined($y)
 </script>
 

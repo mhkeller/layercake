@@ -7,35 +7,52 @@
 
 	const { width, height, xScale, yRange } = getContext('LayerCake');
 
-	/** @type {boolean} [tickMarks=false] - Show a vertical mark for each tick. */
-	export let tickMarks = false;
+	
 
-	/** @type {boolean} [gridlines=true] - Show gridlines extending into the chart area. */
-	export let gridlines = true;
+	
 
-	/** @type {Number} [tickMarkLength=6] - The length of the tick mark. */
-	export let tickMarkLength = 6;
+	
 
-	/** @type {boolean} [baseline=false] - Show a solid line at the bottom. */
-	export let baseline = false;
+	
 
-	/** @type {boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart. */
-	export let snapLabels = false;
+	
 
-	/** @type {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let format = d => d;
+	
 
-	/** @type {Number|Array<any>|Function|undefined} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function. */
-	export let ticks = undefined;
+	
 
-	/** @type {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
-	export let tickGutter = 0;
+	
 
-	/** @type {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
-	export let dx = 0;
+	
 
-	/** @type {Number} [dy=-4] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = -4;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {boolean} [tickMarks] - Show a vertical mark for each tick.
+	 * @property {boolean} [gridlines] - Show gridlines extending into the chart area.
+	 * @property {Number} [tickMarkLength] - The length of the tick mark.
+	 * @property {boolean} [baseline] - Show a solid line at the bottom.
+	 * @property {boolean} [snapLabels] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart.
+	 * @property {(d: any) => string} [format] - A function that passes the current tick value and expects a nicely formatted value in return.
+	 * @property {Number|Array<any>|Function|undefined} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.
+	 * @property {Number} [tickGutter] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min).
+	 * @property {Number} [dx] - Any optional value passed to the `dx` attribute on the text label.
+	 * @property {Number} [dy] - Any optional value passed to the `dy` attribute on the text label.
+	 */
+
+	/** @type {Props} */
+	let {
+		tickMarks = false,
+		gridlines = true,
+		tickMarkLength = 6,
+		baseline = false,
+		snapLabels = false,
+		format = d => d,
+		ticks = undefined,
+		tickGutter = 0,
+		dx = 0,
+		dy = -4
+	} = $props();
 
 	/**@param {Number} i
 	 * @param {boolean} sl */
@@ -51,20 +68,20 @@
 		return 'middle';
 	}
 
-	$: tickLen = tickMarks === true ? (tickMarkLength ?? 6) : 0;
+	let tickLen = $derived(tickMarks === true ? (tickMarkLength ?? 6) : 0);
 
-	$: isBandwidth = typeof $xScale.bandwidth === 'function';
+	let isBandwidth = $derived(typeof $xScale.bandwidth === 'function');
 
 	/** @type {Array<any>} */
-	$: tickVals = Array.isArray(ticks)
+	let tickVals = $derived(Array.isArray(ticks)
 		? ticks
 		: isBandwidth
 			? $xScale.domain()
 			: typeof ticks === 'function'
 				? ticks($xScale.ticks())
-				: $xScale.ticks(ticks);
+				: $xScale.ticks(ticks));
 
-	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
+	let halfBand = $derived(isBandwidth ? $xScale.bandwidth() / 2 : 0);
 </script>
 
 <g class="axis x-axis" class:snapLabels>

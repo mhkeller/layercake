@@ -3,15 +3,23 @@
 	Adds a brush component to create a range between 0 and 1. Bind to the `min` and `max` props to use them in other components. See the [brushable example](https://layercake.graphcics/example/Brush) for use.
  -->
 <script>
+	import { stopPropagation } from 'svelte/legacy';
+
 	import { clamp } from 'yootils';
 
-	/** @type {Number} min - The brush's min value. Useful to bind to. */
-	export let min;
+	
 
-	/** @type {Number} max - The brush's max value. Useful to bind to. */
-	export let max;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {Number} min - The brush's min value. Useful to bind to.
+	 * @property {Number} max - The brush's max value. Useful to bind to.
+	 */
 
-	let brush;
+	/** @type {Props} */
+	let { min = $bindable(), max = $bindable() } = $props();
+
+	let brush = $state();
 
 	const p = x => {
 		const { left, right } = brush.getBoundingClientRect();
@@ -87,8 +95,8 @@
 		max = p < start.min ? start.min : p;
 	});
 
-	$: left = 100 * min;
-	$: right = 100 * (1 - max);
+	let left = $derived(100 * min);
+	let right = $derived(100 * (1 - max));
 </script>
 
 <!-- TODO Add keyboard accessibility. See https://github.com/mhkeller/layercake/pull/258 -->
@@ -96,26 +104,26 @@
 <div
 	bind:this={brush}
 	class="brush-outer"
-	on:mousedown|stopPropagation={reset}
-	on:touchstart|stopPropagation={reset}
+	onmousedown={stopPropagation(reset)}
+	ontouchstart={stopPropagation(reset)}
 >
 	{#if min !== null}
 		<div
 			class="brush-inner"
-			on:mousedown|stopPropagation={move}
-			on:touchstart|stopPropagation={move}
+			onmousedown={stopPropagation(move)}
+			ontouchstart={stopPropagation(move)}
 			style="left: {left}%; right: {right}%"
 		></div>
 		<div
 			class="brush-handle"
-			on:mousedown|stopPropagation={adjust_min}
-			on:touchstart|stopPropagation={adjust_min}
+			onmousedown={stopPropagation(adjust_min)}
+			ontouchstart={stopPropagation(adjust_min)}
 			style="left: {left}%"
 		></div>
 		<div
 			class="brush-handle"
-			on:mousedown|stopPropagation={adjust_max}
-			on:touchstart|stopPropagation={adjust_max}
+			onmousedown={stopPropagation(adjust_max)}
+			ontouchstart={stopPropagation(adjust_max)}
 			style="right: {right}%"
 		></div>
 	{/if}

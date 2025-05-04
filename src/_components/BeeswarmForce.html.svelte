@@ -3,6 +3,8 @@
 	Generates an HTML Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
  -->
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { getContext } from 'svelte';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 
@@ -10,25 +12,38 @@
 
 	const nodes = $data.map(d => ({ ...d }));
 
-	/** @type {Number} [r=4] - The circle radius size in pixels. */
-	export let r = 4;
+	
 
-	/** @type {Number} [strokeWidth=0.5] - The circle's stroke width in pixels. */
-	export let strokeWidth = 0.5;
+	
 
-	/** @type {String} [stroke='#fff'] - The circle's stroke color. */
-	export let stroke = '#fff';
+	
 
-	/** @type {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more. */
-	export let xStrength = 0.95;
+	
 
-	/** @type {Number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more. */
-	export let yStrength = 0.075;
+	
 
-	/** @type {Function|undefined} [getTitle] - An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production. */
-	export let getTitle = undefined;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {Number} [r] - The circle radius size in pixels.
+	 * @property {Number} [strokeWidth] - The circle's stroke width in pixels.
+	 * @property {String} [stroke] - The circle's stroke color.
+	 * @property {Number} [xStrength] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.
+	 * @property {Number} [yStrength] - The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more.
+	 * @property {Function|undefined} [getTitle] - An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.
+	 */
 
-	$: simulation = forceSimulation(nodes)
+	/** @type {Props} */
+	let {
+		r = 4,
+		strokeWidth = 0.5,
+		stroke = '#fff',
+		xStrength = 0.95,
+		yStrength = 0.075,
+		getTitle = undefined
+	} = $props();
+
+	let simulation = $derived(forceSimulation(nodes)
 		.force(
 			'x',
 			forceX()
@@ -42,9 +57,9 @@
 				.strength(yStrength)
 		)
 		.force('collide', forceCollide(r + strokeWidth / 2))
-		.stop();
+		.stop());
 
-	$: {
+	run(() => {
 		for (
 			let i = 0,
 				n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay()));
@@ -53,7 +68,7 @@
 		) {
 			simulation.tick();
 		}
-	}
+	});
 </script>
 
 <div class="bee-group">

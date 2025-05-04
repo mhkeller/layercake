@@ -8,10 +8,10 @@
 
 	const { data, xGet, yScale, zGet } = getContext('LayerCake');
 
-	$: areaGen = area()
+	let areaGen = $derived(area()
 		.x(d => $xGet(d))
 		.y0(d => $yScale(d[0]))
-		.y1(d => $yScale(d[1]));
+		.y1(d => $yScale(d[1])));
 </script>
 
 <g class="area-group">

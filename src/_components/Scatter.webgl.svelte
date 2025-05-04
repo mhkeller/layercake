@@ -3,18 +3,26 @@
 	Generates a a WebGl scatter plot.
  -->
 <script>
+	import { run } from 'svelte/legacy';
+
 	import reglWrapper from 'regl';
 	import { getContext } from 'svelte';
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
-	/** @type {Number} [r=5] - The circle's radius. */
-	export let r = 5;
+	
 
-	/** @type {String} [fill='#0cf'] - The circle's fill color. */
-	export let fill = '#0cf';
+	
 
-	export let stroke = '#000'; // Not yet implemented
+	/**
+	 * @typedef {Object} Props
+	 * @property {Number} [r] - The circle's radius.
+	 * @property {String} [fill] - The circle's fill color.
+	 * @property {string} [stroke] - Not yet implemented
+	 */
+
+	/** @type {Props} */
+	let { r = 5, fill = '#0cf', stroke = '#000' } = $props();
 	// export let strokeWidth = 0;
 
 	function hexToRgbPercent(hex) {
@@ -165,5 +173,7 @@
 		}
 	}
 
-	$: $width, $height, $gl, resize(), render();
+	run(() => {
+		$width, $height, $gl, resize(), render();
+	});
 </script>

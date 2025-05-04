@@ -7,24 +7,36 @@
 
 	const { data, width, height } = getContext('LayerCake');
 
-	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
-	export let projection;
+	
 
-	/** @type {Function} getLabel - An accessor function to get the field to display. */
-	export let getLabel;
+	
 
-	/** @type {Number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here. */
-	export let fixedAspectRatio = undefined;
+	
 
-	/** @type {Function} [getCoordinates=d => d.geometry.coordinates] - An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format. */
-	export let getCoordinates;
+	
 
-	/** @type {Array<Object>|undefined} [features] - A list of labels as GeoJSON features. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
-	export let features = undefined;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {Function} getLabel - An accessor function to get the field to display.
+	 * @property {Number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
+	 * @property {Function} getCoordinates - An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format.
+	 * @property {Array<Object>|undefined} [features] - A list of labels as GeoJSON features. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.
+	 */
 
-	$: fitSizeRange = fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height];
+	/** @type {Props} */
+	let {
+		projection,
+		getLabel,
+		fixedAspectRatio = undefined,
+		getCoordinates,
+		features = undefined
+	} = $props();
 
-	$: projectionFn = projection().fitSize(fitSizeRange, $data);
+	let fitSizeRange = $derived(fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height]);
+
+	let projectionFn = $derived(projection().fitSize(fitSizeRange, $data));
 </script>
 
 <g class="map-labels">

@@ -7,10 +7,16 @@
 
 	const { data, xGet, yGet, zScale, yScale, config } = getContext('LayerCake');
 
-	/** @type {Number} [r=5] - The circle radius. */
-	export let r = 5;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {Number} [r] - The circle radius.
+	 */
 
-	$: midHeight = $yScale.bandwidth() / 2;
+	/** @type {Props} */
+	let { r = 5 } = $props();
+
+	let midHeight = $derived($yScale.bandwidth() / 2);
 </script>
 
 <div class="dot-plot">

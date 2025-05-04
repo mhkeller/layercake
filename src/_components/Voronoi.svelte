@@ -9,7 +9,6 @@
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {String|undefined} [stroke] - An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
@@ -25,11 +24,13 @@
 		dispatcher('voronoi-mouseover', point);
 	}
 
-	let points = $derived($data.map(d => {
-		const point = [$xGet(d), $yGet(d)];
-		point.data = d;
-		return point;
-	}));
+	let points = $derived(
+		$data.map(d => {
+			const point = [$xGet(d), $yGet(d)];
+			point.data = d;
+			return point;
+		})
+	);
 
 	let uniquePoints = $derived(uniques(points, d => d.join(), false));
 

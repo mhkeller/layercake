@@ -7,13 +7,6 @@
 
 	const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
 
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Number} [r] - The circle's radius.
@@ -23,12 +16,7 @@
 	 */
 
 	/** @type {Props} */
-	let {
-		r = 5,
-		fill = '#0cf',
-		stroke = '#000',
-		strokeWidth = 0
-	} = $props();
+	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 0 } = $props();
 </script>
 
 <g class="scatter-group">

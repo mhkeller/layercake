@@ -7,11 +7,6 @@
 
 	const { xGet, yGet } = getContext('LayerCake');
 
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Array<Object>} labels - An array of objects that contain a field containing text label and data fields.

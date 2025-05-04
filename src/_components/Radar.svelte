@@ -8,21 +8,6 @@
 
 	const { data, width, height, xGet, config } = getContext('LayerCake');
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {String} [fill] - The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
@@ -49,10 +34,12 @@
 
 	let angleSlice = $derived((Math.PI * 2) / $config.x.length);
 
-	let path = $derived(line()
-		.curve(curveCardinalClosed)
-		.x((d, i) => d * Math.cos(angleSlice * i - Math.PI / 2))
-		.y((d, i) => d * Math.sin(angleSlice * i - Math.PI / 2)));
+	let path = $derived(
+		line()
+			.curve(curveCardinalClosed)
+			.x((d, i) => d * Math.cos(angleSlice * i - Math.PI / 2))
+			.y((d, i) => d * Math.sin(angleSlice * i - Math.PI / 2))
+	);
 
 	/* The non-D3 line generator way. */
 	// $: path = valus => 'M' + values

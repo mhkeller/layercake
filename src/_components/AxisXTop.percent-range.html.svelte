@@ -9,27 +9,6 @@
 
 	const { xScale, percentRange } = getContext('LayerCake');
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {boolean} [tickMarks] - Show a vertical mark for each tick.
@@ -65,13 +44,15 @@
 	let isBandwidth = $derived(typeof $xScale.bandwidth === 'function');
 
 	/** @type {Array<any>} */
-	let tickVals = $derived(Array.isArray(ticks)
-		? ticks
-		: isBandwidth
-			? $xScale.domain()
-			: typeof ticks === 'function'
-				? ticks($xScale.ticks())
-				: $xScale.ticks(ticks));
+	let tickVals = $derived(
+		Array.isArray(ticks)
+			? ticks
+			: isBandwidth
+				? $xScale.domain()
+				: typeof ticks === 'function'
+					? ticks($xScale.ticks())
+					: $xScale.ticks(ticks)
+	);
 
 	let halfBand = $derived(isBandwidth ? $xScale.bandwidth() / 2 : 0);
 </script>

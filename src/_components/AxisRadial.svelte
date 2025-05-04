@@ -7,9 +7,6 @@
 
 	const { width, height, xScale, extents, config } = getContext('LayerCake');
 
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Number} [lineLengthFactor] - How far to extend the lines from the circle's center. A value of `1` puts them at the circle's circumference.

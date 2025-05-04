@@ -11,8 +11,6 @@
 
 	const { data, width, height, zGet, x } = getContext('LayerCake');
 
-	
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {number} [linkDistance] - --------------------------------------------
@@ -46,12 +44,14 @@ Set a manual color, otherwise it will default to using the zScale
 	let nodes = $state($data.nodes);
 	let links = $state($data.links);
 
-	let simulation = $derived(forceSimulation($data.nodes)
-		.force('link', forceLink($data.links).id($x).distance(linkDistance))
-		.force('charge', forceManyBody().strength(manyBodyStrength))
-		.force('center', forceCenter($width / 2, $height / 2))
-		// .on('tick', simulationUpdate)
-		.stop());
+	let simulation = $derived(
+		forceSimulation($data.nodes)
+			.force('link', forceLink($data.links).id($x).distance(linkDistance))
+			.force('charge', forceManyBody().strength(manyBodyStrength))
+			.force('center', forceCenter($width / 2, $height / 2))
+			// .on('tick', simulationUpdate)
+			.stop()
+	);
 
 	// $: {
 	// 	for ( let i = 0; i < ticks; i += 1 ) {

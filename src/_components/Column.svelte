@@ -7,13 +7,6 @@
 
 	const { data, xGet, yGet, x, yRange, xScale, y, height } = getContext('LayerCake');
 
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {String} [fill] - The shape's fill color.
@@ -23,12 +16,7 @@
 	 */
 
 	/** @type {Props} */
-	let {
-		fill = '#00e047',
-		stroke = '#000',
-		strokeWidth = 0,
-		showLabels = false
-	} = $props();
+	let { fill = '#00e047', stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
 	let columnWidth = $derived(d => {
 		const vals = $xGet(d);

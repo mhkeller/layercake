@@ -7,15 +7,6 @@
 
 	const { data, xGet, zGet, height, config } = getContext('LayerCake');
 
-	
-
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {Number} [r] - The circle radius size in pixels.
@@ -26,14 +17,7 @@
 	 */
 
 	/** @type {Props} */
-	let {
-		r = 3,
-		strokeWidth = 0,
-		stroke = '#fff',
-		spacing = 1.5,
-		getTitle = undefined
-	} = $props();
-
+	let { r = 3, strokeWidth = 0, stroke = '#fff', spacing = 1.5, getTitle = undefined } = $props();
 
 	function dodge(data, { rds = 1, x = d => d } = {}) {
 		const radius2 = rds ** 2;

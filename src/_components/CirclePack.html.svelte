@@ -11,29 +11,6 @@
 
 	const { width, height, data } = getContext('LayerCake');
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {String} [idKey] - The key on each object where the id value lives.
@@ -82,22 +59,26 @@
 		}
 	});
 
-	let stratifier = $derived(stratify()
-		.id(d => d[idKey])
-		.parentId(d => {
-			if (d[idKey] === parent[idKey]) return '';
-			return d[parentKey] || parent[idKey];
-		}));
+	let stratifier = $derived(
+		stratify()
+			.id(d => d[idKey])
+			.parentId(d => {
+				if (d[idKey] === parent[idKey]) return '';
+				return d[parentKey] || parent[idKey];
+			})
+	);
 
 	let packer = $derived(pack().size([$width, $height]).padding(spacing));
 
 	let stratified = $derived(stratifier(dataset));
 
-	let root = $derived(hierarchy(stratified)
-		.sum(d => {
-			return d.data[valueKey] || 1;
-		})
-		.sort(sortBy));
+	let root = $derived(
+		hierarchy(stratified)
+			.sum(d => {
+				return d.data[valueKey] || 1;
+			})
+			.sort(sortBy)
+	);
 
 	let packed = $derived(packer(root));
 

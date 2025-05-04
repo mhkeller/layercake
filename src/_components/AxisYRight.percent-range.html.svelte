@@ -9,29 +9,6 @@
 
 	const { xRange, yScale, width, percentRange } = getContext('LayerCake');
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {boolean} [tickMarks] - Show marks next to the tick label.
@@ -64,8 +41,6 @@
 		units = $percentRange === true ? '%' : 'px'
 	} = $props();
 
-
-
 	/** @param {Number} sum
 	 *  @param {String} val */
 	function calcStringLength(sum, val) {
@@ -73,28 +48,30 @@
 		return sum + charPixelWidth;
 	}
 
-
-
-
 	let isBandwidth = $derived(typeof $yScale.bandwidth === 'function');
 	/** @type {Array<any>} */
-	let tickVals = $derived(Array.isArray(ticks)
-		? ticks
-		: isBandwidth
-			? $yScale.domain()
-			: typeof ticks === 'function'
-				? ticks($yScale.ticks())
-				: $yScale.ticks(ticks));
-	let widestTickLen = $derived(Math.max(
-		10,
-		Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0)))
-	));
-	let tickLen =
-		$derived(tickMarks === true
+	let tickVals = $derived(
+		Array.isArray(ticks)
+			? ticks
+			: isBandwidth
+				? $yScale.domain()
+				: typeof ticks === 'function'
+					? ticks($yScale.ticks())
+					: $yScale.ticks(ticks)
+	);
+	let widestTickLen = $derived(
+		Math.max(
+			10,
+			Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0)))
+		)
+	);
+	let tickLen = $derived(
+		tickMarks === true
 			? labelPosition === 'above'
 				? (tickMarkLength ?? widestTickLen)
 				: (tickMarkLength ?? 6)
-			: 0);
+			: 0
+	);
 	let halfBand = $derived(isBandwidth ? $yScale.bandwidth() / 2 : 0);
 	let maxTickValUnits = $derived(Math.max(...tickVals.map($yScale)));
 </script>

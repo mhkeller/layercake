@@ -81,7 +81,7 @@
 	}
 	/**
 	 * Disable the outline on feature click.
-	 * Depending on map funtionality and accessiblity issues,
+	 * Depending on map functionality and accessiblity issues,
 	 * you may not want this rule. Read more:
 	 * https://developer.mozilla.org/en-US/docs/Web/CSS/:focus
 	 * https://github.com/mhkeller/layercake/issues/63

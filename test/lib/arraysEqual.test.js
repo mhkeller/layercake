@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import fn from '../src/lib/utils/arraysEqual.js';
+import fn from '../../src/lib/utils/arraysEqual.js';
 
 const name = 'arraysEqual';
 

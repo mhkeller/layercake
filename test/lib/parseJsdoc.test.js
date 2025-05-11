@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import fn from '../src/lib/helpers/parseJsdoc.js';
+import fn from '../../src/lib/helpers/parseJsdoc.js';
 
 const name = 'parseJsdoc';
 

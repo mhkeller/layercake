@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import fn from '../src/lib/lib/flatten.js';
+import fn from '../../src/lib/lib/flatten.js';
 
 const name = 'flatten';
 

@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import fn from '../src/lib/utils/canBeZero.js';
+import fn from '../../src/lib/utils/canBeZero.js';
 
 const name = 'canBeZero';
 

@@ -1,7 +1,7 @@
 /* globals describe it */
 import * as assert from 'assert';
 
-import fn from '../src/lib/utils/partialDomain.js';
+import fn from '../../src/lib/utils/partialDomain.js';
 
 const name = 'partialDomain';
 

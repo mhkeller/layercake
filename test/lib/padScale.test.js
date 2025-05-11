@@ -16,7 +16,7 @@ import {
 	scaleSequentialQuantile
 } from 'd3-scale';
 
-import fn from '../src/lib/utils/padScale.js';
+import fn from '../../src/lib/utils/padScale.js';
 
 const name = 'padScale';
 

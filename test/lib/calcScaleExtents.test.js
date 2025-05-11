@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import fn from '../src/lib/helpers/calcScaleExtents.js';
+import fn from '../../src/lib/helpers/calcScaleExtents.js';
 
 import { scaleLinear, scaleBand, scaleSqrt, scalePoint, scaleLog, scaleOrdinal } from 'd3-scale';
 

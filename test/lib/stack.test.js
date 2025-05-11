@@ -2,7 +2,7 @@
 import * as assert from 'assert';
 import { stackOrderAscending, stackOffsetSilhouette } from 'd3-shape';
 
-import fn from '../src/lib/lib/stack.js';
+import fn from '../../src/lib/lib/stack.js';
 
 const name = 'stack';
 

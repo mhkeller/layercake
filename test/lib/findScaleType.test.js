@@ -1,7 +1,7 @@
 /* globals describe it */
 import * as assert from 'assert';
 import * as d3Scale from 'd3-scale';
-import fn from '../src/lib/helpers/findScaleType.js';
+import fn from '../../src/lib/helpers/findScaleType.js';
 
 const name = 'findScaleType';
 

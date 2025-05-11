@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import fn from '../src/lib/settings/getDefaultRange.js';
+import fn from '../../src/lib/settings/getDefaultRange.js';
 
 const defaultReverses = {
 	x: false,

@@ -1,7 +1,7 @@
 /* globals describe it */
 import * as assert from 'assert';
 
-import fn from '../src/lib/lib/uniques.js';
+import fn from '../../src/lib/lib/uniques.js';
 
 const name = 'uniques';
 

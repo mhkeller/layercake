@@ -1,14 +1,17 @@
 import { test, expect } from '@playwright/test';
-
 import { existsSync, statSync } from 'fs';
 
-['example', 'example-ssr'].forEach(path => {
+const groups = ['example', 'example-ssr'];
+
+groups.forEach(path => {
 	test(`Navigate between code samples for "${path}/Bar"`, async ({ page }) => {
 		await page.goto(`${path}/Bar`);
-		await page.getByText('./_components/Bar.svelte', { exact: true }).click();
+		// Using has-text here to avoid the ul intercepting the click
+		// https://github.com/microsoft/playwright/issues/12821#issuecomment-1069630780
+		await page.click(`li:has-text('./_components/Bar.svelte')`);
 		await expect(page.locator('#contents-container')).toContainText(`Generates an SVG bar chart.`);
 
-		await page.getByText('+page.svelte', { exact: true }).click();
+		await page.click(`li:has-text('+page.svelte')`);
 		await expect(page.locator('#contents-container')).toContainText(
 			`import Bar from './_components/Bar.svelte';`
 		);
@@ -19,11 +22,11 @@ test(`Download zip file`, async ({ page }) => {
 	await page.goto(`example/Bar`);
 
 	const downloadPromise = page.waitForEvent('download');
-	await page.getByTitle('download zip file').click();
+	await page.getByRole('button', { name: 'Download' }).click();
 	const download = await downloadPromise;
 
 	const suggestedFileName = download.suggestedFilename();
-	const filePath = 'download/' + suggestedFileName;
+	const filePath = 'test/tmp/download/' + suggestedFileName;
 	await download.saveAs(filePath);
 	expect(existsSync(filePath)).toBeTruthy();
 

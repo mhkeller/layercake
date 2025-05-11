@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.z9qSNSxM.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/BPi1BUPp.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.m4yzfKoE.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Bdn7RFgq.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BzOaiUMj.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.D45R4bTk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.B0I-UmaR.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.DBU2Iwy-.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D1Sc5-V6.js">
@@ -169,15 +169,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Column.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Column.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG column chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, x, yRange, xScale, y, height } = getContext('LayerCake');\\n\\n  /** @type {String} [fill='#00e047'] - The shape's fill color. */\\n  export let fill = '#00e047';\\n\\n  /** @type {String} [stroke='#000'] - The shape's stroke color. */\\n  export let stroke = '#000';\\n\\n  /** @type {Number} [strokeWidth=0] - The shape's stroke width. */\\n  export let strokeWidth = 0;\\n\\n  /** @type {boolean} [showLabels=false] - Show the numbers for each column */\\n  export let showLabels = false;\\n\\n  $: columnWidth = d => {\\n    const vals = $xGet(d);\\n    return Math.abs(vals[1] - vals[0]);\\n  };\\n\\n  $: columnHeight = d => {\\n    return $yRange[0] - $yGet(d);\\n  };\\n\u003C/script>\\n\\n\u003Cg class=\\\"column-group\\\">\\n  {#each $data as d, i}\\n    {@const colHeight = columnHeight(d)}\\n    {@const xGot = $xGet(d)}\\n    {@const xPos = Array.isArray(xGot) ? xGot[0] : xGot}\\n    {@const colWidth = $xScale.bandwidth ? $xScale.bandwidth() : columnWidth(d)}\\n    {@const yValue = $y(d)}\\n    \u003Crect\\n      class=\\\"group-rect\\\"\\n      data-id={i}\\n      data-range={$x(d)}\\n      data-count={yValue}\\n      x={xPos}\\n      y={$yGet(d)}\\n      width={colWidth}\\n      height={colHeight}\\n      {fill}\\n      {stroke}\\n      stroke-width={strokeWidth}\\n    />\\n    {#if showLabels && yValue}\\n      \u003Ctext x={xPos + colWidth / 2} y={$height - colHeight - 5} text-anchor=\\\"middle\\\">{yValue}\u003C/text>\\n    {/if}\\n  {/each}\\n\u003C/g>\\n\\n\u003Cstyle>\\n  text {\\n    font-size: 12px;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Column\",\"/example/Histogram\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Column\",\"/example-ssr/Histogram\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"String\",\"name\":\"fill\",\"required\":false,\"defaultValue\":\"'#00e047'\",\"description\":\"The shape's fill color.\"},{\"kind\":\"type\",\"type\":\"String\",\"name\":\"stroke\",\"required\":false,\"defaultValue\":\"'#000'\",\"description\":\"The shape's stroke color.\"},{\"kind\":\"type\",\"type\":\"Number\",\"name\":\"strokeWidth\",\"required\":false,\"defaultValue\":\"0\",\"description\":\"The shape's stroke width.\"},{\"kind\":\"type\",\"type\":\"boolean\",\"name\":\"showLabels\",\"required\":false,\"defaultValue\":\"false\",\"description\":\"Show the numbers for each column\"}],\"componentDescription\":\"\\n  Generates an SVG column chart.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_cmwc48 = {
+					__sveltekit_1a40dyx = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.z9qSNSxM.js"),
-						import("../_app/immutable/entry/app.BzOaiUMj.js")
+						import("../_app/immutable/entry/start.m4yzfKoE.js"),
+						import("../_app/immutable/entry/app.D45R4bTk.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

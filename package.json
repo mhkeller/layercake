@@ -20,7 +20,7 @@
 		"prebuild": "npm run update_template",
 		"deploy": "npm run build && git add -A && git commit -am 'auto-deploy' && git push origin main",
 		"test:init:snapshots": "playwright test --update-snapshots",
-		"test:lib": "mocha test/*.test.js",
+		"test:lib": "mocha test/lib/*.test.js",
 		"pretest:playwright": "playwright install chromium",
 		"test:playwright": "playwright test",
 		"test": "npm run test:lib && npm run test:playwright"

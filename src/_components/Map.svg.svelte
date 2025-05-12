@@ -63,8 +63,15 @@
 			{stroke}
 			stroke-width={strokeWidth}
 			d={geoPathFn(feature)}
-			on:mouseover={e => dispatch('mousemove', { e, props: feature.properties })}
+			on:mouseover={e => {
+				dispatch('mousemove', { e, props: feature.properties });
+				// You can't set :hover when using `raise` in Firefox. See: https://github.com/mhkeller/layercake/issues/278
+				e.target.classList.add('hovered');
+			}}
 			on:mousemove={handleMousemove(feature)}
+			on:mouseout={e => {
+				e.target.classList.remove('hovered');
+			}}
 			role="tooltip"
 		></path>
 	{/each}
@@ -75,13 +82,13 @@
 		stroke: #333;
 		stroke-width: 0.5px;
 	} */
-	.feature-path:hover {
+	.map-group :global(.feature-path.hovered) {
 		stroke: #000;
 		stroke-width: 2px;
 	}
 	/**
 	 * Disable the outline on feature click.
-	 * Depending on map funtionality and accessiblity issues,
+	 * Depending on map functionality and accessiblity issues,
 	 * you may not want this rule. Read more:
 	 * https://developer.mozilla.org/en-US/docs/Web/CSS/:focus
 	 * https://github.com/mhkeller/layercake/issues/63

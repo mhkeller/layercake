@@ -65,8 +65,15 @@
 			{stroke}
 			stroke-width={strokeWidth}
 			d={geoPathFn(feature)}
-			onmouseover={e => dispatch('mousemove', { e, props: feature.properties })}
+			onmouseover={e => {
+				dispatch('mousemove', { e, props: feature.properties });
+				// You can't set :hover when using `raise` in Firefox. See: https://github.com/mhkeller/layercake/issues/278
+				e.target.classList.add('hovered');
+			}}
 			onmousemove={handleMousemove(feature)}
+			onmouseout={e => {
+				e.target.classList.remove('hovered');
+			}}
 			role="tooltip"
 		></path>
 	{/each}
@@ -77,7 +84,7 @@
 		stroke: #333;
 		stroke-width: 0.5px;
 	} */
-	.feature-path:hover {
+	.map-group :global(.feature-path.hovered) {
 		stroke: #000;
 		stroke-width: 2px;
 	}

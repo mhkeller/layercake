@@ -1,0 +1,58 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - 'row "projection Function None yes A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+      - cell "projection Function":
+        - strong: projection
+        - code: Function
+      - cell "None"
+      - cell "yes"
+      - 'cell "A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+        - code: "projection={geoAlbersUsa}"
+    - row "fixedAspectRatio (Number | undefined) None no By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
+      - cell "fixedAspectRatio (Number | undefined)":
+        - strong: fixedAspectRatio
+        - code: Number
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here."
+    - row "fill (String | undefined) None no The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.":
+      - cell "fill (String | undefined)":
+        - strong: fill
+        - code: String
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set."
+    - row /stroke String '#\d+' no The shape's stroke color\./:
+      - cell "stroke String":
+        - strong: stroke
+        - code: String
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "The shape's stroke color."
+    - row "strokeWidth Number 0.5 no The shape's stroke width.":
+      - cell "strokeWidth Number":
+        - strong: strokeWidth
+        - code: Number
+      - cell "0.5":
+        - code: "0.5"
+      - cell "no"
+      - cell "The shape's stroke width."
+    - row "features (Array<Object> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
+      - cell "features (Array<Object> | undefined)":
+        - strong: features
+        - code: Array<Object>
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
+        - code: $data
+        - code: $data.features

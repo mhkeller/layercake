@@ -1,0 +1,16 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "r Number 5 no The circle radius.":
+      - cell "r Number":
+        - strong: r
+        - code: Number
+      - cell "5":
+        - code: "5"
+      - cell "no"
+      - cell "The circle radius."

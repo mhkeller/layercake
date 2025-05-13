@@ -22,7 +22,7 @@
 		return b[b.length - 1].y - a[a.length - 1].y;
 	});
 
-	let scale = 'individual';
+	let scale = $state('individual');
 </script>
 
 <div class="input-container">

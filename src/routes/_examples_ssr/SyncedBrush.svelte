@@ -7,7 +7,7 @@
 	import pointsThree from '../../_data/pointsThree.csv';
 	import pointsFour from '../../_data/pointsFour.csv';
 
-	let brushExtents = [null, null];
+	let brushExtents = $state([null, null]);
 
 	const xKey = 'myX';
 	const yKey = 'myY';

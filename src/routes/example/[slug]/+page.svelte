@@ -8,20 +8,15 @@
 
 	import examples from '../../_examples.js';
 
-	const md = new MarkdownIt({
-		html: true,
-		linkify: true
-	});
+	const md = new MarkdownIt({ html: true, linkify: true });
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	/** @type {import('./$types').PageData} */
-	export let data;
-	let { slug, content, active } = data;
-	$: slug = data.slug;
-	$: content = data.content;
-	$: active = data.active;
+	/** @type {import('./$types').PageProps} */
+	let { data } = $props();
+
+	let active = $derived(data.active);
 
 	function markdownToHtml(text) {
 		return md.render(text);
@@ -34,20 +29,22 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [content.main]
-		.concat(content.components)
-		.concat(content.componentModules)
-		.concat(content.modules)
-		.concat(content.componentComponents)
-		.concat(content.jsons)
-		.concat(content.csvs);
+	let pages = $derived(
+		[data.content.main]
+			.concat(data.content.components)
+			.concat(data.content.componentModules)
+			.concat(data.content.modules)
+			.concat(data.content.componentComponents)
+			.concat(data.content.jsons)
+			.concat(data.content.csvs)
+	);
 
 	const exampleLookup = new Map();
 	examples.forEach(exmpl => {
 		exampleLookup.set(exmpl.slug, exmpl);
 	});
 
-	$: example = exampleLookup.get(slug);
+	let example = $derived(exampleLookup.get(data.slug));
 
 	function copyToClipboard() {
 		const text = pages.filter(d => cleanTitle(d.title) === active)[0].contents;
@@ -86,28 +83,28 @@
 	</h1>
 
 	<div class="chart-hero">
-		<svelte:component this={example.component} />
+		<example.component />
 	</div>
 
 	<div class="download">
-		<DownloadBtn data={content} {slug} />
+		<DownloadBtn data={data.content} slug={data.slug} />
 	</div>
 
-	{#if content.dek}
+	{#if data.content.dek}
 		<div class="dek">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-			{@html markdownToHtml(content.dek)}
+			{@html markdownToHtml(data.content.dek)}
 		</div>
 	{/if}
 
-	<div id="pages" class={content.dek ? 'has-dek' : ''}>
+	<div id="pages" class={data.content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<li
 					class="tab {active === cleanTitle(page.title) ? 'active' : ''}"
-					on:click={() => (active = cleanTitle(page.title))}
-					on:keypress={() => (active = cleanTitle(page.title))}
+					onclick={() => (active = cleanTitle(page.title))}
+					onkeypress={() => (active = cleanTitle(page.title))}
 				>
 					{page.title}
 				</li>
@@ -115,7 +112,7 @@
 		</ul>
 		<div id="contents-container">
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="copy" on:click={copyToClipboard} on:keypress={copyToClipboard}></div>
+			<div class="copy" onclick={copyToClipboard} onkeypress={copyToClipboard}></div>
 			{#each pages as page}
 				<div
 					class="contents"

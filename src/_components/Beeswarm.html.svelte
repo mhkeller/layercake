@@ -17,7 +17,7 @@
 	 */
 
 	/** @type {Props} */
-	let { r = 3, strokeWidth = 0, stroke = '#fff', spacing = 1.5, getTitle = undefined } = $props();
+	let { r = 3, strokeWidth = 0, stroke = '#fff', spacing = 1.5, getTitle } = $props();
 
 	function dodge(data, { rds = 1, x = d => d } = {}) {
 		const radius2 = rds ** 2;

@@ -28,7 +28,7 @@
 		formatKey = d => titleCase(d),
 		formatValue = d => (isNaN(+d) ? d : commas(d)),
 		offset = -20,
-		dataset = undefined
+		dataset
 	} = $props();
 
 	const w = 150;

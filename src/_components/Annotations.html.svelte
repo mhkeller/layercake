@@ -7,12 +7,12 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Array} [annotations] - A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.
+	 * @property {Array} annotations - A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.
 	 * @property {Function} [getText] - An accessor function to get the field to display.
 	 */
 
 	/** @type {Props} */
-	let { annotations = [], getText = d => d.text } = $props();
+	let { annotations, getText = d => d.text } = $props();
 
 	let fillStyle = $derived(d => {
 		let style = '';

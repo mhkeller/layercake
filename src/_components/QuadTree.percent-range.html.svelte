@@ -24,7 +24,7 @@
 	 */
 
 	/** @type {Props} */
-	let { x = 'x', y = 'y', searchRadius = undefined, dataset = undefined, children } = $props();
+	let { x = 'x', y = 'y', searchRadius, dataset, children } = $props();
 
 	let xGetter = $derived(x === 'x' ? $xGet : $yGet);
 	let yGetter = $derived(y === 'y' ? $yGet : $xGet);

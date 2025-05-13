@@ -24,7 +24,7 @@
 	let {
 		manyBodyStrength = 5,
 		xStrength = 0.1,
-		nodeColor = undefined,
+		nodeColor,
 		nodeStroke = '#fff',
 		nodeStrokeWidth = 1,
 		groupBy = true

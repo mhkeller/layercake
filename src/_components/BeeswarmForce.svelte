@@ -29,7 +29,7 @@
 		stroke = '#fff',
 		xStrength = 0.95,
 		yStrength = 0.075,
-		getTitle = undefined
+		getTitle
 	} = $props();
 
 	let simulation = $derived(

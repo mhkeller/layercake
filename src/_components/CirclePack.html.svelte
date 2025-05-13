@@ -30,7 +30,7 @@
 	/** @type {Props} */
 	let {
 		idKey = 'id',
-		parentKey = undefined,
+		parentKey,
 		valueKey = 'value',
 		labelVisibilityThreshold = r => r > 25,
 		fill = '#fff',

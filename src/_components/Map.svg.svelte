@@ -11,7 +11,7 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
 	 * @property {Number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
 	 * @property {String|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.
 	 * @property {String} [stroke] - The shape's stroke color.
@@ -22,11 +22,11 @@
 	/** @type {Props} */
 	let {
 		projection,
-		fixedAspectRatio = undefined,
-		fill = undefined,
+		fixedAspectRatio,
+		fill,
 		stroke = '#333',
 		strokeWidth = 0.5,
-		features = undefined
+		features
 	} = $props();
 
 	/* --------------------------------------------

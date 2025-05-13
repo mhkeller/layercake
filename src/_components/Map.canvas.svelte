@@ -15,7 +15,7 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
 	 * @property {String} [stroke] - The shape's stroke color.
 	 * @property {Number} [strokeWidth] - The shape's stroke width.
 	 * @property {String|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.
@@ -23,13 +23,7 @@
 	 */
 
 	/** @type {Props} */
-	let {
-		projection,
-		stroke = '#ccc',
-		strokeWidth = 1,
-		fill = undefined,
-		features = undefined
-	} = $props();
+	let { projection, stroke = '#ccc', strokeWidth = 1, fill, features } = $props();
 
 	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
 

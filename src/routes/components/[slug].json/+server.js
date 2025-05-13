@@ -80,11 +80,31 @@ export async function GET({ params }) {
 		.replace('<!--', '')
 		.replace('-->', '')
 		.split('@component')[1];
-	const jsdocPropertyMatches = fromMain.matchAll(/(@type [^\n]*) \*\/[\s]+export/gm);
-	const jsdocParsed = [...jsdocPropertyMatches].map(match => {
-		const [, jsdocComment] = match;
-		return parseJsdoc(jsdocComment);
-	});
+	const jsdocPropertyMatches = fromMain.matchAll(/(@property [^\n]*)/gm);
+	const propertiesDefaultValues = fromMain.match(/let\s+\{([\s\S]*?)\} = \$props/m);
+	let defaultValues = {};
+	if (propertiesDefaultValues) {
+		// split at comma, but not in parens of function parameters
+		defaultValues = propertiesDefaultValues[1]
+			.split(/,(?![^(]*\))/g)
+			.map(i => i.trim())
+			.filter(i => i !== 'children')
+			.reduce((acc, item) => {
+				const [key, value] = item.split(' = ');
+				acc[key] = value;
+				return acc;
+			}, {});
+	}
+
+	const jsdocParsed = [...jsdocPropertyMatches]
+		.map(match => {
+			const [, jsdocComment] = match;
+			let parsed = parseJsdoc(jsdocComment);
+			if (parsed && parsed['name'] in defaultValues)
+				parsed['defaultValue'] = defaultValues[parsed['name']]?.replace('$bindable()', '');
+			return parsed;
+		})
+		.filter(i => i !== null);
 
 	const response = {
 		main,

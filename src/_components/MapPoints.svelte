@@ -13,7 +13,7 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
 	 * @property {Number} [r] - The point's radius.
 	 * @property {String} [fill] - The point's fill color.
 	 * @property {String} [stroke] - The point's stroke color.
@@ -30,7 +30,7 @@
 		stroke = '#000',
 		strokeWidth = 1,
 		opacity = 1,
-		features = undefined
+		features
 	} = $props();
 
 	let projectionFn = $derived(projection().fitSize([$width, $height], $data));

@@ -15,7 +15,7 @@
 	 */
 
 	/** @type {Props} */
-	let { stroke = undefined } = $props();
+	let { stroke } = $props();
 
 	let dispatcher = createEventDispatcher();
 

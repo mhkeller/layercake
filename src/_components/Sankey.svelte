@@ -15,7 +15,7 @@
 	 * @property {Function} [colorText] - A function to return a color for each text label.
 	 * @property {Number} [nodeWidth] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth).
 	 * @property {Number} [nodePadding] - The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding).
-	 * @property {Function|null} [linkSort] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort).
+	 * @property {Function|undefined} [linkSort] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort).
 	 * @property {Function} [nodeId] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).
 	 * @property {Function} [nodeAlign] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more.
 	 */

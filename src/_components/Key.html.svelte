@@ -14,7 +14,7 @@
 	 */
 
 	/** @type {Props} */
-	let { shape = 'square', align = 'start', lookup = undefined, capitalize = true } = $props();
+	let { shape = 'square', align = 'start', lookup, capitalize = true } = $props();
 
 	const { zDomain, zScale } = getContext('LayerCake');
 

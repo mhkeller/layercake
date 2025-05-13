@@ -9,13 +9,13 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Array} [annotations] - A list of annotation objects.
+	 * @property {Array} annotations - A list of annotation objects.
 	 * @property {Function} [getText] - An accessor function to get the field to display.
 	 * @property {boolean} [pr] - If `true` will set the `top` and `left` CSS positions to percentages instead of pixels.
 	 */
 
 	/** @type {Props} */
-	let { annotations = [], getText = d => d.text, pr = $percentRange } = $props();
+	let { annotations, getText = d => d.text, pr = $percentRange } = $props();
 
 	let units = $derived(pr === true ? '%' : 'px');
 </script>

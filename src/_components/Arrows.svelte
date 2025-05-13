@@ -10,16 +10,16 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Array} [annotations] - A list of annotation objects. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.
-	 * @property {String} [annotationClass] - The class name of the text annotation divs.
+	 * @property {Array} annotations - A list of annotation objects. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.
 	 * @property {String} [containerClass] - The class name / CSS selector of the parent element of the `<LayerCake>` component. This is used to crawl the DOM for the text annotations.
+	 * @property {String} [annotationClass] -The class name of the text annotation divs.
 	 */
 
 	/** @type {Props} */
 	let {
-		annotations = [],
-		annotationClass = '.layercake-annotation',
-		containerClass = '.chart-container'
+		annotations,
+		containerClass = '.chart-container',
+		annotationClass = '.layercake-annotation'
 	} = $props();
 
 	let container = $state();

@@ -5,13 +5,13 @@
 <script>
 	/**
 	 * @typedef {Object} Props
-	 * @property {Object} [evt] - A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`.
+	 * @property {Object} evt - A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`.
 	 * @property {Number} [offset] - A y-offset from the hover point, in pixels.
 	 * @property {import('svelte').Snippet<[any]>} [children]
 	 */
 
 	/** @type {Props} */
-	let { evt = {}, offset = -35, children } = $props();
+	let { evt, offset = -35, children } = $props();
 </script>
 
 {#if evt.detail}

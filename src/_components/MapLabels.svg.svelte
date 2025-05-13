@@ -9,7 +9,7 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
 	 * @property {Function} getLabel - An accessor function to get the field to display.
 	 * @property {Number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
 	 * @property {Function} getCoordinates - An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format.
@@ -17,13 +17,7 @@
 	 */
 
 	/** @type {Props} */
-	let {
-		projection,
-		getLabel,
-		fixedAspectRatio = undefined,
-		getCoordinates,
-		features = undefined
-	} = $props();
+	let { projection, getLabel, fixedAspectRatio, getCoordinates, features } = $props();
 
 	let fitSizeRange = $derived(fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height]);
 

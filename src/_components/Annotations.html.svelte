@@ -5,13 +5,16 @@
 <script>
 	const vals = ['top', 'right', 'bottom', 'left'];
 
-	/** @type {Array} annotations - A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options. */
-	export let annotations = [];
+	/**
+	 * @typedef {Object} Props
+	 * @property {Array} annotations - A list of annotation objects. It expects values of `top`, `right`, `bottom` and `left` whose values are CSS values like `'10px'` or `'5%'` that will be used to absolutely position the text div. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.
+	 * @property {Function} [getText] - An accessor function to get the field to display.
+	 */
 
-	/** @type {Function} [getText=d => d.text] - An accessor function to get the field to display. */
-	export let getText = d => d.text;
+	/** @type {Props} */
+	let { annotations, getText = d => d.text } = $props();
 
-	$: fillStyle = d => {
+	let fillStyle = $derived(d => {
 		let style = '';
 		vals.forEach(val => {
 			if (d[val]) {
@@ -19,7 +22,7 @@
 			}
 		});
 		return style;
-	};
+	});
 </script>
 
 <div class="layercake-annotations">

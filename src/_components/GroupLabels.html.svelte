@@ -16,8 +16,8 @@
 	/* --------------------------------------------
 	 * Put the label on the highest value
 	 */
-	$: left = values => $xScale(max(values, $x)) / Math.max(...$xRange);
-	$: top = values => $yScale(max(values, $y)) / Math.max(...$yRange);
+	let left = $derived(values => $xScale(max(values, $x)) / Math.max(...$xRange));
+	let top = $derived(values => $yScale(max(values, $y)) / Math.max(...$yRange));
 </script>
 
 {#each $data as group}

@@ -7,10 +7,10 @@
 
 	const { data, xGet, yGet, zGet, yScale } = getContext('LayerCake');
 
-	$: columnWidth = d => {
+	let columnWidth = $derived(d => {
 		const xVals = $xGet(d);
 		return xVals[1] - xVals[0];
-	};
+	});
 </script>
 
 <g class="bar-group">

@@ -3,20 +3,26 @@
 
 	const { height, data, xGet, yGet } = getContext('LayerCake');
 
-	export let fill = '#000;';
-	export let stroke = '';
-	export let strokeWidth = 0;
+	/**
+	 * @typedef {Object} Props
+	 * @property {string} [fill]
+	 * @property {string} [stroke]
+	 * @property {number} [strokeWidth]
+	 */
 
-	$: x0 = d => $xGet(d)[0];
+	/** @type {Props} */
+	let { fill = '#000;', stroke = '', strokeWidth = 0 } = $props();
 
-	$: columnWidth = d => {
+	let x0 = $derived(d => $xGet(d)[0]);
+
+	let columnWidth = $derived(d => {
 		const vals = $xGet(d);
 		return Math.max(0, vals[1] - vals[0]);
-	};
+	});
 
-	$: columnHeight = d => {
+	let columnHeight = $derived(d => {
 		return $height - $yGet(d);
-	};
+	});
 </script>
 
 {#each $data as d, i}

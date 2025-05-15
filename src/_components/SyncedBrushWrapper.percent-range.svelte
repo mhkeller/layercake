@@ -1,4 +1,6 @@
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
 	import Line from './Line.svelte';
@@ -7,20 +9,33 @@
 	import AxisY from './AxisY.percent-range.html.svelte';
 	import Brush from './Brush.html.svelte';
 
-	export let min = null;
-	export let max = null;
-	export let xKey = 'x';
-	export let yKey = 'y';
-	export let data = [];
-	export let stroke = '#00e047';
+	/**
+	 * @typedef {Object} Props
+	 * @property {any} [min]
+	 * @property {any} [max]
+	 * @property {string} [xKey]
+	 * @property {string} [yKey]
+	 * @property {any} [data]
+	 * @property {string} [stroke]
+	 */
 
-	let brushedData;
-	$: {
+	/** @type {Props} */
+	let {
+		min = $bindable(null),
+		max = $bindable(null),
+		xKey = 'x',
+		yKey = 'y',
+		data = [],
+		stroke = '#00e047'
+	} = $props();
+
+	let brushedData = $state();
+	run(() => {
 		brushedData = data.slice((min || 0) * data.length, (max || 1) * data.length);
 		if (brushedData.length < 2) {
 			brushedData = data.slice(min * data.length, min * data.length + 2);
 		}
-	}
+	});
 </script>
 
 <div class="chart-wrapper">

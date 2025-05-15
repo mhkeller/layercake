@@ -10,28 +10,30 @@
 	/* --------------------------------------------
 	 * Require a D3 projection function
 	 */
-	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
-	export let projection;
 
-	/** @type {Number} [r=3.5] - The point's radius. */
-	export let r = 3.5;
+	/**
+	 * @typedef {Object} Props
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {Number} [r] - The point's radius.
+	 * @property {String} [fill] - The point's fill color.
+	 * @property {String} [stroke] - The point's stroke color.
+	 * @property {Number} [strokeWidth] - The point's stroke width.
+	 * @property {Number} [opacity] - The point's opacity.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.
+	 */
 
-	/** @type {String} [fill='yellow'] - The point's fill color. */
-	export let fill = 'yellow';
+	/** @type {Props} */
+	let {
+		projection,
+		r = 3.5,
+		fill = 'yellow',
+		stroke = '#000',
+		strokeWidth = 1,
+		opacity = 1,
+		features
+	} = $props();
 
-	/** @type {String} [stroke='#000'] - The point's stroke color. */
-	export let stroke = '#000';
-
-	/** @type {Number} [strokeWidth=1] - The point's stroke width. */
-	export let strokeWidth = 1;
-
-	/** @type {Number} [opacity=1] - The point's opacity. */
-	export let opacity = 1;
-
-	/** @type {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
-	export let features = undefined;
-
-	$: projectionFn = projection().fitSize([$width, $height], $data);
+	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
 </script>
 
 <g class="points">

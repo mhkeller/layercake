@@ -3,6 +3,8 @@
 	Generates a canvas scatter plot.
  -->
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
@@ -10,19 +12,18 @@
 
 	const { ctx } = getContext('canvas');
 
-	/** @type {Number} [r=5] - The circle's radius. */
-	export let r = 5;
+	/**
+	 * @typedef {Object} Props
+	 * @property {Number} [r] - The circle's radius.
+	 * @property {String} [fill] - The circle's fill color.
+	 * @property {String} [stroke] - The circle's stroke color.
+	 * @property {Number} [strokeWidth] - The circle's stroke width.
+	 */
 
-	/** @type {String} [fill='#0cf'] - The circle's fill color. */
-	export let fill = '#0cf';
+	/** @type {Props} */
+	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
-	/** @type {String} [stroke='#000'] - The circle's stroke color. */
-	export let stroke = '#000';
-
-	/** @type {Number} [strokeWidth=1] - The circle's stroke width. */
-	export let strokeWidth = 1;
-
-	$: {
+	run(() => {
 		if ($ctx) {
 			/* --------------------------------------------
 			 * If you were to have multiple canvas layers
@@ -46,5 +47,5 @@
 				$ctx.fill();
 			});
 		}
-	}
+	});
 </script>

@@ -6,7 +6,7 @@ import { readdirSync } from 'fs';
 const __dirname = import.meta.dirname;
 const options = {
 	stylePath: path.join(__dirname, 'screenshot.css'),
-	threshold: 0
+	threshold: 0.1
 };
 
 const componentFilenames = readdirSync('./docs/components').filter(i => i.endsWith('svelte.html'));

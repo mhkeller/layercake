@@ -1,8 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+import path from 'path';
 import { readdirSync } from 'fs';
 
+const __dirname = import.meta.dirname;
 const options = {
+	stylePath: path.join(__dirname, 'screenshot.css'),
 	threshold: 0
 };
 

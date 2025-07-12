@@ -1,0 +1,63 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "r Number 4 no The circle radius size in pixels.":
+      - cell "r Number":
+        - strong: r
+        - code: Number
+      - cell "4":
+        - code: "4"
+      - cell "no"
+      - cell "The circle radius size in pixels."
+    - row "strokeWidth Number 1 no The circle's stroke width in pixels.":
+      - cell "strokeWidth Number":
+        - strong: strokeWidth
+        - code: Number
+      - cell "1":
+        - code: "1"
+      - cell "no"
+      - cell "The circle's stroke width in pixels."
+    - row "stroke String '#fff' no The circle's stroke color.":
+      - cell "stroke String":
+        - strong: stroke
+        - code: String
+      - cell "'#fff'":
+        - code: "'#fff'"
+      - cell "no"
+      - cell "The circle's stroke color."
+    - row /xStrength Number \d+\.\d+ no The value passed into the \.strength method on forceX\. See the documentation\./:
+      - cell "xStrength Number":
+        - strong: xStrength
+        - code: Number
+      - cell /\d+\.\d+/:
+        - code: /\d+\.\d+/
+      - cell "no"
+      - cell "The value passed into the .strength method on forceX. See the documentation.":
+        - code: .strength
+        - code: forceX
+        - link "the documentation"
+    - row /yStrength Number \d+\.\d+ no The value passed into the \.strength method on forceY\. See the documentation\./:
+      - cell "yStrength Number":
+        - strong: yStrength
+        - code: Number
+      - cell /\d+\.\d+/:
+        - code: /\d+\.\d+/
+      - cell "no"
+      - cell "The value passed into the .strength method on forceY. See the documentation.":
+        - code: .strength
+        - code: forceY
+        - link "the documentation"
+    - row "getTitle (Function | undefined) None no An accessor function to get the field on the data element to display as a hover label using a <title> tag.":
+      - cell "getTitle (Function | undefined)":
+        - strong: getTitle
+        - code: Function
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "An accessor function to get the field on the data element to display as a hover label using a <title> tag.":
+        - code: <title>

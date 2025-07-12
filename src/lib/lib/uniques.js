@@ -1,9 +1,9 @@
 /**
 	Remove duplicate values from a list with an optional iterator string or function. By default return the transformed value if iteratee exists.
-	@param {Array} list An array of values or objects.
+	@param {Array<any>} list An array of values or objects.
 	@param {string|Function} [accessor] An optional accessor function that takes an object and returns the value to judge uniqueness by. If accessor is a string instead of a function, judges uniqueness by the property named by accessor on each of the objects.
 	@param {boolean} [transform=true] If true, return the transformed value from accessor.
-	@returns {Array}
+	@returns {Array<any>|null} An array of unique values or null if the input is not an array.
 */
 
 export default function uniques(list, accessor, transform = true) {

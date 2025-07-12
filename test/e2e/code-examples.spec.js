@@ -21,6 +21,9 @@ groups.forEach(path => {
 test(`Download zip file`, async ({ page }) => {
 	await page.goto(`example/Bar`);
 
+	// Wait for the page to be fully loaded
+	await page.waitForLoadState('networkidle');
+
 	const downloadPromise = page.waitForEvent('download');
 	await page.getByRole('button', { name: 'Download' }).click();
 	const download = await downloadPromise;

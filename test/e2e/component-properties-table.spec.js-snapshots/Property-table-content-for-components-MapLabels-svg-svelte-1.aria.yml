@@ -21,10 +21,10 @@
       - cell "None"
       - cell "yes"
       - cell "An accessor function to get the field to display."
-    - row "fixedAspectRatio (Number | undefined) None no By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
-      - cell "fixedAspectRatio (Number | undefined)":
+    - row "fixedAspectRatio (number | undefined) None no By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
+      - cell "fixedAspectRatio (number | undefined)":
         - strong: fixedAspectRatio
-        - code: Number
+        - code: number
         - code: undefined
       - cell "None"
       - cell "no"

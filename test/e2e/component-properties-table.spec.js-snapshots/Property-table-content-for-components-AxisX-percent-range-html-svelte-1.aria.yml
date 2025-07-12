@@ -22,10 +22,10 @@
         - code: "true"
       - cell "no"
       - cell "Show gridlines extending into the chart area."
-    - row "tickMarkLength Number 6 no The length of the tick mark.":
-      - cell "tickMarkLength Number":
+    - row "tickMarkLength number 6 no The length of the tick mark.":
+      - cell "tickMarkLength number":
         - strong: tickMarkLength
-        - code: Number
+        - code: number
       - cell "6":
         - code: "6"
       - cell "no"
@@ -46,3 +46,60 @@
         - code: "false"
       - cell "no"
       - cell "Instead of centering the text labels on the first and the last items, align them to the edges of the chart."
+    - 'row "format (d: any) => string d => d no A function that passes the current tick value and expects a nicely formatted value in return."':
+      - 'cell "format (d: any) => string"':
+        - strong: format
+        - code: "(d: any) => string"
+      - cell "d => d":
+        - code: d => d
+      - cell "no"
+      - cell "A function that passes the current tick value and expects a nicely formatted value in return."
+    - row "ticks (number | Array<any> | Function | undefined) None no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.":
+      - cell "ticks (number | Array<any> | Function | undefined)":
+        - strong: ticks
+        - code: number
+        - code: Array<any>
+        - code: Function
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.":
+        - link "d3Scale.ticks":
+          - /url: https://github.com/d3/d3-scale
+    - row "tickGutter number 0 no The amount of whitespace between the start of the tick and the chart drawing area (the yRange min).":
+      - cell "tickGutter number":
+        - strong: tickGutter
+        - code: number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "The amount of whitespace between the start of the tick and the chart drawing area (the yRange min)."
+    - row "dx number 0 no Any optional value passed to the dx attribute on the text label.":
+      - cell "dx number":
+        - strong: dx
+        - code: number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "Any optional value passed to the dx attribute on the text label.":
+        - code: dx
+    - row "dy number 0 no Any optional value passed to the dy attribute on the text label.":
+      - cell "dy number":
+        - strong: dy
+        - code: number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "Any optional value passed to the dy attribute on the text label.":
+        - code: dy
+    - 'row "units string None yes Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
+      - cell "units string":
+        - strong: units
+        - code: string
+      - cell "None"
+      - cell "yes"
+      - 'cell "Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
+        - code: "percentRange={true}"
+        - code: "'%'"
+        - code: "'%'"
+        - code: "'px'"

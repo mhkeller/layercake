@@ -6,10 +6,10 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "stroke String '#ab00d6' no The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
-      - cell "stroke String":
+    - row "stroke string '#ab00d6' no The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+      - cell "stroke string":
         - strong: stroke
-        - code: String
+        - code: string
       - cell "'#ab00d6'":
         - code: "'#ab00d6'"
       - cell "no"

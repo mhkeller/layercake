@@ -14,10 +14,10 @@
         - code: "false"
       - cell "no"
       - cell "Show marks next to the tick label."
-    - row "labelPosition String 'even' no Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'.":
-      - cell "labelPosition String":
+    - row "labelPosition string 'even' no Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'.":
+      - cell "labelPosition string":
         - strong: labelPosition
-        - code: String
+        - code: string
       - cell "'even'":
         - code: "'even'"
       - cell "no"
@@ -38,12 +38,67 @@
         - code: "true"
       - cell "no"
       - cell "Show gridlines extending into the chart area."
-    - row "tickMarkLength (Number | undefined) undefined no The length of the tick mark. If not set, becomes the length of the widest tick.":
-      - cell "tickMarkLength (Number | undefined)":
+    - row "tickMarkLength (number | undefined) undefined no The length of the tick mark. If not set, becomes the length of the widest tick.":
+      - cell "tickMarkLength (number | undefined)":
         - strong: tickMarkLength
-        - code: Number
+        - code: number
         - code: undefined
       - cell "undefined":
         - code: undefined
       - cell "no"
       - cell "The length of the tick mark. If not set, becomes the length of the widest tick."
+    - 'row "format (d: any) => string d => d no A function that passes the current tick value and expects a nicely formatted value in return."':
+      - 'cell "format (d: any) => string"':
+        - strong: format
+        - code: "(d: any) => string"
+      - cell "d => d":
+        - code: d => d
+      - cell "no"
+      - cell "A function that passes the current tick value and expects a nicely formatted value in return."
+    - row "ticks (number | Array<any> | Function) 4 no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.":
+      - cell "ticks (number | Array<any> | Function)":
+        - strong: ticks
+        - code: number
+        - code: Array<any>
+        - code: Function
+      - cell "4":
+        - code: "4"
+      - cell "no"
+      - cell "If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.":
+        - link "d3Scale.ticks":
+          - /url: https://github.com/d3/d3-scale
+    - row "tickGutter number 0 no The amount of whitespace between the start of the tick and the chart drawing area (the xRange min).":
+      - cell "tickGutter number":
+        - strong: tickGutter
+        - code: number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "The amount of whitespace between the start of the tick and the chart drawing area (the xRange min)."
+    - row "dx number 0 no Any optional value passed to the dx attribute on the text label.":
+      - cell "dx number":
+        - strong: dx
+        - code: number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "Any optional value passed to the dx attribute on the text label.":
+        - code: dx
+    - row "dy number 0 no Any optional value passed to the dy attribute on the text label.":
+      - cell "dy number":
+        - strong: dy
+        - code: number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "Any optional value passed to the dy attribute on the text label.":
+        - code: dy
+    - row /charPixelWidth number \d+\.\d+ no Used to calculate the widest label length to offset labels\. Adjust if the automatic tick length doesn't look right because you have a bigger font \(or just set tickMarkLength to a pixel value\)\./:
+      - cell "charPixelWidth number":
+        - strong: charPixelWidth
+        - code: number
+      - cell /\d+\.\d+/:
+        - code: /\d+\.\d+/
+      - cell "no"
+      - cell "Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set tickMarkLength to a pixel value).":
+        - code: tickMarkLength

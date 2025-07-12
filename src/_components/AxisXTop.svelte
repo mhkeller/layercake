@@ -16,7 +16,7 @@
 	/** @type {number} [tickMarkLength=6] - The length of the tick mark. */
 	export let tickMarkLength = 6;
 
-	/** @type {boolean} [baseline=false] – Show a solid line at the bottom. */
+	/** @type {boolean} [baseline=false] - Show a solid line at the bottom. */
 	export let baseline = false;
 
 	/** @type {boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart. */
@@ -51,7 +51,7 @@
 		return 'middle';
 	}
 
-	$: tickLen = tickMarks === true ? tickMarkLength ?? 6 : 0;
+	$: tickLen = tickMarks === true ? (tickMarkLength ?? 6) : 0;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
 

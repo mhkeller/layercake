@@ -26,19 +26,19 @@
   ]
   --------------------------------------------
 
-	@param {Array} data The data to be transformed.
-	@param {Array} keys The groups names to break out into separate groups.
+	@param {Array<Record<string, any>>} data The data to be transformed.
+	@param {Array<string>} keys The groups names to break out into separate groups.
 	@param {Object} options Options object
 	@param {string} [options.groupTo='group'] This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
 	@param {string} [options.valueTo='value'] The name of the new field on each row of data to store the value under. Defaults to 'value'.
 	@param {string[]} [options.keepKeys] Any keys we want to explicitly keep. If this is unset, all keys not specified in your groups will be kept. The list of full keys is determined by naively looking at the first row of the data.
 
-	@returns {Array} [dataLong] The transformed data that is a list of one object for each group. Each object has `key` and `values` where `key` is the group name and `values` is a list of transformed data.
+	@returns {Array<{[key: string]: string | Array<Record<string, any>>}>} [dataLong] The transformed data that is a list of one object for each group. Each object has `key` and `values` where `key` is the group name and `values` is a list of transformed data.
 */
 
 export default function groupLonger(
-	data,
-	keys,
+	/** @type {Array<Record<string, any>>} */ data,
+	/** @type {Array<string>} */ keys,
 	{ groupTo = 'group', valueTo = 'value', keepKeys = undefined } = {}
 ) {
 	if (!Array.isArray(data)) {
@@ -48,15 +48,16 @@ export default function groupLonger(
 		throw new TypeError('The second argument of groupLonger() must be an array of key names');
 	}
 	const keysSet = new Set(keys);
-	const keep = keepKeys || Object.keys(data[0]).filter(d => !keysSet.has(d));
+	const keep = keepKeys || Object.keys(data[0] || {}).filter(d => !keysSet.has(d));
 
 	return keys.map(key => {
 		return {
 			[groupTo]: key,
 			values: data.map(d => {
+				const dataItem = /** @type {Record<string, any>} */ (d);
 				return {
-					...Object.fromEntries(keep.map(k => [k, d[k]])),
-					[valueTo]: d[key],
+					...Object.fromEntries(keep.map(k => [k, dataItem[k]])),
+					[valueTo]: dataItem[key],
 					[groupTo]: key
 				};
 			})

@@ -1,3 +1,5 @@
+import { stack as d3Stack } from 'd3-shape';
+
 /**
 	Stack your data with `.stack()` from d3 - shape for stacked bar or area charts
 	A wrapper around [d3-shape.stack](https://github.com/d3/d3-shape#stack)
@@ -22,18 +24,15 @@
 		[ [1440, 1840], [2340, 2840], [3960, 4560], [6720, 7420] ]  // dates
 	]
 
-	@param {Array} data The data to be stacked.
-	@param {Array|Function} keys The group names to stack, passed to `stack.keys()`.
+	@param {Array<any>} data The data to be stacked.
+	@param {Array<string>|Function} keys The group names to stack, passed to `stack.keys()`.
 	@param {Object} options Options object
 	@param {string|number|Function} [options.value] An accessor function passed to `stack.value()`. If this is a string or number, it will be transformed into an accessor for that key.
-	@param {Array|Function} [options.order] The stack order passed to `stack.order()`.
+	@param {Array<any>|Function} [options.order] The stack order passed to `stack.order()`.
 	@param {Function} [options.offset] The offset function passed to `stack.offset()`.
 
-	@returns {Array} stackedData The transformed data
+	@returns {Array<any>} stackedData The transformed data
  */
-
-import { stack as d3Stack } from 'd3-shape';
-
 export default function stack(data, keys, { value, order, offset } = {}) {
 	if (typeof data !== 'object') {
 		throw new TypeError('The first argument of stack() must be an array or data object');
@@ -43,14 +42,22 @@ export default function stack(data, keys, { value, order, offset } = {}) {
 	}
 	let stacker = d3Stack().keys(keys);
 
-	if (value) {
-		stacker = stacker.value(value);
+	if (typeof value !== 'undefined' && value !== null) {
+		if (typeof value === 'string') {
+			stacker = stacker.value(/** @param {any} d */ d => d[value]);
+		} else if (typeof value === 'number') {
+			stacker = stacker.value(value);
+		} else if (typeof value === 'function') {
+			stacker = stacker.value(
+				/** @type {(d: any, key: string, i: number, data: any[]) => number} */ (value)
+			);
+		}
 	}
 	if (order) {
-		stacker = stacker.order(order);
+		stacker = stacker.order(/** @type {any} */ (order));
 	}
 	if (offset) {
-		stacker = stacker.offset(offset);
+		stacker = stacker.offset(/** @type {any} */ (offset));
 	}
 
 	return stacker(data);

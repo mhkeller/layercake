@@ -1,0 +1,40 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "fill string '#00e047' no The shape's fill color.":
+      - cell "fill string":
+        - strong: fill
+        - code: string
+      - cell "'#00e047'":
+        - code: "'#00e047'"
+      - cell "no"
+      - cell "The shape's fill color."
+    - row /stroke string '#\d+' no The shape's stroke color\./:
+      - cell "stroke string":
+        - strong: stroke
+        - code: string
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "The shape's stroke color."
+    - row "strokeWidth number 0 no The shape's stroke width.":
+      - cell "strokeWidth number":
+        - strong: strokeWidth
+        - code: number
+      - cell "0":
+        - code: "0"
+      - cell "no"
+      - cell "The shape's stroke width."
+    - row "showLabels boolean false no Show the numbers for each column":
+      - cell "showLabels boolean":
+        - strong: showLabels
+        - code: boolean
+      - cell "false":
+        - code: "false"
+      - cell "no"
+      - cell "Show the numbers for each column"

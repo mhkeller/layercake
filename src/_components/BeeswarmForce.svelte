@@ -25,7 +25,7 @@
 	/** @type {number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`. See [the documentation](https://github.com/d3/d3-force#y_strength). */
 	export let yStrength = 0.075;
 
-	/** @type {Function|undefined} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `<title>` tag. */
+	/** @type {Function|undefined} [getTitle] - An accessor function to get the field on the data element to display as a hover label using a `<title>` tag. */
 	export let getTitle = undefined;
 
 	$: simulation = forceSimulation(nodes)

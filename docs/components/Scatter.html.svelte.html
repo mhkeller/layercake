@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DhK0_rd3.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/BTq507WR.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.BjJKyq9e.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/vB5YNC-W.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.D09jkIhc.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BagnZOlL.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BijOn8MJ.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.C-yvW9XX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/odHAYBVV.js">
@@ -152,15 +152,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/Scatter.html.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"Scatter.html.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an HTML scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n\\n  const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');\\n\\n  /** @type {number} [r=5] - The circle's radius. */\\n  export let r = 5;\\n\\n  /** @type {string} [fill='#0cf'] - The circle's fill color. */\\n  export let fill = '#0cf';\\n\\n  /** @type {string} [stroke='#000'] - The circle's stroke color. */\\n  export let stroke = '#000';\\n\\n  /** @type {number} [strokeWidth=1] - The circle's stroke width. */\\n  export let strokeWidth = 1;\\n\u003C/script>\\n\\n\u003Cdiv class=\\\"scatter-group\\\">\\n  {#each $data as d}\\n    \u003Cdiv\\n      class=\\\"circle\\\"\\n      style=\\\"\\n        left: {$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}%;\\n        top: {$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}%;\\n        width: {r * 2}px;\\n        height: {r * 2}px;\\n        background-color: {fill};\\n        border: {strokeWidth}px solid {stroke};\\n      \\\"\\n    >\u003C/div>\\n  {/each}\\n\u003C/div>\\n\\n\u003Cstyle>\\n  .circle {\\n    position: absolute;\\n    transform: translate(-50%, -50%);\\n    border-radius: 50%;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Scatter\",\"/example-ssr/Timeplot\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"number\",\"name\":\"r\",\"required\":false,\"defaultValue\":\"5\",\"description\":\"The circle's radius.\"},{\"kind\":\"type\",\"type\":\"string\",\"name\":\"fill\",\"required\":false,\"defaultValue\":\"'#0cf'\",\"description\":\"The circle's fill color.\"},{\"kind\":\"type\",\"type\":\"string\",\"name\":\"stroke\",\"required\":false,\"defaultValue\":\"'#000'\",\"description\":\"The circle's stroke color.\"},{\"kind\":\"type\",\"type\":\"number\",\"name\":\"strokeWidth\",\"required\":false,\"defaultValue\":\"1\",\"description\":\"The circle's stroke width.\"}],\"componentDescription\":\"\\n  Generates an HTML scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_bu9iqb = {
+					__sveltekit_14xpus1 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DhK0_rd3.js"),
-						import("../_app/immutable/entry/app.D09jkIhc.js")
+						import("../_app/immutable/entry/start.BjJKyq9e.js"),
+						import("../_app/immutable/entry/app.BagnZOlL.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

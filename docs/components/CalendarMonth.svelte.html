@@ -38,16 +38,16 @@
 		<link href="../_app/immutable/assets/0.DxdymbDz.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/_components.C60mt34v.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/4.ixPY-le2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DhK0_rd3.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/BTq507WR.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.BjJKyq9e.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/vB5YNC-W.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dc8w0MKf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.D09jkIhc.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BagnZOlL.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bh0c0Bo_.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/9oYeDuEJ.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D4ufLdXk.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CwEcf403.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.BijOn8MJ.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.C-yvW9XX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DNSHY1Ls.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DMRkByBl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/odHAYBVV.js">
@@ -171,15 +171,15 @@
 			<script type="application/json" data-sveltekit-fetched data-url="/components/CalendarMonth.svelte.json">{"status":200,"statusText":"","headers":{},"body":"{\"main\":{\"slug\":\"CalendarMonth.svelte\",\"contents\":\"\u003C!--\\n  @component\\n  Generates an SVG calendar chart.\\n -->\\n\u003Cscript>\\n  import { getContext } from 'svelte';\\n  import { utcFormat } from 'd3-time-format';\\n  import { utcDay } from 'd3-time';\\n\\n  const { width, height, data, x, z, zScale, extents } = getContext('LayerCake');\\n\\n  /** @type {Function} [calcCellSize=(w, h) => Math.min(w / 7, h / 5)] - A function givn the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom. */\\n  export let calcCellSize = (w, h) => Math.min(w / 7, h / 5);\\n\\n  const getDate = utcFormat('%Y-%m-%d');\\n  const getDayOfWeek = utcFormat('%w');\\n  const getWeekOfYear = utcFormat('%U');\\n\\n  $: count = date => {\\n    const stringDate = date.toISOString().split('T')[0];\\n    const days = $data.filter(d => $x(d) === stringDate)[0];\\n    if (days) {\\n      return $z(days);\\n    }\\n    return 0;\\n  };\\n\\n  $: fillColor = day => {\\n    const n = count(day);\\n    return n ? $zScale(n) : '#fff';\\n  };\\n\\n  $: cellSize = calcCellSize($width, $height);\\n\\n  let days;\\n\\n  /* --------------------------------------------\\n   * Calculate what month we're in and generate the full days of that month\\n   */\\n  $: {\\n    const minDate = $extents.x[0];\\n    const parts = minDate.split('-').map(d => +d);\\n\\n    days = utcDay.range(\\n      new Date(Date.UTC(parts[0], parts[1] - 1, 1)),\\n      new Date(Date.UTC(parts[0], parts[1], 1))\\n    );\\n  }\\n\\n  $: rectX = day => getDayOfWeek(day) * cellSize;\\n  $: rectY = day => {\\n    const startWeek = getWeekOfYear(new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), 1)));\\n    const thisWeek = getWeekOfYear(day);\\n    const weekDiff = thisWeek - startWeek;\\n    return weekDiff * cellSize;\\n  };\\n\\n  function showCount(day) {\\n    console.log(day, count(day));\\n  }\\n\u003C/script>\\n\\n{#each days as day}\\n  \u003Crect\\n    class=\\\"day\\\"\\n    width={cellSize}\\n    height={cellSize}\\n    x={rectX(day)}\\n    y={rectY(day)}\\n    style=\\\"fill:{fillColor(day)};\\\"\\n    on:mouseenter={() => showCount(day)}\\n    role=\\\"tooltip\\\">\u003Ctitle>{getDate(day)}\u003C/title>\u003C/rect\\n  >\\n{/each}\\n\\n\u003Cstyle>\\n  .day {\\n    stroke: #000;\\n    stroke-width: 1;\\n    fill: #fff;\\n  }\\n\u003C/style>\"},\"dek\":\"\",\"usedIn\":[{\"group\":\"Regular\",\"matches\":[\"/example/Calendar\"]},{\"group\":\"SSR\",\"matches\":[\"/example-ssr/Calendar\"]}],\"hasjsDoctable\":true,\"jsdocParsed\":[{\"kind\":\"type\",\"type\":\"Function\",\"name\":\"calcCellSize\",\"required\":false,\"defaultValue\":\"(w, h) => Math.min(w / 7, h / 5)\",\"description\":\"A function givn the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom.\"}],\"componentDescription\":\"\\n  Generates an SVG calendar chart.\\n \\n\",\"modules\":[]}"}</script>
 			<script>
 				{
-					__sveltekit_bu9iqb = {
+					__sveltekit_14xpus1 = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DhK0_rd3.js"),
-						import("../_app/immutable/entry/app.D09jkIhc.js")
+						import("../_app/immutable/entry/start.BjJKyq9e.js"),
+						import("../_app/immutable/entry/app.BagnZOlL.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 4],

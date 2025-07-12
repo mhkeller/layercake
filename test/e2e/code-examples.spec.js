@@ -6,6 +6,9 @@ const groups = ['example', 'example-ssr'];
 groups.forEach(path => {
 	test(`Navigate between code samples for "${path}/Bar"`, async ({ page }) => {
 		await page.goto(`${path}/Bar`);
+
+		// Wait for the page to be fully loaded
+		await page.waitForLoadState('networkidle');
 		// Using has-text here to avoid the ul intercepting the click
 		// https://github.com/microsoft/playwright/issues/12821#issuecomment-1069630780
 		await page.click(`li:has-text('./_components/Bar.svelte')`);

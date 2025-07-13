@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# This is archived documentation for Layer Cake pre-Svelte 5 runes
+# For current documentation, visit: https://layercake.graphics

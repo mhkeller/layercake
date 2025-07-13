@@ -1,4 +1,4 @@
-Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/mhkeller.github.io/layercake.pre-runes/main/static/layercake-logo-500x400.png" width="115" align="right" alt="layercake-logo">](https://mhkeller.github.io/layercake)
+Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.pre-runes/main/static/layercake-logo-500x400.png" width="115" align="right" alt="layercake-logo">](https://mhkeller.github.io/layercake)
 ===
 
 # 🚨 ARCHIVED REPOSITORY 🚨

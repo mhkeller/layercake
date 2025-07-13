@@ -28,13 +28,13 @@
 		getTitle
 	} = $props();
 
+	/** @type {any[]} */
+	let nodes = $state([]);
+
 	let simulation = $derived.by(() => {
-		$width;
-		$height;
+		if (!$width || !$height || !$data.length) return null;
 
-		console.log('width', $width, 'height', $height);
-
-		return forceSimulation($data.map(d => ({ ...d })))
+		const sim = forceSimulation($data.map((/** @type {any} */ d) => ({ ...d })))
 			.force(
 				'x',
 				forceX()
@@ -49,29 +49,34 @@
 			)
 			.force('collide', forceCollide(r))
 			.stop();
+
+		return sim;
 	});
 
 	$effect(() => {
-		$width;
-		$height;
-		simulation;
-		untrack(() => {
-			for (
-				let i = 0,
-					n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay()));
-				i < n;
-				++i
-			) {
-				console.log('running');
+		if (!simulation) {
+			nodes = [];
+			return;
+		}
 
+		untrack(() => {
+			// Run the simulation for a fixed number of iterations
+			const maxIterations = Math.ceil(
+				Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())
+			);
+
+			for (let i = 0; i < maxIterations; ++i) {
 				simulation.tick();
 			}
+
+			// Update nodes state to trigger reactivity
+			nodes = [...simulation.nodes()];
 		});
 	});
 </script>
 
 <g class="bee-group">
-	{#each simulation.nodes() as node}
+	{#each nodes as node}
 		<circle fill={$zGet(node)} {stroke} stroke-width={strokeWidth} cx={node.x} cy={node.y} {r}>
 			{#if getTitle}
 				<title>{getTitle(node)}</title>

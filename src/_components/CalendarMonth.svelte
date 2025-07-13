@@ -11,37 +11,29 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} [calcCellSize=(w, h) => Math.min(w / 7, h / 5)] - A function given the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom.
+	 * @property {(w: number, h: number) => number} [calcCellSize] - A function given the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom.
 	 */
 
 	/** @type {Props} */
-	let {
-		calcCellSize = /** @param {number} w @param {number} h */ (w, h) => Math.min(w / 7, h / 5)
-	} = $props();
+	let { calcCellSize = (w, h) => Math.min(w / 7, h / 5) } = $props();
 
 	const getDate = utcFormat('%Y-%m-%d');
 	const getDayOfWeek = utcFormat('%w');
 	const getWeekOfYear = utcFormat('%U');
 
-	let count = $derived(
-		/** @param {Date} date */
-		date => {
-			const stringDate = date.toISOString().split('T')[0];
-			const days = $data.filter(/** @param {any} d */ d => $x(d) === stringDate)[0];
-			if (days) {
-				return $z(days);
-			}
-			return 0;
+	let count = $derived(date => {
+		const stringDate = date.toISOString().split('T')[0];
+		const days = $data.filter(d => $x(d) === stringDate)[0];
+		if (days) {
+			return $z(days);
 		}
-	);
+		return 0;
+	});
 
-	let fillColor = $derived(
-		/** @param {Date} day */
-		day => {
-			const n = count(day);
-			return n ? $zScale(n) : '#fff';
-		}
-	);
+	let fillColor = $derived(day => {
+		const n = count(day);
+		return n ? $zScale(n) : '#fff';
+	});
 
 	let cellSize = $derived(calcCellSize($width, $height));
 
@@ -53,7 +45,7 @@
 	 */
 	$effect(() => {
 		const minDate = $extents.x[0];
-		const parts = minDate.split('-').map(/** @param {string} d */ d => +d);
+		const parts = minDate.split('-').map(d => +d);
 
 		days = utcDay.range(
 			new Date(Date.UTC(parts[0], parts[1] - 1, 1)),
@@ -61,21 +53,15 @@
 		);
 	});
 
-	let rectX = $derived(
-		/** @param {Date} day */
-		day => +getDayOfWeek(day) * cellSize
-	);
-	let rectY = $derived(
-		/** @param {Date} day */
-		day => {
-			const startWeek = +getWeekOfYear(
-				new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), 1))
-			);
-			const thisWeek = +getWeekOfYear(day);
-			const weekDiff = thisWeek - startWeek;
-			return weekDiff * cellSize;
-		}
-	);
+	let rectX = $derived(day => +getDayOfWeek(day) * cellSize);
+	let rectY = $derived(day => {
+		const startWeek = +getWeekOfYear(
+			new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), 1))
+		);
+		const thisWeek = +getWeekOfYear(day);
+		const weekDiff = thisWeek - startWeek;
+		return weekDiff * cellSize;
+	});
 
 	/**
 	 * @param {Date} day

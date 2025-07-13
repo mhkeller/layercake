@@ -1,6 +1,4 @@
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { LayerCake, ScaledSvg, calcExtents } from 'layercake';
 	import { tweened } from 'svelte/motion';
 	import * as eases from 'svelte/easing';
@@ -19,10 +17,10 @@
 
 	const extents = calcExtents(data, extentGetters);
 
-	run(() => {
+	$effect(() => {
 		xDomain.set(scale === 'shared' ? fullExtents.x : extents.x);
 	});
-	run(() => {
+	$effect(() => {
 		yDomain.set(scale === 'shared' ? fullExtents.y : extents.y);
 	});
 </script>

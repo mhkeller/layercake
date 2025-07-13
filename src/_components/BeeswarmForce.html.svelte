@@ -3,8 +3,6 @@
 	Generates an HTML Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { getContext } from 'svelte';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 

@@ -3,8 +3,6 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
@@ -35,13 +33,13 @@
 	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
 
 	let featuresToDraw = $derived(features || $data.features);
-	run(() => {
+	$effect(() => {
 		if ($ctx) {
 			scaleCanvas($ctx, $width, $height);
 			$ctx.clearRect(0, 0, $width, $height);
 
 			// To scale the circle by size, set width and height to `$rGet(d.properties)`
-			featuresToDraw.forEach(d => {
+			featuresToDraw.forEach(/** @param {any} d */ d => {
 				$ctx.beginPath();
 				const coordinates = projectionFn(d.geometry.coordinates);
 				$ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);

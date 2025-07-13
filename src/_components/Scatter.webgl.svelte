@@ -3,8 +3,6 @@
 	Generates a a WebGl scatter plot.
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
 	import reglWrapper from 'regl';
 	import { getContext } from 'svelte';
 
@@ -172,7 +170,7 @@
 		}
 	}
 
-	run(() => {
+	$effect(() => {
 		$width, $height, $gl, resize(), render();
 	});
 </script>

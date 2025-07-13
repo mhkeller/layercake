@@ -19,7 +19,7 @@
 	 * @property {Function} [formatKey = d => titleCase(d)] - A function to format the series name.
 	 * @property {Function} [formatValue = d => (isNaN(+d) ? d : commas(d))] - A function to format the value.
 	 * @property {number} [offset=-20] - A y-offset from the hover point, in pixels.
-	 * @property {Array<Object>|undefined} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
+	 * @property {Array} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
 	 */
 
 	/** @type {Props} */

@@ -3,8 +3,6 @@
 	Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different. This technique comes from @plmrry.
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { getContext } from 'svelte';
 	import { forceSimulation, forceX, forceManyBody, forceCollide, forceCenter } from 'd3-force';
 
@@ -46,12 +44,12 @@
 	/* ----------------------------------------------
 	 * When variables change, set forces and restart the simulation
 	 */
-	run(() => {
+	$effect(() => {
 		simulation
 			.force(
 				'x',
 				forceX()
-					.x(d => {
+					.x(/** @param {any} d */ d => {
 						return groupBy === true ? $xGet(d) + $xScale.bandwidth() / 2 : $width / 2;
 					})
 					.strength(xStrength)
@@ -60,7 +58,7 @@
 			.force('charge', forceManyBody().strength(manyBodyStrength))
 			.force(
 				'collision',
-				forceCollide().radius(d => {
+				forceCollide().radius(/** @param {any} d */ d => {
 					return $rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
 				})
 			)

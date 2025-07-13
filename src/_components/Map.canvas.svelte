@@ -3,8 +3,6 @@
 	Generates a canvas map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 	import { geoPath } from 'd3-geo';
@@ -31,12 +29,12 @@
 
 	let featuresToDraw = $derived(features || $data.features);
 
-	run(() => {
-		if ($ctx && geoPath) {
+	$effect(() => {
+		if ($ctx) {
 			scaleCanvas($ctx, $width, $height);
 			$ctx.clearRect(0, 0, $width, $height);
 
-			featuresToDraw.forEach(feature => {
+			featuresToDraw.forEach(/** @param {any} feature */ feature => {
 				$ctx.beginPath();
 				// Set the context here since setting it in `$: geoPath` is a circular reference
 				geoPathFn.context($ctx);

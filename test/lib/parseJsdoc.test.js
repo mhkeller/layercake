@@ -9,7 +9,7 @@ const tests = [
 		input: `@type {string} [stroke='#ccc'] - The shape's stroke color.`,
 		expected: {
 			kind: 'type',
-			type: 'String',
+			type: 'string',
 			name: 'stroke',
 			required: false,
 			defaultValue: "'#ccc'",
@@ -20,7 +20,7 @@ const tests = [
 		input: `@property {number} min - The brush's min value. Useful to bind to.`,
 		expected: {
 			kind: 'property',
-			type: 'Number',
+			type: 'number',
 			name: 'min',
 			required: true,
 			defaultValue: null,

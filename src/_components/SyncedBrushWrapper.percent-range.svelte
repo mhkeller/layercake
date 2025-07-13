@@ -1,6 +1,4 @@
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
 	import Line from './Line.svelte';
@@ -30,7 +28,7 @@
 	} = $props();
 
 	let brushedData = $state();
-	run(() => {
+	$effect(() => {
 		brushedData = data.slice((min || 0) * data.length, (max || 1) * data.length);
 		if (brushedData.length < 2) {
 			brushedData = data.slice(min * data.length, min * data.length + 2);

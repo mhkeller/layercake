@@ -3,8 +3,6 @@
 	Generates a canvas scatter plot.
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
@@ -23,7 +21,7 @@
 	/** @type {Props} */
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
-	run(() => {
+	$effect(() => {
 		if ($ctx) {
 			/* --------------------------------------------
 			 * If you were to have multiple canvas layers
@@ -37,7 +35,7 @@
 			/* --------------------------------------------
 			 * Draw our scatterplot
 			 */
-			$data.forEach(d => {
+			$data.forEach(/** @param {any} d */ d => {
 				$ctx.beginPath();
 				$ctx.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
 				$ctx.lineWidth = strokeWidth;

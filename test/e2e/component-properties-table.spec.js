@@ -13,7 +13,7 @@ componentFilenames.forEach(filename => {
 		await page.goto(url);
 
 		const codeContent = await page.textContent('div.contents pre');
-		test.skip(!codeContent.includes('export let'), `No properties table in '${url}'`);
+		test.skip(!codeContent.includes('$props()'), `No properties table in '${url}'`);
 
 		await expect(page.locator('div#params-table table')).toMatchAriaSnapshot();
 	});

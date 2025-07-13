@@ -12,11 +12,11 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Number} [manyBodyStrength=5] - The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more.
-	 * @property {Number} [xStrength=0.1] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.
-	 * @property {String|undefined} [nodeColor] - Set a color manually otherwise it will default to the `zScale`.
-	 * @property {String} [nodeStroke='#fff'] - The circle's stroke color.
-	 * @property {Number} [nodeStrokeWidth=1] - The circle's stroke width, in pixels.
+	 * @property {number} [manyBodyStrength=5] - The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more.
+	 * @property {number} [xStrength=0.1] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.
+	 * @property {string|undefined} [nodeColor] - Set a color manually otherwise it will default to the `zScale`.
+	 * @property {string} [nodeStroke='#fff'] - The circle's stroke color.
+	 * @property {number} [nodeStrokeWidth=1] - The circle's stroke width, in pixels.
 	 * @property {boolean} [groupBy=true] - Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center.
 	 */
 

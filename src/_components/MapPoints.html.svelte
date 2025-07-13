@@ -10,11 +10,11 @@
 	/**
 	 * @typedef {Object} Props
 	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
-	 * @property {Number} [r=3.5] - The point's radius.
-	 * @property {String} [fill='yellow'] - The point's fill color.
-	 * @property {String} [stroke='#000'] - The point's stroke color.
-	 * @property {Number} [strokeWidth=1] - The point's stroke width, in pixels.
-	 * @property {Number} [opacity=1] - The point's opacity.
+	 * @property {number} [r=3.5] - The point's radius.
+	 * @property {string} [fill='yellow'] - The point's fill color.
+	 * @property {string} [stroke='#000'] - The point's stroke color.
+	 * @property {number} [strokeWidth=1] - The point's stroke width, in pixels.
+	 * @property {number} [opacity=1] - The point's opacity.
 	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.
 	 */
 

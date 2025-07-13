@@ -7,8 +7,8 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Number} min - The brush's min value. Useful to bind to.
-	 * @property {Number} max - The brush's max value. Useful to bind to.
+	 * @property {number} min - The brush's min value. Useful to bind to.
+	 * @property {number} max - The brush's max value. Useful to bind to.
 	 */
 
 	/** @type {Props} */

@@ -6,7 +6,7 @@ const name = 'parseJsdoc';
 
 const tests = [
 	{
-		input: `@type {String} [stroke='#ccc'] - The shape's stroke color.`,
+		input: `@type {string} [stroke='#ccc'] - The shape's stroke color.`,
 		expected: {
 			kind: 'type',
 			type: 'String',
@@ -17,7 +17,7 @@ const tests = [
 		}
 	},
 	{
-		input: `@property {Number} min - The brush's min value. Useful to bind to.`,
+		input: `@property {number} min - The brush's min value. Useful to bind to.`,
 		expected: {
 			kind: 'property',
 			type: 'Number',
@@ -39,10 +39,10 @@ const tests = [
 		}
 	},
 	{
-		input: `@type {Number|Array<any>|Function|undefined} [ticks] - If this is a number, it passes that along to D3.`,
+		input: `@type {number|Array<any>|Function|undefined} [ticks] - If this is a number, it passes that along to D3.`,
 		expected: {
 			kind: 'type',
-			type: `Number|Array<any>|Function|undefined`,
+			type: `number|Array<any>|Function|undefined`,
 			name: 'ticks',
 			required: false,
 			defaultValue: null,

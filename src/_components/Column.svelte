@@ -9,9 +9,9 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {String} [fill='#00e047'] - The shape's fill color.
-	 * @property {String} [stroke='#000'] - The shape's stroke color.
-	 * @property {Number} [strokeWidth=0] - The shape's stroke width.
+	 * @property {string} [fill='#00e047'] - The shape's fill color.
+	 * @property {string} [stroke='#000'] - The shape's stroke color.
+	 * @property {number} [strokeWidth=0] - The shape's stroke width.
 	 * @property {boolean} [showLabels=false] - Show the numbers for each column
 	 */
 

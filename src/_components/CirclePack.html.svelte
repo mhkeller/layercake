@@ -14,18 +14,18 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {String} [idKey='id'] - The key on each object where the id value lives.
+	 * @property {string} [idKey='id'] - The key on each object where the id value lives.
 	 * @property {String|undefined} [parentKey] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack).
-	 * @property {String} [valueKey='value'] - The key on each object where the data value lives.
+	 * @property {string} [valueKey='value'] - The key on each object where the data value lives.
 	 * @property {Function} [labelVisibilityThreshold=r => r> 25] - By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior.
-	 * @property {String} [fill='#fff'] - The circle's fill color.
-	 * @property {String} [stroke='#999'] - The circle's stroke color.
-	 * @property {Number} [strokeWidth=1] - The circle's stroke width, in pixels.
-	 * @property {String} [textColor='#333'] - The label text color.
-	 * @property {String} [textStroke='#000'] - The label text's stroke color.
-	 * @property {Number} [textStrokeWidth=0] - The label text's stroke width, in pixels.
+	 * @property {string} [fill='#fff'] - The circle's fill color.
+	 * @property {string} [stroke='#999'] - The circle's stroke color.
+	 * @property {number} [strokeWidth=1] - The circle's stroke width, in pixels.
+	 * @property {string} [textColor='#333'] - The label text color.
+	 * @property {string} [textStroke='#000'] - The label text's stroke color.
+	 * @property {number} [textStrokeWidth=0] - The label text's stroke width, in pixels.
 	 * @property {Function} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice. - 'depth' is also a popular choice
-	 * @property {Number} [spacing0=0] - Whitespace padding between each circle, in pixels.
+	 * @property {number} [spacing0=0] - Whitespace padding between each circle, in pixels.
 	 */
 
 	/** @type {Props} */

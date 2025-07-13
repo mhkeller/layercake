@@ -13,8 +13,8 @@
 	/**
 	 * @typedef {Object} Props
 	 * @property {Array<Annotation>} annotations - A list of annotation objects. See the [Column](https://layercake.graphics/example/Column) chart example for the schema and options.
-	 * @property {String} [containerClass=".chart-container"] - The class name / CSS selector of the parent element of the `<LayerCake>` component. This is used to crawl the DOM for the text annotations.
-	 * @property {String} [annotationClass=".layercake-annotation"] -The class name / CSS selector of the text annotation divs.
+	 * @property {string} [containerClass=".chart-container"] - The class name / CSS selector of the parent element of the `<LayerCake>` component. This is used to crawl the DOM for the text annotations.
+	 * @property {string} [annotationClass=".layercake-annotation"] -The class name / CSS selector of the text annotation divs.
 	 */
 
 	/** @type {Props} */

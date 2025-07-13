@@ -9,7 +9,7 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Number} [r=5] - The circle radius.
+	 * @property {number} [r=5] - The circle radius.
 	 */
 
 	/** @type {Props} */

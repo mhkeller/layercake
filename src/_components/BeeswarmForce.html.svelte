@@ -12,11 +12,11 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Number} [r=4] - The circle radius size in pixels.
-	 * @property {Number} [strokeWidth=0.5] - The circle's stroke width in pixels.
-	 * @property {String} [stroke='#fff'] - The circle's stroke color.
-	 * @property {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.
-	 * @property {Number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more.
+	 * @property {number} [r=4] - The circle radius size in pixels.
+	 * @property {number} [strokeWidth=0.5] - The circle's stroke width in pixels.
+	 * @property {string} [stroke='#fff'] - The circle's stroke color.
+	 * @property {number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.
+	 * @property {number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`, which is used as the `'y'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#y_strength) for more.
 	 * @property {Function} [getTitle] - An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.
 	 */
 

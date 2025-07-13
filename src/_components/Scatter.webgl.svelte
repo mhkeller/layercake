@@ -12,8 +12,8 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Number} [r=5] - The circle's radius.
-	 * @property {String} [fill='#0cf'] - The circle's fill color.
+	 * @property {number} [r=5] - The circle's radius.
+	 * @property {string} [fill='#0cf'] - The circle's fill color.
 	 * @property {string} [stroke='#000'] - Not yet implemented
 	 */
 

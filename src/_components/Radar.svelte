@@ -10,14 +10,14 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {String} [fill='#f0c'] - The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
-	 * @property {String} [stroke='#f0c'] - The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
-	 * @property {Number} [strokeWidth=2] - The radar's stroke color.
-	 * @property {Number} [fillOpacity=0.5] - The radar's fill opacity.
-	 * @property {Number} [r=4.5] - Each circle's radius.
-	 * @property {String} [circleFill='#f0c'] - Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
-	 * @property {String} [circleStroke='#fff'] - Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
-	 * @property {Number} [circleStrokeWidth=1] - Each circle's stroke width.
+	 * @property {string} [fill='#f0c'] - The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
+	 * @property {string} [stroke='#f0c'] - The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
+	 * @property {number} [strokeWidth=2] - The radar's stroke color.
+	 * @property {number} [fillOpacity=0.5] - The radar's fill opacity.
+	 * @property {number} [r=4.5] - Each circle's radius.
+	 * @property {string} [circleFill='#f0c'] - Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
+	 * @property {string} [circleStroke='#fff'] - Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
+	 * @property {number} [circleStrokeWidth=1] - Each circle's stroke width.
 	 */
 
 	/** @type {Props} */

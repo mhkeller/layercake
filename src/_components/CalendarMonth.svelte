@@ -3,8 +3,6 @@
 	Generates an SVG calendar chart.
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { getContext } from 'svelte';
 	import { utcFormat } from 'd3-time-format';
 	import { utcDay } from 'd3-time';
@@ -17,36 +15,43 @@
 	 */
 
 	/** @type {Props} */
-	let { calcCellSize = (w, h) => Math.min(w / 7, h / 5) } = $props();
+	let { calcCellSize = /** @param {number} w @param {number} h */ (w, h) => Math.min(w / 7, h / 5) } = $props();
 
 	const getDate = utcFormat('%Y-%m-%d');
 	const getDayOfWeek = utcFormat('%w');
 	const getWeekOfYear = utcFormat('%U');
 
-	let count = $derived(date => {
-		const stringDate = date.toISOString().split('T')[0];
-		const days = $data.filter(d => $x(d) === stringDate)[0];
-		if (days) {
-			return $z(days);
+	let count = $derived(
+		/** @param {Date} date */
+		(date) => {
+			const stringDate = date.toISOString().split('T')[0];
+			const days = $data.filter(/** @param {any} d */ (d) => $x(d) === stringDate)[0];
+			if (days) {
+				return $z(days);
+			}
+			return 0;
 		}
-		return 0;
-	});
+	);
 
-	let fillColor = $derived(day => {
-		const n = count(day);
-		return n ? $zScale(n) : '#fff';
-	});
+	let fillColor = $derived(
+		/** @param {Date} day */
+		(day) => {
+			const n = count(day);
+			return n ? $zScale(n) : '#fff';
+		}
+	);
 
 	let cellSize = $derived(calcCellSize($width, $height));
 
-	let days = $state();
+	/** @type {Date[]} */
+	let days = $state([]);
 
 	/* --------------------------------------------
 	 * Calculate what month we're in and generate the full days of that month
 	 */
-	run(() => {
+	$effect(() => {
 		const minDate = $extents.x[0];
-		const parts = minDate.split('-').map(d => +d);
+		const parts = minDate.split('-').map(/** @param {string} d */ (d) => +d);
 
 		days = utcDay.range(
 			new Date(Date.UTC(parts[0], parts[1] - 1, 1)),
@@ -54,14 +59,23 @@
 		);
 	});
 
-	let rectX = $derived(day => getDayOfWeek(day) * cellSize);
-	let rectY = $derived(day => {
-		const startWeek = getWeekOfYear(new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), 1)));
-		const thisWeek = getWeekOfYear(day);
-		const weekDiff = thisWeek - startWeek;
-		return weekDiff * cellSize;
-	});
+	let rectX = $derived(
+		/** @param {Date} day */
+		(day) => +getDayOfWeek(day) * cellSize
+	);
+	let rectY = $derived(
+		/** @param {Date} day */
+		(day) => {
+			const startWeek = +getWeekOfYear(new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), 1)));
+			const thisWeek = +getWeekOfYear(day);
+			const weekDiff = thisWeek - startWeek;
+			return weekDiff * cellSize;
+		}
+	);
 
+	/**
+	 * @param {Date} day
+	 */
 	function showCount(day) {
 		console.log(day, count(day));
 	}

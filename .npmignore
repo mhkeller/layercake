@@ -4,7 +4,6 @@
 .prettierrc
 .prettierignore
 .travis.yml
-eslint.config.js
 svelte.config.js
 jsconfig.js
 vite.config.js

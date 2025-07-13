@@ -61,7 +61,7 @@ function getHash(str) {
 	return (hash >>> 0).toString(36);
 }
 
-export const demos = new Map();
+const demos = new Map();
 
 export default function (returnHtml = true) {
 	const store = {};

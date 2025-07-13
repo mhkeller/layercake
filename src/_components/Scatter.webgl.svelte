@@ -8,10 +8,10 @@
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
-	/** @type {Number} [r=5] - The circle's radius. */
+	/** @type {number} [r=5] - The circle's radius. */
 	export let r = 5;
 
-	/** @type {String} [fill='#0cf'] - The circle's fill color. */
+	/** @type {string} [fill='#0cf'] - The circle's fill color. */
 	export let fill = '#0cf';
 
 	export let stroke = '#000'; // Not yet implemented

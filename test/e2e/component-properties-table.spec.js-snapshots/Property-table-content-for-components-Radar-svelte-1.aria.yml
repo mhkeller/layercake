@@ -6,66 +6,66 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "fill String '#f0c' no The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
-      - cell "fill String":
+    - row "fill string '#f0c' no The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+      - cell "fill string":
         - strong: fill
-        - code: String
+        - code: string
       - cell "'#f0c'":
         - code: "'#f0c'"
       - cell "no"
       - cell "The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color."
-    - row "stroke String '#f0c' no The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
-      - cell "stroke String":
+    - row "stroke string '#f0c' no The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+      - cell "stroke string":
         - strong: stroke
-        - code: String
+        - code: string
       - cell "'#f0c'":
         - code: "'#f0c'"
       - cell "no"
       - cell "The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color."
-    - row "strokeWidth Number 2 no The radar's stroke color.":
-      - cell "strokeWidth Number":
+    - row "strokeWidth number 2 no The radar's stroke color.":
+      - cell "strokeWidth number":
         - strong: strokeWidth
-        - code: Number
+        - code: number
       - cell "2":
         - code: "2"
       - cell "no"
       - cell "The radar's stroke color."
-    - row "fillOpacity Number 0.5 no The radar's fill opacity.":
-      - cell "fillOpacity Number":
+    - row "fillOpacity number 0.5 no The radar's fill opacity.":
+      - cell "fillOpacity number":
         - strong: fillOpacity
-        - code: Number
+        - code: number
       - cell "0.5":
         - code: "0.5"
       - cell "no"
       - cell "The radar's fill opacity."
-    - row "r Number 4.5 no Each circle's radius.":
-      - cell "r Number":
+    - row "r number 4.5 no Each circle's radius.":
+      - cell "r number":
         - strong: r
-        - code: Number
+        - code: number
       - cell "4.5":
         - code: "4.5"
       - cell "no"
       - cell "Each circle's radius."
-    - row "circleFill String \"#f0c\" no Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
-      - cell "circleFill String":
+    - row "circleFill string \"#f0c\" no Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+      - cell "circleFill string":
         - strong: circleFill
-        - code: String
+        - code: string
       - cell "\"#f0c\"":
         - code: "\"#f0c\""
       - cell "no"
       - cell "Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color."
-    - row "circleStroke String \"#fff\" no Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
-      - cell "circleStroke String":
+    - row "circleStroke string \"#fff\" no Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+      - cell "circleStroke string":
         - strong: circleStroke
-        - code: String
+        - code: string
       - cell "\"#fff\"":
         - code: "\"#fff\""
       - cell "no"
       - cell "Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color."
-    - row "circleStrokeWidth Number 1 no Each circle's stroke width.":
-      - cell "circleStrokeWidth Number":
+    - row "circleStrokeWidth number 1 no Each circle's stroke width.":
+      - cell "circleStrokeWidth number":
         - strong: circleStrokeWidth
-        - code: Number
+        - code: number
       - cell "1":
         - code: "1"
       - cell "no"

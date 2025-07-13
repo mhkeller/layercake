@@ -5,10 +5,10 @@
 <script>
 	import { clamp } from 'yootils';
 
-	/** @type {Number} min - The brush's min value. Useful to bind to. */
+	/** @type {number} min - The brush's min value. Useful to bind to. */
 	export let min;
 
-	/** @type {Number} max - The brush's max value. Useful to bind to. */
+	/** @type {number} max - The brush's max value. Useful to bind to. */
 	export let max;
 
 	let brush;

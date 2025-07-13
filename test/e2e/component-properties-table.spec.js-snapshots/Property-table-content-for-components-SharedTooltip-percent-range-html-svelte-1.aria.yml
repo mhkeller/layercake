@@ -31,10 +31,10 @@
         - code: "d => isNaN(+d) ? d : commas(d)"
       - cell "no"
       - cell "A function to format the value."
-    - row /offset Number -\d+ no A y-offset from the hover point, in pixels\./:
-      - cell "offset Number":
+    - row /offset number -\d+ no A y-offset from the hover point, in pixels\./:
+      - cell "offset number":
         - strong: offset
-        - code: Number
+        - code: number
       - cell /-\d+/:
         - code: /-\d+/
       - cell "no"

@@ -1,9 +1,9 @@
 /**
 	Scales a canvas. From Paul Lewis: http://www.html5rocks.com/en/tutorials/canvas/hidpi/
 	@param {CanvasRenderingContext2D} ctx A canvas context.
-	@param {Number} width The container width.
-	@param {Number} height The container height.
-	@returns {{width: Number, height: Number}}
+	@param {number} width The container width.
+	@param {number} height The container height.
+	@returns {{width: number, height: number}}
 */
 export default function (ctx, width, height) {
 	const dpr = window.devicePixelRatio || 1;

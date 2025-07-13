@@ -63,21 +63,18 @@
 			})
 	);
 
-	let packer = $derived(pack().size([$width, $height]).padding(spacing));
-
-	let stratified = $derived(stratifier(dataset));
-
-	let root = $derived(
-		hierarchy(stratified)
-			.sum(d => {
-				return d.data[valueKey] || 1;
-			})
-			.sort(sortBy)
+	let descendants = $derived(
+		pack()
+			.size([$width, $height])
+			.padding(spacing)(
+				hierarchy(stratifier(dataset))
+					.sum(d => {
+						return d.data[valueKey] || 1;
+					})
+					.sort(sortBy)
+			)
+			.descendants()
 	);
-
-	let packed = $derived(packer(root));
-
-	let descendants = $derived(packed.descendants());
 </script>
 
 <div class="circle-pack" data-has-parent-key={parentKey !== undefined}>

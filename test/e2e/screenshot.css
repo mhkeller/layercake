@@ -1,3 +1,4 @@
+/* Add a blur in order to even out minor differences */
 .chart-hero {
 	filter: blur(1px);
 }

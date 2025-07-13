@@ -15,7 +15,9 @@
 	 */
 
 	/** @type {Props} */
-	let { calcCellSize = /** @param {number} w @param {number} h */ (w, h) => Math.min(w / 7, h / 5) } = $props();
+	let {
+		calcCellSize = /** @param {number} w @param {number} h */ (w, h) => Math.min(w / 7, h / 5)
+	} = $props();
 
 	const getDate = utcFormat('%Y-%m-%d');
 	const getDayOfWeek = utcFormat('%w');
@@ -23,9 +25,9 @@
 
 	let count = $derived(
 		/** @param {Date} date */
-		(date) => {
+		date => {
 			const stringDate = date.toISOString().split('T')[0];
-			const days = $data.filter(/** @param {any} d */ (d) => $x(d) === stringDate)[0];
+			const days = $data.filter(/** @param {any} d */ d => $x(d) === stringDate)[0];
 			if (days) {
 				return $z(days);
 			}
@@ -35,7 +37,7 @@
 
 	let fillColor = $derived(
 		/** @param {Date} day */
-		(day) => {
+		day => {
 			const n = count(day);
 			return n ? $zScale(n) : '#fff';
 		}
@@ -51,7 +53,7 @@
 	 */
 	$effect(() => {
 		const minDate = $extents.x[0];
-		const parts = minDate.split('-').map(/** @param {string} d */ (d) => +d);
+		const parts = minDate.split('-').map(/** @param {string} d */ d => +d);
 
 		days = utcDay.range(
 			new Date(Date.UTC(parts[0], parts[1] - 1, 1)),
@@ -61,12 +63,14 @@
 
 	let rectX = $derived(
 		/** @param {Date} day */
-		(day) => +getDayOfWeek(day) * cellSize
+		day => +getDayOfWeek(day) * cellSize
 	);
 	let rectY = $derived(
 		/** @param {Date} day */
-		(day) => {
-			const startWeek = +getWeekOfYear(new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), 1)));
+		day => {
+			const startWeek = +getWeekOfYear(
+				new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), 1))
+			);
 			const thisWeek = +getWeekOfYear(day);
 			const weekDiff = thisWeek - startWeek;
 			return weekDiff * cellSize;

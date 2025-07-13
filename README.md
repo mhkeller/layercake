@@ -1,14 +1,22 @@
-Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.graphics/main/static/layercake-logo-500x400.png" width="115" align="right" alt="layercake-logo">](https://mhkeller.github.io/layercake)
+Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/mhkeller.github.io/layercake.pre-runes/main/static/layercake-logo-500x400.png" width="115" align="right" alt="layercake-logo">](https://mhkeller.github.io/layercake)
 ===
+
+# 🚨 ARCHIVED REPOSITORY 🚨
+
+## This repository contains pre-Svelte 5 runes documentation and is no longer actively maintained.
+
+### For the latest Layer Cake documentation and updates, please visit:
+- **📖 [layercake.graphics](https://layercake.graphics)** - Official documentation site
+- **🔗 [github.com/mhkeller/layercake](https://github.com/mhkeller/layercake)** - Main repository
+
+---
 
 > a framework for mostly-reusable graphics with [svelte](https://github.com/sveltejs/svelte)
 
-[![Tests badges](https://github.com/mhkeller/layercake/actions/workflows/node.js.yml/badge.svg)](https://github.com/mhkeller/layercake/actions/workflows/node.js.yml) [![npm version](https://img.shields.io/npm/v/layercake.svg)](https://npmjs.org/package/layercake) [![npm](https://img.shields.io/npm/dm/layercake.svg)](https://www.npmjs.com/package/layercake)
-
- 🍰 [See examples](https://layercake.graphics)
- 🍰 [Read the guide](https://layercake.graphics/guide)
- 🍰 [API docs](https://layercake.graphics/guide#layercake-props)
- 🍰 [View the Component Gallery](https://layercake.graphics/components)
+ 🍰 [See examples](https://mhkeller.github.io/layercake.pre-runes)
+ 🍰 [Read the guide](https://mhkeller.github.io/layercake.pre-runes/guide)
+ 🍰 [API docs](https://mhkeller.github.io/layercake.pre-runes/guide#layercake-props)
+ 🍰 [View the Component Gallery](https://mhkeller.github.io/layercake.pre-runes/components)
  🍰 [Try the starter template](https://github.com/mhkeller/layercake-template)
 
 ## Svelte versions

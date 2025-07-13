@@ -60,6 +60,7 @@
 		"prettier-plugin-svelte": "^3.4.0",
 		"publint": "^0.2.7",
 		"regl": "^2.1.1",
+		"sanitize-html": "^2.17.0",
 		"svelte": "^5.35.6",
 		"svelte-check": "^4.2.2",
 		"topojson-client": "^3.1.0",

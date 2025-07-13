@@ -3,6 +3,8 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
@@ -10,28 +12,30 @@
 
 	const { ctx } = getContext('canvas');
 
-	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
-	export let projection;
+	/**
+	 * @typedef {Object} Props
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {Number} [r] - The point's radius.
+	 * @property {String} [fill] - The point's fill color.
+	 * @property {String} [stroke] - The point's stroke color.
+	 * @property {Number} [strokeWidth] - The point's stroke width.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.
+	 */
 
-	/** @type {Number} [r=3.5] - The point's radius. */
-	export let r = 3.5;
+	/** @type {Props} */
+	let {
+		projection,
+		r = 3.5,
+		fill = 'yellow',
+		stroke = '#000',
+		strokeWidth = 1,
+		features
+	} = $props();
 
-	/** @type {String} [fill='yellow'] - The point's fill color. */
-	export let fill = 'yellow';
+	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
 
-	/** @type {String} [stroke='#000'] - The point's stroke color. */
-	export let stroke = '#000';
-
-	/** @type {Number} [strokeWidth=1] - The point's stroke width. */
-	export let strokeWidth = 1;
-
-	/** @type {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
-	export let features = undefined;
-
-	$: projectionFn = projection().fitSize([$width, $height], $data);
-
-	$: featuresToDraw = features || $data.features;
-	$: {
+	let featuresToDraw = $derived(features || $data.features);
+	run(() => {
 		if ($ctx) {
 			scaleCanvas($ctx, $width, $height);
 			$ctx.clearRect(0, 0, $width, $height);
@@ -48,5 +52,5 @@
 				$ctx.stroke();
 			});
 		}
-	}
+	});
 </script>

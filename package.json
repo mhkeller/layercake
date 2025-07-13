@@ -63,7 +63,7 @@
 		"topojson-client": "^3.1.0",
 		"typescript": "^5.8.3",
 		"underscore": "^1.13.7",
-		"vite": "^6.3.2",
+		"vite": "^6.3.4",
 		"yootils": "^0.3.1"
 	},
 	"dependencies": {

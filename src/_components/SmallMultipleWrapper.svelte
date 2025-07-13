@@ -1,14 +1,13 @@
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { LayerCake, Svg, calcExtents } from 'layercake';
 	import { tweened } from 'svelte/motion';
 	import * as eases from 'svelte/easing';
 
 	import Line from './Line.svelte';
 
-	export let data;
-	export let fullExtents;
-	export let scale;
-	export let extentGetters;
+	let { data, fullExtents, scale, extentGetters } = $props();
 
 	const tweenOptions = {
 		duration: 300,
@@ -20,8 +19,12 @@
 
 	const extents = calcExtents(data, extentGetters);
 
-	$: xDomain.set(scale === 'shared' ? fullExtents.x : extents.x);
-	$: yDomain.set(scale === 'shared' ? fullExtents.y : extents.y);
+	run(() => {
+		xDomain.set(scale === 'shared' ? fullExtents.x : extents.x);
+	});
+	run(() => {
+		yDomain.set(scale === 'shared' ? fullExtents.y : extents.y);
+	});
 </script>
 
 <LayerCake

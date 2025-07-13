@@ -21,9 +21,9 @@
         - code: d => d.text
       - cell "no"
       - cell "An accessor function to get the field to display."
-    - row "percentRange boolean false no If true will set the top and left CSS positions to percentages instead of pixels.":
-      - cell "percentRange boolean":
-        - strong: percentRange
+    - row "pr boolean false no If true will set the top and left CSS positions to percentages instead of pixels.":
+      - cell "pr boolean":
+        - strong: pr
         - code: boolean
       - cell "false":
         - code: "false"

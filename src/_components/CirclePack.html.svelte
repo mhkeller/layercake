@@ -15,7 +15,7 @@
 	/**
 	 * @typedef {Object} Props
 	 * @property {string} [idKey='id'] - The key on each object where the id value lives.
-	 * @property {String|undefined} [parentKey] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack).
+	 * @property {string} [parentKey] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack).
 	 * @property {string} [valueKey='value'] - The key on each object where the data value lives.
 	 * @property {Function} [labelVisibilityThreshold=r => r> 25] - By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior.
 	 * @property {string} [fill='#fff'] - The circle's fill color.

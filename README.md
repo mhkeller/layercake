@@ -9,7 +9,8 @@ Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/mhkeller.githu
 - **📖 [layercake.graphics](https://layercake.graphics)** - Official documentation site
 - **🔗 [github.com/mhkeller/layercake](https://github.com/mhkeller/layercake)** - Main repository
 
-### To view this archived documentation, visit [https://mhkeller.github.io/layercake.pre-runes].
+### To view this archived documentation, please visit:
+- **🔗 [mhkeller.github.io/layercake.pre-runes](https://mhkeller.github.io/layercake.pre-runes)** - Archived documentation website.
 
 ---
 

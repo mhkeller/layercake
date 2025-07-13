@@ -83,7 +83,7 @@ export default function (returnHtml = true) {
 					const textString = token.text || '';
 					const level = token.depth || 1;
 					const slug = slugify(textString, null, store);
-					
+
 					return `<h${level} id="${slug}">${textString}<a href="/guide#${slug}"> </a></h${level}>`;
 				},
 
@@ -91,7 +91,7 @@ export default function (returnHtml = true) {
 					// In marked v16, the code renderer receives a single token object
 					let actualSource = token.text || token.raw || '';
 					const actualLang = token.lang || 'text';
-					
+
 					if (!actualSource) {
 						return '';
 					}
@@ -120,24 +120,54 @@ export default function (returnHtml = true) {
 							className += ' named';
 						}
 					}
-					if (group) group.blocks.push({ meta: meta || {}, lang: actualLang, source: actualSource });
+					if (group)
+						group.blocks.push({ meta: meta || {}, lang: actualLang, source: actualSource });
 
 					if (meta && meta.hidden) return '';
 
-					const highlighted = hljs.highlight(actualSource, { language: actualLang || 'text' }).value;
+					const highlighted = hljs.highlight(actualSource, {
+						language: actualLang || 'text'
+					}).value;
 					return `<div class='${className}'>${prefix}<pre><code>${highlighted}</code></pre></div>`;
 				},
 
 				// Reset group for block-level elements
-				blockquote() { group = null; return false; },
-				html() { group = null; return false; },
-				hr() { group = null; return false; },
-				list() { group = null; return false; },
-				listitem() { group = null; return false; },
-				paragraph() { group = null; return false; },
-				table() { group = null; return false; },
-				tablerow() { group = null; return false; },
-				tablecell() { group = null; return false; }
+				blockquote() {
+					group = null;
+					return false;
+				},
+				html() {
+					group = null;
+					return false;
+				},
+				hr() {
+					group = null;
+					return false;
+				},
+				list() {
+					group = null;
+					return false;
+				},
+				listitem() {
+					group = null;
+					return false;
+				},
+				paragraph() {
+					group = null;
+					return false;
+				},
+				table() {
+					group = null;
+					return false;
+				},
+				tablerow() {
+					group = null;
+					return false;
+				},
+				tablecell() {
+					group = null;
+					return false;
+				}
 			};
 
 			marked.use({ renderer });

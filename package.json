@@ -55,7 +55,7 @@
 		"knip": "^5.61.3",
 		"markdown-it": "^14.1.0",
 		"marked": "^16.0.0",
-		"mocha": "^10.7.3",
+		"mocha": "^11.7.1",
 		"prettier": "^3.2.5",
 		"prettier-plugin-svelte": "^3.2.3",
 		"publint": "^0.2.7",

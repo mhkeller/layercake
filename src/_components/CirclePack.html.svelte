@@ -3,11 +3,12 @@
 	Generates an HTML circle pack chart using [d3-hierarchy](https://github.com/d3/d3-hierarchy).
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { stratify, pack, hierarchy } from 'd3-hierarchy';
 	import { getContext } from 'svelte';
 	import { format } from 'd3-format';
+
+	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
+	const commas = format(',');
 
 	const { width, height, data } = getContext('LayerCake');
 
@@ -49,22 +50,16 @@
 	 * Stash $data here so we can add our own parent
 	 * if there's no `parentKey`
 	 */
-	let parent = $state({});
-	let dataset = $derived($data);
-
-	run(() => {
-		if (parentKey === undefined) {
-			parent = { [idKey]: 'all' };
-			dataset = [...dataset, parent];
-		}
-	});
+	let parent = $derived(parentKey !== undefined ? {} : { [idKey]: 'all' });
+	let dataset = $derived(parentKey !== undefined ? $data : [...$data, parent]);
 
 	let stratifier = $derived(
 		stratify()
 			.id(d => d[idKey])
 			.parentId(d => {
 				if (d[idKey] === parent[idKey]) return '';
-				return d[parentKey] || parent[idKey];
+				if (parentKey === undefined) return parent[idKey];
+				return d[parentKey];
 			})
 	);
 
@@ -83,9 +78,6 @@
 	let packed = $derived(packer(root));
 
 	let descendants = $derived(packed.descendants());
-
-	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
-	const commas = format(',');
 </script>
 
 <div class="circle-pack" data-has-parent-key={parentKey !== undefined}>

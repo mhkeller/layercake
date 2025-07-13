@@ -37,8 +37,9 @@
 		text-align: center;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		position: sticky;
-		top: 0;
+		top: 45px;
 		z-index: 1000;
+		opacity: 0.7;
 	}
 
 	.archive-banner-content {

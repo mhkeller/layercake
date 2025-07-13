@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import * as fleece from 'golden-fleece';
 import hljs from 'highlight.js';
+import sanitizeHtml from 'sanitize-html';
 
 import * as marked from 'marked';
 import processMarkdown from './processMarkdown.js';
@@ -248,7 +249,7 @@ export default function (returnHtml = true) {
 				const originalTitle = title;
 
 				// Remove any HTML tags first
-				title = title.replace(/<[^>]*>/g, '');
+				title = sanitizeHtml(title, { allowedTags: [], allowedAttributes: {} });
 
 				// Check if this looks like an API section with type information
 				// (contains backticks, code tags, or type syntax like Array, Function, etc.)

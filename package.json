@@ -60,6 +60,7 @@
 		"prettier-plugin-svelte": "^3.2.3",
 		"publint": "^0.2.7",
 		"regl": "^2.1.0",
+		"sanitize-html": "^2.17.0",
 		"svelte": "^5.23.1",
 		"svelte-check": "^4.0.5",
 		"svelte-preprocess": "^6.0.3",

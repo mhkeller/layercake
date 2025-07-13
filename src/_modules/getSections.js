@@ -2,8 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import * as fleece from 'golden-fleece';
 import hljs from 'highlight.js';
+import sanitizeHtml from 'sanitize-html';
 
-import * as marked from './marked.js';
+import * as marked from 'marked';
 import processMarkdown from './processMarkdown.js';
 import slugify from './slugify.js';
 import hljsDefineSvelte from './hljsDefineSvelte.js';
@@ -61,7 +62,7 @@ function getHash(str) {
 	return (hash >>> 0).toString(36);
 }
 
-export const demos = new Map();
+const demos = new Map();
 
 export default function (returnHtml = true) {
 	const store = {};
@@ -77,58 +78,132 @@ export default function (returnHtml = true) {
 			let group = null;
 			let uid = 1;
 
-			const renderer = new marked.Renderer();
+			const renderer = {
+				heading(token) {
+					// In marked v16, the heading renderer receives a single token object
+					const textString = token.text || '';
+					const level = token.depth || 1;
 
-			renderer.heading = function (text, level) {
-				const slug = slugify(text, null, store);
-				// TODO, better anchor handling maybe with even newer sapper?
-				return `<h${level} id="${slug}">${text}<a href="/guide#${slug}"> </a></h${level}>`;
-			};
+					// Extract only the identifier for slug/anchor (ignore code blocks in heading)
+					// This matches the old behavior: only the identifier (before any <code> or after)
+					let identifier = textString;
+					// Remove any inline code (backticks or <code> tags)
+					identifier = identifier
+						.replace(/<code>(.*?)<\/code>/g, '')
+						.replace(/`([^`]+)`/g, '')
+						.trim();
+					// Remove trailing/leading whitespace and punctuation
+					identifier = identifier.replace(/^\W+|\W+$/g, '');
 
-			renderer.code = (source, lang) => {
-				// source = source.replace(/^ +/gm, match => match.split('    ').join('\t'));
+					const slug = slugify(identifier, null, store);
 
-				const lines = source.split('\n');
-
-				const meta = extractMeta(lines[0].trim(), lang);
-
-				let prefix = '';
-				let className = 'code-block';
-
-				if (lang === 'html' && !group) {
-					// if (!meta || meta.repl !== false) {
-					// 	prefix = `<a class='open-in-repl' href='repl?demo=@@${uid}'>REPL</a>`;
-					// }
-
-					group = { id: uid++, blocks: [] };
-					groups.push(group);
-				}
-
-				if (meta) {
-					source = lines.slice(1).join('\n');
-					const filename = meta.filename || (lang === 'html' && 'App.html');
-					if (filename) {
-						prefix = `<span class='filename'>${prefix} ${filename}</span>`;
-						className += ' named';
+					// Render the heading content with proper HTML (convert inline tokens to HTML)
+					let headingHtml = '';
+					if (token.tokens && token.tokens.length > 0) {
+						// Render each token to get proper HTML with <code> tags
+						headingHtml = token.tokens
+							.map(t => {
+								if (t.type === 'codespan') {
+									return `<code>${t.text}</code>`;
+								}
+								return t.text || '';
+							})
+							.join('');
+					} else {
+						// Fallback to raw text if no tokens available
+						headingHtml = textString;
 					}
+
+					// Render heading with proper HTML for display, but anchor uses only identifier
+					return `<h${level} id="${slug}">${headingHtml}<a href="/guide#${slug}"> </a></h${level}>`;
+				},
+
+				code(token) {
+					// In marked v16, the code renderer receives a single token object
+					let actualSource = token.text || token.raw || '';
+					const actualLang = token.lang || 'text';
+
+					if (!actualSource) {
+						return '';
+					}
+
+					const lines = actualSource.split('\n');
+
+					const meta = extractMeta(lines[0].trim(), actualLang);
+
+					let prefix = '';
+					let className = 'code-block';
+
+					if (actualLang === 'html' && !group) {
+						// if (!meta || meta.repl !== false) {
+						// 	prefix = `<a class='open-in-repl' href='repl?demo=@@${uid}'>REPL</a>`;
+						// }
+
+						group = { id: uid++, blocks: [] };
+						groups.push(group);
+					}
+
+					if (meta) {
+						actualSource = lines.slice(1).join('\n');
+						const filename = meta.filename || (actualLang === 'html' && 'App.html');
+						if (filename) {
+							prefix = `<span class='filename'>${prefix} ${filename}</span>`;
+							className += ' named';
+						}
+					}
+					if (group)
+						group.blocks.push({ meta: meta || {}, lang: actualLang, source: actualSource });
+
+					if (meta && meta.hidden) return '';
+
+					const highlighted = hljs.highlight(actualSource, {
+						language: actualLang || 'text'
+					}).value;
+					return `<div class='${className}'>${prefix}<pre><code>${highlighted}</code></pre></div>`;
+				},
+
+				// Reset group for block-level elements
+				blockquote() {
+					group = null;
+					return false;
+				},
+				html() {
+					group = null;
+					return false;
+				},
+				hr() {
+					group = null;
+					return false;
+				},
+				list() {
+					group = null;
+					return false;
+				},
+				listitem() {
+					group = null;
+					return false;
+				},
+				paragraph() {
+					group = null;
+					return false;
+				},
+				table() {
+					group = null;
+					return false;
+				},
+				tablerow() {
+					group = null;
+					return false;
+				},
+				tablecell() {
+					group = null;
+					return false;
 				}
-				if (group) group.blocks.push({ meta: meta || {}, lang, source });
-
-				if (meta && meta.hidden) return '';
-
-				const highlighted = hljs.highlight(source, { language: lang }).value;
-				return `<div class='${className}'>${prefix}<pre><code>${highlighted}</code></pre></div>`;
 			};
 
-			blockTypes.forEach(type => {
-				const fn = renderer[type];
-				renderer[type] = function () {
-					group = null;
-					return fn.apply(this, arguments);
-				};
-			});
+			marked.use({ renderer });
 
-			let html = marked.marked(content, { renderer });
+			let html = marked.marked(content);
 
 			const hashes = {};
 
@@ -163,28 +238,39 @@ export default function (returnHtml = true) {
 				);
 			});
 
+			// When extracting sidebar subsections, strip <code>...</code> from the title for anchors, but keep the display text for the heading itself
 			const subsections = [];
 			const pattern = /<h3 id="(.+?)">(.+?)<\/h3>/g;
 			let match;
 
 			while ((match = pattern.exec(html))) {
 				const slug = match[1];
-				const title = unescape(
-					match[2]
-						.replace(/^(\w+)(\((.+)?\))?/, (m, $1, $2, $3) => {
-							if ($3) return `${$1}(...)`;
-							if ($2) return `${$1}()`;
-							return $1;
-						})
-						.replace(/\.(\w+)(\((.+)?\))?/, (m, $1, $2, $3) => {
-							if ($3) return `.${$1}(...)`;
-							if ($2) return `.${$1}()`;
-							return `.${$1}`;
-						})
-						.split('<a')[0]
-						.split(' <code>')[0]
-						.replace(/<\/?code>/g, '')
-				);
+				let title = unescape(match[2]);
+				const originalTitle = title;
+
+				// Remove any HTML tags first
+				title = sanitizeHtml(title, { allowedTags: [], allowedAttributes: {} });
+
+				// Check if this looks like an API section with type information
+				// (contains backticks, code tags, or type syntax like Array, Function, etc.)
+				const hasTypeInfo =
+					/[`<]|Array|Function|Object|string|number|boolean|undefined|d3\.|DOM/.test(title);
+
+				if (hasTypeInfo) {
+					// For API sections, extract just the identifier (before any space, backtick, or special characters)
+					const identifierMatch = title.match(/^([a-zA-Z_$][a-zA-Z0-9_.$]*)/);
+					if (identifierMatch) {
+						title = identifierMatch[1];
+					}
+
+					// Check if the original title had function parameters to add (...) notation
+					const hasParameters = /\([^)]*[\w:]/.test(originalTitle);
+					if (hasParameters) {
+						title = `${title}(...)`;
+					}
+				}
+				// For narrative sections, keep the full title as-is
+
 				subsections.push({ slug, title });
 			}
 

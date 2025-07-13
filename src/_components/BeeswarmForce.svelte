@@ -3,14 +3,10 @@
 	Generates an SVG Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
-	import { getContext } from 'svelte';
+	import { getContext, untrack } from 'svelte';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 
-	const { data, xGet, height, zGet } = getContext('LayerCake');
-
-	const nodes = $data.map(d => ({ ...d }));
+	const { data, xGet, width, height, zGet } = getContext('LayerCake');
 
 	/**
 	 * @typedef {Object} Props
@@ -32,8 +28,13 @@
 		getTitle
 	} = $props();
 
-	let simulation = $derived(
-		forceSimulation(nodes)
+	let simulation = $derived.by(() => {
+		$width;
+		$height;
+
+		console.log('width', $width, 'height', $height);
+
+		return forceSimulation($data.map(d => ({ ...d })))
 			.force(
 				'x',
 				forceX()
@@ -47,18 +48,25 @@
 					.strength(yStrength)
 			)
 			.force('collide', forceCollide(r))
-			.stop()
-	);
+			.stop();
+	});
 
-	run(() => {
-		for (
-			let i = 0,
-				n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay()));
-			i < n;
-			++i
-		) {
-			simulation.tick();
-		}
+	$effect(() => {
+		$width;
+		$height;
+		simulation;
+		untrack(() => {
+			for (
+				let i = 0,
+					n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay()));
+				i < n;
+				++i
+			) {
+				console.log('running');
+
+				simulation.tick();
+			}
+		});
 	});
 </script>
 

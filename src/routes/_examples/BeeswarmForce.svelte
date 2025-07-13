@@ -35,22 +35,20 @@
 		zRange={seriesColors}
 		data={dataTransformed}
 	>
-		{#snippet children({ width })}
-			<Svg>
-				<AxisX />
-				<Beeswarm
-					r={width < 400 ? r / 1.25 : r}
-					strokeWidth={1}
-					xStrength={0.95}
-					yStrength={0.075}
-					getTitle={d => d[titleKey]}
-				/>
-			</Svg>
+		<Svg>
+			<AxisX />
+			<Beeswarm
+				{r}
+				strokeWidth={1}
+				xStrength={0.95}
+				yStrength={0.075}
+				getTitle={d => d[titleKey]}
+			/>
+		</Svg>
 
-			<Html pointerEvents={false}>
-				<Key shape="circle" />
-			</Html>
-		{/snippet}
+		<Html pointerEvents={false}>
+			<Key shape="circle" />
+		</Html>
 	</LayerCake>
 </div>
 

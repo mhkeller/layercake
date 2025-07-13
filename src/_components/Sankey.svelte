@@ -27,7 +27,7 @@
 		colorText = () => '#263238',
 		nodeWidth = 5,
 		nodePadding = 10,
-		linkSort = null,
+		linkSort = undefined,
 		nodeId = d => d.id,
 		nodeAlign = Sankey.sankeyLeft
 	} = $props();

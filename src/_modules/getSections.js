@@ -77,58 +77,72 @@ export default function (returnHtml = true) {
 			let group = null;
 			let uid = 1;
 
-			const renderer = new marked.Renderer();
+			const renderer = {
+				heading(token) {
+					// In marked v16, the heading renderer receives a single token object
+					const textString = token.text || '';
+					const level = token.depth || 1;
+					const slug = slugify(textString, null, store);
+					
+					return `<h${level} id="${slug}">${textString}<a href="/guide#${slug}"> </a></h${level}>`;
+				},
 
-			renderer.heading = function (text, level) {
-				const slug = slugify(text, null, store);
-				// TODO, better anchor handling maybe with even newer sapper?
-				return `<h${level} id="${slug}">${text}<a href="/guide#${slug}"> </a></h${level}>`;
-			};
-
-			renderer.code = (source, lang) => {
-				// source = source.replace(/^ +/gm, match => match.split('    ').join('\t'));
-
-				const lines = source.split('\n');
-
-				const meta = extractMeta(lines[0].trim(), lang);
-
-				let prefix = '';
-				let className = 'code-block';
-
-				if (lang === 'html' && !group) {
-					// if (!meta || meta.repl !== false) {
-					// 	prefix = `<a class='open-in-repl' href='repl?demo=@@${uid}'>REPL</a>`;
-					// }
-
-					group = { id: uid++, blocks: [] };
-					groups.push(group);
-				}
-
-				if (meta) {
-					source = lines.slice(1).join('\n');
-					const filename = meta.filename || (lang === 'html' && 'App.html');
-					if (filename) {
-						prefix = `<span class='filename'>${prefix} ${filename}</span>`;
-						className += ' named';
+				code(token) {
+					// In marked v16, the code renderer receives a single token object
+					let actualSource = token.text || token.raw || '';
+					const actualLang = token.lang || 'text';
+					
+					if (!actualSource) {
+						return '';
 					}
-				}
-				if (group) group.blocks.push({ meta: meta || {}, lang, source });
 
-				if (meta && meta.hidden) return '';
+					const lines = actualSource.split('\n');
 
-				const highlighted = hljs.highlight(source, { language: lang }).value;
-				return `<div class='${className}'>${prefix}<pre><code>${highlighted}</code></pre></div>`;
+					const meta = extractMeta(lines[0].trim(), actualLang);
+
+					let prefix = '';
+					let className = 'code-block';
+
+					if (actualLang === 'html' && !group) {
+						// if (!meta || meta.repl !== false) {
+						// 	prefix = `<a class='open-in-repl' href='repl?demo=@@${uid}'>REPL</a>`;
+						// }
+
+						group = { id: uid++, blocks: [] };
+						groups.push(group);
+					}
+
+					if (meta) {
+						actualSource = lines.slice(1).join('\n');
+						const filename = meta.filename || (actualLang === 'html' && 'App.html');
+						if (filename) {
+							prefix = `<span class='filename'>${prefix} ${filename}</span>`;
+							className += ' named';
+						}
+					}
+					if (group) group.blocks.push({ meta: meta || {}, lang: actualLang, source: actualSource });
+
+					if (meta && meta.hidden) return '';
+
+					const highlighted = hljs.highlight(actualSource, { language: actualLang || 'text' }).value;
+					return `<div class='${className}'>${prefix}<pre><code>${highlighted}</code></pre></div>`;
+				},
+
+				// Reset group for block-level elements
+				blockquote() { group = null; return false; },
+				html() { group = null; return false; },
+				hr() { group = null; return false; },
+				list() { group = null; return false; },
+				listitem() { group = null; return false; },
+				paragraph() { group = null; return false; },
+				table() { group = null; return false; },
+				tablerow() { group = null; return false; },
+				tablecell() { group = null; return false; }
 			};
 
-			blockTypes.forEach(type => {
-				const fn = renderer[type];
-				renderer[type] = function () {
-					group = null;
-					return fn.apply(this, arguments);
-				};
-			});
+			marked.use({ renderer });
 
-			let html = marked.marked(content, { renderer });
+			let html = marked.marked(content);
 
 			const hashes = {};
 

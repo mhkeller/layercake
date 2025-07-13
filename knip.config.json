@@ -1,0 +1,25 @@
+{
+	"$schema": "https://unpkg.com/knip@5/schema.json",
+	"entry": [
+		"src/lib/index.js",
+		"src/app.html",
+		"src/routes/+layout.js",
+		"src/routes/+page.svelte",
+		"test/**/*.{js,ts}",
+		"src/scripts/**/*.{js,ts}",
+		"*.config.{js,ts}",
+		"playwright.config.js"
+	],
+	"project": [
+		"src/**/*.{js,ts,svelte}",
+		"test/**/*.{js,ts}",
+		"*.config.{js,ts}",
+		"playwright.config.js"
+	],
+	"ignore": [
+		"docs/**",
+		"dist/**",
+		"test-results/**",
+		"playwright-report/**"
+	]
+}

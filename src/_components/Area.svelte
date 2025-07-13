@@ -3,8 +3,6 @@
 	Generates an SVG area shape.
  -->
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { getContext } from 'svelte';
 
 	const { data, xGet, yGet, xScale, yScale, extents } = getContext('LayerCake');
@@ -27,11 +25,9 @@
 	);
 
 	/**	@type {String} **/
-	let area = $state();
-
-	run(() => {
+	let area = $derived.by(() => {
 		const yRange = $yScale.range();
-		area =
+		return (
 			path +
 			('L' +
 				$xScale($extents.x ? $extents.x[1] : 0) +
@@ -41,7 +37,8 @@
 				$xScale($extents.x ? $extents.x[0] : 0) +
 				',' +
 				yRange[0] +
-				'Z');
+				'Z')
+		);
 	});
 </script>
 

@@ -9,11 +9,11 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Number} [r] - The circle radius size in pixels.
-	 * @property {Number} [strokeWidth] - The circle's stroke width in pixels.
-	 * @property {String} [stroke] - The circle's stroke color.
-	 * @property {Number} [spacing] - Whitespace padding between each circle, in pixels
-	 * @property {Function|undefined} [getTitle] - An accessor function to get the field on the data element to display as a hover label using a `<title>` tag.
+	 * @property {Number} [r=3] - The circle radius size in pixels.
+	 * @property {Number} [strokeWidth=0] - The circle's stroke width in pixels.
+	 * @property {String} [stroke='#fff'] - The circle's stroke color.
+	 * @property {Number} [spacing=1.5] - Whitespace padding between each circle, in pixels
+	 * @property {Function} [getTitle] - An accessor function to get the field on the data element to display as a hover label using a `<title>` tag.
 	 */
 
 	/** @type {Props} */

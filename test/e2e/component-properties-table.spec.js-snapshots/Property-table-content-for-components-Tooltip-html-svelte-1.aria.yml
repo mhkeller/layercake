@@ -14,12 +14,13 @@
       - cell "yes"
       - cell "A svelte event created via dispatch with event information under evt.detail.e.":
         - link "dispatch":
+          - /url: https://svelte.dev/docs#createEventDispatcher
           - code: dispatch
         - code: evt.detail.e
-    - row /offset Number -\d+ no A y-offset from the hover point, in pixels\./:
-      - cell "offset Number":
+    - row /offset number -\d+ no A y-offset from the hover point, in pixels\./:
+      - cell "offset number":
         - strong: offset
-        - code: Number
+        - code: number
       - cell /-\d+/:
         - code: /-\d+/
       - cell "no"

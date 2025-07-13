@@ -10,8 +10,8 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {String} [stroke] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
-	 * @property {Function} [curve] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses.
+	 * @property {String} [stroke='#ab00d6'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
+	 * @property {Function} [curve=curveLinear] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses.
 	 */
 
 	/** @type {Props} */

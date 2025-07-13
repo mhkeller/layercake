@@ -12,21 +12,24 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Number} [r] - The circle's radius.
-	 * @property {String} [fill] - The circle's fill color.
-	 * @property {string} [stroke] - Not yet implemented
+	 * @property {Number} [r=5] - The circle's radius.
+	 * @property {String} [fill='#0cf'] - The circle's fill color.
+	 * @property {string} [stroke='#000'] - Not yet implemented
 	 */
 
 	/** @type {Props} */
 	let { r = 5, fill = '#0cf', stroke = '#000' } = $props();
-	// export let strokeWidth = 0;
 
+	/**
+	 * @param {string} hex
+	 * @returns {number[]|undefined} - Returns an array of RGB values in the range [0, 1].
+	 */
 	function hexToRgbPercent(hex) {
 		let str = hex.replace('#', '');
 		if (str.length === 3) {
 			str = str[0] + str[0] + str[1] + str[1] + str[2] + str[2];
 		}
-		return str.match(/.{1,2}/g).map(d => parseInt(d, 16) / 255);
+		return str.match(/.{1,2}/g)?.map(d => parseInt(d, 16) / 255);
 	}
 
 	const { gl } = getContext('gl');

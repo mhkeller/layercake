@@ -14,34 +14,34 @@
       - cell "yes"
       - 'cell "A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
         - code: "projection={geoAlbersUsa}"
-    - row "fixedAspectRatio (Number | undefined) None no By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
-      - cell "fixedAspectRatio (Number | undefined)":
+    - row "fixedAspectRatio (number | undefined) None no By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
+      - cell "fixedAspectRatio (number | undefined)":
         - strong: fixedAspectRatio
-        - code: Number
+        - code: number
         - code: undefined
       - cell "None"
       - cell "no"
       - cell "By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here."
-    - row "fill (String | undefined) None no The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.":
-      - cell "fill (String | undefined)":
+    - row "fill (string | undefined) None no The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.":
+      - cell "fill (string | undefined)":
         - strong: fill
-        - code: String
+        - code: string
         - code: undefined
       - cell "None"
       - cell "no"
       - cell "The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set."
-    - row /stroke String '#\d+' no The shape's stroke color\./:
-      - cell "stroke String":
+    - row /stroke string '#\d+' no The shape's stroke color\./:
+      - cell "stroke string":
         - strong: stroke
-        - code: String
+        - code: string
       - cell /'#\d+'/:
         - code: /'#\d+'/
       - cell "no"
       - cell "The shape's stroke color."
-    - row "strokeWidth Number 0.5 no The shape's stroke width.":
-      - cell "strokeWidth Number":
+    - row "strokeWidth number 0.5 no The shape's stroke width.":
+      - cell "strokeWidth number":
         - strong: strokeWidth
-        - code: Number
+        - code: number
       - cell "0.5":
         - code: "0.5"
       - cell "no"

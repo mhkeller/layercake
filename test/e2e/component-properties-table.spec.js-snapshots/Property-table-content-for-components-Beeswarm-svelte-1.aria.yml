@@ -6,34 +6,34 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "r Number 3 no The circle radius size in pixels.":
-      - cell "r Number":
+    - row "r number 3 no The circle radius size in pixels.":
+      - cell "r number":
         - strong: r
-        - code: Number
+        - code: number
       - cell "3":
         - code: "3"
       - cell "no"
       - cell "The circle radius size in pixels."
-    - row "strokeWidth Number 0 no The circle's stroke width in pixels.":
-      - cell "strokeWidth Number":
+    - row "strokeWidth number 0 no The circle's stroke width in pixels.":
+      - cell "strokeWidth number":
         - strong: strokeWidth
-        - code: Number
+        - code: number
       - cell "0":
         - code: "0"
       - cell "no"
       - cell "The circle's stroke width in pixels."
-    - row "stroke String '#fff' no The circle's stroke color.":
-      - cell "stroke String":
+    - row "stroke string '#fff' no The circle's stroke color.":
+      - cell "stroke string":
         - strong: stroke
-        - code: String
+        - code: string
       - cell "'#fff'":
         - code: "'#fff'"
       - cell "no"
       - cell "The circle's stroke color."
-    - row "spacing Number 1.5 no Whitespace padding between each circle, in pixels":
-      - cell "spacing Number":
+    - row "spacing number 1.5 no Whitespace padding between each circle, in pixels":
+      - cell "spacing number":
         - strong: spacing
-        - code: Number
+        - code: number
       - cell "1.5":
         - code: "1.5"
       - cell "no"

@@ -6,10 +6,10 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "stroke (String | undefined) None no An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.":
-      - cell "stroke (String | undefined)":
+    - row "stroke (string | undefined) None no An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.":
+      - cell "stroke (string | undefined)":
         - strong: stroke
-        - code: String
+        - code: string
         - code: undefined
       - cell "None"
       - cell "no"

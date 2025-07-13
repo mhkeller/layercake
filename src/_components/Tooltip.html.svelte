@@ -6,7 +6,7 @@
 	/**
 	 * @typedef {Object} Props
 	 * @property {Object} evt - A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`.
-	 * @property {Number} [offset] - A y-offset from the hover point, in pixels.
+	 * @property {Number} [offset=-35] - A y-offset from the hover point, in pixels.
 	 * @property {import('svelte').Snippet<[any]>} [children]
 	 */
 

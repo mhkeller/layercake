@@ -3,8 +3,6 @@
 	Adds a brush component to create a range between 0 and 1. Bind to the `min` and `max` props to use them in other components. See the [brushable example](https://layercake.graphcics/example/Brush) for use.
  -->
 <script>
-	import { stopPropagation } from 'svelte/legacy';
-
 	import { clamp } from 'yootils';
 
 	/**
@@ -25,6 +23,7 @@
 
 	const handler = fn => {
 		return e => {
+			e.stopPropagation();
 			if (e.type === 'touchstart') {
 				if (e.touches.length !== 1) return;
 				e = e.touches[0];
@@ -98,29 +97,24 @@
 
 <!-- TODO Add keyboard accessibility. See https://github.com/mhkeller/layercake/pull/258 -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div
-	bind:this={brush}
-	class="brush-outer"
-	onmousedown={stopPropagation(reset)}
-	ontouchstart={stopPropagation(reset)}
->
+<div bind:this={brush} class="brush-outer" onmousedown={reset} ontouchstart={reset}>
 	{#if min !== null}
 		<div
 			class="brush-inner"
-			onmousedown={stopPropagation(move)}
-			ontouchstart={stopPropagation(move)}
+			onmousedown={move}
+			ontouchstart={move}
 			style="left: {left}%; right: {right}%"
 		></div>
 		<div
 			class="brush-handle"
-			onmousedown={stopPropagation(adjust_min)}
-			ontouchstart={stopPropagation(adjust_min)}
+			onmousedown={adjust_min}
+			ontouchstart={adjust_min}
 			style="left: {left}%"
 		></div>
 		<div
 			class="brush-handle"
-			onmousedown={stopPropagation(adjust_max)}
-			ontouchstart={stopPropagation(adjust_max)}
+			onmousedown={adjust_max}
+			ontouchstart={adjust_max}
 			style="right: {right}%"
 		></div>
 	{/if}

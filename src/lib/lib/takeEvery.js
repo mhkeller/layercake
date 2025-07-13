@@ -2,9 +2,9 @@
 	Filters a list for every n entries
   useful for slimming down the number of ticks
   in an axis
-	@param {Array} list A list of items
-	@param {Number} n Take one item every n times. So if you set this to 5, every fifth element will be taken, including the 0th.
-	@returns {Array}
+	@param {Array<any>} list A list of items
+	@param {number} n Take one item every n times. So if you set this to 5, every fifth element will be taken, including the 0th.
+	@returns {Array<any>}
 */
 export default function takeEvery(list, n) {
 	if (list.length <= n) return list;

@@ -6,18 +6,18 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "shape String 'square' no The shape for each item. Can be 'circle', 'line', or 'square';":
-      - cell "shape String":
+    - row "shape string 'square' no The shape for each item. Can be 'circle', 'line', or 'square';":
+      - cell "shape string":
         - strong: shape
-        - code: String
+        - code: string
       - cell "'square'":
         - code: "'square'"
       - cell "no"
       - cell "The shape for each item. Can be 'circle', 'line', or 'square';"
-    - row "align String 'start' no Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'.":
-      - cell "align String":
+    - row "align string 'start' no Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'.":
+      - cell "align string":
         - strong: align
-        - code: String
+        - code: string
       - cell "'start'":
         - code: "'start'"
       - cell "no"

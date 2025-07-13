@@ -9,10 +9,10 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Number} [r] - The circle's radius.
-	 * @property {String} [fill] - The circle's fill color.
-	 * @property {String} [stroke] - The circle's stroke color.
-	 * @property {Number} [strokeWidth] - The circle's stroke width.
+	 * @property {Number} [r=5] - The circle's radius.
+	 * @property {String} [fill='#0cf'] - The circle's fill color.
+	 * @property {String} [stroke='#000'] - The circle's stroke color.
+	 * @property {Number} [strokeWidth=0] - The circle's stroke width.
 	 */
 
 	/** @type {Props} */

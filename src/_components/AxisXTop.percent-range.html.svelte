@@ -11,17 +11,17 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {boolean} [tickMarks] - Show a vertical mark for each tick.
-	 * @property {boolean} [gridlines] - Show gridlines extending into the chart area.
-	 * @property {Number} [tickMarkLength] - The length of the tick mark.
-	 * @property {boolean} [baseline] - Show a solid line at the bottom.
-	 * @property {boolean} [snapLabels] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart.
-	 * @property {(d: any) => string} [format] - A function that passes the current tick value and expects a nicely formatted value in return.
-	 * @property {Number|Array<any>|Function|undefined} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.
-	 * @property {Number} [tickGutter] - The amount of whitespace between the start of the tick and the chart drawing area (the yRange min).
-	 * @property {Number} [dx] - Any optional value passed to the `dx` attribute on the text label.
-	 * @property {Number} [dy] - Any optional value passed to the `dy` attribute on the text label.
-	 * @property {String} units - Whether this component should use percentage or pixel values. If `percentRange={true} [units] - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`.
+	 * @property {boolean} [tickMarks=false] - Show a vertical mark for each tick.
+	 * @property {boolean} [gridlines=true] - Show gridlines extending into the chart area.
+	 * @property {Number} [tickMarkLength=6] - The length of the tick mark.
+	 * @property {boolean} [baseline=false] - Show a solid line at the bottom.
+	 * @property {boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart.
+	 * @property {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return.
+	 * @property {Number|Array<any>|Function} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.
+	 * @property {Number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the yRange min).
+	 * @property {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label.
+	 * @property {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label.
+	 * @property {'px'|'%'} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`.
 	 */
 
 	/** @type {Props} */

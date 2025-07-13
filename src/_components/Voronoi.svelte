@@ -11,7 +11,7 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {String|undefined} [stroke] - An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
+	 * @property {String} [stroke] - An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
 	 */
 
 	/** @type {Props} */

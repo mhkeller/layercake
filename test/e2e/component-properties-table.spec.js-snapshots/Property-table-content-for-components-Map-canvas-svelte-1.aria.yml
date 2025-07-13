@@ -14,26 +14,26 @@
       - cell "yes"
       - 'cell "A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
         - code: "projection={geoAlbersUsa}"
-    - row "stroke String '#ccc' no The shape's stroke color.":
-      - cell "stroke String":
+    - row "stroke string '#ccc' no The shape's stroke color.":
+      - cell "stroke string":
         - strong: stroke
-        - code: String
+        - code: string
       - cell "'#ccc'":
         - code: "'#ccc'"
       - cell "no"
       - cell "The shape's stroke color."
-    - row "strokeWidth Number 1 no The shape's stroke width.":
-      - cell "strokeWidth Number":
+    - row "strokeWidth number 1 no The shape's stroke width.":
+      - cell "strokeWidth number":
         - strong: strokeWidth
-        - code: Number
+        - code: number
       - cell "1":
         - code: "1"
       - cell "no"
       - cell "The shape's stroke width."
-    - row "fill (String | undefined) None no The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.":
-      - cell "fill (String | undefined)":
+    - row "fill (string | undefined) None no The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.":
+      - cell "fill (string | undefined)":
         - strong: fill
-        - code: String
+        - code: string
         - code: undefined
       - cell "None"
       - cell "no"

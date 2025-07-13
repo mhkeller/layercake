@@ -5,8 +5,8 @@
 <script>
 	/**
 	 * @typedef {Object} Props
-	 * @property {String} [fill]
-	 * @property {String} [stroke]
+	 * @property {string} [fill='#000'] - The arrowhead's fill color.
+	 * @property {string} [stroke='#000'] - The arrowhead's stroke color.
 	 */
 
 	/** @type {Props} */

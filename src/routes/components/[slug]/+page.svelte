@@ -4,7 +4,6 @@
 
 	import DownloadComponentBtn from '../../_site-components/DownloadComponentBtn.svelte';
 	import hljsDefineSvelte from '../../../_modules/hljsDefineSvelte.js';
-	// import cleanTitle from '../../_modules/cleanTitle.js';
 
 	import components from '../../_components.js';
 

@@ -7,10 +7,10 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {String} [shape] - The shape for each item. Can be 'circle', 'line', or 'square';
-	 * @property {String} [align] - Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'.
-	 * @property {Function|Object|undefined} [lookup] - Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value.
-	 * @property {boolean} [capitalize] - Capitalize the first character.
+	 * @property {String} [shape='square'] - The shape for each item. Can be 'circle', 'line', or 'square';
+	 * @property {String} [align='start'] - Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'.
+	 * @property {Function|Object} [lookup] - Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value.
+	 * @property {boolean} [capitalize=true] - Capitalize the first character.
 	 */
 
 	/** @type {Props} */

@@ -6,10 +6,10 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "fill String '#ab00d610' no The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
-      - cell "fill String":
+    - row "fill string '#ab00d610' no The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+      - cell "fill string":
         - strong: fill
-        - code: String
+        - code: string
       - cell "'#ab00d610'":
         - code: "'#ab00d610'"
       - cell "no"

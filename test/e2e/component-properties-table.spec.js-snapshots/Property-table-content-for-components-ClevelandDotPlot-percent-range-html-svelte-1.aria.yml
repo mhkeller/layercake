@@ -6,10 +6,10 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "r Number 5 no The circle radius.":
-      - cell "r Number":
+    - row "r number 5 no The circle radius.":
+      - cell "r number":
         - strong: r
-        - code: Number
+        - code: number
       - cell "5":
         - code: "5"
       - cell "no"

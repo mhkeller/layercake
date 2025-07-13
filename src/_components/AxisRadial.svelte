@@ -9,8 +9,8 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Number} [lineLengthFactor] - How far to extend the lines from the circle's center. A value of `1` puts them at the circle's circumference.
-	 * @property {Number} [labelPlacementFactor] - How far to place the labels from the circle's center. A value of `1` puts them at the circle's circumference.
+	 * @property {number} [lineLengthFactor=1.1] - How far to extend the lines from the circle's center. A value of `1` puts them at the circle's circumference.
+	 * @property {number} [labelPlacementFactor=1.25] - How far to place the labels from the circle's center. A value of `1` puts them at the circle's circumference.
 	 */
 
 	/** @type {Props} */
@@ -23,8 +23,8 @@
 
 	let angleSlice = $derived((Math.PI * 2) / $config.x.length);
 
-	/** @param {Number} total
-	 *  @param {Number} i */
+	/** @param {number} total
+	 *  @param {number} i */
 	function anchor(total, i) {
 		if (i === 0 || i === total / 2) {
 			return 'middle';

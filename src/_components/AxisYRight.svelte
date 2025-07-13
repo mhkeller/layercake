@@ -9,17 +9,17 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {boolean} [tickMarks] - Show marks next to the tick label.
-	 * @property {String} [labelPosition] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark.
-	 * @property {boolean} [snapBaselineLabel] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
-	 * @property {boolean} [gridlines] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
-	 * @property {Number|undefined} [tickMarkLength] - The length of the tick mark. If not set, becomes the length of the widest tick.
-	 * @property {(d: any) => string} [format] - A function that passes the current tick value and expects a nicely formatted value in return.
-	 * @property {Number|Array<any>|Function} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
-	 * @property {Number} [tickGutter] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min).
-	 * @property {Number} [dx] - Any optional value passed to the `dx` attribute on the text label.
-	 * @property {Number} [dy] - Any optional value passed to the `dy` attribute on the text label.
-	 * @property {Number} [charPixelWidth] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value).
+	 * @property {boolean} [tickMarks=false] - Show marks next to the tick label.
+	 * @property {String} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark.
+	 * @property {boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
+	 * @property {boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
+	 * @property {Number} [tickMarkLength] - The length of the tick mark. If not set, becomes the length of the widest tick.
+	 * @property {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return.
+	 * @property {Number|Array<any>|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
+	 * @property {Number} [tickGutter=5] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min).
+	 * @property {Number} [dx=0] - Any optional value passed to the `dx` attribute on the text label.
+	 * @property {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label.
+	 * @property {Number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value).
 	 */
 
 	/** @type {Props} */
@@ -37,7 +37,7 @@
 		charPixelWidth = 7.25
 	} = $props();
 
-	/** @param {Number} sum
+	/** @param {number} sum
 	 *  @param {String} val */
 	function calcStringLength(sum, val) {
 		if (val === ',' || val === '.') return sum + charPixelWidth * 0.5;

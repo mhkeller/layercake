@@ -10,14 +10,14 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} [colorLinks] - A function to return a color for the links.
-	 * @property {Function} [colorNodes] - A function to return a color for each node.
-	 * @property {Function} [colorText] - A function to return a color for each text label.
-	 * @property {Number} [nodeWidth] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth).
-	 * @property {Number} [nodePadding] - The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding).
+	 * @property {Function} [colorLinks=() => 'rgba(0, 0, 0, .2)'] - A function to return a color for the links.
+	 * @property {Function} [colorNodes=() => '#333'] - A function to return a color for each node.
+	 * @property {Function} [colorText=() => '#263238'] - A function to return a color for each text label.
+	 * @property {Number} [nodeWidth=5] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth).
+	 * @property {Number} [nodePadding=10] - The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding).
 	 * @property {Function|undefined} [linkSort] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort).
-	 * @property {Function} [nodeId] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).
-	 * @property {Function} [nodeAlign] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more.
+	 * @property {Function} [nodeId=(d) => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).
+	 * @property {Function} [nodeAlign=Sankey.sankeyLeft] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more.
 	 */
 
 	/** @type {Props} */

@@ -27,6 +27,7 @@ test(`Download zip file`, async ({ page }) => {
 	// Wait for the page to be fully loaded
 	await page.waitForLoadState('networkidle');
 
+	// Start waiting for download before clicking
 	const downloadPromise = page.waitForEvent('download');
 	await page.getByRole('button', { name: 'Download' }).click();
 	const download = await downloadPromise;

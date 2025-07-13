@@ -82,9 +82,39 @@ export default function (returnHtml = true) {
 					// In marked v16, the heading renderer receives a single token object
 					const textString = token.text || '';
 					const level = token.depth || 1;
-					const slug = slugify(textString, null, store);
 
-					return `<h${level} id="${slug}">${textString}<a href="/guide#${slug}"> </a></h${level}>`;
+					// Extract only the identifier for slug/anchor (ignore code blocks in heading)
+					// This matches the old behavior: only the identifier (before any <code> or after)
+					let identifier = textString;
+					// Remove any inline code (backticks or <code> tags)
+					identifier = identifier
+						.replace(/<code>(.*?)<\/code>/g, '')
+						.replace(/`([^`]+)`/g, '')
+						.trim();
+					// Remove trailing/leading whitespace and punctuation
+					identifier = identifier.replace(/^\W+|\W+$/g, '');
+
+					const slug = slugify(identifier, null, store);
+
+					// Render the heading content with proper HTML (convert inline tokens to HTML)
+					let headingHtml = '';
+					if (token.tokens && token.tokens.length > 0) {
+						// Render each token to get proper HTML with <code> tags
+						headingHtml = token.tokens
+							.map(t => {
+								if (t.type === 'codespan') {
+									return `<code>${t.text}</code>`;
+								}
+								return t.text || '';
+							})
+							.join('');
+					} else {
+						// Fallback to raw text if no tokens available
+						headingHtml = textString;
+					}
+
+					// Render heading with proper HTML for display, but anchor uses only identifier
+					return `<h${level} id="${slug}">${headingHtml}<a href="/guide#${slug}"> </a></h${level}>`;
 				},
 
 				code(token) {
@@ -207,28 +237,39 @@ export default function (returnHtml = true) {
 				);
 			});
 
+			// When extracting sidebar subsections, strip <code>...</code> from the title for anchors, but keep the display text for the heading itself
 			const subsections = [];
 			const pattern = /<h3 id="(.+?)">(.+?)<\/h3>/g;
 			let match;
 
 			while ((match = pattern.exec(html))) {
 				const slug = match[1];
-				const title = unescape(
-					match[2]
-						.replace(/^(\w+)(\((.+)?\))?/, (m, $1, $2, $3) => {
-							if ($3) return `${$1}(...)`;
-							if ($2) return `${$1}()`;
-							return $1;
-						})
-						.replace(/\.(\w+)(\((.+)?\))?/, (m, $1, $2, $3) => {
-							if ($3) return `.${$1}(...)`;
-							if ($2) return `.${$1}()`;
-							return `.${$1}`;
-						})
-						.split('<a')[0]
-						.split(' <code>')[0]
-						.replace(/<\/?code>/g, '')
-				);
+				let title = unescape(match[2]);
+				const originalTitle = title;
+
+				// Remove any HTML tags first
+				title = title.replace(/<[^>]*>/g, '');
+
+				// Check if this looks like an API section with type information
+				// (contains backticks, code tags, or type syntax like Array, Function, etc.)
+				const hasTypeInfo =
+					/[`<]|Array|Function|Object|string|number|boolean|undefined|d3\.|DOM/.test(title);
+
+				if (hasTypeInfo) {
+					// For API sections, extract just the identifier (before any space, backtick, or special characters)
+					const identifierMatch = title.match(/^([a-zA-Z_$][a-zA-Z0-9_.$]*)/);
+					if (identifierMatch) {
+						title = identifierMatch[1];
+					}
+
+					// Check if the original title had function parameters to add (...) notation
+					const hasParameters = /\([^)]*[\w:]/.test(originalTitle);
+					if (hasParameters) {
+						title = `${title}(...)`;
+					}
+				}
+				// For narrative sections, keep the full title as-is
+
 				subsections.push({ slug, title });
 			}
 

@@ -53,7 +53,6 @@
 	examples.forEach(exmpl => {
 		exampleLookup.set(exmpl.slug, exmpl);
 	});
-
 	let example = $derived(exampleLookup.get(data.slug));
 
 	async function copyToClipboard() {
@@ -87,7 +86,7 @@
 </script>
 
 <svelte:head>
-	<title>{example.title}</title>
+	<title>{example?.title || 'LayerCake Example'}</title>
 </svelte:head>
 
 <div class="main">

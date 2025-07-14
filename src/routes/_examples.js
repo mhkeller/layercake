@@ -43,12 +43,12 @@ export default [
 		slug: 'MapSvg',
 		component: MapSvg
 	},
-	{
-		replPath: 'a8135fcccf3d42e68b1f29be00fc72c6?version=3.46.2',
-		title: 'Multilayer map (canvas + svg)',
-		slug: 'MapLayered',
-		component: MapLayered
-	},
+	// {
+	// 	replPath: 'a8135fcccf3d42e68b1f29be00fc72c6?version=3.46.2',
+	// 	title: 'Multilayer map (canvas + svg)',
+	// 	slug: 'MapLayered',
+	// 	component: MapLayered
+	// },
 	{
 		replPath: '666164c95fb9441188aab2622a4e8547?version=3.46.2',
 		title: 'Column annotated',
@@ -85,12 +85,12 @@ export default [
 		slug: 'AreaStacked',
 		component: AreaStacked
 	},
-	{
-		replPath: 'd9a9c151058d4e3eb74a4eed60eabb54?version=3.46.2',
-		title: 'Scatter (svg + canvas + voronoi)',
-		slug: 'Scatter',
-		component: Scatter
-	},
+	// {
+	// 	replPath: 'd9a9c151058d4e3eb74a4eed60eabb54?version=3.46.2',
+	// 	title: 'Scatter (svg + canvas + voronoi)',
+	// 	slug: 'Scatter',
+	// 	component: Scatter
+	// },
 	{
 		replPath: 'f9f33add37d440f78b24092c7ba8154d?version=3.46.2',
 		title: 'Cleveland dot plot',
@@ -151,12 +151,12 @@ export default [
 		slug: 'Brush',
 		component: Brush
 	},
-	{
-		replPath: '0eaf387a0a564971865fb6176f959940?version=3.46.2',
-		title: 'Synced brush',
-		slug: 'SyncedBrush',
-		component: SyncedBrush
-	},
+	// {
+	// 	replPath: '0eaf387a0a564971865fb6176f959940?version=3.46.2',
+	// 	title: 'Synced brush',
+	// 	slug: 'SyncedBrush',
+	// 	component: SyncedBrush
+	// },
 	{
 		replPath: '132d2c81c3f841a0be0162443b008a92?version=3.46.2',
 		title: 'Beeswarm',

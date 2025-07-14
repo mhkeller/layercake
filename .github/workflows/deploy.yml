@@ -6,6 +6,7 @@ on:
 
 jobs:
   deploy:
+    if: github.repository == 'mhkeller/layercake'
     runs-on: ubuntu-latest
 
     permissions:

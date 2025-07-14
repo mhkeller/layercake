@@ -24,6 +24,7 @@
 	const handler = fn => {
 		return e => {
 			e.stopPropagation();
+			e.preventDefault(); // Prevent default drag behavior
 			if (e.type === 'touchstart') {
 				if (e.touches.length !== 1) return;
 				e = e.touches[0];
@@ -33,6 +34,7 @@
 			const start = { min, max, p: p(e.clientX) };
 
 			const handle_move = e => {
+				e.preventDefault(); // Prevent default drag behavior during move
 				if (e.type === 'touchmove') {
 					if (e.changedTouches.length !== 1) return;
 					e = e.changedTouches[0];
@@ -101,18 +103,21 @@
 	{#if min !== null}
 		<div
 			class="brush-inner"
+			draggable="false"
 			onmousedown={move}
 			ontouchstart={move}
 			style="left: {left}%; right: {right}%"
 		></div>
 		<div
 			class="brush-handle"
+			draggable="false"
 			onmousedown={adjust_min}
 			ontouchstart={adjust_min}
 			style="left: {left}%"
 		></div>
 		<div
 			class="brush-handle"
+			draggable="false"
 			onmousedown={adjust_max}
 			ontouchstart={adjust_max}
 			style="right: {right}%"

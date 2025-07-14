@@ -34,17 +34,18 @@
 
 	const link = Sankey.sankeyLinkHorizontal();
 
-	let sankey = $derived(
-		Sankey.sankey()
+	let sankeyData = $state({});
+	$effect(() => {
+		const sankey = Sankey.sankey()
 			.nodeAlign(nodeAlign)
 			.nodeWidth(nodeWidth)
 			.nodePadding(nodePadding)
 			.nodeId(nodeId)
 			.size([$width, $height])
-			.linkSort(linkSort)
-	);
+			.linkSort(linkSort);
 
-	let sankeyData = $derived(sankey($data));
+		sankeyData = sankey($data);
+	});
 
 	let fontSize = $derived($width <= 320 ? 8 : 12);
 </script>

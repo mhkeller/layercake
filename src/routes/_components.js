@@ -87,15 +87,14 @@ export default [
 			{ slug: 'ClevelandDotPlot.percent-range.html.svelte', component: ClevelandDotPlotHtml },
 			{ slug: 'Column.svelte', component: Column },
 			{ slug: 'ColumnStacked.svelte', component: ColumnStacked },
-			// // { slug: 'ForceDirectedGraph.svelte', component: ForceDirectedGraph },
 			{ slug: 'Line.svelte', component: Line },
 			{ slug: 'Line-D3.svelte', component: LineD3 },
 			{ slug: 'MultiLine.svelte', component: MultiLine },
 			{ slug: 'Radar.svelte', component: Radar },
 			{ slug: 'Sankey.svelte', component: Sankey },
-			{ slug: 'Scatter.canvas.svelte', component: ScatterCanvas },
+			// { slug: 'Scatter.canvas.svelte', component: ScatterCanvas },
 			{ slug: 'Scatter.svg.svelte', component: ScatterSvg },
-			{ slug: 'Scatter.webgl.svelte', component: ScatterWebgl },
+			// { slug: 'Scatter.webgl.svelte', component: ScatterWebgl },
 			{ slug: 'Scatter.html.svelte', component: ScatterHtml }
 		]
 	},
@@ -103,10 +102,10 @@ export default [
 		name: 'map',
 		components: [
 			{ slug: 'Map.svg.svelte', component: MapSvg },
-			{ slug: 'Map.canvas.svelte', component: MapCanvas },
+			// { slug: 'Map.canvas.svelte', component: MapCanvas },
 			{ slug: 'MapPoints.svelte', component: MapPoints },
 			{ slug: 'MapPoints.html.svelte', component: MapPointsHtml },
-			{ slug: 'MapPoints.canvas.svelte', component: MapPointsCanvas },
+			// { slug: 'MapPoints.canvas.svelte', component: MapPointsCanvas },
 			{ slug: 'MapLabels.html.svelte', component: MapLabelsHtml },
 			{ slug: 'MapLabels.svg.svelte', component: MapLabels }
 		]

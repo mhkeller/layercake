@@ -1,0 +1,74 @@
+name: Update Playwright Snapshots
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-screenshots:
+    runs-on: ubuntu-24.04
+    container:
+      # https://playwright.dev/docs/docker
+      image: mcr.microsoft.com/playwright:v1.54.0-noble
+      options: --user 1001
+
+    if: github.ref_name != github.event.repository.default_branch
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Initialise Playwright tests
+        run: npm run pretest:playwright
+
+      - name: Update snapshots
+        run: npm run test:init:snapshots
+
+      - name: Configure Git
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Get changed files
+        id: changed_files
+        run: |
+          files=$(git status --porcelain | awk '{print $2}')
+          echo "files=$files" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.changed_files.outputs.files != ''
+        run: |
+          git add -A
+          git commit -m "Update Playwright snapshots"
+          git push origin ${{ github.ref_name }}
+
+      - name: Comment PR with changes
+        uses: thollander/actions-comment-pull-request@v3
+        if: steps.changed_files.outputs.files != ''
+        with:
+          message: |
+            ### Playwright test snapshots have been updated.
+
+            Updated files:
+            ${{ steps.changed_files.outputs.files }}
+
+      - name: Comment PR when there are no changes
+        uses: thollander/actions-comment-pull-request@v3
+        if: steps.changed_files.outputs.files == ''
+        with:
+          message: |
+            ### No Playwright test snapshots changed.

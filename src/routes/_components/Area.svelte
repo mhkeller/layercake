@@ -17,7 +17,7 @@
 <div class="chart-container">
 	<LayerCake x={xKey} y={yKey} yDomain={[0, null]} {data}>
 		<Svg>
-			<Area fill="#ff7ac7" />
+			<Area fill="green" />
 		</Svg>
 	</LayerCake>
 </div>

@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-screenshots:
+  update-snapshots:
     runs-on: ubuntu-24.04
     container:
       # https://playwright.dev/docs/docker
@@ -46,29 +46,12 @@ jobs:
       - name: Get changed files
         id: changed_files
         run: |
-          files=$(git status --porcelain | awk '{print $2}')
+          files=$(git status --porcelain | awk '{print $2}' | grep '\.png$' || true)
           echo "files=$files" >> $GITHUB_OUTPUT
 
       - name: Commit and push changes
         if: steps.changed_files.outputs.files != ''
         run: |
-          git add -A
+          git add -A test/e2e/**/*.png
           git commit -m "Update Playwright snapshots"
           git push origin ${{ github.ref_name }}
-
-      - name: Comment PR with changes
-        uses: thollander/actions-comment-pull-request@v3
-        if: steps.changed_files.outputs.files != ''
-        with:
-          message: |
-            ### Playwright test snapshots have been updated.
-
-            Updated files:
-            ${{ steps.changed_files.outputs.files }}
-
-      - name: Comment PR when there are no changes
-        uses: thollander/actions-comment-pull-request@v3
-        if: steps.changed_files.outputs.files == ''
-        with:
-          message: |
-            ### No Playwright test snapshots changed.

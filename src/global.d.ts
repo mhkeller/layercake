@@ -18,8 +18,7 @@ type DimensionDomain =
 
 type DimensionRange = [min: number, max: number] | Function | Array<string | number> | undefined;
 
-type D3ScaleOrConstructor<Domain = any, Range = any> =
-	| D3Scale<Domain, Range>
+type D3ScaleConstructor<Domain = any, Range = any> =
 	| (() => D3Scale<Domain, Range>);
 
 interface D3Scale<Domain = any, Range = any> {
@@ -39,3 +38,8 @@ interface D3Scale<Domain = any, Range = any> {
 	bandwidth?(): number;
 	step?(): number;
 }
+
+type D3ScaleOrConstructor<Domain = any, Range = any> =
+	| D3Scale<Domain, Range>
+	| D3ScaleConstructor<Domain, Range>
+

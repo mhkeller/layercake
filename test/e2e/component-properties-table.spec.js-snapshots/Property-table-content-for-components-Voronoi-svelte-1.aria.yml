@@ -6,8 +6,8 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "stroke (string) None no An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.":
-      - cell "stroke (string)":
+    - row "stroke (string | undefined) None no An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.":
+      - cell "stroke (string | undefined)":
         - strong: stroke
         - code: string
       - cell "None"

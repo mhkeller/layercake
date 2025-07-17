@@ -37,17 +37,15 @@
 
 	let cellSize = $derived(calcCellSize($width, $height));
 
-	/** @type {Date[]} */
-	let days = $state([]);
-
-	/* --------------------------------------------
+	/**
 	 * Calculate what month we're in and generate the full days of that month
 	 */
-	$effect(() => {
+	/** @type {Date[]} */
+	let days = $derived.by(() => {
 		const minDate = $extents.x[0];
 		const parts = minDate.split('-').map(d => +d);
 
-		days = utcDay.range(
+		return utcDay.range(
 			new Date(Date.UTC(parts[0], parts[1] - 1, 1)),
 			new Date(Date.UTC(parts[0], parts[1], 1))
 		);

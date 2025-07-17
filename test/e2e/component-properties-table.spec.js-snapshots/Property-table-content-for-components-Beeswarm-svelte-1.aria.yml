@@ -38,11 +38,10 @@
         - code: "1.5"
       - cell "no"
       - cell "Whitespace padding between each circle, in pixels"
-    - row "getTitle (Function | undefined) None no An accessor function to get the field on the data element to display as a hover label using a <title> tag.":
-      - cell "getTitle (Function | undefined)":
+    - row "getTitle Function None no An accessor function to get the field on the data element to display as a hover label using a <title> tag.":
+      - cell "getTitle Function":
         - strong: getTitle
         - code: Function
-        - code: undefined
       - cell "None"
       - cell "no"
       - cell "An accessor function to get the field on the data element to display as a hover label using a <title> tag.":

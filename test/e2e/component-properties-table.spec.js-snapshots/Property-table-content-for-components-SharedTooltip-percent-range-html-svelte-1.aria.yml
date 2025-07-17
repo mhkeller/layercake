@@ -23,12 +23,12 @@
         - code: d => titleCase(d)
       - cell "no"
       - cell "A function to format the series name."
-    - 'row "formatValue Function d => isNaN(+d) ? d : commas(d) no A function to format the value."':
+    - 'row "formatValue Function d => (isNaN(+d) ? d : commas(d)) no A function to format the value."':
       - cell "formatValue Function":
         - strong: formatValue
         - code: Function
-      - 'cell "d => isNaN(+d) ? d : commas(d)"':
-        - code: "d => isNaN(+d) ? d : commas(d)"
+      - 'cell "d => (isNaN(+d) ? d : commas(d))"':
+        - code: "d => (isNaN(+d) ? d : commas(d))"
       - cell "no"
       - cell "A function to format the value."
     - row /offset number -\d+ no A y-offset from the hover point, in pixels\./:
@@ -39,11 +39,10 @@
         - code: /-\d+/
       - cell "no"
       - cell "A y-offset from the hover point, in pixels."
-    - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
-      - cell "dataset (Array<Object> | undefined)":
+    - row "dataset Array None no The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
+      - cell "dataset Array":
         - strong: dataset
-        - code: Array<Object>
-        - code: undefined
+        - code: Array
       - cell "None"
       - cell "no"
       - cell "The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format."

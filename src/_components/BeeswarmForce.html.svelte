@@ -3,10 +3,10 @@
 	Generates an HTML Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getContext, untrack } from 'svelte';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 
-	const { data, xGet, height, zGet } = getContext('LayerCake');
+	const { data, xGet, width, height, zGet } = getContext('LayerCake');
 
 	/**
 	 * @typedef {Object} Props
@@ -28,8 +28,13 @@
 		getTitle
 	} = $props();
 
-	let simulation = $derived(
-		forceSimulation($data.map(d => ({ ...d })))
+	/** @type {any[]} */
+	let nodes = $state([]);
+
+	let simulation = $derived.by(() => {
+		if (!$width || !$height || !$data.length) return null;
+
+		const sim = forceSimulation($data.map((/** @type {any} */ d) => ({ ...d })))
 			.force(
 				'x',
 				forceX()
@@ -42,24 +47,36 @@
 					.y($height / 2)
 					.strength(yStrength)
 			)
-			.force('collide', forceCollide(r + strokeWidth / 2))
-			.stop()
-	);
+			.force('collide', forceCollide(r))
+			.stop();
+
+		return sim;
+	});
 
 	$effect(() => {
-		for (
-			let i = 0,
-				n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay()));
-			i < n;
-			++i
-		) {
-			simulation.tick();
+		if (!simulation) {
+			nodes = [];
+			return;
 		}
+
+		untrack(() => {
+			// Run the simulation for a fixed number of iterations
+			const maxIterations = Math.ceil(
+				Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())
+			);
+
+			for (let i = 0; i < maxIterations; ++i) {
+				simulation.tick();
+			}
+
+			// Update nodes state to trigger reactivity
+			nodes = [...simulation.nodes()];
+		});
 	});
 </script>
 
 <div class="bee-group">
-	{#each simulation.nodes() as node}
+	{#each nodes as node}
 		<div
 			class="bee"
 			style="

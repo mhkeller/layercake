@@ -1,6 +1,6 @@
 <script>
 	import { LayerCake, ScaledSvg, calcExtents } from 'layercake';
-	import { tweened } from 'svelte/motion';
+	import { Tween } from 'svelte/motion';
 	import * as eases from 'svelte/easing';
 
 	import Line from './Line.svelte';
@@ -12,16 +12,16 @@
 		easing: eases.cubicInOut
 	};
 
-	const xDomain = tweened(undefined, tweenOptions);
-	const yDomain = tweened(undefined, tweenOptions);
-
 	const extents = calcExtents(data, extentGetters);
 
+	const xDomain = new Tween(scale === 'shared' ? fullExtents.x : extents.x, tweenOptions);
+	const yDomain = new Tween(scale === 'shared' ? fullExtents.y : extents.y, tweenOptions);
+
 	$effect(() => {
-		xDomain.set(scale === 'shared' ? fullExtents.x : extents.x);
+		xDomain.target = scale === 'shared' ? fullExtents.x : extents.x;
 	});
 	$effect(() => {
-		yDomain.set(scale === 'shared' ? fullExtents.y : extents.y);
+		yDomain.target = scale === 'shared' ? fullExtents.y : extents.y;
 	});
 </script>
 
@@ -32,8 +32,8 @@
 	x={extentGetters.x}
 	y={extentGetters.y}
 	{data}
-	xDomain={$xDomain}
-	yDomain={$yDomain}
+	xDomain={xDomain.current}
+	yDomain={yDomain.current}
 >
 	<ScaledSvg>
 		<Line stroke={'#000'} />

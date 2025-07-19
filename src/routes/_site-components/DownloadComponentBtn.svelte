@@ -5,7 +5,6 @@
 	import downloadBlob from '../../_modules/downloadBlob.js';
 
 	let { data = {}, slug } = $props();
-	// export let ssr = false;
 
 	let downloading = $state(false);
 

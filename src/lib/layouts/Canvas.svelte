@@ -41,6 +41,7 @@
 	const cntxt = {
 		ctx: writable(null)
 	};
+	setContext('canvas', cntxt);
 
 	onMount(() => {
 		if (element) {
@@ -52,9 +53,10 @@
 	});
 
 	$effect(() => {
+		console.log('setting context');
+
 		cntxt.ctx.set(context);
 	});
-	setContext('canvas', cntxt);
 </script>
 
 <canvas

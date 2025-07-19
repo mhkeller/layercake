@@ -43,12 +43,12 @@ export default [
 		slug: 'MapSvg',
 		component: MapSvg
 	},
-	// {
-	// 	replPath: 'a8135fcccf3d42e68b1f29be00fc72c6?version=3.46.2',
-	// 	title: 'Multilayer map (canvas + svg)',
-	// 	slug: 'MapLayered',
-	// 	component: MapLayered
-	// },
+	{
+		replPath: 'a8135fcccf3d42e68b1f29be00fc72c6?version=3.46.2',
+		title: 'Multilayer map (canvas + svg)',
+		slug: 'MapLayered',
+		component: MapLayered
+	},
 	{
 		replPath: '666164c95fb9441188aab2622a4e8547?version=3.46.2',
 		title: 'Column annotated',

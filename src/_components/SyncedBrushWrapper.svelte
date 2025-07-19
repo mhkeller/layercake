@@ -27,12 +27,14 @@
 		stroke = '#00e047'
 	} = $props();
 
-	let brushedData = $state();
-	$effect(() => {
-		brushedData = data.slice((min || 0) * data.length, (max || 1) * data.length);
-		if (brushedData.length < 2) {
-			brushedData = data.slice(min * data.length, min * data.length + 2);
+	let brushedData = $derived.by(() => {
+		const start = Math.max(0, Math.floor((min ?? 0) * data.length));
+		const end = Math.min(data.length, Math.ceil((max ?? 1) * data.length));
+		let brushed = data.slice(start, end);
+		if (brushed.length < 2 && data.length >= 2) {
+			return data.slice(start, start + 2);
 		}
+		return brushed;
 	});
 </script>
 

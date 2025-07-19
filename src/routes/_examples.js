@@ -151,12 +151,12 @@ export default [
 		slug: 'Brush',
 		component: Brush
 	},
-	// {
-	// 	replPath: '0eaf387a0a564971865fb6176f959940?version=3.46.2',
-	// 	title: 'Synced brush',
-	// 	slug: 'SyncedBrush',
-	// 	component: SyncedBrush
-	// },
+	{
+		replPath: '0eaf387a0a564971865fb6176f959940?version=3.46.2',
+		title: 'Synced brush',
+		slug: 'SyncedBrush',
+		component: SyncedBrush
+	},
 	{
 		replPath: '132d2c81c3f841a0be0162443b008a92?version=3.46.2',
 		title: 'Beeswarm',

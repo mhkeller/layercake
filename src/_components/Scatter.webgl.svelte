@@ -4,7 +4,7 @@
  -->
 <script>
 	import reglWrapper from 'regl';
-	import { getContext } from 'svelte';
+	import { getContext, onMount, untrack } from 'svelte';
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
@@ -170,7 +170,14 @@
 		}
 	}
 
-	$effect(() => {
-		$width, $height, $gl, resize(), render();
+	onMount(() => {
+		$effect(() => {
+			if ($width && $height) {
+				untrack(() => {
+					resize();
+					render();
+				});
+			}
+		});
 	});
 </script>

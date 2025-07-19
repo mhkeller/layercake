@@ -40,7 +40,7 @@
 					featuresToDraw.forEach(
 						/** @param {any} feature */ feature => {
 							$ctx.beginPath();
-							// Set the context here since setting it in `$: geoPath` is a circular reference
+							// Set the context here since setting it in `geoPath` is a circular reference
 							geoPathFn.context($ctx);
 							geoPathFn(feature);
 

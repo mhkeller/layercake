@@ -42,16 +42,21 @@
 	);
 
 	/* The non-D3 line generator way. */
-	// $: path = valus => 'M' + values
-	// 	.map(d => {
-	// 		return $rGet(d).map((val, i) => {
-	// 			return [
-	// 				val * Math.cos(angleSlice * i - Math.PI / 2),
-	// 				val * Math.sin(angleSlice * i - Math.PI / 2)
-	// 			].join(',');
-	// 		});
-	// 	})
-	// 	.join('L') + 'z';
+	// let path = $derived(
+	// 	values =>
+	// 		'M' +
+	// 		values
+	// 			.map(d => {
+	// 				return $rGet(d).map((val, i) => {
+	// 					return [
+	// 						val * Math.cos(angleSlice * i - Math.PI / 2),
+	// 						val * Math.sin(angleSlice * i - Math.PI / 2)
+	// 					].join(',');
+	// 				});
+	// 			})
+	// 			.join('L') +
+	// 		'z'
+	// );
 </script>
 
 <g transform="translate({$width / 2}, {$height / 2})">

@@ -85,12 +85,12 @@ export default [
 		slug: 'AreaStacked',
 		component: AreaStacked
 	},
-	// {
-	// 	replPath: 'd9a9c151058d4e3eb74a4eed60eabb54?version=3.46.2',
-	// 	title: 'Scatter (svg + canvas + voronoi)',
-	// 	slug: 'Scatter',
-	// 	component: Scatter
-	// },
+	{
+		replPath: 'd9a9c151058d4e3eb74a4eed60eabb54?version=3.46.2',
+		title: 'Scatter (svg + canvas + voronoi)',
+		slug: 'Scatter',
+		component: Scatter
+	},
 	{
 		replPath: 'f9f33add37d440f78b24092c7ba8154d?version=3.46.2',
 		title: 'Cleveland dot plot',

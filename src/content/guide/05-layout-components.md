@@ -73,7 +73,7 @@ The SVG layout component also accepts a `viewBox` prop. See the [Layout componen
 </style>
 ```
 
-This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field but due to [an issue with Svelte](https://github.com/sveltejs/svelte/issues/7807) sometimes adding SVG nodes as HTML elements, this may not work. As an alternative, you can also simply add a `<defs>` tag:
+This component also has a [named snippet](https://svelte.dev/docs/svelte/snippet) for adding elements into the SVG `<defs>` field but due to [an issue with Svelte](https://github.com/sveltejs/svelte/issues/7807) sometimes adding SVG nodes as HTML elements, this may not work. As an alternative, you can also simply add a `<defs>` tag:
 
 ```svelte
 <div class="chart-container">

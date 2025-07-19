@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG marker containing a marker for a triangle makes a nice arrowhead. Add it to the named slot called "defs" on the SVG layout component.
+	Generates an SVG marker containing a marker for a triangle makes a nice arrowhead. Add it to the snippet called "defs" on the SVG layout component.
  -->
 <script>
 	/**

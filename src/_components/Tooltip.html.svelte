@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates a hover tooltip. It creates a slot with an exposed variable via `let:detail` that contains information about the event. Use the slot to populate the body of the tooltip using the exposed variable `detail`.
+	Generates a hover tooltip. It creates a snippet with an exposed variable via `let:detail` that contains information about the event. Use the snippet to populate the body of the tooltip using the exposed variable `detail`.
  -->
 <script>
 	/**

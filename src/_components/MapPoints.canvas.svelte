@@ -36,22 +36,26 @@
 	onMount(() => {
 		$effect(() => {
 			if ($width && $height) {
-				scaleCanvas($ctx, $width, $height);
-				$ctx.clearRect(0, 0, $width, $height);
+				untrack(() => {
+					if (!$ctx) return;
 
-				// To scale the circle by size, set width and height to `$rGet(d.properties)`
-				featuresToDraw.forEach(
-					/** @param {any} d */ d => {
-						$ctx.beginPath();
-						const coordinates = projectionFn(d.geometry.coordinates);
-						$ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
-						$ctx.fillStyle = fill;
-						$ctx.fill();
-						$ctx.lineWidth = strokeWidth;
-						$ctx.strokeStyle = stroke;
-						$ctx.stroke();
-					}
-				);
+					scaleCanvas($ctx, $width, $height);
+					$ctx.clearRect(0, 0, $width, $height);
+
+					// To scale the circle by size, set width and height to `$rGet(d.properties)`
+					featuresToDraw.forEach(
+						/** @param {any} d */ d => {
+							$ctx.beginPath();
+							const coordinates = projectionFn(d.geometry.coordinates);
+							$ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
+							$ctx.fillStyle = fill;
+							$ctx.fill();
+							$ctx.lineWidth = strokeWidth;
+							$ctx.strokeStyle = stroke;
+							$ctx.stroke();
+						}
+					);
+				});
 			}
 		});
 	});

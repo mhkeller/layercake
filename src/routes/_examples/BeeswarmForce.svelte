@@ -34,12 +34,11 @@
 		zScale={scaleOrdinal()}
 		zRange={seriesColors}
 		data={dataTransformed}
-		let:width
 	>
 		<Svg>
 			<AxisX />
 			<Beeswarm
-				r={width < 400 ? r / 1.25 : r}
+				{r}
 				strokeWidth={1}
 				xStrength={0.95}
 				yStrength={0.075}

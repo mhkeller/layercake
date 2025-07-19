@@ -54,14 +54,14 @@
         - code: d => d
       - cell "no"
       - cell "A function that passes the current tick value and expects a nicely formatted value in return."
-    - row "ticks (number | Array<any> | Function | undefined) None no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.":
-      - cell "ticks (number | Array<any> | Function | undefined)":
+    - row "ticks (number | Array<any> | Function) undefined no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.":
+      - cell "ticks (number | Array<any> | Function)":
         - strong: ticks
         - code: number
         - code: Array<any>
         - code: Function
+      - cell "undefined":
         - code: undefined
-      - cell "None"
       - cell "no"
       - cell "If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.":
         - link "d3Scale.ticks":

@@ -3,48 +3,53 @@
 	Generates a canvas scatter plot.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getContext, onMount, untrack } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
 	const { ctx } = getContext('canvas');
 
-	/** @type {number} [r=5] - The circle's radius. */
-	export let r = 5;
+	/**
+	 * @typedef {Object} Props
+	 * @property {number} [r=5] - The circle's radius.
+	 * @property {string} [fill='#0cf'] - The circle's fill color.
+	 * @property {string} [stroke='#000'] - The circle's stroke color.
+	 * @property {number} [strokeWidth=1] - The circle's stroke width.
+	 */
 
-	/** @type {string} [fill='#0cf'] - The circle's fill color. */
-	export let fill = '#0cf';
+	/** @type {Props} */
+	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
-	/** @type {string} [stroke='#000'] - The circle's stroke color. */
-	export let stroke = '#000';
+	onMount(() => {
+		$effect(() => {
+			if ($width && $height) {
+				untrack(() => {
+					if (!$ctx) return;
 
-	/** @type {number} [strokeWidth=1] - The circle's stroke width. */
-	export let strokeWidth = 1;
+					/**
+					 * If you were to have multiple canvas layers
+					 * maybe for some artistic layering purposes
+					 * put these reset functions in the first layer, not each one
+					 * since they should only run once per update
+					 */
+					scaleCanvas($ctx, $width, $height);
+					$ctx.clearRect(0, 0, $width, $height);
 
-	$: {
-		if ($ctx) {
-			/* --------------------------------------------
-			 * If you were to have multiple canvas layers
-			 * maybe for some artistic layering purposes
-			 * put these reset functions in the first layer, not each one
-			 * since they should only run once per update
-			 */
-			scaleCanvas($ctx, $width, $height);
-			$ctx.clearRect(0, 0, $width, $height);
-
-			/* --------------------------------------------
-			 * Draw our scatterplot
-			 */
-			$data.forEach(d => {
-				$ctx.beginPath();
-				$ctx.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
-				$ctx.lineWidth = strokeWidth;
-				$ctx.strokeStyle = stroke;
-				$ctx.stroke();
-				$ctx.fillStyle = fill;
-				$ctx.fill();
-			});
-		}
-	}
+					/**
+					 * Draw our scatterplot
+					 */
+					$data.forEach((/** @type {any} d */ d) => {
+						$ctx.beginPath();
+						$ctx.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
+						$ctx.lineWidth = strokeWidth;
+						$ctx.strokeStyle = stroke;
+						$ctx.stroke();
+						$ctx.fillStyle = fill;
+						$ctx.fill();
+					});
+				});
+			}
+		});
+	});
 </script>

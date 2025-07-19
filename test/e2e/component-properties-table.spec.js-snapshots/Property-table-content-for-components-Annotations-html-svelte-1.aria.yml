@@ -6,25 +6,59 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "annotations Array None yes A list of annotation objects. It expects values of top, right, bottom and left whose values are CSS values like '10px' or '5%' that will be used to absolutely position the text div. See the Column chart example for the schema and options.":
-      - cell "annotations Array":
-        - strong: annotations
-        - code: Array
+    - row "text string None yes The text content of the annotation":
+      - cell "text string":
+        - strong: text
+        - code: string
       - cell "None"
       - cell "yes"
-      - cell "A list of annotation objects. It expects values of top, right, bottom and left whose values are CSS values like '10px' or '5%' that will be used to absolutely position the text div. See the Column chart example for the schema and options.":
+      - cell "The text content of the annotation"
+    - row "top string None no CSS top position in pixels or percentage":
+      - cell "top string":
+        - strong: top
+        - code: string
+      - cell "None"
+      - cell "no"
+      - cell "CSS top position in pixels or percentage"
+    - row "right string None no CSS right position in pixels or percentage":
+      - cell "right string":
+        - strong: right
+        - code: string
+      - cell "None"
+      - cell "no"
+      - cell "CSS right position in pixels or percentage"
+    - row "bottom string None no CSS bottom position in pixels or percentage":
+      - cell "bottom string":
+        - strong: bottom
+        - code: string
+      - cell "None"
+      - cell "no"
+      - cell "CSS bottom position in pixels or percentage"
+    - row "left string None no CSS left position in pixels or percentage":
+      - cell "left string":
+        - strong: left
+        - code: string
+      - cell "None"
+      - cell "no"
+      - cell "CSS left position in pixels or percentage"
+    - row "annotations Array<Annotation> None yes A list of annotation objects. It expects values of top, right, bottom and left whose values are CSS values like '10px' or '5%' that will be used to absolutely position the text div.":
+      - cell "annotations Array<Annotation>":
+        - strong: annotations
+        - code: Array<Annotation>
+      - cell "None"
+      - cell "yes"
+      - cell "A list of annotation objects. It expects values of top, right, bottom and left whose values are CSS values like '10px' or '5%' that will be used to absolutely position the text div.":
         - code: top
         - code: right
         - code: bottom
         - code: left
         - code: "'10px'"
         - code: "'5%'"
-        - link "Column"
-    - row "getText Function d => d.text no An accessor function to get the field to display.":
+    - 'row "getText Function /** @param {Annotation} d */ d => d.text no An accessor function to get the field to display."':
       - cell "getText Function":
         - strong: getText
         - code: Function
-      - cell "d => d.text":
-        - code: d => d.text
+      - 'cell "/** @param {Annotation} d */ d => d.text"':
+        - code: "/** @param {Annotation} d */ d => d.text"
       - cell "no"
       - cell "An accessor function to get the field to display."

@@ -6,12 +6,16 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/fruitGroups.csv';
 
+	/** @type {string} */
 	const idKey = 'fruit';
+	/** @type {string} */
 	const valueKey = 'value';
 
-	data.forEach(d => {
-		d[valueKey] = +d[valueKey];
-	});
+	data.forEach(
+		/** @param {Record<string, any>} d */ d => {
+			d[valueKey] = +d[valueKey];
+		}
+	);
 </script>
 
 <div class="chart-container">

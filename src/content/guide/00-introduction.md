@@ -195,8 +195,7 @@ This is what the scatter component looks like:
 	// Grab some helpful functions
 	const { data, x, xScale, y, yScale } = getContext('LayerCake');
 
-	export let fill = '#000';
-	export let r = 5;
+  let {fill = '#000', r = 5} = $props();
 </script>
 
 <g>
@@ -224,8 +223,7 @@ A few notes on this component:
 	const { data, xGet, yGet } = getContext('LayerCake');
 
 	// Customizable defaults
-	export let fill = '#000';
-	export let r = 5;
+	 let {fill = '#000', r = 5} = $props();
 </script>
 
 <g>

@@ -46,20 +46,20 @@
         - code: "4.5"
       - cell "no"
       - cell "Each circle's radius."
-    - row "circleFill string \"#f0c\" no Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+    - row "circleFill string '#f0c' no Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
       - cell "circleFill string":
         - strong: circleFill
         - code: string
-      - cell "\"#f0c\"":
-        - code: "\"#f0c\""
+      - cell "'#f0c'":
+        - code: "'#f0c'"
       - cell "no"
       - cell "Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color."
-    - row "circleStroke string \"#fff\" no Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+    - row "circleStroke string '#fff' no Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
       - cell "circleStroke string":
         - strong: circleStroke
         - code: string
-      - cell "\"#fff\"":
-        - code: "\"#fff\""
+      - cell "'#fff'":
+        - code: "'#fff'"
       - cell "no"
       - cell "Each circle's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color."
     - row "circleStrokeWidth number 1 no Each circle's stroke width.":

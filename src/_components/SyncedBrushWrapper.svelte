@@ -7,20 +7,35 @@
 	import AxisY from './AxisY.svelte';
 	import Brush from './Brush.html.svelte';
 
-	export let min = null;
-	export let max = null;
-	export let xKey = 'x';
-	export let yKey = 'y';
-	export let data = [];
-	export let stroke = '#00e047';
+	/**
+	 * @typedef {Object} Props
+	 * @property {any} [min]
+	 * @property {any} [max]
+	 * @property {string} [xKey]
+	 * @property {string} [yKey]
+	 * @property {any} [data]
+	 * @property {string} [stroke]
+	 */
 
-	let brushedData;
-	$: {
-		brushedData = data.slice((min || 0) * data.length, (max || 1) * data.length);
-		if (brushedData.length < 2) {
-			brushedData = data.slice(min * data.length, min * data.length + 2);
+	/** @type {Props} */
+	let {
+		min = $bindable(null),
+		max = $bindable(null),
+		xKey = 'x',
+		yKey = 'y',
+		data = [],
+		stroke = '#00e047'
+	} = $props();
+
+	let brushedData = $derived.by(() => {
+		const start = Math.max(0, Math.floor((min ?? 0) * data.length));
+		const end = Math.min(data.length, Math.ceil((max ?? 1) * data.length));
+		let brushed = data.slice(start, end);
+		if (brushed.length < 2 && data.length >= 2) {
+			return data.slice(start, start + 2);
 		}
-	}
+		return brushed;
+	});
 </script>
 
 <div class="chart-wrapper">

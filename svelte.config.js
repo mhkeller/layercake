@@ -1,13 +1,13 @@
 import { normalizePath } from 'vite';
 import path from 'path';
-import preprocess from 'svelte-preprocess';
+// import { preprocess } from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-static';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	root: normalizePath(path.resolve('./')),
 
-	preprocess: preprocess(),
+	// preprocess: preprocess(),
 
 	kit: {
 		adapter: adapter({
@@ -21,6 +21,10 @@ const config = {
 			'$lib/*': './src/lib/*',
 			layercake: './src/lib/index.js',
 			'layercake/*': './src/lib/*'
+		},
+
+		prerender: {
+			handleHttpError: 'warn'
 		}
 
 		// 	optimizeDeps: {

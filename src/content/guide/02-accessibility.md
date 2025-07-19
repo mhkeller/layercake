@@ -35,13 +35,13 @@ These aria labels are not very meaningful for `Html` components without also spe
 
 ### SVG layouts
 
-The `Svg` and `ScaledSvg` components have a `title` prop and a named `title` slot.
+The `Svg` and `ScaledSvg` components have a `titleText` prop and a named `title` snippet.
 
 The prop is shorthand to set the contents of a `<title>` tag like this:
 
 ```svelte
 <LayerCake>
-	<Svg title="A chart title of some kind.">
+	<Svg titleText="A chart title of some kind.">
 		<!-- Components go here -->
 	</Svg>
 </LayerCake>
@@ -58,12 +58,13 @@ And becomes...
 </div>
 ```
 
-If you want to set more custom HTML, you can use the named `title` slot.
+If you want to set more custom HTML or SVG, you can use the named `title` snippet.
 
 ```svelte
 <LayerCake>
 	<Svg>
-		<div slot="title">A chart title of some kind in custom HTML.</div>
+    {#snippet title()}<text slot="title">A chart title of some kind in custom HTML.</text>{/snippet}
+
 		<!-- Components go here -->
 	</Svg>
 </LayerCake>
@@ -74,44 +75,25 @@ And becomes...
 ```html
 <div class="layercake-container">
 	<div class="layercake-layout-svg">
-		<div>A chart title of some kind in custom HTML.</div>
-		<!-- Components go here -->
+    <svg>
+      <text>A chart title of some kind in custom HTML.</text>
+      <g>
+        <!-- Components go here -->
+      </g>
+    </svg>
 	</div>
 </div>
 ```
 
-You mostly will just use the `title` prop but the slot is there as an escape hatch. Setting the `title` slot will override any value you set as the prop.
+You mostly will just use the `titleText` prop but the snippet is there as an escape hatch. Setting the `title` snippet will override any value you set as the prop.
 
 ### Canvas and WebGl layouts
 
-The `Canvas` and `WebGl` layout components have a `fallback` prop and a named `fallback` slot that defines the text to display when `<canvas>` is unavailable.
+The `Canvas` and `WebGl` layout components have a `fallback` prop that defines the text to display when `<canvas>` is unavailable.
 
 ```svelte
 <LayerCake>
 	<Canvas fallback="A description of the chart to display when canvas is unavailable.">
-		<!-- Components go here -->
-	</Canvas>
-</LayerCake>
-```
-
-And becomes...
-
-```html
-<div class="layercake-container">
-	<div class="layercake-layout-canvas">
-		<canvas>A description of the chart to display when canvas is unavailable.</canvas>
-	</div>
-</div>
-```
-
-If you want more complex fallback markup, set the named `fallback` slot:
-
-```svelte
-<LayerCake>
-	<Canvas>
-		<svelte:fragment slot="fallback"
-			>A description of the chart to display when canvas is unavailable.</svelte:fragment
-		>
 		<!-- Components go here -->
 	</Canvas>
 </LayerCake>

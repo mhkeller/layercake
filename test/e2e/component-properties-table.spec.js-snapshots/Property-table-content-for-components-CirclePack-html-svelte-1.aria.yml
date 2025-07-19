@@ -14,11 +14,10 @@
         - code: "'id'"
       - cell "no"
       - cell "The key on each object where the id value lives."
-    - row "parentKey (string | undefined) None no Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
-      - cell "parentKey (string | undefined)":
+    - row "parentKey string None no Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
+      - cell "parentKey string":
         - strong: parentKey
         - code: string
-        - code: undefined
       - cell "None"
       - cell "no"
       - cell "Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
@@ -90,18 +89,18 @@
         - code: "0"
       - cell "no"
       - cell "The label text's stroke width, in pixels."
-    - row "sortBy Function (a, b) => b.value - a.value no The order in which circle's are drawn. Sorting on the depth key is also a popular choice.":
+    - row "sortBy Function (a, b) => b.value - a.value no The order in which circle's are drawn. Sorting on the depth key is also a popular choice. - 'depth' is also a popular choice":
       - cell "sortBy Function":
         - strong: sortBy
         - code: Function
       - cell "(a, b) => b.value - a.value":
         - code: (a, b) => b.value - a.value
       - cell "no"
-      - cell "The order in which circle's are drawn. Sorting on the depth key is also a popular choice.":
+      - cell "The order in which circle's are drawn. Sorting on the depth key is also a popular choice. - 'depth' is also a popular choice":
         - code: depth
-    - row "spacing number 0 no Whitespace padding between each circle, in pixels.":
-      - cell "spacing number":
-        - strong: spacing
+    - row "spacing0 number 0 no Whitespace padding between each circle, in pixels.":
+      - cell "spacing0 number":
+        - strong: spacing0
         - code: number
       - cell "0":
         - code: "0"

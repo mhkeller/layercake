@@ -5,13 +5,16 @@
 <script>
 	import { clamp } from 'yootils';
 
-	/** @type {number} min - The brush's min value. Useful to bind to. */
-	export let min;
+	/**
+	 * @typedef {Object} Props
+	 * @property {number} min - The brush's min value. Useful to bind to.
+	 * @property {number} max - The brush's max value. Useful to bind to.
+	 */
 
-	/** @type {number} max - The brush's max value. Useful to bind to. */
-	export let max;
+	/** @type {Props} */
+	let { min = $bindable(), max = $bindable() } = $props();
 
-	let brush;
+	let brush = $state();
 
 	const p = x => {
 		const { left, right } = brush.getBoundingClientRect();
@@ -20,6 +23,8 @@
 
 	const handler = fn => {
 		return e => {
+			e.stopPropagation();
+			e.preventDefault(); // Prevent default drag behavior
 			if (e.type === 'touchstart') {
 				if (e.touches.length !== 1) return;
 				e = e.touches[0];
@@ -29,6 +34,7 @@
 			const start = { min, max, p: p(e.clientX) };
 
 			const handle_move = e => {
+				e.preventDefault(); // Prevent default drag behavior during move
 				if (e.type === 'touchmove') {
 					if (e.changedTouches.length !== 1) return;
 					e = e.changedTouches[0];
@@ -87,35 +93,33 @@
 		max = p < start.min ? start.min : p;
 	});
 
-	$: left = 100 * min;
-	$: right = 100 * (1 - max);
+	let left = $derived(100 * min);
+	let right = $derived(100 * (1 - max));
 </script>
 
 <!-- TODO Add keyboard accessibility. See https://github.com/mhkeller/layercake/pull/258 -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div
-	bind:this={brush}
-	class="brush-outer"
-	on:mousedown|stopPropagation={reset}
-	on:touchstart|stopPropagation={reset}
->
+<div bind:this={brush} class="brush-outer" onmousedown={reset} ontouchstart={reset}>
 	{#if min !== null}
 		<div
 			class="brush-inner"
-			on:mousedown|stopPropagation={move}
-			on:touchstart|stopPropagation={move}
+			draggable="false"
+			onmousedown={move}
+			ontouchstart={move}
 			style="left: {left}%; right: {right}%"
 		></div>
 		<div
 			class="brush-handle"
-			on:mousedown|stopPropagation={adjust_min}
-			on:touchstart|stopPropagation={adjust_min}
+			draggable="false"
+			onmousedown={adjust_min}
+			ontouchstart={adjust_min}
 			style="left: {left}%"
 		></div>
 		<div
 			class="brush-handle"
-			on:mousedown|stopPropagation={adjust_max}
-			on:touchstart|stopPropagation={adjust_max}
+			draggable="false"
+			onmousedown={adjust_max}
+			ontouchstart={adjust_max}
 			style="right: {right}%"
 		></div>
 	{/if}

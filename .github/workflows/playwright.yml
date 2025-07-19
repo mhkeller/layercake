@@ -4,6 +4,11 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   test:
     timeout-minutes: 60
@@ -17,6 +22,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Upgrade npm to version 11
+        run: npm install -g npm@11
       - name: Install dependencies
         run: npm ci
       - name: Run Playwright tests

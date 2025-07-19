@@ -7,18 +7,21 @@
 
 	const { width, height, xScale, extents, config } = getContext('LayerCake');
 
-	/** @type {number} [lineLengthFactor=1.1] - How far to extend the lines from the circle's center. A value of `1` puts them at the circle's circumference. */
-	export let lineLengthFactor = 1.1;
+	/**
+	 * @typedef {Object} Props
+	 * @property {number} [lineLengthFactor=1.1] - How far to extend the lines from the circle's center. A value of `1` puts them at the circle's circumference.
+	 * @property {number} [labelPlacementFactor=1.25] - How far to place the labels from the circle's center. A value of `1` puts them at the circle's circumference.
+	 */
 
-	/** @type {number} [labelPlacementFactor=1.25] - How far to place the labels from the circle's center. A value of `1` puts them at the circle's circumference. */
-	export let labelPlacementFactor = 1.25;
+	/** @type {Props} */
+	let { lineLengthFactor = 1.1, labelPlacementFactor = 1.25 } = $props();
 
-	$: max = $xScale(Math.max(...$extents.x));
+	let max = $derived($xScale(Math.max(...$extents.x)));
 
-	$: lineLength = max * lineLengthFactor;
-	$: labelPlacement = max * labelPlacementFactor;
+	let lineLength = $derived(max * lineLengthFactor);
+	let labelPlacement = $derived(max * labelPlacementFactor);
 
-	$: angleSlice = (Math.PI * 2) / $config.x.length;
+	let angleSlice = $derived((Math.PI * 2) / $config.x.length);
 
 	/** @param {number} total
 	 *  @param {number} i */

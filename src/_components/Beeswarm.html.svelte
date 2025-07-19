@@ -7,22 +7,17 @@
 
 	const { data, xGet, zGet, height, config } = getContext('LayerCake');
 
-	/** @type {number} [r=3] - The circle radius size in pixels. */
-	export let r = 3;
+	/**
+	 * @typedef {Object} Props
+	 * @property {number} [r=3] - The circle radius size in pixels.
+	 * @property {number} [strokeWidth=0] - The circle's stroke width in pixels.
+	 * @property {string} [stroke='#fff'] - The circle's stroke color.
+	 * @property {number} [spacing=1.5] - Spacing, in pixels, between each circle.
+	 * @property {Function} [getTitle] - An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.
+	 */
 
-	/** @type {number} [strokeWidth=0] - The circle's stroke width in pixels. */
-	export let strokeWidth = 0;
-
-	/** @type {string} [stroke='#fff'] - The circle's stroke color. */
-	export let stroke = '#fff';
-
-	/** @type {number} [spacing=1.5] - Spacing, in pixels, between each circle. */
-	export let spacing = 1.5;
-
-	/** @type {Function|undefined} [getTitle] - An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production. */
-	export let getTitle = undefined;
-
-	$: circles = dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet });
+	/** @type {Props} */
+	let { r = 3, strokeWidth = 0, stroke = '#fff', spacing = 1.5, getTitle } = $props();
 
 	function dodge(data, { rds = 1, x = d => d } = {}) {
 		const radius2 = rds ** 2;
@@ -69,6 +64,7 @@
 
 		return circles;
 	}
+	let circles = $derived(dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet }));
 </script>
 
 <div class="bee-group">

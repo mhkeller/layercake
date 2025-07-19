@@ -36,17 +36,18 @@
 		zDomain={Array.from(seriesNames)}
 		zRange={seriesColors}
 		data={dataTransformed}
-		let:width
 	>
-		<Svg>
-			<Beeswarm
-				r={width < 400 ? r / 1.25 : r}
-				strokeWidth={1}
-				xStrength={0.95}
-				yStrength={0.075}
-				getTitle={d => d[titleKey]}
-			/>
-		</Svg>
+		{#snippet children({ width })}
+			<Svg>
+				<Beeswarm
+					r={width < 400 ? r / 1.25 : r}
+					strokeWidth={1}
+					xStrength={0.95}
+					yStrength={0.075}
+					getTitle={d => d[titleKey]}
+				/>
+			</Svg>
+		{/snippet}
 	</LayerCake>
 </div>
 

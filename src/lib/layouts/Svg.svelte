@@ -5,32 +5,37 @@
 <script>
 	import { getContext } from 'svelte';
 
-	/** @type {Element|undefined} [element] The layer's `<svg>` tag. Useful for bindings. */
-	export let element = undefined;
+	/**
+	 * @typedef {Object} Props
+	 * @property {SVGElement|undefined} [element] The layout's `<svg>` element. A useful prop to bind to.
+	 * @property {SVGElement|undefined} [innerElement]
+	 * @property {number|undefined} [zIndex] Set the layout's z-index.
+	 * @property {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on all of this layout's layers.
+	 * @property {string|undefined} [viewBox] Set a custom viewBox.
+	 * @property {string|undefined} [label] A string passed to the `aria-label` on the `<svg>` element.
+	 * @property {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` element.
+	 * @property {string|undefined} [describedBy] A string passed to `aria-describedby` property on the `<svg>` element.
+	 * @property {string|undefined} [titleText] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the "title" slot but this is a convenient shorthand. If you use the "title" slot, this prop is ignored.
+	 * @property {import('svelte').Snippet} [title] A snippet to render inside the `<title>` tag for accessibility. If you use this, the `titleText` prop is ignored.
+	 * @property {import('svelte').Snippet} [defs] A snippet to render inside the `<defs>` tag for accessibility.
+	 * @property {import('svelte').Snippet<[{ element: SVGElement | undefined }]>} [children]
+	 */
 
-	/** @type {Element|undefined} [innerElement] The layer's `<g>` tag. Useful for bindings. */
-	export let innerElement = undefined;
-
-	/** @type {number|undefined} [zIndex] The layer's z-index. */
-	export let zIndex = undefined;
-
-	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
-	export let pointerEvents = undefined;
-
-	/** @type {string|undefined} [viewBox] A string passed to the `viewBox` property on the `<svg>` tag. */
-	export let viewBox = undefined;
-
-	/** @type {string|undefined} [label] A string passed to the `aria-label` property on the `<svg>` tag. */
-	export let label = undefined;
-
-	/** @type {string|undefined} [labelledBy] A string passed to the `aria-labelledby property` on the `<svg>` tag. */
-	export let labelledBy = undefined;
-
-	/** @type {string|undefined} [describedBy] A string passed to the `aria-describedby` property on the `<svg>` tag. */
-	export let describedBy = undefined;
-
-	/** @type {string|undefined} [title] Shorthand to set the contents of `<title></title>` for accessibility. You can also set arbitrary HTML via the "title" slot but this is a convenient shorthand. If you use the "title" slot, this prop is ignored. */
-	export let title = undefined;
+	/** @type {Props} */
+	let {
+		element = $bindable(undefined),
+		innerElement = $bindable(undefined),
+		zIndex = undefined,
+		pointerEvents = undefined,
+		viewBox = undefined,
+		label = undefined,
+		labelledBy = undefined,
+		describedBy = undefined,
+		titleText = undefined,
+		title = undefined,
+		defs = undefined,
+		children
+	} = $props();
 
 	const { containerWidth, containerHeight, padding } = getContext('LayerCake');
 </script>
@@ -47,19 +52,21 @@
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}
 >
-	<slot name="title"
-		>{#if title}<title>{title}</title>{/if}</slot
-	>
+	{#if typeof title === 'function'}<title>{@render title()}</title>{:else if titleText}<title
+			>{titleText}</title
+		>{/if}
 
-	<defs>
-		<slot name="defs"></slot>
-	</defs>
+	{#if typeof defs === 'function'}
+		<defs>
+			{@render defs()}
+		</defs>
+	{/if}
 	<g
 		bind:this={innerElement}
 		class="layercake-layout-svg_g"
 		transform="translate({$padding.left}, {$padding.top})"
 	>
-		<slot {element}></slot>
+		{@render children?.({ element })}
 	</g>
 </svg>
 

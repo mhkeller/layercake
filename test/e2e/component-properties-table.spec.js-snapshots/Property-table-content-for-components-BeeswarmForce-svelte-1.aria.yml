@@ -54,11 +54,10 @@
         - code: forceY
         - link "the documentation":
           - /url: https://github.com/d3/d3-force#y_strength
-    - row "getTitle (Function | undefined) None no An accessor function to get the field on the data element to display as a hover label using a <title> tag.":
-      - cell "getTitle (Function | undefined)":
+    - row "getTitle Function None no An accessor function to get the field on the data element to display as a hover label using a <title> tag.":
+      - cell "getTitle Function":
         - strong: getTitle
         - code: Function
-        - code: undefined
       - cell "None"
       - cell "no"
       - cell "An accessor function to get the field on the data element to display as a hover label using a <title> tag.":

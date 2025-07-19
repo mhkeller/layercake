@@ -36,12 +36,12 @@ export default [
 		slug: 'MapSvg',
 		component: MapSvg
 	},
-	{
-		replPath: '14c49b034a1e49bbbcd32e0ba749378c?version=3.46.2',
-		title: 'Multilayer map (canvas + svg)',
-		slug: 'MapLayered',
-		component: MapLayered
-	},
+	// {
+	// 	replPath: '14c49b034a1e49bbbcd32e0ba749378c?version=3.46.2',
+	// 	title: 'Multilayer map (canvas + svg)',
+	// 	slug: 'MapLayered',
+	// 	component: MapLayered
+	// },
 	{
 		replPath: '3dcdfc8c7aab4ca5a82f912f377a25e2?version=3.46.2',
 		title: 'Column annotated',
@@ -119,11 +119,11 @@ export default [
 		title: 'Brush',
 		slug: 'Brush',
 		component: Brush
-	},
-	{
-		replPath: '1868bf7315654558894580f43ddeace8?version=3.46.2',
-		title: 'Synced brush',
-		slug: 'SyncedBrush',
-		component: SyncedBrush
 	}
+	// {
+	// 	replPath: '1868bf7315654558894580f43ddeace8?version=3.46.2',
+	// 	title: 'Synced brush',
+	// 	slug: 'SyncedBrush',
+	// 	component: SyncedBrush
+	// }
 ];

@@ -1,27 +1,28 @@
 <script>
 	import { LayerCake, Svg, calcExtents } from 'layercake';
-	import { tweened } from 'svelte/motion';
+	import { Tween } from 'svelte/motion';
 	import * as eases from 'svelte/easing';
 
 	import Line from './Line.svelte';
 
-	export let data;
-	export let fullExtents;
-	export let scale;
-	export let extentGetters;
+	let { data, fullExtents, scale, extentGetters } = $props();
 
 	const tweenOptions = {
 		duration: 300,
 		easing: eases.cubicInOut
 	};
 
-	const xDomain = tweened(undefined, tweenOptions);
-	const yDomain = tweened(undefined, tweenOptions);
-
 	const extents = calcExtents(data, extentGetters);
 
-	$: xDomain.set(scale === 'shared' ? fullExtents.x : extents.x);
-	$: yDomain.set(scale === 'shared' ? fullExtents.y : extents.y);
+	const xDomain = new Tween(scale === 'shared' ? fullExtents.x : extents.x, tweenOptions);
+	const yDomain = new Tween(scale === 'shared' ? fullExtents.y : extents.y, tweenOptions);
+
+	$effect(() => {
+		xDomain.target = scale === 'shared' ? fullExtents.x : extents.x;
+	});
+	$effect(() => {
+		yDomain.target = scale === 'shared' ? fullExtents.y : extents.y;
+	});
 </script>
 
 <LayerCake
@@ -29,8 +30,8 @@
 	x={extentGetters.x}
 	y={extentGetters.y}
 	{data}
-	xDomain={$xDomain}
-	yDomain={$yDomain}
+	xDomain={xDomain.current}
+	yDomain={yDomain.current}
 >
 	<Svg>
 		<Line stroke={'#000'} />

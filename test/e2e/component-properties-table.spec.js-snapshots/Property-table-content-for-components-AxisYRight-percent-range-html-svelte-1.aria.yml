@@ -38,11 +38,10 @@
         - code: "true"
       - cell "no"
       - cell "When labelPosition='even', adjust the lowest label so that it sits above the tick mark."
-    - row "tickMarkLength (number | undefined) undefined no The length of the tick mark. If not set, becomes the length of the widest tick.":
-      - cell "tickMarkLength (number | undefined)":
+    - row "tickMarkLength number undefined no The length of the tick mark. If not set, becomes the length of the widest tick.":
+      - cell "tickMarkLength number":
         - strong: tickMarkLength
         - code: number
-        - code: undefined
       - cell "undefined":
         - code: undefined
       - cell "no"
@@ -102,14 +101,14 @@
       - cell "no"
       - cell "Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set tickMarkLength to a pixel value).":
         - code: tickMarkLength
-    - 'row "units string None yes Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
-      - cell "units string":
+    - 'row "units (''px'' | ''%'') $percentRange === true ? ''%'' : ''px'' yes Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''."':
+      - cell "units ('px' | '%')":
         - strong: units
-        - code: string
-      - cell "None"
+        - code: "'px'"
+        - code: "'%'"
+      - 'cell "$percentRange === true ? ''%'' : ''px''"':
+        - code: "$percentRange === true ? '%' : 'px'"
       - cell "yes"
-      - 'cell "Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
+      - 'cell "Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''."':
         - code: "percentRange={true}"
         - code: "'%'"
-        - code: "'%'"
-        - code: "'px'"

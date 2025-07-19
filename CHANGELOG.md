@@ -1,5 +1,16 @@
 # Changelog
 
+# 9.0.0
+
+> Not yet on npm
+
+- Converts most of the codebase to Svelte 5's runes
+
+**Breaking changes**
+  - The `title` prop on `Svg` and `ScaledSvg` layout components is renamed to `titleText` to avoid conflicting with the `title` snippet namespace.
+  - The `title` snippet for those components now creates the outer `<title>` tag for you. Previously, the slot was blank and you had to write your own `<title>` wrapper.
+  - The `fallback` slot on `Canvas` and `Webgl` layout components was removed. The `fallback` text prop is sufficient.
+
 # 8.4.3
 
 > 2025-03-20

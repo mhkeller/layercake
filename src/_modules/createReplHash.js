@@ -1,3 +1,4 @@
+// From: https://github.com/sveltejs/svelte.dev/blob/ba7ad256f786aa5bc67eac3a58608f3f50b59e91/apps/svelte.dev/src/routes/(authed)/playground/%5Bid%5D/gzip.js
 /** @param {string} input */
 export async function compress_and_encode_text(input) {
 	const reader = new Blob([input]).stream().pipeThrough(new CompressionStream('gzip')).getReader();

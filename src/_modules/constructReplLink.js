@@ -10,7 +10,7 @@ export default async function constructReplLink(pageName, content) {
 	// .concat(content.jsons)
 	// .concat(content.csvs);
 
-	const pageTitle = (pageName || '') + ' LayerCake Example';
+	const pageTitle = (pageName || '') + ' - LayerCake Example';
 
 	const json = {
 		name: pageTitle.trim(),

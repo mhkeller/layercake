@@ -20,7 +20,8 @@ export default async function constructReplLink(pageName, content) {
 				type: 'file',
 				name: name,
 				basename: name,
-				contents: c.contents
+				contents: c.contents,
+				text: true
 			};
 		})
 	};

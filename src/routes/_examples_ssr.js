@@ -33,11 +33,11 @@ export default [
 		slug: 'MapSvg',
 		component: MapSvg
 	},
-	// {
-	// 	title: 'Multilayer map (canvas + svg)',
-	// 	slug: 'MapLayered',
-	// 	component: MapLayered
-	// },
+	{
+		title: 'Multilayer map (canvas + svg)',
+		slug: 'MapLayered',
+		component: MapLayered
+	},
 	{
 		title: 'Column annotated',
 		slug: 'Column',
@@ -102,10 +102,10 @@ export default [
 		title: 'Brush',
 		slug: 'Brush',
 		component: Brush
+	},
+	{
+		title: 'Synced brush',
+		slug: 'SyncedBrush',
+		component: SyncedBrush
 	}
-	// {
-	// 	title: 'Synced brush',
-	// 	slug: 'SyncedBrush',
-	// 	component: SyncedBrush
-	// }
 ];

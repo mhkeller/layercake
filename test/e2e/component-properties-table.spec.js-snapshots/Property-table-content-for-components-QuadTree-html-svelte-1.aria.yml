@@ -1,0 +1,46 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "x ('x' | 'y') 'x' no The dimension to search across when moving the mouse left and right.":
+      - cell "x ('x' | 'y')":
+        - strong: x
+        - code: "'x'"
+        - code: "'y'"
+      - cell "'x'":
+        - code: "'x'"
+      - cell "no"
+      - cell "The dimension to search across when moving the mouse left and right."
+    - row "y ('x' | 'y') 'y' no The dimension to search across when moving the mouse up and down.":
+      - cell "y ('x' | 'y')":
+        - strong: "y"
+        - code: "'x'"
+        - code: "'y'"
+      - cell "'y'":
+        - code: "'y'"
+      - cell "no"
+      - cell "The dimension to search across when moving the mouse up and down."
+    - row "searchRadius (number | undefined) None no The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
+      - cell "searchRadius (number | undefined)":
+        - strong: searchRadius
+        - code: number
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
+        - link "quadtree.find":
+          - /url: https://github.com/d3/d3-quadtree#quadtree_find
+          - code: quadtree.find
+        - code: undefined
+    - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass override the default here in here in case you don't want to use the main data or it's in a strange format.":
+      - cell "dataset (Array<Object> | undefined)":
+        - strong: dataset
+        - code: Array<Object>
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "The dataset to work off of—defaults to $data if left unset. You can pass override the default here in here in case you don't want to use the main data or it's in a strange format."

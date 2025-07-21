@@ -9,7 +9,7 @@ function f(name, modifier = '') {
   Get a D3 scale name
 	https://svelte.dev/repl/ec6491055208401ca41120c9c8a67737?version=3.49.0
 	@param {Function} scale A D3 scale
-	@returns {String} The scale's name
+	@returns {string} The scale's name
  */
 export default function findScaleName(scale) {
 	/**

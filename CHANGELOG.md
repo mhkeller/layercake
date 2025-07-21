@@ -1,17 +1,33 @@
 # Changelog
 
-# 9.0.0
+# 8.4.3
 
-> Not yet on npm
+> 2025-03-20
 
-*Breaking changes*
+* Update dependencies
+  * [fe5e400886ab14f469ebd2352068d63e818350e9](https://github.com/mhkeller/layercake/commit/fe5e400886ab14f469ebd2352068d63e818350e9)
+  * [b49e7f6774a5177f90f130eb601b70fdf6ee7619](https://github.com/mhkeller/layercake/commit/b49e7f6774a5177f90f130eb601b70fdf6ee7619)
 
-* `extent` prop is deprecated https://github.com/mhkeller/layercake/issues/179
-* Ordinal domain is not returned as sorted by default https://github.com/mhkeller/layercake/issues/147
+# 8.4.2
 
-*Other changes*
+> 2024-10-31
 
-* https://github.com/mhkeller/layercake/pull/240 Adds a `default` export to package.json.
+* Modify the `repository` url per publint's recommendation.
+  * [4a9e39c28631283b51003f730887ec5b4fe0767a](https://github.com/mhkeller/layercake/commit/4a9e39c28631283b51003f730887ec5b4fe0767a)
+
+# 8.4.1
+
+> 2024-10-31
+
+* Add `homepage`, `repository` and `description` field to package.json
+  * [b4c50181679a8f14f239e5931243f4a840c7f339](https://github.com/mhkeller/layercake/commit/b4c50181679a8f14f239e5931243f4a840c7f339)
+
+# 8.4.0
+
+> 2024-10-19
+
+*  Updates to Svelte 5 🎉 https://github.com/mhkeller/layercake/pull/242
+*  Adds a `default` export to package.json https://github.com/mhkeller/layercake/pull/240
 
 # 8.3.4
 

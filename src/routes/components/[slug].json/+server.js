@@ -1,7 +1,7 @@
 import { error, json } from '@sveltejs/kit';
 import { readFileSync, existsSync } from 'fs';
 import { readdirFilterSync } from 'indian-ocean';
-import doctrine from 'doctrine';
+import parseJsdoc from '$lib/helpers/parseJsdoc.js';
 
 function cleanMain(str) {
 	const cleaned = str
@@ -75,33 +75,22 @@ export async function GET({ params }) {
 		};
 	});
 
-	const componentDescription = doctrine.parse(
-		fromMain.split('<script>')[0].replace('<!--', '').replace('-->', '')
-	).tags[0].description;
-
-	const jsdocTop = fromMain
-		.replace('<script>', '')
-		.split('</script>')[0]
-		.match(/\/\*\*.*/gm);
-
-	let jsdocString = '';
-
-	if (jsdocTop !== null) {
-		jsdocString = jsdocTop
-			.join('\n')
-			.replaceAll('@type', '@param')
-			.replaceAll('/**', '')
-			.replaceAll('*/', '')
-			.trim();
-	}
-
-	const jsdocParsed = doctrine.parse(jsdocString, { unwrap: true, sloppy: true });
+	const componentDescription = fromMain
+		.split('<script>')[0]
+		.replace('<!--', '')
+		.replace('-->', '')
+		.split('@component')[1];
+	const jsdocPropertyMatches = fromMain.matchAll(/(@type [^\n]*) \*\/[\s]+export/gm);
+	const jsdocParsed = [...jsdocPropertyMatches].map(match => {
+		const [, jsdocComment] = match;
+		return parseJsdoc(jsdocComment);
+	});
 
 	const response = {
 		main,
 		dek,
 		usedIn,
-		hasjsDoctable: jsdocString !== jsdocTop,
+		hasjsDoctable: jsdocParsed.length > 0,
 		jsdocParsed,
 		componentDescription,
 		modules

@@ -7,19 +7,19 @@
 
 	const { data, xGet, zGet, height, config } = getContext('LayerCake');
 
-	/** @type {Number} [r=3] - The circle radius size in pixels. */
+	/** @type {number} [r=3] - The circle radius size in pixels. */
 	export let r = 3;
 
-	/** @type {Number} [strokeWidth=0] - The circle's stroke width in pixels. */
+	/** @type {number} [strokeWidth=0] - The circle's stroke width in pixels. */
 	export let strokeWidth = 0;
 
-	/** @type {String} [stroke='#fff'] - The circle's stroke color. */
+	/** @type {string} [stroke='#fff'] - The circle's stroke color. */
 	export let stroke = '#fff';
 
-	/** @type {Number} [spacing=1.5] - Whitespace padding between each circle, in pixels */
+	/** @type {number} [spacing=1.5] - Whitespace padding between each circle, in pixels */
 	export let spacing = 1.5;
 
-	/** @type {Function|undefined} [getTitle] — An accessor function to get the field on the data element to display as a hover label using a `<title>` tag. */
+	/** @type {Function|undefined} [getTitle] - An accessor function to get the field on the data element to display as a hover label using a `<title>` tag. */
 	export let getTitle = undefined;
 
 	$: circles = dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet });

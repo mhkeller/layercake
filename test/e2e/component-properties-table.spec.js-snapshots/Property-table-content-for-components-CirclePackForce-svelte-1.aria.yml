@@ -1,0 +1,68 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "manyBodyStrength number 5 no The value passed into the .strength method on forceManyBody, which is used as the 'charge' property on the simulation. See the documentation for more.":
+      - cell "manyBodyStrength number":
+        - strong: manyBodyStrength
+        - code: number
+      - cell "5":
+        - code: "5"
+      - cell "no"
+      - cell "The value passed into the .strength method on forceManyBody, which is used as the 'charge' property on the simulation. See the documentation for more.":
+        - code: .strength
+        - code: forceManyBody
+        - code: "'charge'"
+        - link "the documentation":
+          - /url: https://github.com/d3/d3-force#manyBody_strength
+    - row "xStrength number 0.1 no The value passed into the .strength method on forceX, which is used as the 'x' property on the simulation. See the documentation for more.":
+      - cell "xStrength number":
+        - strong: xStrength
+        - code: number
+      - cell "0.1":
+        - code: "0.1"
+      - cell "no"
+      - cell "The value passed into the .strength method on forceX, which is used as the 'x' property on the simulation. See the documentation for more.":
+        - code: .strength
+        - code: forceX
+        - code: "'x'"
+        - link "the documentation":
+          - /url: https://github.com/d3/d3-force#x_strength
+    - row "nodeColor (string | undefined) None no Set a color manually otherwise it will default to the zScale.":
+      - cell "nodeColor (string | undefined)":
+        - strong: nodeColor
+        - code: string
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "Set a color manually otherwise it will default to the zScale.":
+        - code: zScale
+    - row "nodeStroke string '#fff' no The circle's stroke color.":
+      - cell "nodeStroke string":
+        - strong: nodeStroke
+        - code: string
+      - cell "'#fff'":
+        - code: "'#fff'"
+      - cell "no"
+      - cell "The circle's stroke color."
+    - row "nodeStrokeWidth number 1 no The circle's stroke width, in pixels.":
+      - cell "nodeStrokeWidth number":
+        - strong: nodeStrokeWidth
+        - code: number
+      - cell "1":
+        - code: "1"
+      - cell "no"
+      - cell "The circle's stroke width, in pixels."
+    - row "groupBy boolean true no Group the nodes by the return value of the x-scale. If false, align all the nodes to the canvas center.":
+      - cell "groupBy boolean":
+        - strong: groupBy
+        - code: boolean
+      - cell "true":
+        - code: "true"
+      - cell "no"
+      - cell "Group the nodes by the return value of the x-scale. If false, align all the nodes to the canvas center.":
+        - code: "false"

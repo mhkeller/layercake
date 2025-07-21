@@ -1,0 +1,65 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - 'row "projection Function None yes A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+      - cell "projection Function":
+        - strong: projection
+        - code: Function
+      - cell "None"
+      - cell "yes"
+      - 'cell "A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+        - code: "projection={geoAlbersUsa}"
+    - row "r number 3.5 no The point's radius.":
+      - cell "r number":
+        - strong: r
+        - code: number
+      - cell "3.5":
+        - code: "3.5"
+      - cell "no"
+      - cell "The point's radius."
+    - row "fill string 'yellow' no The point's fill color.":
+      - cell "fill string":
+        - strong: fill
+        - code: string
+      - cell "'yellow'":
+        - code: "'yellow'"
+      - cell "no"
+      - cell "The point's fill color."
+    - row /stroke string '#\d+' no The point's stroke color\./:
+      - cell "stroke string":
+        - strong: stroke
+        - code: string
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "The point's stroke color."
+    - row "strokeWidth number 1 no The point's stroke width.":
+      - cell "strokeWidth number":
+        - strong: strokeWidth
+        - code: number
+      - cell "1":
+        - code: "1"
+      - cell "no"
+      - cell "The point's stroke width."
+    - row "opacity number 1 no The point's opacity.":
+      - cell "opacity number":
+        - strong: opacity
+        - code: number
+      - cell "1":
+        - code: "1"
+      - cell "no"
+      - cell "The point's opacity."
+    - row "features (Array<Object> | undefined) None no A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
+      - cell "features (Array<Object> | undefined)":
+        - strong: features
+        - code: Array<Object>
+        - code: undefined
+      - cell "None"
+      - cell "no"
+      - cell "A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
+        - code: $data.features

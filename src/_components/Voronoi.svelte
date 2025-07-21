@@ -9,7 +9,7 @@
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
-	/** @type {String|undefined} [stroke] – An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly. */
+	/** @type {string|undefined} [stroke] - An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly. */
 	export let stroke = undefined;
 
 	let dispatcher = createEventDispatcher();

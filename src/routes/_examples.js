@@ -169,7 +169,6 @@ export default [
 		slug: 'BeeswarmForce',
 		component: BeeswarmForce
 	},
-	// { replPath: '', title: 'Force-directed graph', slug: 'ForceDirectedGraph', component: ForceDirectedGraph },
 	{
 		replPath: '1879eb5e27f74784a69b65a11844f373?version=3.46.2',
 		title: 'Circle pack, force layout',

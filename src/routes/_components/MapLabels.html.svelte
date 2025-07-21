@@ -3,7 +3,6 @@
 	import { feature } from 'topojson-client';
 	import { geoAlbersUsa } from 'd3-geo';
 
-	// import MapSvg from '../../components/Map.svg.svelte';
 	import MapLabelsHtml from '../../_components/MapLabels.html.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json

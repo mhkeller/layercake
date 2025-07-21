@@ -1,0 +1,24 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - cell "Param"
+      - cell "Default"
+      - cell "Required"
+      - cell "Description"
+  - rowgroup:
+    - row "r number 5 no The circle's radius.":
+      - cell "r number":
+        - strong: r
+        - code: number
+      - cell "5":
+        - code: "5"
+      - cell "no"
+      - cell "The circle's radius."
+    - row "fill string '#0cf' no The circle's fill color.":
+      - cell "fill string":
+        - strong: fill
+        - code: string
+      - cell "'#0cf'":
+        - code: "'#0cf'"
+      - cell "no"
+      - cell "The circle's fill color."

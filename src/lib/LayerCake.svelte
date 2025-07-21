@@ -457,7 +457,7 @@
 		return $width / $height;
 	});
 
-	$: context = {
+	const context = {
 		activeGetters: activeGetters_d,
 		width: width_d,
 		height: height_d,
@@ -509,7 +509,7 @@
 		rGet: rGet_d
 	};
 
-	$: setContext('LayerCake', context);
+	setContext('LayerCake', context);
 
 	$: if ($box_d && debug === true && (ssr === true || typeof window !== 'undefined')) {
 		// Call this as a debounce so that it doesn't get called multiple times as these vars get filled in

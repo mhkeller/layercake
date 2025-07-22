@@ -47,7 +47,9 @@ jobs:
         id: changed_files
         run: |
           files=$(git status --porcelain | awk '{print $2}' | grep '\.png$' || true)
-          echo "files=$files" >> $GITHUB_OUTPUT
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$files" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Commit and push changes
         if: steps.changed_files.outputs.files != ''

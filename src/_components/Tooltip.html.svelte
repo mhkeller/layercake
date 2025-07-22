@@ -5,22 +5,21 @@
 <script>
 	/**
 	 * @typedef {Object} Props
-	 * @property {number} x - X-coordinate of the tooltip.
-	 * @property {number} y - Y-coordinate of the tooltip.
+	 * @property {MouseEvent} event - The mouse event that triggered the tooltip.
 	 * @property {number} [offset=-35] - A y-offset from the hover point, in pixels.
 	 * @property {import('svelte').Snippet} [children]
 	 */
 
 	/** @type {Props} */
-	let { x, y, offset = -35, children } = $props();
+	let { event, offset = -35, children } = $props();
 </script>
 
-{#if x !== undefined && y !== undefined}
+{#if event.layerX !== undefined && event.layerY !== undefined}
 	<div
 		class="tooltip"
 		style="
-      top:{y + offset}px;
-      left:{x}px;
+      top:{event.layerY + offset}px;
+      left:{event.layerX}px;
     "
 	>
 		{@render children?.()}

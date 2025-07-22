@@ -17,7 +17,7 @@
 	 * @property {string} [stroke='#333'] - The shape's stroke color.
 	 * @property {number} [strokeWidth=0.5] - The shape's stroke width.
 	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset.
-	 * @property {(e: MouseEvent, props: Array<Object>) => void} [onmousemove] - A function that gets called on mousemove events. The first argument is the event, and the second is the properties of the hovered feature.
+	 * @property {(e: MouseEvent, props: Object) => void} [onmousemove] - A function that gets called on mousemove events. The first argument is the event, and the second is the properties of the hovered feature.
 	 * @property {(e: MouseEvent) => void} [onmouseout] - A function that gets called on mouseout events.
 	 */
 

@@ -31,7 +31,7 @@
 	});
 
 	let tooltipEvent = $state(null);
-	let tooltipFeatures = $state(null);
+	let tooltipFeature = $state(null);
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
@@ -39,8 +39,6 @@
 	const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 
 	const addCommas = format(',');
-
-	$inspect({ hideTooltip });
 </script>
 
 <div class="chart-container">
@@ -54,22 +52,25 @@
 		<Svg>
 			<MapSvg
 				{projection}
-				onmousemove={(event, features) => {
-					tooltipFeatures = features;
+				onmousemove={(event, feature) => {
+					tooltipFeature = feature;
 					tooltipEvent = event;
 				}}
 				onmouseout={() => {
-					tooltipFeatures = null;
+					tooltipFeature = null;
 					tooltipEvent = null;
 				}}
 			/>
 		</Svg>
 
 		<Html pointerEvents={false}>
-			{#if tooltipFeatures !== null && tooltipEvent !== null}
-				<Tooltip x={tooltipEvent.layerX} y={tooltipEvent.layerY}>
+			{#if tooltipFeature !== null && tooltipEvent !== null}
+				<Tooltip event={tooltipEvent}>
 					<!-- For the tooltip, do another data join because the hover event only has the data from the geography data -->
-					{@const tooltipData = { ...detail.props, ...dataLookup.get(detail.props[mapJoinKey]) }}
+					{@const tooltipData = {
+						...tooltipFeature,
+						...dataLookup.get(tooltipFeature[mapJoinKey])
+					}}
 					{#each Object.entries(tooltipData) as [key, value]}
 						{@const keyCapitalized = key.replace(/^\w/, d => d.toUpperCase())}
 						<div class="row">

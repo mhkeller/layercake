@@ -254,21 +254,6 @@
 	.strong {
 		font-weight: bold;
 	}
-	.edit-repl {
-		text-decoration: none !important;
-		font-size: 12px;
-		text-transform: lowercase;
-		font-family: monospace;
-		color: rgba(0, 0, 0, 0.5);
-		background-color: #f0f0f0;
-		padding: 2px 5px;
-		margin-left: 4px;
-		position: relative;
-		top: -1px;
-	}
-	.edit-repl:hover {
-		text-decoration: underline;
-	}
 	@media (max-width: 895px) {
 		:global(#svelte) {
 			overflow: hidden;

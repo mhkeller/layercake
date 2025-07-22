@@ -6,17 +6,13 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "evt Object None yes A svelte event created via dispatch with event information under evt.detail.e.":
-      - cell "evt Object":
-        - strong: evt
-        - code: Object
+    - row "event MouseEvent None yes The mouse event that triggered the tooltip.":
+      - cell "event MouseEvent":
+        - strong: event
+        - code: MouseEvent
       - cell "None"
       - cell "yes"
-      - cell "A svelte event created via dispatch with event information under evt.detail.e.":
-        - link "dispatch":
-          - /url: https://svelte.dev/docs#createEventDispatcher
-          - code: dispatch
-        - code: evt.detail.e
+      - cell "The mouse event that triggered the tooltip."
     - row /offset number -\d+ no A y-offset from the hover point, in pixels\./:
       - cell "offset number":
         - strong: offset

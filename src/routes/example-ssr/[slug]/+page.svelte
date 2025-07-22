@@ -5,6 +5,7 @@
 	import DownloadBtn from '../../_site-components/DownloadBtn.svelte';
 	import hljsDefineSvelte from '../../../_modules/hljsDefineSvelte.js';
 	import cleanTitle from '../../../_modules/cleanTitle.js';
+	import constructReplLink from '../../../_modules/constructReplLink.js';
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
@@ -77,12 +78,9 @@
 
 <div class="main" data-label="Server-side">
 	<h1>
-		{example.title}<a
-			class="edit-repl"
-			href="https://svelte.dev/repl/{example.replPath}"
-			target="_blank"
-			rel="noreferrer">Edit</a
-		>
+		{example.title}{#await constructReplLink(example?.title, data.content) then replLink}
+			<a class="edit-repl" href={replLink} target="_blank" rel="noreferrer">Edit</a>
+		{/await}
 	</h1>
 
 	<div class="chart-hero" data-slug={data.slug.toLowerCase()}>

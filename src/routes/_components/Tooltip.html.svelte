@@ -55,8 +55,8 @@
 		<Svg>
 			<MapSvg
 				{projection}
-				on:mousemove={event => (evt = hideTooltip = event)}
-				on:mouseout={() => (hideTooltip = true)}
+				onmousemove={event => (evt = hideTooltip = event)}
+				onmouseout={() => (hideTooltip = true)}
 			/>
 		</Svg>
 

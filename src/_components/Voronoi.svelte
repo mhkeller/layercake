@@ -3,7 +3,7 @@
 	Generates a voronoi layer using [d3-delauney](https://github.com/d3/d3-delauney).
  -->
 <script>
-	import { getContext, createEventDispatcher } from 'svelte';
+	import { getContext } from 'svelte';
 	import { uniques } from 'layercake';
 	import { Delaunay } from 'd3-delaunay';
 
@@ -12,16 +12,15 @@
 	/**
 	 * @typedef {Object} Props
 	 * @property {string|undefined} [stroke] - An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
+	 * @property {(event: MouseEvent, point: Array<number>) => void} [onmouseover] - A function that gets called on mouseover events. The first argument is the event, and the second is the point data.
 	 */
 
 	/** @type {Props} */
-	let { stroke } = $props();
+	let { stroke, onmouseover = () => {} } = $props();
 
-	let dispatcher = createEventDispatcher();
-
-	function log(point) {
+	function log(e, point) {
 		console.log(point, point.data);
-		dispatcher('voronoi-mouseover', point);
+		onmouseover(e, point);
 	}
 
 	let points = $derived(
@@ -42,12 +41,8 @@
 		style="stroke: {stroke}"
 		class="voronoi-cell"
 		d={voronoi.renderCell(i)}
-		onmouseover={() => {
-			log(point);
-		}}
-		onfocus={() => {
-			log(point);
-		}}
+		onmouseover={e => log(e, point)}
+		onfocus={e => log(e, point)}
 		role="tooltip"
 	></path>
 {/each}

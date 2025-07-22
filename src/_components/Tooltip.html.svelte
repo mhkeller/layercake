@@ -5,24 +5,25 @@
 <script>
 	/**
 	 * @typedef {Object} Props
-	 * @property {Object} evt - A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`.
+	 * @property {number} x - X-coordinate of the tooltip.
+	 * @property {number} y - Y-coordinate of the tooltip.
 	 * @property {number} [offset=-35] - A y-offset from the hover point, in pixels.
-	 * @property {import('svelte').Snippet<[any]>} [children]
+	 * @property {import('svelte').Snippet} [children]
 	 */
 
 	/** @type {Props} */
-	let { evt, offset = -35, children } = $props();
+	let { x, y, offset = -35, children } = $props();
 </script>
 
-{#if evt.detail}
+{#if x !== undefined && y !== undefined}
 	<div
 		class="tooltip"
 		style="
-      top:{evt.detail.e.layerY + offset}px;
-      left:{evt.detail.e.layerX}px;
+      top:{y + offset}px;
+      left:{x}px;
     "
 	>
-		{@render children?.({ detail: evt.detail })}
+		{@render children?.()}
 	</div>
 {/if}
 

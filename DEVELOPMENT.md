@@ -43,7 +43,7 @@ There are YAML-based ARIA snapshots of component property tables as well as scre
 They can be updated with
 
 ```sh
-npm runtest:init:snapshots
+npm run test:init:snapshots
 ```
 
 To have better matching between the CI environment and the saved screenshots they can be updated through a CI action (in `.github/workflows/update-snapshots.yml`), for example after a component's defaults have changed.

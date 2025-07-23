@@ -29,6 +29,7 @@
 		x={xKey}
 		y={yKey}
 		yScale={scaleBand().paddingInner(0.05).round(true)}
+		yDomainSort={true}
 		xDomain={[0, null]}
 		xPadding={[2, 0]}
 		zScale={scaleOrdinal()}

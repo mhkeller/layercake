@@ -9,6 +9,12 @@ const options = {
 	threshold: 0.1
 };
 
+test(`Snapshot for landing page galleries`, async ({ page }) => {
+	await page.goto('/');
+	await expect(page.locator('#gallery')).toHaveScreenshot({ ...options, timeout: 10_000 });
+	await expect(page.locator('#ssr-gallery')).toHaveScreenshot({ ...options, timeout: 10_000 });
+});
+
 const componentFilenames = readdirSync('./docs/components').filter(i => i.endsWith('svelte.html'));
 componentFilenames.forEach(filename => {
 	const url = `/components/${filename.replace('.svelte.html', '.svelte')}`;

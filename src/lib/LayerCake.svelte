@@ -50,7 +50,6 @@
 	 *
 	 */
 
-
 	/** @type {string|Function|number|Array<string|Function|number>|undefined} x The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
 	export let x = undefined;
 	/** @type {string|Function|number|Array<string|Function|number>|undefined} y The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context. */
@@ -458,7 +457,7 @@
 		return $width / $height;
 	});
 
-	$: context = {
+	const context = {
 		activeGetters: activeGetters_d,
 		width: width_d,
 		height: height_d,
@@ -510,7 +509,7 @@
 		rGet: rGet_d
 	};
 
-	$: setContext('LayerCake', context);
+	setContext('LayerCake', context);
 
 	$: if ($box_d && debug === true && (ssr === true || typeof window !== 'undefined')) {
 		// Call this as a debounce so that it doesn't get called multiple times as these vars get filled in

@@ -110,15 +110,15 @@
 	export let zReverse = false;
 	/** @type {boolean} [rReverse=false] Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop. */
 	export let rReverse = false;
-	/** @type {boolean} [xDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
-	export let xDomainSort = true;
-	/** @type {boolean} [yDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
-	export let yDomainSort = true;
-	/** @type {boolean} [zDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
-	export let zDomainSort = true;
-	/** @type {boolean} [rDomainSort=true] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
-	export let rDomainSort = true;
-	/** @type {{top?: number, right?: number, bottom?: number, left?: number}} [padding={}] The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563). */
+	/** @type {boolean} [xDomainSort=false] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	export let xDomainSort = false;
+	/** @type {boolean} [yDomainSort=false] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	export let yDomainSort = false;
+	/** @type {boolean} [zDomainSort=false] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	export let zDomainSort = false;
+	/** @type {boolean} [rDomainSort=false] Only used when scale is ordinal. Set whether the calculated unique items come back sorted. */
+	export let rDomainSort = false;
+	/** @type {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}] The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563). */
 	export let padding = {};
 	/** @type {{ x?: [min: number, max: number], y?: [min: number, max: number], r?: [min: number, max: number], z?: [min: number, max: number] }} [extents] Manually set the extents of the x, y or r scale as a two-dimensional array of the min and max you want. Setting values here will skip any dynamic extent calculation of the data for that dimension. */
 	export let extents = {};

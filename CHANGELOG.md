@@ -1,5 +1,12 @@
 # Changelog
 
+# 8.4.4
+
+> 2025-07-24
+
+* Remove `$:` from context setting.
+  - [PR#302](https://github.com/mhkeller/layercake/pull/302)
+
 # 8.4.3
 
 > 2025-03-20

@@ -223,21 +223,21 @@ Same as [xDomain](/guide#xdomain) but for the z scale.
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 
-### xDomainSort `boolean=true`
+### xDomainSort `boolean=false`
 
-Taken into account only when the x-scale is ordinal. It sets whether the calculated unique items come back sorted. It uses [d3.ascending](https://d3js.org/d3-array/sort#ascending) to do the sort calculation.
+Taken into account only when the x-scale is ordinal. If `true`, sets whether the calculated unique items come back sorted. It uses [d3.ascending](https://d3js.org/d3-array/sort#ascending) to do the sort calculation.
 
-Set this to `false` if you want the unique items to appear in the order they were found in the data.
+Set this to `false` if you want the unique items to appear in the order they were found in the data, which is the default.
 
-### yDomainSort `boolean=true`
+### yDomainSort `boolean=false`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the y domain.
 
-### zDomainSort `boolean=true`
+### zDomainSort `boolean=false`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the z domain.
 
-### rDomainSort `boolean=true`
+### rDomainSort `boolean=false`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the r domain.
 

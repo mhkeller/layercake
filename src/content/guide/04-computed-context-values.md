@@ -59,21 +59,6 @@ The width of the parent container – the div element that contains the `<LayerC
 
 The height of the parent container – the div element that contains the `<LayerCake>` component. Unlike [height](/guide#height), this value does not take into account any margin. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:containerHeight`.
 
-### extents `Object`
-
-An object containing a key for x, y or r (if any are set), whose value is two-value array representing the min and max values for that field in the data.
-
-This value could differ from the domain of your scale if you are manually setting a limit on your scale by setting any of the `xDomain`, `yDomain`, `zDomain` or `rDomain` settings. This is used internally to set domain things but it's also useful as a reference if you want to toggle between an arbitrary domain and the measured extents of the data, such as in the [small multiples example](/example/SmallMultiples).
-
-```js
-{
-  x: [0, 235],
-  y: [0, 80],
-  z: [0, 90],
-  r: [0, 35]
-}
-```
-
 ### width `number`
 
 The width of the drawable space for the chart. This is the width of the parent container taking into account any margin. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:width`.

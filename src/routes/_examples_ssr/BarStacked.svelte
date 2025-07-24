@@ -40,7 +40,7 @@
 		x={yKey}
 		z={zKey}
 		yScale={scaleBand().paddingInner(0.05).round(true)}
-		yDomain={['2016', '2017', '2018', '2019']}
+		yDomainSort={true}
 		zScale={scaleOrdinal()}
 		zDomain={seriesNames}
 		zRange={seriesColors}

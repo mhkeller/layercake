@@ -40,6 +40,7 @@
 		z={zKey}
 		yScale={scaleBand().paddingInner(0.05)}
 		zScale={scaleOrdinal()}
+		yDomainSort={true}
 		zDomain={seriesNames}
 		zRange={seriesColors}
 		flatData={flatten(stackedData)}

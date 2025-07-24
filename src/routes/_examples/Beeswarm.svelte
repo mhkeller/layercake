@@ -38,6 +38,7 @@
 		z={zKey}
 		zScale={scaleOrdinal()}
 		zRange={seriesColors}
+		zDomainSort={true}
 		data={dataTransformed}
 	>
 		{#snippet children({ width })}

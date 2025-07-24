@@ -7,17 +7,16 @@
 
 	const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
 
-	/** @type {number} [r=5] - The circle's radius. */
-	export let r = 5;
+	/**
+	 * @typedef {Object} Props
+	 * @property {number} [r=5] - The circle's radius.
+	 * @property {string} [fill='#0cf'] - The circle's fill color.
+	 * @property {string} [stroke='#000'] - The circle's stroke color.
+	 * @property {number} [strokeWidth=1] - The circle's stroke width.
+	 */
 
-	/** @type {string} [fill='#0cf'] - The circle's fill color. */
-	export let fill = '#0cf';
-
-	/** @type {string} [stroke='#000'] - The circle's stroke color. */
-	export let stroke = '#000';
-
-	/** @type {number} [strokeWidth=1] - The circle's stroke width. */
-	export let strokeWidth = 1;
+	/** @type {Props} */
+	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 </script>
 
 <div class="scatter-group">

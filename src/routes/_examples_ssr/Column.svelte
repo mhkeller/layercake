@@ -99,9 +99,9 @@
 		{data}
 	>
 		<Svg>
-			<svelte:fragment slot="defs">
+			{#snippet defs()}
 				<ArrowheadMarker />
-			</svelte:fragment>
+			{/snippet}
 			<Arrows {annotations} />
 		</Svg>
 	</LayerCake>

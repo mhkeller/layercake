@@ -4,11 +4,9 @@
 
 	import downloadBlob from '../../_modules/downloadBlob.js';
 
-	export let data = {};
-	export let slug;
-	// export let ssr = false;
+	let { data = {}, slug } = $props();
 
-	let downloading = false;
+	let downloading = $state(false);
 
 	// function getImports (file = '') {
 	// 	const match = file.match(/from\s'(.+)'?/gm) || [];
@@ -85,7 +83,7 @@
 
 <button
 	disabled={downloading}
-	on:click={download}
+	onclick={download}
 	title="download zip file"
 	class="icon"
 	style="background-image: url(/icons/download.svg)">Download &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button

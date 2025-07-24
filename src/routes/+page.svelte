@@ -113,14 +113,8 @@
 			<div class="gallery-item">
 				<h4 class="title">
 					<a href="/example/{example.slug}">{example.title}</a>
-					<a
-						class="edit-repl"
-						href="https://svelte.dev/repl/{example.replPath}"
-						target="_blank"
-						rel="noreferrer">Edit</a
-					>
 				</h4>
-				<svelte:component this={example.component} />
+				<example.component />
 			</div>
 		{/each}
 	</div>
@@ -156,14 +150,8 @@
 			<div class="gallery-item" class:scaled={example.title.toLowerCase().includes('map')}>
 				<h4 class="title">
 					<a href="/example-ssr/{example.slug}">{example.title}</a>
-					<a
-						class="edit-repl"
-						href="https://svelte.dev/repl/{example.replPath}"
-						target="_blank"
-						rel="noreferrer">Edit</a
-					>
 				</h4>
-				<svelte:component this={example.component} />
+				<example.component />
 			</div>
 		{/each}
 	</div>
@@ -265,21 +253,6 @@
 	}
 	.strong {
 		font-weight: bold;
-	}
-	.edit-repl {
-		text-decoration: none !important;
-		font-size: 12px;
-		text-transform: lowercase;
-		font-family: monospace;
-		color: rgba(0, 0, 0, 0.5);
-		background-color: #f0f0f0;
-		padding: 2px 5px;
-		margin-left: 4px;
-		position: relative;
-		top: -1px;
-	}
-	.edit-repl:hover {
-		text-decoration: underline;
 	}
 	@media (max-width: 895px) {
 		:global(#svelte) {

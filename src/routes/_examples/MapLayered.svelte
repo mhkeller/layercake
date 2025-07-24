@@ -19,6 +19,8 @@
 	const labelCoordinatesKey = 'center';
 	const labelNameKey = 'abbr';
 
+	/** @type {import('geojson').FeatureCollection} */
+	// @ts-ignore - topojson feature() can return FeatureCollection
 	const geojson = feature(usStates, usStates.objects.collection);
 	const projection = geoAlbersUsa;
 
@@ -31,26 +33,32 @@
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
 
-	stateData.forEach(d => {
-		dataLookup.set(d[dataJoinKey], d[colorKey]);
-	});
+	stateData.forEach(
+		/** @param {any} d */ d => {
+			dataLookup.set(d[dataJoinKey], d[colorKey]);
+		}
+	);
 
 	// Exclude some for space reasons
 	const labelsToExclude = ['VT', 'MD', 'NJ', 'RI', 'DC', 'DE', 'WV', 'MA', 'CT', 'NH'];
-	const labelsToDisplay = stateLabels.filter(d => {
-		return !labelsToExclude.includes(d[labelNameKey]);
-	});
+	const labelsToDisplay = stateLabels.filter(
+		/** @param {any} d */ d => {
+			return !labelsToExclude.includes(d[labelNameKey]);
+		}
+	);
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
-	const flatData = geojson.features.map(d => d.properties);
+	const flatData = geojson.features
+		.map(d => d.properties)
+		.filter(d => d !== null && d !== undefined);
 	const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 </script>
 
 <div class="chart-container">
 	<LayerCake
 		data={geojson}
-		z={d => dataLookup.get(d[mapJoinKey])}
+		z={(/** @type {any} */ d) => dataLookup.get(d[mapJoinKey])}
 		zScale={scaleQuantize()}
 		zRange={colors}
 		{flatData}
@@ -67,8 +75,8 @@
 			<MapLabels
 				{projection}
 				features={labelsToDisplay}
-				getCoordinates={d => d[labelCoordinatesKey]}
-				getLabel={d => d[labelNameKey]}
+				getCoordinates={(/** @type {any} */ d) => d[labelCoordinatesKey]}
+				getLabel={(/** @type {any} */ d) => d[labelNameKey]}
 			/>
 		</Html>
 	</LayerCake>

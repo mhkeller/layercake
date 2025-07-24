@@ -38,10 +38,10 @@
       - cell "None"
       - cell "no"
       - cell "The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set."
-    - row "features (Array | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
-      - cell "features (Array | undefined)":
+    - row "features (Array<GeoJSON> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
+      - cell "features (Array<GeoJSON> | undefined)":
         - strong: features
-        - code: Array
+        - code: Array<GeoJSON>
         - code: undefined
       - cell "None"
       - cell "no"

@@ -3,50 +3,60 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getContext, onMount, untrack } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
 	const { data, width, height } = getContext('LayerCake');
 
 	const { ctx } = getContext('canvas');
 
-	/** @type {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`. */
-	export let projection;
+	/**
+	 * @typedef {Object} Props
+	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
+	 * @property {number} [r=3.5] - The point's radius.
+	 * @property {string} [fill='yellow'] - The point's fill color.
+	 * @property {string} [stroke='#000'] - The point's stroke color.
+	 * @property {number} [strokeWidth=1] - The point's stroke width.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.
+	 */
 
-	/** @type {number} [r=3.5] - The point's radius. */
-	export let r = 3.5;
+	/** @type {Props} */
+	let {
+		projection,
+		r = 3.5,
+		fill = 'yellow',
+		stroke = '#000',
+		strokeWidth = 1,
+		features
+	} = $props();
 
-	/** @type {string} [fill='yellow'] - The point's fill color. */
-	export let fill = 'yellow';
+	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
 
-	/** @type {string} [stroke='#000'] - The point's stroke color. */
-	export let stroke = '#000';
+	let featuresToDraw = $derived(features || $data.features);
+	onMount(() => {
+		$effect(() => {
+			if ($width && $height) {
+				untrack(() => {
+					if (!$ctx) return;
 
-	/** @type {number} [strokeWidth=1] - The point's stroke width. */
-	export let strokeWidth = 1;
+					scaleCanvas($ctx, $width, $height);
+					$ctx.clearRect(0, 0, $width, $height);
 
-	/** @type {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features. */
-	export let features = undefined;
-
-	$: projectionFn = projection().fitSize([$width, $height], $data);
-
-	$: featuresToDraw = features || $data.features;
-	$: {
-		if ($ctx) {
-			scaleCanvas($ctx, $width, $height);
-			$ctx.clearRect(0, 0, $width, $height);
-
-			// To scale the circle by size, set width and height to `$rGet(d.properties)`
-			featuresToDraw.forEach(d => {
-				$ctx.beginPath();
-				const coordinates = projectionFn(d.geometry.coordinates);
-				$ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
-				$ctx.fillStyle = fill;
-				$ctx.fill();
-				$ctx.lineWidth = strokeWidth;
-				$ctx.strokeStyle = stroke;
-				$ctx.stroke();
-			});
-		}
-	}
+					// To scale the circle by size, set width and height to `$rGet(d.properties)`
+					featuresToDraw.forEach(
+						/** @param {any} d */ d => {
+							$ctx.beginPath();
+							const coordinates = projectionFn(d.geometry.coordinates);
+							$ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
+							$ctx.fillStyle = fill;
+							$ctx.fill();
+							$ctx.lineWidth = strokeWidth;
+							$ctx.strokeStyle = stroke;
+							$ctx.stroke();
+						}
+					);
+				});
+			}
+		});
+	});
 </script>

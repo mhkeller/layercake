@@ -15,12 +15,12 @@
       - cell "no"
       - cell "A function to format the tooltip title, which is $config.x.":
         - code: $config.x
-    - 'row "formatValue Function d => isNaN(+d) ? d : commas(d) no A function to format the value."':
+    - 'row "formatValue Function d => (isNaN(+d) ? d : commas(d)) no A function to format the value."':
       - cell "formatValue Function":
         - strong: formatValue
         - code: Function
-      - 'cell "d => isNaN(+d) ? d : commas(d)"':
-        - code: "d => isNaN(+d) ? d : commas(d)"
+      - 'cell "d => (isNaN(+d) ? d : commas(d))"':
+        - code: "d => (isNaN(+d) ? d : commas(d))"
       - cell "no"
       - cell "A function to format the value."
     - row "formatKey Function d => titleCase(d) no A function to format the series name.":

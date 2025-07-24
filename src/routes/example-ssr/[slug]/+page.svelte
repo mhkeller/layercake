@@ -5,6 +5,7 @@
 	import DownloadBtn from '../../_site-components/DownloadBtn.svelte';
 	import hljsDefineSvelte from '../../../_modules/hljsDefineSvelte.js';
 	import cleanTitle from '../../../_modules/cleanTitle.js';
+	import constructReplLink from '../../../_modules/constructReplLink.js';
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
@@ -16,12 +17,10 @@
 		linkify: true
 	});
 
-	/** @type {import('./$types').PageData} */
-	export let data;
-	let { slug, content, active } = data;
-	$: slug = data.slug;
-	$: content = data.content;
-	$: active = data.active;
+	/** @type {import('./$types').PageProps} */
+	let { data } = $props();
+
+	let active = $derived(data.active);
 
 	function markdownToHtml(text) {
 		return md.render(text);
@@ -34,20 +33,22 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [content.main]
-		.concat(content.components)
-		.concat(content.componentModules)
-		.concat(content.modules)
-		.concat(content.componentComponents)
-		.concat(content.jsons)
-		.concat(content.csvs);
+	let pages = $derived(
+		[data.content.main]
+			.concat(data.content.components)
+			.concat(data.content.componentModules)
+			.concat(data.content.modules)
+			.concat(data.content.componentComponents)
+			.concat(data.content.jsons)
+			.concat(data.content.csvs)
+	);
 
 	const exampleLookup = new Map();
 	examples.forEach(exmpl => {
 		exampleLookup.set(exmpl.slug.toLowerCase(), exmpl);
 	});
 
-	$: example = exampleLookup.get(slug.toLowerCase());
+	let example = $derived(exampleLookup.get(data.slug.toLowerCase()));
 
 	function copyToClipboard() {
 		const text = pages.filter(d => cleanTitle(d.title) === active)[0].contents;
@@ -77,37 +78,34 @@
 
 <div class="main" data-label="Server-side">
 	<h1>
-		{example.title}<a
-			class="edit-repl"
-			href="https://svelte.dev/repl/{example.replPath}"
-			target="_blank"
-			rel="noreferrer">Edit</a
-		>
+		{example.title}{#await constructReplLink(example?.title, data.content) then replLink}
+			<a class="edit-repl" href={replLink} target="_blank" rel="noreferrer">Edit</a>
+		{/await}
 	</h1>
 
-	<div class="chart-hero" data-slug={slug.toLowerCase()}>
-		<svelte:component this={example.component} />
+	<div class="chart-hero" data-slug={data.slug.toLowerCase()}>
+		<example.component />
 	</div>
 
 	<div class="download">
-		<DownloadBtn data={content} {slug} ssr />
+		<DownloadBtn data={data.content} slug={data.slug} ssr />
 	</div>
 
-	{#if content.dek}
+	{#if data.content.dek}
 		<div class="dek">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-			{@html markdownToHtml(content.dek)}
+			{@html markdownToHtml(data.content.dek)}
 		</div>
 	{/if}
 
-	<div id="pages" class={content.dek ? 'has-dek' : ''}>
+	<div id="pages" class={data.content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
 				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<li
 					class="tab {active === cleanTitle(page.title) ? 'active' : ''}"
-					on:click={() => (active = cleanTitle(page.title))}
+					onclick={() => (active = cleanTitle(page.title))}
 				>
 					{page.title}
 				</li>
@@ -116,7 +114,7 @@
 		<div id="contents-container">
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="copy" on:click={copyToClipboard}></div>
+			<div class="copy" onclick={copyToClipboard}></div>
 			{#each pages as page}
 				<div
 					class="contents"

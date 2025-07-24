@@ -5,28 +5,34 @@
 	import DownloadBtn from '../../_site-components/DownloadBtn.svelte';
 	import hljsDefineSvelte from '../../../_modules/hljsDefineSvelte.js';
 	import cleanTitle from '../../../_modules/cleanTitle.js';
+	import constructReplLink from '../../../_modules/constructReplLink.js';
 
 	import examples from '../../_examples.js';
 
-	const md = new MarkdownIt({
-		html: true,
-		linkify: true
-	});
+	const md = new MarkdownIt({ html: true, linkify: true });
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	/** @type {import('./$types').PageData} */
-	export let data;
-	let { slug, content, active } = data;
-	$: slug = data.slug;
-	$: content = data.content;
-	$: active = data.active;
+	/** @type {import('./$types').PageProps} */
+	let { data } = $props();
 
+	let active = $derived(data.active);
+
+	/**
+	 * Converts markdown text to HTML.
+	 * @param {string} text - The markdown text to convert.
+	 * @returns {string} The converted HTML.
+	 */
 	function markdownToHtml(text) {
 		return md.render(text);
 	}
 
+	/**
+	 * @param {string} str
+	 * @param {string} title
+	 * @returns {string} highlighted code
+	 */
 	function highlight(str, title) {
 		const parts = title.split('.');
 		let ext = parts[parts.length - 1];
@@ -34,80 +40,87 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [content.main]
-		.concat(content.components)
-		.concat(content.componentModules)
-		.concat(content.modules)
-		.concat(content.componentComponents)
-		.concat(content.jsons)
-		.concat(content.csvs);
+	let pages = $derived(
+		[data.content.main]
+			.concat(data.content.components)
+			.concat(data.content.componentModules)
+			.concat(data.content.modules)
+			.concat(data.content.componentComponents)
+			.concat(data.content.jsons)
+			.concat(data.content.csvs)
+	);
 
 	const exampleLookup = new Map();
 	examples.forEach(exmpl => {
 		exampleLookup.set(exmpl.slug, exmpl);
 	});
+	let example = $derived(exampleLookup.get(data.slug));
 
-	$: example = exampleLookup.get(slug);
-
-	function copyToClipboard() {
+	async function copyToClipboard() {
 		const text = pages.filter(d => cleanTitle(d.title) === active)[0].contents;
-		if (window.clipboardData && window.clipboardData.setData) {
-			return window.clipboardData.setData('Text', text);
-		} else if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
-			const textarea = document.createElement('textarea');
-			textarea.textContent = text;
-			textarea.style.position = 'fixed';
-			document.body.appendChild(textarea);
-			textarea.select();
-			try {
-				return document.execCommand('copy');
-			} catch (ex) {
-				console.warn('Copy to clipboard failed.', ex);
-				return false;
-			} finally {
+
+		try {
+			if (navigator.clipboard && window.isSecureContext) {
+				// Use modern Clipboard API
+				await navigator.clipboard.writeText(text);
+				return true;
+			} else {
+				// Fallback for older browsers or non-secure contexts
+				const textarea = document.createElement('textarea');
+				textarea.value = text;
+				textarea.style.position = 'fixed';
+				textarea.style.left = '-999999px';
+				textarea.style.top = '-999999px';
+				document.body.appendChild(textarea);
+				textarea.focus();
+				textarea.select();
+
+				const success = document.execCommand('copy');
 				document.body.removeChild(textarea);
+				return success;
 			}
+		} catch (error) {
+			console.warn('Copy to clipboard failed:', error);
+			return false;
 		}
 	}
 </script>
 
 <svelte:head>
-	<title>{example.title}</title>
+	<title>{example?.title || 'LayerCake Example'}</title>
 </svelte:head>
 
 <div class="main">
 	<h1>
-		{example.title}<a
-			class="edit-repl"
-			href="https://svelte.dev/repl/{example.replPath}"
-			target="_blank"
-			rel="noreferrer">Edit</a
-		>
+		{example.title}
+		{#await constructReplLink(example?.title, data.content) then replLink}
+			<a class="edit-repl" href={replLink} target="_blank" rel="noreferrer">Edit</a>
+		{/await}
 	</h1>
 
 	<div class="chart-hero">
-		<svelte:component this={example.component} />
+		<example.component />
 	</div>
 
 	<div class="download">
-		<DownloadBtn data={content} {slug} />
+		<DownloadBtn data={data.content} slug={data.slug} />
 	</div>
 
-	{#if content.dek}
+	{#if data.content.dek}
 		<div class="dek">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-			{@html markdownToHtml(content.dek)}
+			{@html markdownToHtml(data.content.dek)}
 		</div>
 	{/if}
 
-	<div id="pages" class={content.dek ? 'has-dek' : ''}>
+	<div id="pages" class={data.content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<li
 					class="tab {active === cleanTitle(page.title) ? 'active' : ''}"
-					on:click={() => (active = cleanTitle(page.title))}
-					on:keypress={() => (active = cleanTitle(page.title))}
+					onclick={() => (active = cleanTitle(page.title))}
+					onkeypress={() => (active = cleanTitle(page.title))}
 				>
 					{page.title}
 				</li>
@@ -115,7 +128,7 @@
 		</ul>
 		<div id="contents-container">
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="copy" on:click={copyToClipboard} on:keypress={copyToClipboard}></div>
+			<div class="copy" onclick={copyToClipboard} onkeypress={copyToClipboard}></div>
 			{#each pages as page}
 				<div
 					class="contents"

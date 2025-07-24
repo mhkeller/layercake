@@ -6,20 +6,18 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "x ('x' | 'y') 'x' no The dimension to search across when moving the mouse left and right.":
-      - cell "x ('x' | 'y')":
+    - row "x string 'x' no The dimension to search across when moving the mouse left and right.":
+      - cell "x string":
         - strong: x
-        - code: "'x'"
-        - code: "'y'"
+        - code: string
       - cell "'x'":
         - code: "'x'"
       - cell "no"
       - cell "The dimension to search across when moving the mouse left and right."
-    - row "y ('x' | 'y') 'y' no The dimension to search across when moving the mouse up and down.":
-      - cell "y ('x' | 'y')":
+    - row "y string 'y' no The dimension to search across when moving the mouse up and down.":
+      - cell "y string":
         - strong: "y"
-        - code: "'x'"
-        - code: "'y'"
+        - code: string
       - cell "'y'":
         - code: "'y'"
       - cell "no"

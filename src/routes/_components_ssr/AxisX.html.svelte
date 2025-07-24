@@ -13,14 +13,14 @@
 		d[yKey] = +d[yKey];
 	});
 
-	let tickMarks = false;
-	let snapLabels = false;
-	let baseline = true;
-	let gridlines = true;
-	let tickMarkLength = 6;
-	let tickGutter = 0;
-	let dx = 0;
-	let dy = 1;
+	let tickMarks = $state(false);
+	let snapLabels = $state(false);
+	let baseline = $state(true);
+	let gridlines = $state(true);
+	let tickMarkLength = $state(6);
+	let tickGutter = $state(0);
+	let dx = $state(0);
+	let dy = $state(1);
 
 	const padding = { top: 10, bottom: 20 };
 

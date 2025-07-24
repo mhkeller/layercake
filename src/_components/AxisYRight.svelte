@@ -7,73 +7,70 @@
 
 	const { xRange, yScale, width } = getContext('LayerCake');
 
-	/** @type {boolean} [tickMarks=false] - Show marks next to the tick label. */
-	export let tickMarks = false;
+	/**
+	 * @typedef {Object} Props
+	 * @property {boolean} [tickMarks=false] - Show marks next to the tick label.
+	 * @property {string} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark.
+	 * @property {boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
+	 * @property {boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
+	 * @property {number} [tickMarkLength] - The length of the tick mark. If not set, becomes the length of the widest tick.
+	 * @property {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return.
+	 * @property {number|Array<any>|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
+	 * @property {number} [tickGutter=5] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min).
+	 * @property {number} [dx=0] - Any optional value passed to the `dx` attribute on the text label.
+	 * @property {number} [dy=0] - Any optional value passed to the `dy` attribute on the text label.
+	 * @property {number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value).
+	 */
 
-	/** @type {string} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. */
-	export let labelPosition = 'above';
-
-	/** @type {boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
-	export let snapBaselineLabel = false;
-
-	/** @type {boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark. */
-	export let gridlines = true;
-
-	/** @type {number|undefined} [tickMarkLength=undefined] - The length of the tick mark. If not set, becomes the length of the widest tick. */
-	export let tickMarkLength = undefined;
-
-	/** @type {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let format = d => d;
-
-	/** @type {number|Array<any>|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
-	export let ticks = 4;
-
-	/** @type {number} [tickGutter=5] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min). */
-	export let tickGutter = 5;
-
-	/** @type {number} [dx=0] - Any optional value passed to the `dx` attribute on the text label. */
-	export let dx = 0;
-
-	/** @type {number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
-	export let dy = 0;
-
-	/** @type {number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value). */
-	export let charPixelWidth = 7.25;
-
-	$: isBandwidth = typeof $yScale.bandwidth === 'function';
-
-	/** @type {Array<any>} */
-	$: tickVals = Array.isArray(ticks)
-		? ticks
-		: isBandwidth
-			? $yScale.domain()
-			: typeof ticks === 'function'
-				? ticks($yScale.ticks())
-				: $yScale.ticks(ticks);
+	/** @type {Props} */
+	let {
+		tickMarks = false,
+		labelPosition = 'above',
+		snapBaselineLabel = false,
+		gridlines = true,
+		tickMarkLength = undefined,
+		format = d => d,
+		ticks = 4,
+		tickGutter = 5,
+		dx = 0,
+		dy = 0,
+		charPixelWidth = 7.25
+	} = $props();
 
 	/** @param {number} sum
-	 *  @param {String} val */
+	 *  @param {string} val */
 	function calcStringLength(sum, val) {
 		if (val === ',' || val === '.') return sum + charPixelWidth * 0.5;
 		return sum + charPixelWidth;
 	}
 
-	$: tickLen =
+	let isBandwidth = $derived(typeof $yScale.bandwidth === 'function');
+	/** @type {Array<any>} */
+	let tickVals = $derived(
+		Array.isArray(ticks)
+			? ticks
+			: isBandwidth
+				? $yScale.domain()
+				: typeof ticks === 'function'
+					? ticks($yScale.ticks())
+					: $yScale.ticks(ticks)
+	);
+	let widestTickLen = $derived(
+		Math.max(
+			10,
+			Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0)))
+		)
+	);
+	let tickLen = $derived(
 		tickMarks === true
 			? labelPosition === 'above'
 				? (tickMarkLength ?? widestTickLen)
 				: (tickMarkLength ?? 6)
-			: 0;
-
-	$: widestTickLen = Math.max(
-		10,
-		Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0)))
+			: 0
 	);
-
-	$: x2 = $width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen);
-	$: y = isBandwidth ? $yScale.bandwidth() / 2 : 0;
-
-	$: maxTickValPx = Math.max(...tickVals.map($yScale));
+	let x2 = $derived($width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen));
+	let y = $derived(isBandwidth ? $yScale.bandwidth() / 2 : 0);
+	let maxTickValPx = $derived(Math.max(...tickVals.map($yScale)));
 </script>
 
 <g class="axis y-axis">

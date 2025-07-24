@@ -32,8 +32,8 @@
 		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
 	});
 
-	let evt;
-	let hideTooltip = true;
+	let tooltipEvent = $state(null);
+	let tooltipFeature = $state(null);
 
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
@@ -55,15 +55,21 @@
 		<Svg>
 			<MapSvg
 				{projection}
-				on:mousemove={event => (evt = hideTooltip = event)}
-				on:mouseout={() => (hideTooltip = true)}
+				onmousemove={(event, feature) => {
+					tooltipFeature = feature;
+					tooltipEvent = event;
+				}}
+				onmouseout={() => {
+					tooltipFeatures = null;
+					tooltipEvent = null;
+				}}
 			/>
 		</Svg>
 
 		<Html pointerEvents={false}>
-			{#if hideTooltip !== true}
-				<Tooltip {evt} let:detail>
-					{#each Object.entries(detail.props) as [key, value]}
+			{#if tooltipFeature !== null && tooltipEvent !== null}
+				<Tooltip event={tooltipEvent}>
+					{#each Object.entries(tooltipFeature) as [key, value]}
 						<div class="row">
 							<span>{key}:</span>
 							{typeof value === 'number' ? addCommas(value) : value}

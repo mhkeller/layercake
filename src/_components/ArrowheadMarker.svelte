@@ -1,13 +1,16 @@
 <!--
 	@component
-	Generates an SVG marker containing a marker for a triangle makes a nice arrowhead. Add it to the named slot called "defs" on the SVG layout component.
+	Generates an SVG marker containing a marker for a triangle makes a nice arrowhead. Add it to the snippet called "defs" on the SVG layout component.
  -->
 <script>
-	/** @type {string} [fill='#000'] – The arrowhead's fill color. */
-	export let fill = '#000';
+	/**
+	 * @typedef {Object} Props
+	 * @property {string} [fill='#000'] - The arrowhead's fill color.
+	 * @property {string} [stroke='#000'] - The arrowhead's stroke color.
+	 */
 
-	/** @type {string} [stroke='#000'] – The arrowhead's fill color. */
-	export let stroke = '#000';
+	/** @type {Props} */
+	let { fill = '#000', stroke = '#000' } = $props();
 </script>
 
 <marker id="arrowhead" viewBox="-10 -10 20 20" markerWidth="17" markerHeight="17" orient="auto">

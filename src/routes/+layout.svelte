@@ -4,10 +4,10 @@
 
 	import Nav from './_site-components/Nav.svelte';
 
-	export let data;
+	let { data, children } = $props();
 </script>
 
 <Nav sections={data.sections} />
 <main>
-	<slot />
+	{@render children?.()}
 </main>

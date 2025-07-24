@@ -1,24 +1,28 @@
 <!--
 	@component
-	Generates a hover tooltip. It creates a slot with an exposed variable via `let:detail` that contains information about the event. Use the slot to populate the body of the tooltip using the exposed variable `detail`.
+	Generates a hover tooltip. It creates a snippet with an exposed variable via `let:detail` that contains information about the event. Use the snippet to populate the body of the tooltip using the exposed variable `detail`.
  -->
 <script>
-	/** @type {Object} evt - A svelte event created via [`dispatch`](https://svelte.dev/docs#createEventDispatcher) with event information under `evt.detail.e`. */
-	export let evt = {};
+	/**
+	 * @typedef {Object} Props
+	 * @property {MouseEvent} event - The mouse event that triggered the tooltip.
+	 * @property {number} [offset=-35] - A y-offset from the hover point, in pixels.
+	 * @property {import('svelte').Snippet} [children]
+	 */
 
-	/** @type {number} [offset=-35] - A y-offset from the hover point, in pixels. */
-	export let offset = -35;
+	/** @type {Props} */
+	let { event, offset = -35, children } = $props();
 </script>
 
-{#if evt.detail}
+{#if event.layerX !== undefined && event.layerY !== undefined}
 	<div
 		class="tooltip"
 		style="
-      top:{evt.detail.e.layerY + offset}px;
-      left:{evt.detail.e.layerX}px;
+      top:{event.layerY + offset}px;
+      left:{event.layerX}px;
     "
 	>
-		<slot detail={evt.detail}></slot>
+		{@render children?.()}
 	</div>
 {/if}
 

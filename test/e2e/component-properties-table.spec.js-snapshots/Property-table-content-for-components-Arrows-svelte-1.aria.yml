@@ -6,23 +6,15 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "annotations Array<object> None yes A list of annotation objects. See the Column chart example for the schema and options.":
-      - cell "annotations Array<object>":
+    - row "annotations Array<Annotation> None yes A list of annotation objects. See the Column chart example for the schema and options.":
+      - cell "annotations Array<Annotation>":
         - strong: annotations
-        - code: Array<object>
+        - code: Array<Annotation>
       - cell "None"
       - cell "yes"
       - cell "A list of annotation objects. See the Column chart example for the schema and options.":
         - link "Column":
           - /url: https://layercake.graphics/example/Column
-    - row "annotationClass string '.layercake-annotation' no The class name of the text annotation divs.":
-      - cell "annotationClass string":
-        - strong: annotationClass
-        - code: string
-      - cell "'.layercake-annotation'":
-        - code: "'.layercake-annotation'"
-      - cell "no"
-      - cell "The class name of the text annotation divs."
     - row "containerClass string '.chart-container' no The class name / CSS selector of the parent element of the <LayerCake> component. This is used to crawl the DOM for the text annotations.":
       - cell "containerClass string":
         - strong: containerClass

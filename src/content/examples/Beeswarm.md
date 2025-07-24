@@ -1,3 +1,3 @@
 A Beeswarm chart adapted from <a href="https://observablehq.com/@d3/beeswarm" rel="noreferrer" target="_blank">this D3 example</a>. For an alternate algorithm, see <a href="https://svelte.dev/repl/27aad9f9a79d44b6a2ae56f2a0dbb556?version=3.35.0" rel="noreferrer" target="_blank">this example,</a> which uses <a href="https://github.com/jtrim-ons/accurate-beeswarm-plot" rel="noreferrer" target="_blank">accurate-beeswarm-plot</a>. You can also use a force layout for a Beeswarm, as <a href="/example/BeeswarmForce" target="_blank" rel="noreferrer">in this example</a>.
 
-This chart is an example of using the slot prop `let: width` to set a dynamic circle radius based on the chart's width.
+This chart is an example of using the snipppet argument `width` to set a dynamic circle radius based on the chart's width.

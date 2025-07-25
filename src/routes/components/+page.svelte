@@ -133,6 +133,20 @@
 			are optimized to be used server-side with the
 			<a href="/guide#percentrange"><code>percentRange={true}</code></a> prop.
 		</p>
+
+		<p>
+			The components here use <a
+				href="https://svelte.dev/docs/svelte/what-are-runes"
+				target="_blank"
+				rel="noreferrer">Svelte 5's Rune</a
+			>
+			syntax. The Svelte 3/4 versions are still available at the
+			<a
+				href="https://mhkeller.github.io/layercake-prerunes/components"
+				target="_blank"
+				rel="noreferrer">documentation archive</a
+			>.
+		</p>
 	</div>
 
 	{#each componentGroups as componentGroup}

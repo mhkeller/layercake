@@ -4,12 +4,14 @@
 
 > 2025-07-24
 
-- Converts most of the codebase to Svelte 5's runes
+- Converts most of the codebase to Svelte 5's runes and incorporates some longstanding pending breaking changes.
 
 **Breaking changes**
-  - The `title` prop on `Svg` and `ScaledSvg` layout components is renamed to `titleText` to avoid conflicting with the `title` snippet namespace.
-  - The `title` snippet for those components now creates the outer `<title>` tag for you. Previously, the slot was blank and you had to write your own `<title>` wrapper.
-  - The `fallback` slot on `Canvas` and `Webgl` layout components was removed. The `fallback` text prop is sufficient.
+  - The `title` prop on `Svg` and `ScaledSvg` layout components is renamed to `titleText` to avoid conflicting with the `title` snippet namespace. https://github.com/mhkeller/layercake/pull/271
+  - The `title` snippet for those components now creates the outer `<title>` tag for you. Previously, the slot was blank and you had to write your own `<title>` wrapper. https://github.com/mhkeller/layercake/pull/271
+  - The `fallback` slot on `Canvas` and `Webgl` layout components was removed. The `fallback` text prop is sufficient. https://github.com/mhkeller/layercake/pull/271
+  - The `extents` prop is deprecated https://github.com/mhkeller/layercake/pull/243
+  - Domains for ordinal scales are no longer sorted by default https://github.com/mhkeller/layercake/pull/241
 
 # 8.4.4
 

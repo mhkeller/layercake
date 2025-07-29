@@ -1,1 +1,1 @@
-An example of how to do small multiples with the same rendering component. Because we want to calculate and store the extents for each series, we have to put the Layer Cake component in a wrapper component, called `ChartWrapper.svelte` below.
+An example of how to do small multiples with the same rendering component. Because we want to calculate and store the extents for each series, we have to put the Layer Cake component in a wrapper component, called `SmallMultipleWrapper.svelte` below.

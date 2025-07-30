@@ -32,6 +32,7 @@
 		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
 	});
 
+	/** @type {MouseEvent | null} */
 	let tooltipEvent = $state(null);
 	let tooltipFeature = $state(null);
 
@@ -60,7 +61,7 @@
 					tooltipEvent = event;
 				}}
 				onmouseout={() => {
-					tooltipFeatures = null;
+					tooltipFeature = null;
 					tooltipEvent = null;
 				}}
 			/>

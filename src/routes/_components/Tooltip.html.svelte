@@ -60,7 +60,7 @@
 					tooltipEvent = event;
 				}}
 				onmouseout={() => {
-					tooltipFeatures = null;
+					tooltipFeature = null;
 					tooltipEvent = null;
 				}}
 			/>

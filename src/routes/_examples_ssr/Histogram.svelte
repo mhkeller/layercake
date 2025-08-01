@@ -14,17 +14,17 @@
 
 	const f = format('.2f');
 
-	let binCount = 40;
+	let binCount = $state(40);
 
 	const xKey = ['x0', 'x1'];
 	const yKey = 'length';
 
 	const domain = extent(data);
 
-	$: steps = calcThresholds(domain, binCount);
-	$: hist = bin().domain(domain).thresholds(steps);
+	let steps = $derived(calcThresholds(domain, binCount));
+	let hist = $derived(bin().domain(domain).thresholds(steps));
 
-	$: slimSteps = takeEvery(steps, 7);
+	let slimSteps = $derived(takeEvery(steps, 7));
 </script>
 
 <div class="input-container" style="position: absolute;right:10px;z-index: 9;">

@@ -13,15 +13,19 @@
 		d[yKey] = +d[yKey];
 	});
 
-	function logEvent(d) {
-		console.log('dispatched event', d, d.detail);
+	/**
+	 * @param {MouseEvent} e
+	 * @param {Array<number>} point
+	 */
+	function logEvent(e, point) {
+		console.log('dispatched event', point);
 	}
 </script>
 
 <div class="chart-container">
 	<LayerCake padding={{ top: 10 }} x={xKey} y={yKey} {data}>
 		<Svg>
-			<Voronoi stroke="#000" on:voronoi-mouseover={logEvent} />
+			<Voronoi stroke="#000" onmouseover={logEvent} />
 		</Svg>
 	</LayerCake>
 </div>

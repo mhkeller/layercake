@@ -13,14 +13,14 @@
 		d[yKey] = +d[yKey];
 	});
 
-	let tickMarks = false;
-	let gridlines = true;
-	let snapLabels = false;
-	let baseline = true;
-	let tickMarkLength = 6;
-	let tickGutter = 0;
-	let dx = 0;
-	let dy = 12;
+	let tickMarks = $state(false);
+	let gridlines = $state(true);
+	let snapLabels = $state(false);
+	let baseline = $state(true);
+	let tickMarkLength = $state(6);
+	let tickGutter = $state(0);
+	let dx = $state(0);
+	let dy = $state(12);
 </script>
 
 <div class="component-container">

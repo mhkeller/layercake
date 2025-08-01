@@ -7,20 +7,15 @@
 
 	import components from '../../_components.js';
 
-	const md = new MarkdownIt({
-		html: true,
-		linkify: true
-	});
+	const md = new MarkdownIt({ html: true, linkify: true });
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
 	hljsDefineSvelte(hljs);
 
-	/** @type {import('./$types').PageData} */
-	export let data;
-	let { slug, content, active } = data;
-	$: slug = data.slug;
-	$: content = data.content;
-	$: active = data.active;
+	/** @type {import('./$types').PageProps} */
+	let { data } = $props();
+
+	let active = $derived(data.active);
 
 	function markdownToHtml(text) {
 		return md.render(text);
@@ -33,7 +28,7 @@
 		return hljs.highlight(str, { language: ext }).value;
 	}
 
-	$: pages = [content.main].concat(content.modules);
+	let pages = $derived([data.content.main].concat(data.content.modules));
 
 	const lookup = new Map();
 	components
@@ -42,7 +37,7 @@
 			lookup.set(d.slug, d);
 		});
 
-	$: component = lookup.get(slug);
+	let component = $derived(lookup.get(data.slug));
 
 	function printTypes(type) {
 		if (type.includes('|')) {
@@ -68,10 +63,10 @@
 |-----|-------|--------|-----------|`;
 
 	let jsdocTableBody = '';
-	let jsdocTable = '';
+	let jsdocTable = $state('');
 
-	if (content.hasjsDoctable === true) {
-		jsdocTableBody = `${content.jsdocParsed
+	if (data.content.hasjsDoctable === true) {
+		jsdocTableBody = `${data.content.jsdocParsed
 			.map(
 				d =>
 					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.defaultValue)}|${printRequired(
@@ -79,7 +74,7 @@
 					)}|${d.description?.replace(/^(-|–|—)/g, '').trim()}`
 			)
 			.join('\n')}`;
-		jsdocTable = content.jsdocParsed.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
+		jsdocTable = data.content.jsdocParsed.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
 	}
 
 	function copyToClipboard() {
@@ -115,33 +110,34 @@
 	<h1>{component.slug} component</h1>
 
 	<div class="chart-hero">
-		<svelte:component this={component.component} />
+		<component.component />
 	</div>
 
 	<div class="download">
-		<DownloadComponentBtn data={content} {slug} />
+		<DownloadComponentBtn data={data.content} slug={data.slug} />
 	</div>
 
 	<div class="dek">
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html markdownToHtml(content.componentDescription)}
+		{@html markdownToHtml(data.content.componentDescription)}
 	</div>
-	{#if content.hasjsDoctable === true}
+	{#if data.content.hasjsDoctable === true}
 		<div id="params-table">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html markdownToHtml(jsdocTable)}
 		</div>
 	{/if}
 	<div id="used-in">
-		{#if content.usedIn[0].matches.length > 0 || content.usedIn[1].matches.length > 0}
+		{#if data.content.usedIn[0].matches.length > 0 || data.content.usedIn[1].matches.length > 0}
 			<h3>
-				Used in these{content.usedIn[0].matches.length === 0 && content.usedIn[1].matches.length > 0
+				Used in these{data.content.usedIn[0].matches.length === 0 &&
+				data.content.usedIn[1].matches.length > 0
 					? ' SSR'
 					: ''} examples:
 			</h3>
-			{#each content.usedIn as group}
+			{#each data.content.usedIn as group}
 				{#if group.matches.length > 0}
-					{#if group.group === 'SSR' && content.usedIn[0].matches.length > 0}
+					{#if group.group === 'SSR' && data.content.usedIn[0].matches.length > 0}
 						<h3>SSR Examples:</h3>
 					{/if}
 					<ul>
@@ -154,14 +150,14 @@
 		{/if}
 	</div>
 
-	<div id="pages" class={content.dek ? 'has-dek' : ''}>
+	<div id="pages" class={data.content.dek ? 'has-dek' : ''}>
 		<ul id="page-nav">
 			{#each pages as page}
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 				<li
 					class="tab {active === page.slug ? 'active' : ''}"
-					on:click={() => (active = page.slug)}
-					on:keypress={() => (active = page.slug)}
+					onclick={() => (active = page.slug)}
+					onkeypress={() => (active = page.slug)}
 				>
 					{page.slug}
 				</li>
@@ -170,7 +166,7 @@
 		<div id="contents-container">
 			<!-- svelte-ignore element_invalid_self_closing_tag -->
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="copy" on:click={copyToClipboard} on:keypress={copyToClipboard} />
+			<div class="copy" onclick={copyToClipboard} onkeypress={copyToClipboard}></div>
 			{#each pages as page}
 				<div class="contents" style="display: {active === page.slug ? 'block' : 'none'};">
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->

@@ -6,10 +6,139 @@
       - cell "Required"
       - cell "Description"
   - rowgroup:
-    - row "annotations Array None yes A list of annotation objects.":
-      - cell "annotations Array":
+    - 'row "anchor string None yes Anchor position, format: `{left"':
+      - cell "anchor string":
+        - strong: anchor
+        - code: string
+      - cell "None"
+      - cell "yes"
+      - 'cell "Anchor position, format: `{left"'
+    - row "dx number None no Optional horizontal pixel offset":
+      - cell "dx number":
+        - strong: dx
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "Optional horizontal pixel offset"
+    - row "dy number None no Optional vertical pixel offset":
+      - cell "dy number":
+        - strong: dy
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "Optional vertical pixel offset"
+    - row /x \(string \| number\) None no X position \(can be percentage string like "\d+%" or data value\)/:
+      - cell "x (string | number)":
+        - strong: x
+        - code: string
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell /X position \(can be percentage string like "\d+%" or data value\)/
+    - row /y \(string \| number\) None no Y position \(can be percentage string like "\d+%" or data value\)/:
+      - cell "y (string | number)":
+        - strong: "y"
+        - code: string
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell /Y position \(can be percentage string like "\d+%" or data value\)/
+    - row "dx number None no Optional horizontal pixel offset":
+      - cell "dx number":
+        - strong: dx
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "Optional horizontal pixel offset"
+    - row "dy number None no Optional vertical pixel offset":
+      - cell "dy number":
+        - strong: dy
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "Optional vertical pixel offset"
+    - row "clockwise boolean true no Direction of arrow curve":
+      - cell "clockwise boolean":
+        - strong: clockwise
+        - code: boolean
+      - cell "true":
+        - code: "true"
+      - cell "no"
+      - cell "Direction of arrow curve"
+    - row "source ArrowSource None yes Arrow starting point configuration":
+      - cell "source ArrowSource":
+        - strong: source
+        - code: ArrowSource
+      - cell "None"
+      - cell "yes"
+      - cell "Arrow starting point configuration"
+    - row "target ArrowTarget None yes Arrow ending point configuration":
+      - cell "target ArrowTarget":
+        - strong: target
+        - code: ArrowTarget
+      - cell "None"
+      - cell "yes"
+      - cell "Arrow ending point configuration"
+    - row "text string None yes The text content of the annotation":
+      - cell "text string":
+        - strong: text
+        - code: string
+      - cell "None"
+      - cell "yes"
+      - cell "The text content of the annotation"
+    - row "dx number None no Optional horizontal pixel offset":
+      - cell "dx number":
+        - strong: dx
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "Optional horizontal pixel offset"
+    - row "dy number None no Optional vertical pixel offset":
+      - cell "dy number":
+        - strong: dy
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "Optional vertical pixel offset"
+    - row "top number None no CSS top position in pixels":
+      - cell "top number":
+        - strong: top
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "CSS top position in pixels"
+    - row "right number None no CSS right position in pixels":
+      - cell "right number":
+        - strong: right
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "CSS right position in pixels"
+    - row "bottom number None no CSS bottom position in pixels":
+      - cell "bottom number":
+        - strong: bottom
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "CSS bottom position in pixels"
+    - row "left number None no CSS left position in pixels":
+      - cell "left number":
+        - strong: left
+        - code: number
+      - cell "None"
+      - cell "no"
+      - cell "CSS left position in pixels"
+    - row "arrows Array<Arrow> None no Optional array of arrow configurations":
+      - cell "arrows Array<Arrow>":
+        - strong: arrows
+        - code: Array<Arrow>
+      - cell "None"
+      - cell "no"
+      - cell "Optional array of arrow configurations"
+    - row "annotations Array<Annotation> None yes A list of annotation objects.":
+      - cell "annotations Array<Annotation>":
         - strong: annotations
-        - code: Array
+        - code: Array<Annotation>
       - cell "None"
       - cell "yes"
       - cell "A list of annotation objects."
@@ -21,12 +150,12 @@
         - code: d => d.text
       - cell "no"
       - cell "An accessor function to get the field to display."
-    - row "pr boolean false no If true will set the top and left CSS positions to percentages instead of pixels.":
+    - row "pr boolean $percentRange no If true will set the top and left CSS positions to percentages instead of pixels.":
       - cell "pr boolean":
         - strong: pr
         - code: boolean
-      - cell "false":
-        - code: "false"
+      - cell "$percentRange":
+        - code: $percentRange
       - cell "no"
       - cell "If true will set the top and left CSS positions to percentages instead of pixels.":
         - code: "true"

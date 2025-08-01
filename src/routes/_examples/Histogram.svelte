@@ -18,17 +18,19 @@
 	const xKey = ['x0', 'x1'];
 	const yKey = 'length';
 
-	let binCount = 40;
+	let binCount = $state(40);
 
 	const domain = extent(data);
 
-	$: thresholds = calcThresholds(domain, binCount);
-	$: slimThresholds = takeEvery(thresholds, 5);
+	let thresholds = $derived(calcThresholds(domain, binCount));
+	let slimThresholds = $derived(takeEvery(thresholds, 5));
 
-	$: binnedData = bin(data, d => d, {
-		domain,
-		thresholds
-	});
+	let binnedData = $derived(
+		bin(data, d => d, {
+			domain,
+			thresholds
+		})
+	);
 </script>
 
 <div class="input-container" style="position: absolute;right:10px;z-index: 9;">

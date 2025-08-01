@@ -14,3 +14,11 @@
       - cell "None"
       - cell "no"
       - cell "An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly."
+    - 'row "onmouseover (event: MouseEvent, point: Array<number>) => void () => {} no A function that gets called on mouseover events. The first argument is the event, and the second is the point data."':
+      - 'cell "onmouseover (event: MouseEvent, point: Array<number>) => void"':
+        - strong: onmouseover
+        - code: "(event: MouseEvent, point: Array<number>) => void"
+      - 'cell "() => {}"':
+        - code: "() => {}"
+      - cell "no"
+      - cell "A function that gets called on mouseover events. The first argument is the event, and the second is the point data."

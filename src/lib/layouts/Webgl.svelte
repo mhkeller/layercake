@@ -6,42 +6,47 @@
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
-	/** @type {HTMLCanvasElement|undefined} [element] The `<canvas>` tag. Useful for bindings. */
-	export let element = undefined;
+	/**
+	 * @typedef {Object} Props
+	 * @property {HTMLCanvasElement|undefined} [element] The `<canvas>` element. A useful prop to bind to.
+	 * @property {WebGLRenderingContext|null} [context] The WebGL rendering context for the canvas. A useful prop to bind to.
+	 * @property {Object|undefined} [contextAttributes] Attributes to pass to the WebGL context.
+	 * @property {number|undefined} [zIndex] Set the layout's z-index.
+	 * @property {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on all of this layout's layers.
+	 * @property {string} [fallback] Fallback text to display when the canvas is not supported.
+	 * @property {string|undefined} [label] A string passed to the `aria-label` on the `<canvas>` element.
+	 * @property {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<canvas>` element.
+	 * @property {string|undefined} [describedBy] A string passed to the `aria-describedby` property on the `<canvas>` element.
+	 * @property {import('svelte').Snippet<[{ element: HTMLCanvasElement | undefined, context: WebGLRenderingContext | null }]>} [children]
+	 */
 
-	/** @type {number|undefined} [zIndex] The layer's z-index. */
-	export let zIndex = undefined;
-
-	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
-	export let pointerEvents = undefined;
-
-	/** @type {Object|undefined} [contextAttributes] The second argument passed to canvas.getContext. See the WebGL docs [for more info](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext). */
-	export let contextAttributes = undefined;
-
-	/** @type {WebGLRenderingContext|undefined} [context] The `<canvas>`'s WebGL context. Useful for bindings. */
-	export let context = undefined;
-
-	/** @type {string} [fallback] Text to display if the browser won't render a canvas tag. You can also set arbitrary HTML via the "fallback" slot but this is fine if you just need text. If you use the "fallback" slot, this prop is ignored. */
-	export let fallback = '';
-
-	/** @type {string|undefined} [label] A string passed to the `aria-label` property on the `<canvas>` tag. */
-	export let label = undefined;
-
-	/** @type {string|undefined} [labelledBy] A string passed to the `aria-labelledby` property on the `<canvas>` tag. */
-	export let labelledBy = undefined;
-
-	/** @type {string|undefined} [describedBy] A string passed to the `aria-describedby` property on the `<canvas>` tag. */
-	export let describedBy = undefined;
+	/** @type {Props} */
+	let {
+		element = $bindable(undefined),
+		zIndex = undefined,
+		pointerEvents = undefined,
+		contextAttributes = undefined,
+		context = $bindable(null),
+		fallback = '',
+		label = undefined,
+		labelledBy = undefined,
+		describedBy = undefined,
+		children
+	} = $props();
 
 	let testGl;
 
 	const { padding } = getContext('LayerCake');
 
+	/**
+	 * @type {{ gl: import('svelte/store').Writable<WebGLRenderingContext|null> }}
+	 */
 	const cntxt = {
-		gl: writable({})
+		gl: writable(null)
 	};
 
 	onMount(() => {
+		if (!element) return;
 		/* --------------------------------------------
 		 * Try to find a working webgl context
 		 */
@@ -56,7 +61,9 @@
 		}
 	});
 
-	$: cntxt.gl.set(context);
+	$effect(() => {
+		cntxt.gl.set(context);
+	});
 	setContext('gl', cntxt);
 </script>
 
@@ -73,8 +80,7 @@
 	aria-label={label}
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}
-	><slot name="fallback"
-		>{#if fallback}{fallback}{/if}</slot
-	></canvas
 >
-<slot {element} {context}></slot>
+	{#if fallback}{fallback}{/if}
+</canvas>
+{@render children?.({ element, context })}

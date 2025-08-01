@@ -7,28 +7,31 @@
 
 	const { padding } = getContext('LayerCake');
 
-	/** @type {Element|undefined} [element] The layer's outermost `<div>` tag. Useful for bindings. */
-	export let element = undefined;
+	/**
+	 * @typedef {Object} Props
+	 * @property {HTMLElement|undefined} [element] The layout's outermost `<div>` element. A useful prop to bind to.
+	 * @property {number|undefined} [zIndex] Set the layout's z-index.
+	 * @property {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on all of this layout's layers.
+	 * @property {string|undefined} [role] A string passed to the `aria-role` on the `<div>` element. This is `undefined` by default but will be set by default to `'figure'` if `label`, `labelledby` or `describedby` is set. That default will be overridden by whatever is passed in.
+	 * @property {string|undefined} [label] A string passed to the `aria-label` on the `<div>` element.
+	 * @property {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<div>` element.
+	 * @property {string|undefined} [describedBy] A string passed to `aria-describedby` property on the `<div>` element.
+	 * @property {import('svelte').Snippet<[{ element: HTMLElement | undefined }]>} [children]
+	 */
 
-	/** @type {number|undefined} [zIndex] The layer's z-index. */
-	export let zIndex = undefined;
+	/** @type {Props} */
+	let {
+		element = $bindable(undefined),
+		zIndex = undefined,
+		pointerEvents = undefined,
+		role = undefined,
+		label = undefined,
+		labelledBy = undefined,
+		describedBy = undefined,
+		children
+	} = $props();
 
-	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
-	export let pointerEvents = undefined;
-
-	/** @type {string|undefined} [role] A string passed to the `aria-role` on the `<div>` tag. This is `undefined` by default but will be set by default to `'figure'` if `label`, `labelledby` or `describedby` is set. That default will be overridden by whatever is passed in. */
-	export let role = undefined;
-
-	/** @type {string|undefined} [label] A string passed to the `aria-label` on the `<div>` tag. */
-	export let label = undefined;
-
-	/** @type {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<div>` tag. */
-	export let labelledBy = undefined;
-
-	/** @type {string|undefined} [describedBy] A string passed to `aria-describedby` property on the `<div>` tag. */
-	export let describedBy = undefined;
-
-	$: roleVal = role || (label || labelledBy || describedBy ? 'figure' : undefined);
+	let roleVal = $derived(role || (label || labelledBy || describedBy ? 'figure' : undefined));
 </script>
 
 <div
@@ -45,7 +48,7 @@
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}
 >
-	<slot {element}></slot>
+	{@render children?.({ element })}
 </div>
 
 <style>

@@ -87,7 +87,6 @@ export default [
 			{ slug: 'ClevelandDotPlot.percent-range.html.svelte', component: ClevelandDotPlotHtml },
 			{ slug: 'Column.svelte', component: Column },
 			{ slug: 'ColumnStacked.svelte', component: ColumnStacked },
-			// // { slug: 'ForceDirectedGraph.svelte', component: ForceDirectedGraph },
 			{ slug: 'Line.svelte', component: Line },
 			{ slug: 'Line-D3.svelte', component: LineD3 },
 			{ slug: 'MultiLine.svelte', component: MultiLine },

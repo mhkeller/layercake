@@ -19,8 +19,16 @@ export default function parseJsdoc(annotation) {
 	// A default value is given after `=`, otherwise it's just the name.
 	if (nameAndDefaultValue.startsWith('[') && nameAndDefaultValue.endsWith(']')) {
 		if (nameAndDefaultValue.includes('=')) {
-			const regexNameDefaultValue = /\[(\w+)=(.+)\]/;
-			[, name, defaultValue] = nameAndDefaultValue.match(regexNameDefaultValue);
+			const regexNameDefaultValue = /\[(\w+)\s*=\s*(.+)\]/;
+			const defaultMatch = nameAndDefaultValue.match(regexNameDefaultValue);
+			if (defaultMatch) {
+				[, name, defaultValue] = defaultMatch;
+			} else {
+				// Fallback: just extract the name before the = sign
+				const equalIndex = nameAndDefaultValue.indexOf('=');
+				name = nameAndDefaultValue.slice(1, equalIndex).trim();
+				defaultValue = nameAndDefaultValue.slice(equalIndex + 1, -1).trim();
+			}
 		} else {
 			name = nameAndDefaultValue.slice(1, -1);
 		}

@@ -32,11 +32,13 @@
 		</Svg>
 
 		<Html>
-			<QuadTree let:x let:y let:visible>
-				<div
-					class="circle"
-					style="top:{y}px;left:{x}px;display: {visible ? 'block' : 'none'};"
-				></div>
+			<QuadTree>
+				{#snippet children({ x, y, visible })}
+					<div
+						class="circle"
+						style="top:{y}px;left:{x}px;display: {visible ? 'block' : 'none'};"
+					></div>
+				{/snippet}
 			</QuadTree>
 		</Html>
 	</LayerCake>

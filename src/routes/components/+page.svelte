@@ -1,5 +1,4 @@
 <script>
-	import { afterUpdate } from 'svelte';
 	import { groupBy, sortBy } from 'underscore';
 
 	import svelteComponents from '../_components.js';
@@ -44,10 +43,10 @@
 	let container;
 	let positions = [];
 	let lastId = 'axis';
-	let activeSection = 'axis';
+	let activeSection = $state('axis');
 
 	let anchors = [];
-	afterUpdate(() => {
+	$effect(() => {
 		if (typeof window !== 'undefined') {
 			anchors = container.querySelectorAll('[id]');
 			lastId = window.location.hash.slice(1);
@@ -55,12 +54,6 @@
 
 			onresize();
 			onscroll();
-
-			window.addEventListener('scroll', onscroll, true);
-			window.addEventListener('resize', onresize, true);
-
-			// wait for fonts to load...
-			// const timeouts = [setTimeout(onresize, 1000), setTimeout(onresize, 5000)];
 		}
 	});
 
@@ -92,6 +85,8 @@
 		}
 	}
 </script>
+
+<svelte:window {onscroll} {onresize} />
 
 <svelte:head>
 	<title>LayerCake - Component gallery</title>
@@ -138,6 +133,20 @@
 			are optimized to be used server-side with the
 			<a href="/guide#percentrange"><code>percentRange={true}</code></a> prop.
 		</p>
+
+		<p>
+			The components here use <a
+				href="https://svelte.dev/docs/svelte/what-are-runes"
+				target="_blank"
+				rel="noreferrer">Svelte 5's Rune</a
+			>
+			syntax. The Svelte 3/4 versions are still available at the
+			<a
+				href="https://mhkeller.github.io/layercake-prerunes/components"
+				target="_blank"
+				rel="noreferrer">documentation archive</a
+			>.
+		</p>
 	</div>
 
 	{#each componentGroups as componentGroup}
@@ -159,7 +168,8 @@
 							</div>
 							<div class="block-container">
 								{#if item.component}
-									<svelte:component this={item.component} />
+									{@const Component = item.component}
+									<Component />
 								{:else}
 									{item.slug}
 								{/if}

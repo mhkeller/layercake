@@ -56,3 +56,19 @@
       - cell "A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
         - code: $data
         - code: $data.features
+    - 'row "onmousemove (e: MouseEvent, props: Object) => void () => {} no A function that gets called on mousemove events. The first argument is the event, and the second is the properties of the hovered feature."':
+      - 'cell "onmousemove (e: MouseEvent, props: Object) => void"':
+        - strong: onmousemove
+        - code: "(e: MouseEvent, props: Object) => void"
+      - 'cell "() => {}"':
+        - code: "() => {}"
+      - cell "no"
+      - cell "A function that gets called on mousemove events. The first argument is the event, and the second is the properties of the hovered feature."
+    - 'row "onmouseout (e: MouseEvent) => void () => {} no A function that gets called on mouseout events."':
+      - 'cell "onmouseout (e: MouseEvent) => void"':
+        - strong: onmouseout
+        - code: "(e: MouseEvent) => void"
+      - 'cell "() => {}"':
+        - code: "() => {}"
+      - cell "no"
+      - cell "A function that gets called on mouseout events."

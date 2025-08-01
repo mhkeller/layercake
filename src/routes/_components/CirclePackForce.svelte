@@ -10,7 +10,7 @@
 	const rKey = 'value';
 	const zKey = 'category';
 
-	let groupBy = 'true';
+	let groupBy = $state('true');
 
 	const seriesNameSet = new Set();
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];

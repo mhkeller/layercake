@@ -38,24 +38,26 @@
 		z={zKey}
 		zScale={scaleOrdinal()}
 		zRange={seriesColors}
+		zDomainSort={true}
 		data={dataTransformed}
-		let:width
 	>
-		<Svg>
-			<AxisX baseline format={addCommas} tickMarks />
-			<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
-			<Beeswarm r={width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d.data[titleKey]} />
-		</Svg>
+		{#snippet children({ width })}
+			<Svg>
+				<AxisX baseline format={addCommas} tickMarks />
+				<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
+				<Beeswarm r={width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d.data[titleKey]} />
+			</Svg>
 
-		<Html pointerEvents={false}>
-			<Key
-				align="end"
-				shape="circle"
-				lookup={{
-					USA: 'U.S.'
-				}}
-			/>
-		</Html>
+			<Html pointerEvents={false}>
+				<Key
+					align="end"
+					shape="circle"
+					lookup={{
+						USA: 'U.S.'
+					}}
+				/>
+			</Html>
+		{/snippet}
 	</LayerCake>
 </div>
 

@@ -22,3 +22,11 @@
         - code: "'#0cf'"
       - cell "no"
       - cell "The circle's fill color."
+    - row /stroke string '#\d+' no Not yet implemented/:
+      - cell "stroke string":
+        - strong: stroke
+        - code: string
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "Not yet implemented"

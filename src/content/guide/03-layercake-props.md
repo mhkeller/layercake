@@ -181,7 +181,7 @@ Same as [xScale](/guide#xscale) but for the r scale. The default is [`d3.scaleSq
 
 ### xDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
-Set a min or max on the x scale. If you want to inherit the value from the data's extent, set that value to `null`.
+Set a min or max on the x scale. If you want to inherit the value from the data's extent, set that value to `null`. If you set an array with no `null`s, the dynamic extent calculation of the data for that dimension will be skipped. This can be useful as a performance improvement.
 
 ```svelte
 <LayerCake
@@ -223,21 +223,21 @@ Same as [xDomain](/guide#xdomain) but for the z scale.
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 
-### xDomainSort `boolean=true`
+### xDomainSort `boolean=false`
 
-Taken into account only when the x-scale is ordinal. It sets whether the calculated unique items come back sorted. It uses [d3.ascending](https://d3js.org/d3-array/sort#ascending) to do the sort calculation.
+Taken into account only when the x-scale is ordinal. If `true`, sets whether the calculated unique items come back sorted. It uses [d3.ascending](https://d3js.org/d3-array/sort#ascending) to do the sort calculation.
 
-Set this to `false` if you want the unique items to appear in the order they were found in the data.
+Set this to `false` if you want the unique items to appear in the order they were found in the data, which is the default.
 
-### yDomainSort `boolean=true`
+### yDomainSort `boolean=false`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the y domain.
 
-### zDomainSort `boolean=true`
+### zDomainSort `boolean=false`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the z domain.
 
-### rDomainSort `boolean=true`
+### rDomainSort `boolean=false`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the r domain.
 
@@ -342,16 +342,6 @@ This is ignored if you set [zRange](/guide#zrange).
 Reverse the default r range. By default this is `false` and the range is `[1, 25]`.
 
 This is ignored if you set [rRange](/guide#rrange).
-
-### extents `Object`
-
-Manually set the extents of the x, y or r scale. Setting values here will skip any dynamic extent calculation of the data for that dimension. This is similar to setting a fixed domain using `xDomain`, `yDomain`, `rDomain` or `zDomain` with the exception that this prop has the performance improvement of skipping the domain calculation. It may be removed in future versions, however. See [Issue #179](https://github.com/mhkeller/layercake/issues/179).
-
-```svelte
-<LayerCake
-  extents={{ x: [0, 100], y: [50, 100], z: ['apple', 'carrot', 'ginger'] }}
->
-```
 
 ### flatData `Array`
 

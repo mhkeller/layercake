@@ -15,6 +15,8 @@ Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.grap
 
 Works with Svelte 3 through 5. Note the library itself does not use runes but it is compatible with Svelte 5. This will change in [future versions](https://github.com/mhkeller/layercake/issues/156).
 
+All of the examples use Rune syntax but the Svelte 3 and Svelte 4 versions are still available at the [documentation archive](https://mhkeller.github.io/layercake-prerunes).
+
 ## Install
 
 ```sh

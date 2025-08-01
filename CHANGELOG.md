@@ -1,33 +1,54 @@
 # Changelog
 
+# 9.0.0
+
+> 2025-07-24
+
+- Converts most of the codebase to Svelte 5's runes and incorporates some longstanding pending breaking changes.
+
+**Breaking changes**
+  - The `title` prop on `Svg` and `ScaledSvg` layout components is renamed to `titleText` to avoid conflicting with the `title` snippet namespace. https://github.com/mhkeller/layercake/pull/271
+  - The `title` snippet for those components now creates the outer `<title>` tag for you. Previously, the slot was blank and you had to write your own `<title>` wrapper. https://github.com/mhkeller/layercake/pull/271
+  - The `fallback` slot on `Canvas` and `Webgl` layout components was removed. The `fallback` text prop is sufficient. https://github.com/mhkeller/layercake/pull/271
+  - The `extents` prop is deprecated https://github.com/mhkeller/layercake/pull/243
+  - Domains for ordinal scales are no longer sorted by default https://github.com/mhkeller/layercake/pull/241
+
+# 8.4.4
+
+> 2025-07-24
+
+* Remove `$:` from context setting.
+  - [PR#302](https://github.com/mhkeller/layercake/pull/302)
+
+
 # 8.4.3
 
 > 2025-03-20
 
-* Update dependencies
-  * [fe5e400886ab14f469ebd2352068d63e818350e9](https://github.com/mhkeller/layercake/commit/fe5e400886ab14f469ebd2352068d63e818350e9)
-  * [b49e7f6774a5177f90f130eb601b70fdf6ee7619](https://github.com/mhkeller/layercake/commit/b49e7f6774a5177f90f130eb601b70fdf6ee7619)
+- Update dependencies
+  - [fe5e400886ab14f469ebd2352068d63e818350e9](https://github.com/mhkeller/layercake/commit/fe5e400886ab14f469ebd2352068d63e818350e9)
+  - [b49e7f6774a5177f90f130eb601b70fdf6ee7619](https://github.com/mhkeller/layercake/commit/b49e7f6774a5177f90f130eb601b70fdf6ee7619)
 
 # 8.4.2
 
 > 2024-10-31
 
-* Modify the `repository` url per publint's recommendation.
-  * [4a9e39c28631283b51003f730887ec5b4fe0767a](https://github.com/mhkeller/layercake/commit/4a9e39c28631283b51003f730887ec5b4fe0767a)
+- Modify the `repository` url per publint's recommendation.
+  - [4a9e39c28631283b51003f730887ec5b4fe0767a](https://github.com/mhkeller/layercake/commit/4a9e39c28631283b51003f730887ec5b4fe0767a)
 
 # 8.4.1
 
 > 2024-10-31
 
-* Add `homepage`, `repository` and `description` field to package.json
-  * [b4c50181679a8f14f239e5931243f4a840c7f339](https://github.com/mhkeller/layercake/commit/b4c50181679a8f14f239e5931243f4a840c7f339)
+- Add `homepage`, `repository` and `description` field to package.json
+  - [b4c50181679a8f14f239e5931243f4a840c7f339](https://github.com/mhkeller/layercake/commit/b4c50181679a8f14f239e5931243f4a840c7f339)
 
 # 8.4.0
 
 > 2024-10-19
 
-*  Updates to Svelte 5 🎉 https://github.com/mhkeller/layercake/pull/242
-*  Adds a `default` export to package.json https://github.com/mhkeller/layercake/pull/240
+- Updates to Svelte 5 🎉 https://github.com/mhkeller/layercake/pull/242
+- Adds a `default` export to package.json https://github.com/mhkeller/layercake/pull/240
 
 # 8.3.4
 

@@ -46,7 +46,7 @@
 
 		<Svg>
 			<ScatterSvg {r} fill={color} />
-			<Voronoi stroke="#333" on:voronoi-mouseover={logEvent} />
+			<Voronoi stroke="#333" onmouseover={logEvent} />
 		</Svg>
 	</LayerCake>
 </div>

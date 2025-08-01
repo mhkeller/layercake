@@ -9,41 +9,54 @@
 
 	const { width, height, padding } = getContext('LayerCake');
 
-	/** @type {HTMLCanvasElement|undefined} [element] The `<canvas>` tag. Useful for bindings. */
-	export let element = undefined;
+	/**
+	 * @typedef {Object} Props
+	 * @property {HTMLCanvasElement|undefined} [element] The `<canvas>` element. A useful prop to bind to.
+	 * @property {CanvasRenderingContext2D|null} [context] The 2D rendering context for the canvas. A useful prop to bind to.
+	 * @property {number|undefined} [zIndex] Set the layout's z-index.
+	 * @property {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on all of this layout's layers.
+	 * @property {string} [fallback] Fallback text to display when the canvas is not supported.
+	 * @property {string|undefined} [label] A string passed to the `aria-label` on the `<svg>` element.
+	 * @property {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<svg>` element.
+	 * @property {string|undefined} [describedBy] A string passed to `aria-describedby` property on the `<svg>` element.
+	 * @property {import('svelte').Snippet<[{ element: HTMLCanvasElement | undefined, context: CanvasRenderingContext2D | null }]>} [children]
+	 */
 
-	/** @type {CanvasRenderingContext2D|undefined} [context] The `<canvas>`'s 2d context. Useful for bindings. */
-	export let context = undefined;
+	/** @type {Props} */
+	let {
+		element = $bindable(undefined),
+		context = $bindable(null),
+		zIndex = undefined,
+		pointerEvents = undefined,
+		fallback = '',
+		label = undefined,
+		labelledBy = undefined,
+		describedBy = undefined,
+		children
+	} = $props();
 
-	/** @type {number|undefined} [zIndex] The layer's z-index. */
-	export let zIndex = undefined;
-
-	/** @type {boolean|undefined} [pointerEvents] Set this to `false` to set `pointer-events: none;` on the entire layer. */
-	export let pointerEvents = undefined;
-
-	/** @type {string} [fallback] Text to display if the browser won't render a canvas tag. You can also set arbitrary HTML via the "fallback" slot but this is fine if you just need text. If you use the "fallback" slot, this prop is ignored. */
-	export let fallback = '';
-
-	/** @type {string|undefined} [label] A string passed to the `aria-label` on the `<canvas>` tag. */
-	export let label = undefined;
-
-	/** @type {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<canvas>` tag. */
-	export let labelledBy = undefined;
-
-	/** @type {string|undefined} [describedBy] A string passed to `aria-describedby` property on the `<canvas>` tag. */
-	export let describedBy = undefined;
-
+	/**
+	 * @type {{ ctx: import('svelte/store').Writable<CanvasRenderingContext2D|null> }}
+	 */
 	const cntxt = {
-		ctx: writable({})
+		ctx: writable(null)
 	};
+	setContext('canvas', cntxt);
 
 	onMount(() => {
-		context = element.getContext('2d');
-		scaleCanvas(context, $width, $height);
+		if (element) {
+			context = element.getContext('2d');
+			if (context) {
+				scaleCanvas(context, $width, $height);
+			}
+		}
 	});
 
-	$: cntxt.ctx.set(context);
-	setContext('canvas', cntxt);
+	$effect(() => {
+		console.log('setting context');
+
+		cntxt.ctx.set(context);
+	});
 </script>
 
 <canvas
@@ -59,8 +72,7 @@
 	aria-label={label}
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}
-	><slot name="fallback"
-		>{#if fallback}{fallback}{/if}</slot
-	></canvas
 >
-<slot {element} {context}></slot>
+	{#if fallback}{fallback}{/if}
+</canvas>
+{@render children?.({ element, context })}

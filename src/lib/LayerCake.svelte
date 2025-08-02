@@ -144,7 +144,7 @@
 	 */
 	$: yReverseValue =
 		typeof yReverse === 'undefined'
-			? typeof (/** @type {D3Scale} */ (yScale).bandwidth) === 'function'
+			? typeof (/** @type {AnyD3Scale} */ (yScale).bandwidth) === 'function'
 				? false
 				: true
 			: yReverse;

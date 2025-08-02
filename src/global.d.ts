@@ -1,4 +1,5 @@
 /// <reference types="@sveltejs/kit" />
+/// <reference types="@d3" />
 
 declare module '*.csv';
 
@@ -18,28 +19,22 @@ type DimensionDomain =
 
 type DimensionRange = [min: number, max: number] | Function | Array<string | number> | undefined;
 
-type D3ScaleConstructor<Domain = any, Range = any> =
-	| (() => D3Scale<Domain, Range>);
+type AnyD3Scale =
+	| ScaleContinuousNumeric<any, any>
+	| ScaleOrdinal<any, any>
+	| ScaleTime<any, any>
+	| ScaleLinear<any, any>
+	| ScalePower<any, any>
+	| ScaleLogarithmic<any, any>
+	| ScaleSymlog<any, any>
+	| ScaleQuantile<any, any>
+	| ScaleQuantize<any, any>
+	| ScaleThreshold<any, any>
+	| ScaleSequential<any, any>
+	| ScaleDiverging<any, any>;
 
-interface D3Scale<Domain = any, Range = any> {
-	(value: Domain): Range;
-	domain(): Domain[];
-	domain(domain: Domain[]): this;
-	range(): Range[];
-	range(range: Range[]): this;
-	copy?(): D3Scale<Domain, Range>;
-	// Optional methods that many scales have
-	clamp?(): boolean;
-	clamp?(clamp: boolean): this;
-	nice?(): this;
-	ticks?(): Domain[];
-	tickFormat?(): (d: Domain) => string;
-	// Band/Point scale methods
-	bandwidth?(): number;
-	step?(): number;
-}
+type D3ScaleConstructor<Domain = any, Range = any> = () => AnyD3Scale<Domain, Range>;
 
 type D3ScaleOrConstructor<Domain = any, Range = any> =
-	| D3Scale<Domain, Range>
-	| D3ScaleConstructor<Domain, Range>
-
+	| AnyD3Scale<Domain, Range>
+	| D3ScaleConstructor<Domain, Range>;

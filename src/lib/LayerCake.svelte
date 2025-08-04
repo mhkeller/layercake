@@ -90,11 +90,11 @@
 
 	/** @type {D3ScaleOrConstructor} [xScale=d3.scaleLinear] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let xScale = defaultScales.x;
-	/** @type {D3ScaleOrConstructor} [yScale=d3.scaleLinear] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
+	/** @type {D3ScaleOrConstructor} [yScale=d3.scaleLinear] The D3 scale that should be used for the y-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let yScale = defaultScales.y;
-	/** @type {D3ScaleOrConstructor} [zScale=d3.scaleLinear] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
+	/** @type {D3ScaleOrConstructor} [zScale=d3.scaleLinear] The D3 scale that should be used for the z-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let zScale = defaultScales.z;
-	/** @type {D3ScaleOrConstructor} [rScale=d3.scaleSqrt] The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
+	/** @type {D3ScaleOrConstructor} [rScale=d3.scaleSqrt] The D3 scale that should be used for the r-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options. */
 	export let rScale = defaultScales.r;
 
 	/** @type {DimensionRange} [xRange] Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `xReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales). */

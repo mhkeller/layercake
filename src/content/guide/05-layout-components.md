@@ -4,7 +4,7 @@ title: Layout components
 
 Layer Cake comes with layout components that provide HTML, Svg, ScaledSvg, Canvas and WebGL containers for your custom components.
 
-You must wrap your chart components in these layout components for them to appear properly scaled. For Html and Svg components, they create a `<div>` and `<g>`, respectively.
+You must wrap your chart components in these layout components for them to appear properly scaled. For Html and Svg components, they create a `<div>` and `<svg>`, respectively.
 
 The Canvas and WebGL layout components also create canvas contexts that are then available on the LayerCake context object.
 
@@ -79,10 +79,7 @@ This component also has a [named snippet](https://svelte.dev/docs/svelte/snippet
 <div class="chart-container">
 	<LayerCake ...>
 		<Svg>
-			<!-- Simply add a defs tag here, note that this will
-        appear inside the `<g>` element under the
-        main `<svg>` and the top-level `<defs>`
-        tag will be empty -->
+			<!-- Simply add a defs tag here-->
 			<defs>
 				<linearGradient id="myGradient" gradientTransform="rotate(90)">
 					<stop offset="20%" stop-color="gold" />

@@ -16,6 +16,7 @@
 	 * @property {string|undefined} [label] A string passed to the `aria-label` on the `<div>` element.
 	 * @property {string|undefined} [labelledBy] A string passed to the `aria-labelledby` on the `<div>` element.
 	 * @property {string|undefined} [describedBy] A string passed to `aria-describedby` property on the `<div>` element.
+	 * @property {'visible'|'hidden'} [overflow='visible'] Set the overflow property on the `<div>` element. Defaults to `'visible'`.
 	 * @property {import('svelte').Snippet<[{ element: HTMLElement | undefined }]>} [children]
 	 */
 
@@ -28,6 +29,7 @@
 		label = undefined,
 		labelledBy = undefined,
 		describedBy = undefined,
+		overflow = 'visible',
 		children
 	} = $props();
 
@@ -47,6 +49,7 @@
 	aria-label={label}
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}
+	style:overflow
 >
 	{@render children?.({ element })}
 </div>

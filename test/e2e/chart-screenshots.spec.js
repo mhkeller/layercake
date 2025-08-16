@@ -11,8 +11,8 @@ const options = {
 
 test(`Snapshot for landing page galleries`, async ({ page }) => {
 	await page.goto('/');
-	await expect(page.locator('#gallery')).toHaveScreenshot({ ...options, timeout: 30_000 });
-	await expect(page.locator('#ssr-gallery')).toHaveScreenshot({ ...options, timeout: 30_000 });
+	await expect(page.locator('#gallery')).toHaveScreenshot({ ...options, timeout: 10_000 });
+	await expect(page.locator('#ssr-gallery')).toHaveScreenshot({ ...options, timeout: 10_000 });
 });
 
 const componentFilenames = readdirSync('./docs/components').filter(i => i.endsWith('svelte.html'));

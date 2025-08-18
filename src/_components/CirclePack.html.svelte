@@ -25,7 +25,7 @@
 	 * @property {string} [textStroke='#000'] - The label text's stroke color.
 	 * @property {number} [textStrokeWidth=0] - The label text's stroke width, in pixels.
 	 * @property {Function} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice. - 'depth' is also a popular choice
-	 * @property {number} [spacing0=0] - Whitespace padding between each circle, in pixels.
+	 * @property {number} [spacing=0] - Whitespace padding between each circle, in pixels.
 	 */
 
 	/** @type {Props} */

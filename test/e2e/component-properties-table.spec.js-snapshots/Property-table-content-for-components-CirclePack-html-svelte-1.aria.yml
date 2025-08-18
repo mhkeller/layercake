@@ -98,9 +98,9 @@
       - cell "no"
       - cell "The order in which circle's are drawn. Sorting on the depth key is also a popular choice. - 'depth' is also a popular choice":
         - code: depth
-    - row "spacing0 number 0 no Whitespace padding between each circle, in pixels.":
-      - cell "spacing0 number":
-        - strong: spacing0
+    - row "spacing number 0 no Whitespace padding between each circle, in pixels.":
+      - cell "spacing number":
+        - strong: spacing
         - code: number
       - cell "0":
         - code: "0"

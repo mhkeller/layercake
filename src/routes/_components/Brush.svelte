@@ -27,7 +27,7 @@
 		);
 	});
 	$effect(() => {
-		if (brushedData.length < 2) {
+		if (brushedData.length < 2 && brushExtents[0] !== null) {
 			brushedData = data.slice(brushExtents[0] * data.length, brushExtents[0] * data.length + 2);
 		}
 	});

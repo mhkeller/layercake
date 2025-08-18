@@ -71,7 +71,7 @@
 		});
 		const filteredFiles = uniques(files.filter(Boolean), 'path', false);
 
-		if (filteredFiles.length === 1) {
+		if (filteredFiles?.length === 1) {
 			downloadBlob(filteredFiles[0].data, `layercake-${slug}`, true);
 		} else {
 			const betterSlug = slug.split('.');

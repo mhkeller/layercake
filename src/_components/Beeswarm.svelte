@@ -59,7 +59,10 @@
 			// Add b to the queue.
 			b.next = null;
 			if (head === null) head = tail = b;
-			else tail = tail.next = b;
+			else {
+				tail.next = b;
+				tail = b;
+			}
 		}
 
 		return circles;

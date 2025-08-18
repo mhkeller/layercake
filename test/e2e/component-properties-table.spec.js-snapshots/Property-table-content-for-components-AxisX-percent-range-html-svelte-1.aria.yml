@@ -92,14 +92,14 @@
       - cell "no"
       - cell "Any optional value passed to the dy attribute on the text label.":
         - code: dy
-    - 'row "units (''px'' | ''%'') $percentRange === true ? ''%'' : ''px'' yes Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
+    - 'row "units (''px'' | ''%'') $percentRange === true ? ''%'' : ''px'' no Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
       - cell "units ('px' | '%')":
         - strong: units
         - code: "'px'"
         - code: "'%'"
       - 'cell "$percentRange === true ? ''%'' : ''px''"':
         - code: "$percentRange === true ? '%' : 'px'"
-      - cell "yes"
+      - cell "no"
       - 'cell "Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
         - code: "percentRange={true}"
         - code: "'%'"

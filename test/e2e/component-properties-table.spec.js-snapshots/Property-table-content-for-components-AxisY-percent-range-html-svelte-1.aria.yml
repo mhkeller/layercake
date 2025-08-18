@@ -101,14 +101,14 @@
       - cell "no"
       - cell "Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set tickMarkLength to a pixel value).":
         - code: tickMarkLength
-    - 'row "units (''px'' | ''%'') $percentRange === true ? ''%'' : ''px'' yes Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
+    - 'row "units (''px'' | ''%'') $percentRange === true ? ''%'' : ''px'' no Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
       - cell "units ('px' | '%')":
         - strong: units
         - code: "'px'"
         - code: "'%'"
       - 'cell "$percentRange === true ? ''%'' : ''px''"':
         - code: "$percentRange === true ? '%' : 'px'"
-      - cell "yes"
+      - cell "no"
       - 'cell "Whether this component should use percentage or pixel values. If percentRange={true} it defaults to ''%''. Options: ''%'' or ''px''."':
         - code: "percentRange={true}"
         - code: "'%'"

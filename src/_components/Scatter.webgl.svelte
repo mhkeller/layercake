@@ -117,7 +117,12 @@
 					gl_PointSize = r;
 					gl_Position = vec4(normalizeCoords(position), 0.0, 1.0);
 				}`,
+
 				attributes: {
+					/**
+					 * @param {any} context
+					 * @param {{ points: Array<any>, pointWidth?: number }} props
+					 */
 					// There will be a position value for each point
 					// we pass in
 					position: (context, props) => {

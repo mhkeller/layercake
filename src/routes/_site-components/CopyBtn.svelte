@@ -34,10 +34,16 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="copy" onclick={copyToClipboard} onkeypress={copyToClipboard}><CopyIcon /></div>
+<button aria-label="Copy to clipboard" class="copy" onclick={copyToClipboard}><CopyIcon /></button>
 
 <style>
+	button {
+		all: unset; /* Remove default button styling */
+	}
+	button:focus {
+		outline: revert;
+		opacity: 1;
+	}
 	.copy {
 		position: absolute;
 		top: 0;
@@ -45,7 +51,6 @@
 		width: 20px;
 		height: 36px;
 		opacity: 0.25;
-		background-size: contain;
 		cursor: pointer;
 	}
 

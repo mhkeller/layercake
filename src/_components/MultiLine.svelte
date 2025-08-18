@@ -8,9 +8,10 @@
 
 	const { data, xGet, yGet, zGet } = getContext('LayerCake');
 
+	/** @typedef {import('d3-shape').CurveFactory} CurveFactory */
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} [curve] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses.
+	 * @property {CurveFactory} [curve] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses.
 	 */
 
 	/** @type {Props} */

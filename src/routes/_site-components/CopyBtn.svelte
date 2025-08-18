@@ -1,5 +1,7 @@
 <script>
-	/** @type Function*/
+	import CopyIcon from './CopyIcon.svelte';
+
+	/** @type Function */
 	export let getText;
 
 	async function copyToClipboard() {
@@ -32,9 +34,8 @@
 	}
 </script>
 
-<!-- svelte-ignore element_invalid_self_closing_tag -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="copy" onclick={copyToClipboard} onkeypress={copyToClipboard}></div>
+<div class="copy" onclick={copyToClipboard} onkeypress={copyToClipboard}><CopyIcon /></div>
 
 <style>
 	.copy {
@@ -42,10 +43,8 @@
 		top: 0;
 		right: 0;
 		width: 20px;
-		height: 35px;
+		height: 36px;
 		opacity: 0.25;
-		background-image: url(/copy.svg);
-		background-repeat: no-repeat;
 		background-size: contain;
 		cursor: pointer;
 	}

@@ -24,9 +24,12 @@
 	function onresize() {
 		if (container) {
 			const { top } = container.getBoundingClientRect();
-			positions = [].map.call(anchors, /** @param {HTMLAnchorElement} anchor */ anchor => {
-				return anchor.getBoundingClientRect().top - top;
-			});
+			positions = [].map.call(
+				anchors,
+				/** @param {HTMLAnchorElement} anchor */ anchor => {
+					return anchor.getBoundingClientRect().top - top;
+				}
+			);
 		}
 	}
 

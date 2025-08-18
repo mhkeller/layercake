@@ -78,6 +78,7 @@ export default function (returnHtml = true) {
 			let group = null;
 			let uid = 1;
 
+			/** @type {import('marked').RendererObject} */
 			const renderer = {
 				heading(token) {
 					// In marked v16, the heading renderer receives a single token object
@@ -106,7 +107,7 @@ export default function (returnHtml = true) {
 								if (t.type === 'codespan') {
 									return `<code>${t.text}</code>`;
 								}
-								return t.text || '';
+								return 'text' in t ? t.text : '';
 							})
 							.join('');
 					} else {
@@ -203,7 +204,7 @@ export default function (returnHtml = true) {
 
 			marked.use({ renderer });
 
-			let html = marked.marked(content);
+			let html = marked.marked(content, { async: false });
 
 			const hashes = {};
 

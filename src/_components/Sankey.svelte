@@ -38,6 +38,7 @@
 	$effect(() => {
 		const sankey = Sankey.sankey()
 			.nodeAlign(nodeAlign)
+			// @ts-expect-error
 			.nodeWidth(nodeWidth)
 			.nodePadding(nodePadding)
 			.nodeId(nodeId)

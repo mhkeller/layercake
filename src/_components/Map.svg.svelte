@@ -44,6 +44,7 @@
 
 	function handleMousemove(feature) {
 		return function handleMousemoveFn(e) {
+			// @ts-ignore
 			raise(this);
 			// When the element gets raised, it flashes 0,0 for a second so skip that
 			if (e.layerX !== 0 && e.layerY !== 0) {
@@ -53,9 +54,9 @@
 	}
 </script>
 
-<g class="map-group" {onmouseout} onblur={onmouseout} role="tooltip">
+<!-- svelte-ignore a11y_mouse_events_have_key_events -->
+<g class="map-group" {onmouseout} role="tooltip">
 	{#each features || $data.features as feature}
-		<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 		<path
 			class="feature-path"
 			fill={fill || $zGet(feature.properties)}

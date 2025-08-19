@@ -21,7 +21,7 @@
 	 * @property {number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the yRange min).
 	 * @property {number} [dx=0] - Any optional value passed to the `dx` attribute on the text label.
 	 * @property {number} [dy=0] - Any optional value passed to the `dy` attribute on the text label.
-	 * @property {'px'|'%'} [units] - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`.
+	 * @property {'px'|'%'} [units] - If `percentRange={true}` it defaults to `'%'`, otherwise, the default is `'px'`. Options: `'%'` or `'px'`
 	 */
 
 	/** @type {Props} */

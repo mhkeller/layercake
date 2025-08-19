@@ -2,6 +2,7 @@
 	import MarkdownIt from 'markdown-it';
 	import hljs from 'highlight.js';
 
+	import CopyBtn from '../../_site-components/CopyBtn.svelte';
 	import DownloadBtn from '../../_site-components/DownloadBtn.svelte';
 	import hljsDefineSvelte from '../../../_modules/hljsDefineSvelte.js';
 	import cleanTitle from '../../../_modules/cleanTitle.js';
@@ -55,35 +56,6 @@
 		exampleLookup.set(exmpl.slug, exmpl);
 	});
 	let example = $derived(exampleLookup.get(data.slug));
-
-	async function copyToClipboard() {
-		const text = pages.filter(d => cleanTitle(d.title) === active)[0].contents;
-
-		try {
-			if (navigator.clipboard && window.isSecureContext) {
-				// Use modern Clipboard API
-				await navigator.clipboard.writeText(text);
-				return true;
-			} else {
-				// Fallback for older browsers or non-secure contexts
-				const textarea = document.createElement('textarea');
-				textarea.value = text;
-				textarea.style.position = 'fixed';
-				textarea.style.left = '-999999px';
-				textarea.style.top = '-999999px';
-				document.body.appendChild(textarea);
-				textarea.focus();
-				textarea.select();
-
-				const success = document.execCommand('copy');
-				document.body.removeChild(textarea);
-				return success;
-			}
-		} catch (error) {
-			console.warn('Copy to clipboard failed:', error);
-			return false;
-		}
-	}
 </script>
 
 <svelte:head>
@@ -127,8 +99,7 @@
 			{/each}
 		</ul>
 		<div id="contents-container">
-			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div class="copy" onclick={copyToClipboard} onkeypress={copyToClipboard}></div>
+			<CopyBtn getText={() => pages.filter(d => cleanTitle(d.title) === active)[0].contents} />
 			{#each pages as page}
 				<div
 					class="contents"
@@ -239,31 +210,6 @@
 		border-bottom: 2px solid #000;
 	}
 
-	.copy {
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 20px;
-		height: 35px;
-		opacity: 0.25;
-		background-image: url(/copy.svg);
-		background-repeat: no-repeat;
-		background-size: contain;
-		cursor: pointer;
-	}
-
-	.copy:hover {
-		opacity: 1;
-	}
-
-	.copy:active {
-		opacity: 0.7;
-	}
-
-	.copy:hover:before {
-		display: block;
-	}
-
 	.edit-repl {
 		text-decoration: none !important;
 		/* font-size: 12px; */
@@ -284,26 +230,6 @@
 		color: #ff3e00;
 	}
 
-	.copy:before {
-		content: 'Copy to clipboard';
-		position: absolute;
-		top: -7px;
-		right: 0;
-		background-color: #000;
-		border-radius: 2px;
-		color: #fff;
-		display: none;
-		font-size: 13px;
-		padding: 3px 5px;
-		white-space: nowrap;
-		transform: translate(0%, -100%);
-	}
-
-	@media (max-width: 750px) {
-		.copy {
-			transform: translate(0, -80%);
-		}
-	}
 	@media (max-width: 475px) {
 		#pages {
 			margin-top: 21px;

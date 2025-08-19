@@ -12,6 +12,8 @@
 
 	const { width, height, data } = getContext('LayerCake');
 
+	/** @typedef {import('d3-hierarchy').HierarchyNode} HierarchyNode */
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {string} [idKey='id'] - The key on each object where the id value lives.
@@ -24,7 +26,7 @@
 	 * @property {string} [textColor='#333'] - The label text color.
 	 * @property {string} [textStroke='#000'] - The label text's stroke color.
 	 * @property {number} [textStrokeWidth=0] - The label text's stroke width, in pixels.
-	 * @property {Function} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice. - 'depth' is also a popular choice
+	 * @property {(a: HierarchyNode, b: HierarchyNode) => number} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice.
 	 * @property {number} [spacing=0] - Whitespace padding between each circle, in pixels.
 	 */
 

@@ -24,7 +24,7 @@
 			(brushExtents[0] || 0) * data.length,
 			(brushExtents[1] || 1) * data.length
 		);
-		if (selection.length < 2) {
+		if (selection.length < 2 && brushExtents[0] !== null) {
 			selection = data.slice(brushExtents[0] * data.length, brushExtents[0] * data.length + 2);
 		}
 		return selection;

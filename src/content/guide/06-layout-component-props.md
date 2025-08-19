@@ -9,7 +9,7 @@ In addition to the [accessibility props](guide#accessibility) described above, a
 
 The Html, Svg and ScaledSvg layout components also accept:
 
-- [overflow](guide#overflow) `'visible' | 'hidden'`
+- [overflow](guide#overflow) `'visible'|'hidden'`
 
 The Svg and ScaledSvg layout components also accept:
 
@@ -75,7 +75,7 @@ Useful for tooltip layers that need to be display above chart elements but not c
 </LayerCake>
 ```
 
-### overflow `'visible' | 'hidden'`
+### overflow `'visible'|'hidden'`
 
 For Html, Svg and ScaledSvg components, whether or not the CSS `overflow` property is set to `'visible'` or `'hidden'`. Useful if you want to hide overflow during an animation or values that exceed the bounds of your chart. See [PR#311](https://github.com/mhkeller/layercake/pull/311) for some examples.
 

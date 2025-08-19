@@ -255,7 +255,9 @@ export default function (returnHtml = true) {
 				// Check if this looks like an API section with type information
 				// (contains backticks, code tags, or type syntax like Array, Function, etc.)
 				const hasTypeInfo =
-					/[`<]|Array|Function|Object|string|number|boolean|undefined|d3\.|DOM/.test(title);
+					/[`<]|Array|Function|Object|string|number|boolean|undefined|d3\.|DOM|visible|overflow/.test(
+						title
+					);
 
 				if (hasTypeInfo) {
 					// For API sections, extract just the identifier (before any space, backtick, or special characters)

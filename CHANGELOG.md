@@ -1,5 +1,12 @@
 # Changelog
 
+# 10.0.0
+
+> 2025-08-18
+
+- Adds the `overflow` prop to layout components so that you can set them to overflow hidden. Per [#283](https://github.com/mhkeller/layercake/issues/283). It's a breaking change because it removes the `innerElement` bindable prop on the `Svg` layout component. This likely doesn't affect anyone.
+  - [PR#311](https://github.com/mhkeller/layercake/pull/311)
+
 # 9.0.0
 
 > 2025-07-24

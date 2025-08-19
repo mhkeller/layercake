@@ -9,15 +9,34 @@
 	const { data, width, height } = getContext('LayerCake');
 
 	/**
+	 * @typedef {(
+	 *   import('d3-sankey').sankeyLeft |
+	 *   import('d3-sankey').sankeyRight |
+	 *   import('d3-sankey').sankeyCenter |
+	 *   import('d3-sankey').sankeyJustify
+	 * )} SankeyAlignment
+	 */
+
+	/** @typedef {import('d3-sankey').SankeyGraph} SankeyGraph */
+
+	/** @typedef {import('d3-sankey').SankeyNodeMinimal} SankeyNodeMinimal */
+
+	/** @typedef {import('d3-sankey').SankeyLinkMinimal} SankeyLink */
+
+	/**
+	 * @typedef {((a: SankeyLink, b: SankeyLink) => (number | undefined | null))} LinkSortFunction
+	 */
+
+	/**
 	 * @typedef {Object} Props
 	 * @property {Function} [colorLinks=() => 'rgba(0, 0, 0, .2)'] - A function to return a color for the links.
 	 * @property {Function} [colorNodes=() => '#333'] - A function to return a color for each node.
 	 * @property {Function} [colorText=() => '#263238'] - A function to return a color for each text label.
 	 * @property {number} [nodeWidth=5] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth).
 	 * @property {number} [nodePadding=10] - The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding).
-	 * @property {Function|undefined} [linkSort] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort).
-	 * @property {Function} [nodeId=(d) => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).
-	 * @property {Function} [nodeAlign=Sankey.sankeyLeft] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more.
+	 * @property {LinkSortFunction|undefined} [linkSort] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort).
+	 * @property {(SankeyNodeMinimal) => number | string} [nodeId=(d) => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).
+	 * @property {SankeyAlignment} [nodeAlign=Sankey.sankeyLeft] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more.
 	 */
 
 	/** @type {Props} */
@@ -34,11 +53,11 @@
 
 	const link = Sankey.sankeyLinkHorizontal();
 
-	let sankeyData = $state({});
+	/** @type {SankeyGraph|{links: any, nodes: any}} sankeyData */
+	let sankeyData = $state({ links: undefined, nodes: undefined });
 	$effect(() => {
 		const sankey = Sankey.sankey()
 			.nodeAlign(nodeAlign)
-			// @ts-expect-error
 			.nodeWidth(nodeWidth)
 			.nodePadding(nodePadding)
 			.nodeId(nodeId)

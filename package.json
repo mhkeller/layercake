@@ -34,6 +34,7 @@
 		"@sveltejs/package": "^2.3.11",
 		"@sveltejs/vite-plugin-svelte": "^6.1.0",
 		"@types/d3": "^7.4.3",
+		"@types/d3-sankey": "^0.12.4",
 		"@types/markdown-it": "^14.1.2",
 		"@types/node": "^24.1.0",
 		"d3-collection": "^1.0.7",

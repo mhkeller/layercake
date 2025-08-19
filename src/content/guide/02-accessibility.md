@@ -77,9 +77,7 @@ And becomes...
 	<div class="layercake-layout-svg">
     <svg>
       <text>A chart title of some kind in custom HTML.</text>
-      <g>
-        <!-- Components go here -->
-      </g>
+      <!-- Components go here -->
     </svg>
 	</div>
 </div>

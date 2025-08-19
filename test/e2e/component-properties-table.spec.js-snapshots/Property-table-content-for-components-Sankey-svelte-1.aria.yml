@@ -52,10 +52,10 @@
         - link "sankey.nodePadding":
           - /url: https://github.com/d3/d3-sankey#sankey_nodePadding
           - code: sankey.nodePadding
-    - row "linkSort (Function | undefined) undefined no How to sort the links, passed to sankey.linkSort.":
-      - cell "linkSort (Function | undefined)":
+    - row "linkSort (LinkSortFunction | undefined) undefined no How to sort the links, passed to sankey.linkSort.":
+      - cell "linkSort (LinkSortFunction | undefined)":
         - strong: linkSort
-        - code: Function
+        - code: LinkSortFunction
         - code: undefined
       - cell "undefined":
         - code: undefined
@@ -64,10 +64,11 @@
         - link "sankey.linkSort":
           - /url: https://github.com/d3/d3-sankey#sankey_linkSort
           - code: sankey.linkSort
-    - row "nodeId Function d => d.id no The ID field accessor, passed to sankey.nodeId.":
-      - cell "nodeId Function":
+    - row "nodeId ((SankeyNodeMinimal) => number | string) d => d.id no The ID field accessor, passed to sankey.nodeId.":
+      - cell "nodeId ((SankeyNodeMinimal) => number | string)":
         - strong: nodeId
-        - code: Function
+        - code: (SankeyNodeMinimal) => number
+        - code: string
       - cell "d => d.id":
         - code: d => d.id
       - cell "no"
@@ -75,10 +76,10 @@
         - link "sankey.nodeId":
           - /url: https://github.com/d3/d3-sankey#sankey_nodeId
           - code: sankey.nodeId
-    - row "nodeAlign Function Sankey.sankeyLeft no An alignment function to position the Sankey blocks. See the d3-sankey documentation for more.":
-      - cell "nodeAlign Function":
+    - row "nodeAlign SankeyAlignment Sankey.sankeyLeft no An alignment function to position the Sankey blocks. See the d3-sankey documentation for more.":
+      - cell "nodeAlign SankeyAlignment":
         - strong: nodeAlign
-        - code: Function
+        - code: SankeyAlignment
       - cell "Sankey.sankeyLeft":
         - code: Sankey.sankeyLeft
       - cell "no"

@@ -89,14 +89,14 @@
         - code: "0"
       - cell "no"
       - cell "The label text's stroke width, in pixels."
-    - row "sortBy Function (a, b) => b.value - a.value no The order in which circle's are drawn. Sorting on the depth key is also a popular choice. - 'depth' is also a popular choice":
-      - cell "sortBy Function":
+    - 'row "sortBy (a: HierarchyNode, b: HierarchyNode) => number (a, b) => b.value - a.value no The order in which circle''s are drawn. Sorting on the depth key is also a popular choice."':
+      - 'cell "sortBy (a: HierarchyNode, b: HierarchyNode) => number"':
         - strong: sortBy
-        - code: Function
+        - code: "(a: HierarchyNode, b: HierarchyNode) => number"
       - cell "(a, b) => b.value - a.value":
         - code: (a, b) => b.value - a.value
       - cell "no"
-      - cell "The order in which circle's are drawn. Sorting on the depth key is also a popular choice. - 'depth' is also a popular choice":
+      - cell "The order in which circle's are drawn. Sorting on the depth key is also a popular choice.":
         - code: depth
     - row "spacing number 0 no Whitespace padding between each circle, in pixels.":
       - cell "spacing number":

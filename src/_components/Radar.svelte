@@ -37,7 +37,9 @@
 	let path = $derived(
 		line()
 			.curve(curveCardinalClosed)
+			// @ts-expect-error
 			.x((d, i) => d * Math.cos(angleSlice * i - Math.PI / 2))
+			// @ts-expect-error
 			.y((d, i) => d * Math.sin(angleSlice * i - Math.PI / 2))
 	);
 

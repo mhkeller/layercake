@@ -26,7 +26,7 @@
 	let points = $derived(
 		$data.map(d => {
 			const point = [$xGet(d), $yGet(d)];
-			point.data = d;
+			point["data"] = d;
 			return point;
 		})
 	);

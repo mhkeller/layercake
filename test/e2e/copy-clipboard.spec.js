@@ -12,6 +12,7 @@ urls.forEach(url => {
 		await page.goto(url);
 		const contentsText = await page.locator('#contents-container').innerText();
 		await page.click('.copy');
+		await page.waitForTimeout(1000);
 		const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
 		expect(clipboardText).toBe(contentsText);
 	});

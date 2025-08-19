@@ -58,8 +58,8 @@ export function swoopyArrow() {
 	}
 
 	function render(data) {
-		data = data.map((d, i) => {
-			return [xValue.call(data, d, i), yValue.call(data, d, i)];
+		data = data.map((d) => {
+			return [xValue(d), yValue(d)];
 		});
 
 		// get the chord length ("height" {h}) between points

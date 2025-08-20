@@ -38,6 +38,7 @@
 
 	function loadPage() {
 		open = false;
+		// @ts-ignore
 		goto(this.value || '/');
 	}
 

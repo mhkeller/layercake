@@ -36,9 +36,9 @@
 
 	const slimName = d => d.split(' (')[0];
 
+	/** @this {HTMLSelectElement} */
 	function loadPage() {
 		open = false;
-		// @ts-ignore
 		goto(this.value || '/');
 	}
 

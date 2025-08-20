@@ -1,6 +1,4 @@
 <script>
-	import { run } from 'svelte/legacy';
-
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
 	import Line from '../../_components/Line.svelte';

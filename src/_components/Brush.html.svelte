@@ -1,14 +1,14 @@
 <!--
 	@component
-	Adds a brush component to create a range between 0 and 1. Bind to the `min` and `max` props to use them in other components. See the [brushable example](https://layercake.graphcics/example/Brush) for use.
+	Adds a brush component to create a range between 0 and 1. Bind to the `min` and `max` props to use them in other components. See the [brushable example](https://layercake.graphics/example/Brush) for use.
  -->
 <script>
 	import { clamp } from 'yootils';
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {number} min - The brush's min value. Useful to bind to.
-	 * @property {number} max - The brush's max value. Useful to bind to.
+	 * @property {number|null} min - The brush's min value. Useful to bind to.
+	 * @property {number|null} max - The brush's max value. Useful to bind to.
 	 */
 
 	/** @type {Props} */
@@ -93,8 +93,8 @@
 		max = p < start.min ? start.min : p;
 	});
 
-	let left = $derived(100 * min);
-	let right = $derived(100 * (1 - max));
+	let left = $derived(min !== null ? 100 * min : null);
+	let right = $derived(max !== null ? 100 * (1 - max) : null);
 </script>
 
 <!-- TODO Add keyboard accessibility. See https://github.com/mhkeller/layercake/pull/258 -->

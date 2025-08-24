@@ -75,7 +75,7 @@
 	 * @property {boolean} [yDomainSort]
 	 * @property {boolean} [zDomainSort]
 	 * @property {boolean} [rDomainSort]
-	 * @property {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}] [padding]
+	 * @property {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}]
 	 * @property {Array<Object|Array<any>>|undefined} [flatData]
 	 * @property {Object} [custom]
 	 * @property {boolean} [debug]

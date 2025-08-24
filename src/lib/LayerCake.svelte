@@ -165,38 +165,16 @@
 	const config = $state({});
 	run(() => {
 		if (x) config.x = x;
-	});
-	run(() => {
 		if (y) config.y = y;
-	});
-	run(() => {
 		if (z) config.z = z;
-	});
-	run(() => {
 		if (r) config.r = r;
-	});
-	run(() => {
 		if (xDomain) config.xDomain = xDomain;
-	});
-	run(() => {
 		if (yDomain) config.yDomain = yDomain;
-	});
-	run(() => {
 		if (zDomain) config.zDomain = zDomain;
-	});
-	run(() => {
 		if (rDomain) config.rDomain = rDomain;
-	});
-	run(() => {
 		if (xRange) config.xRange = xRange;
-	});
-	run(() => {
 		if (yRange) config.yRange = yRange;
-	});
-	run(() => {
 		if (zRange) config.zRange = zRange;
-	});
-	run(() => {
 		if (rRange) config.rRange = rRange;
 	});
 
@@ -247,110 +225,40 @@
 
 	run(() => {
 		$_percentRange = percentRange;
-	});
-	run(() => {
 		$_containerWidth = containerWidth;
-	});
-	run(() => {
 		$_containerHeight = containerHeight;
-	});
-	run(() => {
 		$_data = data;
-	});
-	run(() => {
 		$_flatData = flatData || data;
-	});
-	run(() => {
 		$_padding = padding;
-	});
-	run(() => {
 		$_x = makeAccessor(x);
-	});
-	run(() => {
 		$_y = makeAccessor(y);
-	});
-	run(() => {
 		$_z = makeAccessor(z);
-	});
-	run(() => {
 		$_r = makeAccessor(r);
-	});
-	run(() => {
 		$_xDomain = xDomain;
-	});
-	run(() => {
 		$_yDomain = yDomain;
-	});
-	run(() => {
 		$_zDomain = zDomain;
-	});
-	run(() => {
 		$_rDomain = rDomain;
-	});
-	run(() => {
 		$_xNice = xNice;
-	});
-	run(() => {
 		$_yNice = yNice;
-	});
-	run(() => {
 		$_zNice = zNice;
-	});
-	run(() => {
 		$_rNice = rNice;
-	});
-	run(() => {
 		$_xReverse = xReverse;
-	});
-	run(() => {
 		$_yReverse = yReverseValue;
-	});
-	run(() => {
 		$_zReverse = zReverse;
-	});
-	run(() => {
 		$_rReverse = rReverse;
-	});
-	run(() => {
 		$_xPadding = xPadding;
-	});
-	run(() => {
 		$_yPadding = yPadding;
-	});
-	run(() => {
 		$_zPadding = zPadding;
-	});
-	run(() => {
 		$_rPadding = rPadding;
-	});
-	run(() => {
 		$_xRange = xRange;
-	});
-	run(() => {
 		$_yRange = yRange;
-	});
-	run(() => {
 		$_zRange = zRange;
-	});
-	run(() => {
 		$_rRange = rRange;
-	});
-	run(() => {
 		$_xScale = xScale;
-	});
-	run(() => {
 		$_yScale = yScale;
-	});
-	run(() => {
 		$_zScale = zScale;
-	});
-	run(() => {
 		$_rScale = rScale;
-	});
-	run(() => {
 		$_custom = custom;
-	});
-	run(() => {
 		$_config = config;
 	});
 

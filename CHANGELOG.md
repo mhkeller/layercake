@@ -1,5 +1,12 @@
 # Changelog
 
+# 10.0.1
+
+> 2025-08-24
+
+- Updates the Svelte peer dependency to version 5 or greater. This should have been included with `v9.0.0` so putting it in now as a patch release. Users needing Svelte 3 (probably no one) or Svelte 4 (very few) support should use version 8.4.4.
+  - [PR#332](https://github.com/mhkeller/layercake/pull/332)
+
 # 10.0.0
 
 > 2025-08-18

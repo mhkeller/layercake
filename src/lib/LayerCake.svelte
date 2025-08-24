@@ -24,19 +24,6 @@
 
 	const printDebug_debounced = debounce(printDebug, 200);
 
-	
-	
-	
-	
-
-	
-	
-
-	
-	
-
-	
-
 	/* --------------------------------------------
 	 * Parameters
 	 * Values that computed properties are based on and that
@@ -44,49 +31,6 @@
 	 *
 	 */
 
-	
-	
-	
-	
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-
-	
-
-	
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {boolean} [ssr]
@@ -194,12 +138,13 @@
 	/**
 	 * Make this reactive
 	 */
-	let yReverseValue =
-		$derived(typeof yReverse === 'undefined'
+	let yReverseValue = $derived(
+		typeof yReverse === 'undefined'
 			? typeof yScale.bandwidth === 'function'
 				? false
 				: true
-			: yReverse);
+			: yReverse
+	);
 
 	/* --------------------------------------------
 	 * Keep track of whether the component has mounted
@@ -715,7 +660,58 @@
 		bind:clientWidth={containerWidth}
 		bind:clientHeight={containerHeight}
 	>
-		{@render children?.({ element, width: $width_d, height: $height_d, aspectRatio: $aspectRatio_d, containerWidth: $_containerWidth, containerHeight: $_containerHeight, activeGetters: $activeGetters_d, percentRange: $_percentRange, x: $_x, y: $_y, z: $_z, r: $_r, custom: $_custom, data: $_data, xNice: $_xNice, yNice: $_yNice, zNice: $_zNice, rNice: $_rNice, xDomainSort: $_xDomainSort, yDomainSort: $_yDomainSort, zDomainSort: $_zDomainSort, rDomainSort: $_rDomainSort, xReverse: $_xReverse, yReverse: $_yReverse, zReverse: $_zReverse, rReverse: $_rReverse, xPadding: $_xPadding, yPadding: $_yPadding, zPadding: $_zPadding, rPadding: $_rPadding, padding: $padding_d, flatData: $_flatData, extents: $extents_d, xDomain: $xDomain_d, yDomain: $yDomain_d, zDomain: $zDomain_d, rDomain: $rDomain_d, xRange: $xRange_d, yRange: $yRange_d, zRange: $zRange_d, rRange: $rRange_d, config: $_config, xScale: $xScale_d, xGet: $xGet_d, yScale: $yScale_d, yGet: $yGet_d, zScale: $zScale_d, zGet: $zGet_d, rScale: $rScale_d, rGet: $rGet_d, })}
+		{@render children?.({
+			element,
+			width: $width_d,
+			height: $height_d,
+			aspectRatio: $aspectRatio_d,
+			containerWidth: $_containerWidth,
+			containerHeight: $_containerHeight,
+			activeGetters: $activeGetters_d,
+			percentRange: $_percentRange,
+			x: $_x,
+			y: $_y,
+			z: $_z,
+			r: $_r,
+			custom: $_custom,
+			data: $_data,
+			xNice: $_xNice,
+			yNice: $_yNice,
+			zNice: $_zNice,
+			rNice: $_rNice,
+			xDomainSort: $_xDomainSort,
+			yDomainSort: $_yDomainSort,
+			zDomainSort: $_zDomainSort,
+			rDomainSort: $_rDomainSort,
+			xReverse: $_xReverse,
+			yReverse: $_yReverse,
+			zReverse: $_zReverse,
+			rReverse: $_rReverse,
+			xPadding: $_xPadding,
+			yPadding: $_yPadding,
+			zPadding: $_zPadding,
+			rPadding: $_rPadding,
+			padding: $padding_d,
+			flatData: $_flatData,
+			extents: $extents_d,
+			xDomain: $xDomain_d,
+			yDomain: $yDomain_d,
+			zDomain: $zDomain_d,
+			rDomain: $rDomain_d,
+			xRange: $xRange_d,
+			yRange: $yRange_d,
+			zRange: $zRange_d,
+			rRange: $rRange_d,
+			config: $_config,
+			xScale: $xScale_d,
+			xGet: $xGet_d,
+			yScale: $yScale_d,
+			yGet: $yGet_d,
+			zScale: $zScale_d,
+			zGet: $zGet_d,
+			rScale: $rScale_d,
+			rGet: $rGet_d
+		})}
 	</div>
 {/if}
 

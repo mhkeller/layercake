@@ -4,7 +4,7 @@
  -->
  <script>
 	import { setContext, onMount } from 'svelte';
-	import { writable, derived } from 'svelte/store';
+	import { writable, derived as derivedStore } from 'svelte/store';
 
 	import makeAccessor from './utils/makeAccessor.js';
 	import filterObject from './utils/filterObject.js';
@@ -259,7 +259,7 @@
 	 * Create derived values
 	 * Suffix these with `_d`
 	 */
-	const activeGetters_d = derived([_x, _y, _z, _r], ([$x, $y, $z, $r]) => {
+	const activeGetters_d = derivedStore([_x, _y, _z, _r], ([$x, $y, $z, $r]) => {
 		const obj = {};
 		if ($x) {
 			obj.x = $x;
@@ -276,12 +276,12 @@
 		return obj;
 	});
 
-	const padding_d = derived([_padding, _containerWidth, _containerHeight], ([$padding]) => {
+	const padding_d = derivedStore([_padding, _containerWidth, _containerHeight], ([$padding]) => {
 		const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
 		return Object.assign(defaultPadding, $padding);
 	});
 
-	const box_d = derived(
+	const box_d = derivedStore(
 		[_containerWidth, _containerHeight, padding_d],
 		([$containerWidth, $containerHeight, $padding]) => {
 			const b = {};
@@ -307,11 +307,11 @@
 		}
 	);
 
-	const width_d = derived([box_d], ([$box]) => {
+	const width_d = derivedStore([box_d], ([$box]) => {
 		return $box.width;
 	});
 
-	const height_d = derived([box_d], ([$box]) => {
+	const height_d = derivedStore([box_d], ([$box]) => {
 		return $box.height;
 	});
 
@@ -321,7 +321,7 @@
 	 * Note that this is different from an "extent" passed
 	 * in as a domain, which can be a partial domain
 	 */
-	const extents_d = derived(
+	const extents_d = derivedStore(
 		[
 			_flatData,
 			activeGetters_d,
@@ -385,12 +385,12 @@
 		}
 	);
 
-	const xDomain_d = derived([extents_d, _xDomain], calcDomain('x'));
-	const yDomain_d = derived([extents_d, _yDomain], calcDomain('y'));
-	const zDomain_d = derived([extents_d, _zDomain], calcDomain('z'));
-	const rDomain_d = derived([extents_d, _rDomain], calcDomain('r'));
+	const xDomain_d = derivedStore([extents_d, _xDomain], calcDomain('x'));
+	const yDomain_d = derivedStore([extents_d, _yDomain], calcDomain('y'));
+	const zDomain_d = derivedStore([extents_d, _zDomain], calcDomain('z'));
+	const rDomain_d = derivedStore([extents_d, _rDomain], calcDomain('r'));
 
-	const xScale_d = derived(
+	const xScale_d = derivedStore(
 		[
 			_xScale,
 			extents_d,
@@ -405,9 +405,9 @@
 		],
 		createScale('x')
 	);
-	const xGet_d = derived([_x, xScale_d], createGetter);
+	const xGet_d = derivedStore([_x, xScale_d], createGetter);
 
-	const yScale_d = derived(
+	const yScale_d = derivedStore(
 		[
 			_yScale,
 			extents_d,
@@ -422,9 +422,9 @@
 		],
 		createScale('y')
 	);
-	const yGet_d = derived([_y, yScale_d], createGetter);
+	const yGet_d = derivedStore([_y, yScale_d], createGetter);
 
-	const zScale_d = derived(
+	const zScale_d = derivedStore(
 		[
 			_zScale,
 			extents_d,
@@ -439,9 +439,9 @@
 		],
 		createScale('z')
 	);
-	const zGet_d = derived([_z, zScale_d], createGetter);
+	const zGet_d = derivedStore([_z, zScale_d], createGetter);
 
-	const rScale_d = derived(
+	const rScale_d = derivedStore(
 		[
 			_rScale,
 			extents_d,
@@ -456,20 +456,20 @@
 		],
 		createScale('r')
 	);
-	const rGet_d = derived([_r, rScale_d], createGetter);
+	const rGet_d = derivedStore([_r, rScale_d], createGetter);
 
 	// Create new _Domains in case we ran `.nice()` over our domain on scale initialization
-	const xDomain_d_possibly_nice = derived(xScale_d, $xScale_d => $xScale_d.domain());
-	const yDomain_d_possibly_nice = derived(yScale_d, $yScale_d => $yScale_d.domain());
-	const zDomain_d_possibly_nice = derived(zScale_d, $zScale_d => $zScale_d.domain());
-	const rDomain_d_possibly_nice = derived(rScale_d, $rScale_d => $rScale_d.domain());
+	const xDomain_d_possibly_nice = derivedStore(xScale_d, $xScale_d => $xScale_d.domain());
+	const yDomain_d_possibly_nice = derivedStore(yScale_d, $yScale_d => $yScale_d.domain());
+	const zDomain_d_possibly_nice = derivedStore(zScale_d, $zScale_d => $zScale_d.domain());
+	const rDomain_d_possibly_nice = derivedStore(rScale_d, $rScale_d => $rScale_d.domain());
 
-	const xRange_d = derived([xScale_d], getRange);
-	const yRange_d = derived([yScale_d], getRange);
-	const zRange_d = derived([zScale_d], getRange);
-	const rRange_d = derived([rScale_d], getRange);
+	const xRange_d = derivedStore([xScale_d], getRange);
+	const yRange_d = derivedStore([yScale_d], getRange);
+	const zRange_d = derivedStore([zScale_d], getRange);
+	const rRange_d = derivedStore([rScale_d], getRange);
 
-	const aspectRatio_d = derived([width_d, height_d], ([$width, $height]) => {
+	const aspectRatio_d = derivedStore([width_d, height_d], ([$width, $height]) => {
 		return $width / $height;
 	});
 

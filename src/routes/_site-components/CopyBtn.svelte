@@ -1,8 +1,8 @@
 <script>
 	import CopyIcon from './CopyIcon.svelte';
 
-	/** @type Function */
-	export let getText;
+	/** @type {{ getText: Function }} */
+	let { getText } = $props();
 
 	async function copyToClipboard() {
 		let text = getText();

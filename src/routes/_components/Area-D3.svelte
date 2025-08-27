@@ -9,10 +9,6 @@
 
 	const xKey = 'myX';
 	const yKey = 'myY';
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">

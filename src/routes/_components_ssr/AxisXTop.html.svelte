@@ -9,10 +9,6 @@
 	const xKey = 'myX';
 	const yKey = 'myY';
 
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
-
 	let tickMarks = $state(false);
 	let snapLabels = $state(false);
 	let gridlines = $state(true);

@@ -11,10 +11,6 @@
 
 	const xKey = 'value';
 	const yKey = 'year';
-
-	data.forEach(d => {
-		d[xKey] = +d[xKey];
-	});
 </script>
 
 <div class="chart-container">

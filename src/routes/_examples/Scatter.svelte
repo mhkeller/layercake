@@ -13,10 +13,6 @@
 	const xKey = 'myX';
 	const yKey = 'myY';
 
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
-
 	const r = 3;
 	const padding = 10;
 	const color = '#fff';

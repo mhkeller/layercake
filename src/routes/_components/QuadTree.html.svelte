@@ -12,10 +12,6 @@
 
 	const r = 3;
 	const padding = 6;
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">

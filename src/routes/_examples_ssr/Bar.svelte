@@ -8,10 +8,6 @@
 
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/groups.csv';
-
-	data.forEach(d => {
-		d.value = +d.value;
-	});
 </script>
 
 <div class="chart-container">
@@ -22,7 +18,7 @@
 		x="value"
 		y="year"
 		yScale={scaleBand().paddingInner(0.05).round(true)}
-		yDomain={['1979', '1980', '1981', '1982', '1983']}
+		yDomain={[1979, 1980, 1981, 1982, 1983]}
 		xDomain={[0, null]}
 		{data}
 	>

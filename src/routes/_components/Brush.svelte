@@ -13,10 +13,6 @@
 	const xKey = 'myX';
 	const yKey = 'myY';
 
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
-
 	let brushedData = $state();
 	$effect(() => {
 		brushedData = data.slice(

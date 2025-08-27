@@ -18,12 +18,6 @@
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#00e047', '#7ceb68', '#b7f486', '#ecfda5'];
 
-	data.forEach(d => {
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
-	});
-
 	const stackData = stack().keys(seriesNames);
 
 	const series = stackData(data);

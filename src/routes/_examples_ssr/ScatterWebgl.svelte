@@ -15,10 +15,6 @@
 	const r = 3;
 	const xyPadding = 6;
 	const padding = { top: 5, right: 5, bottom: 20, left: 25 };
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">

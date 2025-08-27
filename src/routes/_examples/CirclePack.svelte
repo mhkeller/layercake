@@ -10,12 +10,6 @@
 	const idKey = 'fruit';
 	/** @type {string} */
 	const valueKey = 'value';
-
-	data.forEach(
-		/** @param {Record<string, any>} d */ d => {
-			d[valueKey] = +d[valueKey];
-		}
-	);
 </script>
 
 <div class="chart-container">

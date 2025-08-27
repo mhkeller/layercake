@@ -23,9 +23,6 @@
 
 	data.forEach(d => {
 		d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey];
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
 	});
 
 	/* --------------------------------------------

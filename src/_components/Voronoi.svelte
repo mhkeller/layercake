@@ -9,6 +9,8 @@
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
+	/** @typedef {[number, number] & { data?: any }} Point */
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {string|undefined} [stroke] - An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
@@ -18,31 +20,37 @@
 	/** @type {Props} */
 	let { stroke, onmouseover = () => {} } = $props();
 
+	/**
+	 * @param {MouseEvent} e
+	 * @param {Point} point
+	 */
 	function log(e, point) {
 		console.log(point, point.data);
 		onmouseover(e, point);
 	}
 
+	/** @type {Point[]} */
 	let points = $derived(
 		$data.map(d => {
+			/** @type {Point} */
 			const point = [$xGet(d), $yGet(d)];
-			point["data"] = d;
+			point.data = d;
 			return point;
 		})
 	);
 
-	let uniquePoints = $derived(uniques(points, d => d.join(), false));
+	let uniquePoints = $derived(uniques(points, d => d.join(), false) ?? []);
 
-	let voronoi = $derived(Delaunay.from(uniquePoints).voronoi([0, 0, $width, $height]));
+	let voronoi = $derived(Delaunay.from(uniquePoints ?? []).voronoi([0, 0, $width, $height]));
 </script>
 
 {#each uniquePoints as point, i}
+	<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 	<path
 		style="stroke: {stroke}"
 		class="voronoi-cell"
 		d={voronoi.renderCell(i)}
 		onmouseover={e => log(e, point)}
-		onfocus={e => log(e, point)}
 		role="tooltip"
 	></path>
 {/each}

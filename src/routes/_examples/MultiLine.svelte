@@ -31,10 +31,6 @@
 	 */
 	data.forEach(d => {
 		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
-
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
 	});
 
 	const formatLabelX = timeFormat('%b. %e');

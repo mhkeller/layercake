@@ -14,19 +14,15 @@
 	const annotations = [
 		{
 			text: 'Data-driven annotation',
-			year: '1979',
+			year: 1979,
 			value: 15
 		},
 		{
 			text: '...and another one',
-			year: '1980',
+			year: 1980,
 			value: 12
 		}
 	];
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">
@@ -35,7 +31,7 @@
 		x={xKey}
 		y={yKey}
 		xScale={scaleBand().paddingInner(0.02).round(true)}
-		xDomain={['1979', '1980', '1981', '1982', '1983']}
+		xDomain={[1979, 1980, 1981, 1982, 1983]}
 		yDomain={[0, null]}
 		{data}
 	>

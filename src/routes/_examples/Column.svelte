@@ -18,7 +18,7 @@
 	const annotations = [
 		{
 			text: 'Example text...',
-			[xKey]: '1980',
+			[xKey]: 1980,
 			[yKey]: 14,
 			dx: 15, // Optional pixel values
 			dy: -5,
@@ -32,7 +32,7 @@
 					},
 					target: {
 						// These can be expressed in our data units if passed under the data keys
-						[xKey]: '1980',
+						[xKey]: 1980,
 						[yKey]: 4.5,
 						// Optional adjustments
 						dx: 2,
@@ -54,10 +54,6 @@
 			]
 		}
 	];
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">
@@ -66,7 +62,7 @@
 		x={xKey}
 		y={yKey}
 		xScale={scaleBand().paddingInner(0.02).round(true)}
-		xDomain={['1979', '1980', '1981', '1982', '1983']}
+		xDomain={[1979, 1980, 1981, 1982, 1983]}
 		yDomain={[0, null]}
 		{data}
 	>

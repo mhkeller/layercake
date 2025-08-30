@@ -11,10 +11,6 @@
 	const xKey = 'myX';
 	const yKey = 'myY';
 
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
-
 	const r = 4.5;
 	const padding = 2.5;
 	const fill = '#fff';

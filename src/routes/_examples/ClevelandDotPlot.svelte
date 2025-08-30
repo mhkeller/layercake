@@ -13,12 +13,6 @@
 	const xKey = Object.keys(data[0]).filter(d => d !== yKey);
 
 	const seriesColors = ['#f0c', '#00bbff', '#00e047', '#ff7a33'];
-
-	data.forEach(d => {
-		xKey.forEach(name => {
-			d[name] = +d[name];
-		});
-	});
 </script>
 
 <div class="chart-container">

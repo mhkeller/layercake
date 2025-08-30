@@ -9,11 +9,6 @@
 	const xKey = 'myX';
 	const yKey = 'myY';
 
-	data.forEach(d => {
-		d[xKey] = +d[xKey];
-		d[yKey] = +d[yKey];
-	});
-
 	const labels = data.filter((d, i) => {
 		return i % 6 === 0;
 	});

@@ -21,11 +21,6 @@
 	/* --------------------------------------------
 	 * Cast data
 	 */
-	data.forEach(d => {
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
-	});
 
 	const formatLabelY = d => format(`~s`)(d);
 

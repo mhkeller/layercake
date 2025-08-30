@@ -11,12 +11,6 @@
 	const xKey = ['fastball', 'change', 'slider', 'cutter', 'curve'];
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== seriesKey);
-
-	data.forEach(d => {
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
-	});
 </script>
 
 <div class="chart-container">

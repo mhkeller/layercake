@@ -8,10 +8,6 @@
 
 	const idKey = 'fruit';
 	const valueKey = 'value';
-
-	data.forEach(d => {
-		d[valueKey] = +d[valueKey];
-	});
 </script>
 
 <div class="chart-container">

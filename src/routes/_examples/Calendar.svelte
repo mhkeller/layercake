@@ -24,8 +24,7 @@
 	];
 
 	const datesTransformed = dates.map(row => {
-		row.date = new Date(row.timestring);
-		return row;
+		return { ...row, date: new Date(row.timestring) };
 	});
 
 	const gutter = 10;

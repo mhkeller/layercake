@@ -15,10 +15,6 @@
 	const xKey = 'myX';
 	const yKey = 'myY';
 
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
-
 	let brushedData = $derived.by(() => {
 		const slicedData = data.slice(
 			(brushExtents[0] || 0) * data.length,

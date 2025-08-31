@@ -9,7 +9,7 @@
 	import Arrows from '../../_components/Arrows.svelte';
 	import ArrowheadMarker from '../../_components/ArrowheadMarker.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/groups.csv';
 
 	const xKey = 'year';

@@ -4,7 +4,7 @@
 	import ScatterSvg from '../../_components/Scatter.svg.svelte';
 	import QuadTree from '../../_components/QuadTree.html.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';

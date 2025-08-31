@@ -18,10 +18,6 @@
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#00e047', '#7ceb68', '#b7f486', '#ecfda5'];
 
-	/* --------------------------------------------
-	 * Cast data
-	 */
-
 	const formatLabelY = d => format(`~s`)(d);
 
 	const stackedData = stack(data, seriesNames);

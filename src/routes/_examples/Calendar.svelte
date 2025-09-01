@@ -5,7 +5,7 @@
 
 	import CalendarMonth from '../../_components/CalendarMonth.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import dates from '../../_data/dates.csv';
 
 	const monthNames = [
@@ -24,8 +24,7 @@
 	];
 
 	const datesTransformed = dates.map(row => {
-		row.date = new Date(row.timestring);
-		return row;
+		return { ...row, date: new Date(row.timestring) };
 	});
 
 	const gutter = 10;

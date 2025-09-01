@@ -4,7 +4,7 @@
 
 	import Beeswarm from '../../_components/BeeswarmForce.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/us-senate.csv';
 
 	const xKey = 'date_of_birth';

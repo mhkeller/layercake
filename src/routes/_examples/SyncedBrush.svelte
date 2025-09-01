@@ -1,7 +1,7 @@
 <script>
 	import SyncedBrushWrapper from '../../_components/SyncedBrushWrapper.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import pointsOne from '../../_data/points.csv';
 	import pointsTwo from '../../_data/pointsTwo.csv';
 	import pointsThree from '../../_data/pointsThree.csv';

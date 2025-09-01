@@ -5,7 +5,7 @@
 	import AnnotationsData from '../../_components/AnnotationsData.html.svelte';
 	import Column from '../../_components/Column.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/groups.csv';
 
 	const xKey = 'year';
@@ -14,19 +14,15 @@
 	const annotations = [
 		{
 			text: 'Data-driven annotation',
-			year: '1979',
+			year: 1979,
 			value: 15
 		},
 		{
 			text: '...and another one',
-			year: '1980',
+			year: 1980,
 			value: 12
 		}
 	];
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">
@@ -35,7 +31,7 @@
 		x={xKey}
 		y={yKey}
 		xScale={scaleBand().paddingInner(0.02).round(true)}
-		xDomain={['1979', '1980', '1981', '1982', '1983']}
+		xDomain={[1979, 1980, 1981, 1982, 1983]}
 		yDomain={[0, null]}
 		{data}
 	>

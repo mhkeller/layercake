@@ -4,15 +4,11 @@
 
 	import Column from '../../_components/Column.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/groups.csv';
 
 	const xKey = 'year';
 	const yKey = 'value';
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">
@@ -21,7 +17,7 @@
 		x={xKey}
 		y={yKey}
 		xScale={scaleBand().paddingInner(0.02).round(true)}
-		xDomain={['1979', '1980', '1981', '1982', '1983']}
+		xDomain={[1979, 1980, 1981, 1982, 1983]}
 		yDomain={[0, null]}
 		{data}
 	>

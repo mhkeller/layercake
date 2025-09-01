@@ -4,19 +4,13 @@
 
 	import ClevelandDotPlot from '../../_components/ClevelandDotPlot.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/fruitOrdinal.csv';
 
 	const yKey = 'year';
 	const xKey = Object.keys(data[0]).filter(d => d !== yKey);
 
 	const seriesColors = ['#f0c', '#00bbff', '#00e047', '#ff7a33'];
-
-	data.forEach(d => {
-		xKey.forEach(name => {
-			d[name] = +d[name];
-		});
-	});
 </script>
 
 <div class="chart-container">
@@ -25,7 +19,7 @@
 		x={xKey}
 		y={yKey}
 		yScale={scaleBand().paddingInner(0.05).round(true)}
-		yDomain={['2016', '2017', '2018', '2019']}
+		yDomain={[2016, 2017, 2018, 2019]}
 		zScale={scaleOrdinal()}
 		zDomain={xKey}
 		zRange={seriesColors}

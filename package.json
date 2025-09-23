@@ -1,6 +1,6 @@
 {
 	"name": "layercake",
-	"version": "10.0.1",
+	"version": "10.0.2",
 	"description": "graphics framework for sveltejs",
 	"homepage": "https://layercake.graphics/",
 	"repository": {

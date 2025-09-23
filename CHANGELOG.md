@@ -1,5 +1,12 @@
 # Changelog
 
+# 10.0.2
+
+> 2025-09-23
+
+- Removes the npm version constraint from package.json because it was causing issues and is not really needed
+  - [PR#345](https://github.com/mhkeller/layercake/pull/345)
+
 # 10.0.1
 
 > 2025-08-24

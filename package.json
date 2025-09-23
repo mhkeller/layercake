@@ -88,8 +88,7 @@
 		"dist"
 	],
 	"engines": {
-		"node": "^20.17.0 || >=22.9.0",
-		"npm": ">=11.0.0"
+		"node": "^20.17.0 || >=22.9.0"
 	},
 	"peerDependencies": {
 		"svelte": ">=5",

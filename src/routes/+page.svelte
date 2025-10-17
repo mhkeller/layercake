@@ -71,7 +71,7 @@
 
 	<div id="dek">
 		<p>
-			Layer Cake is a graphics framework for <a
+			Layer Cake is a headless graphics framework for <a
 				href="https://svelte.dev"
 				target="_blank"
 				rel="noreferrer">Svelte</a

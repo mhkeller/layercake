@@ -4,9 +4,11 @@ title: Introduction
 
 ### What is Layer Cake?
 
-Layer Cake is a graphics framework for [Svelte](https://svelte.dev) that removes the boilerplate from making responsive web graphics. it gives you common elements, like a coordinate system and scales, for you to start creating your own dataviz layers, like axes, plots and annotations.
+Layer Cake is a headless graphics framework for [Svelte](https://svelte.dev) that removes the boilerplate from making responsive web graphics. It gives you common elements, like a coordinate system and scales, for you to start creating your own dataviz layers, like axes, plots and annotations.
 
-Layer Cake is described as a framework and not a library because unlike Vega or HighCharts, it doesn't automatically create, for example, a scatter chart for you. It gives you the scales and the DOM element to encode chart elements from your data. This is because every chart usually ends up needing some customization in one way or another. Those other libraries handle customization usually by creating a complex JSON specification but learning that is a big investment and can be another layer of abstraction to take into account.
+Layer Cake is described as a "headless" framework and not a library because unlike Vega or HighCharts, it doesn't automatically create, for example, a scatter chart for you. Instead, it gives you the scales and the DOM element to encode chart elements from your data and lets you decide what shapes and visuals to build with those pieces.
+
+The reason for this design is that most chart ends up needing some customization in one way or another. Other libraries handle customization usually by creating a complex JSON specification but learning that is a big investment and can be another layer of abstraction to take into account.
 
 The idea behind a Layer Cake chart is you can start from a basic scatter, line or bar chart template and – because those chart layers live in your project – you can customize them however you want.
 

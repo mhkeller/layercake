@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "x string 'x' no The dimension to search across when moving the mouse left and right.":
       - cell "x string":
@@ -25,20 +25,29 @@
     - row "searchRadius (number | undefined) None no The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
       - cell "searchRadius (number | undefined)":
         - strong: searchRadius
+        - text: ""
         - code: number
+        - text: ""
         - code: undefined
+        - text: ""
       - cell "None"
       - cell "no"
       - cell "The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
+        - text: ""
         - link "quadtree.find":
           - /url: https://github.com/d3/d3-quadtree#quadtree_find
           - code: quadtree.find
+        - text: ""
         - code: undefined
+        - text: ""
     - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass override the default here in here in case you don't want to use the main data or it's in a strange format.":
       - cell "dataset (Array<Object> | undefined)":
         - strong: dataset
+        - text: ""
         - code: Array<Object>
+        - text: ""
         - code: undefined
+        - text: ""
       - cell "None"
       - cell "no"
       - cell "The dataset to work off of—defaults to $data if left unset. You can pass override the default here in here in case you don't want to use the main data or it's in a strange format."

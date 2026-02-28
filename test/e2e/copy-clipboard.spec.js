@@ -9,9 +9,10 @@ urls.forEach(url => {
 		});
 		const page = await context.newPage();
 
-		await page.goto(url);
+		await page.goto(url, { waitUntil: 'networkidle' });
+
 		const contentsText = await page.locator('#contents-container').innerText();
-		await page.click('.copy');
+		await page.locator('.copy').first().click();
 		await page.waitForTimeout(1000);
 		const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
 		expect(clipboardText).toBe(contentsText);

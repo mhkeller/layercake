@@ -1,24 +1,30 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "min (number | null) None yes The brush's min value. Useful to bind to.":
       - cell "min (number | null)":
         - strong: min
+        - text: ""
         - code: number
+        - text: ""
         - code: "null"
+        - text: ""
       - cell "None"
       - cell "yes"
       - cell "The brush's min value. Useful to bind to."
     - row "max (number | null) None yes The brush's max value. Useful to bind to.":
       - cell "max (number | null)":
         - strong: max
+        - text: ""
         - code: number
+        - text: ""
         - code: "null"
+        - text: ""
       - cell "None"
       - cell "yes"
       - cell "The brush's max value. Useful to bind to."

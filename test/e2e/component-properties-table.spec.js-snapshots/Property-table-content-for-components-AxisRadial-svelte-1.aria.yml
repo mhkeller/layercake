@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "lineLengthFactor number 1.1 no How far to extend the lines from the circle's center. A value of 1 puts them at the circle's circumference.":
       - cell "lineLengthFactor number":
@@ -14,7 +14,9 @@
         - code: "1.1"
       - cell "no"
       - cell "How far to extend the lines from the circle's center. A value of 1 puts them at the circle's circumference.":
+        - text: ""
         - code: "1"
+        - text: ""
     - row /labelPlacementFactor number \d+\.\d+ no How far to place the labels from the circle's center\. A value of 1 puts them at the circle's circumference\./:
       - cell "labelPlacementFactor number":
         - strong: labelPlacementFactor
@@ -23,4 +25,6 @@
         - code: /\d+\.\d+/
       - cell "no"
       - cell "How far to place the labels from the circle's center. A value of 1 puts them at the circle's circumference.":
+        - text: ""
         - code: "1"
+        - text: ""

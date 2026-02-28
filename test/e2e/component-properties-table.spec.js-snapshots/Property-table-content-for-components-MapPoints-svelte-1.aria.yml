@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - 'row "projection Function None yes A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
       - cell "projection Function":
@@ -13,7 +13,9 @@
       - cell "None"
       - cell "yes"
       - 'cell "A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+        - text: ""
         - code: "projection={geoAlbersUsa}"
+        - text: ""
     - row "r number 3.5 no The point's radius.":
       - cell "r number":
         - strong: r
@@ -57,9 +59,14 @@
     - row "features (Array<Object> | undefined) None no A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
       - cell "features (Array<Object> | undefined)":
         - strong: features
+        - text: ""
         - code: Array<Object>
+        - text: ""
         - code: undefined
+        - text: ""
       - cell "None"
       - cell "no"
       - cell "A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
+        - text: ""
         - code: $data.features
+        - text: ""

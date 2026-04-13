@@ -65,7 +65,7 @@
 		"svelte": "^5.55.3",
 		"svelte-check": "^4.4.6",
 		"topojson-client": "^3.1.0",
-		"typescript": "^5.8.3",
+		"typescript": "^6.0.2",
 		"underscore": "^1.13.7",
 		"vite": "^7.0.6",
 		"yootils": "^0.3.1"
@@ -91,8 +91,7 @@
 		"node": "^20.17.0 || >=22.9.0"
 	},
 	"peerDependencies": {
-		"svelte": ">=5",
-		"typescript": "^5.0.2"
+		"svelte": ">=5"
 	},
 	"svelte": "./dist/index.js"
 }

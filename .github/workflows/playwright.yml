@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     container:
       # https://playwright.dev/docs/docker
-      image: mcr.microsoft.com/playwright:v1.54.0-noble
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
       options: --user 1001
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
       - name: Upgrade npm to version 11

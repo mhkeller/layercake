@@ -9,11 +9,9 @@
 
 		try {
 			if (navigator.clipboard && window.isSecureContext) {
-				// Use modern Clipboard API
 				await navigator.clipboard.writeText(text);
 				return true;
 			} else {
-				// Fallback for older browsers or non-secure contexts
 				const textarea = document.createElement('textarea');
 				textarea.value = text;
 				textarea.style.position = 'fixed';

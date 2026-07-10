@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "idKey string 'id' no The key on each object where the id value lives.":
       - cell "idKey string":
@@ -21,10 +21,13 @@
       - cell "None"
       - cell "no"
       - cell "Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
+        - text: ""
         - link "nested":
           - /url: https://layercake.graphics/example/CirclePackNested
+        - text: ""
         - link "grouping of circles":
           - /url: https://layercake.graphics/example/CirclePack
+        - text: ""
     - row "valueKey string 'value' no The key on each object where the data value lives.":
       - cell "valueKey string":
         - strong: valueKey
@@ -97,7 +100,9 @@
         - code: (a, b) => b.value - a.value
       - cell "no"
       - cell "The order in which circle's are drawn. Sorting on the depth key is also a popular choice.":
+        - text: ""
         - code: depth
+        - text: ""
     - row "spacing number 0 no Whitespace padding between each circle, in pixels.":
       - cell "spacing number":
         - strong: spacing

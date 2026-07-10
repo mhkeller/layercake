@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - 'row "anchor string None yes Anchor position, format: `{left"':
       - cell "anchor string":
@@ -30,16 +30,22 @@
     - row /x \(string \| number\) None no X position \(can be percentage string like "\d+%" or data value\)/:
       - cell "x (string | number)":
         - strong: x
+        - text: ""
         - code: string
+        - text: ""
         - code: number
+        - text: ""
       - cell "None"
       - cell "no"
       - cell /X position \(can be percentage string like "\d+%" or data value\)/
     - row /y \(string \| number\) None no Y position \(can be percentage string like "\d+%" or data value\)/:
       - cell "y (string | number)":
         - strong: "y"
+        - text: ""
         - code: string
+        - text: ""
         - code: number
+        - text: ""
       - cell "None"
       - cell "no"
       - cell /Y position \(can be percentage string like "\d+%" or data value\)/
@@ -158,6 +164,10 @@
         - code: $percentRange
       - cell "no"
       - cell "If true will set the top and left CSS positions to percentages instead of pixels.":
+        - text: ""
         - code: "true"
+        - text: ""
         - code: top
+        - text: ""
         - code: left
+        - text: ""

@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "colorLinks Function () => 'rgba(0, 0, 0, .2)' no A function to return a color for the links.":
       - cell "colorLinks Function":
@@ -38,9 +38,11 @@
         - code: "5"
       - cell "no"
       - cell "The width of each node, in pixels, passed to sankey.nodeWidth.":
+        - text: ""
         - link "sankey.nodeWidth":
           - /url: https://github.com/d3/d3-sankey#sankey_nodeWidth
           - code: sankey.nodeWidth
+        - text: ""
     - row /nodePadding number \d+ no The padding between nodes, passed to sankey\.nodePadding\./:
       - cell "nodePadding number":
         - strong: nodePadding
@@ -49,33 +51,45 @@
         - code: /\d+/
       - cell "no"
       - cell "The padding between nodes, passed to sankey.nodePadding.":
+        - text: ""
         - link "sankey.nodePadding":
           - /url: https://github.com/d3/d3-sankey#sankey_nodePadding
           - code: sankey.nodePadding
+        - text: ""
     - row "linkSort (LinkSortFunction | undefined) undefined no How to sort the links, passed to sankey.linkSort.":
       - cell "linkSort (LinkSortFunction | undefined)":
         - strong: linkSort
+        - text: ""
         - code: LinkSortFunction
+        - text: ""
         - code: undefined
+        - text: ""
       - cell "undefined":
         - code: undefined
       - cell "no"
       - cell "How to sort the links, passed to sankey.linkSort.":
+        - text: ""
         - link "sankey.linkSort":
           - /url: https://github.com/d3/d3-sankey#sankey_linkSort
           - code: sankey.linkSort
+        - text: ""
     - row "nodeId ((SankeyNodeMinimal) => number | string) d => d.id no The ID field accessor, passed to sankey.nodeId.":
       - cell "nodeId ((SankeyNodeMinimal) => number | string)":
         - strong: nodeId
+        - text: ""
         - code: (SankeyNodeMinimal) => number
+        - text: ""
         - code: string
+        - text: ""
       - cell "d => d.id":
         - code: d => d.id
       - cell "no"
       - cell "The ID field accessor, passed to sankey.nodeId.":
+        - text: ""
         - link "sankey.nodeId":
           - /url: https://github.com/d3/d3-sankey#sankey_nodeId
           - code: sankey.nodeId
+        - text: ""
     - row "nodeAlign SankeyAlignment Sankey.sankeyLeft no An alignment function to position the Sankey blocks. See the d3-sankey documentation for more.":
       - cell "nodeAlign SankeyAlignment":
         - strong: nodeAlign
@@ -84,5 +98,7 @@
         - code: Sankey.sankeyLeft
       - cell "no"
       - cell "An alignment function to position the Sankey blocks. See the d3-sankey documentation for more.":
+        - text: ""
         - link "d3-sankey documentation":
           - /url: https://github.com/d3/d3-sankey#alignments
+        - text: ""

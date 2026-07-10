@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - 'row "projection Function None yes A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
       - cell "projection Function":
@@ -13,7 +13,9 @@
       - cell "None"
       - cell "yes"
       - 'cell "A D3 projection function. Pass this in as an uncalled function, e.g. projection={geoAlbersUsa}."':
+        - text: ""
         - code: "projection={geoAlbersUsa}"
+        - text: ""
     - row "stroke string '#ccc' no The shape's stroke color.":
       - cell "stroke string":
         - strong: stroke
@@ -33,18 +35,27 @@
     - row "fill (string | undefined) None no The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.":
       - cell "fill (string | undefined)":
         - strong: fill
+        - text: ""
         - code: string
+        - text: ""
         - code: undefined
+        - text: ""
       - cell "None"
       - cell "no"
       - cell "The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set."
     - row "features (Array<GeoJSON> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
       - cell "features (Array<GeoJSON> | undefined)":
         - strong: features
+        - text: ""
         - code: Array<GeoJSON>
+        - text: ""
         - code: undefined
+        - text: ""
       - cell "None"
       - cell "no"
       - cell "A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
+        - text: ""
         - code: $data
+        - text: ""
         - code: $data.features
+        - text: ""

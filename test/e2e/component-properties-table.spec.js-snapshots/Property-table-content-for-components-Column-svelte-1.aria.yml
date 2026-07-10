@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "fill string '#00e047' no The shape's fill color.":
       - cell "fill string":

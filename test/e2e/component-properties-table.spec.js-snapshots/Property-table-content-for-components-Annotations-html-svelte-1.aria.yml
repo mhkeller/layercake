@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "text string None yes The text content of the annotation":
       - cell "text string":
@@ -48,12 +48,19 @@
       - cell "None"
       - cell "yes"
       - cell "A list of annotation objects. It expects values of top, right, bottom and left whose values are CSS values like '10px' or '5%' that will be used to absolutely position the text div.":
+        - text: ""
         - code: top
+        - text: ""
         - code: right
+        - text: ""
         - code: bottom
+        - text: ""
         - code: left
+        - text: ""
         - code: "'10px'"
+        - text: ""
         - code: "'5%'"
+        - text: ""
     - 'row "getText Function /** @param {Annotation} d */ d => d.text no An accessor function to get the field to display."':
       - cell "getText Function":
         - strong: getText

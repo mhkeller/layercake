@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "tickMarks boolean false no Show marks next to the tick label.":
       - cell "tickMarks boolean":
@@ -57,15 +57,21 @@
     - row "ticks (number | Array<any> | Function) 4 no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.":
       - cell "ticks (number | Array<any> | Function)":
         - strong: ticks
+        - text: ""
         - code: number
+        - text: ""
         - code: Array<any>
+        - text: ""
         - code: Function
+        - text: ""
       - cell "4":
         - code: "4"
       - cell "no"
       - cell "If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.":
+        - text: ""
         - link "d3Scale.ticks":
           - /url: https://github.com/d3/d3-scale
+        - text: ""
     - row "tickGutter number 0 no The amount of whitespace between the start of the tick and the chart drawing area (the xRange min).":
       - cell "tickGutter number":
         - strong: tickGutter
@@ -82,7 +88,9 @@
         - code: "0"
       - cell "no"
       - cell "Any optional value passed to the dx attribute on the text label.":
+        - text: ""
         - code: dx
+        - text: ""
     - row "dy number -3 no Any optional value passed to the dy attribute on the text label.":
       - cell "dy number":
         - strong: dy
@@ -91,7 +99,9 @@
         - code: "-3"
       - cell "no"
       - cell "Any optional value passed to the dy attribute on the text label.":
+        - text: ""
         - code: dy
+        - text: ""
     - row /charPixelWidth number \d+\.\d+ no Used to calculate the widest label length to offset labels\. Adjust if the automatic tick length doesn't look right because you have a bigger font \(or just set tickMarkLength to a pixel value\)\./:
       - cell "charPixelWidth number":
         - strong: charPixelWidth
@@ -100,18 +110,28 @@
         - code: /\d+\.\d+/
       - cell "no"
       - cell "Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set tickMarkLength to a pixel value).":
+        - text: ""
         - code: tickMarkLength
+        - text: ""
     - 'row "units (''px'' | ''%'') $percentRange === true ? ''%'' : ''px'' no If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
       - cell "units ('px' | '%')":
         - strong: units
+        - text: ""
         - code: "'px'"
+        - text: ""
         - code: "'%'"
+        - text: ""
       - 'cell "$percentRange === true ? ''%'' : ''px''"':
         - code: "$percentRange === true ? '%' : 'px'"
       - cell "no"
       - 'cell "If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
+        - text: ""
         - code: "percentRange={true}"
+        - text: ""
         - code: "'%'"
+        - text: ""
         - code: "'px'"
+        - text: ""
         - code: "'%'"
+        - text: ""
         - code: "'px'"

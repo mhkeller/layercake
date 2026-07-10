@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "manyBodyStrength number 5 no The value passed into the .strength method on forceManyBody, which is used as the 'charge' property on the simulation. See the documentation for more.":
       - cell "manyBodyStrength number":
@@ -14,11 +14,16 @@
         - code: "5"
       - cell "no"
       - cell "The value passed into the .strength method on forceManyBody, which is used as the 'charge' property on the simulation. See the documentation for more.":
+        - text: ""
         - code: .strength
+        - text: ""
         - code: forceManyBody
+        - text: ""
         - code: "'charge'"
+        - text: ""
         - link "the documentation":
           - /url: https://github.com/d3/d3-force#manyBody_strength
+        - text: ""
     - row "xStrength number 0.1 no The value passed into the .strength method on forceX, which is used as the 'x' property on the simulation. See the documentation for more.":
       - cell "xStrength number":
         - strong: xStrength
@@ -27,20 +32,30 @@
         - code: "0.1"
       - cell "no"
       - cell "The value passed into the .strength method on forceX, which is used as the 'x' property on the simulation. See the documentation for more.":
+        - text: ""
         - code: .strength
+        - text: ""
         - code: forceX
+        - text: ""
         - code: "'x'"
+        - text: ""
         - link "the documentation":
           - /url: https://github.com/d3/d3-force#x_strength
+        - text: ""
     - row "nodeColor (string | undefined) None no Set a color manually otherwise it will default to the zScale.":
       - cell "nodeColor (string | undefined)":
         - strong: nodeColor
+        - text: ""
         - code: string
+        - text: ""
         - code: undefined
+        - text: ""
       - cell "None"
       - cell "no"
       - cell "Set a color manually otherwise it will default to the zScale.":
+        - text: ""
         - code: zScale
+        - text: ""
     - row "nodeStroke string '#fff' no The circle's stroke color.":
       - cell "nodeStroke string":
         - strong: nodeStroke
@@ -65,4 +80,6 @@
         - code: "true"
       - cell "no"
       - cell "Group the nodes by the return value of the x-scale. If false, align all the nodes to the canvas center.":
+        - text: ""
         - code: "false"
+        - text: ""

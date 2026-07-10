@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "shape string 'square' no The shape for each item. Can be 'circle', 'line', or 'square';":
       - cell "shape string":
@@ -25,8 +25,11 @@
     - row "lookup (Function | Object) None no Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value.":
       - cell "lookup (Function | Object)":
         - strong: lookup
+        - text: ""
         - code: Function
+        - text: ""
         - code: Object
+        - text: ""
       - cell "None"
       - cell "no"
       - cell "Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value."

@@ -55,7 +55,7 @@
 		"indian-ocean": "^4.0.3",
 		"knip": "^5.61.3",
 		"markdown-it": "^14.1.0",
-		"marked": "^16.0.0",
+		"marked": "^17.0.3",
 		"mocha": "^11.7.1",
 		"prettier": "^3.6.2",
 		"prettier-plugin-svelte": "^3.4.0",

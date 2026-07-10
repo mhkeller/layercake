@@ -29,9 +29,9 @@
 	"devDependencies": {
 		"@playwright/test": "^1.56.1",
 		"@rollup/plugin-dsv": "^3.0.5",
-		"@sveltejs/adapter-static": "^3.0.8",
-		"@sveltejs/kit": "^2.22.5",
-		"@sveltejs/package": "^2.3.11",
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.57.1",
+		"@sveltejs/package": "^2.5.7",
 		"@sveltejs/vite-plugin-svelte": "^6.1.0",
 		"@types/d3": "^7.4.3",
 		"@types/d3-sankey": "^0.12.4",
@@ -62,10 +62,10 @@
 		"publint": "^0.3.12",
 		"regl": "^2.1.1",
 		"sanitize-html": "^2.17.0",
-		"svelte": "^5.35.6",
-		"svelte-check": "^4.2.2",
+		"svelte": "^5.55.3",
+		"svelte-check": "^4.4.6",
 		"topojson-client": "^3.1.0",
-		"typescript": "^5.8.3",
+		"typescript": "^6.0.2",
 		"underscore": "^1.13.7",
 		"vite": "^7.0.6",
 		"yootils": "^0.3.1"
@@ -87,12 +87,8 @@
 	"files": [
 		"dist"
 	],
-	"engines": {
-		"node": "^20.17.0 || >=22.9.0"
-	},
 	"peerDependencies": {
-		"svelte": ">=5",
-		"typescript": "^5.0.2"
+		"svelte": ">=5"
 	},
 	"svelte": "./dist/index.js"
 }

@@ -5,7 +5,7 @@
 The main `LayerCake` library which you get when you
 
 ```js
-  import { LayerCake} from 'layercake';
+import { LayerCake } from 'layercake';
 ```
 
 is in `src/lib`.

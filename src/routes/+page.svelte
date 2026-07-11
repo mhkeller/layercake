@@ -89,8 +89,7 @@
 			Unlike other libraries, <a href="/components">chart components</a> live
 			<span class="strong">inside your project</span>, so you have complete control for
 			<span class="strong">customization</span>. It also includes some handy
-			<a href="/guide#helper-functions">helper functions</a> to help format your data into the right
-			shape.
+			<a href="/guide#helper-functions">helper functions</a> to help format your data into the right shape.
 		</p>
 
 		<p>

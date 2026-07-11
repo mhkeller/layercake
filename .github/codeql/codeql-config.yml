@@ -1,20 +1,20 @@
-name: "CodeQL config"
+name: 'CodeQL config'
 
 # Exclude build output and minified files from scanning
 paths-ignore:
-  - "docs/"
-  - "dist/"
-  - "build/"
-  - "**/node_modules"
-  - "**/*.min.js"
-  - "**/*.bundle.js"
+  - 'docs/'
+  - 'dist/'
+  - 'build/'
+  - '**/node_modules'
+  - '**/*.min.js'
+  - '**/*.bundle.js'
 
 # Only scan source files
 paths:
-  - "src/"
-  - "*.js"
-  - "*.ts"
-  - "*.svelte"
+  - 'src/'
+  - '*.js'
+  - '*.ts'
+  - '*.svelte'
 
 # Use security and quality query packs
 packs:

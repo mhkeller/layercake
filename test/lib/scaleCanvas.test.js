@@ -26,6 +26,7 @@ function makeCtx() {
 		},
 		set height(v) {
 			this._height = Math.trunc(v);
+			this.resets += 1;
 		},
 		resets: 0
 	};

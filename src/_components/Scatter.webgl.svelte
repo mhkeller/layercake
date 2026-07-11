@@ -4,8 +4,7 @@
  -->
 <script>
 	import reglWrapper from 'regl';
-	import { getContext, onMount } from 'svelte';
-	import { get } from 'svelte/store';
+	import { getContext, onDestroy } from 'svelte';
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
@@ -33,11 +32,11 @@
 
 	const { gl } = getContext('gl');
 
-	function resize() {
-		const context = get(gl);
-		if (!context) return;
-
-		const canvas = context.canvas;
+	/**
+	 * @param {WebGLRenderingContext} context
+	 */
+	function resize(context) {
+		const canvas = /** @type {HTMLCanvasElement} */ (context.canvas);
 		// Lookup the size the browser is displaying the canvas.
 		const displayWidth = canvas.clientWidth;
 		const displayHeight = canvas.clientHeight;
@@ -51,27 +50,25 @@
 		context.viewport(0, 0, canvas.width, canvas.height);
 	}
 
+	/** @type {import('regl').Regl|undefined} */
 	let regl;
+	/** @type {import('regl').DrawCommand|undefined} */
+	let drawPoints;
 
-	function render() {
-		const context = get(gl);
-		if (!context) return;
-
-		const x = get(xGet);
-		const y = get(yGet);
-		const points = get(data);
+	/**
+	 * Create the regl instance and compile the draw command once.
+	 * Everything that changes between frames comes in through props.
+	 * @param {WebGLRenderingContext} context
+	 */
+	function ensureRegl(context) {
+		if (regl) return;
 
 		regl = reglWrapper({
 			gl: context,
 			extensions: ['oes_standard_derivatives']
 		});
 
-		regl.clear({
-			color: [0, 0, 0, 0],
-			depth: 1
-		});
-
-		const draw = regl({
+		drawPoints = regl({
 			// circle code comes from:
 			// https://www.desultoryquest.com/blog/drawing-anti-aliased-circular-points-using-opengl-slash-webgl/
 			frag: `
@@ -129,13 +126,13 @@
 			attributes: {
 				/**
 				 * @param {any} context
-				 * @param {{ points: Array<any>, pointWidth?: number }} props
+				 * @param {{ points: Array<any>, x: Function, y: Function, pointWidth?: number, fillColor?: number[], strokeColor?: number[] }} props
 				 */
 				// There will be a position value for each point
 				// we pass in
 				position: (context, props) => {
 					return props.points.map(point => {
-						return [x(point), y(point)];
+						return [props.x(point), props.y(point)];
 					});
 				},
 				r: (context, props) => {
@@ -149,9 +146,9 @@
 				}
 			},
 			uniforms: {
-				fill_color: hexToRgbPercent(fill),
+				fill_color: (context, props) => props.fillColor,
 				// stroke_color: [0.6705882352941176, 0, 0.8392156862745098],
-				stroke_color: hexToRgbPercent(stroke),
+				stroke_color: (context, props) => props.strokeColor,
 				// FYI: there is a helper method for grabbing
 				// values out of the context as well.
 				// These uniforms are used in our fragment shader to
@@ -175,23 +172,34 @@
 			},
 			depth: { enable: false }
 		});
-
-		draw({
-			pointWidth: r * 2,
-			points
-		});
 	}
 
-	onMount(() => {
-		function redraw() {
-			if (!get(width) || !get(height) || !get(gl)) return;
-			resize();
-			render();
-		}
+	$effect(() => {
+		if (!$width || !$height || !$gl) return;
 
-		const unsubs = [width, height, gl, xGet, yGet, data].map(store =>
-			store.subscribe(redraw)
-		);
-		return () => unsubs.forEach(unsub => unsub());
+		ensureRegl($gl);
+		if (!regl || !drawPoints) return;
+
+		resize($gl);
+		// Let regl pick up the new drawing buffer size
+		regl.poll();
+
+		regl.clear({
+			color: [0, 0, 0, 0],
+			depth: 1
+		});
+
+		drawPoints({
+			pointWidth: r * 2,
+			points: $data,
+			x: $xGet,
+			y: $yGet,
+			fillColor: hexToRgbPercent(fill),
+			strokeColor: hexToRgbPercent(stroke)
+		});
+	});
+
+	onDestroy(() => {
+		if (regl) regl.destroy();
 	});
 </script>

@@ -3,8 +3,7 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext, onMount } from 'svelte';
-	import { get } from 'svelte/store';
+	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
 	const { data, width, height } = getContext('LayerCake');
@@ -31,36 +30,32 @@
 		features
 	} = $props();
 
-	onMount(() => {
-		function draw() {
-			const w = get(width);
-			const h = get(height);
-			const context = get(ctx);
-			if (!w || !h || !context) return;
+	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
 
-			const chartData = get(data);
-			const projectionFn = projection().fitSize([w, h], chartData);
-			const featuresToDraw = features || chartData.features;
+	let featuresToDraw = $derived(features || $data.features);
 
-			scaleCanvas(context, w, h);
-			context.clearRect(0, 0, w, h);
+	$effect(() => {
+		if (!$width || !$height || !$ctx) return;
 
-			// To scale the circle by size, set width and height to `$rGet(d.properties)`
-			featuresToDraw.forEach(
-				/** @param {any} d */ d => {
-					context.beginPath();
-					const coordinates = projectionFn(d.geometry.coordinates);
-					context.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
-					context.fillStyle = fill;
-					context.fill();
-					context.lineWidth = strokeWidth;
-					context.strokeStyle = stroke;
-					context.stroke();
-				}
-			);
-		}
+		// Assign to a local variable: setting properties on `$ctx` directly
+		// would re-notify the store and re-trigger this effect
+		const context = $ctx;
 
-		const unsubs = [width, height, ctx, data].map(store => store.subscribe(draw));
-		return () => unsubs.forEach(unsub => unsub());
+		scaleCanvas(context, $width, $height);
+		context.clearRect(0, 0, $width, $height);
+
+		// To scale the circle by size, set width and height to `$rGet(d.properties)`
+		featuresToDraw.forEach(
+			/** @param {any} d */ d => {
+				context.beginPath();
+				const coordinates = projectionFn(d.geometry.coordinates);
+				context.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
+				context.fillStyle = fill;
+				context.fill();
+				context.lineWidth = strokeWidth;
+				context.strokeStyle = stroke;
+				context.stroke();
+			}
+		);
 	});
 </script>

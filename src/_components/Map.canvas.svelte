@@ -3,8 +3,7 @@
 	Generates a canvas map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext, onMount } from 'svelte';
-	import { get } from 'svelte/store';
+	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 	import { geoPath } from 'd3-geo';
 
@@ -24,39 +23,37 @@
 	/** @type {Props} */
 	let { projection, stroke = '#ccc', strokeWidth = 1, fill, features } = $props();
 
-	onMount(() => {
-		function draw() {
-			const w = get(width);
-			const h = get(height);
-			const context = get(ctx);
-			if (!w || !h || !context) return;
+	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
 
-			const chartData = get(data);
-			const projectionFn = projection().fitSize([w, h], chartData);
-			const path = geoPath(projectionFn);
-			const featuresToDraw = features || chartData.features;
+	let geoPathFn = $derived(geoPath(projectionFn));
 
-			scaleCanvas(context, w, h);
-			context.clearRect(0, 0, w, h);
+	let featuresToDraw = $derived(features || $data.features);
 
-			featuresToDraw.forEach(
-				/** @param {any} feature */ feature => {
-					context.beginPath();
-					// Set the context here since setting it in `geoPath` is a circular reference
-					path.context(context);
-					path(feature);
+	$effect(() => {
+		if (!$width || !$height || !$ctx) return;
 
-					context.fillStyle = fill || get(zGet)(feature.properties);
-					context.fill();
+		// Assign to a local variable: setting properties on `$ctx` directly
+		// would re-notify the store and re-trigger this effect
+		const context = $ctx;
+		const zGetFn = $zGet;
 
-					context.lineWidth = strokeWidth;
-					context.strokeStyle = stroke;
-					context.stroke();
-				}
-			);
-		}
+		scaleCanvas(context, $width, $height);
+		context.clearRect(0, 0, $width, $height);
 
-		const unsubs = [width, height, ctx, data].map(store => store.subscribe(draw));
-		return () => unsubs.forEach(unsub => unsub());
+		featuresToDraw.forEach(
+			/** @param {any} feature */ feature => {
+				context.beginPath();
+				// Set the context here since setting it in `geoPath` is a circular reference
+				geoPathFn.context(context);
+				geoPathFn(feature);
+
+				context.fillStyle = fill || zGetFn(feature.properties);
+				context.fill();
+
+				context.lineWidth = strokeWidth;
+				context.strokeStyle = stroke;
+				context.stroke();
+			}
+		);
 	});
 </script>

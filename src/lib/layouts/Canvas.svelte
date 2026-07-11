@@ -5,8 +5,9 @@
 <script>
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
+	import scaleCanvas from '../lib/scaleCanvas.js';
 
-	const { padding } = getContext('LayerCake');
+	const { width, height, padding } = getContext('LayerCake');
 
 	/**
 	 * @typedef {Object} Props
@@ -46,6 +47,7 @@
 		if (element) {
 			context = element.getContext('2d');
 			if (context) {
+				scaleCanvas(context, $width, $height);
 				cntxt.ctx.set(context);
 			}
 		}

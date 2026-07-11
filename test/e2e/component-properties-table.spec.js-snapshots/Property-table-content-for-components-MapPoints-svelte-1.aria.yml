@@ -56,7 +56,7 @@
         - code: "1"
       - cell "no"
       - cell "The point's opacity."
-    - row "features (Array<Object> | undefined) None no A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
+    - row "features (Array<Object> | undefined) None no A list of GeoJSON features to plot. If unset, the plotted features will default to those in $data.features, assuming this field is a list of GeoJSON features.":
       - cell "features (Array<Object> | undefined)":
         - strong: features
         - text: ""
@@ -66,7 +66,7 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in $data.features, assuming this field a list of GeoJSON features.":
+      - cell "A list of GeoJSON features to plot. If unset, the plotted features will default to those in $data.features, assuming this field is a list of GeoJSON features.":
         - text: ""
         - code: $data.features
         - text: ""

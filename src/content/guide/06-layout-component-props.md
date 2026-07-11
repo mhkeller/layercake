@@ -2,28 +2,28 @@
 title: Layout component props
 ---
 
-In addition to the [accessibility props](guide#accessibility) described above, all layout components accept the following props:
+In addition to the [accessibility props](/guide#accessibility) described above, all layout components accept the following props:
 
-- [zIndex](guide#zindex) `number|string`
-- [pointerEvents](guide#pointerevents) `boolean`
+- [zIndex](/guide#zindex) `number`
+- [pointerEvents](/guide#pointerevents-1) `boolean`
 
 The Html, Svg and ScaledSvg layout components also accept:
 
-- [overflow](guide#overflow) `'visible'|'hidden'`
+- [overflow](/guide#overflow) `'visible'|'hidden'`
 
 The Svg and ScaledSvg layout components also accept:
 
-- [viewBox](guide#viewbox) `string`
+- [viewBox](/guide#viewbox) `string`
 
 And ScaledSvg additionally accepts:
 
-- [fixedAspectRatio](guide#fixedaspectratio) `number`
+- [fixedAspectRatio](/guide#fixedaspectratio) `number`
 
 The WebGL Component accepts:
 
-- [contextAttributes](guide#contextattributes) `Object`
+- [contextAttributes](/guide#contextattributes) `Object`
 
-Each layout component also export an `element` prop that you can bind to and represents the HTML element that wraps the layout component. These are also available as slot props.
+Each layout component also exports an `element` prop that you can bind to and represents the HTML element that wraps the layout component. These are also available as slot props.
 
 - In the `Html` component, `element` equals the `<div>` tag.
 - In the `Svg` component, `element` equals the `<svg>` tag.
@@ -67,7 +67,7 @@ This lets you fine-tune your layering and is useful if you want your layers to b
 
 ### pointerEvents `boolean|undefined`
 
-Useful for tooltip layers that need to be display above chart elements but not capture mouse events. Defaults to no `pointer-events` CSS being set. Set to `false` to set `pointer-events: none;`
+Useful for tooltip layers that need to be displayed above chart elements but not capture mouse events. Defaults to no `pointer-events` CSS being set. Set to `false` to set `pointer-events: none;`
 
 ```svelte
 <LayerCake ...>
@@ -81,18 +81,18 @@ For Html, Svg and ScaledSvg components, whether or not the CSS `overflow` proper
 
 ```svelte
 <LayerCake ...>
-  <Html>
-    <AxisX/>
-  </Html>
+	<Html>
+		<AxisX />
+	</Html>
 	<Svg overflow="hidden">
-    <LineThatOverflows/>
-  </Svg>
+		<LineThatOverflows />
+	</Svg>
 </LayerCake>
 ```
 
 ### viewBox `string`
 
-For Svg components, this defaults to `''` and for ScaledSvg it defaults to `0 0 100 100`.
+For Svg components, this is `undefined` by default. For ScaledSvg it defaults to `0 0 100 ${100 / fixedAspectRatio}`, which is `0 0 100 100` with the default [fixedAspectRatio](/guide#fixedaspectratio) of `1`.
 
 ```svelte
 <LayerCake ...>

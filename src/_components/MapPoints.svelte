@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
+	Generates SVG dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
 	import { getContext } from 'svelte';
@@ -19,7 +19,7 @@
 	 * @property {string} [stroke='#000'] - The point's stroke color.
 	 * @property {number} [strokeWidth=1] - The point's stroke width.
 	 * @property {number} [opacity=1] - The point's opacity.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `$data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
 	/** @type {Props} */

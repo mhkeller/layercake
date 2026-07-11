@@ -80,7 +80,12 @@ export async function GET({ params }) {
 		.replace('<!--', '')
 		.replace('-->', '')
 		.split('@component')[1];
-	const jsdocPropertyMatches = fromMain.matchAll(/(@property [^\n]*)/gm);
+	// Only read `@property` lines from the `Props` typedef comment block so that
+	// fields of other typedefs (annotation configs, arrow configs etc...) don't
+	// show up as component props
+	const commentBlocks = fromMain.match(/\/\*\*[^]*?\*\//g) || [];
+	const propsBlock = commentBlocks.find(block => block.includes('@typedef {Object} Props')) || '';
+	const jsdocPropertyMatches = propsBlock.matchAll(/(@property [^\n]*)/gm);
 	const propertiesDefaultValues = fromMain.match(/let\s+\{([\s\S]*?)\} = \$props/m);
 	let defaultValues = {};
 	if (propertiesDefaultValues) {

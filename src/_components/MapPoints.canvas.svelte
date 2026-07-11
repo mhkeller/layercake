@@ -3,7 +3,8 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext, onMount, untrack } from 'svelte';
+	import { getContext, onMount } from 'svelte';
+	import { get } from 'svelte/store';
 	import { scaleCanvas } from 'layercake';
 
 	const { data, width, height } = getContext('LayerCake');
@@ -30,33 +31,36 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
-
-	let featuresToDraw = $derived(features || $data.features);
 	onMount(() => {
-		$effect(() => {
-			if ($width && $height) {
-				untrack(() => {
-					if (!$ctx) return;
+		function draw() {
+			const w = get(width);
+			const h = get(height);
+			const context = get(ctx);
+			if (!w || !h || !context) return;
 
-					scaleCanvas($ctx, $width, $height);
-					$ctx.clearRect(0, 0, $width, $height);
+			const chartData = get(data);
+			const projectionFn = projection().fitSize([w, h], chartData);
+			const featuresToDraw = features || chartData.features;
 
-					// To scale the circle by size, set width and height to `$rGet(d.properties)`
-					featuresToDraw.forEach(
-						/** @param {any} d */ d => {
-							$ctx.beginPath();
-							const coordinates = projectionFn(d.geometry.coordinates);
-							$ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
-							$ctx.fillStyle = fill;
-							$ctx.fill();
-							$ctx.lineWidth = strokeWidth;
-							$ctx.strokeStyle = stroke;
-							$ctx.stroke();
-						}
-					);
-				});
-			}
-		});
+			scaleCanvas(context, w, h);
+			context.clearRect(0, 0, w, h);
+
+			// To scale the circle by size, set width and height to `$rGet(d.properties)`
+			featuresToDraw.forEach(
+				/** @param {any} d */ d => {
+					context.beginPath();
+					const coordinates = projectionFn(d.geometry.coordinates);
+					context.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
+					context.fillStyle = fill;
+					context.fill();
+					context.lineWidth = strokeWidth;
+					context.strokeStyle = stroke;
+					context.stroke();
+				}
+			);
+		}
+
+		const unsubs = [width, height, ctx, data].map(store => store.subscribe(draw));
+		return () => unsubs.forEach(unsub => unsub());
 	});
 </script>

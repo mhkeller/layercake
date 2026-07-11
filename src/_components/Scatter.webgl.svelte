@@ -4,7 +4,8 @@
  -->
 <script>
 	import reglWrapper from 'regl';
-	import { getContext, onMount, untrack } from 'svelte';
+	import { getContext, onMount } from 'svelte';
+	import { get } from 'svelte/store';
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
@@ -33,40 +34,47 @@
 	const { gl } = getContext('gl');
 
 	function resize() {
-		if ($gl) {
-			const canvas = $gl.canvas;
-			// Lookup the size the browser is displaying the canvas.
-			const displayWidth = canvas.clientWidth;
-			const displayHeight = canvas.clientHeight;
+		const context = get(gl);
+		if (!context) return;
 
-			// Check if the canvas is not the same size.
-			if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
-				// Make the canvas the same size
-				canvas.width = displayWidth;
-				canvas.height = displayHeight;
-			}
-			$gl.viewport(0, 0, canvas.width, canvas.height);
+		const canvas = context.canvas;
+		// Lookup the size the browser is displaying the canvas.
+		const displayWidth = canvas.clientWidth;
+		const displayHeight = canvas.clientHeight;
+
+		// Check if the canvas is not the same size.
+		if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+			// Make the canvas the same size
+			canvas.width = displayWidth;
+			canvas.height = displayHeight;
 		}
+		context.viewport(0, 0, canvas.width, canvas.height);
 	}
 
 	let regl;
 
 	function render() {
-		if ($gl) {
-			regl = reglWrapper({
-				gl: $gl,
-				extensions: ['oes_standard_derivatives']
-			});
+		const context = get(gl);
+		if (!context) return;
 
-			regl.clear({
-				color: [0, 0, 0, 0],
-				depth: 1
-			});
+		const x = get(xGet);
+		const y = get(yGet);
+		const points = get(data);
 
-			const draw = regl({
-				// circle code comes from:
-				// https://www.desultoryquest.com/blog/drawing-anti-aliased-circular-points-using-opengl-slash-webgl/
-				frag: `
+		regl = reglWrapper({
+			gl: context,
+			extensions: ['oes_standard_derivatives']
+		});
+
+		regl.clear({
+			color: [0, 0, 0, 0],
+			depth: 1
+		});
+
+		const draw = regl({
+			// circle code comes from:
+			// https://www.desultoryquest.com/blog/drawing-anti-aliased-circular-points-using-opengl-slash-webgl/
+			frag: `
 				#extension GL_OES_standard_derivatives : enable
 				precision mediump float;
 				uniform vec3 fill_color;
@@ -89,7 +97,7 @@
 					gl_FragColor = vec4( mix(stroke_color, fill_color, stroke), 1.0 ) * alpha;
 					gl_FragColor.rgb *= gl_FragColor.a;
 				}`,
-				vert: `
+			vert: `
 				precision mediump float;
 				attribute vec2 position;
 				attribute float r;
@@ -118,71 +126,72 @@
 					gl_Position = vec4(normalizeCoords(position), 0.0, 1.0);
 				}`,
 
-				attributes: {
-					/**
-					 * @param {any} context
-					 * @param {{ points: Array<any>, pointWidth?: number }} props
-					 */
-					// There will be a position value for each point
-					// we pass in
-					position: (context, props) => {
-						return props.points.map(point => {
-							return [$xGet(point), $yGet(point)];
-						});
-					},
-					r: (context, props) => {
-						// const m = window.devicePixelRatio > 1 ? 4.0 : 2.0
-						// If using an r-scale, set width here
-						return props.points.map(p => props.pointWidth);
-					},
-					stroke_size: (context, props) => {
-						// If using an r-scale, set that here
-						return props.points.map(p => 0);
-					}
+			attributes: {
+				/**
+				 * @param {any} context
+				 * @param {{ points: Array<any>, pointWidth?: number }} props
+				 */
+				// There will be a position value for each point
+				// we pass in
+				position: (context, props) => {
+					return props.points.map(point => {
+						return [x(point), y(point)];
+					});
 				},
-				uniforms: {
-					fill_color: hexToRgbPercent(fill),
-					// stroke_color: [0.6705882352941176, 0, 0.8392156862745098],
-					stroke_color: hexToRgbPercent(stroke),
-					// FYI: there is a helper method for grabbing
-					// values out of the context as well.
-					// These uniforms are used in our fragment shader to
-					// convert our x / y values to WebGL coordinate space.
-					stage_width: regl.context('drawingBufferWidth'),
-					stage_height: regl.context('drawingBufferHeight')
+				r: (context, props) => {
+					// const m = window.devicePixelRatio > 1 ? 4.0 : 2.0
+					// If using an r-scale, set width here
+					return props.points.map(p => props.pointWidth);
 				},
-				count: (context, props) => {
-					// set the count based on the number of points we have
-					return props.points.length;
-				},
-				primitive: 'points',
-				blend: {
-					enable: true,
-					func: {
-						srcRGB: 'src alpha',
-						srcAlpha: 'src alpha',
-						dstRGB: 'one minus src alpha',
-						dstAlpha: 'one minus src alpha'
-					}
-				},
-				depth: { enable: false }
-			});
+				stroke_size: (context, props) => {
+					// If using an r-scale, set that here
+					return props.points.map(p => 0);
+				}
+			},
+			uniforms: {
+				fill_color: hexToRgbPercent(fill),
+				// stroke_color: [0.6705882352941176, 0, 0.8392156862745098],
+				stroke_color: hexToRgbPercent(stroke),
+				// FYI: there is a helper method for grabbing
+				// values out of the context as well.
+				// These uniforms are used in our fragment shader to
+				// convert our x / y values to WebGL coordinate space.
+				stage_width: regl.context('drawingBufferWidth'),
+				stage_height: regl.context('drawingBufferHeight')
+			},
+			count: (context, props) => {
+				// set the count based on the number of points we have
+				return props.points.length;
+			},
+			primitive: 'points',
+			blend: {
+				enable: true,
+				func: {
+					srcRGB: 'src alpha',
+					srcAlpha: 'src alpha',
+					dstRGB: 'one minus src alpha',
+					dstAlpha: 'one minus src alpha'
+				}
+			},
+			depth: { enable: false }
+		});
 
-			draw({
-				pointWidth: r * 2,
-				points: $data
-			});
-		}
+		draw({
+			pointWidth: r * 2,
+			points
+		});
 	}
 
 	onMount(() => {
-		$effect(() => {
-			if ($width && $height) {
-				untrack(() => {
-					resize();
-					render();
-				});
-			}
-		});
+		function redraw() {
+			if (!get(width) || !get(height) || !get(gl)) return;
+			resize();
+			render();
+		}
+
+		const unsubs = [width, height, gl, xGet, yGet, data].map(store =>
+			store.subscribe(redraw)
+		);
+		return () => unsubs.forEach(unsub => unsub());
 	});
 </script>

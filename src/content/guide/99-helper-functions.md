@@ -412,7 +412,8 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 ```svelte
 <!-- { filename: 'Scatter.html' } -->
 <script>
-	import { getContext, onMount, untrack } from 'svelte';
+	import { getContext, onMount } from 'svelte';
+	import { get } from 'svelte/store';
 	import { scaleCanvas } from 'layercake';
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
@@ -422,35 +423,39 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
 	onMount(() => {
-		$effect(() => {
-			if ($width && $height) {
-				untrack(() => {
-					if (!$ctx) return;
+		function draw() {
+			const w = get(width);
+			const h = get(height);
+			const context = get(ctx);
+			if (!w || !h || !context) return;
 
-					/**
-					 * If you were to have multiple canvas layers
-					 * maybe for some artistic layering purposes
-					 * put these reset functions in the first layer, not each one
-					 * since they should only run once per update
-					 */
-					scaleCanvas($ctx, $width, $height);
-					$ctx.clearRect(0, 0, $width, $height);
+			/**
+			 * If you were to have multiple canvas layers
+			 * maybe for some artistic layering purposes
+			 * put these reset functions in the first layer, not each one
+			 * since they should only run once per update
+			 */
+			scaleCanvas(context, w, h);
+			context.clearRect(0, 0, w, h);
 
-					/**
-					 * Draw our scatterplot
-					 */
-					$data.forEach((/** @type {any} d */ d) => {
-						$ctx.beginPath();
-						$ctx.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
-						$ctx.lineWidth = strokeWidth;
-						$ctx.strokeStyle = stroke;
-						$ctx.stroke();
-						$ctx.fillStyle = fill;
-						$ctx.fill();
-					});
-				});
-			}
-		});
+			/**
+			 * Draw our scatterplot
+			 */
+			get(data).forEach((/** @type {any} d */ d) => {
+				context.beginPath();
+				context.arc(get(xGet)(d), get(yGet)(d), r, 0, 2 * Math.PI, false);
+				context.lineWidth = strokeWidth;
+				context.strokeStyle = stroke;
+				context.stroke();
+				context.fillStyle = fill;
+				context.fill();
+			});
+		}
+
+		const unsubs = [width, height, ctx, xGet, yGet, data].map(store =>
+			store.subscribe(draw)
+		);
+		return () => unsubs.forEach(unsub => unsub());
 	});
 </script>
 ```

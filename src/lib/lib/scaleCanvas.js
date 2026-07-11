@@ -7,13 +7,19 @@
 */
 export default function (ctx, width, height) {
 	const dpr = window.devicePixelRatio || 1;
+	const bufferWidth = width * dpr;
+	const bufferHeight = height * dpr;
 
-	ctx.canvas.width = width * dpr;
-	ctx.canvas.height = height * dpr;
+	// Setting canvas.width clears the buffer and resets the transform, so skip if unchanged
+	if (ctx.canvas.width === bufferWidth && ctx.canvas.height === bufferHeight) {
+		return { width: bufferWidth, height: bufferHeight };
+	}
 
+	ctx.canvas.width = bufferWidth;
+	ctx.canvas.height = bufferHeight;
 	ctx.canvas.style.width = `${width}px`;
 	ctx.canvas.style.height = `${height}px`;
-
 	ctx.scale(dpr, dpr);
-	return { width: ctx.canvas.width, height: ctx.canvas.height };
+
+	return { width: bufferWidth, height: bufferHeight };
 }

@@ -28,7 +28,7 @@ It's helpful if you're trying to track down why a chart is not displaying correc
 
 ### TypeScript
 
-Layer Cake suggests using TypeScript 5 and, [per the SvelteKit docs](https://kit.svelte.dev/docs/packaging#typescript), setting the `moduleResolution` option to `bundler`.
+If you're using TypeScript, set the `moduleResolution` option in your `tsconfig.json` to `bundler`, [per the SvelteKit docs](https://svelte.dev/docs/kit/packaging#TypeScript).
 
 ### The chart is blank
 

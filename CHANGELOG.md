@@ -1,5 +1,13 @@
 # Changelog
 
+# 10.0.3
+
+> 2026-07-11
+
+Upgrade deps and GH actions. Fixes to docs and type annotations.
+  - [PR#413](https://github.com/mhkeller/layercake/pull/413)
+  - [PR#414](https://github.com/mhkeller/layercake/pull/414)
+
 # 10.0.2
 
 > 2025-09-23

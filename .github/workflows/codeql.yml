@@ -16,12 +16,14 @@ on:
     branches: ['main']
   pull_request:
     branches: ['main']
+    types: [opened, synchronize, reopened, ready_for_review]
   schedule:
     - cron: '43 12 * * 4'
 
 jobs:
   analyze:
     name: Analyze
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     # Runner size impacts CodeQL analysis time. To learn more, please see:
     #   - https://gh.io/recommended-hardware-resources-for-running-codeql
     #   - https://gh.io/supported-runners-and-hardware-resources

@@ -1,6 +1,3 @@
-/** @type {WeakMap<HTMLCanvasElement, {bufferWidth: number, bufferHeight: number, dpr: number}>} */
-const applied = new WeakMap();
-
 /**
 	Scales a canvas. From Paul Lewis: http://www.html5rocks.com/en/tutorials/canvas/hidpi/
 	@param {CanvasRenderingContext2D} ctx A canvas context.
@@ -13,27 +10,17 @@ export default function (ctx, width, height) {
 	const bufferWidth = Math.round(width * dpr);
 	const bufferHeight = Math.round(height * dpr);
 
-	// Setting canvas.width clears the buffer and resets the transform, so skip
-	// if we already applied these exact dimensions and nothing external reset them
-	const prev = applied.get(ctx.canvas);
-	if (
-		prev &&
-		prev.bufferWidth === bufferWidth &&
-		prev.bufferHeight === bufferHeight &&
-		prev.dpr === dpr &&
-		ctx.canvas.width === bufferWidth &&
-		ctx.canvas.height === bufferHeight
-	) {
-		return { width: bufferWidth, height: bufferHeight };
+	// Setting canvas.width clears the buffer, so only resize when needed
+	if (ctx.canvas.width !== bufferWidth || ctx.canvas.height !== bufferHeight) {
+		ctx.canvas.width = bufferWidth;
+		ctx.canvas.height = bufferHeight;
 	}
 
-	ctx.canvas.width = bufferWidth;
-	ctx.canvas.height = bufferHeight;
+	// Setting the style and transform is cheap and doesn't clear the buffer,
+	// so always normalize them to the current size and device pixel ratio
 	ctx.canvas.style.width = `${width}px`;
 	ctx.canvas.style.height = `${height}px`;
-	ctx.scale(dpr, dpr);
-
-	applied.set(ctx.canvas, { bufferWidth, bufferHeight, dpr });
+	ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
 	return { width: bufferWidth, height: bufferHeight };
 }

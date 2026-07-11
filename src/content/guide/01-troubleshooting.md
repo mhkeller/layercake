@@ -24,11 +24,11 @@ This will print:
    3. The `domain`
    4. The `range`
 
-It's helpful if you're trying to track down why a chart is not display correctly, which comes down to CSS not being set on the parent chart container or weird data issues (`undefined`, `NaN` values etc...) that are throwing off the extent calculation for the `domain`.
+It's helpful if you're trying to track down why a chart is not displaying correctly, which comes down to CSS not being set on the parent chart container or weird data issues (`undefined`, `NaN` values etc...) that are throwing off the extent calculation for the `domain`.
 
 ### TypeScript
 
-Layer Cake suggests using TypeScript 5 and, [per the SvelteKit docs](https://kit.svelte.dev/docs/packaging#typescript), suggests you set the `moduleResolution` option to `bundler`. See the SvelteKit docs [for more info](https://kit.svelte.dev/docs/packaging#typescript).
+Layer Cake suggests using TypeScript 5 and, [per the SvelteKit docs](https://kit.svelte.dev/docs/packaging#typescript), setting the `moduleResolution` option to `bundler`.
 
 ### The chart is blank
 
@@ -50,8 +50,8 @@ For example:
 
 ```svelte
 <script>
-	import LayerCake from './layercake/src/LayerCake.svelte';
-	import Svg from './layercake/src/layouts/Svg.svelte';
+	import LayerCake from './layercake/src/lib/LayerCake.svelte';
+	import Svg from './layercake/src/lib/layouts/Svg.svelte';
 	// etc...
 </script>
 ```

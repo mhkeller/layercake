@@ -6,13 +6,13 @@ title: Introduction
 
 Layer Cake is a headless graphics framework for [Svelte](https://svelte.dev) that removes the boilerplate from making responsive web graphics. It gives you common elements, like a coordinate system and scales, for you to start creating your own dataviz layers, like axes, plots and annotations.
 
-Layer Cake is described as a "headless" framework and not a library because unlike Vega or HighCharts, it doesn't automatically create, for example, a scatter chart for you. Instead, it gives you the scales and the DOM element to encode chart elements from your data and lets you decide what shapes and visuals to build with those pieces.
+Layer Cake is described as a "headless" framework and not a library because unlike Vega or Highcharts, it doesn't automatically create, for example, a scatter chart for you. Instead, it gives you the scales and the DOM element to encode chart elements from your data and lets you decide what shapes and visuals to build with those pieces.
 
-The reason for this design is that most chart ends up needing some customization in one way or another. Other libraries handle customization usually by creating a complex JSON specification but learning that is a big investment and can be another layer of abstraction to take into account.
+The reason for this design is that most charts end up needing some customization in one way or another. Other libraries handle customization usually by creating a complex JSON specification but learning that is a big investment and can be another layer of abstraction to take into account.
 
 The idea behind a Layer Cake chart is you can start from a basic scatter, line or bar chart template and – because those chart layers live in your project – you can customize them however you want.
 
-By organizing a graphic into layers, you can more easily reuse components from project to project. It also lets you easily move between web languages (SVG, Canvas, HTML, WebGL) by giving you a common coordinate system they can all use. That way, you can choose the best format for each element without worrying superimposing different elements on top of one another.
+By organizing a graphic into layers, you can more easily reuse components from project to project. It also lets you easily move between web languages (SVG, Canvas, HTML, WebGL) by giving you a common coordinate system they can all use. That way, you can choose the best format for each element without worrying about superimposing different elements on top of one another.
 
 Layer Cake is more about having a system to organize your own custom components than it is a high-level charting library.
 
@@ -139,11 +139,11 @@ Within the `LayerCake` component, you'll want to add at least one layout compone
 </style>
 ```
 
-> Layout components have a few their own properties that let you customize behavior. Read more in the [Layout Components](guide#layout-components) section.
+> Layout components have a few of their own properties that let you customize behavior. Read more in the [Layout Components](/guide#layout-components) section.
 
 ### Layer components
 
-The only components the Layer Cake module exports are `LayerCake` and those layout components, everything else that actually draws your chart is up to you to create. Inside those layer components you can access the scales and other values derived from your data. You do this with Svelte's [`getContext`](https://svelte.dev/docs#getContext) function.
+The only components the Layer Cake module exports are `LayerCake` and those layout components, everything else that actually draws your chart is up to you to create. Inside those layer components you can access the scales and other values derived from your data. You do this with Svelte's [`getContext`](https://svelte.dev/docs/svelte/svelte#getContext) function.
 
 Here's an example starting with a similar `App.svelte` file to the example above. We're creating a scatter chart in SVG.
 
@@ -197,7 +197,7 @@ This is what the scatter component looks like:
 	// Grab some helpful functions
 	const { data, x, xScale, y, yScale } = getContext('LayerCake');
 
-  let {fill = '#000', r = 5} = $props();
+	let { fill = '#000', r = 5 } = $props();
 </script>
 
 <g>
@@ -211,7 +211,7 @@ This is what the scatter component looks like:
 
 A few notes on this component:
 
-1. Everything that you export from `getContext('LayerCake')` is a [Svelte store](https://svelte.dev/docs#svelte_store) so prefix them with `$` in the template.
+1. Everything that you destructure from `getContext('LayerCake')` is a [Svelte store](https://svelte.dev/docs/svelte/stores) so prefix them with `$` in the template.
 2. This example is a bit verbose because we're calling our accessor functions and then our scale functions. You can combine these two steps with the built-in `xGet` and `yGet` functions. Like so:
 
 ```svelte
@@ -225,7 +225,7 @@ A few notes on this component:
 	const { data, xGet, yGet } = getContext('LayerCake');
 
 	// Customizable defaults
-	 let {fill = '#000', r = 5} = $props();
+	let { fill = '#000', r = 5 } = $props();
 </script>
 
 <g>
@@ -244,7 +244,7 @@ You can also use Layer Cake to simply arrange SVG, HTML, Canvas and WebGL elemen
 Here's an example that doesn't set any properties on the `LayerCake` component:
 
 ```svelte
-<!-- { filename: 'App.Svelte' } -->
+<!-- { filename: 'App.svelte' } -->
 <script>
 	import { LayerCake, Svg, Html } from 'layercake';
 	import Frame from './components/Frame.svelte';

@@ -4,11 +4,11 @@ title: Helper functions
 
 Layer Cake exposes some commonly-used helper functions. If you don't use them, they will be tree-shaken so there's no added bloat!
 
-### bin(data: `Array`[, accessor: `string|Function`, { domain: `Array`, thresholds: `Array` }])
+### bin(data: `Array`[, value: `string|Function`, { domain: `Array`, thresholds: `number|Array|Function` }])
 
 This is a wrapper around the `bin` function in [d3-array](https://github.com/d3/d3-array#bins). It's useful for histograms.
 
-The component has the following props:
+The function takes the following arguments:
 
 - **data** `Array|Object`
   - The data to be binned.
@@ -19,7 +19,7 @@ The component has the following props:
 - **thresholds** `number|Array|Function`
   - Optional. The thresholds passed to [`bin.thresholds()`](https://github.com/d3/d3-array#bin_thresholds). Optional. Can be a number, array or function.
 
-See the [stacked bar chart](/example/BarStacked) for an example:
+See the [histogram](/example/Histogram) for an example:
 
 ```js
 import { bin } from 'layercake';
@@ -96,98 +96,9 @@ console.log(extents);
 */
 ```
 
-### calcUniques(flatData: `Array`, fields: `{x?: Function, y?: Function, z?: Function, r?: Function}`[, sortOptions: { sort: `boolean`, x: `boolean`, y: `boolean`, z: `boolean`, r: `boolean` }])
-
-The same API and behavior as `calcExtents` but instead of a two-value array of `[min, max]` values, it returns an array of unique items.
-
-By default, it returns the values in the order they appear in the data. Optionally pass in `sort: true` in the third options argument to do a `.sort(d3.ascending)`. (See [d3-array sort ascending](https://d3js.org/d3-array/sort#ascending) for details on the sort.)
-
-You can also specify sorts on a per-field basis by passing in booleans for specific keys that appear in your `fields` object such as `{ x: true }`.
-
-```js
-const uniques = calcUniques(flatData, {
-	x: d => d.myX,
-	y: d => d.myY
-});
-
-console.log(uniques);
-/*
-{
-  x: [0, 85, 123, 43, 10],
-  y: ['group-3', 'group-2', 'group-1']
-}
-*/
-```
-
-Sort all fields:
-
-```js
-const uniques = calcUniques(
-	flatData,
-	{
-		x: d => d.myX,
-		y: d => d.myY
-	},
-	{ sort: true }
-);
-
-console.log(uniques);
-/*
-{
-  x: [0, 10, 43, 85, 123],
-  y: ['group-1', 'group-2', 'group-3']
-}
-*/
-```
-
-Sort only the x field:
-
-```js
-const uniques = calcUniques(
-	flatData,
-	{
-		x: d => d.myX,
-		y: d => d.myY
-	},
-	{ x: true }
-);
-
-console.log(uniques);
-/*
-{
-  x: [0, 10, 43, 85, 123],
-  y: ['group-3', 'group-2', 'group-1']
-}
-*/
-```
-
-The accessor functions can also return an array. This is useful if you want to scan multiple keys per object:
-
-```js
-const timeData = [
-	{ teamCity: 'New York', backupCity: 'Los Angeles' },
-	{ teamCity: 'Chicago', backupCity: 'Seattle' }
-];
-
-const uniques = calcUniques(
-	timeData,
-	{
-		y: d => [d.teamCity, d.backupCity]
-	},
-	{ sort: true }
-);
-
-console.log(uniques);
-/*
-{
-  y: ['Chicago', 'Los Angeles', 'New York', 'Seattle']
-}
-*/
-```
-
 ### flatten(data: `Array`[, accessor: `string|Function`])
 
-Flatten an array one-level down. Handy for preparing data from stacked layouts whose extents can easily be calculated. This is equivalent to `Array.prototype.flat()` but is kept in for old versions of node that support that or other browser compatibility.
+Flatten an array one-level down. Handy for preparing data from stacked layouts whose extents can easily be calculated. This is equivalent to `Array.prototype.flat()` but is kept in for old versions of node that don't support that method or for other browser compatibility.
 
 In a typical scenario, the data:
 
@@ -223,7 +134,7 @@ const flatData = flatten(data);
 
 You can also pass an optional accessor function if the arrays live on some other key. The accessor can also be the string name of the key.
 
-For example, if you're using the [`GroupLonger.svelte`](#grouplonger) transform component like in the [MultiLine example](/example/MultiLine), that component will generally output data like the following and you can transform it by passing an accessor:
+For example, if you're using the [`groupLonger`](/guide#grouplonger) helper like in the [MultiLine example](/example/MultiLine), that function will generally output data like the following and you can transform it by passing an accessor:
 
 Flatten it like this:
 
@@ -372,15 +283,15 @@ const groupData = groupLonger(data, ['apples', 'bananas', 'cherries', 'dates']);
 ];
 ```
 
-The component has the following props:
+The function takes the following arguments:
 
 - **data** `Array|Object`
   - The data to be transformed.
 - **keys** `string[]`
-  - The series names to break out out into separate groups.
+  - The series names to break out into separate groups.
 - **options** `Object` Options object
 - **options.groupTo** `string='group'`
-  - Optional. This name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
+  - Optional. The name of the field that is added to each group object. Defaults to 'group'. This field is also added to each row of data.
 - **options.valueTo** `string='value'`
   - Optional. The name of the new field on each row of data to store the value under. Defaults to 'value'.
 - **options.keepKeys** `string[]`
@@ -391,7 +302,7 @@ It returns:
 - **groupData** `Array`
   - The transformed data.
 
-See the example on the [multline chart](/example/MultiLine)
+See the example on the [MultiLine chart](/example/MultiLine).
 
 ### raise(el: `DOM Element`)
 
@@ -410,7 +321,7 @@ Scale your canvas size to retina screens. This function will modify the canvas, 
 Such as in the [Scatter canvas](/example/Scatter) example:
 
 ```svelte
-<!-- { filename: 'Scatter.html' } -->
+<!-- { filename: 'ScatterCanvas.svelte' } -->
 <script>
 	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
@@ -453,11 +364,11 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 </script>
 ```
 
-### stack(data: `Array|Object`[, keys: `string[]`, { domain: `Array`, thresholds: `Array` }])
+### stack(data: `Array|Object`[, keys: `string[]`, { value: `string|Function`, order: `Array|Function`, offset: `Array|Function` }])
 
 This function is a wrapper around the `stack` function in [d3-shape](https://github.com/d3/d3-shape#stacks).
 
-The component has the following props:
+The function takes the following arguments:
 
 - **data** `Array|Object`
   - The data to be stacked.
@@ -471,19 +382,20 @@ The component has the following props:
 - **options.offset** `Array|Function`
   - Optional. The offset function passed to [`stack.offset()`](https://github.com/d3/d3-shape#stack_offset).
 
-It returns as slot props:
+It returns:
 
 - **stackData** `Array`
   - The transformed data.
 
 See the example on the [stacked area chart](/example/AreaStacked)
 
+<!-- prettier-ignore -->
 ```js
 import { stack } from 'layercake';
 
 // Input data
 const data = [
-  {month: '2015-01-01', apples: 320,  bananas: 480,  cherries: 640, dates: 400}
+  {month: '2015-01-01', apples: 320,  bananas: 480,  cherries: 640, dates: 400},
   {month: '2015-02-01', apples: 640,  bananas: 960,  cherries: 740, dates: 500},
   {month: '2015-03-01', apples: 1600, bananas: 1440, cherries: 920, dates: 600},
   {month: '2015-04-01', apples: 3840, bananas: 1920, cherries: 960, dates: 700},
@@ -492,13 +404,29 @@ const data = [
 // Usage
 stack(data, ['apples', 'bananas', 'cherries', 'dates'])
 
-// Output data. The `month` values you can't see because sneakily stashes them as a property on the array, accessible as `d.data`.
+// Output data. The `month` values you can't see because `d3.stack()` sneakily stashes them as a property on the array, accessible as `d.data`.
 [
   [ [   0, 320],  [   0,  640], [   0, 1600], [   0, 3840] ], // apples
   [ [ 320, 800],  [ 640, 1600], [1600, 3040], [3840, 5760] ], // bananas
   [ [ 800, 1440], [1600, 2340], [3040, 3960], [5760, 6720] ], // cherries
   [ [1440, 1840], [2340, 2840], [3960, 4560], [6720, 7420] ]  // dates
 ]
+```
+
+### takeEvery(list: `Array`, n: `number`)
+
+Thin a list down to approximately `n` evenly-spaced items, always keeping the first one. If the list already has `n` or fewer items, it is returned unchanged. Useful for slimming down a dense list of axis ticks or labels.
+
+```js
+import { takeEvery } from 'layercake';
+
+const list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+takeEvery(list, 5);
+// [0, 2, 4, 6, 8]
+
+takeEvery(list, 3);
+// [0, 3, 6, 9]
 ```
 
 ### uniques(data: `Array`[, accessor: `string|Function`, transform: `boolean=true`])
@@ -521,19 +449,20 @@ const data = [
 	{ year: '1993', x: 3, y: 2 }
 ];
 
-const uniqueYears = unique(data, 'year');
+const uniqueYears = uniques(data, 'year');
 // ['1990', '1991', '1992', '1993']
 
 // this is equivalent to
-const uniqueYears = unique(data, d => d.year);
+const uniqueYears = uniques(data, d => d.year);
 
 // setting transform to `false` gives you the full row of the first unique element
-const uniqueYears = unique(data, 'year', false);
+const uniqueYears = uniques(data, 'year', false);
 /*
 [
   {year: '1990', x: 0, y: 1},
   {year: '1991', x: 2, y: 5},
   {year: '1992', x: 1, y: 6},
   {year: '1993', x: 7, y: 8}
+]
 */
 ```

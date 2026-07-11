@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates a voronoi layer using [d3-delauney](https://github.com/d3/d3-delauney).
+	Generates a Voronoi layer using [d3-delaunay](https://github.com/d3/d3-delaunay).
  -->
 <script>
 	import { getContext } from 'svelte';

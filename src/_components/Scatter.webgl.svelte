@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates a a WebGl scatter plot.
+	Generates a WebGL scatter plot.
  -->
 <script>
 	import reglWrapper from 'regl';

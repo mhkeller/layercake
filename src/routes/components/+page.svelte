@@ -123,14 +123,15 @@
 				href="/components/Scatter.svg.svelte"
 				target="_blank">Scatter</a
 			>
-			components support both linear and ordinal scales so you can use them in configurations like a
-			regular <a href="/example/Scatter" target="_blank">Scatter plot</a> but also charts like the
+			components support both linear and ordinal scales so you can use them in configurations like a regular
+			<a href="/example/Scatter" target="_blank">Scatter plot</a>
+			but also charts like the
 			<a href="/example/Timeplot" target="_blank">Time of Day</a> plot where the y-scale is made up of
 			groups.
 		</p>
 
 		<p>
-			Some componens have HTML, SVG and Canvas versions and those marked as <span
+			Some components have HTML, SVG and Canvas versions and those marked as <span
 				class="label percent-range">%-range</span
 			>
 			are optimized to be used server-side with the
@@ -344,7 +345,7 @@
 	}
 
 	.component-block a:hover {
-		color: underline;
+		text-decoration: underline;
 		color: #ff3e00;
 	}
 

@@ -6,11 +6,11 @@ Layer Cake comes with layout components that provide HTML, Svg, ScaledSvg, Canva
 
 You must wrap your chart components in these layout components for them to appear properly scaled. For Html and Svg components, they create a `<div>` and `<svg>`, respectively.
 
-The Canvas and WebGL layout components also create canvas contexts that are then available on the LayerCake context object.
+The Canvas and WebGL layout components also create rendering contexts that are made available to your layer components on their own Svelte contexts, under the `'canvas'` and `'gl'` keys, respectively. See the [Canvas](/guide#canvas) and [WebGL](/guide#webgl) sections below for details.
 
 Each of these components also takes props. See the next section [Layout component props](/guide#layout-component-props) for more info.
 
-Here are the four layout components: HTML, Svg, ScaledSvg, Canvas and WebGL containers.
+Here are the five layout components: Html, Svg, ScaledSvg, Canvas and WebGL containers.
 
 ### Html
 
@@ -73,34 +73,44 @@ The SVG layout component also accepts a `viewBox` prop. See the [Layout componen
 </style>
 ```
 
-This component also has a [named snippet](https://svelte.dev/docs/svelte/snippet) for adding elements into the SVG `<defs>` field but due to [an issue with Svelte](https://github.com/sveltejs/svelte/issues/7807) sometimes adding SVG nodes as HTML elements, this may not work. As an alternative, you can also simply add a `<defs>` tag:
+This component also has a named `defs` [snippet](https://svelte.dev/docs/svelte/snippet) for adding elements into the SVG `<defs>` field but due to [an issue with Svelte](https://github.com/sveltejs/svelte/issues/7807) sometimes adding SVG nodes as HTML elements, this may not work. If you use it, add the `xmlns` attribute on the top-level element inside the snippet:
 
 ```svelte
 <div class="chart-container">
 	<LayerCake ...>
 		<Svg>
-			<!-- Simply add a defs tag here-->
+			{#snippet defs()}
+				<linearGradient
+					id="myGradient"
+					gradientTransform="rotate(90)"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<stop offset="20%" stop-color="gold" />
+					<stop offset="90%" stop-color="red" />
+				</linearGradient>
+			{/snippet}
+
+			<!-- Components go here -->
+		</Svg>
+	</LayerCake>
+</div>
+```
+
+As an alternative, you can also simply add a `<defs>` tag yourself:
+
+```svelte
+<div class="chart-container">
+	<LayerCake ...>
+		<Svg>
 			<defs>
 				<linearGradient id="myGradient" gradientTransform="rotate(90)">
 					<stop offset="20%" stop-color="gold" />
 					<stop offset="90%" stop-color="red" />
 				</linearGradient>
-				<defs>
-					<!-- If you want to use the named slot,
-        add the xmlns attribute on the `<linearGradient>` element -->
-					<svelte:fragment slot="defs">
-						<linearGradient
-							id="myGradient"
-							gradientTransform="rotate(90)"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<stop offset="20%" stop-color="gold" />
-							<stop offset="90%" stop-color="red" />
-						</linearGradient>
-					</svelte:fragment>
-				</defs></defs
-			></Svg
-		>
+			</defs>
+
+			<!-- Components go here -->
+		</Svg>
 	</LayerCake>
 </div>
 ```
@@ -141,7 +151,7 @@ The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. 
 </style>
 ```
 
-This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field. See [the Svg layout component section above](/guide#svg) for a note about how to use this and a workaround for a Svelte issue where elements are not always recognized.
+This component also has a named `defs` [snippet](https://svelte.dev/docs/svelte/snippet) for adding elements into the SVG `<defs>` field. See [the Svg layout component section above](/guide#svg) for a note about how to use this and a workaround for a Svelte issue where elements are not always recognized.
 
 ### Canvas
 

@@ -33,10 +33,5 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-      - name: Comment Playwright report link
-        uses: thollander/actions-comment-pull-request@v3
-        if: ${{ failure() }}
-        with:
-          message: |
-            ### Playwright tests failed.
-            Download the [Playwright report](${{ steps.artifact-upload.outputs.artifact-url }}).
+      # PR comments on failure are posted by playwright-comment.yml (workflow_run),
+      # which also works for PRs from forks where this job's token is read-only

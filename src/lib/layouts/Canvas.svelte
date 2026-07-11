@@ -48,14 +48,9 @@
 			context = element.getContext('2d');
 			if (context) {
 				scaleCanvas(context, $width, $height);
+				cntxt.ctx.set(context);
 			}
 		}
-	});
-
-	$effect(() => {
-		console.log('setting context');
-
-		cntxt.ctx.set(context);
 	});
 </script>
 

@@ -4,7 +4,7 @@
  -->
 <script>
 	import reglWrapper from 'regl';
-	import { getContext, onMount, untrack } from 'svelte';
+	import { getContext, onDestroy } from 'svelte';
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
 
@@ -32,41 +32,46 @@
 
 	const { gl } = getContext('gl');
 
-	function resize() {
-		if ($gl) {
-			const canvas = $gl.canvas;
-			// Lookup the size the browser is displaying the canvas.
-			const displayWidth = canvas.clientWidth;
-			const displayHeight = canvas.clientHeight;
+	/**
+	 * @param {WebGLRenderingContext} context
+	 */
+	function resize(context) {
+		const canvas = /** @type {HTMLCanvasElement} */ (context.canvas);
+		// Lookup the size the browser is displaying the canvas.
+		const displayWidth = canvas.clientWidth;
+		const displayHeight = canvas.clientHeight;
 
-			// Check if the canvas is not the same size.
-			if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
-				// Make the canvas the same size
-				canvas.width = displayWidth;
-				canvas.height = displayHeight;
-			}
-			$gl.viewport(0, 0, canvas.width, canvas.height);
+		// Check if the canvas is not the same size.
+		if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+			// Make the canvas the same size
+			canvas.width = displayWidth;
+			canvas.height = displayHeight;
 		}
+		context.viewport(0, 0, canvas.width, canvas.height);
 	}
 
+	/** @type {import('regl').Regl|undefined} */
 	let regl;
+	/** @type {import('regl').DrawCommand|undefined} */
+	let drawPoints;
 
-	function render() {
-		if ($gl) {
-			regl = reglWrapper({
-				gl: $gl,
-				extensions: ['oes_standard_derivatives']
-			});
+	/**
+	 * Create the regl instance and compile the draw command once.
+	 * Everything that changes between frames comes in through props.
+	 * @param {WebGLRenderingContext} context
+	 */
+	function ensureRegl(context) {
+		if (regl) return;
 
-			regl.clear({
-				color: [0, 0, 0, 0],
-				depth: 1
-			});
+		regl = reglWrapper({
+			gl: context,
+			extensions: ['oes_standard_derivatives']
+		});
 
-			const draw = regl({
-				// circle code comes from:
-				// https://www.desultoryquest.com/blog/drawing-anti-aliased-circular-points-using-opengl-slash-webgl/
-				frag: `
+		drawPoints = regl({
+			// circle code comes from:
+			// https://www.desultoryquest.com/blog/drawing-anti-aliased-circular-points-using-opengl-slash-webgl/
+			frag: `
 				#extension GL_OES_standard_derivatives : enable
 				precision mediump float;
 				uniform vec3 fill_color;
@@ -89,7 +94,7 @@
 					gl_FragColor = vec4( mix(stroke_color, fill_color, stroke), 1.0 ) * alpha;
 					gl_FragColor.rgb *= gl_FragColor.a;
 				}`,
-				vert: `
+			vert: `
 				precision mediump float;
 				attribute vec2 position;
 				attribute float r;
@@ -118,71 +123,83 @@
 					gl_Position = vec4(normalizeCoords(position), 0.0, 1.0);
 				}`,
 
-				attributes: {
-					/**
-					 * @param {any} context
-					 * @param {{ points: Array<any>, pointWidth?: number }} props
-					 */
-					// There will be a position value for each point
-					// we pass in
-					position: (context, props) => {
-						return props.points.map(point => {
-							return [$xGet(point), $yGet(point)];
-						});
-					},
-					r: (context, props) => {
-						// const m = window.devicePixelRatio > 1 ? 4.0 : 2.0
-						// If using an r-scale, set width here
-						return props.points.map(p => props.pointWidth);
-					},
-					stroke_size: (context, props) => {
-						// If using an r-scale, set that here
-						return props.points.map(p => 0);
-					}
+			attributes: {
+				/**
+				 * @param {any} context
+				 * @param {{ points: Array<any>, x: Function, y: Function, pointWidth?: number, fillColor?: number[], strokeColor?: number[] }} props
+				 */
+				// There will be a position value for each point
+				// we pass in
+				position: (context, props) => {
+					return props.points.map(point => {
+						return [props.x(point), props.y(point)];
+					});
 				},
-				uniforms: {
-					fill_color: hexToRgbPercent(fill),
-					// stroke_color: [0.6705882352941176, 0, 0.8392156862745098],
-					stroke_color: hexToRgbPercent(stroke),
-					// FYI: there is a helper method for grabbing
-					// values out of the context as well.
-					// These uniforms are used in our fragment shader to
-					// convert our x / y values to WebGL coordinate space.
-					stage_width: regl.context('drawingBufferWidth'),
-					stage_height: regl.context('drawingBufferHeight')
+				r: (context, props) => {
+					// const m = window.devicePixelRatio > 1 ? 4.0 : 2.0
+					// If using an r-scale, set width here
+					return props.points.map(p => props.pointWidth);
 				},
-				count: (context, props) => {
-					// set the count based on the number of points we have
-					return props.points.length;
-				},
-				primitive: 'points',
-				blend: {
-					enable: true,
-					func: {
-						srcRGB: 'src alpha',
-						srcAlpha: 'src alpha',
-						dstRGB: 'one minus src alpha',
-						dstAlpha: 'one minus src alpha'
-					}
-				},
-				depth: { enable: false }
-			});
-
-			draw({
-				pointWidth: r * 2,
-				points: $data
-			});
-		}
+				stroke_size: (context, props) => {
+					// If using an r-scale, set that here
+					return props.points.map(p => 0);
+				}
+			},
+			uniforms: {
+				fill_color: (context, props) => props.fillColor,
+				// stroke_color: [0.6705882352941176, 0, 0.8392156862745098],
+				stroke_color: (context, props) => props.strokeColor,
+				// FYI: there is a helper method for grabbing
+				// values out of the context as well.
+				// These uniforms are used in our fragment shader to
+				// convert our x / y values to WebGL coordinate space.
+				stage_width: regl.context('drawingBufferWidth'),
+				stage_height: regl.context('drawingBufferHeight')
+			},
+			count: (context, props) => {
+				// set the count based on the number of points we have
+				return props.points.length;
+			},
+			primitive: 'points',
+			blend: {
+				enable: true,
+				func: {
+					srcRGB: 'src alpha',
+					srcAlpha: 'src alpha',
+					dstRGB: 'one minus src alpha',
+					dstAlpha: 'one minus src alpha'
+				}
+			},
+			depth: { enable: false }
+		});
 	}
 
-	onMount(() => {
-		$effect(() => {
-			if ($width && $height) {
-				untrack(() => {
-					resize();
-					render();
-				});
-			}
+	$effect(() => {
+		if (!$width || !$height || !$gl) return;
+
+		ensureRegl($gl);
+		if (!regl || !drawPoints) return;
+
+		resize($gl);
+		// Let regl pick up the new drawing buffer size
+		regl.poll();
+
+		regl.clear({
+			color: [0, 0, 0, 0],
+			depth: 1
 		});
+
+		drawPoints({
+			pointWidth: r * 2,
+			points: $data,
+			x: $xGet,
+			y: $yGet,
+			fillColor: hexToRgbPercent(fill),
+			strokeColor: hexToRgbPercent(stroke)
+		});
+	});
+
+	onDestroy(() => {
+		if (regl) regl.destroy();
 	});
 </script>

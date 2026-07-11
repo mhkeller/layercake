@@ -45,6 +45,8 @@
 		gl: writable(null)
 	};
 
+	setContext('gl', cntxt);
+
 	onMount(() => {
 		if (!element) return;
 		/* --------------------------------------------
@@ -56,15 +58,11 @@
 			if (testGl) {
 				// @ts-ignore
 				context = testGl;
+				cntxt.gl.set(context);
 				break;
 			}
 		}
 	});
-
-	$effect(() => {
-		cntxt.gl.set(context);
-	});
-	setContext('gl', cntxt);
 </script>
 
 <canvas

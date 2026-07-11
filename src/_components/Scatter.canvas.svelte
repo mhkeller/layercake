@@ -3,7 +3,7 @@
 	Generates a canvas scatter plot.
  -->
 <script>
-	import { getContext, onMount, untrack } from 'svelte';
+	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
 	const { data, xGet, yGet, width, height } = getContext('LayerCake');
@@ -21,35 +21,33 @@
 	/** @type {Props} */
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
-	onMount(() => {
-		$effect(() => {
-			if ($width && $height) {
-				untrack(() => {
-					if (!$ctx) return;
+	$effect(() => {
+		if (!$width || !$height || !$ctx) return;
 
-					/**
-					 * If you were to have multiple canvas layers
-					 * maybe for some artistic layering purposes
-					 * put these reset functions in the first layer, not each one
-					 * since they should only run once per update
-					 */
-					scaleCanvas($ctx, $width, $height);
-					$ctx.clearRect(0, 0, $width, $height);
+		// Assign to a local variable: setting properties on `$ctx` directly
+		// would re-notify the store and re-trigger this effect
+		const context = $ctx;
 
-					/**
-					 * Draw our scatterplot
-					 */
-					$data.forEach((/** @type {any} d */ d) => {
-						$ctx.beginPath();
-						$ctx.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
-						$ctx.lineWidth = strokeWidth;
-						$ctx.strokeStyle = stroke;
-						$ctx.stroke();
-						$ctx.fillStyle = fill;
-						$ctx.fill();
-					});
-				});
-			}
+		/**
+		 * If you were to have multiple canvas layers
+		 * maybe for some artistic layering purposes
+		 * put these reset functions in the first layer, not each one
+		 * since they should only run once per update
+		 */
+		scaleCanvas(context, $width, $height);
+		context.clearRect(0, 0, $width, $height);
+
+		/**
+		 * Draw our scatterplot
+		 */
+		$data.forEach((/** @type {any} d */ d) => {
+			context.beginPath();
+			context.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
+			context.lineWidth = strokeWidth;
+			context.strokeStyle = stroke;
+			context.stroke();
+			context.fillStyle = fill;
+			context.fill();
 		});
 	});
 </script>

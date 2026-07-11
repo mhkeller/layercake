@@ -3,7 +3,7 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext, onMount, untrack } from 'svelte';
+	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
 	const { data, width, height } = getContext('LayerCake');
@@ -33,30 +33,29 @@
 	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
 
 	let featuresToDraw = $derived(features || $data.features);
-	onMount(() => {
-		$effect(() => {
-			if ($width && $height) {
-				untrack(() => {
-					if (!$ctx) return;
 
-					scaleCanvas($ctx, $width, $height);
-					$ctx.clearRect(0, 0, $width, $height);
+	$effect(() => {
+		if (!$width || !$height || !$ctx) return;
 
-					// To scale the circle by size, set width and height to `$rGet(d.properties)`
-					featuresToDraw.forEach(
-						/** @param {any} d */ d => {
-							$ctx.beginPath();
-							const coordinates = projectionFn(d.geometry.coordinates);
-							$ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
-							$ctx.fillStyle = fill;
-							$ctx.fill();
-							$ctx.lineWidth = strokeWidth;
-							$ctx.strokeStyle = stroke;
-							$ctx.stroke();
-						}
-					);
-				});
+		// Assign to a local variable: setting properties on `$ctx` directly
+		// would re-notify the store and re-trigger this effect
+		const context = $ctx;
+
+		scaleCanvas(context, $width, $height);
+		context.clearRect(0, 0, $width, $height);
+
+		// To scale the circle by size, set width and height to `$rGet(d.properties)`
+		featuresToDraw.forEach(
+			/** @param {any} d */ d => {
+				context.beginPath();
+				const coordinates = projectionFn(d.geometry.coordinates);
+				context.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
+				context.fillStyle = fill;
+				context.fill();
+				context.lineWidth = strokeWidth;
+				context.strokeStyle = stroke;
+				context.stroke();
 			}
-		});
+		);
 	});
 </script>

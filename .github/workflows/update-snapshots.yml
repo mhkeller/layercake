@@ -26,18 +26,21 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
 
+      - uses: pnpm/action-setup@v4
+
       - uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Initialise Playwright tests
-        run: npm run pretest:playwright
+        run: pnpm pretest:playwright
 
       - name: Update snapshots
-        run: npm run test:init:snapshots
+        run: pnpm test:init:snapshots
 
       - name: Configure Git
         run: |

@@ -21,8 +21,7 @@
 		"test:lib": "mocha test/lib/*.test.js",
 		"pretest:playwright": "playwright install chromium",
 		"test:playwright": "playwright test",
-		"test": "npm run test:lib && npm run test:playwright",
-		"knip": "knip --config knip.config.json"
+		"test": "npm run test:lib && npm run test:playwright"
 	},
 	"license": "MIT",
 	"type": "module",
@@ -53,7 +52,6 @@
 		"golden-fleece": "^1.0.9",
 		"highlight.js": "^11.11.1",
 		"indian-ocean": "^4.0.3",
-		"knip": "^6.26.0",
 		"markdown-it": "^14.1.0",
 		"marked": "^18.0.6",
 		"mocha": "^11.7.1",

@@ -14,3 +14,10 @@ updates:
         dependency-type: production
       development-dependencies:
         dependency-type: development
+    ignore:
+      # Stay on TS6 across the workspace: svelte-check / svelte2tsx / @sveltejs/kit
+      # peer-depend on typescript@^6, and svelte-check@4.7.2 crashes under TS7.
+      # Revisit when the Svelte toolchain supports TS7.
+      - dependency-name: 'typescript'
+        versions:
+          - '>= 7.0.0'

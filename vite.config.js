@@ -36,7 +36,7 @@ const config = {
 	],
 	resolve: {
 		alias: {
-			layercake: [path.resolve('src/lib')]
+			layercake: path.resolve('src/lib')
 		}
 	}
 };

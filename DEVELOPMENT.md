@@ -20,6 +20,16 @@ Further examples using combinations of the components are in `src/routes/_exampl
 
 The actual loading of these pages happens in `src/routes/components`, `src/routes/examples` and `src/routes/examples-ssr` where the Markdown descriptions from `src/content` and code files are combined.
 
+## Setup
+
+The root Layer Cake project uses pnpm. Install the dependencies with
+
+```sh
+pnpm install
+```
+
+The embedded project in `src/scripts/svelte-app` remains an npm-based template and is not part of a pnpm workspace.
+
 ## Testing
 
 ### Unit Tests
@@ -27,7 +37,7 @@ The actual loading of these pages happens in `src/routes/components`, `src/route
 Unit tests using [Mocha](https://mochajs.org/) are in `test/lib` and can be run with
 
 ```sh
-npm run test:lib
+pnpm test:lib
 ```
 
 ### End-to-End Tests
@@ -35,7 +45,7 @@ npm run test:lib
 To test more complex interactions of the website and rendering of documentation and the display of components [Playwright](https://playwright.dev/) is used.
 
 ```sh
-npm run test:playwright
+pnpm test:playwright
 ```
 
 There are YAML-based ARIA snapshots of component property tables as well as screenshots of rendered components on the various pages.
@@ -43,7 +53,7 @@ There are YAML-based ARIA snapshots of component property tables as well as scre
 They can be updated with
 
 ```sh
-npm run test:init:snapshots
+pnpm test:init:snapshots
 ```
 
 To have better matching between the CI environment and the saved screenshots they can be updated through a CI action (in `.github/workflows/update-snapshots.yml`), for example after a component's defaults have changed.

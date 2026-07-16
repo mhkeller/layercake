@@ -65,7 +65,7 @@
 		"svelte": "^5.55.3",
 		"svelte-check": "^4.4.6",
 		"topojson-client": "^3.1.0",
-		"typescript": "^7.0.2",
+		"typescript": "^6.0.3",
 		"underscore": "^1.13.7",
 		"vite": "^8.1.4",
 		"yootils": "^0.3.1"

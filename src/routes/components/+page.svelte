@@ -14,7 +14,7 @@
 		return parts;
 	}
 
-	const componentGroups = svelteComponents.map((/** @type {any} */ d) => {
+	const componentGroups = svelteComponents.map((/** @type {{ name: string, components: any[] }} */ d) => {
 		return {
 			name: `${d.name.replace(/^\w/, /** @param {string} w */ w => w.toUpperCase())} components`,
 			components: sortBy(d.components, 'slug').map(

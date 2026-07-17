@@ -23,7 +23,10 @@
 
 	let active = $derived(data.active);
 
-	/** @param {string} text */
+	/**
+	 * @param {string} text
+	 * @returns {string}
+	 */
 	function markdownToHtml(text) {
 		return md.render(text);
 	}

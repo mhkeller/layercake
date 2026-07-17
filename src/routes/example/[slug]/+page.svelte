@@ -25,7 +25,6 @@
 	 * @param {string} text - The markdown text to convert.
 	 * @returns {string} The converted HTML.
 	 */
-	/** @param {string} text */
 	function markdownToHtml(text) {
 		return md.render(text);
 	}
@@ -35,7 +34,6 @@
 	 * @param {string} title
 	 * @returns {string} highlighted code
 	 */
-	/** @param {string} str @param {string} title */
 	function highlight(str, title) {
 		const parts = title.split('.');
 		let ext = parts[parts.length - 1];

@@ -28,7 +28,11 @@
 		return md.render(text);
 	}
 
-	/** @param {string} str @param {string} title */
+	/**
+	 * @param {string} str
+	 * @param {string} title
+	 * @returns {string}
+	 */
 	function highlight(str, title) {
 		const parts = title.split('.');
 		let ext = parts[parts.length - 1];

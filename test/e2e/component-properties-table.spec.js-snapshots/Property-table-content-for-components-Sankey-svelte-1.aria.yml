@@ -73,11 +73,11 @@
           - /url: https://github.com/d3/d3-sankey#sankey_linkSort
           - code: sankey.linkSort
         - text: ""
-    - row "nodeId ((SankeyNodeMinimal) => number | string) d => d.id no The ID field accessor, passed to sankey.nodeId.":
-      - cell "nodeId ((SankeyNodeMinimal) => number | string)":
+    - 'row "nodeId ((d: SankeyNodeMinimal) => number | string) d => d.id no The ID field accessor, passed to sankey.nodeId."':
+      - 'cell "nodeId ((d: SankeyNodeMinimal) => number | string)"':
         - strong: nodeId
         - text: ""
-        - code: (SankeyNodeMinimal) => number
+        - code: "(d: SankeyNodeMinimal) => number"
         - text: ""
         - code: string
         - text: ""

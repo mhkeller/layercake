@@ -1,38 +1,44 @@
 import { error, json } from '@sveltejs/kit';
 import * as fs from 'fs';
 
+/** @param {string} example */
 function getComponentJsPaths(example) {
 	return example.match(/\.\.\/.+\.js/gm);
 }
 
+/** @param {string} str */
 function cleanContents(str) {
 	return str.replace(/\t/g, '  ').trim();
 }
 
+/** @param {string} example */
 function getJsonPaths(example) {
 	const match = example.match(/\.\/.+\.json/gm);
 	if (match) {
-		return match.map(d => d.replace('../../', ''));
+		return match.map(/** @param {string} d */ d => d.replace('../../', ''));
 	}
 	return [];
 }
 
+/** @param {string} example */
 function getJsPaths(example) {
 	const match = example.match(/\.\/.+\.js('|")/gm);
 	if (match) {
-		return match.map(d => d.replace('../../', '').replace(/('|")/g, ''));
+		return match.map(/** @param {string} d */ d => d.replace('../../', '').replace(/('|")/g, ''));
 	}
 	return [];
 }
 
+/** @param {string} example */
 function getCsvPaths(example) {
 	const match = example.match(/\.\/.+\.csv/gm);
 	if (match) {
-		return match.map(d => d.replace('../../', ''));
+		return match.map(/** @param {string} d */ d => d.replace('../../', ''));
 	}
 	return [];
 }
 
+/** @param {string} example */
 function cleanMain(example) {
 	const cleaned = example
 		.replace(/\t/g, '  ')
@@ -42,14 +48,16 @@ function cleanMain(example) {
 	return cleaned;
 }
 
+/** @param {string} example */
 function getComponentPaths(example) {
 	const match = example.match(/\.?\.\/.+svelte/gm);
 	if (match) {
-		return match.map(d => d.replace('../../', ''));
+		return match.map(/** @param {string} d */ d => d.replace('../../', ''));
 	}
 	return [];
 }
 
+/** @type {import('@sveltejs/kit').RequestHandler} */
 export async function GET({ params }) {
 	// the `slug` parameter is available because
 	// this file is called [slug].json.js
@@ -73,28 +81,28 @@ export async function GET({ params }) {
 	const dekPath = `src/content/examples-ssr/${slug}.md`;
 	const dek = fs.existsSync(dekPath) ? fs.readFileSync(dekPath, 'utf-8') : '';
 
-	const components = getComponentPaths(example).map(d => {
+	const components = getComponentPaths(example).map(/** @param {string} d */ d => {
 		return {
 			title: `./${d}`,
 			contents: cleanContents(fs.readFileSync(`src/${d}`, 'utf-8'))
 		};
 	});
 
-	const modules = getJsPaths(example).map(d => {
+	const modules = getJsPaths(example).map(/** @param {string} d */ d => {
 		return {
 			title: d.replace('../', ''),
 			contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
 		};
 	});
 
-	const jsons = getJsonPaths(example).map(d => {
+	const jsons = getJsonPaths(example).map(/** @param {string} d */ d => {
 		return {
 			title: d.replace('../', ''),
 			contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
 		};
 	});
 
-	const csvs = getCsvPaths(example).map(d => {
+	const csvs = getCsvPaths(example).map(/** @param {string} d */ d => {
 		return {
 			title: d.replace('../', ''),
 			contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
@@ -105,7 +113,7 @@ export async function GET({ params }) {
 	const componentModules =
 		componentModulesMatches === null
 			? []
-			: componentModulesMatches.map(d => {
+			: componentModulesMatches.map(/** @param {string} d */ d => {
 					return {
 						title: d.replace('../', './'),
 						contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
@@ -116,7 +124,7 @@ export async function GET({ params }) {
 	const componentComponents =
 		componentComponentMatches === null
 			? []
-			: componentComponentMatches.map(d => {
+			: componentComponentMatches.map(/** @param {string} d */ d => {
 					return {
 						title: d.replace('./', './_components/'),
 						contents: cleanContents(fs.readFileSync(d.replace('./', 'src/_components/'), 'utf-8'))

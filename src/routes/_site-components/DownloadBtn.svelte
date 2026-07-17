@@ -16,22 +16,33 @@
 
 	let downloading = $state(false);
 
+	/** @param {string} [file] */
 	function getImports(file = '') {
 		const match = file.match(/from\s'(.+)'?/gm) || [];
-		const imports = match.map(d => d.replace(/(from |'|"|;)/g, '')).filter(d => !d.startsWith('.'));
+		const imports = match
+			.map(/** @param {string} d */ d => d.replace(/(from |'|"|;)/g, ''))
+			.filter(/** @param {string} d */ d => !d.startsWith('.'));
 		return imports;
 	}
 
 	const imports = [data.main, ...data.components, ...data.componentComponents]
-		.reduce((store, val) => store.concat(getImports(val.contents)), [])
-		.reduce((store, val) => {
-			if (!store.includes(val)) {
-				store.push(val);
-				return store;
-			} else {
-				return store;
-			}
-		}, []);
+		.reduce(
+			/** @param {string[]} store @param {{ contents: string }} val */
+			(store, val) => store.concat(getImports(val.contents)),
+			/** @type {string[]} */ ([])
+		)
+		.reduce(
+			/** @param {string[]} store @param {string} val */
+			(store, val) => {
+				if (!store.includes(val)) {
+					store.push(val);
+					return store;
+				} else {
+					return store;
+				}
+			},
+			/** @type {string[]} */ ([])
+		);
 
 	async function download() {
 		downloading = true;
@@ -40,13 +51,18 @@
 
 		const cacheBust = new Date().getTime();
 		const files = await (await window.fetch(`/svelte-app.json?${cacheBust}`)).json();
+		/** @type {Record<string, string>} */
 		const depsLookup = await (await window.fetch(`/deps.json?${cacheBust}`)).json();
 		if (imports.length > 0) {
-			const idx = files.findIndex(({ path }) => path === 'package.json');
+			const idx = files.findIndex(
+				/** @param {{ path: string }} file */ ({ path }) => path === 'package.json'
+			);
 			const pkg = JSON.parse(files[idx].data);
+			/** @type {Record<string, string>} */
 			const deps = {};
+			/** @type {Record<string, string>} */
 			const devDeps = {};
-			imports.forEach(mod => {
+			imports.forEach(/** @param {string} mod */ mod => {
 				if (mod === 'svelte') {
 					return;
 				} else {
@@ -62,37 +78,37 @@
 		}
 
 		files.push(
-			...data.components.map(component => ({
+			...data.components.map(/** @param {any} component */ component => ({
 				path: `src/routes/${component.title.replace('./', '')}`,
 				data: component.contents
 			}))
 		);
 		files.push(
-			...data.modules.map(mod => ({
+			...data.modules.map(/** @param {any} mod */ mod => ({
 				path: `src/routes/${mod.title.replace('./', '')}`,
 				data: mod.contents
 			}))
 		);
 		files.push(
-			...data.componentModules.map(mod => ({
+			...data.componentModules.map(/** @param {any} mod */ mod => ({
 				path: `src/routes/${mod.title.replace('../', '')}`,
 				data: mod.contents
 			}))
 		);
 		files.push(
-			...data.componentComponents.map(mod => ({
+			...data.componentComponents.map(/** @param {any} mod */ mod => ({
 				path: `src/routes/${mod.title}`,
 				data: mod.contents
 			}))
 		);
 		files.push(
-			...data.csvs.map(mod => ({
+			...data.csvs.map(/** @param {any} mod */ mod => ({
 				path: `src/routes/${mod.title.replace('../', '')}`,
 				data: mod.contents
 			}))
 		);
 		files.push(
-			...data.jsons.map(mod => ({
+			...data.jsons.map(/** @param {any} mod */ mod => ({
 				path: `src/routes/${mod.title.replace('../', '')}`,
 				data: mod.contents
 			}))

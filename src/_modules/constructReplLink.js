@@ -2,6 +2,18 @@ import { csvParse } from 'd3-dsv';
 
 import { compress_and_encode_text } from './createReplHash.js';
 
+/**
+ * @param {string} pageName
+ * @param {{
+ *   main: { title: string, contents: string },
+ *   components: { title: string, contents: string }[],
+ *   componentModules: { title: string, contents: string }[],
+ *   modules: { title: string, contents: string }[],
+ *   componentComponents: { title: string, contents: string }[],
+ *   jsons: { title: string, contents: string }[],
+ *   csvs: { title: string, contents: string }[]
+ * }} content
+ */
 export default async function constructReplLink(pageName, content) {
 	// TODO, clean up import paths
 	const pages = [content.main]
@@ -17,7 +29,7 @@ export default async function constructReplLink(pageName, content) {
 	const json = {
 		name: pageTitle.trim(),
 		files: pages.map(c => {
-			const filename = c.title.split('/').pop();
+			const filename = c.title.split('/').pop() ?? '';
 			const name = cleanName(filename);
 			return {
 				type: 'file',

@@ -2,6 +2,12 @@ import emoji from 'emoji-regex';
 
 const whitespace = /\s/g;
 
+/**
+ * @param {string} string
+ * @param {boolean|null|undefined} maintainCase
+ * @param {Record<string, number>} store
+ * @returns {string}
+ */
 export default function slugger(string, maintainCase, store) {
 	const re = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g;
 	const replacement = '-';

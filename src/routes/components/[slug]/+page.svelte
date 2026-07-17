@@ -18,10 +18,15 @@
 
 	let active = $derived(data.active);
 
+	/** @param {string} text */
 	function markdownToHtml(text) {
 		return md.render(text);
 	}
 
+	/**
+	 * @param {string} str
+	 * @param {string} s
+	 */
 	function highlight(str, s) {
 		const parts = s.split('.');
 		let ext = parts[parts.length - 1];
@@ -33,28 +38,31 @@
 
 	const lookup = new Map();
 	components
-		.flatMap(d => d.components)
-		.forEach(d => {
+		.flatMap(/** @param {any} d */ d => d.components)
+		.forEach(/** @param {any} d */ d => {
 			lookup.set(d.slug, d);
 		});
 
 	let component = $derived(lookup.get(data.slug));
 
+	/** @param {string} type */
 	function printTypes(type) {
 		if (type.includes('|')) {
 			const escaped = type
 				.split('|')
-				.map(d => `\`${d}\``)
+				.map(/** @param {string} d */ d => `\`${d}\``)
 				.join(' &vert; ');
 			return `(${escaped})`;
 		} else return `\`${type}\``;
 	}
 
+	/** @param {string|undefined} def */
 	function printDefault(def) {
 		if (!def) return 'None';
 		return `\`${def}\``;
 	}
 
+	/** @param {boolean|undefined} required */
 	function printRequired(required) {
 		const str = required ? 'yes' : 'no';
 		return `<center>${str}</center>`;
@@ -69,7 +77,7 @@
 	if (data.content.hasjsDoctable === true) {
 		jsdocTableBody = `${data.content.jsdocParsed
 			.map(
-				d =>
+				/** @param {any} d */ d =>
 					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.defaultValue)}|${printRequired(
 						d.required
 					)}|${d.description?.replace(/^(-|–|—)/g, '').trim()}`

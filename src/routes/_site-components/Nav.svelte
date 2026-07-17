@@ -34,7 +34,7 @@
 
 	let nav = $state();
 
-	const slimName = d => d.split(' (')[0];
+	const slimName = /** @param {any} d */ d => d.split(' (')[0];
 
 	/** @this {HTMLSelectElement} */
 	function loadPage() {

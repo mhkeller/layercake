@@ -13,6 +13,7 @@ hljs.registerLanguage('svelte', hljsDefineSvelte);
 
 hljsDefineSvelte(hljs);
 
+/** @type {Record<string, string>} */
 const escaped = {
 	'"': '&quot;',
 	"'": '&#39;',
@@ -21,11 +22,13 @@ const escaped = {
 	'>': '&gt;'
 };
 
+/** @type {Record<string, string>} */
 const unescaped = Object.keys(escaped).reduce(
-	(unescaped, key) => ((unescaped[escaped[key]] = key), unescaped),
-	{}
+	(acc, key) => ((acc[escaped[key]] = key), acc),
+	/** @type {Record<string, string>} */ ({})
 );
 
+/** @param {string} str */
 function unescape(str) {
 	return String(str).replace(/&.+?;/g, match => unescaped[match] || match);
 }
@@ -33,6 +36,10 @@ function unescape(str) {
 const blockTypes =
 	'blockquote html heading hr list listitem paragraph table tablerow tablecell'.split(' ');
 
+/**
+ * @param {string} line
+ * @param {string} lang
+ */
 function extractMeta(line, lang) {
 	try {
 		if (lang === 'html' || lang === 'svelte') {
@@ -54,6 +61,7 @@ function extractMeta(line, lang) {
 }
 
 // https://github.com/darkskyapp/string-hash/blob/master/index.js
+/** @param {string} str */
 function getHash(str) {
 	let hash = 5381;
 	let i = str.length;
@@ -64,7 +72,14 @@ function getHash(str) {
 
 const demos = new Map();
 
+/**
+ * @typedef {{ meta: Record<string, any>, lang: string, source: string }} CodeBlock
+ * @typedef {{ id: number, blocks: CodeBlock[] }} CodeGroup
+ */
+
+/** @param {boolean} [returnHtml=true] */
 export default function (returnHtml = true) {
+	/** @type {Record<string, number>} */
 	const store = {};
 	return fs
 		.readdirSync(`src/content/guide`)
@@ -74,7 +89,9 @@ export default function (returnHtml = true) {
 
 			const { content, metadata } = processMarkdown(markdown);
 
+			/** @type {CodeGroup[]} */
 			const groups = [];
+			/** @type {CodeGroup | null} */
 			let group = null;
 			let uid = 1;
 
@@ -206,16 +223,17 @@ export default function (returnHtml = true) {
 
 			let html = marked.marked(content, { async: false });
 
+			/** @type {Record<number, string>} */
 			const hashes = {};
 
 			groups.forEach(group => {
 				const main = group.blocks[0];
 				if (main.meta.repl === false) return;
 
-				const hash = getHash(group.blocks.map(block => block.source).join(''));
+				const hash = getHash(group.blocks.map(/** @param {CodeBlock} block */ block => block.source).join(''));
 				hashes[group.id] = hash;
 
-				const json5 = group.blocks.find(block => block.lang === 'json');
+				const json5 = group.blocks.find(/** @param {CodeBlock} block */ block => block.lang === 'json');
 
 				const title = main.meta.title;
 				// if (!title) console.error(`Missing title for demo in ${file}`);
@@ -225,8 +243,8 @@ export default function (returnHtml = true) {
 					JSON.stringify({
 						title: title || 'Example from guide',
 						components: group.blocks
-							.filter(block => block.lang === 'html' || block.lang === 'js')
-							.map(block => {
+							.filter(/** @param {CodeBlock} block */ block => block.lang === 'html' || block.lang === 'js')
+							.map(/** @param {CodeBlock} block */ block => {
 								const [name, type] = (block.meta.filename || '').split('.');
 								return {
 									name: name || 'App',
@@ -240,8 +258,10 @@ export default function (returnHtml = true) {
 			});
 
 			// When extracting sidebar subsections, strip <code>...</code> from the title for anchors, but keep the display text for the heading itself
+			/** @type {{ slug: string, title: string }[]} */
 			const subsections = [];
 			const pattern = /<h3 id="(.+?)">(.+?)<\/h3>/g;
+			/** @type {RegExpExecArray | null} */
 			let match;
 
 			while ((match = pattern.exec(html))) {
@@ -291,7 +311,10 @@ export default function (returnHtml = true) {
 			}
 
 			return {
-				html: returnHtml === true ? html.replace(/@@(\d+)/g, (m, id) => hashes[id] || m) : null,
+				html:
+					returnHtml === true
+						? html.replace(/@@(\d+)/g, (m, id) => hashes[Number(id)] || m)
+						: null,
 				metadata,
 				subsections,
 				slug: file.replace(/^\d+-/, '').replace(/\.md$/, ''),

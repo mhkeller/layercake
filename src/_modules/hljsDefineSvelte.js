@@ -1,6 +1,7 @@
 /* --------------------------------------------
  * Adapted to work as es6 module from https://github.com/AlexxNB/highlightjs-svelte
  */
+/** @param {any} hljs */
 export default function hljsDefineSvelte(hljs) {
 	return {
 		subLanguage: 'xml',

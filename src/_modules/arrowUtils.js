@@ -36,7 +36,7 @@ export function parseCssValue(d, i, width, height) {
  */
 export function getElPosition(el) {
 	const annotationBbox = el.getBoundingClientRect();
-	const parentBbox = /** @type {Element} */ (el.parentNode).getBoundingClientRect();
+	const parentBbox = (el.parentElement ?? el).getBoundingClientRect();
 	const coords = {
 		top: annotationBbox.top - parentBbox.top,
 		right: annotationBbox.right - parentBbox.left,

@@ -39,9 +39,11 @@
 	const lookup = new Map();
 	components
 		.flatMap(/** @param {any} d */ d => d.components)
-		.forEach(/** @param {any} d */ d => {
-			lookup.set(d.slug, d);
-		});
+		.forEach(
+			/** @param {any} d */ d => {
+				lookup.set(d.slug, d);
+			}
+		);
 
 	let component = $derived(lookup.get(data.slug));
 

@@ -177,7 +177,10 @@
 								>
 								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 								{@html item.classes
-									.map((/** @type {any} */ d) => `<span class="label ${d}">${d.replace('percent-', '%-')}</span>`)
+									.map(
+										(/** @type {any} */ d) =>
+											`<span class="label ${d}">${d.replace('percent-', '%-')}</span>`
+									)
 									.join('')}
 							</div>
 							<div class="block-container">

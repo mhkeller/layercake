@@ -52,12 +52,14 @@ export async function GET({ params }) {
 
 	const fromMain = cleanMain(component);
 
-	const modules = getJsPaths(component).map(/** @param {string} d */ d => {
-		return {
-			slug: d.replace('../', ''),
-			contents: cleanContents(readFileSync(d.replace('./', 'src/'), 'utf-8'))
-		};
-	});
+	const modules = getJsPaths(component).map(
+		/** @param {string} d */ d => {
+			return {
+				slug: d.replace('../', ''),
+				contents: cleanContents(readFileSync(d.replace('./', 'src/'), 'utf-8'))
+			};
+		}
+	);
 
 	const main = {
 		slug,
@@ -97,7 +99,10 @@ export async function GET({ params }) {
 	// fields of other typedefs (annotation configs, arrow configs etc...) don't
 	// show up as component props
 	const commentBlocks = fromMain.match(/\/\*\*[^]*?\*\//g) || [];
-	const propsBlock = commentBlocks.find(/** @param {string} block */ block => block.includes('@typedef {Object} Props')) || '';
+	const propsBlock =
+		commentBlocks.find(
+			/** @param {string} block */ block => block.includes('@typedef {Object} Props')
+		) || '';
 	const jsdocPropertyMatches = propsBlock.matchAll(/(@property [^\n]*)/gm);
 	const propertiesDefaultValues = fromMain.match(/let\s+\{([\s\S]*?)\} = \$props/m);
 	/** @type {Record<string, string>} */

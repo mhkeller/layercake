@@ -29,11 +29,10 @@ function isIgnored(file) {
 	return ignoredPathParts.some(part => normalized.includes(`/${part}`) || normalized.startsWith(part));
 }
 
-const result = spawnSync(
-	process.execPath,
-	[svelteCheckBin, '--tsconfig', './jsconfig.site.json'],
-	{ encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 }
-);
+const result = spawnSync(process.execPath, [svelteCheckBin, '--tsconfig', './jsconfig.site.json'], {
+	encoding: 'utf8',
+	maxBuffer: 20 * 1024 * 1024
+});
 
 const output = result.stdout || '';
 process.stdout.write(output);
@@ -87,7 +86,9 @@ for (const line of lines) {
 flush();
 
 if (siteErrors.length) {
-	console.error(`\ncheck:site found ${siteErrors.length} internal-site error(s) (lib/charts ignored).`);
+	console.error(
+		`\ncheck:site found ${siteErrors.length} internal-site error(s) (lib/charts ignored).`
+	);
 	process.exit(1);
 }
 

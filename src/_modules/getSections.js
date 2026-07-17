@@ -230,10 +230,14 @@ export default function (returnHtml = true) {
 				const main = group.blocks[0];
 				if (main.meta.repl === false) return;
 
-				const hash = getHash(group.blocks.map(/** @param {CodeBlock} block */ block => block.source).join(''));
+				const hash = getHash(
+					group.blocks.map(/** @param {CodeBlock} block */ block => block.source).join('')
+				);
 				hashes[group.id] = hash;
 
-				const json5 = group.blocks.find(/** @param {CodeBlock} block */ block => block.lang === 'json');
+				const json5 = group.blocks.find(
+					/** @param {CodeBlock} block */ block => block.lang === 'json'
+				);
 
 				const title = main.meta.title;
 				// if (!title) console.error(`Missing title for demo in ${file}`);
@@ -243,15 +247,20 @@ export default function (returnHtml = true) {
 					JSON.stringify({
 						title: title || 'Example from guide',
 						components: group.blocks
-							.filter(/** @param {CodeBlock} block */ block => block.lang === 'html' || block.lang === 'js')
-							.map(/** @param {CodeBlock} block */ block => {
-								const [name, type] = (block.meta.filename || '').split('.');
-								return {
-									name: name || 'App',
-									type: type || 'html',
-									source: block.source
-								};
-							}),
+							.filter(
+								/** @param {CodeBlock} block */ block =>
+									block.lang === 'html' || block.lang === 'js'
+							)
+							.map(
+								/** @param {CodeBlock} block */ block => {
+									const [name, type] = (block.meta.filename || '').split('.');
+									return {
+										name: name || 'App',
+										type: type || 'html',
+										source: block.source
+									};
+								}
+							),
 						json5: json5 && json5.source
 					})
 				);
@@ -312,9 +321,7 @@ export default function (returnHtml = true) {
 
 			return {
 				html:
-					returnHtml === true
-						? html.replace(/@@(\d+)/g, (m, id) => hashes[Number(id)] || m)
-						: null,
+					returnHtml === true ? html.replace(/@@(\d+)/g, (m, id) => hashes[Number(id)] || m) : null,
 				metadata,
 				subsections,
 				slug: file.replace(/^\d+-/, '').replace(/\.md$/, ''),

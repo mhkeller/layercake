@@ -27,22 +27,18 @@
 
 	const imports = [data.main, ...data.components, ...data.componentComponents]
 		.reduce(
-			/** @param {string[]} store @param {{ contents: string }} val */
-			(store, val) => store.concat(getImports(val.contents)),
+			(/** @type {string[]} */ store, /** @type {{ contents: string }} */ val) =>
+				store.concat(getImports(val.contents)),
 			/** @type {string[]} */ ([])
 		)
-		.reduce(
-			/** @param {string[]} store @param {string} val */
-			(store, val) => {
-				if (!store.includes(val)) {
-					store.push(val);
-					return store;
-				} else {
-					return store;
-				}
-			},
-			/** @type {string[]} */ ([])
-		);
+		.reduce((/** @type {string[]} */ store, /** @type {string} */ val) => {
+			if (!store.includes(val)) {
+				store.push(val);
+				return store;
+			} else {
+				return store;
+			}
+		}, /** @type {string[]} */ ([]));
 
 	async function download() {
 		downloading = true;
@@ -62,56 +58,70 @@
 			const deps = {};
 			/** @type {Record<string, string>} */
 			const devDeps = {};
-			imports.forEach(/** @param {string} mod */ mod => {
-				if (mod === 'svelte') {
-					return;
-				} else {
-					deps[mod] = depsLookup[mod];
+			imports.forEach(
+				/** @param {string} mod */ mod => {
+					if (mod === 'svelte') {
+						return;
+					} else {
+						deps[mod] = depsLookup[mod];
+					}
+					if (!depsLookup[mod]) {
+						window.alert(`Missing dependency, add "${mod}" to this repo's package.json`);
+					}
 				}
-				if (!depsLookup[mod]) {
-					window.alert(`Missing dependency, add "${mod}" to this repo's package.json`);
-				}
-			});
+			);
 			Object.assign(pkg.dependencies, deps);
 			Object.assign(pkg.devDependencies, devDeps);
 			files[idx].data = JSON.stringify(pkg, null, '  ');
 		}
 
 		files.push(
-			...data.components.map(/** @param {any} component */ component => ({
-				path: `src/routes/${component.title.replace('./', '')}`,
-				data: component.contents
-			}))
+			...data.components.map(
+				/** @param {any} component */ component => ({
+					path: `src/routes/${component.title.replace('./', '')}`,
+					data: component.contents
+				})
+			)
 		);
 		files.push(
-			...data.modules.map(/** @param {any} mod */ mod => ({
-				path: `src/routes/${mod.title.replace('./', '')}`,
-				data: mod.contents
-			}))
+			...data.modules.map(
+				/** @param {any} mod */ mod => ({
+					path: `src/routes/${mod.title.replace('./', '')}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push(
-			...data.componentModules.map(/** @param {any} mod */ mod => ({
-				path: `src/routes/${mod.title.replace('../', '')}`,
-				data: mod.contents
-			}))
+			...data.componentModules.map(
+				/** @param {any} mod */ mod => ({
+					path: `src/routes/${mod.title.replace('../', '')}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push(
-			...data.componentComponents.map(/** @param {any} mod */ mod => ({
-				path: `src/routes/${mod.title}`,
-				data: mod.contents
-			}))
+			...data.componentComponents.map(
+				/** @param {any} mod */ mod => ({
+					path: `src/routes/${mod.title}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push(
-			...data.csvs.map(/** @param {any} mod */ mod => ({
-				path: `src/routes/${mod.title.replace('../', '')}`,
-				data: mod.contents
-			}))
+			...data.csvs.map(
+				/** @param {any} mod */ mod => ({
+					path: `src/routes/${mod.title.replace('../', '')}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push(
-			...data.jsons.map(/** @param {any} mod */ mod => ({
-				path: `src/routes/${mod.title.replace('../', '')}`,
-				data: mod.contents
-			}))
+			...data.jsons.map(
+				/** @param {any} mod */ mod => ({
+					path: `src/routes/${mod.title.replace('../', '')}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push({
 			path: `src/routes/+page.svelte`,

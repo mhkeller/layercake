@@ -9,9 +9,11 @@
 	/** @type {Props} */
 	let { open = $bindable(false), activeGuideSection = $bindable(), sections = [] } = $props();
 
-	const guideSections = sections.map(/** @param {any} section */ section => {
-		return { metadata: section.metadata, subsections: section.subsections, slug: section.slug };
-	});
+	const guideSections = sections.map(
+		/** @param {any} section */ section => {
+			return { metadata: section.metadata, subsections: section.subsections, slug: section.slug };
+		}
+	);
 
 	function close() {
 		open = false;

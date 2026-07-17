@@ -72,7 +72,9 @@
 			{#each data.sections as section}
 				<li>
 					<a href="#{section.slug}"
-						>- {section.slug.replace(/^\w/, /** @param {string} d */ d => d.toUpperCase()).replaceAll('-', ' ')}</a
+						>- {section.slug
+							.replace(/^\w/, /** @param {string} d */ d => d.toUpperCase())
+							.replaceAll('-', ' ')}</a
 					>
 				</li>
 			{/each}

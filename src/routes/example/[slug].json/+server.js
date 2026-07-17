@@ -81,56 +81,68 @@ export async function GET({ params }) {
 	const dekPath = `src/content/examples/${slug}.md`;
 	const dek = fs.existsSync(dekPath) ? fs.readFileSync(dekPath, 'utf-8') : '';
 
-	const components = getComponentPaths(example).map(/** @param {string} d */ d => {
-		return {
-			title: `./${d}`,
-			contents: cleanContents(fs.readFileSync(`src/${d}`, 'utf-8'))
-		};
-	});
+	const components = getComponentPaths(example).map(
+		/** @param {string} d */ d => {
+			return {
+				title: `./${d}`,
+				contents: cleanContents(fs.readFileSync(`src/${d}`, 'utf-8'))
+			};
+		}
+	);
 
-	const modules = getJsPaths(example).map(/** @param {string} d */ d => {
-		return {
-			title: d.replace('../', ''),
-			contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
-		};
-	});
+	const modules = getJsPaths(example).map(
+		/** @param {string} d */ d => {
+			return {
+				title: d.replace('../', ''),
+				contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
+			};
+		}
+	);
 
-	const jsons = getJsonPaths(example).map(/** @param {string} d */ d => {
-		return {
-			title: d.replace('../', ''),
-			contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
-		};
-	});
+	const jsons = getJsonPaths(example).map(
+		/** @param {string} d */ d => {
+			return {
+				title: d.replace('../', ''),
+				contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
+			};
+		}
+	);
 
-	const csvs = getCsvPaths(example).map(/** @param {string} d */ d => {
-		return {
-			title: d.replace('../', ''),
-			contents: cleanContents(fs.readFileSync(d.replace('./../', 'src/'), 'utf-8'))
-		};
-	});
+	const csvs = getCsvPaths(example).map(
+		/** @param {string} d */ d => {
+			return {
+				title: d.replace('../', ''),
+				contents: cleanContents(fs.readFileSync(d.replace('./../', 'src/'), 'utf-8'))
+			};
+		}
+	);
 
 	const componentModulesMatches = getComponentJsPaths(components.map(d => d.contents).join(''));
 	const componentModules =
 		componentModulesMatches === null
 			? []
-			: componentModulesMatches.map(/** @param {string} d */ d => {
-					return {
-						title: d.replace('../', './'),
-						contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
-					};
-				});
+			: componentModulesMatches.map(
+					/** @param {string} d */ d => {
+						return {
+							title: d.replace('../', './'),
+							contents: cleanContents(fs.readFileSync(d.replace('../', 'src/'), 'utf-8'))
+						};
+					}
+				);
 
 	const componentComponentMatches = getComponentPaths(components.map(d => d.contents).join(''));
 	const componentComponents =
 		componentComponentMatches === null
 			? []
-			: componentComponentMatches.map(/** @param {string} d */ d => {
-					// console.log('d', d, d.replace('./', './_components/'));
-					return {
-						title: d.replace('./', './_components/'),
-						contents: cleanContents(fs.readFileSync(d.replace('./', 'src/_components/'), 'utf-8'))
-					};
-				});
+			: componentComponentMatches.map(
+					/** @param {string} d */ d => {
+						// console.log('d', d, d.replace('./', './_components/'));
+						return {
+							title: d.replace('./', './_components/'),
+							contents: cleanContents(fs.readFileSync(d.replace('./', 'src/_components/'), 'utf-8'))
+						};
+					}
+				);
 
 	// console.log(componentComponents);
 

@@ -17,11 +17,11 @@
 	 * )} SankeyAlignment
 	 */
 
-	/** @typedef {import('d3-sankey').SankeyGraph} SankeyGraph */
+	/** @typedef {import('d3-sankey').SankeyGraph<any, any>} SankeyGraph */
 
-	/** @typedef {import('d3-sankey').SankeyNodeMinimal} SankeyNodeMinimal */
+	/** @typedef {import('d3-sankey').SankeyNodeMinimal<any, any>} SankeyNodeMinimal */
 
-	/** @typedef {import('d3-sankey').SankeyLinkMinimal} SankeyLink */
+	/** @typedef {import('d3-sankey').SankeyLinkMinimal<any, any>} SankeyLink */
 
 	/**
 	 * @typedef {((a: SankeyLink, b: SankeyLink) => (number | undefined | null))} LinkSortFunction
@@ -35,7 +35,7 @@
 	 * @property {number} [nodeWidth=5] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth).
 	 * @property {number} [nodePadding=10] - The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding).
 	 * @property {LinkSortFunction|undefined} [linkSort] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort).
-	 * @property {(SankeyNodeMinimal) => number | string} [nodeId=(d) => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).
+	 * @property {(d: SankeyNodeMinimal) => number | string} [nodeId=(d) => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).
 	 * @property {SankeyAlignment} [nodeAlign=Sankey.sankeyLeft] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more.
 	 */
 

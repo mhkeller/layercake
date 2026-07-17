@@ -12,7 +12,7 @@
 
 	const { width, height, data } = getContext('LayerCake');
 
-	/** @typedef {import('d3-hierarchy').HierarchyNode} HierarchyNode */
+	/** @typedef {import('d3-hierarchy').HierarchyNode<any>} HierarchyNode */
 
 	/**
 	 * @typedef {Object} Props

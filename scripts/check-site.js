@@ -13,25 +13,20 @@ const svelteCheckBin = require.resolve('svelte-check/bin/svelte-check');
 
 /** Paths deferred to a later pass — not part of this site-only check. */
 const ignoredPathParts = [
-	'/src/lib/',
-	'\\src\\lib\\',
-	'/src/_components/',
-	'\\src\\_components\\',
-	'/src/routes/_components/',
-	'\\src\\routes\\_components\\',
-	'/src/routes/_components_ssr/',
-	'\\src\\routes\\_components_ssr\\',
-	'/src/routes/_examples/',
-	'\\src\\routes\\_examples\\',
-	'/src/routes/_examples_ssr/',
-	'\\src\\routes\\_examples_ssr\\'
+	'src/lib/',
+	'src/_components/',
+	'src/routes/_components/',
+	'src/routes/_components_ssr/',
+	'src/routes/_examples/',
+	'src/routes/_examples_ssr/'
 ];
 
 /**
  * @param {string} file
  */
 function isIgnored(file) {
-	return ignoredPathParts.some(part => file.includes(part));
+	const normalized = file.replaceAll('\\', '/').replace(/^[A-Za-z]:/, '');
+	return ignoredPathParts.some(part => normalized.includes(`/${part}`) || normalized.startsWith(part));
 }
 
 const result = spawnSync(

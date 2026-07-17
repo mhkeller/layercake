@@ -1,6 +1,6 @@
 // Helper functions for creating swoopy arrows
 
-/* --------------------------------------------
+/**
  * parseCssValue
  *
  * Parse various inputs and return then as a number
@@ -8,8 +8,6 @@
  * A percentage, which will take the percent of the appropriate dimentions
  * A pixel value, which will parse as a number
  *
- */
-/**
  * @param {string|number|null|undefined} d
  * @param {number} i
  * @param {number} width
@@ -27,14 +25,12 @@ export function parseCssValue(d, i, width, height) {
 	return +d.replace('px', '');
 }
 
-/* --------------------------------------------
+/**
  * getElPosition
  *
  * Constract a bounding box relative in our coordinate space
  * that we can attach arrow starting points to
  *
- */
-/**
  * @param {Element} el
  * @returns {{ top: number, right: number, bottom: number, left: number, width: number, height: number }}
  */

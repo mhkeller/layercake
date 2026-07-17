@@ -63,7 +63,7 @@ function flush() {
 }
 
 for (const line of lines) {
-	const locParts = line.match(/^(\/[^\s:]+):(\d+):(\d+)$/);
+	const locParts = line.match(/^(.+):(\d+):(\d+)$/);
 	if (locParts) {
 		flush();
 		currentFile = locParts[1];

@@ -25,6 +25,7 @@
 		return imports;
 	}
 
+	// svelte-ignore state_referenced_locally
 	const imports = [data.main, ...data.components, ...data.componentComponents]
 		.reduce(
 			(/** @type {string[]} */ store, /** @type {{ contents: string }} */ val) =>

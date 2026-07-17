@@ -18,7 +18,11 @@
 
 	let active = $derived(data.active);
 
-	/** @param {string} text */
+	/**
+	 * Converts markdown text to HTML.
+	 * @param {string} text - The markdown text to convert.
+	 * @returns {string} The converted HTML.
+	 */
 	function markdownToHtml(text) {
 		return md.render(text);
 	}
@@ -26,6 +30,7 @@
 	/**
 	 * @param {string} str
 	 * @param {string} s
+	 * @returns {string} highlighted code
 	 */
 	function highlight(str, s) {
 		const parts = s.split('.');
@@ -47,7 +52,10 @@
 
 	let component = $derived(lookup.get(data.slug));
 
-	/** @param {string} type */
+	/**
+	 * @param {string} type
+	 * @returns {string}
+	 */
 	function printTypes(type) {
 		if (type.includes('|')) {
 			const escaped = type
@@ -58,13 +66,19 @@
 		} else return `\`${type}\``;
 	}
 
-	/** @param {string|undefined} def */
+	/**
+	 * @param {string|undefined} def
+	 * @returns {string}
+	 */
 	function printDefault(def) {
 		if (!def) return 'None';
 		return `\`${def}\``;
 	}
 
-	/** @param {boolean|undefined} required */
+	/**
+	 * @param {boolean|undefined} required
+	 * @returns {string}
+	 */
 	function printRequired(required) {
 		const str = required ? 'yes' : 'no';
 		return `<center>${str}</center>`;
@@ -76,7 +90,9 @@
 	let jsdocTableBody = '';
 	let jsdocTable = $state('');
 
+	// svelte-ignore state_referenced_locally
 	if (data.content.hasjsDoctable === true) {
+		// svelte-ignore state_referenced_locally
 		jsdocTableBody = `${data.content.jsdocParsed
 			.map(
 				/** @param {any} d */ d =>
@@ -85,6 +101,7 @@
 					)}|${d.description?.replace(/^(-|–|—)/g, '').trim()}`
 			)
 			.join('\n')}`;
+		// svelte-ignore state_referenced_locally
 		jsdocTable = data.content.jsdocParsed.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
 	}
 </script>

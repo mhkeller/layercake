@@ -9,6 +9,7 @@
 	/** @type {Props} */
 	let { open = $bindable(false), activeGuideSection = $bindable(), sections = [] } = $props();
 
+	// svelte-ignore state_referenced_locally
 	const guideSections = sections.map(
 		/** @param {any} section */ section => {
 			return { metadata: section.metadata, subsections: section.subsections, slug: section.slug };

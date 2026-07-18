@@ -75,6 +75,14 @@ const demos = new Map();
 /**
  * @typedef {{ meta: Record<string, any>, lang: string, source: string }} CodeBlock
  * @typedef {{ id: number, blocks: CodeBlock[] }} CodeGroup
+ * @typedef {{ slug: string, title: string }} GuideSubsection
+ * @typedef {{
+ *   html: string | null,
+ *   metadata: Record<string, string>,
+ *   subsections: GuideSubsection[],
+ *   slug: string,
+ *   file: string
+ * }} GuideSection
  */
 
 /** @param {boolean} [returnHtml=true] */

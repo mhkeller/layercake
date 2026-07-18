@@ -8,6 +8,28 @@
 
 	import components from '../../_components.js';
 
+	/**
+	 * @typedef {{
+	 *   kind: string,
+	 *   type: string,
+	 *   name: string,
+	 *   required: boolean,
+	 *   defaultValue: string | null,
+	 *   description: string
+	 * }} JsdocProp
+	 *
+	 * @typedef {{
+	 *   slug: string,
+	 *   name?: string,
+	 *   component: import('svelte').Component
+	 * }} ComponentEntry
+	 *
+	 * @typedef {{
+	 *   name: string,
+	 *   components: ComponentEntry[]
+	 * }} ComponentGroup
+	 */
+
 	const md = new MarkdownIt({ html: true, linkify: true });
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
@@ -43,9 +65,9 @@
 
 	const lookup = new Map();
 	components
-		.flatMap(/** @param {any} d */ d => d.components)
+		.flatMap(/** @param {ComponentGroup} d */ d => d.components)
 		.forEach(
-			/** @param {any} d */ d => {
+			/** @param {ComponentEntry} d */ d => {
 				lookup.set(d.slug, d);
 			}
 		);
@@ -67,7 +89,7 @@
 	}
 
 	/**
-	 * @param {string|undefined} def
+	 * @param {string | null | undefined} def
 	 * @returns {string}
 	 */
 	function printDefault(def) {
@@ -95,7 +117,7 @@
 		// svelte-ignore state_referenced_locally
 		jsdocTableBody = `${data.content.jsdocParsed
 			.map(
-				/** @param {any} d */ d =>
+				/** @param {JsdocProp} d */ d =>
 					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.defaultValue)}|${printRequired(
 						d.required
 					)}|${d.description?.replace(/^(-|–|—)/g, '').trim()}`

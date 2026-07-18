@@ -2,6 +2,17 @@ import { error, json } from '@sveltejs/kit';
 import { readFileSync, existsSync, readdirSync } from 'fs';
 import parseJsdoc from '$lib/helpers/parseJsdoc.js';
 
+/**
+ * @typedef {{
+ *   kind: string,
+ *   type: string,
+ *   name: string,
+ *   required: boolean,
+ *   defaultValue: string | null,
+ *   description: string
+ * }} JsdocProp
+ */
+
 /** @param {string} str */
 function cleanMain(str) {
 	const cleaned = str
@@ -126,9 +137,15 @@ export async function GET({ params }) {
 			let parsed = parseJsdoc(jsdocComment);
 			if (parsed && parsed['name'] in defaultValues)
 				parsed['defaultValue'] = defaultValues[parsed['name']]?.replace('$bindable()', '');
-			return parsed;
+			return /** @type {JsdocProp | null} */ (parsed);
 		})
-		.filter(/** @param {any} i */ i => i !== null);
+		.filter(
+			/**
+			 * @param {JsdocProp | null} i
+			 * @returns {i is JsdocProp}
+			 */
+			i => i !== null
+		);
 
 	const response = {
 		main,

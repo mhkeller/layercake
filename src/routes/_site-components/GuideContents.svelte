@@ -1,9 +1,13 @@
 <script>
 	/**
+	 * @typedef {import('../../_modules/getSections.js').GuideSection} GuideSection
+	 */
+
+	/**
 	 * @typedef {Object} Props
 	 * @property {boolean} [open]
-	 * @property {any} [activeGuideSection]
-	 * @property {any} [sections]
+	 * @property {string} [activeGuideSection]
+	 * @property {GuideSection[]} [sections]
 	 */
 
 	/** @type {Props} */
@@ -11,7 +15,7 @@
 
 	// svelte-ignore state_referenced_locally
 	const guideSections = sections.map(
-		/** @param {any} section */ section => {
+		/** @param {GuideSection} section */ section => {
 			return { metadata: section.metadata, subsections: section.subsections, slug: section.slug };
 		}
 	);

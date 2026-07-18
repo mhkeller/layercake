@@ -5,14 +5,19 @@
 	import downloadBlob from '../../_modules/downloadBlob.js';
 
 	/**
+	 * @typedef {import('../../_modules/constructReplLink.js').CodeFile} CodeFile
+	 * @typedef {import('../../_modules/constructReplLink.js').ExampleContent} ExampleContent
+	 */
+
+	/**
 	 * @typedef {Object} Props
-	 * @property {any} [data]
-	 * @property {any} slug
+	 * @property {ExampleContent} [data]
+	 * @property {string} slug
 	 * @property {boolean} [ssr]
 	 */
 
 	/** @type {Props} */
-	let { data = {}, slug, ssr = false } = $props();
+	let { data = /** @type {ExampleContent} */ ({}), slug, ssr = false } = $props();
 
 	let downloading = $state(false);
 
@@ -28,7 +33,7 @@
 	// svelte-ignore state_referenced_locally
 	const imports = [data.main, ...data.components, ...data.componentComponents]
 		.reduce(
-			(/** @type {string[]} */ store, /** @type {{ contents: string }} */ val) =>
+			(/** @type {string[]} */ store, /** @type {CodeFile} */ val) =>
 				store.concat(getImports(val.contents)),
 			/** @type {string[]} */ ([])
 		)
@@ -78,7 +83,7 @@
 
 		files.push(
 			...data.components.map(
-				/** @param {any} component */ component => ({
+				/** @param {CodeFile} component */ component => ({
 					path: `src/routes/${component.title.replace('./', '')}`,
 					data: component.contents
 				})
@@ -86,7 +91,7 @@
 		);
 		files.push(
 			...data.modules.map(
-				/** @param {any} mod */ mod => ({
+				/** @param {CodeFile} mod */ mod => ({
 					path: `src/routes/${mod.title.replace('./', '')}`,
 					data: mod.contents
 				})
@@ -94,7 +99,7 @@
 		);
 		files.push(
 			...data.componentModules.map(
-				/** @param {any} mod */ mod => ({
+				/** @param {CodeFile} mod */ mod => ({
 					path: `src/routes/${mod.title.replace('../', '')}`,
 					data: mod.contents
 				})
@@ -102,7 +107,7 @@
 		);
 		files.push(
 			...data.componentComponents.map(
-				/** @param {any} mod */ mod => ({
+				/** @param {CodeFile} mod */ mod => ({
 					path: `src/routes/${mod.title}`,
 					data: mod.contents
 				})
@@ -110,7 +115,7 @@
 		);
 		files.push(
 			...data.csvs.map(
-				/** @param {any} mod */ mod => ({
+				/** @param {CodeFile} mod */ mod => ({
 					path: `src/routes/${mod.title.replace('../', '')}`,
 					data: mod.contents
 				})
@@ -118,7 +123,7 @@
 		);
 		files.push(
 			...data.jsons.map(
-				/** @param {any} mod */ mod => ({
+				/** @param {CodeFile} mod */ mod => ({
 					path: `src/routes/${mod.title.replace('../', '')}`,
 					data: mod.contents
 				})

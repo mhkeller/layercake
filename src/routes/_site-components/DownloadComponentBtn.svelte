@@ -4,7 +4,22 @@
 
 	import downloadBlob from '../../_modules/downloadBlob.js';
 
-	let { data = {}, slug } = $props();
+	/**
+	 * @typedef {{ slug: string, contents: string }} ComponentFile
+	 * @typedef {{
+	 *   main: ComponentFile,
+	 *   modules: ComponentFile[]
+	 * }} ComponentContent
+	 */
+
+	/**
+	 * @typedef {Object} Props
+	 * @property {ComponentContent} [data]
+	 * @property {string} slug
+	 */
+
+	/** @type {Props} */
+	let { data = /** @type {ComponentContent} */ ({}), slug } = $props();
 
 	let downloading = $state(false);
 
@@ -60,7 +75,10 @@
 		// files.push(...data.components.map(component => ({ path: `src/${component.title.replace('./', '')}`, data: component.contents })));
 		files.push(
 			...data.modules.map(
-				/** @param {any} mod */ mod => ({ path: mod.slug.replace('./', ''), data: mod.contents })
+				/** @param {ComponentFile} mod */ mod => ({
+					path: mod.slug.replace('./', ''),
+					data: mod.contents
+				})
 			)
 		);
 		// files.push(...data.componentModules.map(mod => ({ path: `src/${mod.title.replace('../', '')}`, data: mod.contents })));

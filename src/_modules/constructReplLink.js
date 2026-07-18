@@ -3,16 +3,21 @@ import { csvParse } from 'd3-dsv';
 import { compress_and_encode_text } from './createReplHash.js';
 
 /**
+ * @typedef {{ title: string, contents: string }} CodeFile
+ * @typedef {{
+ *   main: CodeFile,
+ *   components: CodeFile[],
+ *   componentModules: CodeFile[],
+ *   modules: CodeFile[],
+ *   componentComponents: CodeFile[],
+ *   jsons: CodeFile[],
+ *   csvs: CodeFile[]
+ * }} ExampleContent
+ */
+
+/**
  * @param {string} pageName
- * @param {{
- *   main: { title: string, contents: string },
- *   components: { title: string, contents: string }[],
- *   componentModules: { title: string, contents: string }[],
- *   modules: { title: string, contents: string }[],
- *   componentComponents: { title: string, contents: string }[],
- *   jsons: { title: string, contents: string }[],
- *   csvs: { title: string, contents: string }[]
- * }} content
+ * @param {ExampleContent} content
  */
 export default async function constructReplLink(pageName, content) {
 	// TODO, clean up import paths

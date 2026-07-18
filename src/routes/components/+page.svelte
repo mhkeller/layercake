@@ -4,6 +4,24 @@
 	import svelteComponents from '../_components.js';
 
 	/**
+	 * @typedef {{
+	 *   slug: string,
+	 *   name?: string,
+	 *   component: import('svelte').Component
+	 * }} ComponentEntry
+	 *
+	 * @typedef {{
+	 *   name: string,
+	 *   components: ComponentEntry[]
+	 * }} ComponentGroup
+	 *
+	 * @typedef {ComponentEntry & {
+	 *   classes: string[],
+	 *   group: string | undefined
+	 * }} GalleryEntry
+	 */
+
+	/**
 	 * @param {string} name
 	 * @returns {string[]}
 	 */
@@ -14,11 +32,11 @@
 		return parts;
 	}
 
-	const componentGroups = svelteComponents.map((/** @type {{ name: string, components: any[] }} */ d) => {
+	const componentGroups = svelteComponents.map(/** @param {ComponentGroup} d */ d => {
 		return {
 			name: `${d.name.replace(/^\w/, /** @param {string} w */ w => w.toUpperCase())} components`,
 			components: sortBy(d.components, 'slug').map(
-				/** @param {{ name: string, slug: string, component: any }} args */
+				/** @param {ComponentEntry} args */
 				({ name, slug, component }) => {
 					const classes = getClasses(slug);
 					return {
@@ -166,7 +184,7 @@
 	{#each componentGroups as componentGroup}
 		<h3 id={slugify(componentGroup.name)}>{componentGroup.name}</h3>
 		<div class="component-blocks">
-			{#each Object.entries(groupBy(componentGroup.components, (/** @type {any} */ d) => d.group)) as [subgroup, items]}
+			{#each Object.entries(groupBy(componentGroup.components, (/** @type {GalleryEntry} */ d) => d.group)) as [subgroup, items]}
 				<h4>{formatSubgroup(subgroup)}</h4>
 				<div class="subgroup-blocks">
 					{#each items as item}
@@ -178,7 +196,7 @@
 								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 								{@html item.classes
 									.map(
-										(/** @type {any} */ d) =>
+										(/** @type {string} */ d) =>
 											`<span class="label ${d}">${d.replace('percent-', '%-')}</span>`
 									)
 									.join('')}

@@ -23,10 +23,19 @@
 
 	let active = $derived(data.active);
 
+	/**
+	 * @param {string} text
+	 * @returns {string}
+	 */
 	function markdownToHtml(text) {
 		return md.render(text);
 	}
 
+	/**
+	 * @param {string} str
+	 * @param {string} title
+	 * @returns {string}
+	 */
 	function highlight(str, title) {
 		const parts = title.split('.');
 		let ext = parts[parts.length - 1];

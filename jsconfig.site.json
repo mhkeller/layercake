@@ -1,0 +1,13 @@
+{
+	"extends": "./jsconfig.json",
+	"exclude": [
+		"./src/lib/**",
+		"./src/_components/**",
+		"./src/routes/_components/**",
+		"./src/routes/_components_ssr/**",
+		"./src/routes/_examples/**",
+		"./src/routes/_examples_ssr/**",
+		"./src/_data/*",
+		"./src/scripts/**/*"
+	]
+}

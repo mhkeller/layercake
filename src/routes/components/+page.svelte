@@ -3,52 +3,83 @@
 
 	import svelteComponents from '../_components.js';
 
+	/**
+	 * @typedef {{
+	 *   slug: string,
+	 *   name?: string,
+	 *   component: import('svelte').Component
+	 * }} ComponentEntry
+	 *
+	 * @typedef {{
+	 *   name: string,
+	 *   components: ComponentEntry[]
+	 * }} ComponentGroup
+	 *
+	 * @typedef {ComponentEntry & {
+	 *   classes: string[],
+	 *   group: string | undefined
+	 * }} GalleryEntry
+	 */
+
+	/**
+	 * @param {string} name
+	 * @returns {string[]}
+	 */
 	function getClasses(name) {
-		const parts = name.split('.').filter(d => d !== 'svelte');
+		const parts = name.split('.').filter(/** @param {string} d */ d => d !== 'svelte');
 		parts.shift();
 		if (parts.length === 0) return ['svg'];
 		return parts;
 	}
 
-	const componentGroups = svelteComponents.map(d => {
+	const componentGroups = svelteComponents.map(/** @param {ComponentGroup} d */ d => {
 		return {
-			name: `${d.name.replace(/^\w/, w => w.toUpperCase())} components`,
-			components: sortBy(d.components, 'slug').map(({ name, slug, component }) => {
-				const classes = getClasses(slug);
-				return {
-					name,
-					slug,
-					component,
-					classes,
-					group: classes.filter(d => d !== 'percent-range')[0]
-				};
-			})
+			name: `${d.name.replace(/^\w/, /** @param {string} w */ w => w.toUpperCase())} components`,
+			components: sortBy(d.components, 'slug').map(
+				/** @param {ComponentEntry} args */
+				({ name, slug, component }) => {
+					const classes = getClasses(slug);
+					return {
+						name,
+						slug,
+						component,
+						classes,
+						group: classes.filter(/** @param {string} d */ d => d !== 'percent-range')[0]
+					};
+				}
+			)
 		};
 	});
 
+	/** @param {string} name */
 	function formatName(name) {
 		return name.split('.')[0];
 	}
 
+	/** @param {string} subgroup */
 	function formatSubgroup(subgroup) {
 		if (subgroup == 'webgl') return 'WebGL';
 		if (subgroup == 'canvas') return 'Canvas';
 		return subgroup.toUpperCase();
 	}
 
+	/** @param {string} name */
 	function slugify(name) {
 		return name.toLowerCase().split(' ')[0];
 	}
 
+	/** @type {HTMLElement | undefined} */
 	let container;
+	/** @type {number[]} */
 	let positions = [];
 	let lastId = 'axis';
 	let activeSection = $state('axis');
 
+	/** @type {HTMLElement[]} */
 	let anchors = [];
 	$effect(() => {
-		if (typeof window !== 'undefined') {
-			anchors = container.querySelectorAll('[id]');
+		if (typeof window !== 'undefined' && container) {
+			anchors = /** @type {HTMLElement[]} */ ([...container.querySelectorAll('[id]')]);
 			lastId = window.location.hash.slice(1);
 			activeSection = lastId || 'axis';
 
@@ -60,12 +91,9 @@
 	function onresize() {
 		if (container) {
 			const { top } = container.getBoundingClientRect();
-			positions = [].map.call(
-				anchors,
-				/** @param {HTMLAnchorElement} anchor */ anchor => {
-					return anchor.getBoundingClientRect().top - top;
-				}
-			);
+			positions = anchors.map(anchor => {
+				return anchor.getBoundingClientRect().top - top;
+			});
 		}
 	}
 
@@ -156,7 +184,7 @@
 	{#each componentGroups as componentGroup}
 		<h3 id={slugify(componentGroup.name)}>{componentGroup.name}</h3>
 		<div class="component-blocks">
-			{#each Object.entries(groupBy(componentGroup.components, d => d.group)) as [subgroup, items]}
+			{#each Object.entries(groupBy(componentGroup.components, (/** @type {GalleryEntry} */ d) => d.group)) as [subgroup, items]}
 				<h4>{formatSubgroup(subgroup)}</h4>
 				<div class="subgroup-blocks">
 					{#each items as item}
@@ -167,7 +195,10 @@
 								>
 								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 								{@html item.classes
-									.map(d => `<span class="label ${d}">${d.replace('percent-', '%-')}</span>`)
+									.map(
+										(/** @type {string} */ d) =>
+											`<span class="label ${d}">${d.replace('percent-', '%-')}</span>`
+									)
 									.join('')}
 							</div>
 							<div class="block-container">

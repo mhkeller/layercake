@@ -1,8 +1,19 @@
 import { error, json } from '@sveltejs/kit';
-import { readFileSync, existsSync } from 'fs';
-import { readdirFilterSync } from 'indian-ocean';
+import { readFileSync, existsSync, readdirSync } from 'fs';
 import parseJsdoc from '$lib/helpers/parseJsdoc.js';
 
+/**
+ * @typedef {{
+ *   kind: string,
+ *   type: string,
+ *   name: string,
+ *   required: boolean,
+ *   defaultValue: string | null,
+ *   description: string
+ * }} JsdocProp
+ */
+
+/** @param {string} str */
 function cleanMain(str) {
 	const cleaned = str
 		.replace(/\t/g, '  ')
@@ -12,18 +23,31 @@ function cleanMain(str) {
 	return cleaned;
 }
 
+/** @param {string} str */
 function cleanContents(str) {
 	return str.replace(/\t/g, '  ').trim();
 }
 
+/** @param {string} example */
 function getJsPaths(example) {
 	const match = example.match(/\.\/.+\.js('|")/gm);
 	if (match) {
-		return match.map(d => d.replace('../../', '').replace(/('|")/g, ''));
+		return match.map(/** @param {string} d */ d => d.replace('../../', '').replace(/('|")/g, ''));
 	}
 	return [];
 }
 
+/**
+ * @param {string} dir
+ * @returns {string[]}
+ */
+function readdirFilterSync(dir) {
+	return readdirSync(dir)
+		.filter(/** @param {string} name */ name => name.endsWith('.svelte'))
+		.map(/** @param {string} name */ name => `${dir}/${name}`);
+}
+
+/** @type {import('@sveltejs/kit').RequestHandler} */
 export async function GET({ params }) {
 	// the `slug` parameter is available because
 	// this file is called [slug].json.js
@@ -39,12 +63,14 @@ export async function GET({ params }) {
 
 	const fromMain = cleanMain(component);
 
-	const modules = getJsPaths(component).map(d => {
-		return {
-			slug: d.replace('../', ''),
-			contents: cleanContents(readFileSync(d.replace('./', 'src/'), 'utf-8'))
-		};
-	});
+	const modules = getJsPaths(component).map(
+		/** @param {string} d */ d => {
+			return {
+				slug: d.replace('../', ''),
+				contents: cleanContents(readFileSync(d.replace('./', 'src/'), 'utf-8'))
+			};
+		}
+	);
 
 	const main = {
 		slug,
@@ -58,7 +84,7 @@ export async function GET({ params }) {
 	const usedIn = examplePaths.map((d, i) => {
 		return {
 			group: i === 0 ? 'Regular' : 'SSR',
-			matches: readdirFilterSync(d, { fullPath: true })
+			matches: readdirFilterSync(d)
 				.map(q => {
 					return {
 						path: q,
@@ -69,7 +95,7 @@ export async function GET({ params }) {
 					return q.contents.includes(slug);
 				})
 				.map(q => {
-					const name = q.path.split('/').pop().replace('.svelte', '');
+					const name = q.path.split('/').pop()?.replace('.svelte', '') ?? '';
 					return `/example${i === 1 ? '-ssr' : ''}/${name}`;
 				})
 		};
@@ -84,21 +110,25 @@ export async function GET({ params }) {
 	// fields of other typedefs (annotation configs, arrow configs etc...) don't
 	// show up as component props
 	const commentBlocks = fromMain.match(/\/\*\*[^]*?\*\//g) || [];
-	const propsBlock = commentBlocks.find(block => block.includes('@typedef {Object} Props')) || '';
+	const propsBlock =
+		commentBlocks.find(
+			/** @param {string} block */ block => block.includes('@typedef {Object} Props')
+		) || '';
 	const jsdocPropertyMatches = propsBlock.matchAll(/(@property [^\n]*)/gm);
 	const propertiesDefaultValues = fromMain.match(/let\s+\{([\s\S]*?)\} = \$props/m);
+	/** @type {Record<string, string>} */
 	let defaultValues = {};
 	if (propertiesDefaultValues) {
 		// split at comma, but not in parens of function parameters
 		defaultValues = propertiesDefaultValues[1]
 			.split(/,(?![^(]*\))/g)
-			.map(i => i.trim())
-			.filter(i => i !== 'children')
+			.map(/** @param {string} i */ i => i.trim())
+			.filter(/** @param {string} i */ i => i !== 'children')
 			.reduce((acc, item) => {
 				const [key, value] = item.split(' = ');
 				acc[key] = value;
 				return acc;
-			}, {});
+			}, /** @type {Record<string, string>} */ ({}));
 	}
 
 	const jsdocParsed = [...jsdocPropertyMatches]
@@ -107,9 +137,15 @@ export async function GET({ params }) {
 			let parsed = parseJsdoc(jsdocComment);
 			if (parsed && parsed['name'] in defaultValues)
 				parsed['defaultValue'] = defaultValues[parsed['name']]?.replace('$bindable()', '');
-			return parsed;
+			return /** @type {JsdocProp | null} */ (parsed);
 		})
-		.filter(i => i !== null);
+		.filter(
+			/**
+			 * @param {JsdocProp | null} i
+			 * @returns {i is JsdocProp}
+			 */
+			i => i !== null
+		);
 
 	const response = {
 		main,

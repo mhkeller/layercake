@@ -2,6 +2,23 @@ import { csvParse } from 'd3-dsv';
 
 import { compress_and_encode_text } from './createReplHash.js';
 
+/**
+ * @typedef {{ title: string, contents: string }} CodeFile
+ * @typedef {{
+ *   main: CodeFile,
+ *   components: CodeFile[],
+ *   componentModules: CodeFile[],
+ *   modules: CodeFile[],
+ *   componentComponents: CodeFile[],
+ *   jsons: CodeFile[],
+ *   csvs: CodeFile[]
+ * }} ExampleContent
+ */
+
+/**
+ * @param {string} pageName
+ * @param {ExampleContent} content
+ */
 export default async function constructReplLink(pageName, content) {
 	// TODO, clean up import paths
 	const pages = [content.main]
@@ -17,7 +34,7 @@ export default async function constructReplLink(pageName, content) {
 	const json = {
 		name: pageTitle.trim(),
 		files: pages.map(c => {
-			const filename = c.title.split('/').pop();
+			const filename = c.title.split('/').pop() ?? '';
 			const name = cleanName(filename);
 			return {
 				type: 'file',

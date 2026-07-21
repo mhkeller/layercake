@@ -8,7 +8,7 @@
 	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
 	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/fruitOrdinal.csv';
 
 	const xKey = 'year';
@@ -17,12 +17,6 @@
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#00e047', '#7ceb68', '#b7f486', '#ecfda5'];
-
-	data.forEach(d => {
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
-	});
 
 	const stackData = stack().keys(seriesNames);
 

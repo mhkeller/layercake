@@ -3,16 +3,11 @@
 
 	import Labels from '../../_components/Labels.html.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';
-
-	data.forEach(d => {
-		d[xKey] = +d[xKey];
-		d[yKey] = +d[yKey];
-	});
 
 	const labels = data.filter((d, i) => {
 		return i % 6 === 0;

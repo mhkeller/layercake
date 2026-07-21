@@ -12,7 +12,7 @@
 	 * @typedef {Object} Props
 	 * @property {string} [fill='#f0c'] - The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
 	 * @property {string} [stroke='#f0c'] - The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
-	 * @property {number} [strokeWidth=2] - The radar's stroke color.
+	 * @property {number} [strokeWidth=2] - The radar's stroke width.
 	 * @property {number} [fillOpacity=0.5] - The radar's fill opacity.
 	 * @property {number} [r=4.5] - Each circle's radius.
 	 * @property {string} [circleFill='#f0c'] - Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.

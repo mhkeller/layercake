@@ -5,7 +5,7 @@
 
 	import BarStacked from '../../_components/BarStacked.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/fruitOrdinal.csv';
 
 	const xKey = [0, 1];
@@ -14,12 +14,6 @@
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== yKey);
 	const seriesColors = ['#00bbff', '#8bcef6', '#c4e2ed', '#f7f6e3'];
-
-	data.forEach(d => {
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
-	});
 
 	const stackData = stack().keys(seriesNames);
 
@@ -33,7 +27,7 @@
 		y={d => d.data[yKey]}
 		z={zKey}
 		yScale={scaleBand().paddingInner(0.05).round(true)}
-		yDomain={['2016', '2017', '2018', '2019']}
+		yDomain={[2016, 2017, 2018, 2019]}
 		zScale={scaleOrdinal()}
 		zDomain={seriesNames}
 		zRange={seriesColors}

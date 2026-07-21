@@ -4,15 +4,18 @@
 	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
 
+	/** @type {HTMLElement | undefined} */
 	let container;
+	/** @type {number[]} */
 	let positions = [];
 	let lastId = 'introduction';
 	let activeGuideSection = $state();
 
+	/** @type {HTMLElement[]} */
 	let anchors = [];
 	$effect(() => {
-		if (typeof window !== 'undefined') {
-			anchors = container.querySelectorAll('[id]');
+		if (typeof window !== 'undefined' && container) {
+			anchors = /** @type {HTMLElement[]} */ ([...container.querySelectorAll('[id]')]);
 			lastId = window.location.hash.slice(1);
 			activeGuideSection = lastId;
 
@@ -24,12 +27,9 @@
 	function onresize() {
 		if (container) {
 			const { top } = container.getBoundingClientRect();
-			positions = [].map.call(
-				anchors,
-				/** @param {HTMLAnchorElement} anchor */ anchor => {
-					return anchor.getBoundingClientRect().top - top;
-				}
-			);
+			positions = anchors.map(anchor => {
+				return anchor.getBoundingClientRect().top - top;
+			});
 		}
 	}
 
@@ -72,7 +72,9 @@
 			{#each data.sections as section}
 				<li>
 					<a href="#{section.slug}"
-						>- {section.slug.replace(/^\w/, d => d.toUpperCase()).replaceAll('-', ' ')}</a
+						>- {section.slug
+							.replace(/^\w/, /** @param {string} d */ d => d.toUpperCase())
+							.replaceAll('-', ' ')}</a
 					>
 				</li>
 			{/each}

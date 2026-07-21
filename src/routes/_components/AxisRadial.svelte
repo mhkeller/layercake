@@ -3,19 +3,13 @@
 
 	import AxisRadial from '../../_components/AxisRadial.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/radarScores.csv';
 
 	const seriesKey = 'name';
 	const xKey = ['fastball', 'change', 'slider', 'cutter', 'curve'];
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== seriesKey);
-
-	data.forEach(d => {
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
-	});
 
 	const padding = 35;
 </script>

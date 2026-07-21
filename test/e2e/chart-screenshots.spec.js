@@ -11,6 +11,7 @@ const options = {
 
 test(`Snapshot for landing page galleries`, async ({ page }) => {
 	await page.goto('/');
+	await page.waitForTimeout(2_000);
 	await expect(page.locator('#gallery')).toHaveScreenshot({ ...options, timeout: 10000 });
 	await expect(page.locator('#ssr-gallery')).toHaveScreenshot({ ...options, timeout: 10000 });
 });

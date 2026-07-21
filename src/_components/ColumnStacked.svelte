@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG column chart. It uses the z-scale for color assignments and aassumes both `xScale` and `zScale` are ordinal scales.  It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack
+	Generates an SVG stacked column chart. It uses the z-scale for color assignments and assumes both `xScale` and `zScale` are ordinal scales. It assumes your data is in a [D3 stack format](https://github.com/d3/d3-shape#stack).
  -->
 <script>
 	import { getContext } from 'svelte';

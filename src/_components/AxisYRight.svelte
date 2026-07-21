@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
+	Generates an SVG y-axis on the right-hand side of the chart. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
 <script>
 	import { getContext } from 'svelte';
@@ -12,7 +12,7 @@
 	 * @property {boolean} [tickMarks=false] - Show marks next to the tick label.
 	 * @property {string} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark.
 	 * @property {boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
-	 * @property {boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
+	 * @property {boolean} [gridlines=true] - Show gridlines extending into the chart area.
 	 * @property {number} [tickMarkLength] - The length of the tick mark. If not set, becomes the length of the widest tick.
 	 * @property {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return.
 	 * @property {number|Array<any>|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.

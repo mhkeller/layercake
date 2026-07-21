@@ -6,6 +6,10 @@ on:
     types:
       - completed
 
+permissions:
+  actions: read
+  pull-requests: write
+
 jobs:
   comment:
     runs-on: ubuntu-latest

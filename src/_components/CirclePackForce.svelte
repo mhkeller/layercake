@@ -49,18 +49,22 @@
 			.force(
 				'x',
 				forceX()
-					.x(/** @param {any} d */ d => {
-						return groupBy === true ? $xGet(d) + $xScale.bandwidth() / 2 : $width / 2;
-					})
+					.x(
+						/** @param {any} d */ d => {
+							return groupBy === true ? $xGet(d) + $xScale.bandwidth() / 2 : $width / 2;
+						}
+					)
 					.strength(xStrength)
 			)
 			.force('center', forceCenter($width / 2, $height / 2))
 			.force('charge', forceManyBody().strength(manyBodyStrength))
 			.force(
 				'collision',
-				forceCollide().radius(/** @param {any} d */ d => {
-					return $rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
-				})
+				forceCollide().radius(
+					/** @param {any} d */ d => {
+						return $rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
+					}
+				)
 			)
 			.force('center', forceCenter($width / 2, $height / 2))
 			.alpha(1)

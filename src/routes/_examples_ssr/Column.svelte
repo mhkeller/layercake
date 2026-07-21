@@ -9,7 +9,7 @@
 	import Arrows from '../../_components/Arrows.svelte';
 	import ArrowheadMarker from '../../_components/ArrowheadMarker.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/groups.csv';
 
 	const xKey = 'year';
@@ -18,7 +18,7 @@
 	const annotations = [
 		{
 			text: 'Example text...',
-			[xKey]: '1980',
+			[xKey]: 1980,
 			[yKey]: 14,
 			dx: 15, // Optional pixel values
 			dy: -5,
@@ -32,7 +32,7 @@
 					},
 					target: {
 						// These can be expressed in our data units if passed under the data keys
-						[xKey]: '1980',
+						[xKey]: 1980,
 						[yKey]: 4.5,
 						// Optional adjustments
 						dx: 2,
@@ -54,10 +54,6 @@
 			]
 		}
 	];
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">
@@ -69,7 +65,7 @@
 		x={xKey}
 		y={yKey}
 		xScale={scaleBand().paddingInner(0.028).round(true)}
-		xDomain={['1979', '1980', '1981', '1982', '1983']}
+		xDomain={[1979, 1980, 1981, 1982, 1983]}
 		yDomain={[0, null]}
 		{data}
 	>
@@ -94,7 +90,7 @@
 		x={xKey}
 		y={yKey}
 		xScale={scaleBand().paddingInner(0.028).round(true)}
-		xDomain={['1979', '1980', '1981', '1982', '1983']}
+		xDomain={[1979, 1980, 1981, 1982, 1983]}
 		yDomain={[0, null]}
 		{data}
 	>

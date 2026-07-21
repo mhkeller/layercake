@@ -71,7 +71,7 @@
 
 	<div id="dek">
 		<p>
-			Layer Cake is a graphics framework for <a
+			Layer Cake is a headless graphics framework for <a
 				href="https://svelte.dev"
 				target="_blank"
 				rel="noreferrer">Svelte</a
@@ -89,8 +89,7 @@
 			Unlike other libraries, <a href="/components">chart components</a> live
 			<span class="strong">inside your project</span>, so you have complete control for
 			<span class="strong">customization</span>. It also includes some handy
-			<a href="/guide#helper-functions">helper functions</a> to help format your data into the right
-			shape.
+			<a href="/guide#helper-functions">helper functions</a> to help format your data into the right shape.
 		</p>
 
 		<p>

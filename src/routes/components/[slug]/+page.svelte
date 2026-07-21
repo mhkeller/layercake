@@ -8,6 +8,28 @@
 
 	import components from '../../_components.js';
 
+	/**
+	 * @typedef {{
+	 *   kind: string,
+	 *   type: string,
+	 *   name: string,
+	 *   required: boolean,
+	 *   defaultValue: string | null,
+	 *   description: string
+	 * }} JsdocProp
+	 *
+	 * @typedef {{
+	 *   slug: string,
+	 *   name?: string,
+	 *   component: import('svelte').Component
+	 * }} ComponentEntry
+	 *
+	 * @typedef {{
+	 *   name: string,
+	 *   components: ComponentEntry[]
+	 * }} ComponentGroup
+	 */
+
 	const md = new MarkdownIt({ html: true, linkify: true });
 
 	hljs.registerLanguage('svelte', hljsDefineSvelte);
@@ -18,10 +40,20 @@
 
 	let active = $derived(data.active);
 
+	/**
+	 * Converts markdown text to HTML.
+	 * @param {string} text - The markdown text to convert.
+	 * @returns {string} The converted HTML.
+	 */
 	function markdownToHtml(text) {
 		return md.render(text);
 	}
 
+	/**
+	 * @param {string} str
+	 * @param {string} s
+	 * @returns {string} highlighted code
+	 */
 	function highlight(str, s) {
 		const parts = s.split('.');
 		let ext = parts[parts.length - 1];
@@ -33,28 +65,42 @@
 
 	const lookup = new Map();
 	components
-		.flatMap(d => d.components)
-		.forEach(d => {
-			lookup.set(d.slug, d);
-		});
+		.flatMap(/** @param {ComponentGroup} d */ d => d.components)
+		.forEach(
+			/** @param {ComponentEntry} d */ d => {
+				lookup.set(d.slug, d);
+			}
+		);
 
 	let component = $derived(lookup.get(data.slug));
 
+	/**
+	 * @param {string} type
+	 * @returns {string}
+	 */
 	function printTypes(type) {
 		if (type.includes('|')) {
 			const escaped = type
 				.split('|')
-				.map(d => `\`${d}\``)
+				.map(/** @param {string} d */ d => `\`${d}\``)
 				.join(' &vert; ');
 			return `(${escaped})`;
 		} else return `\`${type}\``;
 	}
 
+	/**
+	 * @param {string | null | undefined} def
+	 * @returns {string}
+	 */
 	function printDefault(def) {
 		if (!def) return 'None';
 		return `\`${def}\``;
 	}
 
+	/**
+	 * @param {boolean|undefined} required
+	 * @returns {string}
+	 */
 	function printRequired(required) {
 		const str = required ? 'yes' : 'no';
 		return `<center>${str}</center>`;
@@ -66,15 +112,18 @@
 	let jsdocTableBody = '';
 	let jsdocTable = $state('');
 
+	// svelte-ignore state_referenced_locally
 	if (data.content.hasjsDoctable === true) {
+		// svelte-ignore state_referenced_locally
 		jsdocTableBody = `${data.content.jsdocParsed
 			.map(
-				d =>
+				/** @param {JsdocProp} d */ d =>
 					`**${d.name}** ${printTypes(d.type)}|${printDefault(d.defaultValue)}|${printRequired(
 						d.required
 					)}|${d.description?.replace(/^(-|–|—)/g, '').trim()}`
 			)
 			.join('\n')}`;
+		// svelte-ignore state_referenced_locally
 		jsdocTable = data.content.jsdocParsed.length ? `${jsdocTableHeader}\n${jsdocTableBody}` : '';
 	}
 </script>

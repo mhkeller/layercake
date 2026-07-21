@@ -1,5 +1,28 @@
 # Changelog
 
+# 10.0.3
+
+> 2026-07-11
+
+Upgrade deps and GH actions. Fixes to docs and type annotations.
+
+- [PR#413](https://github.com/mhkeller/layercake/pull/413)
+- [PR#414](https://github.com/mhkeller/layercake/pull/414)
+
+# 10.0.2
+
+> 2025-09-23
+
+- Removes the npm version constraint from package.json because it was causing issues and is not really needed
+  - [PR#345](https://github.com/mhkeller/layercake/pull/345)
+
+# 10.0.1
+
+> 2025-08-24
+
+- Updates the Svelte peer dependency to version 5 or greater. This should have been included with `v9.0.0` so putting it in now as a patch release. Users needing Svelte 3 (probably no one) or Svelte 4 (very few) support should use version 8.4.4.
+  - [PR#332](https://github.com/mhkeller/layercake/pull/332)
+
 # 10.0.0
 
 > 2025-08-18
@@ -14,19 +37,19 @@
 - Converts most of the codebase to Svelte 5's runes and incorporates some longstanding pending breaking changes.
 
 **Breaking changes**
-  - The `title` prop on `Svg` and `ScaledSvg` layout components is renamed to `titleText` to avoid conflicting with the `title` snippet namespace. https://github.com/mhkeller/layercake/pull/271
-  - The `title` snippet for those components now creates the outer `<title>` tag for you. Previously, the slot was blank and you had to write your own `<title>` wrapper. https://github.com/mhkeller/layercake/pull/271
-  - The `fallback` slot on `Canvas` and `Webgl` layout components was removed. The `fallback` text prop is sufficient. https://github.com/mhkeller/layercake/pull/271
-  - The `extents` prop is deprecated https://github.com/mhkeller/layercake/pull/243
-  - Domains for ordinal scales are no longer sorted by default https://github.com/mhkeller/layercake/pull/241
+
+- The `title` prop on `Svg` and `ScaledSvg` layout components is renamed to `titleText` to avoid conflicting with the `title` snippet namespace. https://github.com/mhkeller/layercake/pull/271
+- The `title` snippet for those components now creates the outer `<title>` tag for you. Previously, the slot was blank and you had to write your own `<title>` wrapper. https://github.com/mhkeller/layercake/pull/271
+- The `fallback` slot on `Canvas` and `Webgl` layout components was removed. The `fallback` text prop is sufficient. https://github.com/mhkeller/layercake/pull/271
+- The `extents` prop is deprecated https://github.com/mhkeller/layercake/pull/243
+- Domains for ordinal scales are no longer sorted by default https://github.com/mhkeller/layercake/pull/241
 
 # 8.4.4
 
 > 2025-07-24
 
-* Remove `$:` from context setting.
+- Remove `$:` from context setting.
   - [PR#302](https://github.com/mhkeller/layercake/pull/302)
-
 
 # 8.4.3
 

@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-24.04
     container:
       # https://playwright.dev/docs/docker
-      image: mcr.microsoft.com/playwright:v1.54.0-noble
+      # Keep in sync with the @playwright/test version in package.json
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
       options: --user 1001
 
     if: github.ref_name != github.event.repository.default_branch
@@ -21,22 +22,25 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: ${{ github.ref_name }}
 
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Initialise Playwright tests
-        run: npm run pretest:playwright
+        run: pnpm pretest:playwright
 
       - name: Update snapshots
-        run: npm run test:init:snapshots
+        run: pnpm test:init:snapshots
 
       - name: Configure Git
         run: |

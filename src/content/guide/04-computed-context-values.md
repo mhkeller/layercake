@@ -19,7 +19,7 @@ An object that has a key for each dimension of data you have provided an accesso
   x: '<function>',
   y: '<function>',
   z: '<function>',
-  r: '<function>
+  r: '<function>'
 }
 ```
 
@@ -37,15 +37,11 @@ The aspect ratio of the chart, `width / height`. As a slot prop, you could use i
 </LayerCake>
 ```
 
-### box `Object`
-
-A bounding box object of the parent container with `top`, `right`, `bottom`, `left`, `width` and `height` numbers in pixels. Useful for creating tooltips.
-
 ### config `Object`
 
 A copy of some of the config properties set on the `<LayerCake>` component.
 
-Some of these properties get changed by the time they end up on the context object. For example, the [x](/guide#x), [y](/guide#y), [z](/guide#z) and [r](/guide#r) LayerCake properties can be strings or arrays but when they're exposed on the context as compued values, they are always a function. Sometimes, it's useful to refer to those original props such as in the [Cleveland Dot Plot example](/example/ClevelandDotPlot), which uses the x accessor shorthand of providing a list of keys.
+Some of these properties get changed by the time they end up on the context object. For example, the [x](/guide#x), [y](/guide#y), [z](/guide#z) and [r](/guide#r) LayerCake properties can be strings or arrays but when they're exposed on the context as computed values, they are always a function. Sometimes, it's useful to refer to those original props such as in the [Cleveland Dot Plot example](/example/ClevelandDotPlot), which uses the x accessor shorthand of providing a list of keys.
 
 Or, [xDomain](/guide#xdomain) and the other domain props can be used to set manual limits on the min or max of the domain scale. This can be different from what gets set on the context [xDomain](/guide#xdomain) if the prop value contained any `null` values. If you want to refer to the original value for any reason, it's set on this object.
 
@@ -53,19 +49,25 @@ Having access to this field can help you not repeat yourself in specifying thing
 
 ### containerWidth `number`
 
-The width of the parent container – the div element that contains the `<LayerCake>` component. Unlike [width](/guide#width), this value does not take into account any margin. As a variable on the Layer Cake slot so you can access it with `let:containerWidth`.
+The width of the parent container – the div element that contains the `<LayerCake>` component. Unlike [width](/guide#width-1), this value does not take into account any padding. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:containerWidth`.
 
 ### containerHeight `number`
 
-The height of the parent container – the div element that contains the `<LayerCake>` component. Unlike [height](/guide#height), this value does not take into account any margin. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:containerHeight`.
+The height of the parent container – the div element that contains the `<LayerCake>` component. Unlike [height](/guide#height-1), this value does not take into account any padding. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:containerHeight`.
+
+### data `Array`
+
+The `data` you passed in as a prop, exposed as a store. This is what your layer components will most commonly iterate over, like `{#each $data as d}`.
+
+The [flatData](/guide#flatdata), [padding](/guide#padding) and [custom](/guide#custom) props are also available on the context as stores under those same names, as is an `extents` object holding the measured data extents for each active dimension.
 
 ### width `number`
 
-The width of the drawable space for the chart. This is the width of the parent container taking into account any margin. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:width`.
+The width of the drawable space for the chart. This is the width of the parent container taking into account any padding. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:width`.
 
 ### height `number`
 
-The width of the drawable space for the chart. This is the height of the parent container taking into account any margin. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:height`.
+The height of the drawable space for the chart. This is the height of the parent container taking into account any padding. This is also exposed as a variable on the Layer Cake slot so you can access it with `let:height`.
 
 ### x `Function`
 
@@ -144,9 +146,9 @@ Same as [xRange](/guide#xrange-1) above but for the r domain.
 
 Often you want to get the x value from a row in your data and scale it like so: `$xScale($x(d))`. Avoid that confusing syntax with this function like so `$xGet(d)`.
 
-Why use this? Hard coding key names into your components makes them less reusable. By using the [x](/guide#x), [y](/guide#y), [z](/guide#z) and [z](/guide#z) accessors, you can use the same component across projects. Or, you can use the same component to render different fields from one dataset across separate charts in the same project, say using small multiples. You can use the same component and just alter the accessor.
+Why use this? Hard coding key names into your components makes them less reusable. By using the [x](/guide#x), [y](/guide#y), [z](/guide#z) and [r](/guide#r) accessors, you can use the same component across projects. Or, you can use the same component to render different fields from one dataset across separate charts in the same project, say using small multiples. You can use the same component and just alter the accessor.
 
-Here are a few examples to show how it working and what it's equivalent to:
+Here are a few examples to show how it works and what it's equivalent to:
 
 ```svelte
 <script>
@@ -154,10 +156,10 @@ Here are a few examples to show how it working and what it's equivalent to:
 
 	const { data, x, xScale, xGet } = getContext('LayerCake');
 
-	// data === [{ myX: 'hello', myY: 'hi }];
+	// data === [{ myX: 'hello', myY: 'hi' }];
 </script>
 
-{#each data as d}
+{#each $data as d}
 	<!-- These are equivalent: -->
 	d.myX === $x(d); $xScale(d.myX) === $xScale($x(d)) === $xGet(d);
 {/each}
@@ -189,18 +191,18 @@ Same as [xGet](/guide#xget) but for the z scale.
 
 Same as [xGet](/guide#xget) but for the r scale.
 
-### xScale(d: `Object`)
+### xScale `Function`
 
-The calculated scale for the x dimension.
+The calculated D3 scale for the x dimension. Call it with a value from your data's domain, e.g. `$xScale($x(d))`.
 
-### yScale(d: `Object`)
+### yScale `Function`
 
 Same as the above but for the y dimension.
 
-### zScale(d: `Object`)
+### zScale `Function`
 
 Same as the above but for the z dimension.
 
-### rScale(d: `Object`)
+### rScale `Function`
 
 Same as the above but for the r dimension.

@@ -4,6 +4,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: read
@@ -11,34 +12,30 @@ permissions:
 
 jobs:
   test:
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container:
       # https://playwright.dev/docs/docker
-      image: mcr.microsoft.com/playwright:v1.54.0-noble
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
       options: --user 1001
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
-      - name: Upgrade npm to version 11
-        run: npm install -g npm@11
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Run Playwright tests
-        run: npm run test:playwright
-      - uses: actions/upload-artifact@v4
+        run: pnpm test:playwright
+      - uses: actions/upload-artifact@v7
         id: artifact-upload
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-      - name: Comment Playwright report link
-        uses: thollander/actions-comment-pull-request@v3
-        if: ${{ failure() }}
-        with:
-          message: |
-            ### Playwright tests failed.
-            Download the [Playwright report](${{ steps.artifact-upload.outputs.artifact-url }}).
+      # PR comments on failure are posted by playwright-comment.yml (workflow_run),
+      # which also works for PRs from forks where this job's token is read-only

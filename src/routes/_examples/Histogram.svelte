@@ -53,7 +53,7 @@
 		data={binnedData}
 	>
 		<Svg>
-			<AxisX gridlines={false} baseline ticks={slimThresholds} format={d => +f(d)} />
+			<AxisX gridlines={false} baseline ticks={slimThresholds} format={d => String(+f(d))} />
 			<AxisY gridlines={false} ticks={3} />
 			<Column fill="#fff" stroke="#000" strokeWidth={1} />
 		</Svg>

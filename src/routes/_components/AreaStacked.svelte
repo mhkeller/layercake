@@ -6,7 +6,7 @@
 
 	import AreaStacked from '../../_components/AreaStacked.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/fruit.csv';
 
 	const xKey = 'month';
@@ -20,9 +20,6 @@
 
 	data.forEach(d => {
 		d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey];
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
 	});
 
 	/* --------------------------------------------

@@ -19,7 +19,7 @@
 	 * @property {string} [x='x'] - The dimension to search across when moving the mouse left and right.
 	 * @property {string} [y='y'] - The dimension to search across when moving the mouse up and down.
 	 * @property {number|undefined} [searchRadius] - The number of pixels to search around the mouse's location. This is the third argument passed to [`quadtree.find`](https://github.com/d3/d3-quadtree#quadtree_find) and by default a value of `undefined` means an unlimited range.
-	 * @property {Array<Object>|undefined} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass override the default here in here in case you don't want to use the main data or it's in a strange format.
+	 * @property {Array<Object>|undefined} [dataset] - The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
 	 * @property {import('svelte').Snippet<[any]>} [children]
 	 */
 

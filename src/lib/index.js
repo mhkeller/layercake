@@ -1,4 +1,5 @@
 export { default as LayerCake } from './LayerCake.svelte';
+export { getLayerCakeContext } from './context';
 export { default as Html } from './layouts/Html.svelte';
 export { default as Svg } from './layouts/Svg.svelte';
 export { default as ScaledSvg } from './layouts/ScaledSvg.svelte';

@@ -161,20 +161,21 @@
 	 * Add the active keys since those aren't on our settings object.
 	 * This is mostly an escape-hatch
 	 */
-	const config = $state({});
-	run(() => {
-		if (x) config.x = x;
-		if (y) config.y = y;
-		if (z) config.z = z;
-		if (r) config.r = r;
-		if (xDomain) config.xDomain = xDomain;
-		if (yDomain) config.yDomain = yDomain;
-		if (zDomain) config.zDomain = zDomain;
-		if (rDomain) config.rDomain = rDomain;
-		if (xRange) config.xRange = xRange;
-		if (yRange) config.yRange = yRange;
-		if (zRange) config.zRange = zRange;
-		if (rRange) config.rRange = rRange;
+	const config = $derived.by(() => {
+		const obj = {};
+		if (x) obj.x = x;
+		if (y) obj.y = y;
+		if (z) obj.z = z;
+		if (r) obj.r = r;
+		if (xDomain) obj.xDomain = xDomain;
+		if (yDomain) obj.yDomain = yDomain;
+		if (zDomain) obj.zDomain = zDomain;
+		if (rDomain) obj.rDomain = rDomain;
+		if (xRange) obj.xRange = xRange;
+		if (yRange) obj.yRange = yRange;
+		if (zRange) obj.zRange = zRange;
+		if (rRange) obj.rRange = rRange;
+		return obj;
 	});
 
 	/* --------------------------------------------

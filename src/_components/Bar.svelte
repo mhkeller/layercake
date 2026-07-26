@@ -3,9 +3,9 @@
 	Generates an SVG bar chart.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
+	const { data, xGet, yGet, xScale, yScale } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -17,14 +17,14 @@
 </script>
 
 <g class="bar-group">
-	{#each $data as d, i}
+	{#each data as d, i}
 		<rect
 			class="group-rect"
 			data-id={i}
-			x={$xScale.range()[0]}
-			y={$yGet(d)}
-			height={$yScale.bandwidth()}
-			width={$xGet(d)}
+			x={xScale.range()[0]}
+			y={yGet(d)}
+			height={yScale.bandwidth()}
+			width={xGet(d)}
 			{fill}
 		></rect>
 	{/each}

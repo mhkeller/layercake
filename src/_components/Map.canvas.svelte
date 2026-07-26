@@ -3,11 +3,12 @@
 	Generates a canvas map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
+	import { getLayerCakeContext } from 'layercake';
 	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 	import { geoPath } from 'd3-geo';
 
-	const { data, width, height, zGet } = getContext('LayerCake');
+	const { data, width, height, zGet } = $derived(getLayerCakeContext());
 
 	const { ctx } = getContext('canvas');
 
@@ -23,22 +24,21 @@
 	/** @type {Props} */
 	let { projection, stroke = '#ccc', strokeWidth = 1, fill, features } = $props();
 
-	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
+	let projectionFn = $derived(projection().fitSize([width, height], data));
 
 	let geoPathFn = $derived(geoPath(projectionFn));
 
-	let featuresToDraw = $derived(features || $data.features);
+	let featuresToDraw = $derived(features || data.features);
 
 	$effect(() => {
-		if (!$width || !$height || !$ctx) return;
+		if (!width || !height || !$ctx) return;
 
 		// Assign to a local variable: setting properties on `$ctx` directly
 		// would re-notify the store and re-trigger this effect
 		const context = $ctx;
-		const zGetFn = $zGet;
 
-		scaleCanvas(context, $width, $height);
-		context.clearRect(0, 0, $width, $height);
+		scaleCanvas(context, width, height);
+		context.clearRect(0, 0, width, height);
 
 		featuresToDraw.forEach(
 			/** @param {any} feature */ feature => {
@@ -47,7 +47,7 @@
 				geoPathFn.context(context);
 				geoPathFn(feature);
 
-				context.fillStyle = fill || zGetFn(feature.properties);
+				context.fillStyle = fill || zGet(feature.properties);
 				context.fill();
 
 				context.lineWidth = strokeWidth;

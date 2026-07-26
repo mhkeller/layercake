@@ -3,10 +3,10 @@
 	Generates HTML text labels for a nested data structure. It places the label near the y-value of the highest x-valued data point. This is useful for labeling the final point in a multi-series line chart, for example. It expects your data to be an array of objects where each has `values` field that is an array of data objects. It uses the `z` field accessor to pull the text label.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { max } from 'd3-array';
 
-	const { data, x, y, xScale, yScale, xRange, yRange, z } = getContext('LayerCake');
+	const { data, x, y, xScale, yScale, xRange, yRange, z } = $derived(getLayerCakeContext());
 
 	/* --------------------------------------------
 	 * Title case the first letter
@@ -16,11 +16,11 @@
 	/* --------------------------------------------
 	 * Put the label on the highest value
 	 */
-	let left = $derived(values => $xScale(max(values, $x)) / Math.max(...$xRange));
-	let top = $derived(values => $yScale(max(values, $y)) / Math.max(...$yRange));
+	let left = $derived(values => xScale(max(values, x)) / Math.max(...xRange));
+	let top = $derived(values => yScale(max(values, y)) / Math.max(...yRange));
 </script>
 
-{#each $data as group}
+{#each data as group}
 	<div
 		class="label"
 		style="
@@ -28,7 +28,7 @@
       left:{left(group.values) * 100}%;
     "
 	>
-		{cap($z(group))}
+		{cap(z(group))}
 	</div>
 {/each}
 

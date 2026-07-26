@@ -3,9 +3,9 @@
 	Generates an SVG area shape.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from '$lib';
 
-	const { data, xGet, yGet, xScale, yScale, extents } = getContext('LayerCake');
+	const { data, xGet, yGet, xScale, yScale, extents } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -17,24 +17,24 @@
 
 	let path = $derived(
 		'M' +
-			$data
+			data
 				.map((/** @type {object} */ d) => {
-					return $xGet(d) + ',' + $yGet(d);
+					return xGet(d) + ',' + yGet(d);
 				})
 				.join('L')
 	);
 
 	/**	@type {string} **/
 	let area = $derived.by(() => {
-		const yRange = $yScale.range();
+		const yRange = yScale.range();
 		return (
 			path +
 			('L' +
-				$xScale($extents.x ? $extents.x[1] : 0) +
+				xScale(extents.x ? extents.x[1] : 0) +
 				',' +
 				yRange[0] +
 				'L' +
-				$xScale($extents.x ? $extents.x[0] : 0) +
+				xScale(extents.x ? extents.x[0] : 0) +
 				',' +
 				yRange[0] +
 				'Z')

@@ -3,9 +3,9 @@
 	Generates HTML dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, width, height } = getContext('LayerCake');
+	const { data, width, height } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -29,12 +29,12 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
+	let projectionFn = $derived(projection().fitSize([width, height], data));
 </script>
 
 <div class="points">
 	<!-- To scale the circle by size, set width and height to `$rGet(d.properties)` -->
-	{#each features || $data.features as d}
+	{#each features || data.features as d}
 		<div
 			class="point"
 			style="

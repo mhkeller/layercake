@@ -3,10 +3,11 @@
 	Generates a WebGL scatter plot.
  -->
 <script>
+	import { getLayerCakeContext } from 'layercake';
 	import reglWrapper from 'regl';
 	import { getContext, onDestroy } from 'svelte';
 
-	const { data, xGet, yGet, width, height } = getContext('LayerCake');
+	const { data, xGet, yGet, width, height } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -175,7 +176,7 @@
 	}
 
 	$effect(() => {
-		if (!$width || !$height || !$gl) return;
+		if (!width || !height || !$gl) return;
 
 		ensureRegl($gl);
 		if (!regl || !drawPoints) return;
@@ -191,9 +192,9 @@
 
 		drawPoints({
 			pointWidth: r * 2,
-			points: $data,
-			x: $xGet,
-			y: $yGet,
+			points: data,
+			x: xGet,
+			y: yGet,
 			fillColor: hexToRgbPercent(fill),
 			strokeColor: hexToRgbPercent(stroke)
 		});

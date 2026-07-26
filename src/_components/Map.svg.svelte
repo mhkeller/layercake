@@ -3,11 +3,11 @@
 	Generates an SVG map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { geoPath } from 'd3-geo';
 	import { raise } from 'layercake';
 
-	const { data, width, height, zGet } = getContext('LayerCake');
+	const { data, width, height, zGet } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -36,9 +36,9 @@
 	/* --------------------------------------------
 	 * Here's how you would do cross-component hovers
 	 */
-	let fitSizeRange = $derived(fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height]);
+	let fitSizeRange = $derived(fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [width, height]);
 
-	let projectionFn = $derived(projection().fitSize(fitSizeRange, $data));
+	let projectionFn = $derived(projection().fitSize(fitSizeRange, data));
 
 	let geoPathFn = $derived(geoPath(projectionFn));
 
@@ -56,10 +56,10 @@
 
 <!-- svelte-ignore a11y_mouse_events_have_key_events -->
 <g class="map-group" {onmouseout} role="tooltip">
-	{#each features || $data.features as feature}
+	{#each features || data.features as feature}
 		<path
 			class="feature-path"
-			fill={fill || $zGet(feature.properties)}
+			fill={fill || zGet(feature.properties)}
 			{stroke}
 			stroke-width={strokeWidth}
 			d={geoPathFn(feature)}

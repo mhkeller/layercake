@@ -3,8 +3,10 @@
 	Adds SVG swoopy arrows based on a config object. It attaches arrows to divs, which are created by another component such as [Annotations.html.svelte](https://layercake.graphics/components/Annotations.html.svelte).
  -->
 <script>
+	import { getLayerCakeContext } from 'layercake';
+
 	// @ts-nocheck
-	import { getContext, onMount, tick } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { swoopyArrow, getElPosition, parseCssValue } from '../_modules/arrowUtils.js';
 
 	/**
@@ -27,7 +29,7 @@
 
 	let container = $state();
 
-	const { width, height, xScale, yScale, x, y } = getContext('LayerCake');
+	const { width, height, xScale, yScale, x, y } = $derived(getLayerCakeContext());
 
 	/* --------------------------------------------
 	 * Some lookups to convert between x, y / width, height terminology
@@ -87,18 +89,17 @@
 		 * If we're passing in a percentage as a string then we need to convert it to pixel values
 		 * Otherwise pass it to our xGet and yGet functions
 		 */
-		const targetCoords = [
-			arrow.target.x || $x(arrow.target),
-			arrow.target.y || $y(arrow.target)
-		].map((q, j) => {
-			const val =
-				typeof q === 'string' && q.includes('%')
-					? parseCssValue(q, j, $width, $height)
-					: j
-						? $yScale(q)
-						: $xScale(q);
-			return val + (arrow.target[`d${lookups[j].position}`] || 0);
-		});
+		const targetCoords = [arrow.target.x || x(arrow.target), arrow.target.y || y(arrow.target)].map(
+			(q, j) => {
+				const val =
+					typeof q === 'string' && q.includes('%')
+						? parseCssValue(q, j, width, height)
+						: j
+							? yScale(q)
+							: xScale(q);
+				return val + (arrow.target[`d${lookups[j].position}`] || 0);
+			}
+		);
 
 		/* --------------------------------------------
 		 * Create arrow path

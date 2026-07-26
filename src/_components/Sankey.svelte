@@ -3,10 +3,10 @@
 	Generates an SVG Sankey chart using [d3-sankey](https://github.com/d3/d3-sankey).
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import * as Sankey from 'd3-sankey';
 
-	const { data, width, height } = getContext('LayerCake');
+	const { data, width, height } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {(
@@ -61,13 +61,13 @@
 			.nodeWidth(nodeWidth)
 			.nodePadding(nodePadding)
 			.nodeId(nodeId)
-			.size([$width, $height])
+			.size([width, height])
 			.linkSort(linkSort);
 
-		sankeyData = sankey($data);
+		sankeyData = sankey(data);
 	});
 
-	let fontSize = $derived($width <= 320 ? 8 : 12);
+	let fontSize = $derived(width <= 320 ? 8 : 12);
 </script>
 
 <g class="sankey-layer">
@@ -86,12 +86,12 @@
 		{#each sankeyData.nodes as d}
 			<rect x={d.x0} y={d.y0} height={d.y1 - d.y0} width={d.x1 - d.x0} fill={colorNodes(d)} />
 			<text
-				x={d.x0 < $width / 4 ? d.x1 + 6 : d.x0 - 6}
+				x={d.x0 < width / 4 ? d.x1 + 6 : d.x0 - 6}
 				y={(d.y1 + d.y0) / 2}
 				dy={fontSize / 2 - 2}
 				style="fill: {colorText(d)};
 							font-size: {fontSize}px;
-							text-anchor: {d.x0 < $width / 4 ? 'start' : 'end'};"
+							text-anchor: {d.x0 < width / 4 ? 'start' : 'end'};"
 			>
 				{d.id}
 			</text>

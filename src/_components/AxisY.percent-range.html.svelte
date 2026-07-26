@@ -5,9 +5,9 @@
 	Although this is marked as a percent-range component, you can also use it with a normal scale with no configuration needed. By default, if you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts. Set the `units` prop to either `'%'` or `'px'` to override the default behavior.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { xRange, yScale, percentRange } = getContext('LayerCake');
+	const { xRange, yScale, percentRange } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -38,7 +38,7 @@
 		dx = 0,
 		dy = -3,
 		charPixelWidth = 7.25,
-		units = $percentRange === true ? '%' : 'px'
+		units = percentRange === true ? '%' : 'px'
 	} = $props();
 
 	/** @param {number} sum
@@ -48,16 +48,16 @@
 		return sum + charPixelWidth;
 	}
 
-	let isBandwidth = $derived(typeof $yScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof yScale.bandwidth === 'function');
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? $yScale.domain()
+				? yScale.domain()
 				: typeof ticks === 'function'
-					? ticks($yScale.ticks())
-					: $yScale.ticks(ticks)
+					? ticks(yScale.ticks())
+					: yScale.ticks(ticks)
 	);
 	let widestTickLen = $derived(
 		Math.max(
@@ -73,17 +73,17 @@
 			: 0
 	);
 	let x1 = $derived(-tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen));
-	let halfBand = $derived(isBandwidth ? $yScale.bandwidth() / 2 : 0);
-	let maxTickValUnits = $derived(Math.max(...tickVals.map($yScale)));
+	let halfBand = $derived(isBandwidth ? yScale.bandwidth() / 2 : 0);
+	let maxTickValUnits = $derived(Math.max(...tickVals.map(yScale)));
 </script>
 
 <div class="axis y-axis">
 	{#each tickVals as tick, i (tick)}
-		{@const tickValUnits = $yScale(tick)}
+		{@const tickValUnits = yScale(tick)}
 
 		<div
 			class="tick tick-{i}"
-			style="left:{$xRange[0]}{units};top:{tickValUnits + halfBand}{units};"
+			style="left:{xRange[0]}{units};top:{tickValUnits + halfBand}{units};"
 		>
 			{#if gridlines === true}
 				<div class="gridline" style="top:0;" style:left="{x1}px" style:right="0px"></div>

@@ -3,10 +3,10 @@
 	Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different. This technique comes from @plmrry.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { forceSimulation, forceX, forceManyBody, forceCollide, forceCenter } from 'd3-force';
 
-	const { data, width, height, xScale, xGet, rGet, zGet } = getContext('LayerCake');
+	const { data, width, height, xScale, xGet, rGet, zGet } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -31,9 +31,9 @@
 	/* --------------------------------------------
 	 * Make a copy because the simulation will alter the objects
 	 */
-	const initialNodes = $data.map(d => ({ ...d }));
+	const initialNodes = $derived(data.map(d => ({ ...d })));
 
-	const simulation = forceSimulation(initialNodes);
+	const simulation = $derived(forceSimulation(initialNodes));
 
 	let nodes = $state([]);
 
@@ -51,22 +51,22 @@
 				forceX()
 					.x(
 						/** @param {any} d */ d => {
-							return groupBy === true ? $xGet(d) + $xScale.bandwidth() / 2 : $width / 2;
+							return groupBy === true ? xGet(d) + xScale.bandwidth() / 2 : width / 2;
 						}
 					)
 					.strength(xStrength)
 			)
-			.force('center', forceCenter($width / 2, $height / 2))
+			.force('center', forceCenter(width / 2, height / 2))
 			.force('charge', forceManyBody().strength(manyBodyStrength))
 			.force(
 				'collision',
 				forceCollide().radius(
 					/** @param {any} d */ d => {
-						return $rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
+						return rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
 					}
 				)
 			)
-			.force('center', forceCenter($width / 2, $height / 2))
+			.force('center', forceCenter(width / 2, height / 2))
 			.alpha(1)
 			.restart();
 	});
@@ -75,13 +75,13 @@
 {#each nodes as point}
 	<circle
 		class="node"
-		r={$rGet(point)}
-		fill={nodeColor || $zGet(point)}
+		r={rGet(point)}
+		fill={nodeColor || zGet(point)}
 		stroke={nodeStroke}
 		stroke-width={nodeStrokeWidth}
 		cx={point.x}
 		cy={point.y}
 	>
-		<!-- <title>{point[$custom.title]}</title> -->
+		<!-- <title>{point[custom.title]}</title> -->
 	</circle>
 {/each}

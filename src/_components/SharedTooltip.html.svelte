@@ -3,12 +3,12 @@
 	Generates a tooltip that works on multiseries datasets, like multiline charts. It creates a tooltip showing the name of the series and the current value. It finds the nearest data point using the [QuadTree.html.svelte](https://layercake.graphics/components/QuadTree.html.svelte) component.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { format } from 'd3-format';
 
 	import QuadTree from './QuadTree.html.svelte';
 
-	const { data, width, yScale, config } = getContext('LayerCake');
+	const { data, width, yScale, config } = $derived(getLayerCakeContext());
 
 	const commas = format(',');
 	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
@@ -40,7 +40,7 @@
 	function sortResult(result) {
 		if (Object.keys(result).length === 0) return [];
 		const rows = Object.keys(result)
-			.filter(d => d !== $config.x)
+			.filter(d => d !== config.x)
 			.map(key => {
 				return {
 					key,
@@ -53,7 +53,7 @@
 	}
 </script>
 
-<QuadTree dataset={dataset || $data} y="x">
+<QuadTree dataset={dataset || data} y="x">
 	{#snippet children({ x, y, visible, found, e })}
 		{@const foundSorted = sortResult(found)}
 		{#if visible === true}
@@ -63,10 +63,10 @@
 				style="
 	        width:{w}px;
 	        display: {visible ? 'block' : 'none'};
-	        top:{$yScale(foundSorted[0].value) + offset}px;
-	        left:{Math.min(Math.max(w2, x), $width - w2)}px;"
+	        top:{yScale(foundSorted[0].value) + offset}px;
+	        left:{Math.min(Math.max(w2, x), width - w2)}px;"
 			>
-				<div class="title">{formatTitle(found[$config.x])}</div>
+				<div class="title">{formatTitle(found[config.x])}</div>
 				{#each foundSorted as row}
 					<div class="row">
 						<span class="key">{formatKey(row.key)}:</span>

@@ -3,10 +3,10 @@
 	Generates an SVG line shape using the `line` function from [d3-shape](https://github.com/d3/d3-shape).
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { line, curveLinear } from 'd3-shape';
 
-	const { data, xGet, yGet } = getContext('LayerCake');
+	const { data, xGet, yGet } = $derived(getLayerCakeContext());
 
 	/** @typedef {import('d3-shape').CurveFactory} CurveFactory */
 	/**
@@ -18,11 +18,11 @@
 	/** @type {Props} */
 	let { stroke = '#ab00d6', curve = curveLinear } = $props();
 
-	let path = $derived(line().x($xGet).y($yGet).curve(curve));
-	// .defined($y)
+	let path = $derived(line().x(xGet).y(yGet).curve(curve));
+	// .defined(y)
 </script>
 
-<path class="path-line" d={path($data)} {stroke}></path>
+<path class="path-line" d={path(data)} {stroke}></path>
 
 <style>
 	.path-line {

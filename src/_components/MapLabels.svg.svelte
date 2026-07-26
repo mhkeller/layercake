@@ -3,9 +3,9 @@
 	Adds SVG text labels based on features in the data or a custom GeoJSON Feature Collection.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, width, height } = getContext('LayerCake');
+	const { data, width, height } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -19,13 +19,13 @@
 	/** @type {Props} */
 	let { projection, getLabel, fixedAspectRatio, getCoordinates, features } = $props();
 
-	let fitSizeRange = $derived(fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [$width, $height]);
+	let fitSizeRange = $derived(fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [width, height]);
 
-	let projectionFn = $derived(projection().fitSize(fitSizeRange, $data));
+	let projectionFn = $derived(projection().fitSize(fitSizeRange, data));
 </script>
 
 <g class="map-labels">
-	{#each features || $data.features as d}
+	{#each features || data.features as d}
 		{@const coords = projectionFn(getCoordinates(d))}
 		<text class="map-label" x={coords[0]} y={coords[1]}>{getLabel(d)}</text>
 	{/each}

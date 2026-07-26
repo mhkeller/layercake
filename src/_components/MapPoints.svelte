@@ -3,9 +3,9 @@
 	Generates SVG dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, width, height } = getContext('LayerCake');
+	const { data, width, height } = $derived(getLayerCakeContext());
 
 	/* --------------------------------------------
 	 * Require a D3 projection function
@@ -33,11 +33,11 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
+	let projectionFn = $derived(projection().fitSize([width, height], data));
 </script>
 
 <g class="points">
-	{#each features || $data.features as d}
+	{#each features || data.features as d}
 		<!-- To scale the circle by size, set r to `$rGet(d.properties)` -->
 		<circle
 			cx={projectionFn(d.geometry.coordinates)[0]}

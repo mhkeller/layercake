@@ -3,10 +3,11 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
+	import { getLayerCakeContext } from 'layercake';
 	import { getContext } from 'svelte';
 	import { scaleCanvas } from 'layercake';
 
-	const { data, width, height } = getContext('LayerCake');
+	const { data, width, height } = $derived(getLayerCakeContext());
 
 	const { ctx } = getContext('canvas');
 
@@ -30,19 +31,19 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
+	let projectionFn = $derived(projection().fitSize([width, height], data));
 
-	let featuresToDraw = $derived(features || $data.features);
+	let featuresToDraw = $derived(features || data.features);
 
 	$effect(() => {
-		if (!$width || !$height || !$ctx) return;
+		if (!width || !height || !$ctx) return;
 
 		// Assign to a local variable: setting properties on `$ctx` directly
 		// would re-notify the store and re-trigger this effect
 		const context = $ctx;
 
-		scaleCanvas(context, $width, $height);
-		context.clearRect(0, 0, $width, $height);
+		scaleCanvas(context, width, height);
+		context.clearRect(0, 0, width, height);
 
 		// To scale the circle by size, set width and height to `$rGet(d.properties)`
 		featuresToDraw.forEach(

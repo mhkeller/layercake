@@ -5,9 +5,9 @@
 	Although this is marked as a percent-range component, you can also use it with a normal scale with no configuration needed. By default, if you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts. Set the `units` prop to either `'%'` or `'px'` to override the default behavior.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { xScale, percentRange } = getContext('LayerCake');
+	const { xScale, percentRange } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -36,30 +36,30 @@
 		tickGutter = 0,
 		dx = 0,
 		dy = 0,
-		units = $percentRange === true ? '%' : 'px'
+		units = percentRange === true ? '%' : 'px'
 	} = $props();
 
 	let tickLen = $derived(tickMarks === true ? (tickMarkLength ?? 6) : 0);
 
-	let isBandwidth = $derived(typeof $xScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof xScale.bandwidth === 'function');
 
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? $xScale.domain()
+				? xScale.domain()
 				: typeof ticks === 'function'
-					? ticks($xScale.ticks())
-					: $xScale.ticks(ticks)
+					? ticks(xScale.ticks())
+					: xScale.ticks(ticks)
 	);
 
-	let halfBand = $derived(isBandwidth ? $xScale.bandwidth() / 2 : 0);
+	let halfBand = $derived(isBandwidth ? xScale.bandwidth() / 2 : 0);
 </script>
 
 <div class="axis x-axis" class:snapLabels>
 	{#each tickVals as tick, i (tick)}
-		{@const tickValUnits = $xScale(tick)}
+		{@const tickValUnits = xScale(tick)}
 
 		{#if baseline === true}
 			<div class="baseline" style="top:0; width:100%;"></div>

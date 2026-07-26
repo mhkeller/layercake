@@ -3,9 +3,9 @@
 	Generates an SVG Cleveland dot plot, also known as a lollipop-chart.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, yGet, yScale, zScale, config } = getContext('LayerCake');
+	const { data, xGet, yGet, yScale, zScale, config } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -15,13 +15,13 @@
 	/** @type {Props} */
 	let { r = 5 } = $props();
 
-	let midHeight = $derived($yScale.bandwidth() / 2);
+	let midHeight = $derived(yScale.bandwidth() / 2);
 </script>
 
 <g class="dot-plot">
-	{#each $data as row}
-		{@const yVal = $yGet(row)}
-		{@const xVals = $xGet(row)}
+	{#each data as row}
+		{@const yVal = yGet(row)}
+		{@const xVals = xGet(row)}
 		<g class="dot-row">
 			<line
 				x1={Math.min(...xVals)}
@@ -31,7 +31,7 @@
 			></line>
 
 			{#each xVals as circleX, i}
-				<circle cx={circleX} cy={yVal + midHeight} {r} fill={$zScale($config.x[i])}></circle>
+				<circle cx={circleX} cy={yVal + midHeight} {r} fill={zScale(config.x[i])}></circle>
 			{/each}
 		</g>
 	{/each}

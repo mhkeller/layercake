@@ -3,10 +3,9 @@
 	Layer Cake component
  -->
 <script>
-	import { run } from 'svelte/legacy';
+	import { setLayerCakeContext } from './context.js';
 
-	import { setContext, onMount } from 'svelte';
-	import { writable, derived as derivedStore } from 'svelte/store';
+	import { onMount } from 'svelte';
 
 	import makeAccessor from './utils/makeAccessor.js';
 	import filterObject from './utils/filterObject.js';
@@ -128,7 +127,7 @@
 		zDomainSort = false,
 		rDomainSort = false,
 		padding = {},
-		flatData = undefined,
+		flatData = data,
 		custom = {},
 		debug = false,
 		verbose = true,
@@ -179,148 +178,63 @@
 	});
 
 	/* --------------------------------------------
-	 * Make store versions of each parameter
-	 * Prefix these with `_` to keep things organized
-	 */
-	const _percentRange = writable(percentRange);
-	const _containerWidth = writable(containerWidth);
-	const _containerHeight = writable(containerHeight);
-	const _data = writable(data);
-	const _flatData = writable(flatData || data);
-	const _padding = writable(padding);
-	const _x = writable(makeAccessor(x));
-	const _y = writable(makeAccessor(y));
-	const _z = writable(makeAccessor(z));
-	const _r = writable(makeAccessor(r));
-	const _xDomain = writable(xDomain);
-	const _yDomain = writable(yDomain);
-	const _zDomain = writable(zDomain);
-	const _rDomain = writable(rDomain);
-	const _xNice = writable(xNice);
-	const _yNice = writable(yNice);
-	const _zNice = writable(zNice);
-	const _rNice = writable(rNice);
-	const _xReverse = writable(xReverse);
-	const _yReverse = writable(yReverseValue);
-	const _zReverse = writable(zReverse);
-	const _rReverse = writable(rReverse);
-	const _xPadding = writable(xPadding);
-	const _yPadding = writable(yPadding);
-	const _zPadding = writable(zPadding);
-	const _rPadding = writable(rPadding);
-	const _xRange = writable(xRange);
-	const _yRange = writable(yRange);
-	const _zRange = writable(zRange);
-	const _rRange = writable(rRange);
-	const _xScale = writable(xScale);
-	const _yScale = writable(yScale);
-	const _zScale = writable(zScale);
-	const _rScale = writable(rScale);
-	const _xDomainSort = writable(xDomainSort);
-	const _yDomainSort = writable(yDomainSort);
-	const _zDomainSort = writable(zDomainSort);
-	const _rDomainSort = writable(rDomainSort);
-	const _config = writable(config);
-	const _custom = writable(custom);
-
-	run(() => {
-		$_percentRange = percentRange;
-		$_containerWidth = containerWidth;
-		$_containerHeight = containerHeight;
-		$_data = data;
-		$_flatData = flatData || data;
-		$_padding = padding;
-		$_x = makeAccessor(x);
-		$_y = makeAccessor(y);
-		$_z = makeAccessor(z);
-		$_r = makeAccessor(r);
-		$_xDomain = xDomain;
-		$_yDomain = yDomain;
-		$_zDomain = zDomain;
-		$_rDomain = rDomain;
-		$_xNice = xNice;
-		$_yNice = yNice;
-		$_zNice = zNice;
-		$_rNice = rNice;
-		$_xReverse = xReverse;
-		$_yReverse = yReverseValue;
-		$_zReverse = zReverse;
-		$_rReverse = rReverse;
-		$_xPadding = xPadding;
-		$_yPadding = yPadding;
-		$_zPadding = zPadding;
-		$_rPadding = rPadding;
-		$_xRange = xRange;
-		$_yRange = yRange;
-		$_zRange = zRange;
-		$_rRange = rRange;
-		$_xScale = xScale;
-		$_yScale = yScale;
-		$_zScale = zScale;
-		$_rScale = rScale;
-		$_custom = custom;
-		$_config = config;
-	});
-
-	/* --------------------------------------------
 	 * Create derived values
 	 * Suffix these with `_d`
 	 */
-	const activeGetters_d = derivedStore([_x, _y, _z, _r], ([$x, $y, $z, $r]) => {
+
+	let x_d = $derived(makeAccessor(x));
+	let y_d = $derived(makeAccessor(y));
+	let z_d = $derived(makeAccessor(z));
+	let r_d = $derived(makeAccessor(r));
+
+	let activeGetters_d = $derived.by(() => {
 		const obj = {};
-		if ($x) {
-			obj.x = $x;
+		if (x) {
+			obj.x = x_d;
 		}
-		if ($y) {
-			obj.y = $y;
+		if (y) {
+			obj.y = y_d;
 		}
-		if ($z) {
-			obj.z = $z;
+		if (z) {
+			obj.z = z_d;
 		}
-		if ($r) {
-			obj.r = $r;
+		if (r) {
+			obj.r = r_d;
 		}
 		return obj;
 	});
 
-	const padding_d = derivedStore([_padding, _containerWidth, _containerHeight], ([$padding]) => {
+	let padding_d = $derived.by(() => {
 		const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
-		return Object.assign(defaultPadding, $padding);
+		return Object.assign(defaultPadding, padding);
 	});
 
-	const box_d = derivedStore(
-		[_containerWidth, _containerHeight, padding_d],
-		([$containerWidth, $containerHeight, $padding]) => {
-			const b = {};
-			b.top = $padding.top;
-			b.right = $containerWidth - $padding.right;
-			b.bottom = $containerHeight - $padding.bottom;
-			b.left = $padding.left;
-			b.width = b.right - b.left;
-			b.height = b.bottom - b.top;
-			if (verbose === true) {
-				if (b.width <= 0 && isMounted === true) {
-					console.warn(
-						'[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?'
-					);
-				}
-				if (b.height <= 0 && isMounted === true) {
-					console.warn(
-						'[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?'
-					);
-				}
+	let box_d = $derived.by(() => {
+		const b = {};
+		b.top = padding_d.top;
+		b.right = containerWidth - padding_d.right;
+		b.bottom = containerHeight - padding_d.bottom;
+		b.left = padding_d.left;
+		b.width = b.right - b.left;
+		b.height = b.bottom - b.top;
+		if (verbose === true) {
+			if (b.width <= 0 && isMounted === true) {
+				console.warn(
+					'[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?'
+				);
 			}
-			return b;
+			if (b.height <= 0 && isMounted === true) {
+				console.warn(
+					'[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?'
+				);
+			}
 		}
-	);
-
-	const width_d = derivedStore([box_d], ([$box]) => {
-		return $box.width;
+		return b;
 	});
 
-	const height_d = derivedStore([box_d], ([$box]) => {
-		return $box.height;
-	});
+	let width_d = $derived(box_d.width);
+
+	let height_d = $derived(box_d.height);
 
 	/* --------------------------------------------
 	 * Calculate extents by taking the extent of the data
@@ -328,228 +242,292 @@
 	 * Note that this is different from an "extent" passed
 	 * in as a domain, which can be a partial domain
 	 */
-	const extents_d = derivedStore(
-		[
-			_flatData,
-			activeGetters_d,
-			_xScale,
-			_yScale,
-			_rScale,
-			_zScale,
-			_xDomain,
-			_yDomain,
-			_zDomain,
-			_rDomain,
-			_xDomainSort,
-			_yDomainSort,
-			_zDomainSort,
-			_rDomainSort
-		],
-		([
-			$flatData,
-			$activeGetters,
-			$_xScale,
-			$_yScale,
-			$_rScale,
-			$_zScale,
-			$xDomain,
-			$yDomain,
-			$zDomain,
-			$rDomain,
-			$_xDomainSort,
-			$_yDomainSort,
-			$_zDomainSort,
-			$_rDomainSort
-		]) => {
-			const scaleLookup = {
-				x: { scale: $_xScale, sort: $_xDomainSort },
-				y: { scale: $_yScale, sort: $_yDomainSort },
-				r: { scale: $_rScale, sort: $_rDomainSort },
-				z: { scale: $_zScale, sort: $_zDomainSort }
-			};
+	let extents_d = $derived.by(() => {
+		const scaleLookup = {
+			x: { scale: xScale, sort: xDomainSort },
+			y: { scale: yScale, sort: yDomainSort },
+			r: { scale: rScale, sort: rDomainSort },
+			z: { scale: zScale, sort: zDomainSort }
+		};
 
-			/**
-			 * Skip any extents that the user already set a min and max for
-			 */
-			const extents = Object.fromEntries(
-				[
-					['x', getCompleteDomain($xDomain)],
-					['y', getCompleteDomain($yDomain)],
-					['z', getCompleteDomain($zDomain)],
-					['r', getCompleteDomain($rDomain)]
-				].filter(([_, v]) => v !== false)
-			);
+		/**
+		 * Skip any extents that the user already set a min and max for
+		 */
+		const extents = Object.fromEntries(
+			[
+				['x', getCompleteDomain(xDomain)],
+				['y', getCompleteDomain(yDomain)],
+				['z', getCompleteDomain(zDomain)],
+				['r', getCompleteDomain(rDomain)]
+			].filter(([_, v]) => v !== false)
+		);
 
-			const getters = filterObject($activeGetters, extents);
-			const activeScales = Object.fromEntries(Object.keys(getters).map(k => [k, scaleLookup[k]]));
+		const getters = filterObject(activeGetters_d, extents);
+		const activeScales = Object.fromEntries(Object.keys(getters).map(k => [k, scaleLookup[k]]));
 
-			if (Object.keys(getters).length > 0) {
-				const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
-				return { ...calculatedExtents, ...extents };
-			} else {
-				return extents;
-			}
+		if (Object.keys(getters).length > 0) {
+			const calculatedExtents = calcScaleExtents(flatData, getters, activeScales);
+			return { ...calculatedExtents, ...extents };
+		} else {
+			return extents;
 		}
-	);
-
-	const xDomain_d = derivedStore([extents_d, _xDomain], calcDomain('x'));
-	const yDomain_d = derivedStore([extents_d, _yDomain], calcDomain('y'));
-	const zDomain_d = derivedStore([extents_d, _zDomain], calcDomain('z'));
-	const rDomain_d = derivedStore([extents_d, _rDomain], calcDomain('r'));
-
-	const xScale_d = derivedStore(
-		[
-			_xScale,
-			extents_d,
-			xDomain_d,
-			_xPadding,
-			_xNice,
-			_xReverse,
-			width_d,
-			height_d,
-			_xRange,
-			_percentRange
-		],
-		createScale('x')
-	);
-	const xGet_d = derivedStore([_x, xScale_d], createGetter);
-
-	const yScale_d = derivedStore(
-		[
-			_yScale,
-			extents_d,
-			yDomain_d,
-			_yPadding,
-			_yNice,
-			_yReverse,
-			width_d,
-			height_d,
-			_yRange,
-			_percentRange
-		],
-		createScale('y')
-	);
-	const yGet_d = derivedStore([_y, yScale_d], createGetter);
-
-	const zScale_d = derivedStore(
-		[
-			_zScale,
-			extents_d,
-			zDomain_d,
-			_zPadding,
-			_zNice,
-			_zReverse,
-			width_d,
-			height_d,
-			_zRange,
-			_percentRange
-		],
-		createScale('z')
-	);
-	const zGet_d = derivedStore([_z, zScale_d], createGetter);
-
-	const rScale_d = derivedStore(
-		[
-			_rScale,
-			extents_d,
-			rDomain_d,
-			_rPadding,
-			_rNice,
-			_rReverse,
-			width_d,
-			height_d,
-			_rRange,
-			_percentRange
-		],
-		createScale('r')
-	);
-	const rGet_d = derivedStore([_r, rScale_d], createGetter);
-
-	// Create new _Domains in case we ran `.nice()` over our domain on scale initialization
-	const xDomain_d_possibly_nice = derivedStore(xScale_d, $xScale_d => $xScale_d.domain());
-	const yDomain_d_possibly_nice = derivedStore(yScale_d, $yScale_d => $yScale_d.domain());
-	const zDomain_d_possibly_nice = derivedStore(zScale_d, $zScale_d => $zScale_d.domain());
-	const rDomain_d_possibly_nice = derivedStore(rScale_d, $rScale_d => $rScale_d.domain());
-
-	const xRange_d = derivedStore([xScale_d], getRange);
-	const yRange_d = derivedStore([yScale_d], getRange);
-	const zRange_d = derivedStore([zScale_d], getRange);
-	const rRange_d = derivedStore([rScale_d], getRange);
-
-	const aspectRatio_d = derivedStore([width_d, height_d], ([$width, $height]) => {
-		return $width / $height;
 	});
 
+	let xDomain_d = $derived(calcDomain('x', extents_d, xDomain));
+	let yDomain_d = $derived(calcDomain('y', extents_d, yDomain));
+	let zDomain_d = $derived(calcDomain('z', extents_d, zDomain));
+	let rDomain_d = $derived(calcDomain('r', extents_d, rDomain));
+
+	let xScale_d = $derived(
+		createScale(
+			'x',
+			xScale,
+			extents_d,
+			xDomain_d,
+			xPadding,
+			xNice,
+			xReverse,
+			width_d,
+			height_d,
+			xRange,
+			percentRange
+		)
+	);
+
+	const xGet_d = $derived(createGetter(x_d, xScale_d));
+
+	const yScale_d = $derived(
+		createScale(
+			'y',
+			yScale,
+			extents_d,
+			yDomain_d,
+			yPadding,
+			yNice,
+			yReverseValue,
+			width_d,
+			height_d,
+			yRange,
+			percentRange
+		)
+	);
+	const yGet_d = $derived(createGetter(y_d, yScale_d));
+
+	const zScale_d = $derived(
+		createScale(
+			'z',
+			zScale,
+			extents_d,
+			zDomain_d,
+			zPadding,
+			zNice,
+			zReverse,
+			width_d,
+			height_d,
+			zRange,
+			percentRange
+		)
+	);
+	const zGet_d = $derived(createGetter(z_d, zScale_d));
+
+	const rScale_d = $derived(
+		createScale(
+			'r',
+			rScale,
+			extents_d,
+			rDomain_d,
+			rPadding,
+			rNice,
+			rReverse,
+			width_d,
+			height_d,
+			rRange,
+			percentRange
+		)
+	);
+	const rGet_d = $derived(createGetter(r_d, rScale_d));
+
+	// Create new _Domains in case we ran `.nice()` over our domain on scale initialization
+	const xDomain_d_possibly_nice = $derived(xScale_d.domain());
+	const yDomain_d_possibly_nice = $derived(yScale_d.domain());
+	const zDomain_d_possibly_nice = $derived(zScale_d.domain());
+	const rDomain_d_possibly_nice = $derived(rScale_d.domain());
+
+	const xRange_d = $derived(getRange(xScale_d));
+	const yRange_d = $derived(getRange(yScale_d));
+	const zRange_d = $derived(getRange(zScale_d));
+	const rRange_d = $derived(getRange(rScale_d));
+
+	const aspectRatio_d = $derived(width_d / height_d);
+
 	const context = {
-		activeGetters: activeGetters_d,
-		width: width_d,
-		height: height_d,
-		percentRange: _percentRange,
-		aspectRatio: aspectRatio_d,
-		containerWidth: _containerWidth,
-		containerHeight: _containerHeight,
-		x: _x,
-		y: _y,
-		z: _z,
-		r: _r,
-		custom: _custom,
-		data: _data,
-		xNice: _xNice,
-		yNice: _yNice,
-		zNice: _zNice,
-		rNice: _rNice,
-		xDomainSort: _xDomainSort,
-		yDomainSort: _yDomainSort,
-		zDomainSort: _zDomainSort,
-		rDomainSort: _rDomainSort,
-		xReverse: _xReverse,
-		yReverse: _yReverse,
-		zReverse: _zReverse,
-		rReverse: _rReverse,
-		xPadding: _xPadding,
-		yPadding: _yPadding,
-		zPadding: _zPadding,
-		rPadding: _rPadding,
-		padding: padding_d,
-		flatData: _flatData,
-		extents: extents_d,
-		xDomain: xDomain_d_possibly_nice,
-		yDomain: yDomain_d_possibly_nice,
-		zDomain: zDomain_d_possibly_nice,
-		rDomain: rDomain_d_possibly_nice,
-		xRange: xRange_d,
-		yRange: yRange_d,
-		zRange: zRange_d,
-		rRange: rRange_d,
-		config: _config,
-		xScale: xScale_d,
-		xGet: xGet_d,
-		yScale: yScale_d,
-		yGet: yGet_d,
-		zScale: zScale_d,
-		zGet: zGet_d,
-		rScale: rScale_d,
-		rGet: rGet_d
+		get activeGetters() {
+			return activeGetters_d;
+		},
+		get width() {
+			return width_d;
+		},
+		get height() {
+			return height_d;
+		},
+		get percentRange() {
+			return percentRange;
+		},
+		get aspectRatio() {
+			return aspectRatio_d;
+		},
+		get containerWidth() {
+			return containerWidth;
+		},
+		get containerHeight() {
+			return containerHeight;
+		},
+		get x() {
+			return x_d;
+		},
+		get y() {
+			return y_d;
+		},
+		get z() {
+			return z_d;
+		},
+		get r() {
+			return r_d;
+		},
+		get custom() {
+			return custom;
+		},
+		get data() {
+			return data;
+		},
+		get xNice() {
+			return xNice;
+		},
+		get yNice() {
+			return yNice;
+		},
+		get zNice() {
+			return zNice;
+		},
+		get rNice() {
+			return rNice;
+		},
+		get xDomainSort() {
+			return xDomainSort;
+		},
+		get yDomainSort() {
+			return yDomainSort;
+		},
+		get zDomainSort() {
+			return zDomainSort;
+		},
+		get rDomainSort() {
+			return rDomainSort;
+		},
+		get xReverse() {
+			return xReverse;
+		},
+		get yReverse() {
+			return yReverse;
+		},
+		get zReverse() {
+			return zReverse;
+		},
+		get rReverse() {
+			return rReverse;
+		},
+		get xPadding() {
+			return xPadding;
+		},
+		get yPadding() {
+			return yPadding;
+		},
+		get zPadding() {
+			return zPadding;
+		},
+		get rPadding() {
+			return rPadding;
+		},
+		get padding() {
+			return padding_d;
+		},
+		get flatData() {
+			return flatData;
+		},
+		get extents() {
+			return extents_d;
+		},
+		get xDomain() {
+			return xDomain_d_possibly_nice;
+		},
+		get yDomain() {
+			return yDomain_d_possibly_nice;
+		},
+		get zDomain() {
+			return zDomain_d_possibly_nice;
+		},
+		get rDomain() {
+			return rDomain_d_possibly_nice;
+		},
+		get xRange() {
+			return xRange_d;
+		},
+		get yRange() {
+			return yRange_d;
+		},
+		get zRange() {
+			return zRange_d;
+		},
+		get rRange() {
+			return rRange_d;
+		},
+		get config() {
+			return config;
+		},
+		get xScale() {
+			return xScale_d;
+		},
+		get xGet() {
+			return xGet_d;
+		},
+		get yScale() {
+			return yScale_d;
+		},
+		get yGet() {
+			return yGet_d;
+		},
+		get zScale() {
+			return zScale_d;
+		},
+		get zGet() {
+			return zGet_d;
+		},
+		get rScale() {
+			return rScale_d;
+		},
+		get rGet() {
+			return rGet_d;
+		}
 	};
 
-	setContext('LayerCake', context);
+	setLayerCakeContext(context);
 
-	run(() => {
-		if ($box_d && debug === true && (ssr === true || typeof window !== 'undefined')) {
+	$effect(() => {
+		if (box_d && debug === true && (ssr === true || typeof window !== 'undefined')) {
 			// Call this as a debounce so that it doesn't get called multiple times as these vars get filled in
 			printDebug_debounced({
-				data: $_data,
-				flatData: typeof flatData !== 'undefined' ? $_flatData : null,
-				boundingBox: $box_d,
-				activeGetters: $activeGetters_d,
+				data: data,
+				flatData: typeof flatData !== 'undefined' ? flatData : null,
+				boundingBox: box_d,
+				activeGetters: activeGetters_d,
 				x: config.x,
 				y: config.y,
 				z: config.z,
 				r: config.r,
-				xScale: $xScale_d,
-				yScale: $yScale_d,
-				zScale: $zScale_d,
-				rScale: $rScale_d
+				xScale: xScale_d,
+				yScale: yScale_d,
+				zScale: zScale_d,
+				rScale: rScale_d
 			});
 		}
 	});
@@ -570,55 +548,55 @@
 	>
 		{@render children?.({
 			element,
-			width: $width_d,
-			height: $height_d,
-			aspectRatio: $aspectRatio_d,
-			containerWidth: $_containerWidth,
-			containerHeight: $_containerHeight,
-			activeGetters: $activeGetters_d,
-			percentRange: $_percentRange,
-			x: $_x,
-			y: $_y,
-			z: $_z,
-			r: $_r,
-			custom: $_custom,
-			data: $_data,
-			xNice: $_xNice,
-			yNice: $_yNice,
-			zNice: $_zNice,
-			rNice: $_rNice,
-			xDomainSort: $_xDomainSort,
-			yDomainSort: $_yDomainSort,
-			zDomainSort: $_zDomainSort,
-			rDomainSort: $_rDomainSort,
-			xReverse: $_xReverse,
-			yReverse: $_yReverse,
-			zReverse: $_zReverse,
-			rReverse: $_rReverse,
-			xPadding: $_xPadding,
-			yPadding: $_yPadding,
-			zPadding: $_zPadding,
-			rPadding: $_rPadding,
-			padding: $padding_d,
-			flatData: $_flatData,
-			extents: $extents_d,
-			xDomain: $xDomain_d,
-			yDomain: $yDomain_d,
-			zDomain: $zDomain_d,
-			rDomain: $rDomain_d,
-			xRange: $xRange_d,
-			yRange: $yRange_d,
-			zRange: $zRange_d,
-			rRange: $rRange_d,
-			config: $_config,
-			xScale: $xScale_d,
-			xGet: $xGet_d,
-			yScale: $yScale_d,
-			yGet: $yGet_d,
-			zScale: $zScale_d,
-			zGet: $zGet_d,
-			rScale: $rScale_d,
-			rGet: $rGet_d
+			width: width_d,
+			height: height_d,
+			aspectRatio: aspectRatio_d,
+			containerWidth: containerWidth,
+			containerHeight: containerHeight,
+			activeGetters: activeGetters_d,
+			percentRange: percentRange,
+			x: x,
+			y: y,
+			z: z,
+			r: r,
+			custom: custom,
+			data: data,
+			xNice: xNice,
+			yNice: yNice,
+			zNice: zNice,
+			rNice: rNice,
+			xDomainSort: xDomainSort,
+			yDomainSort: yDomainSort,
+			zDomainSort: zDomainSort,
+			rDomainSort: rDomainSort,
+			xReverse: xReverse,
+			yReverse: yReverse,
+			zReverse: zReverse,
+			rReverse: rReverse,
+			xPadding: xPadding,
+			yPadding: yPadding,
+			zPadding: zPadding,
+			rPadding: rPadding,
+			padding: padding_d,
+			flatData: flatData,
+			extents: extents_d,
+			xDomain: xDomain_d,
+			yDomain: yDomain_d,
+			zDomain: zDomain_d,
+			rDomain: rDomain_d,
+			xRange: xRange_d,
+			yRange: yRange_d,
+			zRange: zRange_d,
+			rRange: rRange_d,
+			config: config,
+			xScale: xScale_d,
+			xGet: xGet_d,
+			yScale: yScale_d,
+			yGet: yGet_d,
+			zScale: zScale_d,
+			zGet: zGet_d,
+			rScale: rScale_d,
+			rGet: rGet_d
 		})}
 	</div>
 {/if}

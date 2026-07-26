@@ -16,7 +16,7 @@
         - text: ""
         - code: "projection={geoAlbersUsa}"
         - text: ""
-    - row "fixedAspectRatio (number | undefined) None no By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
+    - row "fixedAspectRatio (number | undefined) None no By default, the map fills to fit the width and height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
       - cell "fixedAspectRatio (number | undefined)":
         - strong: fixedAspectRatio
         - text: ""
@@ -26,7 +26,12 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here."
+      - cell "By default, the map fills to fit the width and height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
+        - text: ""
+        - code: width
+        - text: ""
+        - code: height
+        - text: ""
     - row "getLabel Function None yes An accessor function to get the field to display.":
       - cell "getLabel Function":
         - strong: getLabel

@@ -68,10 +68,10 @@
         - code: "4"
       - cell "no"
       - cell "If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.":
-        - text: ""
+        - text: If this is a number, it passes that along to the
         - link "d3Scale.ticks":
           - /url: https://github.com/d3/d3-scale
-        - text: ""
+        - text: function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
     - row "tickGutter number 0 no The amount of whitespace between the start of the tick and the chart drawing area (the xRange min).":
       - cell "tickGutter number":
         - strong: tickGutter
@@ -113,7 +113,7 @@
         - text: ""
         - code: tickMarkLength
         - text: ""
-    - 'row "units (''px'' | ''%'') $percentRange === true ? ''%'' : ''px'' no If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
+    - 'row "units (''px'' | ''%'') percentRange === true ? ''%'' : ''px'' no If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
       - cell "units ('px' | '%')":
         - strong: units
         - text: ""
@@ -121,8 +121,8 @@
         - text: ""
         - code: "'%'"
         - text: ""
-      - 'cell "$percentRange === true ? ''%'' : ''px''"':
-        - code: "$percentRange === true ? '%' : 'px'"
+      - 'cell "percentRange === true ? ''%'' : ''px''"':
+        - code: "percentRange === true ? '%' : 'px'"
       - cell "no"
       - 'cell "If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
         - text: ""

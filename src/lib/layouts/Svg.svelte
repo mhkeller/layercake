@@ -3,7 +3,7 @@
 	SVG layout component
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
 	/**
 	 * @typedef {Object} Props
@@ -37,21 +37,21 @@
 		children
 	} = $props();
 
-	const { containerWidth, containerHeight, padding } = getContext('LayerCake');
+	const { containerWidth, containerHeight, padding } = $derived(getLayerCakeContext());
 </script>
 
 <svg
 	bind:this={element}
 	class="layercake-layout-svg"
 	{viewBox}
-	width={$containerWidth}
-	height={$containerHeight}
+	width={containerWidth}
+	height={containerHeight}
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={$padding.top + 'px'}
-	style:left={$padding.left + 'px'}
-	style:width={`calc(100% - ${$padding.left + $padding.right}px)`}
-	style:height={`calc(100% - ${$padding.top + $padding.bottom}px)`}
+	style:top={padding.top + 'px'}
+	style:left={padding.left + 'px'}
+	style:width={`calc(100% - ${padding.left + padding.right}px)`}
+	style:height={`calc(100% - ${padding.top + padding.bottom}px)`}
 	style:overflow
 	aria-label={label}
 	aria-labelledby={labelledBy}

@@ -3,6 +3,7 @@
 	WebGL layout component
  -->
 <script>
+	import { getLayerCakeContext } from 'layercake';
 	import { getContext, onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
@@ -36,7 +37,7 @@
 
 	let testGl;
 
-	const { padding } = getContext('LayerCake');
+	const { padding } = $derived(getLayerCakeContext());
 
 	/**
 	 * @type {{ gl: import('svelte/store').Writable<WebGLRenderingContext|null> }}
@@ -70,10 +71,10 @@
 	class="layercake-layout-webgl"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={$padding.top + 'px'}
-	style:right={$padding.right + 'px'}
-	style:bottom={$padding.bottom + 'px'}
-	style:left={$padding.left + 'px'}
+	style:top={padding.top + 'px'}
+	style:right={padding.right + 'px'}
+	style:bottom={padding.bottom + 'px'}
+	style:left={padding.left + 'px'}
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}

@@ -3,9 +3,9 @@
 	Scaled SVG layout component
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { padding } = getContext('LayerCake');
+	const { padding } = $derived(getLayerCakeContext());
 
 	/**
 	 * @typedef {Object} Props
@@ -48,10 +48,10 @@
 	preserveAspectRatio="none"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={$padding.top + 'px'}
-	style:left={$padding.left + 'px'}
-	style:width={`calc(100% - ${$padding.left + $padding.right}px)`}
-	style:height={`calc(100% - ${$padding.top + $padding.bottom}px)`}
+	style:top={padding.top + 'px'}
+	style:left={padding.left + 'px'}
+	style:width={`calc(100% - ${padding.left + padding.right}px)`}
+	style:height={`calc(100% - ${padding.top + padding.bottom}px)`}
 	style="right:0px; bottom:0px;"
 	style:overflow
 	aria-label={label}

@@ -135,12 +135,11 @@
 		children
 	} = $props();
 
-	/**
-	 * Make this reactive
-	 */
 	let yReverseValue = $derived(
 		typeof yReverse === 'undefined'
-			? typeof yScale.bandwidth === 'function'
+			? // TODO revise types of {x,y,z,r}Scale parameters
+				// @ts-ignore
+				typeof yScale?.bandwidth === 'function'
 				? false
 				: true
 			: yReverse

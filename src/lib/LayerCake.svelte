@@ -3,7 +3,7 @@
 	Layer Cake component
  -->
 <script>
-	import { setLayerCakeContext } from './context.js';
+	import { setLayerCakeContext } from './context';
 
 	import { onMount } from 'svelte';
 

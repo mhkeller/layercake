@@ -3,7 +3,7 @@
 	Generates an SVG area shape.
  -->
 <script>
-	import { getLayerCakeContext } from '$lib';
+	import { getLayerCakeContext } from 'layercake';
 
 	const { data, xGet, yGet, xScale, yScale, extents } = $derived(getLayerCakeContext());
 

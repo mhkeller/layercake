@@ -3,7 +3,7 @@
 	Generates an SVG Beeswarm chart.
  -->
 <script>
-	import { getLayerCakeContext } from '$lib';
+	import { getLayerCakeContext } from 'layercake';
 
 	const { data, xGet, zGet, height, config } = $derived(getLayerCakeContext());
 

@@ -3,7 +3,7 @@
 	Creates a key for ordinal scales on `zScale`.
  -->
 <script>
-	import { getLayerCakeContext } from '$lib';
+	import { getLayerCakeContext } from 'layercake';
 
 	/**
 	 * @typedef {Object} Props

@@ -75,7 +75,7 @@
 	 * @property {boolean} [yDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
 	 * @property {boolean} [zDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
 	 * @property {boolean} [rDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
-	 * @property {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={} [padding] - The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563).
+	 * @property {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={}] - The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563).
 	 * @property {Array<Object|Array<any>>|undefined} [flatData] - A flat version of data.
 	 * @property {Object} [custom] - Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants.
 	 * @property {boolean} [debug] - Enable debug printing to the console. Useful to inspect your scales and dimensions.

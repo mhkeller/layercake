@@ -182,10 +182,10 @@
 	 * Suffix these with `_d`
 	 */
 
-	let x_d = $derived(makeAccessor(x));
-	let y_d = $derived(makeAccessor(y));
-	let z_d = $derived(makeAccessor(z));
-	let r_d = $derived(makeAccessor(r));
+	let x_d = $derived(x ? makeAccessor(x) : undefined);
+	let y_d = $derived(y ? makeAccessor(y) : undefined);
+	let z_d = $derived(z ? makeAccessor(z) : undefined);
+	let r_d = $derived(r ? makeAccessor(r) : undefined);
 
 	let activeGetters_d = $derived.by(() => {
 		const obj = {};

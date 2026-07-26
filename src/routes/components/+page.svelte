@@ -32,24 +32,26 @@
 		return parts;
 	}
 
-	const componentGroups = svelteComponents.map(/** @param {ComponentGroup} d */ d => {
-		return {
-			name: `${d.name.replace(/^\w/, /** @param {string} w */ w => w.toUpperCase())} components`,
-			components: sortBy(d.components, 'slug').map(
-				/** @param {ComponentEntry} args */
-				({ name, slug, component }) => {
-					const classes = getClasses(slug);
-					return {
-						name,
-						slug,
-						component,
-						classes,
-						group: classes.filter(/** @param {string} d */ d => d !== 'percent-range')[0]
-					};
-				}
-			)
-		};
-	});
+	const componentGroups = svelteComponents.map(
+		/** @param {ComponentGroup} d */ d => {
+			return {
+				name: `${d.name.replace(/^\w/, /** @param {string} w */ w => w.toUpperCase())} components`,
+				components: sortBy(d.components, 'slug').map(
+					/** @param {ComponentEntry} args */
+					({ name, slug, component }) => {
+						const classes = getClasses(slug);
+						return {
+							name,
+							slug,
+							component,
+							classes,
+							group: classes.filter(/** @param {string} d */ d => d !== 'percent-range')[0]
+						};
+					}
+				)
+			};
+		}
+	);
 
 	/** @param {string} name */
 	function formatName(name) {

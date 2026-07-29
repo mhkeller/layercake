@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const { xGet, yGet } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -22,8 +22,8 @@
 	<div
 		class="label"
 		style="
-      top:{yGet(d)}px;
-      left:{xGet(d)}px;
+      top:{c.yGet(d)}px;
+      left:{c.xGet(d)}px;
     "
 	>
 		{formatLabelName(getLabelName(d))}

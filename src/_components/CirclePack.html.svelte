@@ -10,7 +10,7 @@
 	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
 	const commas = format(',');
 
-	const { width, height, data } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/** @typedef {import('d3-hierarchy').HierarchyNode<any>} HierarchyNode */
 
@@ -49,11 +49,11 @@
 	/* --------------------------------------------
 	 * This component will automatically group your data
 	 * into one group if no `parentKey` was passed in.
-	 * Stash `data` here so we can add our own parent
+	 * Stash c.data here so we can add our own parent
 	 * if there's no `parentKey`
 	 */
 	let parent = $derived(parentKey !== undefined ? {} : { [idKey]: 'all' });
-	let dataset = $derived(parentKey !== undefined ? data : [...data, parent]);
+	let dataset = $derived(parentKey !== undefined ? c.data : [...c.data, parent]);
 
 	let stratifier = $derived(
 		stratify()
@@ -67,7 +67,7 @@
 
 	let descendants = $derived(
 		pack()
-			.size([width, height])
+			.size([c.width, c.height])
 			.padding(spacing)(
 				hierarchy(stratifier(dataset))
 					.sum(d => {

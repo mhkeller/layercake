@@ -3,11 +3,11 @@
 	Generates an SVG Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
  -->
 <script>
-	import { getLayerCakeContext } from 'layercake';
 	import { untrack } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 
-	const { data, xGet, width, height, zGet } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -33,19 +33,19 @@
 	let nodes = $state([]);
 
 	let simulation = $derived.by(() => {
-		if (!width || !height || !data.length) return null;
+		if (!c.width || !c.height || !c.data.length) return null;
 
-		const sim = forceSimulation(data.map((/** @type {any} */ d) => ({ ...d })))
+		const sim = forceSimulation(c.data.map((/** @type {any} */ d) => ({ ...d })))
 			.force(
 				'x',
 				forceX()
-					.x(d => xGet(d))
+					.x(d => c.xGet(d))
 					.strength(xStrength)
 			)
 			.force(
 				'y',
 				forceY()
-					.y(height / 2)
+					.y(c.height / 2)
 					.strength(yStrength)
 			)
 			.force('collide', forceCollide(r))
@@ -78,7 +78,7 @@
 
 <g class="bee-group">
 	{#each nodes as node}
-		<circle fill={zGet(node)} {stroke} stroke-width={strokeWidth} cx={node.x} cy={node.y} {r}>
+		<circle fill={c.zGet(node)} {stroke} stroke-width={strokeWidth} cx={node.x} cy={node.y} {r}>
 			{#if getTitle}
 				<title>{getTitle(node)}</title>
 			{/if}

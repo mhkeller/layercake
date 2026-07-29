@@ -3,11 +3,11 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getLayerCakeContext } from 'layercake';
 	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { scaleCanvas } from 'layercake';
 
-	const { data, width, height } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	const { ctx } = getContext('canvas');
 
@@ -18,7 +18,7 @@
 	 * @property {string} [fill='yellow'] - The point's fill color.
 	 * @property {string} [stroke='#000'] - The point's stroke color.
 	 * @property {number} [strokeWidth=1] - The point's stroke width.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `$data.features`, assuming this field is a list of GeoJSON features.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `c.data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
 	/** @type {Props} */
@@ -31,19 +31,19 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([width, height], data));
+	let projectionFn = $derived(projection().fitSize([c.width, c.height], c.data));
 
-	let featuresToDraw = $derived(features || data.features);
+	let featuresToDraw = $derived(features || c.data.features);
 
 	$effect(() => {
-		if (!width || !height || !$ctx) return;
+		if (!c.width || !c.height || !$ctx) return;
 
 		// Assign to a local variable: setting properties on `$ctx` directly
 		// would re-notify the store and re-trigger this effect
 		const context = $ctx;
 
-		scaleCanvas(context, width, height);
-		context.clearRect(0, 0, width, height);
+		scaleCanvas(context, c.width, c.height);
+		context.clearRect(0, 0, c.width, c.height);
 
 		// To scale the circle by size, set width and height to `$rGet(d.properties)`
 		featuresToDraw.forEach(

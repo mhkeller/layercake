@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const { width, height, xScale, yRange } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -51,31 +51,31 @@
 
 	let tickLen = $derived(tickMarks === true ? (tickMarkLength ?? 6) : 0);
 
-	let isBandwidth = $derived(typeof xScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof c.xScale.bandwidth === 'function');
 
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? xScale.domain()
+				? c.xScale.domain()
 				: typeof ticks === 'function'
-					? ticks(xScale.ticks())
-					: xScale.ticks(ticks)
+					? ticks(c.xScale.ticks())
+					: c.xScale.ticks(ticks)
 	);
 
-	let halfBand = $derived(isBandwidth ? xScale.bandwidth() / 2 : 0);
+	let halfBand = $derived(isBandwidth ? c.xScale.bandwidth() / 2 : 0);
 </script>
 
 <g class="axis x-axis" class:snapLabels>
 	{#each tickVals as tick, i (tick)}
 		{#if baseline === true}
-			<line class="baseline" y1="0" y2="0" x1="0" x2={width} />
+			<line class="baseline" y1="0" y2="0" x1="0" x2={c.width} />
 		{/if}
 
-		<g class="tick tick-{i}" transform="translate({xScale(tick)},{Math.min(...yRange)})">
+		<g class="tick tick-{i}" transform="translate({c.xScale(tick)},{Math.min(...c.yRange)})">
 			{#if gridlines === true}
-				<line class="gridline" x1="0" x2="0" y1={height} y2="0" />
+				<line class="gridline" x1="0" x2="0" y1={c.height} y2="0" />
 			{/if}
 			{#if tickMarks === true}
 				<line

@@ -6,7 +6,7 @@
 	import { getLayerCakeContext } from 'layercake';
 	import { max } from 'd3-array';
 
-	const { data, x, y, xScale, yScale, xRange, yRange, z } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/* --------------------------------------------
 	 * Title case the first letter
@@ -16,11 +16,11 @@
 	/* --------------------------------------------
 	 * Put the label on the highest value
 	 */
-	let left = $derived(values => xScale(max(values, x)) / Math.max(...xRange));
-	let top = $derived(values => yScale(max(values, y)) / Math.max(...yRange));
+	let left = $derived(values => c.xScale(max(values, c.x)) / Math.max(...c.xRange));
+	let top = $derived(values => c.yScale(max(values, c.y)) / Math.max(...c.yRange));
 </script>
 
-{#each data as group}
+{#each c.data as group}
 	<div
 		class="label"
 		style="
@@ -28,7 +28,7 @@
       left:{left(group.values) * 100}%;
     "
 	>
-		{cap(z(group))}
+		{cap(c.z(group))}
 	</div>
 {/each}
 

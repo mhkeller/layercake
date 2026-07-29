@@ -3,12 +3,12 @@
 	Generates a canvas map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getLayerCakeContext } from 'layercake';
 	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { scaleCanvas } from 'layercake';
 	import { geoPath } from 'd3-geo';
 
-	const { data, width, height, zGet } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	const { ctx } = getContext('canvas');
 
@@ -18,27 +18,28 @@
 	 * @property {string} [stroke='#ccc'] - The shape's stroke color.
 	 * @property {number} [strokeWidth=1] - The shape's stroke width.
 	 * @property {string|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.
-	 * @property {Array<GeoJSON>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset.
+	 * @property {Array<GeoJSON>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `c.data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `c.data.features` if left unset.
 	 */
 
 	/** @type {Props} */
 	let { projection, stroke = '#ccc', strokeWidth = 1, fill, features } = $props();
 
-	let projectionFn = $derived(projection().fitSize([width, height], data));
+	let projectionFn = $derived(projection().fitSize([c.width, c.height], c.data));
 
 	let geoPathFn = $derived(geoPath(projectionFn));
 
-	let featuresToDraw = $derived(features || data.features);
+	let featuresToDraw = $derived(features || c.data.features);
 
 	$effect(() => {
-		if (!width || !height || !$ctx) return;
+		if (!c.width || !c.height || !$ctx) return;
 
 		// Assign to a local variable: setting properties on `$ctx` directly
 		// would re-notify the store and re-trigger this effect
 		const context = $ctx;
+		const zGetFn = c.zGet;
 
-		scaleCanvas(context, width, height);
-		context.clearRect(0, 0, width, height);
+		scaleCanvas(context, c.width, c.height);
+		context.clearRect(0, 0, c.width, c.height);
 
 		featuresToDraw.forEach(
 			/** @param {any} feature */ feature => {
@@ -47,7 +48,7 @@
 				geoPathFn.context(context);
 				geoPathFn(feature);
 
-				context.fillStyle = fill || zGet(feature.properties);
+				context.fillStyle = fill || zGetFn(feature.properties);
 				context.fill();
 
 				context.lineWidth = strokeWidth;

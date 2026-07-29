@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const { xGet, yGet, percentRange } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} ArrowSource
@@ -50,7 +50,7 @@
 	 */
 
 	/** @type {Props} */
-	let { annotations, getText = d => d.text, pr = percentRange } = $props();
+	let { annotations, getText = d => d.text, pr = c.percentRange } = $props();
 
 	let units = $derived(pr === true ? '%' : 'px');
 </script>
@@ -60,8 +60,8 @@
 		<div
 			class="layercake-annotation"
 			data-id={i}
-			style:left={`calc(${xGet(d)}${units} + ${d.dx || 0}px)`}
-			style:top={`calc(${yGet(d)}${units} + ${d.dy || 0}px)`}
+			style:left={`calc(${c.xGet(d)}${units} + ${d.dx || 0}px)`}
+			style:top={`calc(${c.yGet(d)}${units} + ${d.dy || 0}px)`}
 		>
 			{getText(d)}
 		</div>

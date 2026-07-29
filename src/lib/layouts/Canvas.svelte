@@ -3,12 +3,12 @@
 	Canvas layout component
  -->
 <script>
+	import { getContext, onMount, setContext } from 'svelte';
 	import { getLayerCakeContext } from 'layercake';
-	import { onMount, setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 	import scaleCanvas from '../lib/scaleCanvas.js';
 
-	const { width, height, padding } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -48,7 +48,7 @@
 		if (element) {
 			context = element.getContext('2d');
 			if (context) {
-				scaleCanvas(context, width, height);
+				scaleCanvas(context, c.width, c.height);
 				cntxt.ctx.set(context);
 			}
 		}
@@ -60,10 +60,10 @@
 	class="layercake-layout-canvas"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={padding.top + 'px'}
-	style:right={padding.right + 'px'}
-	style:bottom={padding.bottom + 'px'}
-	style:left={padding.left + 'px'}
+	style:top={c.padding.top + 'px'}
+	style:right={c.padding.right + 'px'}
+	style:bottom={c.padding.bottom + 'px'}
+	style:left={c.padding.left + 'px'}
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}

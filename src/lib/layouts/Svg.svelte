@@ -37,21 +37,21 @@
 		children
 	} = $props();
 
-	const { containerWidth, containerHeight, padding } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 </script>
 
 <svg
 	bind:this={element}
 	class="layercake-layout-svg"
 	{viewBox}
-	width={containerWidth}
-	height={containerHeight}
+	width={c.containerWidth}
+	height={c.containerHeight}
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={padding.top + 'px'}
-	style:left={padding.left + 'px'}
-	style:width={`calc(100% - ${padding.left + padding.right}px)`}
-	style:height={`calc(100% - ${padding.top + padding.bottom}px)`}
+	style:top={c.padding.top + 'px'}
+	style:left={c.padding.left + 'px'}
+	style:width={`calc(100% - ${c.padding.left + c.padding.right}px)`}
+	style:height={`calc(100% - ${c.padding.top + c.padding.bottom}px)`}
 	style:overflow
 	aria-label={label}
 	aria-labelledby={labelledBy}

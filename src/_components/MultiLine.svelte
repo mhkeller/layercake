@@ -6,7 +6,7 @@
 	import { getLayerCakeContext } from 'layercake';
 	import { line, curveLinear } from 'd3-shape';
 
-	const { data, xGet, yGet, zGet } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/** @typedef {import('d3-shape').CurveFactory} CurveFactory */
 	/**
@@ -17,13 +17,13 @@
 	/** @type {Props} */
 	let { curve = curveLinear } = $props();
 
-	let path = $derived(line().x(xGet).y(yGet).curve(curve));
+	let path = $derived(line().x(c.xGet).y(c.yGet).curve(curve));
 	// .defined($y)
 </script>
 
 <g class="line-group">
-	{#each data as group}
-		<path class="path-line" d={path(group.values)} stroke={zGet(group)}></path>
+	{#each c.data as group}
+		<path class="path-line" d={path(group.values)} stroke={c.zGet(group)}></path>
 	{/each}
 </g>
 

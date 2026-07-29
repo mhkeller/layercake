@@ -7,16 +7,16 @@
 	import { geoPath } from 'd3-geo';
 	import { raise } from 'layercake';
 
-	const { data, width, height, zGet } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
 	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
-	 * @property {number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
+	 * @property {number|undefined} [fixedAspectRatio] - By default, the map fills to fit the c.width and c.height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
 	 * @property {string|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.
 	 * @property {string} [stroke='#333'] - The shape's stroke color.
 	 * @property {number} [strokeWidth=0.5] - The shape's stroke width.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `c.data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `c.data.features` if left unset.
 	 * @property {(e: MouseEvent, props: Object) => void} [onmousemove] - A function that gets called on mousemove events. The first argument is the event, and the second is the properties of the hovered feature.
 	 * @property {(e: MouseEvent) => void} [onmouseout] - A function that gets called on mouseout events.
 	 */
@@ -36,9 +36,11 @@
 	/* --------------------------------------------
 	 * Here's how you would do cross-component hovers
 	 */
-	let fitSizeRange = $derived(fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [width, height]);
+	let fitSizeRange = $derived(
+		fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [c.width, c.height]
+	);
 
-	let projectionFn = $derived(projection().fitSize(fitSizeRange, data));
+	let projectionFn = $derived(projection().fitSize(fitSizeRange, c.data));
 
 	let geoPathFn = $derived(geoPath(projectionFn));
 
@@ -56,10 +58,10 @@
 
 <!-- svelte-ignore a11y_mouse_events_have_key_events -->
 <g class="map-group" {onmouseout} role="tooltip">
-	{#each features || data.features as feature}
+	{#each features || c.data.features as feature}
 		<path
 			class="feature-path"
-			fill={fill || zGet(feature.properties)}
+			fill={fill || c.zGet(feature.properties)}
 			{stroke}
 			stroke-width={strokeWidth}
 			d={geoPathFn(feature)}

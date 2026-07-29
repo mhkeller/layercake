@@ -6,7 +6,7 @@
 	import { getLayerCakeContext } from 'layercake';
 	import { forceSimulation, forceX, forceManyBody, forceCollide, forceCenter } from 'd3-force';
 
-	const { data, width, height, xScale, xGet, rGet, zGet } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -31,9 +31,9 @@
 	/* --------------------------------------------
 	 * Make a copy because the simulation will alter the objects
 	 */
-	const initialNodes = $derived(data.map(d => ({ ...d })));
+	const initialNodes = c.data.map(d => ({ ...d }));
 
-	const simulation = $derived(forceSimulation(initialNodes));
+	const simulation = forceSimulation(initialNodes);
 
 	let nodes = $state([]);
 
@@ -51,22 +51,22 @@
 				forceX()
 					.x(
 						/** @param {any} d */ d => {
-							return groupBy === true ? xGet(d) + xScale.bandwidth() / 2 : width / 2;
+							return groupBy === true ? c.xGet(d) + c.xScale.bandwidth() / 2 : c.width / 2;
 						}
 					)
 					.strength(xStrength)
 			)
-			.force('center', forceCenter(width / 2, height / 2))
+			.force('center', forceCenter(c.width / 2, c.height / 2))
 			.force('charge', forceManyBody().strength(manyBodyStrength))
 			.force(
 				'collision',
 				forceCollide().radius(
 					/** @param {any} d */ d => {
-						return rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
+						return c.rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
 					}
 				)
 			)
-			.force('center', forceCenter(width / 2, height / 2))
+			.force('center', forceCenter(c.width / 2, c.height / 2))
 			.alpha(1)
 			.restart();
 	});
@@ -75,13 +75,13 @@
 {#each nodes as point}
 	<circle
 		class="node"
-		r={rGet(point)}
-		fill={nodeColor || zGet(point)}
+		r={c.rGet(point)}
+		fill={nodeColor || c.zGet(point)}
 		stroke={nodeStroke}
 		stroke-width={nodeStrokeWidth}
 		cx={point.x}
 		cy={point.y}
 	>
-		<!-- <title>{point[custom.title]}</title> -->
+		<!-- <title>{point[$custom.title]}</title> -->
 	</circle>
 {/each}

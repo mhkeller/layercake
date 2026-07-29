@@ -5,22 +5,22 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, yGet, zGet, xScale } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 </script>
 
 <g class="column-group">
-	{#each data as series, i}
+	{#each c.data as series, i}
 		{#each series as d}
-			{@const yVals = yGet(d)}
+			{@const yVals = c.yGet(d)}
 			{@const columnHeight = yVals[0] - yVals[1]}
 			<rect
 				class="group-rect"
 				data-id={i}
-				x={xGet(d)}
+				x={c.xGet(d)}
 				y={yVals[1]}
-				width={xScale.bandwidth()}
+				width={c.xScale.bandwidth()}
 				height={columnHeight}
-				fill={zGet(series)}
+				fill={c.zGet(series)}
 			></rect>
 		{/each}
 	{/each}

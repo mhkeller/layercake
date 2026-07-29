@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, yGet, xScale, yScale } = $derived(getLayerCakeContext());
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -17,14 +17,14 @@
 </script>
 
 <g class="bar-group">
-	{#each data as d, i}
+	{#each c.data as d, i}
 		<rect
 			class="group-rect"
 			data-id={i}
-			x={xScale.range()[0]}
-			y={yGet(d)}
-			height={yScale.bandwidth()}
-			width={xGet(d)}
+			x={c.xScale.range()[0]}
+			y={c.yGet(d)}
+			height={c.yScale.bandwidth()}
+			width={c.xGet(d)}
 			{fill}
 		></rect>
 	{/each}

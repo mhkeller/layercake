@@ -3,7 +3,7 @@
 	Canvas layout component
  -->
 <script>
-	import { getContext, onMount, setContext } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 	import { getLayerCakeContext } from 'layercake';
 	import { writable } from 'svelte/store';
 	import scaleCanvas from '../lib/scaleCanvas.js';

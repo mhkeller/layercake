@@ -23,7 +23,7 @@
       - cell "None"
       - cell "yes"
       - cell "An accessor function to get the field to display."
-    - row "fixedAspectRatio (number | undefined) None no By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
+    - row "fixedAspectRatio (number | undefined) None no By default, the map fills to fit the c.width and c.height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.":
       - cell "fixedAspectRatio (number | undefined)":
         - strong: fixedAspectRatio
         - text: ""
@@ -33,7 +33,7 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here."
+      - cell "By default, the map fills to fit the c.width and c.height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here."
     - row "getCoordinates Function None yes An accessor function to get the [x, y] coordinate field. Defaults to a GeoJSON feature format.":
       - cell "getCoordinates Function":
         - strong: getCoordinates
@@ -44,7 +44,7 @@
         - text: ""
         - code: "[x, y]"
         - text: ""
-    - row "features (Array<Object> | undefined) None no A list of labels as GeoJSON features. If unset, the plotted features will default to those in $data.features, assuming this field is a list of GeoJSON features.":
+    - row "features (Array<Object> | undefined) None no A list of labels as GeoJSON features. If unset, the plotted features will default to those in c.data.features, assuming this field is a list of GeoJSON features.":
       - cell "features (Array<Object> | undefined)":
         - strong: features
         - text: ""
@@ -54,7 +54,7 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "A list of labels as GeoJSON features. If unset, the plotted features will default to those in $data.features, assuming this field is a list of GeoJSON features.":
+      - cell "A list of labels as GeoJSON features. If unset, the plotted features will default to those in c.data.features, assuming this field is a list of GeoJSON features.":
         - text: ""
-        - code: $data.features
+        - code: c.data.features
         - text: ""

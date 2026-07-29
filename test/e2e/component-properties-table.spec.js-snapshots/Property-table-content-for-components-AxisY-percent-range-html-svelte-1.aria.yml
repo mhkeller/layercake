@@ -113,7 +113,7 @@
         - text: ""
         - code: tickMarkLength
         - text: ""
-    - 'row "units (''px'' | ''%'') percentRange === true ? ''%'' : ''px'' no If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
+    - 'row "units (''px'' | ''%'') c.percentRange === true ? ''%'' : ''px'' no If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
       - cell "units ('px' | '%')":
         - strong: units
         - text: ""
@@ -121,8 +121,8 @@
         - text: ""
         - code: "'%'"
         - text: ""
-      - 'cell "percentRange === true ? ''%'' : ''px''"':
-        - code: "percentRange === true ? '%' : 'px'"
+      - 'cell "c.percentRange === true ? ''%'' : ''px''"':
+        - code: "c.percentRange === true ? '%' : 'px'"
       - cell "no"
       - 'cell "If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
         - text: ""

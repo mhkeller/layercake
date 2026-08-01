@@ -28,9 +28,9 @@
 		y={yKey}
 		yScale={scaleBand().paddingInner(0.05).round(true)}
 		yDomain={['2016', '2017', '2018', '2019']}
-		zScale={scaleOrdinal()}
-		zDomain={xKey}
-		zRange={seriesColors}
+		cScale={scaleOrdinal()}
+		cDomain={xKey}
+		cRange={seriesColors}
 		{data}
 	>
 		<Html>

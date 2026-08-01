@@ -24,11 +24,9 @@
 	const geojson = feature(usStates, usStates.objects.collection);
 	const projection = geoAlbersUsa;
 
-	/* --------------------------------------------
-	 * Create lookups to more easily join our data
-	 * `dataJoinKey` is the name of the field in the data
-	 * `mapJoinKey` is the name of the field in the map file
-	 */
+	// Create lookups to more easily join our data
+	// `dataJoinKey` is the name of the field in the data
+	// `mapJoinKey` is the name of the field in the map file
 	const dataJoinKey = 'name';
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
@@ -58,9 +56,9 @@
 <div class="chart-container">
 	<LayerCake
 		data={geojson}
-		z={(/** @type {any} */ d) => dataLookup.get(d[mapJoinKey])}
-		zScale={scaleQuantize()}
-		zRange={colors}
+		c={(/** @type {any} */ d) => dataLookup.get(d[mapJoinKey])}
+		cScale={scaleQuantize()}
+		cRange={colors}
 		{flatData}
 	>
 		<Canvas>

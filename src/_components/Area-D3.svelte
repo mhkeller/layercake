@@ -3,10 +3,10 @@
 	Generates an SVG area shape using the `area` function from [d3-shape](https://github.com/d3/d3-shape).
  -->
 <script>
-	import { getContext } from 'svelte';
 	import { area, curveLinear } from 'd3-shape';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, yGet, yScale } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -19,12 +19,12 @@
 
 	let path = $derived(
 		area()
-			.x($xGet)
-			.y1($yGet)
-			.y0(d => $yScale(0))
+			.x(c.xGet)
+			.y1(c.yGet)
+			.y0(d => c.yScale(0))
 			.curve(curve)
 	);
 	// .defined($y)
 </script>
 
-<path class="path-area" d={path($data)} {fill}></path>
+<path class="path-area" d={path(c.data)} {fill}></path>

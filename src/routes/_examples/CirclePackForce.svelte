@@ -8,7 +8,7 @@
 
 	const xKey = 'category';
 	const rKey = 'value';
-	const zKey = 'category';
+	const cKey = 'category';
 
 	let groupBy = $state('true');
 
@@ -28,11 +28,11 @@
 		{data}
 		x={xKey}
 		r={rKey}
-		z={zKey}
+		c={cKey}
 		xScale={scaleBand()}
 		rRange={[3, 12]}
-		zScale={scaleOrdinal()}
-		zRange={seriesColors}
+		cScale={scaleOrdinal()}
+		cRange={seriesColors}
 	>
 		<Svg>
 			<ForceLayout {manyBodyStrength} {xStrength} groupBy={JSON.parse(groupBy)} nodeStroke="#000" />

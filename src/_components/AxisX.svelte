@@ -3,9 +3,9 @@
 	Generates an SVG x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { width, height, xScale, yRange } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -51,31 +51,35 @@
 
 	let tickLen = $derived(tickMarks === true ? (tickMarkLength ?? 6) : 0);
 
-	let isBandwidth = $derived(typeof $xScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof c.xScale.bandwidth === 'function');
 
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? $xScale.domain()
+				? c.xScale.domain()
 				: typeof ticks === 'function'
-					? ticks($xScale.ticks())
-					: $xScale.ticks(ticks)
+					? ticks(c.xScale.ticks())
+					: c.xScale.ticks(ticks)
 	);
 
-	let halfBand = $derived(isBandwidth ? $xScale.bandwidth() / 2 : 0);
+	let halfBand = $derived(isBandwidth ? c.xScale.bandwidth() / 2 : 0);
 </script>
 
 <g class="axis x-axis" class:snapLabels>
 	{#each tickVals as tick, i (tick)}
 		{#if baseline === true}
-			<line class="baseline" y1={$height} y2={$height} x1="0" x2={$width} />
+			<line class="baseline" y1={c.height} y2={c.height} x1="0" x2={c.width} />
 		{/if}
 
-		<g class="tick tick-{i}" transform="translate({$xScale(tick)},{Math.max(...$yRange)})">
+		<!-- Fall back to the chart height if the chart has no y dimension -->
+		<g
+			class="tick tick-{i}"
+			transform="translate({c.xScale(tick)},{c.yRange ? Math.max(...c.yRange) : c.height})"
+		>
 			{#if gridlines === true}
-				<line class="gridline" x1={halfBand} x2={halfBand} y1={-$height} y2="0" />
+				<line class="gridline" x1={halfBand} x2={halfBand} y1={-c.height} y2="0" />
 			{/if}
 			{#if tickMarks === true}
 				<line

@@ -9,12 +9,10 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/fruit.csv';
 
-	/* --------------------------------------------
-	 * Set what is our x key to separate it from the other series
-	 */
+	// Set what is our x key to separate it from the other series
 	const xKey = 'month';
 	const yKey = 'value';
-	const zKey = 'key';
+	const cKey = 'key';
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
@@ -51,11 +49,11 @@
 		padding={{ top: 20, right: 10 }}
 		x={xKey}
 		y={yKey}
-		z={zKey}
+		c={cKey}
 		yDomain={[0, null]}
-		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
-		zRange={seriesColors}
+		cScale={scaleOrdinal()}
+		cDomain={seriesNames}
+		cRange={seriesColors}
 		flatData={flatten(dataLong)}
 		data={dataLong}
 	>

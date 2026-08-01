@@ -3,9 +3,9 @@
 	Generates an SVG Beeswarm chart.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, zGet, height, config } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -22,7 +22,7 @@
 	function dodge(data, { rds = 1, x = d => d } = {}) {
 		const radius2 = rds ** 2;
 		const circles = data
-			.map(d => ({ x: x(d), [$config.z]: d[$config.z], data: d }))
+			.map(d => ({ x: x(d), [c.config.c]: d[c.config.c], data: d }))
 			.sort((a, b) => a.x - b.x);
 		const epsilon = 1e-3;
 		let head = null,
@@ -67,17 +67,17 @@
 
 		return circles;
 	}
-	let circles = $derived(dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet }));
+	let circles = $derived(dodge(c.data, { rds: r * 2 + spacing + strokeWidth, x: c.xGet }));
 </script>
 
 <g class="bee-group">
 	{#each circles as d}
 		<circle
-			fill={$zGet(d)}
+			fill={c.cGet(d)}
 			{stroke}
 			stroke-width={strokeWidth}
 			cx={d.x}
-			cy={$height - r - spacing - strokeWidth / 2 - d.y}
+			cy={c.height - r - spacing - strokeWidth / 2 - d.y}
 			{r}
 		>
 			{#if getTitle}

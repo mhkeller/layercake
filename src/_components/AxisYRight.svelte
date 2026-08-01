@@ -1,18 +1,18 @@
 <!--
 	@component
-	Generates an SVG y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
+	Generates an SVG y-axis on the right-hand side of the chart. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { xRange, yScale, width } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
 	 * @property {boolean} [tickMarks=false] - Show marks next to the tick label.
 	 * @property {string} [labelPosition='above'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark.
 	 * @property {boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
-	 * @property {boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
+	 * @property {boolean} [gridlines=true] - Show gridlines extending into the chart area.
 	 * @property {number} [tickMarkLength] - The length of the tick mark. If not set, becomes the length of the widest tick.
 	 * @property {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return.
 	 * @property {number|Array<any>|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
@@ -44,16 +44,16 @@
 		return sum + charPixelWidth;
 	}
 
-	let isBandwidth = $derived(typeof $yScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof c.yScale.bandwidth === 'function');
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? $yScale.domain()
+				? c.yScale.domain()
 				: typeof ticks === 'function'
-					? ticks($yScale.ticks())
-					: $yScale.ticks(ticks)
+					? ticks(c.yScale.ticks())
+					: c.yScale.ticks(ticks)
 	);
 	let widestTickLen = $derived(
 		Math.max(
@@ -68,30 +68,31 @@
 				: (tickMarkLength ?? 6)
 			: 0
 	);
-	let x2 = $derived($width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen));
-	let y = $derived(isBandwidth ? $yScale.bandwidth() / 2 : 0);
-	let maxTickValPx = $derived(Math.max(...tickVals.map($yScale)));
+	let x2 = $derived(c.width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen));
+	let y = $derived(isBandwidth ? c.yScale.bandwidth() / 2 : 0);
+	let maxTickValPx = $derived(Math.max(...tickVals.map(c.yScale)));
 </script>
 
 <g class="axis y-axis">
 	{#each tickVals as tick (tick)}
-		{@const tickValPx = $yScale(tick)}
-		<g class="tick tick-{tick}" transform="translate({$xRange[0]}, {tickValPx})">
+		{@const tickValPx = c.yScale(tick)}
+		<!-- Fall back to the left edge if the chart has no x dimension -->
+		<g class="tick tick-{tick}" transform="translate({c.xRange ? c.xRange[0] : 0}, {tickValPx})">
 			{#if gridlines === true}
 				<line class="gridline" x1="0" {x2} y1={y} y2={y}></line>
 			{/if}
 			{#if tickMarks === true}
 				<line
 					class="tick-mark"
-					x1={$width + tickGutter}
-					x2={$width + tickGutter + tickLen}
+					x1={c.width + tickGutter}
+					x2={c.width + tickGutter + tickLen}
 					y1={y}
 					y2={y}
 				></line>
 			{/if}
 
 			<text
-				x={$width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}
+				x={c.width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}
 				{y}
 				dx={dx + (labelPosition === 'even' ? 3 : 0)}
 				dy={dy +

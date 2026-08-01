@@ -3,11 +3,11 @@
 	Generates an SVG calendar chart.
  -->
 <script>
-	import { getContext } from 'svelte';
 	import { utcFormat } from 'd3-time-format';
 	import { utcDay } from 'd3-time';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { width, height, data, x, z, zScale, extents } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -23,26 +23,26 @@
 
 	let count = $derived(date => {
 		const stringDate = date.toISOString().split('T')[0];
-		const days = $data.filter(d => $x(d) === stringDate)[0];
+		const days = c.data.filter(d => c.x(d) === stringDate)[0];
 		if (days) {
-			return $z(days);
+			return c.c(days);
 		}
 		return 0;
 	});
 
 	let fillColor = $derived(day => {
 		const n = count(day);
-		return n ? $zScale(n) : '#fff';
+		return n ? c.cScale(n) : '#fff';
 	});
 
-	let cellSize = $derived(calcCellSize($width, $height));
+	let cellSize = $derived(calcCellSize(c.width, c.height));
 
 	/**
 	 * Calculate what month we're in and generate the full days of that month
 	 */
 	/** @type {Date[]} */
 	let days = $derived.by(() => {
-		const minDate = $extents.x[0];
+		const minDate = c.extents.x[0];
 		const parts = minDate.split('-').map(d => +d);
 
 		return utcDay.range(

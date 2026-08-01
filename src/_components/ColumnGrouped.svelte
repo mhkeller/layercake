@@ -1,6 +1,6 @@
 <!--
   @component
-  Generates an SVG column chart.
+  Generates an SVG grouped column chart using the `x1` nested scale for the within-group position and the `c` scale for color.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -9,19 +9,18 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {string} [fill='#00e047'] - The shape's fill color.
+	 * @property {string} [fill] - The shape's fill color. By default the color is read from the `c` scale.
 	 * @property {string} [stroke='#000'] - The shape's stroke color.
 	 * @property {number} [strokeWidth=0] - The shape's stroke width.
-	 * @property {boolean} [showLabels=false] - Show the numbers for each column
+	 * @property {boolean} [showLabels=false] - Show the numbers for each column.
 	 */
 
 	/** @type {Props} */
-	let { fill = '#00e047', stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
+	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
-	let columnWidth = $derived(d => {
-		const vals = c.xGet(d);
-		return Math.abs(vals[1] - vals[0]);
-	});
+	let columnWidth = $derived(
+		c.x1Scale.bandwidth ? c.x1Scale.bandwidth() : Math.abs(c.x1Range[1] - c.x1Range[0])
+	);
 
 	let columnHeight = $derived(d => {
 		return c.yRange[0] - c.yGet(d);
@@ -31,9 +30,7 @@
 <g class="column-group">
 	{#each c.data as d, i}
 		{@const colHeight = columnHeight(d)}
-		{@const xGot = c.xGet(d)}
-		{@const xPos = Array.isArray(xGot) ? xGot[0] : xGot}
-		{@const colWidth = c.xScale.bandwidth ? c.xScale.bandwidth() : columnWidth(d)}
+		{@const xPos = c.xGet(d) + c.x1Get(d)}
 		{@const yValue = c.y(d)}
 		<rect
 			class="group-rect"
@@ -42,15 +39,14 @@
 			data-count={yValue}
 			x={xPos}
 			y={c.yGet(d)}
-			width={colWidth}
+			width={columnWidth}
 			height={colHeight}
-			{fill}
+			fill={fill || c.cGet(d)}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>
 		{#if showLabels && yValue}
-			<text x={xPos + colWidth / 2} y={c.height - colHeight - 5} text-anchor="middle">{yValue}</text
-			>
+			<text x={xPos + columnWidth / 2} y={c.yGet(d) - 5} text-anchor="middle">{yValue}</text>
 		{/if}
 	{/each}
 </g>

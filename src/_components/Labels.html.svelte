@@ -3,9 +3,9 @@
 	Adds HTML text labels based on a given list.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { xGet, yGet } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -22,8 +22,8 @@
 	<div
 		class="label"
 		style="
-      top:{$yGet(d)}px;
-      left:{$xGet(d)}px;
+      top:{c.yGet(d)}px;
+      left:{c.xGet(d)}px;
     "
 	>
 		{formatLabelName(getLabelName(d))}

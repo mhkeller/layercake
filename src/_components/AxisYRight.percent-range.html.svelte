@@ -5,16 +5,16 @@
 	Although this is marked as a percent-range component, you can also use it with a normal scale with no configuration needed. By default, if you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts. Set the `units` prop to either `'%'` or `'px'` to override the default behavior.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { xRange, yScale, width, percentRange } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
 	 * @property {boolean} [tickMarks=true] - Show marks next to the tick label.
 	 * @property {string} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'.
 	 * @property {boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
-	 * @property {boolean} [gridlines=true] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
+	 * @property {boolean} [gridlines=true] - Show gridlines extending into the chart area.
 	 * @property {number} [tickMarkLength] - The length of the tick mark. If not set, becomes the length of the widest tick.
 	 * @property {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return.
 	 * @property {number|Array<any>|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
@@ -38,7 +38,7 @@
 		dx = 0,
 		dy = -3,
 		charPixelWidth = 7.25,
-		units = $percentRange === true ? '%' : 'px'
+		units = c.percentRange === true ? '%' : 'px'
 	} = $props();
 
 	/** @param {number} sum
@@ -48,16 +48,16 @@
 		return sum + charPixelWidth;
 	}
 
-	let isBandwidth = $derived(typeof $yScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof c.yScale.bandwidth === 'function');
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? $yScale.domain()
+				? c.yScale.domain()
 				: typeof ticks === 'function'
-					? ticks($yScale.ticks())
-					: $yScale.ticks(ticks)
+					? ticks(c.yScale.ticks())
+					: c.yScale.ticks(ticks)
 	);
 	let widestTickLen = $derived(
 		Math.max(
@@ -72,17 +72,17 @@
 				: (tickMarkLength ?? 6)
 			: 0
 	);
-	let halfBand = $derived(isBandwidth ? $yScale.bandwidth() / 2 : 0);
-	let maxTickValUnits = $derived(Math.max(...tickVals.map($yScale)));
+	let halfBand = $derived(isBandwidth ? c.yScale.bandwidth() / 2 : 0);
+	let maxTickValUnits = $derived(Math.max(...tickVals.map(c.yScale)));
 </script>
 
 <div class="axis y-axis">
 	{#each tickVals as tick, i (tick)}
-		{@const tickValUnits = $yScale(tick)}
+		{@const tickValUnits = c.yScale(tick)}
 
 		<div
 			class="tick tick-{i}"
-			style="left:{$xRange[0]}{units};top:{tickValUnits + halfBand}{units};"
+			style="left:{c.xRange[0]}{units};top:{tickValUnits + halfBand}{units};"
 		>
 			{#if gridlines === true}
 				<div
@@ -96,7 +96,7 @@
 				<div
 					class="tick-mark"
 					style:top="0"
-					style:left="{$width + tickGutter}px"
+					style:left="{c.width + tickGutter}px"
 					style:width="{tickLen}px"
 				></div>
 			{/if}

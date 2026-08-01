@@ -3,16 +3,16 @@
 	Generates an SVG radar chart.
  -->
 <script>
-	import { getContext } from 'svelte';
 	import { line, curveCardinalClosed } from 'd3-shape';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, width, height, xGet, config } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
 	 * @property {string} [fill='#f0c'] - The radar's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
 	 * @property {string} [stroke='#f0c'] - The radar's stroke color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
-	 * @property {number} [strokeWidth=2] - The radar's stroke color.
+	 * @property {number} [strokeWidth=2] - The radar's stroke width.
 	 * @property {number} [fillOpacity=0.5] - The radar's fill opacity.
 	 * @property {number} [r=4.5] - Each circle's radius.
 	 * @property {string} [circleFill='#f0c'] - Each circle's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
@@ -32,7 +32,7 @@
 		circleStrokeWidth = 1
 	} = $props();
 
-	let angleSlice = $derived((Math.PI * 2) / $config.x.length);
+	let angleSlice = $derived((Math.PI * 2) / c.config.x.length);
 
 	let path = $derived(
 		line()
@@ -61,9 +61,9 @@
 	// );
 </script>
 
-<g transform="translate({$width / 2}, {$height / 2})">
-	{#each $data as row}
-		{@const xVals = $xGet(row)}
+<g transform="translate({c.width / 2}, {c.height / 2})">
+	{#each c.data as row}
+		{@const xVals = c.xGet(row)}
 		<!-- Draw a line connecting all the dots -->
 		<path
 			class="path-line"

@@ -13,14 +13,12 @@
 
 	const xKey = [0, 1];
 	const yKey = 'year';
-	const zKey = 'key';
+	const cKey = 'key';
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== yKey);
 	const seriesColors = ['#00bbff', '#8bcef6', '#c4e2ed', '#f7f6e3'];
 
-	/* --------------------------------------------
-	 * Cast data
-	 */
+	// Cast data
 	data.forEach(d => {
 		seriesNames.forEach(name => {
 			d[name] = +d[name];
@@ -37,12 +35,12 @@
 		padding={{ top: 0, bottom: 20, left: 35 }}
 		x={xKey}
 		y={d => d.data[yKey]}
-		z={zKey}
+		c={cKey}
 		yScale={scaleBand().paddingInner(0.05)}
-		zScale={scaleOrdinal()}
+		cScale={scaleOrdinal()}
 		yDomainSort={true}
-		zDomain={seriesNames}
-		zRange={seriesColors}
+		cDomain={seriesNames}
+		cRange={seriesColors}
 		flatData={flatten(stackedData)}
 		data={stackedData}
 	>

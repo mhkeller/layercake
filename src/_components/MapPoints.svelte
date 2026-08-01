@@ -1,15 +1,13 @@
 <!--
 	@component
-	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
+	Generates SVG dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, width, height } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
-	/* --------------------------------------------
-	 * Require a D3 projection function
-	 */
+	// Require a D3 projection function
 
 	/**
 	 * @typedef {Object} Props
@@ -19,7 +17,7 @@
 	 * @property {string} [stroke='#000'] - The point's stroke color.
 	 * @property {number} [strokeWidth=1] - The point's stroke width.
 	 * @property {number} [opacity=1] - The point's opacity.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will defaults to those in `$data.features`, assuming this field a list of GeoJSON features.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `$data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
 	/** @type {Props} */
@@ -33,12 +31,12 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([$width, $height], $data));
+	let projectionFn = $derived(projection().fitSize([c.width, c.height], c.data));
 </script>
 
 <g class="points">
-	{#each features || $data.features as d}
-		<!-- To scale the circle by size, set r to `$rGet(d.properties)` -->
+	{#each features || c.data.features as d}
+		<!-- To scale the circle by size, set r to `c.rGet(d.properties)` -->
 		<circle
 			cx={projectionFn(d.geometry.coordinates)[0]}
 			cy={projectionFn(d.geometry.coordinates)[1]}

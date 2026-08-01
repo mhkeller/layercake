@@ -3,10 +3,10 @@
 	Generates an SVG Sankey chart using [d3-sankey](https://github.com/d3/d3-sankey).
  -->
 <script>
-	import { getContext } from 'svelte';
 	import * as Sankey from 'd3-sankey';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, width, height } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {(
@@ -17,11 +17,11 @@
 	 * )} SankeyAlignment
 	 */
 
-	/** @typedef {import('d3-sankey').SankeyGraph} SankeyGraph */
+	/** @typedef {import('d3-sankey').SankeyGraph<any, any>} SankeyGraph */
 
-	/** @typedef {import('d3-sankey').SankeyNodeMinimal} SankeyNodeMinimal */
+	/** @typedef {import('d3-sankey').SankeyNodeMinimal<any, any>} SankeyNodeMinimal */
 
-	/** @typedef {import('d3-sankey').SankeyLinkMinimal} SankeyLink */
+	/** @typedef {import('d3-sankey').SankeyLinkMinimal<any, any>} SankeyLink */
 
 	/**
 	 * @typedef {((a: SankeyLink, b: SankeyLink) => (number | undefined | null))} LinkSortFunction
@@ -35,7 +35,7 @@
 	 * @property {number} [nodeWidth=5] - The width of each node, in pixels, passed to [`sankey.nodeWidth`](https://github.com/d3/d3-sankey#sankey_nodeWidth).
 	 * @property {number} [nodePadding=10] - The padding between nodes, passed to [`sankey.nodePadding`](https://github.com/d3/d3-sankey#sankey_nodePadding).
 	 * @property {LinkSortFunction|undefined} [linkSort] - How to sort the links, passed to [`sankey.linkSort`](https://github.com/d3/d3-sankey#sankey_linkSort).
-	 * @property {(SankeyNodeMinimal) => number | string} [nodeId=(d) => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).
+	 * @property {(d: SankeyNodeMinimal) => number | string} [nodeId=(d) => d.id] - The ID field accessor, passed to [`sankey.nodeId`](https://github.com/d3/d3-sankey#sankey_nodeId).
 	 * @property {SankeyAlignment} [nodeAlign=Sankey.sankeyLeft] - An alignment function to position the Sankey blocks. See the [d3-sankey documentation](https://github.com/d3/d3-sankey#alignments) for more.
 	 */
 
@@ -61,13 +61,13 @@
 			.nodeWidth(nodeWidth)
 			.nodePadding(nodePadding)
 			.nodeId(nodeId)
-			.size([$width, $height])
+			.size([c.width, c.height])
 			.linkSort(linkSort);
 
-		sankeyData = sankey($data);
+		sankeyData = sankey(c.data);
 	});
 
-	let fontSize = $derived($width <= 320 ? 8 : 12);
+	let fontSize = $derived(c.width <= 320 ? 8 : 12);
 </script>
 
 <g class="sankey-layer">
@@ -86,12 +86,12 @@
 		{#each sankeyData.nodes as d}
 			<rect x={d.x0} y={d.y0} height={d.y1 - d.y0} width={d.x1 - d.x0} fill={colorNodes(d)} />
 			<text
-				x={d.x0 < $width / 4 ? d.x1 + 6 : d.x0 - 6}
+				x={d.x0 < c.width / 4 ? d.x1 + 6 : d.x0 - 6}
 				y={(d.y1 + d.y0) / 2}
 				dy={fontSize / 2 - 2}
 				style="fill: {colorText(d)};
 							font-size: {fontSize}px;
-							text-anchor: {d.x0 < $width / 4 ? 'start' : 'end'};"
+							text-anchor: {d.x0 < c.width / 4 ? 'start' : 'end'};"
 			>
 				{d.id}
 			</text>

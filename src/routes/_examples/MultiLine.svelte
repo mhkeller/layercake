@@ -14,21 +14,17 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/fruit.csv';
 
-	/* --------------------------------------------
-	 * Set what is our x key to separate it from the other series
-	 */
+	// Set what is our x key to separate it from the other series
 	const xKey = 'month';
 	const yKey = 'value';
-	const zKey = 'fruit';
+	const cKey = 'fruit';
 
 	const xKeyCast = timeParse('%Y-%m-%d');
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
 
-	/* --------------------------------------------
-	 * Cast values
-	 */
+	// Cast values
 	data.forEach(d => {
 		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
 
@@ -41,7 +37,7 @@
 	const formatLabelY = d => format(`~s`)(d);
 
 	const groupedData = groupLonger(data, seriesNames, {
-		groupTo: zKey,
+		groupTo: cKey,
 		valueTo: yKey
 	});
 </script>
@@ -51,10 +47,10 @@
 		padding={{ top: 7, right: 10, bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
-		z={zKey}
+		c={cKey}
 		yDomain={[0, null]}
-		zScale={scaleOrdinal()}
-		zRange={seriesColors}
+		cScale={scaleOrdinal()}
+		cRange={seriesColors}
 		flatData={flatten(groupedData, 'values')}
 		data={groupedData}
 	>

@@ -31,9 +31,7 @@
 	const gutter = 10;
 	const seriesColors = ['#fff5cc', '#ffeba9', '#ffe182', '#ffd754', '#ffcc00'];
 
-	/* --------------------------------------------
-	 * Group by month then by date
-	 */
+	// Group by month then by date
 	const byMonthByDate = nest()
 		.key(d => d.date.getUTCMonth())
 		.key(d => d.timestring.split('T')[0])
@@ -53,9 +51,9 @@
 		<LayerCake
 			padding={{ top: 1, right: 1, bottom: 1, left: 1 }}
 			x="key"
-			z={d => d.values.length}
-			zScale={scaleQuantize()}
-			zRange={seriesColors}
+			c={d => d.values.length}
+			cScale={scaleQuantize()}
+			cRange={seriesColors}
 			data={month.values}
 		>
 			<Svg>

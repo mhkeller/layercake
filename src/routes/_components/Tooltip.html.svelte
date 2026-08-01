@@ -13,9 +13,7 @@
 	import stateData from '../../_data/us-states-data.json';
 
 	const colorKey = 'myValue';
-	/* --------------------------------------------
-	 * Create lookups to more easily join our data
-	 */
+	// Create lookups to more easily join our data
 	const joinKey = 'name';
 	const dataLookup = new Map();
 
@@ -48,9 +46,9 @@
 	<LayerCake
 		padding={{ top: 20 }}
 		data={geojson}
-		z={colorKey}
-		zScale={scaleQuantize()}
-		zRange={colors}
+		c={colorKey}
+		cScale={scaleQuantize()}
+		cRange={colors}
 		{flatData}
 	>
 		<Svg>

@@ -27,10 +27,8 @@
 		return d;
 	});
 
-	/* --------------------------------------------
-	 * Generate a range of days in between the min and max
-	 * in case we are missing any in our data so we can show empty days for them
-	 */
+	// Generate a range of days in between the min and max
+	// in case we are missing any in our data so we can show empty days for them
 	const extents = calcExtents(daysTransformed, {
 		x: d => d.timestring
 	});

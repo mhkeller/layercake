@@ -14,11 +14,9 @@
 
 	const colorKey = 'myValue';
 
-	/* --------------------------------------------
-	 * Create lookups to more easily join our data
-	 * `dataJoinKey` is the name of the field in the data
-	 * `mapJoinKey` is the name of the field in the map file
-	 */
+	// Create lookups to more easily join our data
+	// `dataJoinKey` is the name of the field in the data
+	// `mapJoinKey` is the name of the field in the map file
 	const dataJoinKey = 'name';
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
@@ -44,9 +42,9 @@
 <div class="chart-container">
 	<LayerCake
 		data={geojson}
-		z={d => dataLookup.get(d[mapJoinKey])[colorKey]}
-		zScale={scaleQuantize()}
-		zRange={colors}
+		c={d => dataLookup.get(d[mapJoinKey])[colorKey]}
+		cScale={scaleQuantize()}
+		cRange={colors}
 		{flatData}
 	>
 		<Svg>

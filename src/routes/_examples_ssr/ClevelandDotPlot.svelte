@@ -32,9 +32,9 @@
 		yDomainSort={true}
 		xDomain={[0, null]}
 		xPadding={[2, 0]}
-		zScale={scaleOrdinal()}
-		zDomain={xKey}
-		zRange={seriesColors}
+		cScale={scaleOrdinal()}
+		cDomain={xKey}
+		cRange={seriesColors}
 		{data}
 	>
 		<Html>

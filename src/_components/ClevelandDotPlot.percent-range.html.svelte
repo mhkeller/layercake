@@ -3,9 +3,9 @@
 	Generates an HTML Cleveland dot plot, also known as a lollipop-chart.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, yGet, zScale, yScale, config } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -15,13 +15,13 @@
 	/** @type {Props} */
 	let { r = 5 } = $props();
 
-	let midHeight = $derived($yScale.bandwidth() / 2);
+	let midHeight = $derived(c.yScale.bandwidth() / 2);
 </script>
 
 <div class="dot-plot">
-	{#each $data as row}
-		{@const scaledYValue = $yGet(row)}
-		{@const scaledXValues = $xGet(row)}
+	{#each c.data as row}
+		{@const scaledYValue = c.yGet(row)}
+		{@const scaledXValues = c.xGet(row)}
 		<div class="dot-row">
 			<div
 				class="line"
@@ -40,7 +40,7 @@
 						top: {scaledYValue + midHeight}%;
 						width: {r * 2}px;
 						height: {r * 2}px;
-						background: {$zScale($config.x[i])};
+						background: {c.cScale(c.config.x[i])};
 					"
 				></div>
 			{/each}

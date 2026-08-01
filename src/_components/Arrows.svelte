@@ -4,7 +4,8 @@
  -->
 <script>
 	// @ts-nocheck
-	import { getContext, onMount, tick } from 'svelte';
+	import { onMount, tick } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { swoopyArrow, getElPosition, parseCssValue } from '../_modules/arrowUtils.js';
 
 	/**
@@ -27,12 +28,10 @@
 
 	let container = $state();
 
-	const { width, height, xScale, yScale, x, y } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
-	/* --------------------------------------------
-	 * Some lookups to convert between x, y / width, height terminology
-	 * and CSS names
-	 */
+	// Some lookups to convert between x, y / width, height terminology
+	// and CSS names
 	const lookups = [
 		{ dimension: 'width', css: 'left', position: 'x' },
 		{ dimension: 'height', css: 'top', position: 'y' }
@@ -56,10 +55,8 @@
 
 		const el = annotationEls[i];
 
-		/* --------------------------------------------
-		 * Parse our attachment directives to know where to start the arrowhead
-		 * measuring a bounding box based on our annotation el
-		 */
+		// Parse our attachment directives to know where to start the arrowhead
+		// measuring a bounding box based on our annotation el
 		const arrowSource = getElPosition(el);
 		const sourceCoords = arrow.source.anchor.split('-').map((q, j) => {
 			const point =
@@ -77,32 +74,26 @@
 			);
 		});
 
-		/* --------------------------------------------
-		 * Default to clockwise
-		 */
+		// Default to clockwise
 		const clockwise = typeof arrow.clockwise === 'undefined' ? true : arrow.clockwise;
 
-		/* --------------------------------------------
-		 * Parse where we're drawing to
-		 * If we're passing in a percentage as a string then we need to convert it to pixel values
-		 * Otherwise pass it to our xGet and yGet functions
-		 */
+		// Parse where we're drawing to
+		// If we're passing in a percentage as a string then we need to convert it to pixel values
+		// Otherwise pass it to our xGet and yGet functions
 		const targetCoords = [
-			arrow.target.x || $x(arrow.target),
-			arrow.target.y || $y(arrow.target)
+			arrow.target.x || c.x(arrow.target),
+			arrow.target.y || c.y(arrow.target)
 		].map((q, j) => {
 			const val =
 				typeof q === 'string' && q.includes('%')
-					? parseCssValue(q, j, $width, $height)
+					? parseCssValue(q, j, c.width, c.height)
 					: j
-						? $yScale(q)
-						: $xScale(q);
+						? c.yScale(q)
+						: c.xScale(q);
 			return val + (arrow.target[`d${lookups[j].position}`] || 0);
 		});
 
-		/* --------------------------------------------
-		 * Create arrow path
-		 */
+		// Create arrow path
 		return swoopyArrow()
 			.angle(Math.PI / 2)
 			.clockwise(clockwise)

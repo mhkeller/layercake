@@ -43,6 +43,13 @@
 	let voronoi = $derived(Delaunay.from(uniquePoints).voronoi([0, 0, c.width, c.height]));
 </script>
 
+<!--
+	These cells are invisible mouse targets, not content, so they stay out of the
+	accessibility tree. Making each one focusable would hand a keyboard user a tab
+	stop per data point with nothing to read at any of them. Keyboard access
+	belongs a level up: give the chart itself one tab stop, move between points
+	with the arrow keys, and announce the current one from an `aria-live` region.
+-->
 {#each uniquePoints as point, i}
 	<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 	<path
@@ -50,7 +57,7 @@
 		class="voronoi-cell"
 		d={voronoi.renderCell(i)}
 		onmouseover={e => log(e, point)}
-		role="tooltip"
+		aria-hidden="true"
 	></path>
 {/each}
 

@@ -25,6 +25,25 @@ The component also exports an `element` prop that represents the main wrapper, i
 </LayerCake>
 ```
 
+### Prop types
+
+A few shapes repeat across the props below. Every accessor – `x`, `y`, `c` and the rest – takes the same kind of value, and so does every `*Domain` and every `*Range` prop. Layer Cake names those three shapes and exports them, so your own components can reuse them instead of copying a long union off this page.
+
+- `DataAccessor` is `string|Function|number|Array<string|Function|number>|undefined`
+- `DimensionDomain` is `[min: number|null, max: number|null]|Array<string|number>|Function|undefined`
+- `DimensionRange` is `[min: number, max: number]|Function|Array<string|number>|undefined`
+
+```svelte
+<script>
+	/** @type {{ x: import('layercake').DataAccessor }} */
+	let { x } = $props();
+</script>
+```
+
+Two more names come from the context: `LayerCakeContext` for the object you get back from `getLayerCakeContext()`, and `Scale` for the d3 scales hanging off it. See [Typing the context](/guide#typing-the-context).
+
+The headings below spell out the full shape rather than the alias, so you can see what a prop takes without looking anything up.
+
 ### data `Array<Object|Array<any>>|Object`
 
 A list of data items. If this is not a flat data array of objects, you'll also need to set [flatData](/guide#flatdata).

@@ -12,6 +12,35 @@ In addition to the values you set on the LayerCake component, additional propert
 </LayerCake>
 ```
 
+### Typing the context
+
+If you write your components with JSDoc types or in TypeScript, `LayerCakeContext` is the name of what you get back:
+
+```svelte
+<script>
+	import { getLayerCakeContext } from 'layercake';
+
+	/** @type {import('layercake').LayerCakeContext} */
+	const c = getLayerCakeContext();
+</script>
+```
+
+The scales on it are typed loosely – you can call them and reach any method on them, but nothing gets checked. That's on purpose. Layer Cake gives you back whichever scale you passed in, so it has no way of knowing that your `c.xScale` has `.bandwidth()` while your `c.yScale` has `.ticks()`. Pinning them to one union of every d3 scale would mean neither call type-checked until you narrowed it by hand, which is worse.
+
+When you do know a scale's type, name it. Anything you leave out stays loose, so you never have to list all eight dimensions:
+
+```svelte
+<script>
+	import { getLayerCakeContext } from 'layercake';
+
+	/** @type {import('layercake').LayerCakeContext<{ x: import('d3-scale').ScaleBand<string> }>} */
+	const c = getLayerCakeContext();
+
+	const step = c.xScale.bandwidth(); // checked, and `step` is a number
+	const ticks = c.yScale.ticks(); // still loose, still allowed
+</script>
+```
+
 ### activeGetters `Object`
 
 An object that has a key for each dimension of data you have provided an accessor key for and a value that is the accessor function. This used internally but it's exposed here in case it's useful.

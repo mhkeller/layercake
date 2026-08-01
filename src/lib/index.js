@@ -3,8 +3,23 @@ export { getLayerCakeContext, setLayerCakeContext } from './context.js';
 
 /**
  * Re-exported so consumers can name the context type when they write their own
- * layer components, e.g. `@param {import('layercake').LayerCakeContext} c`.
- * @typedef {import('./context.js').LayerCakeContext} LayerCakeContext
+ * layer components, e.g. `@param {import('layercake').LayerCakeContext} c`. The
+ * `@template` line has to be repeated here – a bare re-export would drop the
+ * parameter and `LayerCakeContext<{ x: ScaleBand<string> }>` would stop
+ * compiling for anyone outside this package.
+ * @template [S=any]
+ * @typedef {import('./context.js').LayerCakeContext<S>} LayerCakeContext
+ */
+
+/**
+ * The same for the prop shapes. A component that takes an accessor of its own
+ * can say `@type {import('layercake').DataAccessor}` instead of copying the
+ * union out of the docs. `Scale` is the loose d3-scale type the context hands
+ * back – see context.js for why it stays loose and how to tighten it.
+ * @typedef {import('./types.js').DataAccessor} DataAccessor
+ * @typedef {import('./types.js').DimensionDomain} DimensionDomain
+ * @typedef {import('./types.js').DimensionRange} DimensionRange
+ * @typedef {import('./context.js').Scale} Scale
  */
 export { default as Html } from './layouts/Html.svelte';
 export { default as Svg } from './layouts/Svg.svelte';

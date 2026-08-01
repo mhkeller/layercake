@@ -1,14 +1,8 @@
 // Helper functions for creating swoopy arrows
 
-/* --------------------------------------------
- * parseCssValue
- *
- * Parse various inputs and return then as a number
- * Can be a number, which will return the input value
- * A percentage, which will take the percent of the appropriate dimentions
- * A pixel value, which will parse as a number
- *
- */
+// Turn a CSS-ish length into a number. Numbers pass straight through, `'12px'`
+// loses its unit, and `'50%'` is measured against the chart – `i` picks which
+// side, 0 for width and 1 for height, matching the order of an [x, y] pair.
 export function parseCssValue(d, i, width, height) {
 	if (!d) return 0;
 	if (typeof d === 'number') {
@@ -20,13 +14,9 @@ export function parseCssValue(d, i, width, height) {
 	return +d.replace('px', '');
 }
 
-/* --------------------------------------------
- * getElPosition
- *
- * Constract a bounding box relative in our coordinate space
- * that we can attach arrow starting points to
- *
- */
+// Where an element sits inside its parent, so an arrow has something to aim at.
+// getBoundingClientRect measures from the viewport, so subtract the parent's own
+// box to get back into the coordinate space the arrows are drawn in.
 export function getElPosition(el) {
 	const annotationBbox = el.getBoundingClientRect();
 	const parentBbox = el.parentNode.getBoundingClientRect();
@@ -41,12 +31,7 @@ export function getElPosition(el) {
 	return coords;
 }
 
-/* --------------------------------------------
- * swoopyArrow
- *
- * Adapted from bizweekgraphics/swoopyarrows
- *
- */
+// Draws the curved arrow itself. Adapted from bizweekgraphics/swoopyarrows.
 export function swoopyArrow() {
 	let angle = Math.PI;
 	let clockwise = true;
@@ -58,31 +43,33 @@ export function swoopyArrow() {
 	}
 
 	function render(data) {
-		data = data.map((d) => {
+		data = data.map(d => {
 			return [xValue(d), yValue(d)];
 		});
 
-		// get the chord length ("height" {h}) between points
+		// The arrow is an arc cut from some circle, and these three lines work out
+		// which circle. Start with the straight-line distance between the two
+		// points – the chord the arc will bow away from.
 		const h = hypotenuse(data[1][0] - data[0][0], data[1][1] - data[0][1]);
 
-		// get the distance at which chord of height h subtends {angle} radians
+		// A wider `angle` means a flatter arc, which means the center of the circle
+		// sits further back from the chord. This is that distance.
 		const d = h / (2 * Math.tan(angle / 2));
 
-		// get the radius {r} of the circumscribed circle
+		// Center to endpoint, which is the radius we needed.
 		const r = hypotenuse(d, h / 2);
 
-		/*
-		SECOND, compose the corresponding SVG arc.
-			read up: http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
-			example: <path d = "M 200,50 a 50,50 0 0,1 100,0"/>
-													M 200,50                          Moves pen to (200,50);
-																	 a                        draws elliptical arc;
-																		 50,50                  following a degenerate ellipse, r1 == r2 == 50;
-																														i.e. a circle of radius 50;
-																					 0                with no x-axis-rotation (irrelevant for circles);
-																						 0,1            with large-axis-flag=0 and sweep-flag=1 (clockwise);
-																								 100,0      to a point +100 in x and +0 in y, i.e. (300,50).
-		*/
+		// Now write that circle out as an SVG arc. Reading `M 200,50 a 50,50 0 0,1 100,0`
+		// one piece at a time:
+		//
+		//   M 200,50   move the pen to (200,50)
+		//   a          draw an elliptical arc
+		//     50,50    on an ellipse whose two radii are equal, so really just a circle
+		//     0        with no x-axis rotation, which does nothing to a circle anyway
+		//     0,1      large-arc-flag 0 and sweep-flag 1, i.e. the short way, clockwise
+		//     100,0    ending 100 further along x and level in y, at (300,50)
+		//
+		// Full syntax: http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
 		const path =
 			'M ' +
 			data[0][0] +

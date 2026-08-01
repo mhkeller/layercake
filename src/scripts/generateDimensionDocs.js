@@ -36,9 +36,18 @@ import {
 	dimensionHasFamily
 } from '../lib/settings/dimensions.js';
 
-const ACCESSOR_TYPE = 'string|Function|number|Array<string|Function|number>|undefined';
-const DOMAIN_TYPE = '[min: number|null, max: number|null]|Array<string|number>|Function|undefined';
-const RANGE_TYPE = '[min: number, max: number]|Function|Array<string|number>|undefined';
+/*
+ * The three shapes every dimension repeats, named once in src/lib/types.js and
+ * referenced here so the Props typedef doesn't spell out the same union
+ * forty-odd times. LayerCake.svelte pulls the names into scope; the package
+ * re-exports them so consumers can write `import('layercake').DataAccessor`.
+ *
+ * The guide headings deliberately keep printing the expanded unions – a reader
+ * scanning the props table wants the shape, not a name they'd have to look up.
+ */
+const ACCESSOR_TYPE = 'DataAccessor';
+const DOMAIN_TYPE = 'DimensionDomain';
+const RANGE_TYPE = 'DimensionRange';
 
 /**
  * Per-dimension doc facts that can't be derived from the registry's functions.
@@ -62,14 +71,14 @@ const CUSTOM = {
 			'The c accessor, a dedicated color dimension. Its domain is computed from the data like any other dimension and its range defaults to a ten-color categorical palette – supply your own colors via `cRange`.',
 		range:
 			"The colors of the c scale, as an array or a function with argument `({ width, height, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.",
-		rangeType: 'Array<string|number>|Function|undefined',
+		guideRangeType: 'Array<string|number>|Function',
 		contextAccessor: 'The c (color) accessor.'
 	},
 	c1: {
 		accessor:
 			'The c1 accessor, a second color-like dimension, useful for encoding opacity alongside color. Defaults to a linear scale mapping the data extent to `[0, 1]`.',
 		range: 'The range of the c1 scale, such as a list of opacity values. Defaults to `[0, 1]`.',
-		rangeType: 'Array<string|number>|Function|undefined',
+		guideRangeType: 'Array<string|number>|Function',
 		contextAccessor: 'The c1 accessor, for a second color-like scale such as opacity.'
 	}
 };
@@ -137,7 +146,7 @@ function rangeProp(dim) {
 	const n = dim.name;
 	const fact = FACTS[n] || {};
 	const custom = CUSTOM[n] || {};
-	if (custom.range) return { type: custom.rangeType || RANGE_TYPE, desc: custom.range };
+	if (custom.range) return { type: RANGE_TYPE, desc: custom.range };
 	if (fact.parent) {
 		return {
 			type: RANGE_TYPE,
@@ -381,9 +390,8 @@ export const GUIDES = [
 			},
 			Range: {
 				heading: dim =>
-					(CUSTOM[dim.name] || {}).rangeType
-						? 'Array<string|number>|Function'
-						: 'Function|Array:[min: number, max: number]|Array<number|string>',
+					(CUSTOM[dim.name] || {}).guideRangeType ||
+					'Function|Array:[min: number, max: number]|Array<number|string>',
 				body: dim => {
 					const custom = (CUSTOM[dim.name] || {}).range;
 					if (custom) return custom;

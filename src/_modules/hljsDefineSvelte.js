@@ -1,6 +1,5 @@
-/* --------------------------------------------
- * Adapted to work as es6 module from https://github.com/AlexxNB/highlightjs-svelte
- */
+// Teaches highlight.js the Svelte language. Adapted to work as an es6 module
+// from https://github.com/AlexxNB/highlightjs-svelte
 export default function hljsDefineSvelte(hljs) {
 	return {
 		subLanguage: 'xml',

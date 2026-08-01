@@ -58,12 +58,12 @@
 </script>
 
 <div class="axis x-axis" class:snapLabels>
+	{#if baseline === true}
+		<div class="baseline" style="top:0; width:100%;"></div>
+	{/if}
+
 	{#each tickVals as tick, i (tick)}
 		{@const tickValUnits = c.xScale(tick)}
-
-		{#if baseline === true}
-			<div class="baseline" style="top:0; width:100%;"></div>
-		{/if}
 
 		{#if gridlines === true}
 			<div class="gridline" style:left="{tickValUnits}{units}" style="top:0; bottom:0;"></div>

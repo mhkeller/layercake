@@ -68,11 +68,11 @@
 </script>
 
 <g class="axis x-axis" class:snapLabels>
-	{#each tickVals as tick, i (tick)}
-		{#if baseline === true}
-			<line class="baseline" y1={c.height} y2={c.height} x1="0" x2={c.width} />
-		{/if}
+	{#if baseline === true}
+		<line class="baseline" y1={c.height} y2={c.height} x1="0" x2={c.width} />
+	{/if}
 
+	{#each tickVals as tick, i (tick)}
 		<!-- Fall back to the chart height if the chart has no y dimension -->
 		<g
 			class="tick tick-{i}"

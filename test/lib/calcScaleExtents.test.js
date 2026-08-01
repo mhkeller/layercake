@@ -2,8 +2,6 @@
 import * as assert from 'assert';
 import fn from '../../src/lib/helpers/calcScaleExtents.js';
 
-import { scaleLinear, scaleBand, scaleSqrt, scalePoint, scaleLog, scaleOrdinal } from 'd3-scale';
-
 const name = 'calcScaleExtents';
 
 const tests = [
@@ -11,7 +9,7 @@ const tests = [
 		args: [
 			[{ mx: 0 }, { mx: 1 }, { mx: 2 }, { mx: 3 }],
 			{ x: d => d.mx },
-			{ x: { scale: scaleLinear() } }
+			{ x: { isOrdinal: false } }
 		],
 		expected: { x: [0, 3] }
 	},
@@ -19,7 +17,7 @@ const tests = [
 		args: [
 			[{ mx: 0 }, { mx: 2 }, { mx: 3 }, { mx: 1 }],
 			{ x: d => d.mx },
-			{ x: { scale: scaleBand(), sort: true } }
+			{ x: { isOrdinal: true, sort: true } }
 		],
 		expected: { x: [0, 1, 2, 3] }
 	},
@@ -27,7 +25,7 @@ const tests = [
 		args: [
 			[{ mx: 2 }, { mx: 3 }, { mx: 0 }, { mx: 1 }],
 			{ x: d => d.mx },
-			{ x: { scale: scaleBand(), sort: true } }
+			{ x: { isOrdinal: true, sort: true } }
 		],
 		expected: { x: [0, 1, 2, 3] }
 	},
@@ -35,7 +33,7 @@ const tests = [
 		args: [
 			[{ mx: 2 }, { mx: 3 }, { mx: 0 }, { mx: 1 }],
 			{ x: d => d.mx },
-			{ x: { scale: scaleBand() } }
+			{ x: { isOrdinal: true } }
 		],
 		expected: { x: [2, 3, 0, 1] }
 	},
@@ -48,7 +46,7 @@ const tests = [
 				{ mx: 1, my: '1' }
 			],
 			{ x: d => d.mx, y: d => d.my },
-			{ x: { scale: scaleLinear() }, y: { scale: scaleBand(), sort: true } }
+			{ x: { isOrdinal: false }, y: { isOrdinal: true, sort: true } }
 		],
 		expected: { x: [0, 3], y: ['0', '1', '2', '3'] }
 	},
@@ -61,7 +59,7 @@ const tests = [
 				{ mx: 1, my: '1' }
 			],
 			{ x: d => d.mx, y: d => d.my },
-			{ x: { scale: scaleLinear() }, y: { scale: scaleBand() } }
+			{ x: { isOrdinal: false }, y: { isOrdinal: true } }
 		],
 		expected: { x: [0, 3], y: ['0', '2', '3', '1'] }
 	},
@@ -74,7 +72,7 @@ const tests = [
 				{ mx: 2, my: '2' }
 			],
 			{ x: d => d.mx, y: d => d.my },
-			{ x: { scale: scaleSqrt() }, y: { scale: scalePoint(), sort: true } }
+			{ x: { isOrdinal: false }, y: { isOrdinal: true, sort: true } }
 		],
 		expected: { x: [0, 3], y: ['0', '1', '2', '3'] }
 	},
@@ -87,7 +85,7 @@ const tests = [
 				{ mx: 2, my: '2' }
 			],
 			{ x: d => d.mx, y: d => d.my },
-			{ x: { scale: scaleSqrt() }, y: { scale: scalePoint() } }
+			{ x: { isOrdinal: false }, y: { isOrdinal: true } }
 		],
 		expected: { x: [0, 3], y: ['0', '1', '3', '2'] }
 	},
@@ -100,7 +98,7 @@ const tests = [
 				{ mx: 3, my: '3' }
 			],
 			{ x: d => d.mx, y: d => d.my },
-			{ x: { scale: scaleSqrt() }, y: { scale: scalePoint(), sort: true } }
+			{ x: { isOrdinal: false }, y: { isOrdinal: true, sort: true } }
 		],
 		expected: { x: [0, 3], y: ['0', '1', '2', '3'] }
 	},
@@ -113,7 +111,7 @@ const tests = [
 				{ mx: 3, my: '3' }
 			],
 			{ x: d => d.mx, y: d => d.my },
-			{ x: { scale: scaleSqrt(), sort: true }, y: { scale: scalePoint(), sort: true } }
+			{ x: { isOrdinal: false, sort: true }, y: { isOrdinal: true, sort: true } }
 		],
 		expected: { x: [0, 3], y: ['0', '1', '2', '3'] }
 	},
@@ -126,7 +124,7 @@ const tests = [
 				{ mx: 2, my: '2' }
 			],
 			{ x: d => d.mx, y: d => d.my },
-			{ x: { scale: scaleLog(), sort: true }, y: { scale: scaleOrdinal(), sort: true } }
+			{ x: { isOrdinal: false, sort: true }, y: { isOrdinal: true, sort: true } }
 		],
 		expected: { x: [0, 3], y: ['0', '1', '2', '3'] }
 	},
@@ -139,7 +137,7 @@ const tests = [
 				{ mx: 2, my: '2' }
 			],
 			{ x: d => d.mx, y: d => d.my },
-			{ x: { scale: scaleLog() }, y: { scale: scaleOrdinal() } }
+			{ x: { isOrdinal: false }, y: { isOrdinal: true } }
 		],
 		expected: { x: [0, 3], y: ['0', '1', '3', '2'] }
 	}

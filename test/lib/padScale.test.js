@@ -228,27 +228,21 @@ describe(name, () => {
 				const padding = test.args[1];
 				const paddedScale = originalScale.copy().domain(paddedDomain);
 
-				/* --------------------------------------------
-				 * Test the min
-				 */
+				// Test the min
 				const originalMinValue = originalScale(originalScale.domain()[0]);
 				const paddedMinValue = paddedScale(originalScale.domain()[0]);
 
 				const diffMinValue = paddedMinValue - originalMinValue;
 				assert.deepStrictEqual(diffMinValue.toFixed(5), padding[0].toFixed(5));
 
-				/* --------------------------------------------
-				 * Test max value
-				 */
+				// Test max value
 				const originalMaxValue = originalScale(originalScale.domain()[1]);
 				const paddedMaxValue = paddedScale(originalScale.domain()[1]);
 
 				const diffMaxValue = originalMaxValue - paddedMaxValue;
 				assert.deepStrictEqual(diffMaxValue.toFixed(5), padding[1].toFixed(5));
 
-				/* --------------------------------------------
-				 * Test the domain
-				 */
+				// Test the domain
 				assert.deepStrictEqual(paddedScale.domain(), test.expected);
 			});
 		});

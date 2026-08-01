@@ -1,4 +1,11 @@
 export { default as LayerCake } from './LayerCake.svelte';
+export { getLayerCakeContext, setLayerCakeContext } from './context.js';
+
+/**
+ * Re-exported so consumers can name the context type when they write their own
+ * layer components, e.g. `@param {import('layercake').LayerCakeContext} c`.
+ * @typedef {import('./context.js').LayerCakeContext} LayerCakeContext
+ */
 export { default as Html } from './layouts/Html.svelte';
 export { default as Svg } from './layouts/Svg.svelte';
 export { default as ScaledSvg } from './layouts/ScaledSvg.svelte';

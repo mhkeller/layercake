@@ -1,6 +1,12 @@
 import arraysEqual from '../utils/arraysEqual.js';
 import t from '../helpers/toTitleCase.js';
 
+/**
+ * Build a scale's exported name, e.g. `band` -> `scaleBand`.
+ * @param {string} name The scale kind.
+ * @param {string} [modifier] A prefix such as `sequential` or `diverging`.
+ * @returns {string}
+ */
 function f(name, modifier = '') {
 	return `scale${t(modifier)}${t(name)}`;
 }
@@ -8,7 +14,7 @@ function f(name, modifier = '') {
 /**
   Get a D3 scale name
 	https://svelte.dev/repl/ec6491055208401ca41120c9c8a67737?version=3.49.0
-	@param {Function} scale A D3 scale
+	@param {any} scale A D3 scale. Typed loosely because we probe for methods that only some scales have.
 	@returns {string} The scale's name
  */
 export default function findScaleName(scale) {
@@ -16,9 +22,7 @@ export default function findScaleName(scale) {
 	 * Ordinal scales
 	 */
 	// scaleBand, scalePoint
-	// @ts-ignore
 	if (typeof scale.bandwidth === 'function') {
-		// @ts-ignore
 		if (typeof scale.paddingInner === 'function') {
 			return f('band');
 		}
@@ -33,9 +37,7 @@ export default function findScaleName(scale) {
 	 * Sequential versus divergin
 	 */
 	let modifier = '';
-	// @ts-ignore
 	if (scale.interpolator) {
-		// @ts-ignore
 		if (scale.domain().length === 3) {
 			modifier = 'diverging';
 		} else {
@@ -46,25 +48,19 @@ export default function findScaleName(scale) {
 	/**
 	 * Continuous scales
 	 */
-	// @ts-ignore
 	if (scale.quantiles) {
 		return f('quantile', modifier);
 	}
-	// @ts-ignore
 	if (scale.thresholds) {
 		return f('quantize', modifier);
 	}
-	// @ts-ignore
 	if (scale.constant) {
 		return f('symlog', modifier);
 	}
-	// @ts-ignore
 	if (scale.base) {
 		return f('log', modifier);
 	}
-	// @ts-ignore
 	if (scale.exponent) {
-		// @ts-ignore
 		if (scale.exponent() === 0.5) {
 			return f('sqrt', modifier);
 		}
@@ -116,16 +112,14 @@ export default function findScaleName(scale) {
 	 * Test for scaleTime vs scaleUtc
 	 * https://github.com/d3/d3-scale/pull/274#issuecomment-1462935595
 	 */
-	// @ts-ignore
 	if (scale.domain()[0] instanceof Date) {
-		const d = new Date();
+		// We deliberately monkey-patch the Date to see which method d3 calls
+		const d = /** @type {any} */ (new Date());
+		/** @type {any} */
 		let s;
-		// @ts-ignore
 		d.getDay = () => (s = 'time');
-		// @ts-ignore
 		d.getUTCDay = () => (s = 'utc');
 
-		// @ts-ignore
 		scale.tickFormat(0, '%a')(d);
 		return f(s);
 	}

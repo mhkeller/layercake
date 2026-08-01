@@ -3,9 +3,9 @@
 	HTML layout component
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from '../context.js';
 
-	const { padding } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -41,10 +41,10 @@
 	class="layercake-layout-html"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={$padding.top + 'px'}
-	style:right={$padding.right + 'px'}
-	style:bottom={$padding.bottom + 'px'}
-	style:left={$padding.left + 'px'}
+	style:top={c.padding.top + 'px'}
+	style:right={c.padding.right + 'px'}
+	style:bottom={c.padding.bottom + 'px'}
+	style:left={c.padding.left + 'px'}
 	role={roleVal}
 	aria-label={label}
 	aria-labelledby={labelledBy}

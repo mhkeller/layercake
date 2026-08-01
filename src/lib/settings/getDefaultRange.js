@@ -1,41 +1,21 @@
 /**
- * Calculate the base range for a given scale.
- * This function determines the default range based on the scale type,
- * width, height, and whether the scale is reversed or uses a percentage range.
- * @param {string} s The scale type ('x', 'y', or 'r').
- * @param {number} width The width of the chart.
- * @param {number} height The height of the chart.
- * @param {boolean} reverse Whether the scale should be reversed.
- * @param {boolean} percentRange Whether to use a percentage range.
- * @returns {[number, number]} The base range for the scale.
+ * Determine the range for a dimension's scale, in order of priority:
+ * a user-passed range (array or function), the global `percentRange`
+ * setting (if the dimension supports it) or the dimension's default.
+ * @param {import('./dimensions.js').Dimension} dimension The dimension's definition from settings/dimensions.js – its name, default scale and so on.
+ * @param {Object} config
+ * @param {boolean} [config.reverse] Whether to reverse the default range. Has no effect when the user supplies a range.
+ * @param {Array<any>|Function|undefined|null} [config.range] The user-passed `[name]Range` prop – an array or a function receiving `({ width, height, scales })`.
+ * @param {import('../state/dimension.svelte.js').DimensionContext} config.ctx Reactive chart-level values.
+ * @returns {Array<any>} The range for the scale.
  */
-function calcBaseRange(s, width, height, reverse, percentRange) {
-	let min;
-	let max;
-	if (percentRange === true) {
-		min = 0;
-		max = 100;
-	} else {
-		min = s === 'r' ? 1 : 0;
-		max = s === 'y' ? height : s === 'r' ? 25 : width;
+export default function getDefaultRange(dimension, { reverse = false, range, ctx }) {
+	if (range) {
+		return typeof range === 'function' ? range(ctx) : range;
 	}
-	return reverse === true ? [max, min] : [min, max];
-}
-
-/**
- * Get the default range for a given scale.
- * @param {string} s The scale type ('x', 'y', or 'r').
- * @param {number} width The width of the chart.
- * @param {number} height The height of the chart.
- * @param {boolean} reverse Whether the scale should be reversed.
- * @param {Array<number>|((params: {width: number, height: number}) => Array<number>)|undefined|null} range The range to use, or a function that returns a range.
- * @param {boolean} percentRange Whether to use a percentage range.
- * @returns {Array<number>} The default range for the scale.
- */
-export default function getDefaultRange(s, width, height, reverse, range, percentRange) {
-	return !range
-		? calcBaseRange(s, width, height, reverse, percentRange)
-		: typeof range === 'function'
-			? range({ width, height })
-			: range;
+	if (dimension.canBePercentRange === true && ctx.percentRange === true) {
+		return reverse === true ? [100, 0] : [0, 100];
+	}
+	const base = dimension.defaultRange(ctx);
+	return reverse === true ? base.slice().reverse() : base;
 }

@@ -1,10 +1,10 @@
-/* --------------------------------------------
- *
- * Determine whether a scale is a log, symlog, power or other
- * This is not meant to be exhaustive of all the different types of
- * scales in d3-scale and focuses on continuous scales
- *
- * --------------------------------------------
+/**
+ * Determine whether a scale is a log, symlog, power or other. This is not meant
+ * to be exhaustive of all the different types of scales in d3-scale and focuses
+ * on continuous scales.
+ * @param {any} scale A D3 scale. Typed loosely because we probe for methods that
+ * only some scales have.
+ * @returns {'symlog'|'log'|'sqrt'|'pow'|'other'} The scale type.
  */
 export default function findScaleType(scale) {
 	if (scale.constant) {

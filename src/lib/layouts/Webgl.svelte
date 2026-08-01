@@ -3,8 +3,8 @@
 	WebGL layout component
  -->
 <script>
-	import { getContext, onMount, setContext } from 'svelte';
-	import { writable } from 'svelte/store';
+	import { onMount, setContext } from 'svelte';
+	import { getLayerCakeContext } from '../context.js';
 
 	/**
 	 * @typedef {Object} Props
@@ -36,20 +36,18 @@
 
 	let testGl;
 
-	const { padding } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
-	/**
-	 * @type {{ gl: import('svelte/store').Writable<WebGLRenderingContext|null> }}
-	 */
 	const cntxt = {
-		gl: writable(null)
+		get gl() {
+			return context;
+		}
 	};
+	setContext('gl', cntxt);
 
 	onMount(() => {
 		if (!element) return;
-		/* --------------------------------------------
-		 * Try to find a working webgl context
-		 */
+		// Try to find a working webgl context
 		const contexts = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'];
 		for (let j = 0; j < contexts.length; j++) {
 			testGl = element.getContext(contexts[j], contextAttributes);
@@ -60,11 +58,6 @@
 			}
 		}
 	});
-
-	$effect(() => {
-		cntxt.gl.set(context);
-	});
-	setContext('gl', cntxt);
 </script>
 
 <canvas
@@ -72,10 +65,10 @@
 	class="layercake-layout-webgl"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={$padding.top + 'px'}
-	style:right={$padding.right + 'px'}
-	style:bottom={$padding.bottom + 'px'}
-	style:left={$padding.left + 'px'}
+	style:top={c.padding.top + 'px'}
+	style:right={c.padding.right + 'px'}
+	style:bottom={c.padding.bottom + 'px'}
+	style:left={c.padding.left + 'px'}
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}

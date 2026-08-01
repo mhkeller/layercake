@@ -3,35 +3,31 @@
 	Layer Cake component
  -->
 <script>
-	import { run } from 'svelte/legacy';
+	import { setLayerCakeContext } from './context.js';
+	import createDimension from './state/dimension.svelte.js';
+	import {
+		DIMENSIONS,
+		DIMENSION_KEY_FAMILIES,
+		FAMILIES_BY_DIMENSION,
+		VALID_DIMENSION_PROPS,
+		familyStateKey
+	} from './settings/dimensions.js';
 
-	import { setContext, onMount } from 'svelte';
-	import { writable, derived as derivedStore } from 'svelte/store';
-
-	import makeAccessor from './utils/makeAccessor.js';
 	import filterObject from './utils/filterObject.js';
 	import debounce from './utils/debounce.js';
+	import isCompleteDomain from './utils/isCompleteDomain.js';
 
 	import calcScaleExtents from './helpers/calcScaleExtents.js';
-	import calcDomain from './helpers/calcDomain.js';
-	import createScale from './helpers/createScale.js';
-	import createGetter from './helpers/createGetter.js';
-	import getRange from './helpers/getRange.js';
 	import printDebug from './helpers/printDebug.js';
-
-	import defaultScales from './settings/defaultScales.js';
-	import getCompleteDomain from './utils/getCompleteDomain.js';
 
 	const printDebug_debounced = debounce(printDebug, 200);
 
-	/* --------------------------------------------
-	 * Parameters
-	 * Values that computed properties are based on and that
-	 * can be easily extended from config values
-	 *
-	 */
-
 	/**
+	 * The LayerCake props: the static props plus every per-dimension prop
+	 * family (x, xScale, cRange etc.). Every `@property` line from `[x]` down
+	 * to the end of this comment is generated – edit the registry, then run
+	 * `pnpm generate:dims`. No fence markers by design; see
+	 * src/scripts/generateDimensionDocs.js.
 	 * @typedef {Object} Props
 	 * @property {boolean} [ssr] - Whether this chart should be rendered server side.
 	 * @property {boolean} [pointerEvents] - Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction.
@@ -42,15 +38,29 @@
 	 * @property {number} [containerWidth] - The bound container width.
 	 * @property {number} [containerHeight] - The bound container height.
 	 * @property {Element|undefined} [element] - The .layercake-container `<div>` tag. Useful for bindings.
+	 * @property {Array<Object>|Object} [data]
+	 * @property {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding] - The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563).
+	 * @property {Array<Object|Array<any>>|undefined} [flatData] - A flat version of data.
+	 * @property {Object} [custom] - Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants.
+	 * @property {boolean} [debug] - Enable debug printing to the console. Useful to inspect your scales and dimensions.
+	 * @property {boolean} [verbose] - Show warnings in the console.
+	 * @property {import('svelte').Snippet<[any]>} [children]
 	 * @property {string|Function|number|Array<string|Function|number>|undefined} [x] - The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context.
 	 * @property {string|Function|number|Array<string|Function|number>|undefined} [y] - The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context.
 	 * @property {string|Function|number|Array<string|Function|number>|undefined} [z] - The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context.
 	 * @property {string|Function|number|Array<string|Function|number>|undefined} [r] - The r accessor. The key in each row of data that corresponds to the r-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context.
-	 * @property {Array<Object>|Object} [data]
+	 * @property {string|Function|number|Array<string|Function|number>|undefined} [x1] - The x1 accessor, for a scale nested inside the x scale, such as in grouped column charts. By default its range is the bandwidth of the x scale.
+	 * @property {string|Function|number|Array<string|Function|number>|undefined} [y1] - The y1 accessor, for a scale nested inside the y scale, such as in grouped bar charts. By default its range is the bandwidth of the y scale.
+	 * @property {string|Function|number|Array<string|Function|number>|undefined} [c] - The c accessor, a dedicated color dimension. Its domain is computed from the data like any other dimension and its range defaults to a ten-color categorical palette – supply your own colors via `cRange`.
+	 * @property {string|Function|number|Array<string|Function|number>|undefined} [c1] - The c1 accessor, a second color-like dimension, useful for encoding opacity alongside color. Defaults to a linear scale mapping the data extent to `[0, 1]`.
 	 * @property {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [xDomain] - Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values.
-	 * @property {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [yDomain] - Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`.  Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values.
+	 * @property {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [yDomain] - Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values.
 	 * @property {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [zDomain] - Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values.
 	 * @property {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [rDomain] - Set a min or max. For linear scales, if you want to inherit the value from the data's extent, set that value to `null`. This value can also be an array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series. Set it to a function that receives the computed domain and lets you return a modified domain, useful for sorting values.
+	 * @property {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [x1Domain] - Set the domain of the x1 scale. Computed from the data by default, like any other dimension.
+	 * @property {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [y1Domain] - Set the domain of the y1 scale. Computed from the data by default, like any other dimension.
+	 * @property {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [cDomain] - Set the domain of the c scale. Computed from the data by default, like any other dimension.
+	 * @property {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} [c1Domain] - Set the domain of the c1 scale. Computed from the data by default, like any other dimension.
 	 * @property {boolean|number} [xNice] - Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain.
 	 * @property {boolean|number} [yNice] - Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the y domain.
 	 * @property {boolean|number} [zNice] - Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the z domain.
@@ -59,498 +69,268 @@
 	 * @property {[leftPixels: number, rightPixels: number]|undefined} [yPadding] - Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels.
 	 * @property {[leftPixels: number, rightPixels: number]|undefined} [zPadding] - Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels.
 	 * @property {[leftPixels: number, rightPixels: number]|undefined} [rPadding] - Assign a pixel value to add to the min or max of the scale. This will increase the scales domain by the scale unit equivalent of the provided pixels.
-	 * @property {Function} [xScale] - The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options.
-	 * @property {Function} [yScale] - The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options.
-	 * @property {Function} [zScale] - The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options.
-	 * @property {Function} [rScale] - The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want to extra options.
-	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [xRange] - Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height} [xRange] - Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `xReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
-	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [xRange] - Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height} [yRange] - Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `yReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
-	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [yRange] - Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height} [zRange] - Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `zReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
-	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [rRange] - Override the default r range of `[1, 25]` by setting an array or function with argument `({ width, height} [rRange] - Override the default r range of `[1, 25]` by setting an array or function with argument `({ width, height})` that returns an array. Setting this prop overrides `rReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshhold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
-	 * @property {boolean} [xReverse] - Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the xRange prop.
+	 * @property {Function} [xScale] - The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default or you want extra options. A range you customized on the scale you pass in is preserved – set `xRange` to override it.
+	 * @property {Function} [yScale] - The D3 scale that should be used for the y-dimension. Pass in an instantiated D3 scale if you want to override the default or you want extra options. A range you customized on the scale you pass in is preserved – set `yRange` to override it.
+	 * @property {Function} [zScale] - The D3 scale that should be used for the z-dimension. Pass in an instantiated D3 scale if you want to override the default or you want extra options. A range you customized on the scale you pass in is preserved – set `zRange` to override it.
+	 * @property {Function} [rScale] - The D3 scale that should be used for the r-dimension. Pass in an instantiated D3 scale if you want to override the default or you want extra options. A range you customized on the scale you pass in is preserved – set `rRange` to override it.
+	 * @property {Function} [x1Scale] - The D3 scale that should be used for the x1-dimension. Defaults to a `scaleBand()`. A range you customized on the scale you pass in is preserved – set `x1Range` to override it.
+	 * @property {Function} [y1Scale] - The D3 scale that should be used for the y1-dimension. Defaults to a `scaleBand()`. A range you customized on the scale you pass in is preserved – set `y1Range` to override it.
+	 * @property {Function} [cScale] - The D3 scale that should be used for the c-dimension. Defaults to a `scaleOrdinal()`. A range you customized on the scale you pass in is preserved – set `cRange` to override it.
+	 * @property {Function} [c1Scale] - The D3 scale that should be used for the c1-dimension. Defaults to a `scaleLinear()`. A range you customized on the scale you pass in is preserved – set `c1Range` to override it.
+	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [xRange] - Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height, scales })` that returns an array. Setting this prop overrides `xReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
+	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [yRange] - Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height, scales })` that returns an array. Setting this prop overrides `yReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
+	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [zRange] - Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height, scales })` that returns an array. Setting this prop overrides `zReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
+	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [rRange] - Override the default r range of `[1, 25]` by setting an array or function with argument `({ width, height, scales })` that returns an array. Setting this prop overrides `rReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
+	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [x1Range] - Override the default x1 range, which is the bandwidth of the x scale. Functions receive `({ width, height, scales })` where `scales` holds the computed sibling scales, e.g. `x1Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+	 * @property {[min: number, max: number]|Function|Array<string|number>|undefined} [y1Range] - Override the default y1 range, which is the bandwidth of the y scale. Functions receive `({ width, height, scales })` where `scales` holds the computed sibling scales, e.g. `y1Range={({ scales }) => [0, scales.y.bandwidth() / 2]}`.
+	 * @property {Array<string|number>|Function|undefined} [cRange] - The colors of the c scale, as an array or a function with argument `({ width, height, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.
+	 * @property {Array<string|number>|Function|undefined} [c1Range] - The range of the c1 scale, such as a list of opacity values. Defaults to `[0, 1]`.
+	 * @property {boolean} [xReverse] - Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the `xRange` prop.
 	 * @property {boolean|undefined} [yReverse] - Reverse the default y range. By default this is set dynamically and will be `true` – setting the range to `[height, 0]` – unless the `yScale` has a `.bandwidth` method. Dynamic behavior is overridden if the user sets the prop. Ignored if you set the `yRange` prop.
-	 * @property {boolean} [zReverse] - Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the zRange prop.
-	 * @property {boolean} [rReverse] - Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the rRange prop.
+	 * @property {boolean} [zReverse] - Reverse the default z range. By default this is `false` and the range is `[0, width]`. Ignored if you set the `zRange` prop.
+	 * @property {boolean} [rReverse] - Reverse the default r range. By default this is `false` and the range is `[1, 25]`. Ignored if you set the `rRange` prop.
 	 * @property {boolean} [xDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
 	 * @property {boolean} [yDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
 	 * @property {boolean} [zDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
 	 * @property {boolean} [rDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
-	 * @property {{top?: Number, right?: Number, bottom?: Number, left?: Number}} [padding={} [padding] - The amount of padding to put around your chart. It operates like CSS box-sizing: border-box; where values are subtracted from the parent container's width and height, the same as a [D3 margin convention](https://bl.ocks.org/mbostock/3019563).
-	 * @property {Array<Object|Array<any>>|undefined} [flatData] - A flat version of data.
-	 * @property {Object} [custom] - Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants.
-	 * @property {boolean} [debug] - Enable debug printing to the console. Useful to inspect your scales and dimensions.
-	 * @property {boolean} [verbose] - Show warnings in the console.
-	 * @property {import('svelte').Snippet<[any]>} [children]
+	 * @property {boolean} [x1DomainSort] - Set whether the x1 scale's calculated unique items come back sorted.
+	 * @property {boolean} [y1DomainSort] - Set whether the y1 scale's calculated unique items come back sorted.
+	 * @property {boolean} [cDomainSort] - Set whether the c scale's calculated unique items come back sorted.
+	 * @property {boolean} [c1DomainSort] - Set whether the c1 scale's calculated unique items come back sorted.
 	 */
 
-	/** @type {Props} */
+	/** @type {Props & Object.<string, any>} */
 	let {
 		ssr = false,
 		pointerEvents = true,
 		position = 'relative',
 		percentRange = false,
-		width = undefined,
-		height = undefined,
-		containerWidth = $bindable(width || 100),
-		containerHeight = $bindable(height || 100),
+		width: widthProp = undefined,
+		height: heightProp = undefined,
+		containerWidth = $bindable(widthProp || 100),
+		containerHeight = $bindable(heightProp || 100),
 		element = $bindable(undefined),
-		x = undefined,
-		y = undefined,
-		z = undefined,
-		r = undefined,
 		data = [],
-		xDomain = undefined,
-		yDomain = undefined,
-		zDomain = undefined,
-		rDomain = undefined,
-		xNice = false,
-		yNice = false,
-		zNice = false,
-		rNice = false,
-		xPadding = undefined,
-		yPadding = undefined,
-		zPadding = undefined,
-		rPadding = undefined,
-		xScale = defaultScales.x,
-		yScale = defaultScales.y,
-		zScale = defaultScales.z,
-		rScale = defaultScales.r,
-		xRange = undefined,
-		yRange = undefined,
-		zRange = undefined,
-		rRange = undefined,
-		xReverse = false,
-		yReverse = undefined,
-		zReverse = false,
-		rReverse = false,
-		xDomainSort = false,
-		yDomainSort = false,
-		zDomainSort = false,
-		rDomainSort = false,
-		padding = {},
-		flatData = undefined,
+		padding: paddingProp = {},
+		flatData: flatDataProp = undefined,
 		custom = {},
 		debug = false,
 		verbose = true,
-		children
+		children,
+		// Everything else is a dimension prop – x, xScale, cRange and so on. Fifty-odd
+		// of them, so we look them up by name. Svelte tracks rest props per property,
+		// so that still updates when one changes.
+		...dimProps
 	} = $props();
 
-	/**
-	 * Make this reactive
-	 */
-	let yReverseValue = $derived(
-		typeof yReverse === 'undefined'
-			? typeof yScale.bandwidth === 'function'
-				? false
-				: true
-			: yReverse
-	);
-
-	/* --------------------------------------------
-	 * Keep track of whether the component has mounted
-	 * This is used to emit warnings once we have measured
-	 * the container object and it doesn't have proper dimensions
-	 */
-	let isMounted = false;
-	onMount(() => {
-		isMounted = true;
+	// Warn on unrecognized dimension props so typos don't get silently ignored
+	const warnedProps = new Set();
+	$effect(() => {
+		if (verbose !== true) return;
+		for (const key of Object.keys(dimProps)) {
+			// Skip internal keys such as `$$slots`, added for legacy-mode consumers
+			if (key.startsWith('$$')) continue;
+			if (!VALID_DIMENSION_PROPS.has(key) && !warnedProps.has(key)) {
+				warnedProps.add(key);
+				console.warn(`[LayerCake] Unknown prop '${key}'. Ignoring...`);
+			}
+		}
 	});
 
-	/* --------------------------------------------
-	 * Preserve a copy of our passed in settings before we modify them
-	 * Return this to the user's context so they can reference things if need be
-	 * Add the active keys since those aren't on our settings object.
-	 * This is mostly an escape-hatch
-	 */
-	const config = $state({});
-	run(() => {
-		if (x) config.x = x;
-		if (y) config.y = y;
-		if (z) config.z = z;
-		if (r) config.r = r;
-		if (xDomain) config.xDomain = xDomain;
-		if (yDomain) config.yDomain = yDomain;
-		if (zDomain) config.zDomain = zDomain;
-		if (rDomain) config.rDomain = rDomain;
-		if (xRange) config.xRange = xRange;
-		if (yRange) config.yRange = yRange;
-		if (zRange) config.zRange = zRange;
-		if (rRange) config.rRange = rRange;
-	});
-
-	/* --------------------------------------------
-	 * Make store versions of each parameter
-	 * Prefix these with `_` to keep things organized
-	 */
-	const _percentRange = writable(percentRange);
-	const _containerWidth = writable(containerWidth);
-	const _containerHeight = writable(containerHeight);
-	const _data = writable(data);
-	const _flatData = writable(flatData || data);
-	const _padding = writable(padding);
-	const _x = writable(makeAccessor(x));
-	const _y = writable(makeAccessor(y));
-	const _z = writable(makeAccessor(z));
-	const _r = writable(makeAccessor(r));
-	const _xDomain = writable(xDomain);
-	const _yDomain = writable(yDomain);
-	const _zDomain = writable(zDomain);
-	const _rDomain = writable(rDomain);
-	const _xNice = writable(xNice);
-	const _yNice = writable(yNice);
-	const _zNice = writable(zNice);
-	const _rNice = writable(rNice);
-	const _xReverse = writable(xReverse);
-	const _yReverse = writable(yReverseValue);
-	const _zReverse = writable(zReverse);
-	const _rReverse = writable(rReverse);
-	const _xPadding = writable(xPadding);
-	const _yPadding = writable(yPadding);
-	const _zPadding = writable(zPadding);
-	const _rPadding = writable(rPadding);
-	const _xRange = writable(xRange);
-	const _yRange = writable(yRange);
-	const _zRange = writable(zRange);
-	const _rRange = writable(rRange);
-	const _xScale = writable(xScale);
-	const _yScale = writable(yScale);
-	const _zScale = writable(zScale);
-	const _rScale = writable(rScale);
-	const _xDomainSort = writable(xDomainSort);
-	const _yDomainSort = writable(yDomainSort);
-	const _zDomainSort = writable(zDomainSort);
-	const _rDomainSort = writable(rDomainSort);
-	const _config = writable(config);
-	const _custom = writable(custom);
-
-	run(() => {
-		$_percentRange = percentRange;
-		$_containerWidth = containerWidth;
-		$_containerHeight = containerHeight;
-		$_data = data;
-		$_flatData = flatData || data;
-		$_padding = padding;
-		$_x = makeAccessor(x);
-		$_y = makeAccessor(y);
-		$_z = makeAccessor(z);
-		$_r = makeAccessor(r);
-		$_xDomain = xDomain;
-		$_yDomain = yDomain;
-		$_zDomain = zDomain;
-		$_rDomain = rDomain;
-		$_xNice = xNice;
-		$_yNice = yNice;
-		$_zNice = zNice;
-		$_rNice = rNice;
-		$_xReverse = xReverse;
-		$_yReverse = yReverseValue;
-		$_zReverse = zReverse;
-		$_rReverse = rReverse;
-		$_xPadding = xPadding;
-		$_yPadding = yPadding;
-		$_zPadding = zPadding;
-		$_rPadding = rPadding;
-		$_xRange = xRange;
-		$_yRange = yRange;
-		$_zRange = zRange;
-		$_rRange = rRange;
-		$_xScale = xScale;
-		$_yScale = yScale;
-		$_zScale = zScale;
-		$_rScale = rScale;
-		$_custom = custom;
-		$_config = config;
-	});
-
-	/* --------------------------------------------
-	 * Create derived values
-	 * Suffix these with `_d`
-	 */
-	const activeGetters_d = derivedStore([_x, _y, _z, _r], ([$x, $y, $z, $r]) => {
+	// What the user literally passed us. The context reports finished values –
+	// `c.xDomain` is post-`.nice()`, with any nulls filled in from the data – so
+	// this is where you look for the original request.
+	const config = $derived.by(() => {
+		/** @type {Object.<string, any>} */
 		const obj = {};
-		if ($x) {
-			obj.x = $x;
+		for (const dimension of DIMENSIONS) {
+			for (const family of DIMENSION_KEY_FAMILIES) {
+				if (family.addToConfig !== true) continue;
+				const key = `${dimension.name}${family.suffix}`;
+				if (dimProps[key] !== undefined) obj[key] = dimProps[key];
+			}
 		}
-		if ($y) {
-			obj.y = $y;
+		return Object.freeze(obj);
+	});
+
+	const flatData = $derived(flatDataProp || data);
+
+	const padding = $derived({ top: 0, right: 0, bottom: 0, left: 0, ...paddingProp });
+
+	const width = $derived(containerWidth - padding.left - padding.right);
+	const height = $derived(containerHeight - padding.top - padding.bottom);
+
+	// An effect, not a derived, because a derived only runs when something reads
+	// it. A chart whose children never touch `width` or `height` would skip the
+	// warning – and that's the broken chart we most want to catch.
+	$effect(() => {
+		if (verbose === true) {
+			if (width <= 0) {
+				console.warn(
+					'[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?'
+				);
+			}
+			if (height <= 0) {
+				console.warn(
+					'[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?'
+				);
+			}
 		}
-		if ($z) {
-			obj.z = $z;
-		}
-		if ($r) {
-			obj.r = $r;
+	});
+
+	// Create one reactive key for each possible dimension.
+	//
+	// `dims` is populated further down, after `extents` exists, but we create it
+	// here because `extents` reads it. Keep that order – moving `extents` below
+	// `dimensionCtx` breaks SSR via a Svelte codegen bug.
+	/** @type {Object.<string, ReturnType<typeof createDimension>>} */
+	const dims = {};
+	/** @type {Object.<string, Function|undefined>} */
+	const scales = {};
+	for (const dimension of DIMENSIONS) {
+		Object.defineProperty(scales, dimension.name, {
+			get: () => dims[dimension.name].scale,
+			enumerable: true
+		});
+	}
+
+	// `dims` is still empty on the line above. Fine – a `$derived.by` body doesn't
+	// run where it's written, it runs when something reads it, and by then the
+	// loop below has filled `dims` in.
+	const activeGetters = $derived.by(() => {
+		/** @type {Object.<string, Function>} */
+		const obj = {};
+		for (const dimension of DIMENSIONS) {
+			const accessor = dims[dimension.name].accessor;
+			if (accessor) {
+				obj[dimension.name] = accessor;
+			}
 		}
 		return obj;
 	});
 
-	const padding_d = derivedStore([_padding, _containerWidth, _containerHeight], ([$padding]) => {
-		const defaultPadding = { top: 0, right: 0, bottom: 0, left: 0 };
-		return Object.assign(defaultPadding, $padding);
-	});
-
-	const box_d = derivedStore(
-		[_containerWidth, _containerHeight, padding_d],
-		([$containerWidth, $containerHeight, $padding]) => {
-			const b = {};
-			b.top = $padding.top;
-			b.right = $containerWidth - $padding.right;
-			b.bottom = $containerHeight - $padding.bottom;
-			b.left = $padding.left;
-			b.width = b.right - b.left;
-			b.height = b.bottom - b.top;
-			if (verbose === true) {
-				if (b.width <= 0 && isMounted === true) {
-					console.warn(
-						'[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?'
-					);
-				}
-				if (b.height <= 0 && isMounted === true) {
-					console.warn(
-						'[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?'
-					);
-				}
+	// Calculate extents by taking the [min, max] of the data
+	// and filling that in with anything set by the user
+	// Note that this is different from an "extent" passed
+	// in as a domain prop, which can be a partial domain (has nulls or is a function)
+	const extents = $derived.by(() => {
+		/** @type {Object.<string, Array<any>>} */
+		const presetExtents = {};
+		for (const dimension of DIMENSIONS) {
+			// Skip any extents that the user already set a min and max for
+			const domainProp = dimProps[`${dimension.name}Domain`];
+			if (isCompleteDomain(domainProp)) {
+				presetExtents[dimension.name] = domainProp;
 			}
-			return b;
 		}
-	);
 
-	const width_d = derivedStore([box_d], ([$box]) => {
-		return $box.width;
-	});
+		const gettersToMeasure = filterObject(activeGetters, presetExtents);
+		const names = Object.keys(gettersToMeasure);
 
-	const height_d = derivedStore([box_d], ([$box]) => {
-		return $box.height;
-	});
-
-	/* --------------------------------------------
-	 * Calculate extents by taking the extent of the data
-	 * and filling that in with anything set by the user
-	 * Note that this is different from an "extent" passed
-	 * in as a domain, which can be a partial domain
-	 */
-	const extents_d = derivedStore(
-		[
-			_flatData,
-			activeGetters_d,
-			_xScale,
-			_yScale,
-			_rScale,
-			_zScale,
-			_xDomain,
-			_yDomain,
-			_zDomain,
-			_rDomain,
-			_xDomainSort,
-			_yDomainSort,
-			_zDomainSort,
-			_rDomainSort
-		],
-		([
-			$flatData,
-			$activeGetters,
-			$_xScale,
-			$_yScale,
-			$_rScale,
-			$_zScale,
-			$xDomain,
-			$yDomain,
-			$zDomain,
-			$rDomain,
-			$_xDomainSort,
-			$_yDomainSort,
-			$_zDomainSort,
-			$_rDomainSort
-		]) => {
-			const scaleLookup = {
-				x: { scale: $_xScale, sort: $_xDomainSort },
-				y: { scale: $_yScale, sort: $_yDomainSort },
-				r: { scale: $_rScale, sort: $_rDomainSort },
-				z: { scale: $_zScale, sort: $_zDomainSort }
-			};
-
-			/**
-			 * Skip any extents that the user already set a min and max for
-			 */
-			const extents = Object.fromEntries(
-				[
-					['x', getCompleteDomain($xDomain)],
-					['y', getCompleteDomain($yDomain)],
-					['z', getCompleteDomain($zDomain)],
-					['r', getCompleteDomain($rDomain)]
-				].filter(([_, v]) => v !== false)
+		if (names.length > 0) {
+			// Only read this info for the dimensions we're measuring. Reading a
+			// value inside a derived subscribes to it, so touching an unused
+			// dimension's props here would make changing them – say a `cScale` we
+			// never measure – re-run this whole calculation.
+			const dimensionInfo = Object.fromEntries(
+				names.map(k => [k, { isOrdinal: dims[k].isOrdinal, sort: dims[k].domainSort }])
 			);
-
-			const getters = filterObject($activeGetters, extents);
-			const activeScales = Object.fromEntries(Object.keys(getters).map(k => [k, scaleLookup[k]]));
-
-			if (Object.keys(getters).length > 0) {
-				const calculatedExtents = calcScaleExtents($flatData, getters, activeScales);
-				return { ...calculatedExtents, ...extents };
-			} else {
-				return extents;
+			// Only rows have to be indexable – they can be objects or arrays – but
+			// we can't measure anything unless the collection itself is a list
+			if (!Array.isArray(flatData)) {
+				throw new TypeError(
+					`[LayerCake] Can't measure the extents of your data because ${flatDataProp === undefined ? '`data` is not an array' : '`flatData` is not an array'}. Pass a flat array of rows to the \`flatData\` prop. More info: https://layercake.graphics/guide/#flatdata`
+				);
 			}
+			const calculatedExtents = calcScaleExtents(flatData, gettersToMeasure, dimensionInfo);
+			return { ...calculatedExtents, ...presetExtents };
 		}
-	);
-
-	const xDomain_d = derivedStore([extents_d, _xDomain], calcDomain('x'));
-	const yDomain_d = derivedStore([extents_d, _yDomain], calcDomain('y'));
-	const zDomain_d = derivedStore([extents_d, _zDomain], calcDomain('z'));
-	const rDomain_d = derivedStore([extents_d, _rDomain], calcDomain('r'));
-
-	const xScale_d = derivedStore(
-		[
-			_xScale,
-			extents_d,
-			xDomain_d,
-			_xPadding,
-			_xNice,
-			_xReverse,
-			width_d,
-			height_d,
-			_xRange,
-			_percentRange
-		],
-		createScale('x')
-	);
-	const xGet_d = derivedStore([_x, xScale_d], createGetter);
-
-	const yScale_d = derivedStore(
-		[
-			_yScale,
-			extents_d,
-			yDomain_d,
-			_yPadding,
-			_yNice,
-			_yReverse,
-			width_d,
-			height_d,
-			_yRange,
-			_percentRange
-		],
-		createScale('y')
-	);
-	const yGet_d = derivedStore([_y, yScale_d], createGetter);
-
-	const zScale_d = derivedStore(
-		[
-			_zScale,
-			extents_d,
-			zDomain_d,
-			_zPadding,
-			_zNice,
-			_zReverse,
-			width_d,
-			height_d,
-			_zRange,
-			_percentRange
-		],
-		createScale('z')
-	);
-	const zGet_d = derivedStore([_z, zScale_d], createGetter);
-
-	const rScale_d = derivedStore(
-		[
-			_rScale,
-			extents_d,
-			rDomain_d,
-			_rPadding,
-			_rNice,
-			_rReverse,
-			width_d,
-			height_d,
-			_rRange,
-			_percentRange
-		],
-		createScale('r')
-	);
-	const rGet_d = derivedStore([_r, rScale_d], createGetter);
-
-	// Create new _Domains in case we ran `.nice()` over our domain on scale initialization
-	const xDomain_d_possibly_nice = derivedStore(xScale_d, $xScale_d => $xScale_d.domain());
-	const yDomain_d_possibly_nice = derivedStore(yScale_d, $yScale_d => $yScale_d.domain());
-	const zDomain_d_possibly_nice = derivedStore(zScale_d, $zScale_d => $zScale_d.domain());
-	const rDomain_d_possibly_nice = derivedStore(rScale_d, $rScale_d => $rScale_d.domain());
-
-	const xRange_d = derivedStore([xScale_d], getRange);
-	const yRange_d = derivedStore([yScale_d], getRange);
-	const zRange_d = derivedStore([zScale_d], getRange);
-	const rRange_d = derivedStore([rScale_d], getRange);
-
-	const aspectRatio_d = derivedStore([width_d, height_d], ([$width, $height]) => {
-		return $width / $height;
+		return presetExtents;
 	});
 
-	const context = {
-		activeGetters: activeGetters_d,
-		width: width_d,
-		height: height_d,
-		percentRange: _percentRange,
-		aspectRatio: aspectRatio_d,
-		containerWidth: _containerWidth,
-		containerHeight: _containerHeight,
-		x: _x,
-		y: _y,
-		z: _z,
-		r: _r,
-		custom: _custom,
-		data: _data,
-		xNice: _xNice,
-		yNice: _yNice,
-		zNice: _zNice,
-		rNice: _rNice,
-		xDomainSort: _xDomainSort,
-		yDomainSort: _yDomainSort,
-		zDomainSort: _zDomainSort,
-		rDomainSort: _rDomainSort,
-		xReverse: _xReverse,
-		yReverse: _yReverse,
-		zReverse: _zReverse,
-		rReverse: _rReverse,
-		xPadding: _xPadding,
-		yPadding: _yPadding,
-		zPadding: _zPadding,
-		rPadding: _rPadding,
-		padding: padding_d,
-		flatData: _flatData,
-		extents: extents_d,
-		xDomain: xDomain_d_possibly_nice,
-		yDomain: yDomain_d_possibly_nice,
-		zDomain: zDomain_d_possibly_nice,
-		rDomain: rDomain_d_possibly_nice,
-		xRange: xRange_d,
-		yRange: yRange_d,
-		zRange: zRange_d,
-		rRange: rRange_d,
-		config: _config,
-		xScale: xScale_d,
-		xGet: xGet_d,
-		yScale: yScale_d,
-		yGet: yGet_d,
-		zScale: zScale_d,
-		zGet: zGet_d,
-		rScale: rScale_d,
-		rGet: rGet_d
+	const dimensionCtx = {
+		get width() {
+			return width;
+		},
+		get height() {
+			return height;
+		},
+		get percentRange() {
+			return percentRange;
+		},
+		get extents() {
+			return extents;
+		},
+		scales
 	};
 
-	setContext('LayerCake', context);
+	// Actually create the reactive dimensions object.
+	for (const dimension of DIMENSIONS) {
+		dims[dimension.name] = createDimension(dimension, () => dimProps, dimensionCtx);
+	}
 
-	run(() => {
-		if ($box_d && debug === true && (ssr === true || typeof window !== 'undefined')) {
+	// Assemble the context. Every property is a getter into reactive state
+	// so child components read live values as `c.width`, `c.xGet(d)` etc.
+	const context = {};
+	Object.defineProperties(context, {
+		activeGetters: { get: () => activeGetters, enumerable: true },
+		width: { get: () => width, enumerable: true },
+		height: { get: () => height, enumerable: true },
+		percentRange: { get: () => percentRange, enumerable: true },
+		aspectRatio: { get: () => width / height, enumerable: true },
+		containerWidth: { get: () => containerWidth, enumerable: true },
+		containerHeight: { get: () => containerHeight, enumerable: true },
+		element: { get: () => element, enumerable: true },
+		custom: { get: () => custom, enumerable: true },
+		data: { get: () => data, enumerable: true },
+		padding: { get: () => padding, enumerable: true },
+		flatData: { get: () => flatData, enumerable: true },
+		extents: { get: () => extents, enumerable: true },
+		config: { get: () => config, enumerable: true }
+	});
+
+	// Every dimension gets keys, even unused ones. This loop runs once at setup
+	// with no second pass. For example, if we didn't add an unpassed prop `c` here,
+	// that would mean `cGet` never exists – even if the user starts passing `c` later.
+	// Unused ones return `undefined`.
+	for (const dimension of DIMENSIONS) {
+		const name = dimension.name;
+		// `dims` is populated by now, so we can hold the object directly rather than
+		// looking it up inside each getter the way `scales` up top has to.
+		const dim = /** @type {Object.<string, any>} */ (dims[name]);
+		/** @type {PropertyDescriptorMap} */
+		const descriptors = {};
+		for (const family of FAMILIES_BY_DIMENSION[name]) {
+			const stateKey = familyStateKey(family);
+			descriptors[`${name}${family.suffix}`] = { get: () => dim[stateKey], enumerable: true };
+		}
+		Object.defineProperties(context, descriptors);
+	}
+
+	setLayerCakeContext(/** @type {import('./context.js').LayerCakeContext} */ (context));
+
+	$effect(() => {
+		if (debug === true) {
+			/** @type {Object.<string, any>} */
+			const debugInfo = {
+				data,
+				flatData: flatDataProp !== undefined ? flatData : null,
+				boundingBox: {
+					top: padding.top,
+					right: containerWidth - padding.right,
+					bottom: containerHeight - padding.bottom,
+					left: padding.left,
+					width,
+					height
+				},
+				activeGetters
+			};
+			for (const name of Object.keys(activeGetters)) {
+				debugInfo[name] = dimProps[name];
+				debugInfo[`${name}Scale`] = dims[name].scale;
+			}
 			// Call this as a debounce so that it doesn't get called multiple times as these vars get filled in
-			printDebug_debounced({
-				data: $_data,
-				flatData: typeof flatData !== 'undefined' ? $_flatData : null,
-				boundingBox: $box_d,
-				activeGetters: $activeGetters_d,
-				x: config.x,
-				y: config.y,
-				z: config.z,
-				r: config.r,
-				xScale: $xScale_d,
-				yScale: $yScale_d,
-				zScale: $zScale_d,
-				rScale: $rScale_d
-			});
+			printDebug_debounced(debugInfo);
 		}
 	});
 </script>
@@ -568,58 +348,7 @@
 		bind:clientWidth={containerWidth}
 		bind:clientHeight={containerHeight}
 	>
-		{@render children?.({
-			element,
-			width: $width_d,
-			height: $height_d,
-			aspectRatio: $aspectRatio_d,
-			containerWidth: $_containerWidth,
-			containerHeight: $_containerHeight,
-			activeGetters: $activeGetters_d,
-			percentRange: $_percentRange,
-			x: $_x,
-			y: $_y,
-			z: $_z,
-			r: $_r,
-			custom: $_custom,
-			data: $_data,
-			xNice: $_xNice,
-			yNice: $_yNice,
-			zNice: $_zNice,
-			rNice: $_rNice,
-			xDomainSort: $_xDomainSort,
-			yDomainSort: $_yDomainSort,
-			zDomainSort: $_zDomainSort,
-			rDomainSort: $_rDomainSort,
-			xReverse: $_xReverse,
-			yReverse: $_yReverse,
-			zReverse: $_zReverse,
-			rReverse: $_rReverse,
-			xPadding: $_xPadding,
-			yPadding: $_yPadding,
-			zPadding: $_zPadding,
-			rPadding: $_rPadding,
-			padding: $padding_d,
-			flatData: $_flatData,
-			extents: $extents_d,
-			xDomain: $xDomain_d,
-			yDomain: $yDomain_d,
-			zDomain: $zDomain_d,
-			rDomain: $rDomain_d,
-			xRange: $xRange_d,
-			yRange: $yRange_d,
-			zRange: $zRange_d,
-			rRange: $rRange_d,
-			config: $_config,
-			xScale: $xScale_d,
-			xGet: $xGet_d,
-			yScale: $yScale_d,
-			yGet: $yGet_d,
-			zScale: $zScale_d,
-			zGet: $zGet_d,
-			rScale: $rScale_d,
-			rGet: $rGet_d
-		})}
+		{@render children?.(context)}
 	</div>
 {/if}
 

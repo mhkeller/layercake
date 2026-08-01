@@ -5,22 +5,23 @@ title: LayerCake props
 These are the props you can set on the `LayerCake` component itself. You set them all like so:
 
 ```svelte
-<Layercake
+<LayerCake
   foo='foo'
   bar='bar'
 >
-</LayerCake>
 ```
 
-The component also exports an `element` prop that represents the main wrapper, in case you need to access it for some reason. It also exposes this as a slot prop.
+The component also exports an `element` prop that represents the main wrapper, in case you need to access it for some reason. It's on the context too, so the children snippet can read it as `c.element`.
 
 ```svelte
 <script>
-	let mainElement;
+	let mainElement = $state();
 </script>
 
-<LayerCake bind:element={mainElement} let:element>
-	{console.log(mainElement === element)}
+<LayerCake bind:element={mainElement}>
+	{#snippet children(c)}
+		{console.log(mainElement === c.element)}
+	{/snippet}
 </LayerCake>
 ```
 
@@ -63,7 +64,7 @@ const stack = d3.stack().keys(['apples', 'bananas', 'cherries', 'dates']);
 const series = stack(data);
 ```
 
-The data is now an array of values. The `month` values you can't see because sneakily stashes them as a property on the array, accessible as `d.data`.
+The data is now an array of values. The `month` values you can't see because `d3.stack()` sneakily stashes them as a property on the array, accessible as `d.data`.
 
 ```js
 [
@@ -121,9 +122,55 @@ Same as [x](/guide#x) but for the z dimension.
 
 Same as [x](/guide#x) but for the r dimension.
 
+### x1 `string|Function|number|Array<string|Function|number>|undefined`
+
+Same as [x](/guide#x) but for the x1 dimension – a scale nested inside the x scale, useful for [grouped column charts](/example/ColumnGrouped). It defaults to a `scaleBand()` whose domain is computed from your data and whose range is the bandwidth of the x scale, so this is usually all you need:
+
+```svelte
+<LayerCake
+  x="year"
+  xScale={scaleBand()}
+  x1="fruit"
+  y="value"
+>
+```
+
+In a layer component, position a column with `c.xGet(d) + c.x1Get(d)` and size it with `c.x1Scale.bandwidth()`.
+
+You can customize the nested range by setting [x1Range](/guide#x1range) to a function, which receives the computed sibling scales: `x1Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+
+Like every dimension, x1 also accepts `x1Domain`, `x1Scale`, `x1Range` and `x1DomainSort` props.
+
+### y1 `string|Function|number|Array<string|Function|number>|undefined`
+
+Same as [x1](/guide#x1) but nested inside the y scale, useful for grouped bar charts. Accepts `y1Domain`, `y1Scale`, `y1Range` and `y1DomainSort` props.
+
+### c `string|Function|number|Array<string|Function|number>|undefined`
+
+Same as [x](/guide#x) but for the c dimension, a dedicated color scale. It defaults to a `scaleOrdinal()` whose domain is computed from your data and whose range is a ten-color categorical palette (d3's `schemeCategory10`). Supply your own colors via the `cRange` prop:
+
+```svelte
+<LayerCake
+  x="year"
+  y="value"
+  c="fruit"
+  cRange={['#fc0', '#c0f']}
+>
+```
+
+Then color your marks with `c.cGet(d)` in a layer component. Also accepts `cDomain`, `cScale`, `cRange` and `cDomainSort` props.
+
+You can also pass a preconfigured scale instead of setting `cRange` – its range is preserved: `cScale={scaleOrdinal(schemeCategory10)}`.
+
+You can also keep using the [z](/guide#z) dimension for color like in older versions but c is more explicit and frees up z for other encodings.
+
+### c1 `string|Function|number|Array<string|Function|number>|undefined`
+
+Same as [c](/guide#c) but for a second color-like scale, useful for encoding something like opacity alongside color. It defaults to a `scaleLinear()` mapping your data's extent to `[0, 1]`. Accepts `c1Domain`, `c1Scale`, `c1Range` and `c1DomainSort` props.
+
 ### debug `boolean`
 
-If this is `true`, Layer Cake will print to the control a helpful debug message.
+If this is `true`, Layer Cake will print to the console a helpful debug message.
 
 ```svelte
 <LayerCake
@@ -143,7 +190,7 @@ It will display:
    3. The `domain`
    4. The `range`
 
-It's helpful if you're trying to track down why a chart is not display correctly, which comes down to CSS not being set on the parent chart container or weird data issues (`undefined`, `NaN` values etc...) that are throwing off the extent calculation for the `domain`.
+It's helpful if you're trying to track down why a chart is not displaying correctly, which comes down to CSS not being set on the parent chart container or weird data issues (`undefined`, `NaN` values etc...) that are throwing off the extent calculation for the `domain`.
 
 If your `domain` or `range` includes values that are colors, the debug interface will highlight them in that color.
 
@@ -164,6 +211,8 @@ An object that can specify `top`, `right`, `bottom`, or `left` padding in pixels
 ### xScale `d3.scaleLinear()`
 
 The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default [`d3.scaleLinear()`](https://github.com/d3/d3-scale#scalelinear) or you want to add extra options.
+
+If the scale you pass in has a customized range – e.g. `zScale={scaleOrdinal(schemeCategory10)}` – Layer Cake preserves it. Otherwise, it manages the range for you, setting it to the pixel dimensions of the chart. Set an explicit [xRange](/guide#xrange) to override a customized range.
 
 See the [Column chart](/example/Column) for an example of passing in a `d3.scaleBand()` to override the default.
 
@@ -241,9 +290,17 @@ Same as [xDomainSort](/guide#xdomainsort) but for the z domain.
 
 Same as [xDomainSort](/guide#xdomainsort) but for the r domain.
 
+### x1DomainSort `boolean=false`
+
+Same as [xDomainSort](/guide#xdomainsort) but for the x1 domain, which controls the order of the groups in a [grouped column chart](/example/ColumnGrouped).
+
+### y1DomainSort `boolean=false`
+
+Same as [xDomainSort](/guide#xdomainsort) but for the y1 domain.
+
 ### xPadding `Array:[leftPixels: number, rightPixels: number]`
 
-Assign a pixel value to add to the min or max of the x scale. This will increase the scales domain by the scale unit equivalent of the provided pixels. This is useful for adding extra space to a scatter plot so that your circles don't interfere with your y-axis. It's better than fussing with the range since you don't need to add a magic number to other components, like axes.
+Assign a pixel value to add to the min or max of the x scale. This will increase the scale's domain by the scale unit equivalent of the provided pixels. This is useful for adding extra space to a scatter plot so that your circles don't interfere with your y-axis. It's better than fussing with the range since you don't need to add a magic number to other components, like axes.
 
 It will log out a warning if you try to use it on a scale that has a domain or range that isn't two items, such as with ordinal scales.
 
@@ -315,7 +372,7 @@ This overrides setting [zReverse](/guide#zreverse) to `true`.
 
 ### rRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the r scale. Override the default y range of `[1, 25]` by setting it here to an array or function with argument `({ width, height})` that returns an array. The r scale defaults to `d3.scaleSqrt` so make sure you don't use a zero in your range.
+Same as [xRange](/guide#xrange) but for the r scale. Override the default r range of `[1, 25]` by setting it here to an array or function with argument `({ width, height})` that returns an array. The r scale defaults to `d3.scaleSqrt` so make sure you don't use a zero in your range.
 
 This overrides setting [rReverse](/guide#rreverse) to `true`.
 
@@ -327,7 +384,7 @@ This is ignored if you set [xRange](/guide#xrange).
 
 ### yReverse `boolean=true`
 
-Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless using `scaleBand` for yScale in which case this is `false`.
+Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless the `yScale` has a `.bandwidth` method (such as `scaleBand` or `scalePoint`) in which case this is `false`.
 
 This is ignored if you set [yRange](/guide#yrange).
 
@@ -353,7 +410,7 @@ Here's an example showing passing different data formats for extent calculation 
 
 ```svelte
 <script>
-	import { LayerCake } from 'LayerCake';
+	import { LayerCake } from 'layercake';
 
 	const data = [
 		{
@@ -367,15 +424,15 @@ Here's an example showing passing different data formats for extent calculation 
 	];
 
 	const flatData = [
-		{ month: '2015-03-01', value: 3840, group: 'apples' },
-		{ month: '2015-02-01', value: 1600, group: 'apples' },
-		{ month: '2015-01-01', value: 640, group: 'apples' },
-		{ month: '2015-00-01', value: 320, group: 'apples' },
+		{ month: '2015-04-01', value: 3840, group: 'apples' },
+		{ month: '2015-03-01', value: 1600, group: 'apples' },
+		{ month: '2015-02-01', value: 640, group: 'apples' },
+		{ month: '2015-01-01', value: 320, group: 'apples' },
 
-		{ month: '2015-03-01', value: 1920, group: 'bananas' },
-		{ month: '2015-02-01', value: 1440, group: 'bananas' },
-		{ month: '2015-01-01', value: 960, group: 'bananas' },
-		{ month: '2015-00-01', value: 480, group: 'bananas' }
+		{ month: '2015-04-01', value: 1920, group: 'bananas' },
+		{ month: '2015-03-01', value: 1440, group: 'bananas' },
+		{ month: '2015-02-01', value: 960, group: 'bananas' },
+		{ month: '2015-01-01', value: 480, group: 'bananas' }
 	];
 </script>
 
@@ -401,9 +458,9 @@ Here's an example showing passing different data formats for extent calculation 
 
 ### ssr `boolean=false`
 
-Set whether this chart should be rendered server side. This is best used in conjunction with the [ScaledSvg](guide#scaledsvg) component or HTML components that are set to use percentage scales since you won't know the size of the container at render time.
+Set whether this chart should be rendered server side. This is best used in conjunction with the [ScaledSvg](/guide#scaledsvg) component or HTML components that are set to use percentage scales since you won't know the size of the container at render time.
 
-Use it in conjunction with [`percentRange={true}`](guide#percentrange) to easily set up your scales for a percent coordinate systems.
+Use it in conjunction with [`percentRange={true}`](/guide#percentrange) to easily set up your scales for a percent coordinate system.
 
 ### percentRange `boolean=false`
 
@@ -424,3 +481,19 @@ Any extra configuration values you want available on the LayerCake context. This
   custom={ { size: 10, names: ['a', 'b', 'c'] } }
 >
 ```
+
+### pointerEvents `boolean=true`
+
+Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction.
+
+### verbose `boolean=true`
+
+Show warnings in the console, such as when the chart container has a zero or negative width or height. Set this to `false` to silence them.
+
+### width `number`
+
+Override the automated width measurement. If unset, the width is measured from the chart container.
+
+### height `number`
+
+Override the automated height measurement. If unset, the height is measured from the chart container.

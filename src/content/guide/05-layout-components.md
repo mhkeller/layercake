@@ -6,11 +6,11 @@ Layer Cake comes with layout components that provide HTML, Svg, ScaledSvg, Canva
 
 You must wrap your chart components in these layout components for them to appear properly scaled. For Html and Svg components, they create a `<div>` and `<svg>`, respectively.
 
-The Canvas and WebGL layout components also create canvas contexts that are then available on the LayerCake context object.
+The Canvas and WebGL layout components also create rendering contexts that are made available to your layer components on their own Svelte contexts, under the `'canvas'` and `'gl'` keys, respectively. See the [Canvas](/guide#canvas) and [WebGL](/guide#webgl) sections below for details.
 
 Each of these components also takes props. See the next section [Layout component props](/guide#layout-component-props) for more info.
 
-Here are the four layout components: HTML, Svg, ScaledSvg, Canvas and WebGL containers.
+Here are the five layout components: Html, Svg, ScaledSvg, Canvas and WebGL containers.
 
 ### Html
 
@@ -73,34 +73,44 @@ The SVG layout component also accepts a `viewBox` prop. See the [Layout componen
 </style>
 ```
 
-This component also has a [named snippet](https://svelte.dev/docs/svelte/snippet) for adding elements into the SVG `<defs>` field but due to [an issue with Svelte](https://github.com/sveltejs/svelte/issues/7807) sometimes adding SVG nodes as HTML elements, this may not work. As an alternative, you can also simply add a `<defs>` tag:
+This component also has a named `defs` [snippet](https://svelte.dev/docs/svelte/snippet) for adding elements into the SVG `<defs>` field but due to [an issue with Svelte](https://github.com/sveltejs/svelte/issues/7807) sometimes adding SVG nodes as HTML elements, this may not work. If you use it, add the `xmlns` attribute on the top-level element inside the snippet:
 
 ```svelte
 <div class="chart-container">
 	<LayerCake ...>
 		<Svg>
-			<!-- Simply add a defs tag here-->
+			{#snippet defs()}
+				<linearGradient
+					id="myGradient"
+					gradientTransform="rotate(90)"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<stop offset="20%" stop-color="gold" />
+					<stop offset="90%" stop-color="red" />
+				</linearGradient>
+			{/snippet}
+
+			<!-- Components go here -->
+		</Svg>
+	</LayerCake>
+</div>
+```
+
+As an alternative, you can also simply add a `<defs>` tag yourself:
+
+```svelte
+<div class="chart-container">
+	<LayerCake ...>
+		<Svg>
 			<defs>
 				<linearGradient id="myGradient" gradientTransform="rotate(90)">
 					<stop offset="20%" stop-color="gold" />
 					<stop offset="90%" stop-color="red" />
 				</linearGradient>
-				<defs>
-					<!-- If you want to use the named slot,
-        add the xmlns attribute on the `<linearGradient>` element -->
-					<svelte:fragment slot="defs">
-						<linearGradient
-							id="myGradient"
-							gradientTransform="rotate(90)"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<stop offset="20%" stop-color="gold" />
-							<stop offset="90%" stop-color="red" />
-						</linearGradient>
-					</svelte:fragment>
-				</defs></defs
-			></Svg
-		>
+			</defs>
+
+			<!-- Components go here -->
+		</Svg>
 	</LayerCake>
 </div>
 ```
@@ -141,7 +151,7 @@ The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. 
 </style>
 ```
 
-This component also has a [named slot](https://svelte.dev/docs#slot_name) for adding elements into the SVG `<defs>` field. See [the Svg layout component section above](/guide#svg) for a note about how to use this and a workaround for a Svelte issue where elements are not always recognized.
+This component also has a named `defs` [snippet](https://svelte.dev/docs/svelte/snippet) for adding elements into the SVG `<defs>` field. See [the Svg layout component section above](/guide#svg) for a note about how to use this and a workaround for a Svelte issue where elements are not always recognized.
 
 ### Canvas
 
@@ -176,23 +186,23 @@ This component also has a [named slot](https://svelte.dev/docs#slot_name) for ad
 </style>
 ```
 
-In the component, you access the canvas context with `const { ctx } = getContext('canvas');`. This value is on a different context from the `getContext('LayerCake')` one because you could have multiple canvas layers and there wouldn't be an easy way to grab the right one. This way, the component always has access to just its parent Canvas component.
+In the component, you access the canvas context with `const canvasCtx = getContext('canvas');` and read the 2d context as `canvasCtx.ctx`. This value is on a different context from the LayerCake one because you could have multiple canvas layers and there wouldn't be an easy way to grab the right one. This way, the component always has access to just its parent Canvas component.
 
 > Warning: If you want to draw multiple canvas layers, use one `<Canvas>` tag each. There is a bug in [Svelte's reactivity](https://github.com/mhkeller/layercake/issues/50) that will cause an infinite loop if you add two or more components in a single `<Canvas>` tag.
 
-> Since the `ctx` value is a normal 2d context, the underlying canvas element is accessible under `ctx.canvas`.
+> Since the `canvasCtx.ctx` value is a normal 2d context, the underlying canvas element is accessible under `canvasCtx.ctx.canvas`.
 
 Here's an example showing a scatter plot.
 
 ```svelte
 <!-- { filename: './components/CanvasLayer.svelte' } -->
 <script>
-	import { getContext, onMount, untrack } from 'svelte';
-	import { scaleCanvas } from 'layercake';
+	import { getContext } from 'svelte';
+	import { getLayerCakeContext, scaleCanvas } from 'layercake';
 
-	const { data, xGet, yGet, width, height } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
-	const { ctx } = getContext('canvas');
+	const canvasCtx = getContext('canvas');
 
 	/**
 	 * @typedef {Object} Props
@@ -205,35 +215,31 @@ Here's an example showing a scatter plot.
 	/** @type {Props} */
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
-	onMount(() => {
-		$effect(() => {
-			if ($width && $height) {
-				untrack(() => {
-					if (!$ctx) return;
+	$effect(() => {
+		if (!c.width || !c.height || !canvasCtx.ctx) return;
 
-					/**
-					 * If you were to have multiple canvas layers
-					 * maybe for some artistic layering purposes
-					 * put these reset functions in the first layer, not each one
-					 * since they should only run once per update
-					 */
-					scaleCanvas($ctx, $width, $height);
-					$ctx.clearRect(0, 0, $width, $height);
+		const context = canvasCtx.ctx;
 
-					/**
-					 * Draw our scatterplot
-					 */
-					$data.forEach((/** @type {any} d */ d) => {
-						$ctx.beginPath();
-						$ctx.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
-						$ctx.lineWidth = strokeWidth;
-						$ctx.strokeStyle = stroke;
-						$ctx.stroke();
-						$ctx.fillStyle = fill;
-						$ctx.fill();
-					});
-				});
-			}
+		/**
+		 * If you were to have multiple canvas layers
+		 * maybe for some artistic layering purposes
+		 * put these reset functions in the first layer, not each one
+		 * since they should only run once per update
+		 */
+		scaleCanvas(context, c.width, c.height);
+		context.clearRect(0, 0, c.width, c.height);
+
+		/**
+		 * Draw our scatterplot
+		 */
+		c.data.forEach((/** @type {any} d */ d) => {
+			context.beginPath();
+			context.arc(c.xGet(d), c.yGet(d), r, 0, 2 * Math.PI, false);
+			context.lineWidth = strokeWidth;
+			context.strokeStyle = stroke;
+			context.stroke();
+			context.fillStyle = fill;
+			context.fill();
 		});
 	});
 </script>
@@ -267,8 +273,8 @@ Here's an example showing a scatter plot.
 </style>
 ```
 
-In the component, you access the canvas context with `const { gl } = getContext('gl');`. This value is on a different context from the `getContext('LayerCake')` one because you could have multiple WebGL layers and there wouldn't be an easy way to grab the right one.
+In the component, you access the canvas context with `const glCtx = getContext('gl');` and read the WebGL context as `glCtx.gl`. This value is on a different context from the LayerCake one because you could have multiple WebGL layers and there wouldn't be an easy way to grab the right one.
 
-> Since the `gl` value is a normal WebGL context, the underlying canvas element is accessible under `gl.canvas`.
+> Since the `glCtx.gl` value is a normal WebGL context, the underlying canvas element is accessible under `glCtx.gl.canvas`.
 
 See the [WebGL scatter chart](/example/ScatterWebgl) for a working example.

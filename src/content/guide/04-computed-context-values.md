@@ -82,11 +82,11 @@ Having access to this field can help you not repeat yourself in specifying thing
 
 ### containerWidth `number`
 
-The width of the parent container – the div element that contains the `<LayerCake>` component. Unlike [width](/guide#width-1), this value does not take into account any padding. It's also on the children snippet, as `c.containerWidth`.
+The width of the parent container – the div element that contains the `<LayerCake>` component. Unlike [width](/guide#width), this value does not take into account any padding. It's also on the children snippet, as `c.containerWidth`.
 
 ### containerHeight `number`
 
-The height of the parent container – the div element that contains the `<LayerCake>` component. Unlike [height](/guide#height-1), this value does not take into account any padding. It's also on the children snippet, as `c.containerHeight`.
+The height of the parent container – the div element that contains the `<LayerCake>` component. Unlike [height](/guide#height), this value does not take into account any padding. It's also on the children snippet, as `c.containerHeight`.
 
 ### data `Array`
 

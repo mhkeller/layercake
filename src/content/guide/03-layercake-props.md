@@ -233,6 +233,8 @@ The D3 scale that should be used for the x-dimension. Pass in an instantiated D3
 
 If the scale you pass in has a customized range – e.g. `zScale={scaleOrdinal(schemeCategory10)}` – Layer Cake preserves it. Otherwise, it manages the range for you, setting it to the pixel dimensions of the chart. Set an explicit [xRange](/guide#xrange) to override a customized range.
 
+There's one range Layer Cake can't recognize as yours: `[0, 1]`. That's what most d3 scales come with out of the box and there's no way to ask a scale whether someone set it deliberately, so a scale arriving with `[0, 1]` is treated as untouched and gets the chart's dimensions instead. If you want a `[0, 1]` coordinate system, say so with the prop – `xRange={[0, 1]}` – which is never ambiguous and always wins.
+
 See the [Column chart](/example/Column) for an example of passing in a `d3.scaleBand()` to override the default.
 
 <!-- generated:Scale -->
@@ -479,15 +481,15 @@ This is ignored if you set [xRange](/guide#xrange).
 
 ### yReverse `boolean=true`
 
-Same as [xReverse](/guide#xreverse) but for the y range.
+Same as [xReverse](/guide#xreverse) but for the y range, and the default is worked out rather than fixed. It is `true` – making the range `[height, 0]` – unless the `yScale` has a `.bandwidth` method, as `scaleBand` and `scalePoint` do, in which case it is `false` so the values read top-down. Setting the prop yourself overrides that.
 
 ### zReverse `boolean=false`
 
-Same as [xReverse](/guide#xreverse) but for the z range.
+Same as [xReverse](/guide#xreverse) but for the z range, which defaults to `[0, width]`.
 
 ### rReverse `boolean=false`
 
-Same as [xReverse](/guide#xreverse) but for the r range.
+Same as [xReverse](/guide#xreverse) but for the r range, which defaults to `[1, 25]`.
 
 <!-- /generated:Reverse -->
 
@@ -555,9 +557,13 @@ Use it in conjunction with [`percentRange={true}`](/guide#percentrange) to easil
 
 ### percentRange `boolean=false`
 
-When rendering charts server side, you pretty much always want your scale range to be `[0, 100]` since you won't be able to base the range off of the target container's width. Use this convenience helper to set the ranges for any field that has an accessor to just that.
+When rendering charts server side, you pretty much always want your scale range to be `[0, 100]` since you won't be able to base the range off of the target container's width. Use this convenience helper to set the ranges to just that.
+
+It applies to the four dimensions that measure themselves against the container – [x](/guide#x), [y](/guide#y), [z](/guide#z) and [r](/guide#r). The nested dimensions ([x1](/guide#x1), [y1](/guide#y1)) already measure themselves against their parent, so they follow it into percentages on their own, and the color dimensions ([c](/guide#c), [c1](/guide#c1)) have nothing to do with the container and are left alone.
 
 > The default range for the y-scale will be `[100, 0]` because `yReverse` defaults to `true`. All of the range reverse functions will work as usual with this.
+
+A range you set yourself always wins over this. That means both an explicit [xRange](/guide#xrange) prop and a range you baked into a scale you passed to [xScale](/guide#xscale) – in either case that dimension keeps your range and ignores `percentRange`.
 
 ### position `string='relative'`
 
@@ -580,11 +586,3 @@ Whether to allow pointer events via CSS. Set this to `false` to set `pointer-eve
 ### verbose `boolean=true`
 
 Show warnings in the console, such as when the chart container has a zero or negative width or height. Set this to `false` to silence them.
-
-### width `number`
-
-Override the automated width measurement. If unset, the width is measured from the chart container.
-
-### height `number`
-
-Override the automated height measurement. If unset, the height is measured from the chart container.

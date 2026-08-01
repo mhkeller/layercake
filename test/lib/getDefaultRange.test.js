@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import { scaleBand } from 'd3-scale';
+import { scaleBand, scaleLinear, scaleOrdinal } from 'd3-scale';
 
 import fn from '../../src/lib/settings/getDefaultRange.js';
 import { DIMENSIONS } from '../../src/lib/settings/dimensions.js';
@@ -167,6 +167,31 @@ const tests = [
 		expected: [0, h / 2]
 	},
 	{ args: [dims.y1, { ctx: ctx() }], expected: [0, h] },
+
+	// A parent without bandwidth still lends its units, so a nested dimension
+	// never mixes percentages and pixels (#nested-range)
+	{
+		args: [
+			dims.x1,
+			{ ctx: ctx({ scales: { x: scaleLinear().range([0, 100]) }, percentRange: true }) }
+		],
+		expected: [0, 100]
+	},
+	{
+		args: [
+			dims.y1,
+			{ ctx: ctx({ scales: { y: scaleLinear().range([100, 0]) }, percentRange: true }) }
+		],
+		expected: [0, 100]
+	},
+	// ...and with no parent at all it falls back to the chart in those same units
+	{ args: [dims.x1, { ctx: ctx({ percentRange: true }) }], expected: [0, 100] },
+	{ args: [dims.y1, { ctx: ctx({ percentRange: true }) }], expected: [0, 100] },
+	// A parent whose range isn't a measurable span, like a color scale
+	{
+		args: [dims.x1, { ctx: ctx({ scales: { x: scaleOrdinal().range(['red', 'blue']) } }) }],
+		expected: [0, w]
+	},
 
 	// Sibling scales are available to user-passed range functions
 	{

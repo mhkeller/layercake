@@ -417,7 +417,16 @@ export const GUIDES = [
 			},
 			Reverse: {
 				heading: dim => `boolean=${dim.name === 'y' ? 'true' : 'false'}`,
-				body: dim => `Same as [xReverse](/guide#xreverse) but for the ${dim.name} range.`
+				body: dim => {
+					const fact = FACTS[dim.name] || {};
+					// A dimension whose default is computed has an exception a reader has
+					// to know about – y flips to `false` for band scales – so "same as
+					// xReverse" would be actively misleading here
+					if (typeof dim.defaultReverse === 'function') {
+						return `Same as [xReverse](/guide#xreverse) but for the ${dim.name} range, and the default is worked out rather than fixed. It is \`true\` – making the range \`${fact.reversedRangeText || 'its reverse'}\` – unless the \`${dim.name}Scale\` has a \`.bandwidth\` method, as \`scaleBand\` and \`scalePoint\` do, in which case it is \`false\` so the values read top-down. Setting the prop yourself overrides that.`;
+					}
+					return `Same as [xReverse](/guide#xreverse) but for the ${dim.name} range, which defaults to \`${fact.defaultRangeText || 'its default'}\`.`;
+				}
 			},
 			DomainSort: {
 				heading: () => 'boolean=false',

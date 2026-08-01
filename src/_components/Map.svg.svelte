@@ -11,11 +11,11 @@
 	/**
 	 * @typedef {Object} Props
 	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
-	 * @property {number|undefined} [fixedAspectRatio] - By default, the map fills to fit the $width and $height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
+	 * @property {number|undefined} [fixedAspectRatio] - By default, the map fills to fit the c.width and c.height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
 	 * @property {string|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the c-scale, unless this prop is set.
 	 * @property {string} [stroke='#333'] - The shape's stroke color.
 	 * @property {number} [strokeWidth=0.5] - The shape's stroke width.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `c.data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `c.data.features` if left unset.
 	 * @property {(e: MouseEvent, props: Object) => void} [onmousemove] - A function that gets called on mousemove events. The first argument is the event, and the second is the properties of the hovered feature.
 	 * @property {(e: MouseEvent) => void} [onmouseout] - A function that gets called on mouseout events.
 	 */

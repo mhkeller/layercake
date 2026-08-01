@@ -37,10 +37,10 @@
 		cRange={seriesColors}
 		data={dataTransformed}
 	>
-		{#snippet children({ width })}
+		{#snippet children(c)}
 			<Html>
 				<BeeswarmHtml
-					r={width < 400 ? r / 1.25 : r}
+					r={c.width < 400 ? r / 1.25 : r}
 					strokeWidth={1}
 					xStrength={0.95}
 					yStrength={0.075}

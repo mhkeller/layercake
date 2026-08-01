@@ -15,7 +15,7 @@
 	import stateData from '../../_data/us-states-data.json';
 	import stateLabels from '../../_data/us-states-labels.json';
 
-	const colorKey = 'myValue';
+	const cKey = 'myValue';
 
 	const geojson = feature(usStates, usStates.objects.collection);
 	const aspectRatio = 2.63;
@@ -32,7 +32,7 @@
 	const labelNameKey = 'abbr';
 
 	stateData.forEach(d => {
-		dataLookup.set(d[dataJoinKey], d[colorKey]);
+		dataLookup.set(d[dataJoinKey], d[cKey]);
 	});
 
 	// Exclude some for space reasons

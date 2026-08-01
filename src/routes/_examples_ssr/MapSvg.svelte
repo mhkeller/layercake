@@ -12,7 +12,7 @@
 	import usStates from '../../_data/states-albers-10m.json';
 	import stateData from '../../_data/us-states-data.json';
 
-	const colorKey = 'myValue';
+	const cKey = 'myValue';
 
 	// Create lookups to more easily join our data
 	// `dataJoinKey` is the name of the field in the data
@@ -22,7 +22,7 @@
 	const dataLookup = new Map();
 
 	stateData.forEach(d => {
-		dataLookup.set(d[dataJoinKey], d[colorKey]);
+		dataLookup.set(d[dataJoinKey], d[cKey]);
 	});
 
 	const geojson = feature(usStates, usStates.objects.states);

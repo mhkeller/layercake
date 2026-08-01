@@ -22,6 +22,7 @@ import CirclePackForce from './_components/CirclePackForce.svelte';
 import ClevelandDotPlot from './_components/ClevelandDotPlot.svelte';
 import ClevelandDotPlotHtml from './_components/ClevelandDotPlot.html.svelte';
 import Column from './_components/Column.svelte';
+import ColumnGrouped from './_components/ColumnGrouped.svelte';
 import ColumnStacked from './_components/ColumnStacked.svelte';
 import Line from './_components/Line.svelte';
 import LineD3 from './_components/Line-D3.svelte';
@@ -86,6 +87,7 @@ export default [
 			{ slug: 'ClevelandDotPlot.svelte', component: ClevelandDotPlot },
 			{ slug: 'ClevelandDotPlot.percent-range.html.svelte', component: ClevelandDotPlotHtml },
 			{ slug: 'Column.svelte', component: Column },
+			{ slug: 'ColumnGrouped.svelte', component: ColumnGrouped },
 			{ slug: 'ColumnStacked.svelte', component: ColumnStacked },
 			{ slug: 'Line.svelte', component: Line },
 			{ slug: 'Line-D3.svelte', component: LineD3 },

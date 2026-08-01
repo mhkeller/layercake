@@ -17,7 +17,7 @@
 	 * @property {string} [stroke='#000'] - The point's stroke color.
 	 * @property {number} [strokeWidth=1] - The point's stroke width.
 	 * @property {number} [opacity=1] - The point's opacity.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `$data.features`, assuming this field is a list of GeoJSON features.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `c.data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
 	/** @type {Props} */

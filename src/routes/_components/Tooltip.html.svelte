@@ -12,7 +12,7 @@
 	import usStates from '../../_data/us-states.topojson.json';
 	import stateData from '../../_data/us-states-data.json';
 
-	const colorKey = 'myValue';
+	const cKey = 'myValue';
 	// Create lookups to more easily join our data
 	const joinKey = 'name';
 	const dataLookup = new Map();
@@ -46,7 +46,7 @@
 	<LayerCake
 		padding={{ top: 20 }}
 		data={geojson}
-		c={colorKey}
+		c={cKey}
 		cScale={scaleQuantize()}
 		cRange={colors}
 		{flatData}

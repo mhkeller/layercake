@@ -15,7 +15,7 @@
 	import stateData from '../../_data/us-states-data.json';
 	import stateLabels from '../../_data/us-states-labels.json';
 
-	const colorKey = 'myValue';
+	const cKey = 'myValue';
 	const labelCoordinatesKey = 'center';
 	const labelNameKey = 'abbr';
 
@@ -33,7 +33,7 @@
 
 	stateData.forEach(
 		/** @param {any} d */ d => {
-			dataLookup.set(d[dataJoinKey], d[colorKey]);
+			dataLookup.set(d[dataJoinKey], d[cKey]);
 		}
 	);
 

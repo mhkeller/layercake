@@ -83,7 +83,7 @@
 
 		<div
 			class="tick tick-{i}"
-			style="left:{c.xRange[0]}{units};top:{tickValUnits + halfBand}{units};"
+			style="left:{c.xRange ? c.xRange[0] : 0}{units};top:{tickValUnits + halfBand}{units};"
 		>
 			{#if gridlines === true}
 				<div class="gridline" style="top:0;" style:left="{x1}px" style:right="0px"></div>

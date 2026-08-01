@@ -17,7 +17,7 @@
 	 * @property {string} [stroke='#ccc'] - The shape's stroke color.
 	 * @property {number} [strokeWidth=1] - The shape's stroke width.
 	 * @property {string|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the c-scale, unless this prop is set.
-	 * @property {Array<GeoJSON>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset.
+	 * @property {Array<GeoJSON>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `c.data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `c.data.features` if left unset.
 	 */
 
 	/** @type {Props} */

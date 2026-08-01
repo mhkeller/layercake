@@ -1,9 +1,12 @@
 /**
- * Generates the per-dimension `@property` lines of the `Props` typedef
- * (src/lib/LayerCake.svelte) and the `LayerCakeContext` typedef
- * (src/lib/context.js) from the dimension registry, splicing them into the
- * files in place, so adding a dimension or feature flag updates the
- * published types automatically.
+ * Writes the per-dimension documentation from the dimension registry, so
+ * adding a dimension or feature flag updates everything downstream. Four
+ * files, in two flavors:
+ *
+ * - The `Props` typedef (src/lib/LayerCake.svelte) and the `LayerCakeContext`
+ *   typedef (src/lib/context.js) – the published types.
+ * - The repeated "Same as xDomain but for the y scale" sections in guides 03
+ *   and 04 – the published docs.
  *
  * Both typedefs stay plain object literals – no cross-module type
  * intersections – because svelte2tsx (which emits LayerCake.svelte.d.ts
@@ -15,12 +18,15 @@
  *
  * Freshness is also enforced by test/lib/dimensionsRegistry.test.js.
  *
- * There are deliberately no marker comments fencing the generated lines:
+ * The two flavors are spliced differently, and the reason is worth knowing.
+ * The JSDoc targets have no marker comments fencing them, deliberately:
  * TypeScript ends a `@typedef`'s property list at the first non-`@property`
  * tag, so an inline sentinel would silently drop every following prop from
- * the emitted d.ts. Instead the generated lines are kept as the tail of each
- * typedef and the header prose names the boundary. The splice below is keyed
- * on property names, not markers.
+ * the emitted d.ts. Those generated lines are kept as the tail of each typedef
+ * and spliced by property name, with the header prose naming the boundary.
+ * Markdown has no such hazard, so the guides do use `<!-- generated:X -->`
+ * markers, which keeps the hand-written primary section next to the siblings
+ * it explains.
  */
 import { readFileSync, writeFileSync } from 'fs';
 
@@ -338,10 +344,165 @@ export function spliceDimensionLines(source, generatedLines) {
 	return kept.join('\n');
 }
 
+/*
+ * Guide sections.
+ *
+ * Guides 03 and 04 document one dimension per family by hand – `xDomain` gets
+ * the real explanation – and then repeat it for every sibling ("Same as
+ * xDomain but for the y scale"). Those repeats are what we generate, so a new
+ * dimension can't ship undocumented.
+ *
+ * Unlike the JSDoc targets, markdown can carry marker comments safely, so each
+ * run of siblings sits between `<!-- generated:Domain -->` and its closing tag.
+ * The hand-written primary section stays put, above the markers.
+ *
+ * `primaryLink` is spelled out per guide rather than derived: the site dedupes
+ * heading slugs across guide files, so `xDomain` anchors as `#xdomain` in the
+ * props guide but `#xdomain-1` in the context guide.
+ */
+
+/** The link label and target for a family's hand-written section, per guide. */
+const PROPS_GUIDE = 'src/content/guide/03-layercake-props.md';
+const CONTEXT_GUIDE = 'src/content/guide/04-computed-context-values.md';
+
+/** @type {Array<{path: string, families: Object.<string, {heading: (dim: any) => string, body: (dim: any) => string}>}>} */
+export const GUIDES = [
+	{
+		path: PROPS_GUIDE,
+		families: {
+			Scale: {
+				heading: dim => `d3.${defaultScaleName(dim)}`,
+				body: dim =>
+					`Same as [xScale](/guide#xscale) but for the ${dim.name} scale. The default is \`d3.${defaultScaleName(dim)}\`.`
+			},
+			Domain: {
+				heading: () => 'Array:[min: number|null, max: number|null]|Array<number|string>|Function',
+				body: dim => `Same as [xDomain](/guide#xdomain) but for the ${dim.name} scale.`
+			},
+			Range: {
+				heading: dim =>
+					(CUSTOM[dim.name] || {}).rangeType
+						? 'Array<string|number>|Function'
+						: 'Function|Array:[min: number, max: number]|Array<number|string>',
+				body: dim => {
+					const custom = (CUSTOM[dim.name] || {}).range;
+					if (custom) return custom;
+					const fact = FACTS[dim.name] || {};
+					// A nested dimension's range defaults to its parent's bandwidth, so
+					// "same as xRange" would be actively misleading here
+					if (fact.parent) {
+						return `Same as [xRange](/guide#xrange) but for the ${dim.name} scale, which defaults to the bandwidth of the ${fact.parent} scale. Pass a function to customize it – it receives \`({ width, height, scales })\`, e.g. \`${dim.name}Range={({ scales }) => [0, scales.${fact.parent}.bandwidth() / 2]}\`.`;
+					}
+					return `Same as [xRange](/guide#xrange) but for the ${dim.name} scale.`;
+				}
+			},
+			Nice: {
+				// Matches the hand-written xNice heading: the default hangs off the
+				// boolean, so it reads `boolean=false|number`, not `boolean|number=false`
+				heading: dim =>
+					(FACTS[dim.name] || {}).niceType === 'boolean' ? 'boolean=false' : 'boolean=false|number',
+				body: dim => `Same as [xNice](/guide#xnice) but for the ${dim.name} domain.`
+			},
+			Padding: {
+				heading: () => 'Array:[leftPixels: number, rightPixels: number]',
+				body: dim => `Same as [xPadding](/guide#xpadding) but for the ${dim.name} domain.`
+			},
+			Reverse: {
+				heading: dim => `boolean=${dim.name === 'y' ? 'true' : 'false'}`,
+				body: dim => `Same as [xReverse](/guide#xreverse) but for the ${dim.name} range.`
+			},
+			DomainSort: {
+				heading: () => 'boolean=false',
+				body: dim =>
+					dim.name === 'x1'
+						? 'Same as [xDomainSort](/guide#xdomainsort) but for the x1 domain, which controls the order of the groups in a [grouped column chart](/example/ColumnGrouped).'
+						: `Same as [xDomainSort](/guide#xdomainsort) but for the ${dim.name} domain.`
+			}
+		}
+	},
+	{
+		path: CONTEXT_GUIDE,
+		families: {
+			'': {
+				heading: () => 'Function',
+				body: dim => `Same as [x](/guide#x-1) but for the ${dim.name} dimension.`
+			},
+			Scale: {
+				heading: () => 'Function',
+				body: dim => `Same as [xScale](/guide#xscale-1) but for the ${dim.name} scale.`
+			},
+			Domain: {
+				heading: () => 'Array:[min: number, max: number]',
+				body: dim => `Same as [xDomain](/guide#xdomain-1) above but for the ${dim.name} domain.`
+			},
+			Range: {
+				heading: () => 'Array:[min: number, max: number]',
+				body: dim => `Same as [xRange](/guide#xrange-1) above but for the ${dim.name} domain.`
+			},
+			Get: {
+				heading: () => '(d: `Object`)',
+				body: dim => `Same as [xGet](/guide#xget) but for the ${dim.name} scale.`
+			}
+		}
+	}
+];
+
+/**
+ * The markdown for one family's sibling sections, i.e. every dimension that
+ * supports the family except the hand-written primary, `x`.
+ * @param {{heading: (dim: any) => string, body: (dim: any) => string}} template
+ * @param {string} suffix
+ * @returns {string}
+ */
+export function generateGuideFamily(template, suffix) {
+	const family = familiesBySuffix[suffix];
+	const blocks = [];
+	for (const dimension of DIMENSIONS) {
+		if (dimension.name === 'x' || !dimensionHasFamily(dimension, family)) continue;
+		const name = `${dimension.name}${suffix}`;
+		const heading = template.heading(dimension);
+		// The Get family renders its args inside the heading rather than after it
+		const title = suffix === 'Get' ? `${name}${heading}` : `${name} \`${heading}\``;
+		blocks.push(`### ${title}\n\n${template.body(dimension)}`);
+	}
+	return blocks.join('\n\n');
+}
+
+/**
+ * Replace the contents of each `<!-- generated:X -->` region in a markdown
+ * file. Missing markers are an error – silently skipping them is how a
+ * dimension goes undocumented in the first place.
+ * @param {string} source
+ * @param {Object.<string, {heading: (dim: any) => string, body: (dim: any) => string}>} families
+ * @param {string} path Only used for the error message.
+ * @returns {string}
+ */
+export function spliceGuideSections(source, families, path) {
+	let next = source;
+	for (const [suffix, template] of Object.entries(families)) {
+		const key = suffix === '' ? 'accessor' : suffix;
+		const open = `<!-- generated:${key} -->`;
+		const close = `<!-- /generated:${key} -->`;
+		const start = next.indexOf(open);
+		const end = next.indexOf(close);
+		if (start === -1 || end === -1 || end < start) {
+			throw new Error(`[generateDimensionDocs] ${path} is missing the ${open} … ${close} markers.`);
+		}
+		const body = generateGuideFamily(template, suffix);
+		next = `${next.slice(0, start + open.length)}\n\n${body}\n\n${next.slice(end)}`;
+	}
+	return next;
+}
+
 /** The files the generator owns dimension lines in, with their comment prefixes. */
 export const TARGETS = [
 	{ path: 'src/lib/LayerCake.svelte', generate: () => generatePropLines('\t * ') },
-	{ path: 'src/lib/context.js', generate: () => generateContextLines(' * ') }
+	{ path: 'src/lib/context.js', generate: () => generateContextLines(' * ') },
+	...GUIDES.map(guide => ({
+		path: guide.path,
+		splice: (/** @type {string} */ source) =>
+			spliceGuideSections(source, guide.families, guide.path)
+	}))
 ];
 
 // CLI
@@ -351,7 +512,10 @@ if (isCli) {
 	let stale = false;
 	for (const target of TARGETS) {
 		const current = readFileSync(target.path, 'utf-8');
-		const next = spliceDimensionLines(current, target.generate());
+		// JSDoc targets splice by property name; markdown targets by marker comment
+		const next = target.splice
+			? target.splice(current)
+			: spliceDimensionLines(current, target.generate());
 		if (next === current) {
 			console.log(`[generateDimensionDocs] ${target.path} is up to date.`);
 		} else if (check) {

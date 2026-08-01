@@ -57,18 +57,40 @@ describe('dimensions registry typedef generation', () => {
 			const source = repoFile(target.path);
 
 			it('is up to date with the registry', () => {
+				// Markdown targets splice on marker comments, JSDoc targets on property names
+				const regenerated = target.splice
+					? target.splice(source)
+					: spliceDimensionLines(source, target.generate());
 				assert.strictEqual(
-					spliceDimensionLines(source, target.generate()),
+					regenerated,
 					source,
-					`The dimension @property lines in ${target.path} are stale. Run \`npm run generate:dims\` and commit the result.`
+					`${target.path} is stale. Run \`npm run generate:dims\` and commit the result.`
 				);
 			});
 
-			it('declares exactly the keys the registry generates', () => {
-				const declared = declaredDimensionProperties(source);
-				const expected = expectedByPath[target.path];
-				assert.deepStrictEqual([...declared].sort(), [...expected].sort());
-			});
+			const expected = expectedByPath[target.path];
+			if (expected) {
+				it('declares exactly the keys the registry generates', () => {
+					const declared = declaredDimensionProperties(source);
+					assert.deepStrictEqual([...declared].sort(), [...expected].sort());
+				});
+			}
 		});
+	});
+});
+
+describe('guide documents every dimension prop', () => {
+	// The generator only fills the marker regions, so a prop could still go
+	// undocumented if nobody adds a region for its family. This catches that.
+	const source = repoFile('src/content/guide/03-layercake-props.md');
+	const documented = new Set([...source.matchAll(/^### (\w+) /gm)].map(m => m[1]));
+
+	it('has a section for every prop the registry accepts', () => {
+		const missing = expectedProps.filter(name => !documented.has(name));
+		assert.deepStrictEqual(
+			missing,
+			[],
+			`These props are accepted but undocumented in the guide: ${missing.join(', ')}`
+		);
 	});
 });

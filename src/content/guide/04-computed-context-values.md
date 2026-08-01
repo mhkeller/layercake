@@ -96,6 +96,8 @@ The x accessor. This will always be a function regardless of whether you passed 
 {/each}
 ```
 
+<!-- generated:accessor -->
+
 ### y `Function`
 
 Same as [x](/guide#x-1) but for the y dimension.
@@ -108,9 +110,23 @@ Same as [x](/guide#x-1) but for the z dimension.
 
 Same as [x](/guide#x-1) but for the r dimension.
 
-### x1, y1, c and c1 `Function`
+### x1 `Function`
 
-Same as [x](/guide#x-1) but for the nested x1 and y1 dimensions – useful for grouped charts such as [grouped columns](/example/ColumnGrouped) – and the color dimensions c and c1. Like every dimension, they each also expose their computed scale, domain, range and getter on the context, e.g. `c.x1Scale`, `c.cGet(d)`.
+Same as [x](/guide#x-1) but for the x1 dimension.
+
+### y1 `Function`
+
+Same as [x](/guide#x-1) but for the y1 dimension.
+
+### c `Function`
+
+Same as [x](/guide#x-1) but for the c dimension.
+
+### c1 `Function`
+
+Same as [x](/guide#x-1) but for the c1 dimension.
+
+<!-- /generated:accessor -->
 
 ### xDomain `Array:[min: number, max: number]`
 
@@ -119,6 +135,8 @@ The calculated extent of the x-dimension of the data. This is the extent of the 
 For example, if the extent of the data is `[10, 100]` and you set the xDomain prop to `[0, null]`, the xDomain on the context value is `[0, 100]`.
 
 It's equivalent to calling `c.xScale.domain()`.
+
+<!-- generated:Domain -->
 
 ### yDomain `Array:[min: number, max: number]`
 
@@ -132,11 +150,31 @@ Same as [xDomain](/guide#xdomain-1) above but for the z domain.
 
 Same as [xDomain](/guide#xdomain-1) above but for the r domain.
 
+### x1Domain `Array:[min: number, max: number]`
+
+Same as [xDomain](/guide#xdomain-1) above but for the x1 domain.
+
+### y1Domain `Array:[min: number, max: number]`
+
+Same as [xDomain](/guide#xdomain-1) above but for the y1 domain.
+
+### cDomain `Array:[min: number, max: number]`
+
+Same as [xDomain](/guide#xdomain-1) above but for the c domain.
+
+### c1Domain `Array:[min: number, max: number]`
+
+Same as [xDomain](/guide#xdomain-1) above but for the c1 domain.
+
+<!-- /generated:Domain -->
+
 ### xRange `Array:[min: number, max: number]`
 
 The range used for the x-scale. This is usually `[0, width]` unless it's been manually set via the [xRange](/guide#xrange) prop.
 
 It's equivalent to calling `c.xScale.range()`.
+
+<!-- generated:Range -->
 
 ### yRange `Array:[min: number, max: number]`
 
@@ -149,6 +187,24 @@ Same as [xRange](/guide#xrange-1) above but for the z domain.
 ### rRange `Array:[min: number, max: number]`
 
 Same as [xRange](/guide#xrange-1) above but for the r domain.
+
+### x1Range `Array:[min: number, max: number]`
+
+Same as [xRange](/guide#xrange-1) above but for the x1 domain.
+
+### y1Range `Array:[min: number, max: number]`
+
+Same as [xRange](/guide#xrange-1) above but for the y1 domain.
+
+### cRange `Array:[min: number, max: number]`
+
+Same as [xRange](/guide#xrange-1) above but for the c domain.
+
+### c1Range `Array:[min: number, max: number]`
+
+Same as [xRange](/guide#xrange-1) above but for the c1 domain.
+
+<!-- /generated:Range -->
 
 ### xGet(d: `Object`)
 
@@ -187,6 +243,8 @@ Here's an example from a simple scatter plot:
 {/each}
 ```
 
+<!-- generated:Get -->
+
 ### yGet(d: `Object`)
 
 Same as [xGet](/guide#xget) but for the y scale.
@@ -199,18 +257,56 @@ Same as [xGet](/guide#xget) but for the z scale.
 
 Same as [xGet](/guide#xget) but for the r scale.
 
+### x1Get(d: `Object`)
+
+Same as [xGet](/guide#xget) but for the x1 scale.
+
+### y1Get(d: `Object`)
+
+Same as [xGet](/guide#xget) but for the y1 scale.
+
+### cGet(d: `Object`)
+
+Same as [xGet](/guide#xget) but for the c scale.
+
+### c1Get(d: `Object`)
+
+Same as [xGet](/guide#xget) but for the c1 scale.
+
+<!-- /generated:Get -->
+
 ### xScale `Function`
 
 The calculated D3 scale for the x dimension. Call it with a value from your data's domain, e.g. `c.xScale(c.x(d))`.
 
+<!-- generated:Scale -->
+
 ### yScale `Function`
 
-Same as the above but for the y dimension.
+Same as [xScale](/guide#xscale-1) but for the y scale.
 
 ### zScale `Function`
 
-Same as the above but for the z dimension.
+Same as [xScale](/guide#xscale-1) but for the z scale.
 
 ### rScale `Function`
 
-Same as the above but for the r dimension.
+Same as [xScale](/guide#xscale-1) but for the r scale.
+
+### x1Scale `Function`
+
+Same as [xScale](/guide#xscale-1) but for the x1 scale.
+
+### y1Scale `Function`
+
+Same as [xScale](/guide#xscale-1) but for the y1 scale.
+
+### cScale `Function`
+
+Same as [xScale](/guide#xscale-1) but for the c scale.
+
+### c1Scale `Function`
+
+Same as [xScale](/guide#xscale-1) but for the c1 scale.
+
+<!-- /generated:Scale -->

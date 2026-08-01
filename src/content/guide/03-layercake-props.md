@@ -216,6 +216,8 @@ If the scale you pass in has a customized range – e.g. `zScale={scaleOrdinal(s
 
 See the [Column chart](/example/Column) for an example of passing in a `d3.scaleBand()` to override the default.
 
+<!-- generated:Scale -->
+
 ### yScale `d3.scaleLinear()`
 
 Same as [xScale](/guide#xscale) but for the y scale. The default is `d3.scaleLinear()`.
@@ -226,7 +228,25 @@ Same as [xScale](/guide#xscale) but for the z scale. The default is `d3.scaleLin
 
 ### rScale `d3.scaleSqrt()`
 
-Same as [xScale](/guide#xscale) but for the r scale. The default is [`d3.scaleSqrt()`](https://github.com/d3/d3-scale#scalesqrt).
+Same as [xScale](/guide#xscale) but for the r scale. The default is `d3.scaleSqrt()`.
+
+### x1Scale `d3.scaleBand()`
+
+Same as [xScale](/guide#xscale) but for the x1 scale. The default is `d3.scaleBand()`.
+
+### y1Scale `d3.scaleBand()`
+
+Same as [xScale](/guide#xscale) but for the y1 scale. The default is `d3.scaleBand()`.
+
+### cScale `d3.scaleOrdinal()`
+
+Same as [xScale](/guide#xscale) but for the c scale. The default is `d3.scaleOrdinal()`.
+
+### c1Scale `d3.scaleLinear()`
+
+Same as [xScale](/guide#xscale) but for the c1 scale. The default is `d3.scaleLinear()`.
+
+<!-- /generated:Scale -->
 
 ### xDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
@@ -260,6 +280,8 @@ If you set a [`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoi
 >
 ```
 
+<!-- generated:Domain -->
+
 ### yDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
 Same as [xDomain](/guide#xdomain) but for the y scale.
@@ -272,11 +294,31 @@ Same as [xDomain](/guide#xdomain) but for the z scale.
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 
+### x1Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+
+Same as [xDomain](/guide#xdomain) but for the x1 scale.
+
+### y1Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+
+Same as [xDomain](/guide#xdomain) but for the y1 scale.
+
+### cDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+
+Same as [xDomain](/guide#xdomain) but for the c scale.
+
+### c1Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+
+Same as [xDomain](/guide#xdomain) but for the c1 scale.
+
+<!-- /generated:Domain -->
+
 ### xDomainSort `boolean=false`
 
 Taken into account only when the x-scale is ordinal. If `true`, sets whether the calculated unique items come back sorted. It uses [d3.ascending](https://d3js.org/d3-array/sort#ascending) to do the sort calculation.
 
 Set this to `false` if you want the unique items to appear in the order they were found in the data, which is the default.
+
+<!-- generated:DomainSort -->
 
 ### yDomainSort `boolean=false`
 
@@ -298,6 +340,16 @@ Same as [xDomainSort](/guide#xdomainsort) but for the x1 domain, which controls 
 
 Same as [xDomainSort](/guide#xdomainsort) but for the y1 domain.
 
+### cDomainSort `boolean=false`
+
+Same as [xDomainSort](/guide#xdomainsort) but for the c domain.
+
+### c1DomainSort `boolean=false`
+
+Same as [xDomainSort](/guide#xdomainsort) but for the c1 domain.
+
+<!-- /generated:DomainSort -->
+
 ### xPadding `Array:[leftPixels: number, rightPixels: number]`
 
 Assign a pixel value to add to the min or max of the x scale. This will increase the scale's domain by the scale unit equivalent of the provided pixels. This is useful for adding extra space to a scatter plot so that your circles don't interfere with your y-axis. It's better than fussing with the range since you don't need to add a magic number to other components, like axes.
@@ -309,6 +361,8 @@ It will log out a warning if you try to use it on a scale that has a domain or r
   xPadding= { [10, 10] } // Add ten pixels of data units to both sides of the scale's domain
 >
 ```
+
+<!-- generated:Padding -->
 
 ### yPadding `Array:[leftPixels: number, rightPixels: number]`
 
@@ -322,9 +376,13 @@ Same as [xPadding](/guide#xpadding) but for the z domain.
 
 Same as [xPadding](/guide#xpadding) but for the r domain.
 
+<!-- /generated:Padding -->
+
 ### xNice `boolean=false|number`
 
 Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice. Can also pass `count` number as argument for greater control.
+
+<!-- generated:Nice -->
 
 ### yNice `boolean=false|number`
 
@@ -334,9 +392,11 @@ Same as [xNice](/guide#xnice) but for the y domain.
 
 Same as [xNice](/guide#xnice) but for the z domain.
 
-### rNice `boolean=false|number`
+### rNice `boolean=false`
 
 Same as [xNice](/guide#xnice) but for the r domain.
+
+<!-- /generated:Nice -->
 
 ### xRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
@@ -358,23 +418,37 @@ It can also be a function:
 >
 ```
 
+<!-- generated:Range -->
+
 ### yRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the y scale. Override the default y range of `[0, height]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
-
-This overrides setting [yReverse](/guide#yreverse) to `true`.
+Same as [xRange](/guide#xrange) but for the y scale.
 
 ### zRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the z scale. Override the default z range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
-
-This overrides setting [zReverse](/guide#zreverse) to `true`.
+Same as [xRange](/guide#xrange) but for the z scale.
 
 ### rRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the r scale. Override the default r range of `[1, 25]` by setting it here to an array or function with argument `({ width, height})` that returns an array. The r scale defaults to `d3.scaleSqrt` so make sure you don't use a zero in your range.
+Same as [xRange](/guide#xrange) but for the r scale.
 
-This overrides setting [rReverse](/guide#rreverse) to `true`.
+### x1Range `Function|Array:[min: number, max: number]|Array<number|string>`
+
+Same as [xRange](/guide#xrange) but for the x1 scale, which defaults to the bandwidth of the x scale. Pass a function to customize it – it receives `({ width, height, scales })`, e.g. `x1Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+
+### y1Range `Function|Array:[min: number, max: number]|Array<number|string>`
+
+Same as [xRange](/guide#xrange) but for the y1 scale, which defaults to the bandwidth of the y scale. Pass a function to customize it – it receives `({ width, height, scales })`, e.g. `y1Range={({ scales }) => [0, scales.y.bandwidth() / 2]}`.
+
+### cRange `Array<string|number>|Function`
+
+The colors of the c scale, as an array or a function with argument `({ width, height, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.
+
+### c1Range `Array<string|number>|Function`
+
+The range of the c1 scale, such as a list of opacity values. Defaults to `[0, 1]`.
+
+<!-- /generated:Range -->
 
 ### xReverse `boolean=false`
 
@@ -382,23 +456,21 @@ Reverse the default x range. By default this is `false` and the range is `[0, wi
 
 This is ignored if you set [xRange](/guide#xrange).
 
+<!-- generated:Reverse -->
+
 ### yReverse `boolean=true`
 
-Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless the `yScale` has a `.bandwidth` method (such as `scaleBand` or `scalePoint`) in which case this is `false`.
-
-This is ignored if you set [yRange](/guide#yrange).
+Same as [xReverse](/guide#xreverse) but for the y range.
 
 ### zReverse `boolean=false`
 
-Reverse the default z range. By default this is `false` and the range is `[0, width]`.
-
-This is ignored if you set [zRange](/guide#zrange).
+Same as [xReverse](/guide#xreverse) but for the z range.
 
 ### rReverse `boolean=false`
 
-Reverse the default r range. By default this is `false` and the range is `[1, 25]`.
+Same as [xReverse](/guide#xreverse) but for the r range.
 
-This is ignored if you set [rRange](/guide#rrange).
+<!-- /generated:Reverse -->
 
 ### flatData `Array`
 

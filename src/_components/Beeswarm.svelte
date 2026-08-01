@@ -13,7 +13,7 @@
 	 * @property {number} [strokeWidth=0] - The circle's stroke width in pixels.
 	 * @property {string} [stroke='#fff'] - The circle's stroke color.
 	 * @property {number} [spacing=1.5] - Whitespace padding between each circle, in pixels
-	 * @property {Function} [getTitle] - An accessor function to get the field on the data element to display as a hover label using a `<title>` tag.
+	 * @property {Function} [getTitle] - An accessor function that receives a row of your data and returns the field to display as a hover label using a `<title>` tag.
 	 */
 
 	/** @type {Props} */
@@ -21,9 +21,9 @@
 
 	function dodge(data, { rds = 1, x = d => d } = {}) {
 		const radius2 = rds ** 2;
-		const circles = data
-			.map(d => ({ x: x(d), [c.config.c]: d[c.config.c], data: d }))
-			.sort((a, b) => a.x - b.x);
+		// Each circle keeps its row on `data` – read anything you need off that
+		// rather than copying fields up, which only works for string accessors
+		const circles = data.map(d => ({ x: x(d), data: d })).sort((a, b) => a.x - b.x);
 		const epsilon = 1e-3;
 		let head = null,
 			tail = null;
@@ -73,7 +73,7 @@
 <g class="bee-group">
 	{#each circles as d}
 		<circle
-			fill={c.cGet(d)}
+			fill={c.cGet(d.data)}
 			{stroke}
 			stroke-width={strokeWidth}
 			cx={d.x}
@@ -81,7 +81,7 @@
 			{r}
 		>
 			{#if getTitle}
-				<title>{getTitle(d)}</title>
+				<title>{getTitle(d.data)}</title>
 			{/if}
 		</circle>
 	{/each}

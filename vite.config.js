@@ -7,7 +7,7 @@ const config = {
 	plugins: [sveltekit(), dsv()],
 	resolve: {
 		alias: {
-			layercake: [path.resolve('src/lib')]
+			layercake: path.resolve('src/lib')
 		}
 	}
 };

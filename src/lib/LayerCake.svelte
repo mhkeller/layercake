@@ -19,8 +19,10 @@
 
 	import calcScaleExtents from './helpers/calcScaleExtents.js';
 	import printDebug from './helpers/printDebug.js';
+	import createEmptySizeWarner from './helpers/createEmptySizeWarner.js';
 
 	const printDebug_debounced = debounce(printDebug, 200);
+	const warnEmptySize = createEmptySizeWarner();
 
 	/**
 	 * The shapes the dimension props share, pulled in by name so the typedef
@@ -41,9 +43,7 @@
 	 * @property {boolean} [ssr] - Whether this chart should be rendered server side.
 	 * @property {boolean} [pointerEvents] - Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction.
 	 * @property {string} [position] - Determine the positioning of the wrapper div. Set this to `'absolute'` when you want to stack cakes.
-	 * @property {boolean} [percentRange] - If `true`, set all scale ranges to `[0, 100]`. Ranges reversed via `xReverse`, `yReverse`, `zReverse` or `rReverse` props will continue to be reversed as usual.
-	 * @property {number} [width] - Override the automated width.
-	 * @property {number} [height] - Override the automated height.
+	 * @property {boolean} [percentRange] - If `true`, set the range of every dimension that measures against the container – x, y, z and r – to `[0, 100]`. The nested (`x1`, `y1`) and color (`c`, `c1`) dimensions keep their own defaults. Ranges reversed via `xReverse`, `yReverse`, `zReverse` or `rReverse` will continue to be reversed as usual, and an explicit `xRange` or a range you baked into a scale you passed in still wins.
 	 * @property {number} [containerWidth] - The bound container width.
 	 * @property {number} [containerHeight] - The bound container height.
 	 * @property {Element|undefined} [element] - The .layercake-container `<div>` tag. Useful for bindings.
@@ -114,10 +114,11 @@
 		pointerEvents = true,
 		position = 'relative',
 		percentRange = false,
-		width: widthProp = undefined,
-		height: heightProp = undefined,
-		containerWidth = $bindable(widthProp || 100),
-		containerHeight = $bindable(heightProp || 100),
+		// 100 is the size a server-side render draws at, since there's no container
+		// to measure there. In the browser it's replaced by the real size as soon as
+		// the container reports one.
+		containerWidth = $bindable(100),
+		containerHeight = $bindable(100),
 		element = $bindable(undefined),
 		data = [],
 		padding: paddingProp = {},
@@ -174,16 +175,7 @@
 	// warning – and that's the broken chart we most want to catch.
 	$effect(() => {
 		if (verbose === true) {
-			if (width <= 0) {
-				console.warn(
-					'[LayerCake] Target div has zero or negative width. Did you forget to set an explicit width in CSS on the container?'
-				);
-			}
-			if (height <= 0) {
-				console.warn(
-					'[LayerCake] Target div has zero or negative height. Did you forget to set an explicit height in CSS on the container?'
-				);
-			}
+			warnEmptySize(width, height);
 		}
 	});
 

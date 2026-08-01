@@ -51,9 +51,12 @@ describe('createEmptySizeWarner', () => {
 
 	// The first call happens before the container has reported its size, so an
 	// eager warner would call every chart with more than 100px of padding broken
-	it('waits rather than warning on the spot', () => {
+	it('waits rather than warning on the spot', async () => {
 		createEmptySizeWarner()(0, 0);
 		assert.deepStrictEqual(warnings, []);
+		// Let it land rather than leaving a timer to fire into the next test
+		await settle();
+		assert.strictEqual(warnings.length, 2);
 	});
 
 	// This is why each chart builds its own warner instead of sharing one

@@ -1,6 +1,8 @@
 import { scaleLinear, scaleSqrt, scaleBand, scaleOrdinal } from 'd3-scale';
 
 import hasBandwidth from '../utils/hasBandwidth.js';
+import isOrdinalDomain from '../helpers/isOrdinalDomain.js';
+import nestedRange from '../helpers/nestedRange.js';
 
 /**
  * The values available to a dimension's default range function. Every
@@ -8,6 +10,7 @@ import hasBandwidth from '../utils/hasBandwidth.js';
  * @typedef {Object} DimensionRangeContext
  * @property {number} width The calculated chart width, i.e. the container width minus padding.
  * @property {number} height The calculated chart height, i.e. the container height minus padding.
+ * @property {boolean} percentRange Whether the container-relative dimensions are measuring in percent rather than pixels.
  * @property {Object.<string, any>} scales The computed scales of sibling dimensions, e.g. `scales.x`. Only nested dimensions such as `x1` should reference siblings – a dimension referencing its own scale would create a cycle.
  */
 
@@ -79,16 +82,14 @@ export const DIMENSIONS = [
 	{
 		name: 'x1',
 		defaultScale: scaleBand,
-		defaultRange: ctx =>
-			hasBandwidth(ctx.scales.x) ? [0, ctx.scales.x.bandwidth()] : [0, ctx.width],
+		defaultRange: ctx => nestedRange(ctx.scales.x, ctx.percentRange === true ? 100 : ctx.width),
 		canBePercentRange: false,
 		features: { domainSort: true }
 	},
 	{
 		name: 'y1',
 		defaultScale: scaleBand,
-		defaultRange: ctx =>
-			hasBandwidth(ctx.scales.y) ? [0, ctx.scales.y.bandwidth()] : [0, ctx.height],
+		defaultRange: ctx => nestedRange(ctx.scales.y, ctx.percentRange === true ? 100 : ctx.height),
 		canBePercentRange: false,
 		features: { domainSort: true }
 	},
@@ -171,6 +172,15 @@ export const FAMILIES_BY_DIMENSION = Object.freeze(
 	Object.fromEntries(
 		DIMENSIONS.map(d => [d.name, DIMENSION_KEY_FAMILIES.filter(f => dimensionHasFamily(d, f))])
 	)
+);
+
+/**
+ * Whether each dimension's default scale measures unique values rather than a
+ * min and max, keyed by dimension name.
+ * @type {Object.<string, boolean>}
+ */
+export const DEFAULT_IS_ORDINAL = Object.freeze(
+	Object.fromEntries(DIMENSIONS.map(d => [d.name, isOrdinalDomain(d.defaultScale())]))
 );
 
 /**

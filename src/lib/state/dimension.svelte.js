@@ -4,6 +4,7 @@ import createScale from '../helpers/createScale.js';
 import createGetter from '../helpers/createGetter.js';
 import getRange from '../helpers/getRange.js';
 import isOrdinalDomain from '../helpers/isOrdinalDomain.js';
+import { DEFAULT_IS_ORDINAL } from '../settings/dimensions.js';
 
 /**
  * The reactive chart-level values a dimension reads. Every property is a
@@ -21,8 +22,9 @@ import isOrdinalDomain from '../helpers/isOrdinalDomain.js';
  * just the ones in use. Unsupported features resolve to inert defaults so their
  * pipeline steps no-op.
  *
- * A dimension is active once the user sets its accessor, domain or scale
- * prop. Inactive dimensions return `undefined` for all computed values.
+ * A dimension is active once the user sets any of its four configurable props –
+ * the accessor, domain, scale or range. Inactive dimensions return `undefined`
+ * for all computed values.
  * @param {import('../settings/dimensions.js').Dimension} dimension The dimension's definition from settings/dimensions.js – its name, default scale and so on.
  * @param {() => Object.<string, any>} getProps Returns the dimension props object, read reactively by name, e.g. `getProps().xDomain`.
  * @param {DimensionContext} ctx Reactive chart-level values.
@@ -40,7 +42,12 @@ export default function createDimension(dimension, getProps, ctx) {
 	const domainProp = $derived(props[`${name}Domain`]);
 	const rangeProp = $derived(props[`${name}Range`]);
 
-	const active = $derived(accessor !== null || domainProp !== undefined || scaleProp !== undefined);
+	const active = $derived(
+		accessor !== null ||
+			domainProp !== undefined ||
+			scaleProp !== undefined ||
+			rangeProp !== undefined
+	);
 
 	const nice = $derived(features.nice === true ? (props[`${name}Nice`] ?? false) : false);
 	const padding = $derived(features.padding === true ? props[`${name}Padding`] : undefined);
@@ -57,9 +64,13 @@ export default function createDimension(dimension, getProps, ctx) {
 	/**
 	 * Whether this dimension measures unique values rather than a min and max.
 	 * Answered from the props alone, because the extents have to be measured
-	 * before the real scale – which needs a domain – can exist.
+	 * before the real scale – which needs a domain – can exist. When the user
+	 * didn't pass a scale the answer is already in the registry, so we don't
+	 * build one just to ask.
 	 */
-	const isOrdinal = $derived(isOrdinalDomain(scaleProp ?? dimension.defaultScale()));
+	const isOrdinal = $derived(
+		scaleProp !== undefined ? isOrdinalDomain(scaleProp) : DEFAULT_IS_ORDINAL[name]
+	);
 
 	const domain = $derived(active === true ? calcDomain(name, ctx.extents, domainProp) : undefined);
 

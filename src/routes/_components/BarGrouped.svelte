@@ -2,30 +2,30 @@
 	import { LayerCake, Svg } from 'layercake';
 	import { scaleBand } from 'd3-scale';
 
-	import ColumnGrouped from '../../_components/ColumnGrouped.svelte';
+	import BarGrouped from '../../_components/BarGrouped.svelte';
 
-	// A flat list of rows, one per column: { year, fruit, value }
+	// A flat list of rows, one per bar: { year, fruit, value }
 	import data from '../../_data/yearGroupsLong.js';
 
-	const xKey = 'year';
-	const x1Key = 'fruit';
-	const yKey = 'value';
+	const xKey = 'value';
+	const yKey = 'year';
+	const y1Key = 'fruit';
 	const cKey = 'fruit';
 </script>
 
 <div class="chart-container">
 	<LayerCake
-		padding={{ top: 10 }}
+		padding={{ right: 10 }}
 		x={xKey}
-		x1={x1Key}
 		y={yKey}
+		y1={y1Key}
 		c={cKey}
-		xScale={scaleBand().paddingInner(0.1).round(true)}
-		yDomain={[0, null]}
+		yScale={scaleBand().paddingInner(0.1).round(true)}
+		xDomain={[0, null]}
 		{data}
 	>
 		<Svg>
-			<ColumnGrouped />
+			<BarGrouped />
 		</Svg>
 	</LayerCake>
 </div>

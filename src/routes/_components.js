@@ -10,6 +10,7 @@ import AxisXTop from './_components/AxisXTop.svelte';
 import AxisY from './_components/AxisY.svelte';
 import AxisYRight from './_components/AxisYRight.svelte';
 import Bar from './_components/Bar.svelte';
+import BarGrouped from './_components/BarGrouped.svelte';
 import BarStacked from './_components/BarStacked.svelte';
 import Beeswarm from './_components/Beeswarm.svelte';
 import BeeswarmHtml from './_components/Beeswarm.html.svelte';
@@ -76,6 +77,7 @@ export default [
 			{ slug: 'Area-D3.svelte', component: AreaD3 },
 			{ slug: 'AreaStacked.svelte', component: AreaStacked },
 			{ slug: 'Bar.svelte', component: Bar },
+			{ slug: 'BarGrouped.svelte', component: BarGrouped },
 			{ slug: 'BarStacked.svelte', component: BarStacked },
 			{ slug: 'Beeswarm.svelte', component: Beeswarm },
 			{ slug: 'Beeswarm.html.svelte', component: BeeswarmHtml },

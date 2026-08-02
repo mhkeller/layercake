@@ -2,46 +2,45 @@
 	import { LayerCake, Svg } from 'layercake';
 	import { scaleBand } from 'd3-scale';
 
-	import ColumnGrouped from '../../_components/ColumnGrouped.svelte';
+	import BarGrouped from '../../_components/BarGrouped.svelte';
 	import AxisX from '../../_components/AxisX.svelte';
 	import AxisY from '../../_components/AxisY.svelte';
 
-	// A flat list of rows, one per column: { year, fruit, value }
+	// A flat list of rows, one per bar: { year, fruit, value }
 	import data from '../../_data/yearGroupsLong.js';
 
-	const xKey = 'year';
-	const x1Key = 'fruit';
-	const yKey = 'value';
+	const xKey = 'value';
+	const yKey = 'year';
+	const y1Key = 'fruit';
 
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
 
-	// `x1="fruit"` is the whole setup for the within-group position: x1 is a
+	// `y1="fruit"` is the whole setup for the within-group position: y1 is a
 	// scaleBand by default, its domain comes from the data, and its range is one
-	// x band wide. Pass `x1Scale` if you want to customize the padding such
-	// x1Scale={scaleBand().paddingInner(0.1).round(true)}
+	// x band wide. Pass `y1Scale` if you want to customize the padding such
+	// y1Scale={scaleBand().paddingInner(0.1).round(true)}
 
-	// Alternatively, the same chart works without `x1`
+	// Alternatively, the same chart works without `y1`
 	// by deriving a scale inside your component:
-	// const x1Scale = $derived(scaleBand().domain(fruits).range([0, c.xScale.bandwidth()]));
+	// const y1Scale = $derived(scaleBand().domain(fruits).range([0, c.yScale.bandwidth()]));
 </script>
 
 <div class="chart-container">
 	<LayerCake
-		padding={{ top: 10, right: 0, bottom: 20, left: 20 }}
+		padding={{ bottom: 20, left: 35 }}
 		x={xKey}
-		x1={x1Key}
 		y={yKey}
-		c={x1Key}
-		xScale={scaleBand().paddingInner(0.1).round(true)}
-		yDomain={[0, null]}
+		y1={y1Key}
+		c={y1Key}
+		yScale={scaleBand().paddingInner(0.1).round(true)}
+		xDomain={[0, null]}
 		cRange={seriesColors}
 		{data}
 	>
 		<Svg>
-			<AxisX gridlines={false} />
-
-			<AxisY snapBaselineLabel />
-			<ColumnGrouped />
+			<AxisX tickMarks baseline snapLabels gridlines={false} />
+			<AxisY tickMarks gridlines={false} />
+			<BarGrouped />
 		</Svg>
 	</LayerCake>
 </div>

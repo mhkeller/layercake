@@ -4,6 +4,8 @@ import MapSvg from './_examples_ssr/MapSvg.svelte';
 import Column from './_examples_ssr/Column.svelte';
 import AreaStacked from './_examples_ssr/AreaStacked.svelte';
 import ColumnStacked from './_examples_ssr/ColumnStacked.svelte';
+import ColumnGrouped from './_examples_ssr/ColumnGrouped.svelte';
+import BarGrouped from './_examples_ssr/BarGrouped.svelte';
 import MultiLine from './_examples_ssr/MultiLine.svelte';
 import MapLayered from './_examples_ssr/MapLayered.svelte';
 import Bar from './_examples_ssr/Bar.svelte';
@@ -47,6 +49,16 @@ export default [
 		title: 'Stacked column',
 		slug: 'ColumnStacked',
 		component: ColumnStacked
+	},
+	{
+		title: 'Grouped column',
+		slug: 'ColumnGrouped',
+		component: ColumnGrouped
+	},
+	{
+		title: 'Grouped bar',
+		slug: 'BarGrouped',
+		component: BarGrouped
 	},
 	{
 		title: 'Bar',

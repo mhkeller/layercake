@@ -14,7 +14,12 @@ export async function load({ fetch, params }) {
 			content,
 			active: slug
 		};
-	} else {
-		error(500, `Could not load ${url}: ${content.message}`);
 	}
+
+	// Pass the endpoint's own status along so asking for a component that isn't there
+	// is a 404. Anything outside the error range means something else went wrong.
+	error(
+		res.status >= 400 && res.status <= 599 ? res.status : 500,
+		`Could not load ${url}: ${content.message}`
+	);
 }

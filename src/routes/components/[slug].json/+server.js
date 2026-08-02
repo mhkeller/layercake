@@ -75,11 +75,11 @@ export async function GET({ params }) {
 		};
 	});
 
-	const componentDescription = fromMain
-		.split('<script>')[0]
-		.replace('<!--', '')
-		.replace('-->', '')
-		.split('@component')[1];
+	// Wrapper components like SmallMultipleWrapper have no @component comment, so there's
+	// nothing to split on and we send back an empty description
+	const componentDescription =
+		fromMain.split('<script>')[0].replace('<!--', '').replace('-->', '').split('@component')[1] ||
+		'';
 	const jsdocPropertyMatches = fromMain.matchAll(/(@property [^\n]*)/gm);
 	const propertiesDefaultValues = fromMain.match(/let\s+\{([\s\S]*?)\} = \$props/m);
 	let defaultValues = {};

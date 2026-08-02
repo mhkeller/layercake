@@ -60,8 +60,8 @@ const FACTS = {
 	y: { defaultRangeText: '[0, height]', reversedRangeText: '[height, 0]' },
 	z: { defaultRangeText: '[0, width]' },
 	r: { defaultRangeText: '[1, 25]', niceType: 'boolean' },
-	x1: { parent: 'x', chartExample: 'grouped column charts' },
-	y1: { parent: 'y', chartExample: 'grouped bar charts' }
+	x2: { parent: 'x', chartExample: 'grouped column charts' },
+	y2: { parent: 'y', chartExample: 'grouped bar charts' }
 };
 
 /** Prose that is unique to one dimension and not worth templating. */
@@ -74,12 +74,12 @@ const CUSTOM = {
 		guideRangeType: 'Array<string|number>|Function',
 		contextAccessor: 'The c (color) accessor.'
 	},
-	c1: {
+	c2: {
 		accessor:
-			'The c1 accessor, a second color-like dimension, useful for encoding opacity alongside color. Defaults to a linear scale mapping the data extent to `[0, 1]`.',
-		range: 'The range of the c1 scale, such as a list of opacity values. Defaults to `[0, 1]`.',
+			'The c2 accessor, a second color-like dimension, useful for encoding opacity alongside color. Defaults to a linear scale mapping the data extent to `[0, 1]`.',
+		range: 'The range of the c2 scale, such as a list of opacity values. Defaults to `[0, 1]`.',
 		guideRangeType: 'Array<string|number>|Function',
-		contextAccessor: 'The c1 accessor, for a second color-like scale such as opacity.'
+		contextAccessor: 'The c2 accessor, for a second color-like scale such as opacity.'
 	}
 };
 
@@ -431,8 +431,8 @@ export const GUIDES = [
 			DomainSort: {
 				heading: () => 'boolean=false',
 				body: dim =>
-					dim.name === 'x1'
-						? 'Same as [xDomainSort](/guide#xdomainsort) but for the x1 domain, which controls the order of the groups in a [grouped column chart](/example/ColumnGrouped).'
+					dim.name === 'x2'
+						? 'Same as [xDomainSort](/guide#xdomainsort) but for the x2 domain, which controls the order of the groups in a [grouped column chart](/example/ColumnGrouped).'
 						: `Same as [xDomainSort](/guide#xdomainsort) but for the ${dim.name} domain.`
 			}
 		}

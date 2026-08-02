@@ -11,11 +11,11 @@
 
 	const xKey = 'value';
 	const yKey = 'year';
-	const y1Key = 'fruit';
+	const y2Key = 'fruit';
 
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
 
-	// The y1 range comes from the y scale's bandwidth, so under `percentRange`
+	// The y2 range comes from the y scale's bandwidth, so under `percentRange`
 	// the nested offsets land in percent units too, same as everything else
 	// inside the ScaledSvg.
 </script>
@@ -27,8 +27,8 @@
 		padding={{ top: 0, right: 20, bottom: 20, left: 35 }}
 		x={xKey}
 		y={yKey}
-		y1={y1Key}
-		c={y1Key}
+		y2={y2Key}
+		c={y2Key}
 		yScale={scaleBand().paddingInner(0.1)}
 		xDomain={[0, null]}
 		cRange={seriesColors}

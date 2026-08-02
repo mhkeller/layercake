@@ -158,45 +158,45 @@ const tests = [
 	// Nested dimensions read their parent scale's bandwidth
 	// and fall back to the chart dimension without one
 	{
-		args: [dims.x1, { ctx: ctx({ scales: { x: scaleBand().range([0, w]).domain(['a', 'b']) } }) }],
+		args: [dims.x2, { ctx: ctx({ scales: { x: scaleBand().range([0, w]).domain(['a', 'b']) } }) }],
 		expected: [0, w / 2]
 	},
-	{ args: [dims.x1, { ctx: ctx() }], expected: [0, w] },
+	{ args: [dims.x2, { ctx: ctx() }], expected: [0, w] },
 	{
-		args: [dims.y1, { ctx: ctx({ scales: { y: scaleBand().range([0, h]).domain(['a', 'b']) } }) }],
+		args: [dims.y2, { ctx: ctx({ scales: { y: scaleBand().range([0, h]).domain(['a', 'b']) } }) }],
 		expected: [0, h / 2]
 	},
-	{ args: [dims.y1, { ctx: ctx() }], expected: [0, h] },
+	{ args: [dims.y2, { ctx: ctx() }], expected: [0, h] },
 
 	// A parent without bandwidth still lends its units, so a nested dimension
 	// never mixes percentages and pixels (#nested-range)
 	{
 		args: [
-			dims.x1,
+			dims.x2,
 			{ ctx: ctx({ scales: { x: scaleLinear().range([0, 100]) }, percentRange: true }) }
 		],
 		expected: [0, 100]
 	},
 	{
 		args: [
-			dims.y1,
+			dims.y2,
 			{ ctx: ctx({ scales: { y: scaleLinear().range([100, 0]) }, percentRange: true }) }
 		],
 		expected: [0, 100]
 	},
 	// ...and with no parent at all it falls back to the chart in those same units
-	{ args: [dims.x1, { ctx: ctx({ percentRange: true }) }], expected: [0, 100] },
-	{ args: [dims.y1, { ctx: ctx({ percentRange: true }) }], expected: [0, 100] },
+	{ args: [dims.x2, { ctx: ctx({ percentRange: true }) }], expected: [0, 100] },
+	{ args: [dims.y2, { ctx: ctx({ percentRange: true }) }], expected: [0, 100] },
 	// A parent whose range isn't a measurable span, like a color scale
 	{
-		args: [dims.x1, { ctx: ctx({ scales: { x: scaleOrdinal().range(['red', 'blue']) } }) }],
+		args: [dims.x2, { ctx: ctx({ scales: { x: scaleOrdinal().range(['red', 'blue']) } }) }],
 		expected: [0, w]
 	},
 
 	// Sibling scales are available to user-passed range functions
 	{
 		args: [
-			dims.x1,
+			dims.x2,
 			{
 				range: ({ scales }) => [0, scales.x.bandwidth() / 2],
 				ctx: ctx({ scales: { x: scaleBand().range([0, w]).domain(['a', 'b']) } })
@@ -205,12 +205,12 @@ const tests = [
 		expected: [0, w / 4]
 	},
 
-	// Color dimensions: c defaults to the categorical palette, c1 to an
+	// Color dimensions: c defaults to the categorical palette, c2 to an
 	// opacity-style [0, 1] – and percentRange applies to neither
 	{ args: [dims.c, { ctx: ctx() }], expected: schemeCategory10 },
 	{ args: [dims.c, { ctx: ctx({ percentRange: true }) }], expected: schemeCategory10 },
 	{ args: [dims.c, { range: ['#fc0', '#c0f'], ctx: ctx() }], expected: ['#fc0', '#c0f'] },
-	{ args: [dims.c1, { ctx: ctx() }], expected: [0, 1] }
+	{ args: [dims.c2, { ctx: ctx() }], expected: [0, 1] }
 ];
 
 describe(name, () => {

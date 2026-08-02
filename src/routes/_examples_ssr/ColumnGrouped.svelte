@@ -10,12 +10,12 @@
 	import data from '../../_data/yearGroupsLong.js';
 
 	const xKey = 'year';
-	const x1Key = 'fruit';
+	const x2Key = 'fruit';
 	const yKey = 'value';
 
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
 
-	// The x1 range comes from the x scale's bandwidth, so under `percentRange`
+	// The x2 range comes from the x scale's bandwidth, so under `percentRange`
 	// the nested offsets land in percent units too, same as everything else
 	// inside the ScaledSvg.
 </script>
@@ -26,9 +26,9 @@
 		percentRange
 		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
 		x={xKey}
-		x1={x1Key}
+		x2={x2Key}
 		y={yKey}
-		c={x1Key}
+		c={x2Key}
 		xScale={scaleBand().paddingInner(0.1)}
 		yDomain={[0, null]}
 		cRange={seriesColors}

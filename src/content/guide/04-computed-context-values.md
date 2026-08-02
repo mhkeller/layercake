@@ -139,21 +139,21 @@ Same as [x](/guide#x-1) but for the z dimension.
 
 Same as [x](/guide#x-1) but for the r dimension.
 
-### x1 `Function`
+### x2 `Function`
 
-Same as [x](/guide#x-1) but for the x1 dimension.
+Same as [x](/guide#x-1) but for the x2 dimension.
 
-### y1 `Function`
+### y2 `Function`
 
-Same as [x](/guide#x-1) but for the y1 dimension.
+Same as [x](/guide#x-1) but for the y2 dimension.
 
 ### c `Function`
 
 Same as [x](/guide#x-1) but for the c dimension.
 
-### c1 `Function`
+### c2 `Function`
 
-Same as [x](/guide#x-1) but for the c1 dimension.
+Same as [x](/guide#x-1) but for the c2 dimension.
 
 <!-- /generated:accessor -->
 
@@ -179,21 +179,21 @@ Same as [xDomain](/guide#xdomain-1) above but for the z domain.
 
 Same as [xDomain](/guide#xdomain-1) above but for the r domain.
 
-### x1Domain `Array:[min: number, max: number]`
+### x2Domain `Array:[min: number, max: number]`
 
-Same as [xDomain](/guide#xdomain-1) above but for the x1 domain.
+Same as [xDomain](/guide#xdomain-1) above but for the x2 domain.
 
-### y1Domain `Array:[min: number, max: number]`
+### y2Domain `Array:[min: number, max: number]`
 
-Same as [xDomain](/guide#xdomain-1) above but for the y1 domain.
+Same as [xDomain](/guide#xdomain-1) above but for the y2 domain.
 
 ### cDomain `Array:[min: number, max: number]`
 
 Same as [xDomain](/guide#xdomain-1) above but for the c domain.
 
-### c1Domain `Array:[min: number, max: number]`
+### c2Domain `Array:[min: number, max: number]`
 
-Same as [xDomain](/guide#xdomain-1) above but for the c1 domain.
+Same as [xDomain](/guide#xdomain-1) above but for the c2 domain.
 
 <!-- /generated:Domain -->
 
@@ -217,21 +217,21 @@ Same as [xRange](/guide#xrange-1) above but for the z domain.
 
 Same as [xRange](/guide#xrange-1) above but for the r domain.
 
-### x1Range `Array:[min: number, max: number]`
+### x2Range `Array:[min: number, max: number]`
 
-Same as [xRange](/guide#xrange-1) above but for the x1 domain.
+Same as [xRange](/guide#xrange-1) above but for the x2 domain.
 
-### y1Range `Array:[min: number, max: number]`
+### y2Range `Array:[min: number, max: number]`
 
-Same as [xRange](/guide#xrange-1) above but for the y1 domain.
+Same as [xRange](/guide#xrange-1) above but for the y2 domain.
 
 ### cRange `Array:[min: number, max: number]`
 
 Same as [xRange](/guide#xrange-1) above but for the c domain.
 
-### c1Range `Array:[min: number, max: number]`
+### c2Range `Array:[min: number, max: number]`
 
-Same as [xRange](/guide#xrange-1) above but for the c1 domain.
+Same as [xRange](/guide#xrange-1) above but for the c2 domain.
 
 <!-- /generated:Range -->
 
@@ -286,21 +286,21 @@ Same as [xGet](/guide#xget) but for the z scale.
 
 Same as [xGet](/guide#xget) but for the r scale.
 
-### x1Get(d: `Object`)
+### x2Get(d: `Object`)
 
-Same as [xGet](/guide#xget) but for the x1 scale.
+Same as [xGet](/guide#xget) but for the x2 scale.
 
-### y1Get(d: `Object`)
+### y2Get(d: `Object`)
 
-Same as [xGet](/guide#xget) but for the y1 scale.
+Same as [xGet](/guide#xget) but for the y2 scale.
 
 ### cGet(d: `Object`)
 
 Same as [xGet](/guide#xget) but for the c scale.
 
-### c1Get(d: `Object`)
+### c2Get(d: `Object`)
 
-Same as [xGet](/guide#xget) but for the c1 scale.
+Same as [xGet](/guide#xget) but for the c2 scale.
 
 <!-- /generated:Get -->
 
@@ -322,20 +322,20 @@ Same as [xScale](/guide#xscale-1) but for the z scale.
 
 Same as [xScale](/guide#xscale-1) but for the r scale.
 
-### x1Scale `Function`
+### x2Scale `Function`
 
-Same as [xScale](/guide#xscale-1) but for the x1 scale.
+Same as [xScale](/guide#xscale-1) but for the x2 scale.
 
-### y1Scale `Function`
+### y2Scale `Function`
 
-Same as [xScale](/guide#xscale-1) but for the y1 scale.
+Same as [xScale](/guide#xscale-1) but for the y2 scale.
 
 ### cScale `Function`
 
 Same as [xScale](/guide#xscale-1) but for the c scale.
 
-### c1Scale `Function`
+### c2Scale `Function`
 
-Same as [xScale](/guide#xscale-1) but for the c1 scale.
+Same as [xScale](/guide#xscale-1) but for the c2 scale.
 
 <!-- /generated:Scale -->

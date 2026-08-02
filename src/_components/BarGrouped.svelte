@@ -1,6 +1,6 @@
 <!--
   @component
-  Generates an SVG grouped bar chart using the `y1` nested scale for the within-group position and the `c` scale for color.
+  Generates an SVG grouped bar chart using the `y2` nested scale for the within-group position and the `c` scale for color.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -21,7 +21,7 @@
 	let barStart = $derived(c.xRange[0]);
 
 	let barHeight = $derived(
-		c.y1Scale.bandwidth ? c.y1Scale.bandwidth() : Math.abs(c.y1Range[1] - c.y1Range[0])
+		c.y2Scale.bandwidth ? c.y2Scale.bandwidth() : Math.abs(c.y2Range[1] - c.y2Range[0])
 	);
 
 	let barWidth = $derived(d => {
@@ -32,7 +32,7 @@
 <g class="bar-group">
 	{#each c.data as d, i}
 		{@const barLength = barWidth(d)}
-		{@const yPos = c.yGet(d) + c.y1Get(d)}
+		{@const yPos = c.yGet(d) + c.y2Get(d)}
 		{@const xValue = c.x(d)}
 		<rect
 			class="group-rect"

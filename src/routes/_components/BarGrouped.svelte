@@ -9,7 +9,7 @@
 
 	const xKey = 'value';
 	const yKey = 'year';
-	const y1Key = 'fruit';
+	const y2Key = 'fruit';
 	const cKey = 'fruit';
 </script>
 
@@ -18,7 +18,7 @@
 		padding={{ right: 10 }}
 		x={xKey}
 		y={yKey}
-		y1={y1Key}
+		y2={y2Key}
 		c={cKey}
 		yScale={scaleBand().paddingInner(0.1).round(true)}
 		xDomain={[0, null]}

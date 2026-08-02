@@ -83,30 +83,30 @@ import { createContext } from 'svelte';
  * @property {[number, number]|undefined} rPadding The pixel padding applied to the r domain, as `[left, right]`.
  * @property {boolean} rReverse Whether the default r range is reversed.
  * @property {boolean} rDomainSort Whether the r domain's calculated unique values are sorted.
- * @property {Function|null} x1 The x1 accessor, for a scale nested inside the x scale such as in grouped column charts.
- * @property {ScaleFor<S, 'x1'>} x1Scale The computed x1 scale.
- * @property {ScaleFor<S, 'x1'>} x1Get Runs a datum through the x1 accessor and scale.
- * @property {Array<any>|undefined} x1Domain The x1 scale's domain.
- * @property {Array<any>|undefined} x1Range The x1 scale's range.
- * @property {boolean} x1DomainSort Whether the x1 domain's calculated unique values are sorted.
- * @property {Function|null} y1 The y1 accessor, for a scale nested inside the y scale such as in grouped bar charts.
- * @property {ScaleFor<S, 'y1'>} y1Scale The computed y1 scale.
- * @property {ScaleFor<S, 'y1'>} y1Get Runs a datum through the y1 accessor and scale.
- * @property {Array<any>|undefined} y1Domain The y1 scale's domain.
- * @property {Array<any>|undefined} y1Range The y1 scale's range.
- * @property {boolean} y1DomainSort Whether the y1 domain's calculated unique values are sorted.
+ * @property {Function|null} x2 The x2 accessor, for a scale nested inside the x scale such as in grouped column charts.
+ * @property {ScaleFor<S, 'x2'>} x2Scale The computed x2 scale.
+ * @property {ScaleFor<S, 'x2'>} x2Get Runs a datum through the x2 accessor and scale.
+ * @property {Array<any>|undefined} x2Domain The x2 scale's domain.
+ * @property {Array<any>|undefined} x2Range The x2 scale's range.
+ * @property {boolean} x2DomainSort Whether the x2 domain's calculated unique values are sorted.
+ * @property {Function|null} y2 The y2 accessor, for a scale nested inside the y scale such as in grouped bar charts.
+ * @property {ScaleFor<S, 'y2'>} y2Scale The computed y2 scale.
+ * @property {ScaleFor<S, 'y2'>} y2Get Runs a datum through the y2 accessor and scale.
+ * @property {Array<any>|undefined} y2Domain The y2 scale's domain.
+ * @property {Array<any>|undefined} y2Range The y2 scale's range.
+ * @property {boolean} y2DomainSort Whether the y2 domain's calculated unique values are sorted.
  * @property {Function|null} c The c (color) accessor.
  * @property {ScaleFor<S, 'c'>} cScale The computed c scale.
  * @property {ScaleFor<S, 'c'>} cGet Runs a datum through the c accessor and scale.
  * @property {Array<any>|undefined} cDomain The c scale's domain.
  * @property {Array<any>|undefined} cRange The c scale's range.
  * @property {boolean} cDomainSort Whether the c domain's calculated unique values are sorted.
- * @property {Function|null} c1 The c1 accessor, for a second color-like scale such as opacity.
- * @property {ScaleFor<S, 'c1'>} c1Scale The computed c1 scale.
- * @property {ScaleFor<S, 'c1'>} c1Get Runs a datum through the c1 accessor and scale.
- * @property {Array<any>|undefined} c1Domain The c1 scale's domain.
- * @property {Array<any>|undefined} c1Range The c1 scale's range.
- * @property {boolean} c1DomainSort Whether the c1 domain's calculated unique values are sorted.
+ * @property {Function|null} c2 The c2 accessor, for a second color-like scale such as opacity.
+ * @property {ScaleFor<S, 'c2'>} c2Scale The computed c2 scale.
+ * @property {ScaleFor<S, 'c2'>} c2Get Runs a datum through the c2 accessor and scale.
+ * @property {Array<any>|undefined} c2Domain The c2 scale's domain.
+ * @property {Array<any>|undefined} c2Range The c2 scale's range.
+ * @property {boolean} c2DomainSort Whether the c2 domain's calculated unique values are sorted.
  */
 
 /**

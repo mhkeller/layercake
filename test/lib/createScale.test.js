@@ -146,8 +146,8 @@ describe('createScale', () => {
 			assert.deepStrictEqual(scale.range(), schemeCategory10);
 		});
 
-		it('c1 defaults to a linear scale with a [0, 1] range', () => {
-			const scale = run({ dimension: dims.c1, domain: [0, 10] });
+		it('c2 defaults to a linear scale with a [0, 1] range', () => {
+			const scale = run({ dimension: dims.c2, domain: [0, 10] });
 			assert.deepStrictEqual(scale.range(), [0, 1]);
 			assert.strictEqual(scale(5), 0.5);
 		});

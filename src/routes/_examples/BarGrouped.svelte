@@ -11,18 +11,18 @@
 
 	const xKey = 'value';
 	const yKey = 'year';
-	const y1Key = 'fruit';
+	const y2Key = 'fruit';
 
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
 
-	// `y1="fruit"` is the whole setup for the within-group position: y1 is a
+	// `y2="fruit"` is the whole setup for the within-group position: y2 is a
 	// scaleBand by default, its domain comes from the data, and its range is one
-	// y band tall. Pass `y1Scale` if you want to customize the padding, such as:
-	// y1Scale={scaleBand().paddingInner(0.1).round(true)}
+	// y band tall. Pass `y2Scale` if you want to customize the padding, such as:
+	// y2Scale={scaleBand().paddingInner(0.1).round(true)}
 
-	// Alternatively, the same chart works without `y1`
+	// Alternatively, the same chart works without `y2`
 	// by deriving a scale inside your component:
-	// const y1Scale = $derived(scaleBand().domain(fruits).range([0, c.yScale.bandwidth()]));
+	// const y2Scale = $derived(scaleBand().domain(fruits).range([0, c.yScale.bandwidth()]));
 </script>
 
 <div class="chart-container">
@@ -30,8 +30,8 @@
 		padding={{ bottom: 20, left: 35 }}
 		x={xKey}
 		y={yKey}
-		y1={y1Key}
-		c={y1Key}
+		y2={y2Key}
+		c={y2Key}
 		yScale={scaleBand().paddingInner(0.1).round(true)}
 		xDomain={[0, null]}
 		cRange={seriesColors}

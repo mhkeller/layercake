@@ -11,7 +11,7 @@ import nestedRange from '../helpers/nestedRange.js';
  * @property {number} width The calculated chart width, i.e. the container width minus padding.
  * @property {number} height The calculated chart height, i.e. the container height minus padding.
  * @property {boolean} percentRange Whether the container-relative dimensions are measuring in percent rather than pixels.
- * @property {Object.<string, any>} scales The computed scales of sibling dimensions, e.g. `scales.x`. Only nested dimensions such as `x1` should reference siblings – a dimension referencing its own scale would create a cycle.
+ * @property {Object.<string, any>} scales The computed scales of sibling dimensions, e.g. `scales.x`. Only nested dimensions such as `x2` should reference siblings – a dimension referencing its own scale would create a cycle.
  */
 
 /**
@@ -20,7 +20,7 @@ import nestedRange from '../helpers/nestedRange.js';
  * @property {Function} defaultScale An uninstantiated D3 scale factory used when the user doesn't pass a `[name]Scale` prop.
  * @property {(ctx: DimensionRangeContext) => Array<any>} defaultRange Returns the default range.
  * @property {(ctx: { scale: any }) => boolean} [defaultReverse] Dynamic default for `[name]Reverse`, receiving the user-passed scale prop (or undefined). Only consulted when the feature is enabled and the user didn't set the prop.
- * @property {boolean} canBePercentRange Whether the global `percentRange` prop applies to this dimension, replacing its default range with `[0, 100]`. Only sensible for spatial, container-relative ranges – bandwidth-based (`x1`, `y1`) and color (`c`, `c1`) ranges opt out.
+ * @property {boolean} canBePercentRange Whether the global `percentRange` prop applies to this dimension, replacing its default range with `[0, 100]`. Only sensible for spatial, container-relative ranges – bandwidth-based (`x2`, `y2`) and color (`c`, `c2`) ranges opt out.
  * @property {{ nice?: boolean, padding?: boolean, reverse?: boolean, domainSort?: boolean }} features Enables the key families that don't apply to every dimension (`Nice`, `Padding`, `Reverse`, `DomainSort`), keyed by the family's `familyStateKey`, e.g. `DomainSort` -> `domainSort`. The accessor, `Domain`, `Scale`, `Range` and `Get` apply to every dimension and need no entry.
  */
 
@@ -80,14 +80,14 @@ export const DIMENSIONS = [
 		features: ALL_FEATURES
 	},
 	{
-		name: 'x1',
+		name: 'x2',
 		defaultScale: scaleBand,
 		defaultRange: ctx => nestedRange(ctx.scales.x, ctx.percentRange === true ? 100 : ctx.width),
 		canBePercentRange: false,
 		features: { domainSort: true }
 	},
 	{
-		name: 'y1',
+		name: 'y2',
 		defaultScale: scaleBand,
 		defaultRange: ctx => nestedRange(ctx.scales.y, ctx.percentRange === true ? 100 : ctx.height),
 		canBePercentRange: false,
@@ -101,7 +101,7 @@ export const DIMENSIONS = [
 		features: { domainSort: true }
 	},
 	{
-		name: 'c1',
+		name: 'c2',
 		defaultScale: scaleLinear,
 		defaultRange: () => [0, 1],
 		canBePercentRange: false,

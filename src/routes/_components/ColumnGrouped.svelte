@@ -8,7 +8,7 @@
 	import data from '../../_data/yearGroupsLong.js';
 
 	const xKey = 'year';
-	const x1Key = 'fruit';
+	const x2Key = 'fruit';
 	const yKey = 'value';
 	const cKey = 'fruit';
 </script>
@@ -17,7 +17,7 @@
 	<LayerCake
 		padding={{ top: 10 }}
 		x={xKey}
-		x1={x1Key}
+		x2={x2Key}
 		y={yKey}
 		c={cKey}
 		xScale={scaleBand().paddingInner(0.1).round(true)}

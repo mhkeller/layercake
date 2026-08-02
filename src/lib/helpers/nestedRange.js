@@ -7,7 +7,7 @@ import hasBandwidth from '../utils/hasBandwidth.js';
  * along with it – under `percentRange` the parent measures 0 to 100, and a
  * pixel-width fallback would put the nested offsets in a different coordinate
  * system than the marks they get added to.
- * @param {any} parentScale The computed scale of the dimension this one nests inside, e.g. `x` for `x1`.
+ * @param {any} parentScale The computed scale of the dimension this one nests inside, e.g. `x` for `x2`.
  * @param {number} chartSpan How wide the chart is in the current units, for when there's no parent to nest inside.
  * @returns {[number, number]} The range.
  */

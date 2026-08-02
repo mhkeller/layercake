@@ -141,28 +141,28 @@ Same as [x](/guide#x) but for the z dimension.
 
 Same as [x](/guide#x) but for the r dimension.
 
-### x1 `string|Function|number|Array<string|Function|number>|undefined`
+### x2 `string|Function|number|Array<string|Function|number>|undefined`
 
-Same as [x](/guide#x) but for the x1 dimension – a scale nested inside the x scale, useful for [grouped column charts](/example/ColumnGrouped). It defaults to a `scaleBand()` whose domain is computed from your data and whose range is the bandwidth of the x scale, so this is usually all you need:
+Same as [x](/guide#x) but for the x2 dimension – a scale nested inside the x scale, useful for [grouped column charts](/example/ColumnGrouped). It defaults to a `scaleBand()` whose domain is computed from your data and whose range is the bandwidth of the x scale, so this is usually all you need:
 
 ```svelte
 <LayerCake
   x="year"
   xScale={scaleBand()}
-  x1="fruit"
+  x2="fruit"
   y="value"
 >
 ```
 
-In a layer component, position a column with `c.xGet(d) + c.x1Get(d)` and size it with `c.x1Scale.bandwidth()`.
+In a layer component, position a column with `c.xGet(d) + c.x2Get(d)` and size it with `c.x2Scale.bandwidth()`.
 
-You can customize the nested range by setting [x1Range](/guide#x1range) to a function, which receives the computed sibling scales: `x1Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+You can customize the nested range by setting [x2Range](/guide#x2range) to a function, which receives the computed sibling scales: `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
 
-Like every dimension, x1 also accepts `x1Domain`, `x1Scale`, `x1Range` and `x1DomainSort` props.
+Like every dimension, x2 also accepts `x2Domain`, `x2Scale`, `x2Range` and `x2DomainSort` props.
 
-### y1 `string|Function|number|Array<string|Function|number>|undefined`
+### y2 `string|Function|number|Array<string|Function|number>|undefined`
 
-Same as [x1](/guide#x1) but nested inside the y scale, useful for grouped bar charts. Accepts `y1Domain`, `y1Scale`, `y1Range` and `y1DomainSort` props.
+Same as [x2](/guide#x2) but nested inside the y scale, useful for grouped bar charts. Accepts `y2Domain`, `y2Scale`, `y2Range` and `y2DomainSort` props.
 
 ### c `string|Function|number|Array<string|Function|number>|undefined`
 
@@ -183,9 +183,9 @@ You can also pass a preconfigured scale instead of setting `cRange` – its rang
 
 You can also keep using the [z](/guide#z) dimension for color like in older versions but c is more explicit and frees up z for other encodings.
 
-### c1 `string|Function|number|Array<string|Function|number>|undefined`
+### c2 `string|Function|number|Array<string|Function|number>|undefined`
 
-Same as [c](/guide#c) but for a second color-like scale, useful for encoding something like opacity alongside color. It defaults to a `scaleLinear()` mapping your data's extent to `[0, 1]`. Accepts `c1Domain`, `c1Scale`, `c1Range` and `c1DomainSort` props.
+Same as [c](/guide#c) but for a second color-like scale, useful for encoding something like opacity alongside color. It defaults to a `scaleLinear()` mapping your data's extent to `[0, 1]`. Accepts `c2Domain`, `c2Scale`, `c2Range` and `c2DomainSort` props.
 
 ### debug `boolean`
 
@@ -251,21 +251,21 @@ Same as [xScale](/guide#xscale) but for the z scale. The default is `d3.scaleLin
 
 Same as [xScale](/guide#xscale) but for the r scale. The default is `d3.scaleSqrt()`.
 
-### x1Scale `d3.scaleBand()`
+### x2Scale `d3.scaleBand()`
 
-Same as [xScale](/guide#xscale) but for the x1 scale. The default is `d3.scaleBand()`.
+Same as [xScale](/guide#xscale) but for the x2 scale. The default is `d3.scaleBand()`.
 
-### y1Scale `d3.scaleBand()`
+### y2Scale `d3.scaleBand()`
 
-Same as [xScale](/guide#xscale) but for the y1 scale. The default is `d3.scaleBand()`.
+Same as [xScale](/guide#xscale) but for the y2 scale. The default is `d3.scaleBand()`.
 
 ### cScale `d3.scaleOrdinal()`
 
 Same as [xScale](/guide#xscale) but for the c scale. The default is `d3.scaleOrdinal()`.
 
-### c1Scale `d3.scaleLinear()`
+### c2Scale `d3.scaleLinear()`
 
-Same as [xScale](/guide#xscale) but for the c1 scale. The default is `d3.scaleLinear()`.
+Same as [xScale](/guide#xscale) but for the c2 scale. The default is `d3.scaleLinear()`.
 
 <!-- /generated:Scale -->
 
@@ -315,21 +315,21 @@ Same as [xDomain](/guide#xdomain) but for the z scale.
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 
-### x1Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+### x2Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
-Same as [xDomain](/guide#xdomain) but for the x1 scale.
+Same as [xDomain](/guide#xdomain) but for the x2 scale.
 
-### y1Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+### y2Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
-Same as [xDomain](/guide#xdomain) but for the y1 scale.
+Same as [xDomain](/guide#xdomain) but for the y2 scale.
 
 ### cDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
 Same as [xDomain](/guide#xdomain) but for the c scale.
 
-### c1Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+### c2Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
-Same as [xDomain](/guide#xdomain) but for the c1 scale.
+Same as [xDomain](/guide#xdomain) but for the c2 scale.
 
 <!-- /generated:Domain -->
 
@@ -353,21 +353,21 @@ Same as [xDomainSort](/guide#xdomainsort) but for the z domain.
 
 Same as [xDomainSort](/guide#xdomainsort) but for the r domain.
 
-### x1DomainSort `boolean=false`
+### x2DomainSort `boolean=false`
 
-Same as [xDomainSort](/guide#xdomainsort) but for the x1 domain, which controls the order of the groups in a [grouped column chart](/example/ColumnGrouped).
+Same as [xDomainSort](/guide#xdomainsort) but for the x2 domain, which controls the order of the groups in a [grouped column chart](/example/ColumnGrouped).
 
-### y1DomainSort `boolean=false`
+### y2DomainSort `boolean=false`
 
-Same as [xDomainSort](/guide#xdomainsort) but for the y1 domain.
+Same as [xDomainSort](/guide#xdomainsort) but for the y2 domain.
 
 ### cDomainSort `boolean=false`
 
 Same as [xDomainSort](/guide#xdomainsort) but for the c domain.
 
-### c1DomainSort `boolean=false`
+### c2DomainSort `boolean=false`
 
-Same as [xDomainSort](/guide#xdomainsort) but for the c1 domain.
+Same as [xDomainSort](/guide#xdomainsort) but for the c2 domain.
 
 <!-- /generated:DomainSort -->
 
@@ -453,21 +453,21 @@ Same as [xRange](/guide#xrange) but for the z scale.
 
 Same as [xRange](/guide#xrange) but for the r scale.
 
-### x1Range `Function|Array:[min: number, max: number]|Array<number|string>`
+### x2Range `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the x1 scale, which defaults to the bandwidth of the x scale. Pass a function to customize it – it receives `({ width, height, scales })`, e.g. `x1Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+Same as [xRange](/guide#xrange) but for the x2 scale, which defaults to the bandwidth of the x scale. Pass a function to customize it – it receives `({ width, height, scales })`, e.g. `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
 
-### y1Range `Function|Array:[min: number, max: number]|Array<number|string>`
+### y2Range `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the y1 scale, which defaults to the bandwidth of the y scale. Pass a function to customize it – it receives `({ width, height, scales })`, e.g. `y1Range={({ scales }) => [0, scales.y.bandwidth() / 2]}`.
+Same as [xRange](/guide#xrange) but for the y2 scale, which defaults to the bandwidth of the y scale. Pass a function to customize it – it receives `({ width, height, scales })`, e.g. `y2Range={({ scales }) => [0, scales.y.bandwidth() / 2]}`.
 
 ### cRange `Array<string|number>|Function`
 
 The colors of the c scale, as an array or a function with argument `({ width, height, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.
 
-### c1Range `Array<string|number>|Function`
+### c2Range `Array<string|number>|Function`
 
-The range of the c1 scale, such as a list of opacity values. Defaults to `[0, 1]`.
+The range of the c2 scale, such as a list of opacity values. Defaults to `[0, 1]`.
 
 <!-- /generated:Range -->
 
@@ -559,7 +559,7 @@ Use it in conjunction with [`percentRange={true}`](/guide#percentrange) to easil
 
 When rendering charts server side, you pretty much always want your scale range to be `[0, 100]` since you won't be able to base the range off of the target container's width. Use this convenience helper to set the ranges to just that.
 
-It applies to the four dimensions that measure themselves against the container – [x](/guide#x), [y](/guide#y), [z](/guide#z) and [r](/guide#r). The nested dimensions ([x1](/guide#x1), [y1](/guide#y1)) already measure themselves against their parent, so they follow it into percentages on their own, and the color dimensions ([c](/guide#c), [c1](/guide#c1)) have nothing to do with the container and are left alone.
+It applies to the four dimensions that measure themselves against the container – [x](/guide#x), [y](/guide#y), [z](/guide#z) and [r](/guide#r). The nested dimensions ([x2](/guide#x2), [y2](/guide#y2)) already measure themselves against their parent, so they follow it into percentages on their own, and the color dimensions ([c](/guide#c), [c2](/guide#c2)) have nothing to do with the container and are left alone.
 
 > The default range for the y-scale will be `[100, 0]` because `yReverse` defaults to `true`. All of the range reverse functions will work as usual with this.
 

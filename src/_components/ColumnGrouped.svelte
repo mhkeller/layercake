@@ -1,6 +1,6 @@
 <!--
   @component
-  Generates an SVG grouped column chart using the `x1` nested scale for the within-group position and the `c` scale for color.
+  Generates an SVG grouped column chart using the `x2` nested scale for the within-group position and the `c` scale for color.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -19,7 +19,7 @@
 	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
 	let columnWidth = $derived(
-		c.x1Scale.bandwidth ? c.x1Scale.bandwidth() : Math.abs(c.x1Range[1] - c.x1Range[0])
+		c.x2Scale.bandwidth ? c.x2Scale.bandwidth() : Math.abs(c.x2Range[1] - c.x2Range[0])
 	);
 
 	let columnHeight = $derived(d => {
@@ -30,7 +30,7 @@
 <g class="column-group">
 	{#each c.data as d, i}
 		{@const colHeight = columnHeight(d)}
-		{@const xPos = c.xGet(d) + c.x1Get(d)}
+		{@const xPos = c.xGet(d) + c.x2Get(d)}
 		{@const yValue = c.y(d)}
 		<rect
 			class="group-rect"

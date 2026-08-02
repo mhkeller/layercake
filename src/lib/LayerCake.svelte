@@ -183,7 +183,8 @@
 	//
 	// `dims` is populated further down, after `extents` exists, but we create it
 	// here because `extents` reads it. Keep that order – moving `extents` below
-	// `dimensionCtx` breaks SSR via a Svelte codegen bug.
+	// `dimensionCtx` breaks SSR via a Svelte codegen bug:
+	// https://github.com/sveltejs/svelte/issues/18607
 	/** @type {Object.<string, ReturnType<typeof createDimension>>} */
 	const dims = {};
 	/** @type {Object.<string, Function|undefined>} */

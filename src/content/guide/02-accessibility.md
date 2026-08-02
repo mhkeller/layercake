@@ -106,3 +106,11 @@ And becomes...
 	</div>
 </div>
 ```
+
+### Hover layers
+
+The `Voronoi`, `QuadTree` and `SharedTooltip` components respond to the mouse only. Their hit areas are `aria-hidden`, so a screen reader skips them instead of reading out one empty target per data point.
+
+Keyboard access belongs in your project, because the useful part depends on your data. Give the chart one tab stop, move between points with the arrow keys, and write the current point into an [`aria-live`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions) region.
+
+Putting the same numbers in a table next to the chart also works, and reaches readers who never touch the hover layer.

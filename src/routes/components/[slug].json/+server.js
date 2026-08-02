@@ -100,8 +100,14 @@ export async function GET({ params }) {
 		.map(match => {
 			const [, jsdocComment] = match;
 			let parsed = parseJsdoc(jsdocComment);
-			if (parsed && parsed['name'] in defaultValues)
-				parsed['defaultValue'] = defaultValues[parsed['name']]?.replace('$bindable()', '');
+			if (parsed) {
+				// Prefer the default written in the code, but a prop can be destructured
+				// without one and still document a default it applies further down, so
+				// keep what the JSDoc said in that case
+				const codeDefault = defaultValues[parsed['name']];
+				if (codeDefault !== undefined)
+					parsed['defaultValue'] = codeDefault.replace('$bindable()', '');
+			}
 			return parsed;
 		})
 		.filter(i => i !== null);

@@ -22,14 +22,14 @@
 		cake.x2Scale.bandwidth ? cake.x2Scale.bandwidth() : Math.abs(cake.x2Range[1] - cake.x2Range[0])
 	);
 
-	let columnHeight = $derived(d => {
-		return cake.yRange[0] - cake.yGet(d);
-	});
+	// Columns start at zero and run out to their value, so negative ones hang
+	// below it. Make sure zero is in your yDomain or this lands off the chart.
+	let zeroY = $derived(cake.yScale(0));
 </script>
 
 <g class="column-group">
 	{#each cake.data as d, i}
-		{@const colHeight = columnHeight(d)}
+		{@const valueY = cake.yGet(d)}
 		{@const xPos = cake.xGet(d) + cake.x2Get(d)}
 		{@const yValue = cake.y(d)}
 		<rect
@@ -38,15 +38,27 @@
 			data-range={cake.x(d)}
 			data-count={yValue}
 			x={xPos}
-			y={cake.yGet(d)}
+			y={Math.min(zeroY, valueY)}
 			width={columnWidth}
-			height={colHeight}
+			height={Math.abs(valueY - zeroY)}
 			fill={fill || cake.cGet(d)}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>
 		{#if showLabels && yValue}
-			<text x={xPos + columnWidth / 2} y={cake.yGet(d) - 5} text-anchor="middle">{yValue}</text>
+			{@const pointsUp = valueY < zeroY}
+			<!--
+				Sit the number just clear of the far end of the column, above it going
+				up and below it going down. Flipping the baseline instead of nudging by
+				a pixel count keeps the gap even at any font size.
+			-->
+			<text
+				x={xPos + columnWidth / 2}
+				y={valueY}
+				dy={pointsUp ? -5 : 5}
+				text-anchor="middle"
+				dominant-baseline={pointsUp ? 'auto' : 'hanging'}>{yValue}</text
+			>
 		{/if}
 	{/each}
 </g>

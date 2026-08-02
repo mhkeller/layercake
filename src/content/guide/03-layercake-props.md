@@ -281,6 +281,18 @@ Set a min or max on the x scale. If you want to inherit the value from the data'
 >
 ```
 
+You can also pass a function. It receives the `[min, max]` measured from your data and returns the domain you want. This is how you keep a value on the axis that your data might not reach, such as zero on a bar chart with negative numbers:
+
+```svelte
+<LayerCake
+  // Widens whichever end is missing zero. The same line works whether the
+  // numbers are all positive, all negative or a mix of both.
+  xDomain={ ([min, max]) => [Math.min(0, min), Math.max(0, max)] }
+>
+```
+
+See the [diverging bar](/example/BarDiverging) and [diverging column](/example/ColumnDiverging) examples. What the function returns is still filled in from the data wherever you leave a `null`, so `([min, max]) => [Math.min(0, min), null]` works too.
+
 This value can also be a longer array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete string values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series.
 
 ```svelte

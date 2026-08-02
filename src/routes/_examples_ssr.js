@@ -18,6 +18,8 @@ import Calendar from './_examples_ssr/Calendar.svelte';
 import Timeplot from './_examples_ssr/Timeplot.svelte';
 import Brush from './_examples_ssr/Brush.svelte';
 import SyncedBrush from './_examples_ssr/SyncedBrush.svelte';
+import BarDiverging from './_examples_ssr/BarDiverging.svelte';
+import ColumnDiverging from './_examples_ssr/ColumnDiverging.svelte';
 
 export default [
 	{
@@ -69,6 +71,16 @@ export default [
 		title: 'Stacked bar',
 		slug: 'BarStacked',
 		component: BarStacked
+	},
+	{
+		title: 'Diverging column',
+		slug: 'ColumnDiverging',
+		component: ColumnDiverging
+	},
+	{
+		title: 'Diverging bar',
+		slug: 'BarDiverging',
+		component: BarDiverging
 	},
 	{
 		title: 'Multiline (html labels + quadtree tooltip)',

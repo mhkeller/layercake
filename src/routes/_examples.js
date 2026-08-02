@@ -25,6 +25,8 @@ import SyncedBrush from './_examples/SyncedBrush.svelte';
 import Beeswarm from './_examples/Beeswarm.svelte';
 import BeeswarmForce from './_examples/BeeswarmForce.svelte';
 import CirclePackForce from './_examples/CirclePackForce.svelte';
+import BarDiverging from './_examples/BarDiverging.svelte';
+import ColumnDiverging from './_examples/ColumnDiverging.svelte';
 
 export default [
 	{
@@ -76,6 +78,16 @@ export default [
 		title: 'Stacked bar',
 		slug: 'BarStacked',
 		component: BarStacked
+	},
+	{
+		title: 'Diverging column',
+		slug: 'ColumnDiverging',
+		component: ColumnDiverging
+	},
+	{
+		title: 'Diverging bar',
+		slug: 'BarDiverging',
+		component: BarDiverging
 	},
 	{
 		title: 'Multiline (html labels + quadtree tooltip)',

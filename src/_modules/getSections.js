@@ -4,7 +4,7 @@ import * as fleece from 'golden-fleece';
 import hljs from 'highlight.js';
 import sanitizeHtml from 'sanitize-html';
 
-import * as marked from 'marked';
+import { Marked } from 'marked';
 import processMarkdown from './processMarkdown.js';
 import slugify from './slugify.js';
 import hljsDefineSvelte from './hljsDefineSvelte.js';
@@ -202,9 +202,13 @@ export default function (returnHtml = true) {
 				}
 			};
 
-			marked.use({ renderer });
+			// Fresh instance per file. The renderer closes over `group`, which resets as
+			// we walk the blocks, so it can't be shared. Using the global `marked.use()`
+			// here would stack a new renderer on the singleton every time and eventually
+			// blow the stack.
+			const md = new Marked({ renderer });
 
-			let html = marked.marked(content, { async: false });
+			let html = md.parse(content, { async: false });
 
 			const hashes = {};
 

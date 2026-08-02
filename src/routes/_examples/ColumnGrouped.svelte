@@ -17,7 +17,7 @@
 
 	// `x1="fruit"` is the whole setup for the within-group position: x1 is a
 	// scaleBand by default, its domain comes from the data, and its range is one
-	// x band wide. Pass `x1Scale` if you want to customize the padding such
+	// x band wide. Pass `x1Scale` if you want to customize the padding, such as:
 	// x1Scale={scaleBand().paddingInner(0.1).round(true)}
 
 	// Alternatively, the same chart works without `x1`

@@ -7,7 +7,7 @@
 	import { scaleCanvas, getLayerCakeContext } from 'layercake';
 	import { geoPath } from 'd3-geo';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	const canvasCtx = getContext('canvas');
 
@@ -17,25 +17,25 @@
 	 * @property {string} [stroke='#ccc'] - The shape's stroke color.
 	 * @property {number} [strokeWidth=1] - The shape's stroke width.
 	 * @property {string|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the c-scale, unless this prop is set.
-	 * @property {Array<GeoJSON>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `c.data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `c.data.features` if left unset.
+	 * @property {Array<GeoJSON>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `cake.data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `cake.data.features` if left unset.
 	 */
 
 	/** @type {Props} */
 	let { projection, stroke = '#ccc', strokeWidth = 1, fill, features } = $props();
 
-	let projectionFn = $derived(projection().fitSize([c.width, c.height], c.data));
+	let projectionFn = $derived(projection().fitSize([cake.width, cake.height], cake.data));
 
 	let geoPathFn = $derived(geoPath(projectionFn));
 
-	let featuresToDraw = $derived(features || c.data.features);
+	let featuresToDraw = $derived(features || cake.data.features);
 
 	$effect(() => {
-		if (!c.width || !c.height || !canvasCtx.ctx) return;
+		if (!cake.width || !cake.height || !canvasCtx.ctx) return;
 
 		const context = canvasCtx.ctx;
 
-		scaleCanvas(context, c.width, c.height);
-		context.clearRect(0, 0, c.width, c.height);
+		scaleCanvas(context, cake.width, cake.height);
+		context.clearRect(0, 0, cake.width, cake.height);
 
 		featuresToDraw.forEach(
 			/** @param {any} feature */ feature => {
@@ -44,7 +44,7 @@
 				geoPathFn.context(context);
 				geoPathFn(feature);
 
-				context.fillStyle = fill || c.cGet(feature.properties);
+				context.fillStyle = fill || cake.cGet(feature.properties);
 				context.fill();
 
 				context.lineWidth = strokeWidth;

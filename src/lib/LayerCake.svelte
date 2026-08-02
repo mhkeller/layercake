@@ -148,7 +148,7 @@
 	});
 
 	// What the user literally passed us. The context reports finished values –
-	// `c.xDomain` is post-`.nice()`, with any nulls filled in from the data – so
+	// `cake.xDomain` is post-`.nice()`, with any nulls filled in from the data – so
 	// this is where you look for the original request.
 	const config = $derived.by(() => {
 		/** @type {Object.<string, any>} */
@@ -271,7 +271,7 @@
 	}
 
 	// Assemble the context. Every property is a getter into reactive state
-	// so child components read live values as `c.width`, `c.xGet(d)` etc.
+	// so child components read live values as `cake.width`, `cake.xGet(d)` etc.
 	const context = {};
 	Object.defineProperties(context, {
 		activeGetters: { get: () => activeGetters, enumerable: true },

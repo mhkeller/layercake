@@ -6,18 +6,18 @@
 	import { area } from 'd3-shape';
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	let areaGen = $derived(
 		area()
-			.x(d => c.xGet(d))
-			.y0(d => c.yScale(d[0]))
-			.y1(d => c.yScale(d[1]))
+			.x(d => cake.xGet(d))
+			.y0(d => cake.yScale(d[0]))
+			.y1(d => cake.yScale(d[1]))
 	);
 </script>
 
 <g class="area-group">
-	{#each c.data as d}
-		<path class="path-area" d={areaGen(d)} fill={c.cGet(d)}></path>
+	{#each cake.data as d}
+		<path class="path-area" d={areaGen(d)} fill={cake.cGet(d)}></path>
 	{/each}
 </g>

@@ -6,7 +6,7 @@
 	import * as Sankey from 'd3-sankey';
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {(
@@ -61,13 +61,13 @@
 			.nodeWidth(nodeWidth)
 			.nodePadding(nodePadding)
 			.nodeId(nodeId)
-			.size([c.width, c.height])
+			.size([cake.width, cake.height])
 			.linkSort(linkSort);
 
-		sankeyData = sankey(c.data);
+		sankeyData = sankey(cake.data);
 	});
 
-	let fontSize = $derived(c.width <= 320 ? 8 : 12);
+	let fontSize = $derived(cake.width <= 320 ? 8 : 12);
 </script>
 
 <g class="sankey-layer">
@@ -86,12 +86,12 @@
 		{#each sankeyData.nodes as d}
 			<rect x={d.x0} y={d.y0} height={d.y1 - d.y0} width={d.x1 - d.x0} fill={colorNodes(d)} />
 			<text
-				x={d.x0 < c.width / 4 ? d.x1 + 6 : d.x0 - 6}
+				x={d.x0 < cake.width / 4 ? d.x1 + 6 : d.x0 - 6}
 				y={(d.y1 + d.y0) / 2}
 				dy={fontSize / 2 - 2}
 				style="fill: {colorText(d)};
 							font-size: {fontSize}px;
-							text-anchor: {d.x0 < c.width / 4 ? 'start' : 'end'};"
+							text-anchor: {d.x0 < cake.width / 4 ? 'start' : 'end'};"
 			>
 				{d.id}
 			</text>

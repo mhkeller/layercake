@@ -28,7 +28,7 @@
 
 	let container = $state();
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	// Some lookups to convert between x, y / width, height terminology
 	// and CSS names
@@ -81,15 +81,15 @@
 		// If we're passing in a percentage as a string then we need to convert it to pixel values
 		// Otherwise pass it to our xGet and yGet functions
 		const targetCoords = [
-			arrow.target.x || c.x(arrow.target),
-			arrow.target.y || c.y(arrow.target)
+			arrow.target.x || cake.x(arrow.target),
+			arrow.target.y || cake.y(arrow.target)
 		].map((q, j) => {
 			const val =
 				typeof q === 'string' && q.includes('%')
-					? parseCssValue(q, j, c.width, c.height)
+					? parseCssValue(q, j, cake.width, cake.height)
 					: j
-						? c.yScale(q)
-						: c.xScale(q);
+						? cake.yScale(q)
+						: cake.xScale(q);
 			return val + (arrow.target[`d${lookups[j].position}`] || 0);
 		});
 

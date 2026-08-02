@@ -8,7 +8,7 @@
 	import { quadtree } from 'd3-quadtree';
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	let visible = $state(false);
 	let found = $state({});
@@ -19,15 +19,15 @@
 	 * @property {string} [x='x'] - The dimension to search across when moving the mouse left and right.
 	 * @property {string} [y='y'] - The dimension to search across when moving the mouse up and down.
 	 * @property {number|undefined} [searchRadius] - The number of pixels to search around the mouse's location. This is the third argument passed to [`quadtree.find`](https://github.com/d3/d3-quadtree#quadtree_find) and by default a value of `undefined` means an unlimited range.
-	 * @property {Array<Object>|undefined} [dataset] - The dataset to work off of—defaults to c.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
+	 * @property {Array<Object>|undefined} [dataset] - The dataset to work off of—defaults to cake.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
 	 * @property {import('svelte').Snippet<[any]>} [children]
 	 */
 
 	/** @type {Props} */
 	let { x = 'x', y = 'y', searchRadius, dataset, children } = $props();
 
-	let xGetter = $derived(x === 'x' ? c.xGet : c.yGet);
-	let yGetter = $derived(y === 'y' ? c.yGet : c.xGet);
+	let xGetter = $derived(x === 'x' ? cake.xGet : cake.yGet);
+	let yGetter = $derived(y === 'y' ? cake.yGet : cake.xGet);
 
 	/** @param {MouseEvent} evt*/
 	function findItem(evt) {
@@ -36,8 +36,8 @@
 		const xLayerKey = /** @type {'layerX'|'layerY'} */ (`layer${x.toUpperCase()}`);
 		const yLayerKey = /** @type {'layerX'|'layerY'}*/ (`layer${y.toUpperCase()}`);
 
-		const xLayerVal = (evt[xLayerKey] / (x === 'x' ? c.width : c.height)) * 100;
-		const yLayerVal = (evt[yLayerKey] / (y === 'y' ? c.height : c.width)) * 100;
+		const xLayerVal = (evt[xLayerKey] / (x === 'x' ? cake.width : cake.height)) * 100;
+		const yLayerVal = (evt[yLayerKey] / (y === 'y' ? cake.height : cake.width)) * 100;
 
 		found = finder.find(xLayerVal, yLayerVal, searchRadius) || {};
 
@@ -48,11 +48,11 @@
 		quadtree()
 			.extent([
 				[-1, -1],
-				[c.width + 1, c.height + 1]
+				[cake.width + 1, cake.height + 1]
 			])
 			.x(xGetter)
 			.y(yGetter)
-			.addAll(dataset || c.data)
+			.addAll(dataset || cake.data)
 	);
 </script>
 

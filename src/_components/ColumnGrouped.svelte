@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -19,34 +19,34 @@
 	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
 	let columnWidth = $derived(
-		c.x2Scale.bandwidth ? c.x2Scale.bandwidth() : Math.abs(c.x2Range[1] - c.x2Range[0])
+		cake.x2Scale.bandwidth ? cake.x2Scale.bandwidth() : Math.abs(cake.x2Range[1] - cake.x2Range[0])
 	);
 
 	let columnHeight = $derived(d => {
-		return c.yRange[0] - c.yGet(d);
+		return cake.yRange[0] - cake.yGet(d);
 	});
 </script>
 
 <g class="column-group">
-	{#each c.data as d, i}
+	{#each cake.data as d, i}
 		{@const colHeight = columnHeight(d)}
-		{@const xPos = c.xGet(d) + c.x2Get(d)}
-		{@const yValue = c.y(d)}
+		{@const xPos = cake.xGet(d) + cake.x2Get(d)}
+		{@const yValue = cake.y(d)}
 		<rect
 			class="group-rect"
 			data-id={i}
-			data-range={c.x(d)}
+			data-range={cake.x(d)}
 			data-count={yValue}
 			x={xPos}
-			y={c.yGet(d)}
+			y={cake.yGet(d)}
 			width={columnWidth}
 			height={colHeight}
-			fill={fill || c.cGet(d)}
+			fill={fill || cake.cGet(d)}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>
 		{#if showLabels && yValue}
-			<text x={xPos + columnWidth / 2} y={c.yGet(d) - 5} text-anchor="middle">{yValue}</text>
+			<text x={xPos + columnWidth / 2} y={cake.yGet(d) - 5} text-anchor="middle">{yValue}</text>
 		{/if}
 	{/each}
 </g>

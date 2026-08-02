@@ -7,7 +7,7 @@
 	import { utcDay } from 'd3-time';
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -23,26 +23,26 @@
 
 	let count = $derived(date => {
 		const stringDate = date.toISOString().split('T')[0];
-		const days = c.data.filter(d => c.x(d) === stringDate)[0];
+		const days = cake.data.filter(d => cake.x(d) === stringDate)[0];
 		if (days) {
-			return c.c(days);
+			return cake.c(days);
 		}
 		return 0;
 	});
 
 	let fillColor = $derived(day => {
 		const n = count(day);
-		return n ? c.cScale(n) : '#fff';
+		return n ? cake.cScale(n) : '#fff';
 	});
 
-	let cellSize = $derived(calcCellSize(c.width, c.height));
+	let cellSize = $derived(calcCellSize(cake.width, cake.height));
 
 	/**
 	 * Calculate what month we're in and generate the full days of that month
 	 */
 	/** @type {Date[]} */
 	let days = $derived.by(() => {
-		const minDate = c.extents.x[0];
+		const minDate = cake.extents.x[0];
 		const parts = minDate.split('-').map(d => +d);
 
 		return utcDay.range(

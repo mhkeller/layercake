@@ -8,18 +8,18 @@
 
 	import QuadTree from './QuadTree.html.svelte';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	const commas = format(',');
 	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} [formatTitle=d => d] - A function to format the tooltip title, which is `c.config.x`.
+	 * @property {Function} [formatTitle=d => d] - A function to format the tooltip title, which is `cake.config.x`.
 	 * @property {Function} [formatValue=d => (isNaN(+d) ? d : commas(d))] - A function to format the value.
 	 * @property {Function} [formatKey=d => titleCase(d)] - A function to format the series name.
 	 * @property {number} [offset=-20] - A y-offset from the hover point, in pixels.
-	 * @property {Array<Object>|undefined} [dataset] - The dataset to work off of—defaults to c.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
+	 * @property {Array<Object>|undefined} [dataset] - The dataset to work off of—defaults to cake.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
 	 */
 
 	/** @type {Props} */
@@ -38,7 +38,7 @@
 	function sortResult(result) {
 		if (Object.keys(result).length === 0) return [];
 		const rows = Object.keys(result)
-			.filter(d => d !== c.config.x)
+			.filter(d => d !== cake.config.x)
 			.map(key => {
 				return {
 					key,
@@ -51,7 +51,7 @@
 	}
 </script>
 
-<QuadTree dataset={dataset || c.data} y="x">
+<QuadTree dataset={dataset || cake.data} y="x">
 	{#snippet children({ x, y, visible, found, e })}
 		{@const foundSorted = sortResult(found)}
 		{#if visible === true}
@@ -61,10 +61,10 @@
 				style="
 	        width:{w}px;
 	        display: {visible ? 'block' : 'none'};
-	        top:{c.yScale(foundSorted[0].value) + offset}px;
-	        left:{Math.min(Math.max(w2, x), c.width - w2)}px;"
+	        top:{cake.yScale(foundSorted[0].value) + offset}px;
+	        left:{Math.min(Math.max(w2, x), cake.width - w2)}px;"
 			>
-				<div class="title">{formatTitle(found[c.config.x])}</div>
+				<div class="title">{formatTitle(found[cake.config.x])}</div>
 				{#each foundSorted as row}
 					<div class="row">
 						<span class="key">{formatKey(row.key)}:</span>

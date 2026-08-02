@@ -7,7 +7,7 @@
 	import { getContext, onDestroy } from 'svelte';
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -176,7 +176,7 @@
 	}
 
 	$effect(() => {
-		if (!c.width || !c.height || !glCtx.gl) return;
+		if (!cake.width || !cake.height || !glCtx.gl) return;
 
 		ensureRegl(glCtx.gl);
 		if (!regl || !drawPoints) return;
@@ -192,9 +192,9 @@
 
 		drawPoints({
 			pointWidth: r * 2,
-			points: c.data,
-			x: c.xGet,
-			y: c.yGet,
+			points: cake.data,
+			x: cake.xGet,
+			y: cake.yGet,
 			fillColor: hexToRgbPercent(fill),
 			strokeColor: hexToRgbPercent(stroke)
 		});

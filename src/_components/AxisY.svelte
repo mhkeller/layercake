@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -44,16 +44,16 @@
 		return sum + charPixelWidth;
 	}
 
-	let isBandwidth = $derived(typeof c.yScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof cake.yScale.bandwidth === 'function');
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? c.yScale.domain()
+				? cake.yScale.domain()
 				: typeof ticks === 'function'
-					? ticks(c.yScale.ticks())
-					: c.yScale.ticks(ticks)
+					? ticks(cake.yScale.ticks())
+					: cake.yScale.ticks(ticks)
 	);
 	let widestTickLen = $derived(
 		Math.max(
@@ -69,17 +69,20 @@
 			: 0
 	);
 	let x1 = $derived(-tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen));
-	let y = $derived(isBandwidth ? c.yScale.bandwidth() / 2 : 0);
-	let maxTickValPx = $derived(Math.max(...tickVals.map(c.yScale)));
+	let y = $derived(isBandwidth ? cake.yScale.bandwidth() / 2 : 0);
+	let maxTickValPx = $derived(Math.max(...tickVals.map(cake.yScale)));
 </script>
 
 <g class="axis y-axis">
 	{#each tickVals as tick (tick)}
-		{@const tickValPx = c.yScale(tick)}
+		{@const tickValPx = cake.yScale(tick)}
 		<!-- Fall back to the left edge if the chart has no x dimension -->
-		<g class="tick tick-{tick}" transform="translate({c.xRange ? c.xRange[0] : 0}, {tickValPx})">
+		<g
+			class="tick tick-{tick}"
+			transform="translate({cake.xRange ? cake.xRange[0] : 0}, {tickValPx})"
+		>
 			{#if gridlines === true}
-				<line class="gridline" {x1} x2={c.width} y1={y} y2={y}></line>
+				<line class="gridline" {x1} x2={cake.width} y1={y} y2={y}></line>
 			{/if}
 			{#if tickMarks === true}
 				<line class="tick-mark" {x1} x2={x1 + tickLen} y1={y} y2={y}></line>

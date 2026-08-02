@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -18,32 +18,32 @@
 	/** @type {Props} */
 	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
-	let barStart = $derived(c.xRange[0]);
+	let barStart = $derived(cake.xRange[0]);
 
 	let barHeight = $derived(
-		c.y2Scale.bandwidth ? c.y2Scale.bandwidth() : Math.abs(c.y2Range[1] - c.y2Range[0])
+		cake.y2Scale.bandwidth ? cake.y2Scale.bandwidth() : Math.abs(cake.y2Range[1] - cake.y2Range[0])
 	);
 
 	let barWidth = $derived(d => {
-		return c.xGet(d) - barStart;
+		return cake.xGet(d) - barStart;
 	});
 </script>
 
 <g class="bar-group">
-	{#each c.data as d, i}
+	{#each cake.data as d, i}
 		{@const barLength = barWidth(d)}
-		{@const yPos = c.yGet(d) + c.y2Get(d)}
-		{@const xValue = c.x(d)}
+		{@const yPos = cake.yGet(d) + cake.y2Get(d)}
+		{@const xValue = cake.x(d)}
 		<rect
 			class="group-rect"
 			data-id={i}
-			data-range={c.y(d)}
+			data-range={cake.y(d)}
 			data-count={xValue}
 			x={barStart}
 			y={yPos}
 			width={barLength}
 			height={barHeight}
-			fill={fill || c.cGet(d)}
+			fill={fill || cake.cGet(d)}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>

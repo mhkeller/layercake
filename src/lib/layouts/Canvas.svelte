@@ -7,7 +7,7 @@
 	import { getLayerCakeContext } from '../context.js';
 	import scaleCanvas from '../lib/scaleCanvas.js';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -46,7 +46,7 @@
 		if (element) {
 			context = element.getContext('2d');
 			if (context) {
-				scaleCanvas(context, c.width, c.height);
+				scaleCanvas(context, cake.width, cake.height);
 			}
 		}
 	});
@@ -57,10 +57,10 @@
 	class="layercake-layout-canvas"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={c.padding.top + 'px'}
-	style:right={c.padding.right + 'px'}
-	style:bottom={c.padding.bottom + 'px'}
-	style:left={c.padding.left + 'px'}
+	style:top={cake.padding.top + 'px'}
+	style:right={cake.padding.right + 'px'}
+	style:bottom={cake.padding.bottom + 'px'}
+	style:left={cake.padding.left + 'px'}
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}

@@ -326,14 +326,14 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 	import { getContext } from 'svelte';
 	import { getLayerCakeContext, scaleCanvas } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	const canvasCtx = getContext('canvas');
 
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
 	$effect(() => {
-		if (!c.width || !c.height || !canvasCtx.ctx) return;
+		if (!cake.width || !cake.height || !canvasCtx.ctx) return;
 
 		const context = canvasCtx.ctx;
 
@@ -343,15 +343,15 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 		 * put these reset functions in the first layer, not each one
 		 * since they should only run once per update
 		 */
-		scaleCanvas(context, c.width, c.height);
-		context.clearRect(0, 0, c.width, c.height);
+		scaleCanvas(context, cake.width, cake.height);
+		context.clearRect(0, 0, cake.width, cake.height);
 
 		/**
 		 * Draw our scatterplot
 		 */
-		c.data.forEach((/** @type {any} d */ d) => {
+		cake.data.forEach((/** @type {any} d */ d) => {
 			context.beginPath();
-			context.arc(c.xGet(d), c.yGet(d), r, 0, 2 * Math.PI, false);
+			context.arc(cake.xGet(d), cake.yGet(d), r, 0, 2 * Math.PI, false);
 			context.lineWidth = strokeWidth;
 			context.strokeStyle = stroke;
 			context.stroke();

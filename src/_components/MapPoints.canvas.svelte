@@ -6,7 +6,7 @@
 	import { getContext } from 'svelte';
 	import { scaleCanvas, getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	const canvasCtx = getContext('canvas');
 
@@ -17,7 +17,7 @@
 	 * @property {string} [fill='yellow'] - The point's fill color.
 	 * @property {string} [stroke='#000'] - The point's stroke color.
 	 * @property {number} [strokeWidth=1] - The point's stroke width.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `c.data.features`, assuming this field is a list of GeoJSON features.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `cake.data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
 	/** @type {Props} */
@@ -30,19 +30,19 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([c.width, c.height], c.data));
+	let projectionFn = $derived(projection().fitSize([cake.width, cake.height], cake.data));
 
-	let featuresToDraw = $derived(features || c.data.features);
+	let featuresToDraw = $derived(features || cake.data.features);
 
 	$effect(() => {
-		if (!c.width || !c.height || !canvasCtx.ctx) return;
+		if (!cake.width || !cake.height || !canvasCtx.ctx) return;
 
 		const context = canvasCtx.ctx;
 
-		scaleCanvas(context, c.width, c.height);
-		context.clearRect(0, 0, c.width, c.height);
+		scaleCanvas(context, cake.width, cake.height);
+		context.clearRect(0, 0, cake.width, cake.height);
 
-		// To scale the circle by size, set width and height to `c.rGet(d.properties)`
+		// To scale the circle by size, set width and height to `cake.rGet(d.properties)`
 		featuresToDraw.forEach(
 			/** @param {any} d */ d => {
 				context.beginPath();

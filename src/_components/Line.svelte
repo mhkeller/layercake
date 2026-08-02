@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -17,9 +17,9 @@
 
 	let path = $derived(
 		'M' +
-			c.data
+			cake.data
 				.map(d => {
-					return c.xGet(d) + ',' + c.yGet(d);
+					return cake.xGet(d) + ',' + cake.yGet(d);
 				})
 				.join('L')
 	);

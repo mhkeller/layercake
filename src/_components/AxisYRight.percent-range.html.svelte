@@ -7,7 +7,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -38,7 +38,7 @@
 		dx = 0,
 		dy = -3,
 		charPixelWidth = 7.25,
-		units = c.percentRange === true ? '%' : 'px'
+		units = cake.percentRange === true ? '%' : 'px'
 	} = $props();
 
 	/** @param {number} sum
@@ -48,16 +48,16 @@
 		return sum + charPixelWidth;
 	}
 
-	let isBandwidth = $derived(typeof c.yScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof cake.yScale.bandwidth === 'function');
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? c.yScale.domain()
+				? cake.yScale.domain()
 				: typeof ticks === 'function'
-					? ticks(c.yScale.ticks())
-					: c.yScale.ticks(ticks)
+					? ticks(cake.yScale.ticks())
+					: cake.yScale.ticks(ticks)
 	);
 	let widestTickLen = $derived(
 		Math.max(
@@ -72,17 +72,17 @@
 				: (tickMarkLength ?? 6)
 			: 0
 	);
-	let halfBand = $derived(isBandwidth ? c.yScale.bandwidth() / 2 : 0);
-	let maxTickValUnits = $derived(Math.max(...tickVals.map(c.yScale)));
+	let halfBand = $derived(isBandwidth ? cake.yScale.bandwidth() / 2 : 0);
+	let maxTickValUnits = $derived(Math.max(...tickVals.map(cake.yScale)));
 </script>
 
 <div class="axis y-axis">
 	{#each tickVals as tick, i (tick)}
-		{@const tickValUnits = c.yScale(tick)}
+		{@const tickValUnits = cake.yScale(tick)}
 
 		<div
 			class="tick tick-{i}"
-			style="left:{c.xRange ? c.xRange[0] : 0}{units};top:{tickValUnits + halfBand}{units};"
+			style="left:{cake.xRange ? cake.xRange[0] : 0}{units};top:{tickValUnits + halfBand}{units};"
 		>
 			{#if gridlines === true}
 				<div
@@ -96,7 +96,7 @@
 				<div
 					class="tick-mark"
 					style:top="0"
-					style:left="{c.width + tickGutter}px"
+					style:left="{cake.width + tickGutter}px"
 					style:width="{tickLen}px"
 				></div>
 			{/if}

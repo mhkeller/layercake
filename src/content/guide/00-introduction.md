@@ -195,14 +195,14 @@ This is what the scatter component looks like:
 
 	// Grab the chart context, which holds your data,
 	// accessors, scales and other helpful functions
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	let { fill = '#000', r = 5 } = $props();
 </script>
 
 <g>
-	{#each c.data as d}
-		<circle cx={c.xScale(c.x(d))} cy={c.yScale(c.y(d))} {fill} {r} />
+	{#each cake.data as d}
+		<circle cx={cake.xScale(cake.x(d))} cy={cake.yScale(cake.y(d))} {fill} {r} />
 	{/each}
 </g>
 ```
@@ -211,7 +211,7 @@ This is what the scatter component looks like:
 
 A few notes on this component:
 
-1. Reading values off of the context object – `c.data`, `c.xScale` – is reactive, so your component re-renders when the data or dimensions change. Avoid destructuring the context (`const { data } = getLayerCakeContext();`) outside of a [`$derived`](https://svelte.dev/docs/svelte/$derived) expression, though, since that would capture a one-time snapshot.
+1. Reading values off of the context object – `cake.data`, `cake.xScale` – is reactive, so your component re-renders when the data or dimensions change. Avoid destructuring the context (`const { data } = getLayerCakeContext();`) outside of a [`$derived`](https://svelte.dev/docs/svelte/$derived) expression, though, since that would capture a one-time snapshot.
 2. This example is a bit verbose because we're calling our accessor functions and then our scale functions. You can combine these two steps with the built-in `xGet` and `yGet` functions. Like so:
 
 ```svelte
@@ -221,15 +221,15 @@ A few notes on this component:
 	import { getLayerCakeContext } from 'layercake';
 
 	// Grab the chart context
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	// Customizable defaults
 	let { fill = '#000', r = 5 } = $props();
 </script>
 
 <g>
-	{#each c.data as d}
-		<circle cx={c.xGet(d)} cy={c.yGet(d)} {fill} {r} />
+	{#each cake.data as d}
+		<circle cx={cake.xGet(d)} cy={cake.yGet(d)} {fill} {r} />
 	{/each}
 </g>
 ```

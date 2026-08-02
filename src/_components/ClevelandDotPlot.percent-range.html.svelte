@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -15,13 +15,13 @@
 	/** @type {Props} */
 	let { r = 5 } = $props();
 
-	let midHeight = $derived(c.yScale.bandwidth() / 2);
+	let midHeight = $derived(cake.yScale.bandwidth() / 2);
 </script>
 
 <div class="dot-plot">
-	{#each c.data as row}
-		{@const scaledYValue = c.yGet(row)}
-		{@const scaledXValues = c.xGet(row)}
+	{#each cake.data as row}
+		{@const scaledYValue = cake.yGet(row)}
+		{@const scaledXValues = cake.xGet(row)}
 		<div class="dot-row">
 			<div
 				class="line"
@@ -40,7 +40,7 @@
 						top: {scaledYValue + midHeight}%;
 						width: {r * 2}px;
 						height: {r * 2}px;
-						background: {c.cScale(c.config.x[i])};
+						background: {cake.cScale(cake.config.x[i])};
 					"
 				></div>
 			{/each}

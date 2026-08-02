@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -44,16 +44,16 @@
 		return sum + charPixelWidth;
 	}
 
-	let isBandwidth = $derived(typeof c.yScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof cake.yScale.bandwidth === 'function');
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? c.yScale.domain()
+				? cake.yScale.domain()
 				: typeof ticks === 'function'
-					? ticks(c.yScale.ticks())
-					: c.yScale.ticks(ticks)
+					? ticks(cake.yScale.ticks())
+					: cake.yScale.ticks(ticks)
 	);
 	let widestTickLen = $derived(
 		Math.max(
@@ -68,31 +68,36 @@
 				: (tickMarkLength ?? 6)
 			: 0
 	);
-	let x2 = $derived(c.width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen));
-	let y = $derived(isBandwidth ? c.yScale.bandwidth() / 2 : 0);
-	let maxTickValPx = $derived(Math.max(...tickVals.map(c.yScale)));
+	let x2 = $derived(
+		cake.width + tickGutter + (labelPosition === 'above' ? widestTickLen : tickLen)
+	);
+	let y = $derived(isBandwidth ? cake.yScale.bandwidth() / 2 : 0);
+	let maxTickValPx = $derived(Math.max(...tickVals.map(cake.yScale)));
 </script>
 
 <g class="axis y-axis">
 	{#each tickVals as tick (tick)}
-		{@const tickValPx = c.yScale(tick)}
+		{@const tickValPx = cake.yScale(tick)}
 		<!-- Fall back to the left edge if the chart has no x dimension -->
-		<g class="tick tick-{tick}" transform="translate({c.xRange ? c.xRange[0] : 0}, {tickValPx})">
+		<g
+			class="tick tick-{tick}"
+			transform="translate({cake.xRange ? cake.xRange[0] : 0}, {tickValPx})"
+		>
 			{#if gridlines === true}
 				<line class="gridline" x1="0" {x2} y1={y} y2={y}></line>
 			{/if}
 			{#if tickMarks === true}
 				<line
 					class="tick-mark"
-					x1={c.width + tickGutter}
-					x2={c.width + tickGutter + tickLen}
+					x1={cake.width + tickGutter}
+					x2={cake.width + tickGutter + tickLen}
 					y1={y}
 					y2={y}
 				></line>
 			{/if}
 
 			<text
-				x={c.width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}
+				x={cake.width + tickGutter + (labelPosition === 'even' ? tickLen : 0)}
 				{y}
 				dx={dx + (labelPosition === 'even' ? 3 : 0)}
 				dy={dy +

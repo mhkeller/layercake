@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -20,10 +20,10 @@
 </script>
 
 <g class="scatter-group">
-	{#each c.data as d}
+	{#each cake.data as d}
 		<circle
-			cx={c.xGet(d) + (c.xScale.bandwidth ? c.xScale.bandwidth() / 2 : 0)}
-			cy={c.yGet(d) + (c.yScale.bandwidth ? c.yScale.bandwidth() / 2 : 0)}
+			cx={cake.xGet(d) + (cake.xScale.bandwidth ? cake.xScale.bandwidth() / 2 : 0)}
+			cy={cake.yGet(d) + (cake.yScale.bandwidth ? cake.yScale.bandwidth() / 2 : 0)}
 			{r}
 			{fill}
 			{stroke}

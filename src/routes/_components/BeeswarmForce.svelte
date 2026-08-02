@@ -37,10 +37,10 @@
 		cRange={seriesColors}
 		data={dataTransformed}
 	>
-		{#snippet children(c)}
+		{#snippet children(cake)}
 			<Svg>
 				<Beeswarm
-					r={c.width < 400 ? r / 1.25 : r}
+					r={cake.width < 400 ? r / 1.25 : r}
 					strokeWidth={1}
 					xStrength={0.95}
 					yStrength={0.075}

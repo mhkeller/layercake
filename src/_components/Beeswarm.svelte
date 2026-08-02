@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -67,17 +67,17 @@
 
 		return circles;
 	}
-	let circles = $derived(dodge(c.data, { rds: r * 2 + spacing + strokeWidth, x: c.xGet }));
+	let circles = $derived(dodge(cake.data, { rds: r * 2 + spacing + strokeWidth, x: cake.xGet }));
 </script>
 
 <g class="bee-group">
 	{#each circles as d}
 		<circle
-			fill={c.cGet(d.data)}
+			fill={cake.cGet(d.data)}
 			{stroke}
 			stroke-width={strokeWidth}
 			cx={d.x}
-			cy={c.height - r - spacing - strokeWidth / 2 - d.y}
+			cy={cake.height - r - spacing - strokeWidth / 2 - d.y}
 			{r}
 		>
 			{#if getTitle}

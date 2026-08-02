@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -51,35 +51,37 @@
 
 	let tickLen = $derived(tickMarks === true ? (tickMarkLength ?? 6) : 0);
 
-	let isBandwidth = $derived(typeof c.xScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof cake.xScale.bandwidth === 'function');
 
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? c.xScale.domain()
+				? cake.xScale.domain()
 				: typeof ticks === 'function'
-					? ticks(c.xScale.ticks())
-					: c.xScale.ticks(ticks)
+					? ticks(cake.xScale.ticks())
+					: cake.xScale.ticks(ticks)
 	);
 
-	let halfBand = $derived(isBandwidth ? c.xScale.bandwidth() / 2 : 0);
+	let halfBand = $derived(isBandwidth ? cake.xScale.bandwidth() / 2 : 0);
 </script>
 
 <g class="axis x-axis" class:snapLabels>
 	{#if baseline === true}
-		<line class="baseline" y1={c.height} y2={c.height} x1="0" x2={c.width} />
+		<line class="baseline" y1={cake.height} y2={cake.height} x1="0" x2={cake.width} />
 	{/if}
 
 	{#each tickVals as tick, i (tick)}
 		<!-- Fall back to the chart height if the chart has no y dimension -->
 		<g
 			class="tick tick-{i}"
-			transform="translate({c.xScale(tick)},{c.yRange ? Math.max(...c.yRange) : c.height})"
+			transform="translate({cake.xScale(tick)},{cake.yRange
+				? Math.max(...cake.yRange)
+				: cake.height})"
 		>
 			{#if gridlines === true}
-				<line class="gridline" x1={halfBand} x2={halfBand} y1={-c.height} y2="0" />
+				<line class="gridline" x1={halfBand} x2={halfBand} y1={-cake.height} y2="0" />
 			{/if}
 			{#if tickMarks === true}
 				<line

@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	// Require a D3 projection function
 
@@ -17,7 +17,7 @@
 	 * @property {string} [stroke='#000'] - The point's stroke color.
 	 * @property {number} [strokeWidth=1] - The point's stroke width.
 	 * @property {number} [opacity=1] - The point's opacity.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `c.data.features`, assuming this field is a list of GeoJSON features.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `cake.data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
 	/** @type {Props} */
@@ -31,12 +31,12 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([c.width, c.height], c.data));
+	let projectionFn = $derived(projection().fitSize([cake.width, cake.height], cake.data));
 </script>
 
 <g class="points">
-	{#each features || c.data.features as d}
-		<!-- To scale the circle by size, set r to `c.rGet(d.properties)` -->
+	{#each features || cake.data.features as d}
+		<!-- To scale the circle by size, set r to `cake.rGet(d.properties)` -->
 		<circle
 			cx={projectionFn(d.geometry.coordinates)[0]}
 			cy={projectionFn(d.geometry.coordinates)[1]}

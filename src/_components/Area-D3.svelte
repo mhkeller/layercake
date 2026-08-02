@@ -6,7 +6,7 @@
 	import { area, curveLinear } from 'd3-shape';
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const cake = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -19,12 +19,12 @@
 
 	let path = $derived(
 		area()
-			.x(c.xGet)
-			.y1(c.yGet)
-			.y0(d => c.yScale(0))
+			.x(cake.xGet)
+			.y1(cake.yGet)
+			.y0(d => cake.yScale(0))
 			.curve(curve)
 	);
 	// .defined($y)
 </script>
 
-<path class="path-area" d={path(c.data)} {fill}></path>
+<path class="path-area" d={path(cake.data)} {fill}></path>

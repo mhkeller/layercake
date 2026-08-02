@@ -5,7 +5,7 @@ import { createContext } from 'svelte';
  * scale type provides – `.ticks()` on a linear scale, `.bandwidth()` on a band
  * scale. Typing these loosely is deliberate. Layer Cake hands back whichever
  * scale you passed in, so it can't know which methods exist, and a union of
- * every d3 scale would make `c.xScale.ticks()` an error unless you narrowed
+ * every d3 scale would make `cake.xScale.ticks()` an error unless you narrowed
  * first. If you do know the scale types in your own component, name them:
  * `@type {LayerCakeContext<{ x: import('d3-scale').ScaleBand<string> }>}`.
  * @typedef {{ (value: any): any, [key: string]: any }} Scale
@@ -111,8 +111,8 @@ import { createContext } from 'svelte';
 
 /**
  * The LayerCake chart context. In a child component, call
- * `const c = getLayerCakeContext()` and read values as `c.width`,
- * `c.xGet(d)` etc. Property reads are reactive – avoid destructuring
+ * `const cake = getLayerCakeContext()` and read values as `cake.width`,
+ * `cake.xGet(d)` etc. Property reads are reactive – avoid destructuring
  * outside of `$derived`, which would capture a stale snapshot.
  * @type {[() => LayerCakeContext, (context: LayerCakeContext) => LayerCakeContext]}
  */

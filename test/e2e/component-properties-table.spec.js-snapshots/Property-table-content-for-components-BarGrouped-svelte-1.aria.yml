@@ -6,14 +6,17 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "fill string '#00e047' no The shape's fill color.":
+    - row "fill string undefined no The shape's fill color. By default the color is read from the c scale.":
       - cell "fill string":
         - strong: fill
         - code: string
-      - cell "'#00e047'":
-        - code: "'#00e047'"
+      - cell "undefined":
+        - code: undefined
       - cell "no"
-      - cell "The shape's fill color."
+      - cell "The shape's fill color. By default the color is read from the c scale.":
+        - text: ""
+        - code: c
+        - text: ""
     - row /stroke string '#\d+' no The shape's stroke color\./:
       - cell "stroke string":
         - strong: stroke
@@ -30,11 +33,11 @@
         - code: "0"
       - cell "no"
       - cell "The shape's stroke width."
-    - row "showLabels boolean false no Show the numbers for each column":
+    - row "showLabels boolean false no Show the numbers for each bar.":
       - cell "showLabels boolean":
         - strong: showLabels
         - code: boolean
       - cell "false":
         - code: "false"
       - cell "no"
-      - cell "Show the numbers for each column"
+      - cell "Show the numbers for each bar."

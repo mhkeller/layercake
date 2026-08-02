@@ -37,12 +37,7 @@
 	>
 		{#snippet children(cake)}
 			<Html>
-				<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
-				<BeeswarmHtml
-					r={cake.width < 400 ? r / 1.6 : r}
-					spacing={1}
-					getTitle={d => d.data[titleKey]}
-				/>
+				<BeeswarmHtml r={cake.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
 			</Html>
 		{/snippet}
 	</LayerCake>

@@ -1,20 +1,22 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
-    - row "formatTitle Function d => d no A function to format the tooltip title, which is $config.x.":
+    - row "formatTitle Function d => d no A function to format the tooltip title, which is cake.config.x.":
       - cell "formatTitle Function":
         - strong: formatTitle
         - code: Function
       - cell "d => d":
         - code: d => d
       - cell "no"
-      - cell "A function to format the tooltip title, which is $config.x.":
-        - code: $config.x
+      - cell "A function to format the tooltip title, which is cake.config.x.":
+        - text: ""
+        - code: cake.config.x
+        - text: ""
     - 'row "formatValue Function d => (isNaN(+d) ? d : commas(d)) no A function to format the value."':
       - cell "formatValue Function":
         - strong: formatValue
@@ -39,11 +41,14 @@
         - code: /-\d+/
       - cell "no"
       - cell "A y-offset from the hover point, in pixels."
-    - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
+    - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to cake.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
       - cell "dataset (Array<Object> | undefined)":
         - strong: dataset
+        - text: ""
         - code: Array<Object>
+        - text: ""
         - code: undefined
+        - text: ""
       - cell "None"
       - cell "no"
-      - cell "The dataset to work off of—defaults to $data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format."
+      - cell "The dataset to work off of—defaults to cake.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format."

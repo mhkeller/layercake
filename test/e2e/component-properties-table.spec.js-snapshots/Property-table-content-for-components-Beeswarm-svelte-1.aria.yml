@@ -1,10 +1,10 @@
 - table:
   - rowgroup:
     - row "Param Default Required Description":
-      - cell "Param"
-      - cell "Default"
-      - cell "Required"
-      - cell "Description"
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
   - rowgroup:
     - row "r number 3 no The circle radius size in pixels.":
       - cell "r number":
@@ -38,11 +38,13 @@
         - code: "1.5"
       - cell "no"
       - cell "Whitespace padding between each circle, in pixels"
-    - row "getTitle Function None no An accessor function to get the field on the data element to display as a hover label using a <title> tag.":
+    - row "getTitle Function None no An accessor function that receives a row of your data and returns the field to display as a hover label using a <title> tag.":
       - cell "getTitle Function":
         - strong: getTitle
         - code: Function
       - cell "None"
       - cell "no"
-      - cell "An accessor function to get the field on the data element to display as a hover label using a <title> tag.":
+      - cell "An accessor function that receives a row of your data and returns the field to display as a hover label using a <title> tag.":
+        - text: ""
         - code: <title>
+        - text: ""

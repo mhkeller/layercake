@@ -1,5 +1,86 @@
 # Changelog
 
+# 11.0.0
+
+> DRAFT – date TBD
+
+A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter object, and dimensions are defined as data in a registry that drives props, scales, context keys and types. See the [migration notes](#migrating-from-10x) below.
+
+**Breaking changes**
+
+- The context is accessed with `getLayerCakeContext()` instead of `getContext('LayerCake')`, and its values are plain reactive values, not stores: `$xGet(d)` becomes `cake.xGet(d)` after `const cake = getLayerCakeContext()`. Property reads are reactive – destructuring outside of `$derived` captures a stale snapshot. The variable name is up to you. The docs and examples call it `cake`.
+- Requires `svelte@5.40` or newer (the library uses `createContext`).
+- The `children` snippet receives the context object as its single argument. Svelte 4 `let:` directives no longer apply.
+- Scales are only created for dimensions you configure (via the accessor, `[name]Domain`, `[name]Scale` or `[name]Range` prop). Unconfigured dimensions return `undefined` from the context, where previous versions always created default `x`/`y`/`z`/`r` scales. Components that read another dimension's values should guard, e.g. `cake.yRange ? Math.max(...cake.yRange) : cake.height`.
+- The `width` and `height` props are gone. They only ever set the size the chart drew at before the container was measured, which is the same 100 the component now uses on its own, and the name implied an override that never existed. For a server-side render, set the coordinate system with [`percentRange`](https://layercake.graphics/guide#percentrange) instead. Passing either one now logs `[LayerCake] Unknown prop 'width'. Ignoring...`.
+- The domains passed to the `children` snippet are now read back off the scale after `.nice()` and `[name]Padding` are applied, matching what the context reports. Previously the snippet received the pre-nice domain.
+- Passing an uninstantiated scale factory (`xScale={scaleLinear}` instead of `xScale={scaleLinear()}`) now throws a clear error. It was never documented behavior.
+- A function passed as `[name]Range` receives `({ width, height, scales })` and only re-runs when the values it actually reads change.
+- `debug` no longer prints during server-side rendering; it prints in the browser after hydration.
+- Unknown props are reported with a console warning unless `verbose={false}`.
+- A range you customized on a passed-in scale is now preserved instead of being overwritten with the dimension's default – so `zScale={scaleOrdinal(schemeCategory10)}` keeps its colors. Layer Cake still manages the range of pristine scales, and an explicit `[name]Range` prop always wins. Per [#364](https://github.com/mhkeller/layercake/issues/364).
+
+**New features**
+
+- Two nested dimensions, `x2` and `y2`, for grouped column and bar charts. They default to a `scaleBand()` whose range is the parent scale's bandwidth, so a grouped column chart is just `x="year" xScale={scaleBand()} x2="fruit" y="value"`. See the new [ColumnGrouped example](https://layercake.graphics/example/ColumnGrouped).
+- Two color dimensions, `c` and `c2` (e.g. for opacity). Their domains are computed from your data like any other dimension. `c` defaults to an ordinal scale with a ten-color categorical palette (d3's `schemeCategory10`, no new dependency) and `c2` to a linear scale with a `[0, 1]` range – override with `cRange`/`c2Range`, or pass a preconfigured scale like `cScale={scaleOrdinal(schemeCategory10)}`, whose customized range is preserved. Per [#364](https://github.com/mhkeller/layercake/issues/364).
+- `[name]Range` functions receive the computed sibling scales, e.g. `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+- New `x2DomainSort`, `y2DomainSort`, `cDomainSort` and `c2DomainSort` props.
+- The context exposes `element`, the `.layercake-container` div.
+- Dimensions are defined as data in a registry (`settings/dimensions.js`); prop handling, scale creation, context keys and TypeScript definitions are all generated from it.
+
+**Performance**
+
+- Scales, domains and getters are only computed for dimensions you actually configure. Previous versions always built all four.
+- The reactive graph is pull-based and fine-grained. Scales only depend on the values their range reads, so color and ordinal scales no longer rebuild on every resize tick, and a `percentRange` chart doesn't rebuild any scales while resizing.
+- Extents only depend on the dimensions that contribute data, so changing a prop of an unused dimension no longer rescans your data.
+- Child components read one shared context object through getters instead of subscribing to ~50 derived stores each.
+
+**Types**
+
+- `getLayerCakeContext()` returns a fully typed context: every key autocompletes with hover documentation, and typos like `cake.xGett` are compile errors.
+- Component props are fully typed. The per-dimension halves of both typedefs are generated from the registry (`npm run generate:dims`) and enforced by tests, so types, docs and runtime behavior can't drift apart.
+
+**Fixes**
+
+- A dimension configured only through its `[name]Scale` prop keeps the scale's preconfigured domain instead of having it overwritten with an empty array.
+- The zero-width/zero-height container warning now always fires when the container is unsized, not only when a child happens to read a size-dependent value.
+- Axis components fall back gracefully on charts that don't configure the opposite dimension.
+- The declared svelte peer dependency now matches the version the library actually requires.
+
+## Migrating from 10.x
+
+| 10.x                                             | 11.0                                                                     |
+| ------------------------------------------------ | ------------------------------------------------------------------------ |
+| `const { data, xGet } = getContext('LayerCake')` | `const cake = getLayerCakeContext()`                                     |
+| `$xGet(d)`, `$yScale.ticks()`, `$width`          | `cake.xGet(d)`, `cake.yScale.ticks()`, `cake.width`                      |
+| `<LayerCake let:width>`                          | `{#snippet children(cake)}...{/snippet}` or read `cake.width` in a child |
+| Color via `z`                                    | Still works, but `c` is now the dedicated color dimension                |
+| `getContext('canvas')` store                     | `getContext('canvas').ctx` getter object (same for `'gl'`)               |
+
+# 10.0.3
+
+> 2026-07-11
+
+Upgrade deps and GH actions. Fixes to docs and type annotations.
+
+- [PR#413](https://github.com/mhkeller/layercake/pull/413)
+- [PR#414](https://github.com/mhkeller/layercake/pull/414)
+
+# 10.0.2
+
+> 2025-09-23
+
+- Removes the npm version constraint from package.json because it was causing issues and is not really needed
+  - [PR#345](https://github.com/mhkeller/layercake/pull/345)
+
+# 10.0.1
+
+> 2025-08-24
+
+- Updates the Svelte peer dependency to version 5 or greater. This should have been included with `v9.0.0` so putting it in now as a patch release. Users needing Svelte 3 (probably no one) or Svelte 4 (very few) support should use version 8.4.4.
+  - [PR#332](https://github.com/mhkeller/layercake/pull/332)
+
 # 10.0.0
 
 > 2025-08-18
@@ -14,19 +95,19 @@
 - Converts most of the codebase to Svelte 5's runes and incorporates some longstanding pending breaking changes.
 
 **Breaking changes**
-  - The `title` prop on `Svg` and `ScaledSvg` layout components is renamed to `titleText` to avoid conflicting with the `title` snippet namespace. https://github.com/mhkeller/layercake/pull/271
-  - The `title` snippet for those components now creates the outer `<title>` tag for you. Previously, the slot was blank and you had to write your own `<title>` wrapper. https://github.com/mhkeller/layercake/pull/271
-  - The `fallback` slot on `Canvas` and `Webgl` layout components was removed. The `fallback` text prop is sufficient. https://github.com/mhkeller/layercake/pull/271
-  - The `extents` prop is deprecated https://github.com/mhkeller/layercake/pull/243
-  - Domains for ordinal scales are no longer sorted by default https://github.com/mhkeller/layercake/pull/241
+
+- The `title` prop on `Svg` and `ScaledSvg` layout components is renamed to `titleText` to avoid conflicting with the `title` snippet namespace. https://github.com/mhkeller/layercake/pull/271
+- The `title` snippet for those components now creates the outer `<title>` tag for you. Previously, the slot was blank and you had to write your own `<title>` wrapper. https://github.com/mhkeller/layercake/pull/271
+- The `fallback` slot on `Canvas` and `Webgl` layout components was removed. The `fallback` text prop is sufficient. https://github.com/mhkeller/layercake/pull/271
+- The `extents` prop is deprecated https://github.com/mhkeller/layercake/pull/243
+- Domains for ordinal scales are no longer sorted by default https://github.com/mhkeller/layercake/pull/241
 
 # 8.4.4
 
 > 2025-07-24
 
-* Remove `$:` from context setting.
+- Remove `$:` from context setting.
   - [PR#302](https://github.com/mhkeller/layercake/pull/302)
-
 
 # 8.4.3
 

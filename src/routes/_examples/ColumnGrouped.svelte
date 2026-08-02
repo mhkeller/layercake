@@ -22,7 +22,7 @@
 
 	// Alternatively, the same chart works without `x2`
 	// by deriving a scale inside your component:
-	// const x2Scale = $derived(scaleBand().domain(fruits).range([0, c.xScale.bandwidth()]));
+	// const x2Scale = $derived(scaleBand().domain(fruits).range([0, cake.xScale.bandwidth()]));
 </script>
 
 <div class="chart-container">

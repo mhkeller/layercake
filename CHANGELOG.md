@@ -8,10 +8,10 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 
 **Breaking changes**
 
-- The context is accessed with `getLayerCakeContext()` instead of `getContext('LayerCake')`, and its values are plain reactive values, not stores: `$xGet(d)` becomes `cake.xGet(d)` after `const cake = getLayerCakeContext()`. Property reads are reactive – destructuring outside of `$derived` captures a stale snapshot. The variable name is up to you. The docs and examples call it `cake`.
+- The context is accessed with `getLayerCakeContext()` instead of `getContext('LayerCake')`, and its values are plain reactive values, not stores: `$xGet(d)` becomes `k.xGet(d)` after `const k = getLayerCakeContext()`. Property reads are reactive – destructuring outside of `$derived` captures a stale snapshot. The variable name is up to you. The docs and examples call it `k`.
 - Requires `svelte@5.40` or newer (the library uses `createContext`).
 - The `children` snippet receives the context object as its single argument. Svelte 4 `let:` directives no longer apply.
-- Scales are only created for dimensions you configure (via the accessor, `[name]Domain`, `[name]Scale` or `[name]Range` prop). Unconfigured dimensions return `undefined` from the context, where previous versions always created default `x`/`y`/`z`/`r` scales. Components that read another dimension's values should guard, e.g. `cake.yRange ? Math.max(...cake.yRange) : cake.height`.
+- Scales are only created for dimensions you configure (via the accessor, `[name]Domain`, `[name]Scale` or `[name]Range` prop). Unconfigured dimensions return `undefined` from the context, where previous versions always created default `x`/`y`/`z`/`r` scales. Components that read another dimension's values should guard, e.g. `k.yRange ? Math.max(...k.yRange) : k.height`.
 - The `width` and `height` props are gone. They only ever set the size the chart drew at before the container was measured, which is the same 100 the component now uses on its own, and the name implied an override that never existed. For a server-side render, set the coordinate system with [`percentRange`](https://layercake.graphics/guide#percentrange) instead. Passing either one now logs `[LayerCake] Unknown prop 'width'. Ignoring...`.
 - The domains passed to the `children` snippet are now read back off the scale after `.nice()` and `[name]Padding` are applied, matching what the context reports. Previously the snippet received the pre-nice domain.
 - Passing an uninstantiated scale factory (`xScale={scaleLinear}` instead of `xScale={scaleLinear()}`) now throws a clear error. It was never documented behavior.
@@ -38,7 +38,7 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 
 **Types**
 
-- `getLayerCakeContext()` returns a fully typed context: every key autocompletes with hover documentation, and typos like `cake.xGett` are compile errors.
+- `getLayerCakeContext()` returns a fully typed context: every key autocompletes with hover documentation, and typos like `k.xGett` are compile errors.
 - Component props are fully typed. The per-dimension halves of both typedefs are generated from the registry (`npm run generate:dims`) and enforced by tests, so types, docs and runtime behavior can't drift apart.
 
 **Fixes**
@@ -50,13 +50,13 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 
 ## Migrating from 10.x
 
-| 10.x                                             | 11.0                                                                     |
-| ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `const { data, xGet } = getContext('LayerCake')` | `const cake = getLayerCakeContext()`                                     |
-| `$xGet(d)`, `$yScale.ticks()`, `$width`          | `cake.xGet(d)`, `cake.yScale.ticks()`, `cake.width`                      |
-| `<LayerCake let:width>`                          | `{#snippet children(cake)}...{/snippet}` or read `cake.width` in a child |
-| Color via `z`                                    | Still works, but `c` is now the dedicated color dimension                |
-| `getContext('canvas')` store                     | `getContext('canvas').ctx` getter object (same for `'gl'`)               |
+| 10.x                                             | 11.0                                                               |
+| ------------------------------------------------ | ------------------------------------------------------------------ |
+| `const { data, xGet } = getContext('LayerCake')` | `const k = getLayerCakeContext()`                                  |
+| `$xGet(d)`, `$yScale.ticks()`, `$width`          | `k.xGet(d)`, `k.yScale.ticks()`, `k.width`                         |
+| `<LayerCake let:width>`                          | `{#snippet children(k)}...{/snippet}` or read `k.width` in a child |
+| Color via `z`                                    | Still works, but `c` is now the dedicated color dimension          |
+| `getContext('canvas')` store                     | `getContext('canvas').ctx` getter object (same for `'gl'`)         |
 
 # 10.0.3
 

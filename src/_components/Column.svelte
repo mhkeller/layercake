@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -19,29 +19,29 @@
 	let { fill, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
 	// The `fill` prop wins, then the `c` scale's color, then the fallback
-	let getFill = $derived(/** @param {any} d */ d => fill ?? cake.cGet?.(d) ?? '#00e047');
+	let getFill = $derived(/** @param {any} d */ d => fill ?? k.cGet?.(d) ?? '#00e047');
 
 	let columnWidth = $derived(d => {
-		const vals = cake.xGet(d);
+		const vals = k.xGet(d);
 		return Math.abs(vals[1] - vals[0]);
 	});
 
 	// Columns start at zero and run out to their value, so negative ones hang
 	// below it. Make sure zero is in your yDomain or this lands off the chart.
-	let zeroY = $derived(cake.yScale(0));
+	let zeroY = $derived(k.yScale(0));
 </script>
 
 <g class="column-group">
-	{#each cake.data as d, i}
-		{@const valueY = cake.yGet(d)}
-		{@const xGot = cake.xGet(d)}
+	{#each k.data as d, i}
+		{@const valueY = k.yGet(d)}
+		{@const xGot = k.xGet(d)}
 		{@const xPos = Array.isArray(xGot) ? xGot[0] : xGot}
-		{@const colWidth = cake.xScale.bandwidth ? cake.xScale.bandwidth() : columnWidth(d)}
-		{@const yValue = cake.y(d)}
+		{@const colWidth = k.xScale.bandwidth ? k.xScale.bandwidth() : columnWidth(d)}
+		{@const yValue = k.y(d)}
 		<rect
 			class="group-rect"
 			data-id={i}
-			data-range={cake.x(d)}
+			data-range={k.x(d)}
 			data-count={yValue}
 			x={xPos}
 			y={Math.min(zeroY, valueY)}

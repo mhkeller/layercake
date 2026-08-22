@@ -35,9 +35,9 @@
 		cRange={seriesColors}
 		data={dataTransformed}
 	>
-		{#snippet children(cake)}
+		{#snippet children(k)}
 			<Html>
-				<BeeswarmHtml r={cake.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
+				<BeeswarmHtml r={k.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
 			</Html>
 		{/snippet}
 	</LayerCake>

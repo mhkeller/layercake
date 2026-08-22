@@ -43,7 +43,7 @@
       - cell "None"
       - cell "no"
       - cell "The shape's fill color. By default, the fill will be determined by the c-scale, unless this prop is set."
-    - row "features (Array<GeoJSON> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in cake.data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in cake.data.features if left unset.":
+    - row "features (Array<GeoJSON> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in k.data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in k.data.features if left unset.":
       - cell "features (Array<GeoJSON> | undefined)":
         - strong: features
         - text: ""
@@ -53,9 +53,9 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "A list of GeoJSON features. Use this if you want to draw a subset of the features in cake.data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in cake.data.features if left unset.":
+      - cell "A list of GeoJSON features. Use this if you want to draw a subset of the features in k.data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in k.data.features if left unset.":
         - text: A list of GeoJSON features. Use this if you want to draw a subset of the features in
-        - code: cake.data
+        - code: k.data
         - text: while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in
-        - code: cake.data.features
+        - code: k.data.features
         - text: if left unset.

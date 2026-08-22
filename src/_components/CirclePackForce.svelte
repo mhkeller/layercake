@@ -6,7 +6,7 @@
 	import { forceSimulation, forceX, forceManyBody, forceCollide, forceCenter } from 'd3-force';
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -29,7 +29,7 @@
 	} = $props();
 
 	// Make a copy because the simulation will alter the objects
-	const initialNodes = cake.data.map(d => ({ ...d }));
+	const initialNodes = k.data.map(d => ({ ...d }));
 
 	const simulation = forceSimulation(initialNodes);
 
@@ -47,22 +47,22 @@
 				forceX()
 					.x(
 						/** @param {any} d */ d => {
-							return groupBy === true ? cake.xGet(d) + cake.xScale.bandwidth() / 2 : cake.width / 2;
+							return groupBy === true ? k.xGet(d) + k.xScale.bandwidth() / 2 : k.width / 2;
 						}
 					)
 					.strength(xStrength)
 			)
-			.force('center', forceCenter(cake.width / 2, cake.height / 2))
+			.force('center', forceCenter(k.width / 2, k.height / 2))
 			.force('charge', forceManyBody().strength(manyBodyStrength))
 			.force(
 				'collision',
 				forceCollide().radius(
 					/** @param {any} d */ d => {
-						return cake.rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
+						return k.rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
 					}
 				)
 			)
-			.force('center', forceCenter(cake.width / 2, cake.height / 2))
+			.force('center', forceCenter(k.width / 2, k.height / 2))
 			.alpha(1)
 			.restart();
 	});
@@ -71,8 +71,8 @@
 {#each nodes as point}
 	<circle
 		class="node"
-		r={cake.rGet(point)}
-		fill={nodeColor || cake.cGet(point)}
+		r={k.rGet(point)}
+		fill={nodeColor || k.cGet(point)}
 		stroke={nodeStroke}
 		stroke-width={nodeStrokeWidth}
 		cx={point.x}

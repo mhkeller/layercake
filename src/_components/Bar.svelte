@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -16,22 +16,22 @@
 	let { fill } = $props();
 
 	// The `fill` prop wins, then the `c` scale's color, then the fallback
-	let getFill = $derived(/** @param {any} d */ d => fill ?? cake.cGet?.(d) ?? '#00bbff');
+	let getFill = $derived(/** @param {any} d */ d => fill ?? k.cGet?.(d) ?? '#00bbff');
 
 	// Bars start at zero and run out to their value, so negative ones run the
 	// other way. Make sure zero is in your xDomain or this lands off the chart.
-	let zeroX = $derived(cake.xScale(0));
+	let zeroX = $derived(k.xScale(0));
 </script>
 
 <g class="bar-group">
-	{#each cake.data as d, i}
-		{@const valueX = cake.xGet(d)}
+	{#each k.data as d, i}
+		{@const valueX = k.xGet(d)}
 		<rect
 			class="group-rect"
 			data-id={i}
 			x={Math.min(zeroX, valueX)}
-			y={cake.yGet(d)}
-			height={cake.yScale.bandwidth()}
+			y={k.yGet(d)}
+			height={k.yScale.bandwidth()}
 			width={Math.abs(valueX - zeroX)}
 			fill={getFill(d)}
 		></rect>

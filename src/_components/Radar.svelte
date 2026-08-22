@@ -6,7 +6,7 @@
 	import { line, curveCardinalClosed } from 'd3-shape';
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -32,7 +32,7 @@
 		circleStrokeWidth = 1
 	} = $props();
 
-	let angleSlice = $derived((Math.PI * 2) / cake.config.x.length);
+	let angleSlice = $derived((Math.PI * 2) / k.config.x.length);
 
 	let path = $derived(
 		line()
@@ -61,9 +61,9 @@
 	// );
 </script>
 
-<g transform="translate({cake.width / 2}, {cake.height / 2})">
-	{#each cake.data as row}
-		{@const xVals = cake.xGet(row)}
+<g transform="translate({k.width / 2}, {k.height / 2})">
+	{#each k.data as row}
+		{@const xVals = k.xGet(row)}
 		<!-- Draw a line connecting all the dots -->
 		<path
 			class="path-line"

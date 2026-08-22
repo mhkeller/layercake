@@ -35,9 +35,9 @@
 		cRange={seriesColors}
 		data={dataTransformed}
 	>
-		{#snippet children(cake)}
+		{#snippet children(k)}
 			<Svg>
-				<Beeswarm r={cake.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
+				<Beeswarm r={k.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
 			</Svg>
 		{/snippet}
 	</LayerCake>

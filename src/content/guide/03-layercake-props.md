@@ -11,7 +11,7 @@ These are the props you can set on the `LayerCake` component itself. You set the
 >
 ```
 
-The component also exports an `element` prop that represents the main wrapper, in case you need to access it for some reason. It's on the context too, so the children snippet can read it as `cake.element`.
+The component also exports an `element` prop that represents the main wrapper, in case you need to access it for some reason. It's on the context too, so the children snippet can read it as `k.element`.
 
 ```svelte
 <script>
@@ -19,8 +19,8 @@ The component also exports an `element` prop that represents the main wrapper, i
 </script>
 
 <LayerCake bind:element={mainElement}>
-	{#snippet children(cake)}
-		{console.log(mainElement === cake.element)}
+	{#snippet children(k)}
+		{console.log(mainElement === k.element)}
 	{/snippet}
 </LayerCake>
 ```
@@ -154,7 +154,7 @@ Same as [x](/guide#x) but for the x2 dimension – a scale nested inside the x s
 >
 ```
 
-In a layer component, position a column with `cake.xGet(d) + cake.x2Get(d)` and size it with `cake.x2Scale.bandwidth()`.
+In a layer component, position a column with `k.xGet(d) + k.x2Get(d)` and size it with `k.x2Scale.bandwidth()`.
 
 You can customize the nested range by setting [x2Range](/guide#x2range) to a function, which receives the computed sibling scales: `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
 
@@ -177,7 +177,7 @@ Same as [x](/guide#x) but for the c dimension, a dedicated color scale. It defau
 >
 ```
 
-Then color your marks with `cake.cGet(d)` in a layer component. Also accepts `cDomain`, `cScale`, `cRange` and `cDomainSort` props.
+Then color your marks with `k.cGet(d)` in a layer component. Also accepts `cDomain`, `cScale`, `cRange` and `cDomainSort` props.
 
 You can also pass a preconfigured scale instead of setting `cRange` – its range is preserved: `cScale={scaleOrdinal(schemeCategory10)}`.
 

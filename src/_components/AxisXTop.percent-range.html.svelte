@@ -7,7 +7,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -36,25 +36,25 @@
 		tickGutter = 0,
 		dx = 0,
 		dy = 0,
-		units = cake.percentRange === true ? '%' : 'px'
+		units = k.percentRange === true ? '%' : 'px'
 	} = $props();
 
 	let tickLen = $derived(tickMarks === true ? (tickMarkLength ?? 6) : 0);
 
-	let isBandwidth = $derived(typeof cake.xScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof k.xScale.bandwidth === 'function');
 
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? cake.xScale.domain()
+				? k.xScale.domain()
 				: typeof ticks === 'function'
-					? ticks(cake.xScale.ticks())
-					: cake.xScale.ticks(ticks)
+					? ticks(k.xScale.ticks())
+					: k.xScale.ticks(ticks)
 	);
 
-	let halfBand = $derived(isBandwidth ? cake.xScale.bandwidth() / 2 : 0);
+	let halfBand = $derived(isBandwidth ? k.xScale.bandwidth() / 2 : 0);
 </script>
 
 <div class="axis x-axis" class:snapLabels>
@@ -63,7 +63,7 @@
 	{/if}
 
 	{#each tickVals as tick, i (tick)}
-		{@const tickValUnits = cake.xScale(tick)}
+		{@const tickValUnits = k.xScale(tick)}
 
 		{#if gridlines === true}
 			<div class="gridline" style:left="{tickValUnits}{units}" style="top:0; bottom:0;"></div>

@@ -41,11 +41,11 @@
 		cDomainSort={true}
 		data={dataTransformed}
 	>
-		{#snippet children(cake)}
+		{#snippet children(k)}
 			<Svg>
 				<AxisX baseline format={addCommas} tickMarks />
 				<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
-				<Beeswarm r={cake.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
+				<Beeswarm r={k.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
 			</Svg>
 
 			<Html pointerEvents={false}>

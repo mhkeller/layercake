@@ -42,19 +42,13 @@
 			`yPadding` buys 18 pixels of room at each end so the numbers on the
 			longest columns have somewhere to sit.
 		-->
-		{#snippet children(cake)}
+		{#snippet children(k)}
 			<Svg>
 				<AxisX gridlines={false} tickMarks snapLabels />
 				<AxisY />
 				<Column showLabels />
 				<!-- Columns run up and down from here, so mark it -->
-				<line
-					class="zero"
-					x1={cake.xRange[0]}
-					x2={cake.xRange[1]}
-					y1={cake.yScale(0)}
-					y2={cake.yScale(0)}
-				/>
+				<line class="zero" x1={k.xRange[0]} x2={k.xRange[1]} y1={k.yScale(0)} y2={k.yScale(0)} />
 			</Svg>
 		{/snippet}
 	</LayerCake>

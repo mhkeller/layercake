@@ -6,7 +6,7 @@
 	import { getContext } from 'svelte';
 	import { scaleCanvas, getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	const canvasCtx = getContext('canvas');
 
@@ -22,7 +22,7 @@
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
 	$effect(() => {
-		if (!cake.width || !cake.height || !canvasCtx.ctx) return;
+		if (!k.width || !k.height || !canvasCtx.ctx) return;
 
 		const context = canvasCtx.ctx;
 
@@ -32,15 +32,15 @@
 		 * put these reset functions in the first layer, not each one
 		 * since they should only run once per update
 		 */
-		scaleCanvas(context, cake.width, cake.height);
-		context.clearRect(0, 0, cake.width, cake.height);
+		scaleCanvas(context, k.width, k.height);
+		context.clearRect(0, 0, k.width, k.height);
 
 		/**
 		 * Draw our scatterplot
 		 */
-		cake.data.forEach((/** @type {any} d */ d) => {
+		k.data.forEach((/** @type {any} d */ d) => {
 			context.beginPath();
-			context.arc(cake.xGet(d), cake.yGet(d), r, 0, 2 * Math.PI, false);
+			context.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
 			context.lineWidth = strokeWidth;
 			context.strokeStyle = stroke;
 			context.stroke();

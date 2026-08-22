@@ -40,7 +40,7 @@
 			The `c` scale sorts each row into "up" or "down" and hands the Bar
 			component a color for it.
 		-->
-		{#snippet children(cake)}
+		{#snippet children(k)}
 			<Html>
 				<AxisX gridlines snapLabels />
 				<AxisY gridlines={false} tickMarks />
@@ -52,13 +52,7 @@
 					the range keeps this in whatever units the chart uses – percentages
 					here, pixels without `percentRange`.
 				-->
-				<line
-					class="zero"
-					x1={cake.xScale(0)}
-					x2={cake.xScale(0)}
-					y1={cake.yRange[0]}
-					y2={cake.yRange[1]}
-				/>
+				<line class="zero" x1={k.xScale(0)} x2={k.xScale(0)} y1={k.yRange[0]} y2={k.yRange[1]} />
 			</ScaledSvg>
 		{/snippet}
 	</LayerCake>

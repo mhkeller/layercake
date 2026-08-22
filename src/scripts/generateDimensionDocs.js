@@ -231,7 +231,7 @@ const CONTEXT_TEMPLATES = {
 				: `The ${dim.name} accessor.`)
 	}),
 	// Scales and getters are typed `Scale` rather than `Function|undefined`. Two
-	// reasons: `Function` has no properties, so `cake.xScale.ticks()` wouldn't
+	// reasons: `Function` has no properties, so `k.xScale.ticks()` wouldn't
 	// type-check, and the `|undefined` forced a guard at every call even though a
 	// component reading its own dimension can only run if that dimension is set.
 	// Domain and Range keep their `|undefined` – those are what one dimension

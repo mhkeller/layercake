@@ -5,25 +5,25 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	let columnWidth = $derived(d => {
-		const xVals = cake.xGet(d);
+		const xVals = k.xGet(d);
 		return xVals[1] - xVals[0];
 	});
 </script>
 
 <g class="bar-group">
-	{#each cake.data as series}
+	{#each k.data as series}
 		{#each series as d, i}
 			<rect
 				class="group-rect"
 				data-id={i}
-				x={cake.xGet(d)[0]}
-				y={cake.yGet(d)}
-				height={cake.yScale.bandwidth()}
+				x={k.xGet(d)[0]}
+				y={k.yGet(d)}
+				height={k.yScale.bandwidth()}
 				width={columnWidth(d)}
-				fill={cake.cGet(series)}
+				fill={k.cGet(series)}
 			></rect>
 		{/each}
 	{/each}

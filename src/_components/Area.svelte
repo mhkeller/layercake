@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -17,24 +17,24 @@
 
 	let path = $derived(
 		'M' +
-			cake.data
+			k.data
 				.map((/** @type {object} */ d) => {
-					return cake.xGet(d) + ',' + cake.yGet(d);
+					return k.xGet(d) + ',' + k.yGet(d);
 				})
 				.join('L')
 	);
 
 	/**	@type {string} **/
 	let area = $derived.by(() => {
-		const yRange = cake.yScale.range();
+		const yRange = k.yScale.range();
 		return (
 			path +
 			('L' +
-				cake.xScale(cake.extents.x ? cake.extents.x[1] : 0) +
+				k.xScale(k.extents.x ? k.extents.x[1] : 0) +
 				',' +
 				yRange[0] +
 				'L' +
-				cake.xScale(cake.extents.x ? cake.extents.x[0] : 0) +
+				k.xScale(k.extents.x ? k.extents.x[0] : 0) +
 				',' +
 				yRange[0] +
 				'Z')

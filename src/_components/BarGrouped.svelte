@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -19,29 +19,29 @@
 	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
 	let barHeight = $derived(
-		cake.y2Scale.bandwidth ? cake.y2Scale.bandwidth() : Math.abs(cake.y2Range[1] - cake.y2Range[0])
+		k.y2Scale.bandwidth ? k.y2Scale.bandwidth() : Math.abs(k.y2Range[1] - k.y2Range[0])
 	);
 
 	// Bars start at zero and run out to their value, so negative ones run the
 	// other way. Make sure zero is in your xDomain or this lands off the chart.
-	let zeroX = $derived(cake.xScale(0));
+	let zeroX = $derived(k.xScale(0));
 </script>
 
 <g class="bar-group">
-	{#each cake.data as d, i}
-		{@const valueX = cake.xGet(d)}
-		{@const yPos = cake.yGet(d) + cake.y2Get(d)}
-		{@const xValue = cake.x(d)}
+	{#each k.data as d, i}
+		{@const valueX = k.xGet(d)}
+		{@const yPos = k.yGet(d) + k.y2Get(d)}
+		{@const xValue = k.x(d)}
 		<rect
 			class="group-rect"
 			data-id={i}
-			data-range={cake.y(d)}
+			data-range={k.y(d)}
 			data-count={xValue}
 			x={Math.min(zeroX, valueX)}
 			y={yPos}
 			width={Math.abs(valueX - zeroX)}
 			height={barHeight}
-			fill={fill || cake.cGet(d)}
+			fill={fill || k.cGet(d)}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>

@@ -38,19 +38,13 @@
 			The `c` scale sorts each row into "up" or "down" and hands the Bar
 			component a color for it.
 		-->
-		{#snippet children(cake)}
+		{#snippet children(k)}
 			<Svg>
 				<AxisX tickMarks baseline snapLabels />
 				<AxisY tickMarks gridlines={false} />
 				<Bar />
 				<!-- Bars run left and right from here, so mark it -->
-				<line
-					class="zero"
-					x1={cake.xScale(0)}
-					x2={cake.xScale(0)}
-					y1={cake.yRange[0]}
-					y2={cake.yRange[1]}
-				/>
+				<line class="zero" x1={k.xScale(0)} x2={k.xScale(0)} y1={k.yRange[0]} y2={k.yRange[1]} />
 			</Svg>
 		{/snippet}
 	</LayerCake>

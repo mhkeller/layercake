@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from '../context.js';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -41,10 +41,10 @@
 	class="layercake-layout-html"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={cake.padding.top + 'px'}
-	style:right={cake.padding.right + 'px'}
-	style:bottom={cake.padding.bottom + 'px'}
-	style:left={cake.padding.left + 'px'}
+	style:top={k.padding.top + 'px'}
+	style:right={k.padding.right + 'px'}
+	style:bottom={k.padding.bottom + 'px'}
+	style:left={k.padding.left + 'px'}
 	role={roleVal}
 	aria-label={label}
 	aria-labelledby={labelledBy}

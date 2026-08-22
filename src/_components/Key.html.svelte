@@ -16,7 +16,7 @@
 	/** @type {Props} */
 	let { shape = 'square', align = 'start', lookup, capitalize = true } = $props();
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	function cap(val) {
 		return String(val).replace(/^\w/, d => d.toUpperCase());
@@ -31,13 +31,13 @@
 </script>
 
 <div class="key" style="justify-content: {align === 'end' ? 'flex-end' : align};">
-	{#each cake.cDomain as item}
+	{#each k.cDomain as item}
 		<div class="key-item">
 			<div
 				class="chip chip__{shape}"
 				style="background: {shape === `line`
-					? `linear-gradient(-45deg, #ffffff 40%, ${cake.cScale(item)} 41%, ${cake.cScale(item)} 59%, #ffffff 60%)`
-					: cake.cScale(item)};"
+					? `linear-gradient(-45deg, #ffffff 40%, ${k.cScale(item)} 41%, ${k.cScale(item)} 59%, #ffffff 60%)`
+					: k.cScale(item)};"
 			></div>
 			<div class="name">{displayName(item)}</div>
 		</div>

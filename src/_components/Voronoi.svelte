@@ -6,7 +6,7 @@
 	import { uniques, getLayerCakeContext } from 'layercake';
 	import { Delaunay } from 'd3-delaunay';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/** @typedef {[number, number] & { data?: any }} Point */
 
@@ -30,9 +30,9 @@
 
 	/** @type {Point[]} */
 	let points = $derived(
-		cake.data.map(d => {
+		k.data.map(d => {
 			/** @type {Point} */
-			const point = [cake.xGet(d), cake.yGet(d)];
+			const point = [k.xGet(d), k.yGet(d)];
 			point.data = d;
 			return point;
 		})
@@ -40,7 +40,7 @@
 
 	let uniquePoints = $derived(uniques(points, d => d.join(), false) ?? []);
 
-	let voronoi = $derived(Delaunay.from(uniquePoints).voronoi([0, 0, cake.width, cake.height]));
+	let voronoi = $derived(Delaunay.from(uniquePoints).voronoi([0, 0, k.width, k.height]));
 </script>
 
 <!--

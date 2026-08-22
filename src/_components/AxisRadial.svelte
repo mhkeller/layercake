@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -16,12 +16,12 @@
 	/** @type {Props} */
 	let { lineLengthFactor = 1.1, labelPlacementFactor = 1.25 } = $props();
 
-	let max = $derived(cake.xScale(Math.max(...cake.extents.x)));
+	let max = $derived(k.xScale(Math.max(...k.extents.x)));
 
 	let lineLength = $derived(max * lineLengthFactor);
 	let labelPlacement = $derived(max * labelPlacementFactor);
 
-	let angleSlice = $derived((Math.PI * 2) / cake.config.x.length);
+	let angleSlice = $derived((Math.PI * 2) / k.config.x.length);
 
 	/** @param {number} total
 	 *  @param {number} i */
@@ -35,12 +35,12 @@
 	}
 </script>
 
-<g transform="translate({cake.width / 2}, {cake.height / 2})">
+<g transform="translate({k.width / 2}, {k.height / 2})">
 	<circle cx="0" cy="0" r={max} stroke="#ccc" stroke-width="1" fill="#CDCDCD" fill-opacity="0.1"
 	></circle>
 	<circle cx="0" cy="0" r={max / 2} stroke="#ccc" stroke-width="1" fill="none"></circle>
 
-	{#each cake.config.x as label, i}
+	{#each k.config.x as label, i}
 		{@const thisAngleSlice = angleSlice * i - Math.PI / 2}
 		<line
 			x1="0"
@@ -53,7 +53,7 @@
 		>
 		</line>
 		<text
-			text-anchor={anchor(cake.config.x.length, i)}
+			text-anchor={anchor(k.config.x.length, i)}
 			dy="0.35em"
 			font-size="12px"
 			transform="translate({labelPlacement * Math.cos(thisAngleSlice)}, {labelPlacement *

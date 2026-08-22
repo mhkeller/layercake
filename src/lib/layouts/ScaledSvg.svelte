@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from '../context.js';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -48,10 +48,10 @@
 	preserveAspectRatio="none"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={cake.padding.top + 'px'}
-	style:left={cake.padding.left + 'px'}
-	style:width={`calc(100% - ${cake.padding.left + cake.padding.right}px)`}
-	style:height={`calc(100% - ${cake.padding.top + cake.padding.bottom}px)`}
+	style:top={k.padding.top + 'px'}
+	style:left={k.padding.left + 'px'}
+	style:width={`calc(100% - ${k.padding.left + k.padding.right}px)`}
+	style:height={`calc(100% - ${k.padding.top + k.padding.bottom}px)`}
 	style="right:0px; bottom:0px;"
 	style:overflow
 	aria-label={label}

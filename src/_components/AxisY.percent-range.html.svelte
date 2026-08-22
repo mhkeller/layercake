@@ -7,7 +7,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -38,7 +38,7 @@
 		dx = 0,
 		dy = -3,
 		charPixelWidth = 7.25,
-		units = cake.percentRange === true ? '%' : 'px'
+		units = k.percentRange === true ? '%' : 'px'
 	} = $props();
 
 	/** @param {number} sum
@@ -48,16 +48,16 @@
 		return sum + charPixelWidth;
 	}
 
-	let isBandwidth = $derived(typeof cake.yScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof k.yScale.bandwidth === 'function');
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? cake.yScale.domain()
+				? k.yScale.domain()
 				: typeof ticks === 'function'
-					? ticks(cake.yScale.ticks())
-					: cake.yScale.ticks(ticks)
+					? ticks(k.yScale.ticks())
+					: k.yScale.ticks(ticks)
 	);
 	let widestTickLen = $derived(
 		Math.max(
@@ -73,17 +73,17 @@
 			: 0
 	);
 	let x1 = $derived(-tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen));
-	let halfBand = $derived(isBandwidth ? cake.yScale.bandwidth() / 2 : 0);
-	let maxTickValUnits = $derived(Math.max(...tickVals.map(cake.yScale)));
+	let halfBand = $derived(isBandwidth ? k.yScale.bandwidth() / 2 : 0);
+	let maxTickValUnits = $derived(Math.max(...tickVals.map(k.yScale)));
 </script>
 
 <div class="axis y-axis">
 	{#each tickVals as tick, i (tick)}
-		{@const tickValUnits = cake.yScale(tick)}
+		{@const tickValUnits = k.yScale(tick)}
 
 		<div
 			class="tick tick-{i}"
-			style="left:{cake.xRange ? cake.xRange[0] : 0}{units};top:{tickValUnits + halfBand}{units};"
+			style="left:{k.xRange ? k.xRange[0] : 0}{units};top:{tickValUnits + halfBand}{units};"
 		>
 			{#if gridlines === true}
 				<div class="gridline" style="top:0;" style:left="{x1}px" style:right="0px"></div>

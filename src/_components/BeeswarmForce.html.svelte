@@ -7,7 +7,7 @@
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -33,19 +33,19 @@
 	let nodes = $state([]);
 
 	let simulation = $derived.by(() => {
-		if (!cake.width || !cake.height || !cake.data.length) return null;
+		if (!k.width || !k.height || !k.data.length) return null;
 
-		const sim = forceSimulation(cake.data.map((/** @type {any} */ d) => ({ ...d })))
+		const sim = forceSimulation(k.data.map((/** @type {any} */ d) => ({ ...d })))
 			.force(
 				'x',
 				forceX()
-					.x(d => cake.xGet(d))
+					.x(d => k.xGet(d))
 					.strength(xStrength)
 			)
 			.force(
 				'y',
 				forceY()
-					.y(cake.height / 2)
+					.y(k.height / 2)
 					.strength(yStrength)
 			)
 			.force('collide', forceCollide(r))
@@ -85,7 +85,7 @@
 				top: {node.y}px;
 				width: {r * 2}px;
 				height: {r * 2}px;
-				background: {cake.cGet(node)};
+				background: {k.cGet(node)};
 				border-width: {strokeWidth}px;
 				border-color: {stroke};
 				"

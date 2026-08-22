@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const cake = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -19,29 +19,29 @@
 	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
 	let columnWidth = $derived(
-		cake.x2Scale.bandwidth ? cake.x2Scale.bandwidth() : Math.abs(cake.x2Range[1] - cake.x2Range[0])
+		k.x2Scale.bandwidth ? k.x2Scale.bandwidth() : Math.abs(k.x2Range[1] - k.x2Range[0])
 	);
 
 	// Columns start at zero and run out to their value, so negative ones hang
 	// below it. Make sure zero is in your yDomain or this lands off the chart.
-	let zeroY = $derived(cake.yScale(0));
+	let zeroY = $derived(k.yScale(0));
 </script>
 
 <g class="column-group">
-	{#each cake.data as d, i}
-		{@const valueY = cake.yGet(d)}
-		{@const xPos = cake.xGet(d) + cake.x2Get(d)}
-		{@const yValue = cake.y(d)}
+	{#each k.data as d, i}
+		{@const valueY = k.yGet(d)}
+		{@const xPos = k.xGet(d) + k.x2Get(d)}
+		{@const yValue = k.y(d)}
 		<rect
 			class="group-rect"
 			data-id={i}
-			data-range={cake.x(d)}
+			data-range={k.x(d)}
 			data-count={yValue}
 			x={xPos}
 			y={Math.min(zeroY, valueY)}
 			width={columnWidth}
 			height={Math.abs(valueY - zeroY)}
-			fill={fill || cake.cGet(d)}
+			fill={fill || k.cGet(d)}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>

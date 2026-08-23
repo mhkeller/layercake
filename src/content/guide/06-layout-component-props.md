@@ -7,7 +7,7 @@ In addition to the [accessibility props](/guide#accessibility) described above, 
 - [zIndex](/guide#zindex) `number`
 - [pointerEvents](/guide#pointerevents-1) `boolean`
 
-The Html, Svg and ScaledSvg layout components also accept:
+The Html, Svg, ScaledSvg and Canvas layout components also accept:
 
 - [overflow](/guide#overflow) `'visible'|'hidden'`
 
@@ -28,7 +28,7 @@ Each layout component also exports an `element` prop that you can bind to and re
 - In the `Html` component, `element` equals the `<div>` tag.
 - In the `Svg` component, `element` equals the `<svg>` tag.
 - In the `ScaledSvg` component, `element` equals the `<svg>` tag.
-- In the `Canvas` component, `element` equals the `<canvas>` tag.
+- In the `Canvas` component, `element` equals the `<canvas>` tag. It covers the whole container, padding included – see the [Canvas](/guide#canvas) section.
 - In the `WebGL` component, `element` equals the `<canvas>` tag.
 
 The `Canvas` and the `WebGL` components also export a `context` variable that you can bind to and is also available as a slot prop.
@@ -81,7 +81,7 @@ Useful for tooltip layers that need to be displayed above chart elements but not
 
 ### overflow `'visible'|'hidden'`
 
-For Html, Svg and ScaledSvg components, whether or not the CSS `overflow` property is set to `'visible'` or `'hidden'`. Useful if you want to hide overflow during an animation or values that exceed the bounds of your chart. See [PR#311](https://github.com/mhkeller/layercake/pull/311) for some examples.
+For Html, Svg and ScaledSvg components, whether the CSS `overflow` property is set to `'visible'` or `'hidden'`. For Canvas, whether drawings are clipped at the edge of the chart area. Useful if you want to hide overflow during an animation or values that exceed the bounds of your chart. See [PR#311](https://github.com/mhkeller/layercake/pull/311) for some examples.
 
 ```svelte
 <LayerCake ...>

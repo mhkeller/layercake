@@ -40,7 +40,7 @@ A few shapes repeat across the props below. Every accessor – `x`, `y`, `c` and
 </script>
 ```
 
-Two more names come from the context: `LayerCakeContext` for the object you get back from `getLayerCakeContext()`, and `Scale` for the d3 scales hanging off it. See [Typing the context](/guide#typing-the-context).
+Two more names come from the context: `LayerCakeContext` for the object you get back from `getLayerCakeContext()`, and `Scale` for the d3 scales hanging off it. Canvas layers have `CanvasContext` and `CanvasDrawFn`. See [Typing the context](/guide#typing-the-context).
 
 The headings below spell out the full shape rather than the alias, so you can see what a prop takes without looking anything up.
 

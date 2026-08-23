@@ -20,6 +20,7 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 - `debug` no longer prints during server-side rendering; it prints in the browser after hydration.
 - Unknown props are reported with a console warning unless `verbose={false}`.
 - A range you customized on a passed-in scale is now preserved instead of being overwritten with the dimension's default – so `zScale={scaleOrdinal(schemeCategory10)}` keeps its colors. Layer Cake still manages the range of pristine scales, and an explicit `[name]Range` prop always wins. Per [#364](https://github.com/mhkeller/layercake/issues/364).
+- `<Canvas>` now owns the canvas. It fills the whole chart container. Before every repaint it scales the canvas for the screen, clears it and moves the origin to the top-left of the chart area. Components draw by calling `getCanvasContext().draw(ctx => { ... })` once while they set up. Several can share one `<Canvas>`. Drawings can run into the padding like Svg and Html children do. To migrate, move your drawing into a `draw` function and delete the `scaleCanvas`, `clearRect` and `$effect` around it. Pointer coordinates read off the `<canvas>` element (`offsetX`, `getBoundingClientRect()`) are now relative to the container, so subtract `k.padding.left`/`top` if you hit-test that way. See the [Canvas guide](https://layercake.graphics/guide#canvas).
 
 **New features**
 
@@ -29,6 +30,8 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 - New `x2DomainSort`, `y2DomainSort`, `cDomainSort` and `c2DomainSort` props.
 - The context exposes `element`, the `.layercake-container` div.
 - Dimensions are defined as data in a registry (`settings/dimensions.js`); prop handling, scale creation, context keys and TypeScript definitions are all generated from it.
+- `getCanvasContext()` returns the typed canvas context: `draw(fn)` to add a layer, `redraw()` to repaint by hand and `ctx` to read the canvas.
+- `<Canvas>` accepts the same `overflow` prop as the other layouts. `overflow="hidden"` clips drawings at the edge of the chart area.
 
 **Performance**
 
@@ -67,14 +70,14 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 
 ## Migrating from 10.x
 
-| 10.x                                             | 11.0                                                               |
-| ------------------------------------------------ | ------------------------------------------------------------------ |
-| `const { data, xGet } = getContext('LayerCake')` | `const k = getLayerCakeContext()`                                  |
-| `$xGet(d)`, `$yScale.ticks()`, `$width`          | `k.xGet(d)`, `k.yScale.ticks()`, `k.width`                         |
-| `<LayerCake let:width>`                          | `{#snippet children(k)}...{/snippet}` or read `k.width` in a child |
-| Color via `z`                                    | Still works, but `c` is now the dedicated color dimension          |
-| `$activeGetters`                                 | Removed – read the accessors directly, e.g. `k.x`, `k.y`           |
-| `getContext('canvas')` store                     | `getContext('canvas').ctx` getter object (same for `'gl'`)         |
+| 10.x                                                                                     | 11.0                                                                                     |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `const { data, xGet } = getContext('LayerCake')`                                         | `const k = getLayerCakeContext()`                                                        |
+| `$xGet(d)`, `$yScale.ticks()`, `$width`                                                  | `k.xGet(d)`, `k.yScale.ticks()`, `k.width`                                               |
+| `<LayerCake let:width>`                                                                  | `{#snippet children(k)}...{/snippet}` or read `k.width` in a child                       |
+| Color via `z`                                                                            | Still works, but `c` is now the dedicated color dimension                                |
+| `$ctx` from `getContext('canvas')`, then `scaleCanvas` + `clearRect` + draw in an effect | `getCanvasContext().draw(ctx => { ...draw... })` – no scaling, clearing or effect needed |
+| `getContext('gl')` store                                                                 | `getContext('gl').gl` getter object                                                      |
 
 # 10.0.3
 

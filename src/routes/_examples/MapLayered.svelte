@@ -8,6 +8,7 @@
 
 	import MapSvg from '../../_components/Map.svg.svelte';
 	import MapCanvas from '../../_components/Map.canvas.svelte';
+	import MapPointsCanvas from '../../_components/MapPoints.canvas.svelte';
 	import MapLabels from '../../_components/MapLabels.html.svelte';
 
 	// This example loads json data as json using @rollup/plugin-json
@@ -45,6 +46,12 @@
 		}
 	);
 
+	// The states too small to carry a label get a dot instead. MapPoints wants
+	// GeoJSON-shaped features, so wrap each label's coordinates that way.
+	const dotFeatures = stateLabels
+		.filter(/** @param {any} d */ d => labelsToExclude.includes(d[labelNameKey]))
+		.map(/** @param {any} d */ d => ({ geometry: { coordinates: d[labelCoordinatesKey] } }));
+
 	// Create a flat array of objects that LayerCake can use to measure
 	// extents for the color scale
 	const flatData = geojson.features
@@ -63,6 +70,7 @@
 	>
 		<Canvas>
 			<MapCanvas {projection} fill="#fff" />
+			<MapPointsCanvas {projection} features={dotFeatures} r={2.5} fill="#333" stroke="#fff" />
 		</Canvas>
 
 		<Svg>

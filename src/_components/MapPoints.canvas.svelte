@@ -3,12 +3,10 @@
 	Generates canvas dots onto a map using [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext } from 'svelte';
-	import { scaleCanvas, getLayerCakeContext } from 'layercake';
+	import { getLayerCakeContext, getCanvasContext } from 'layercake';
 
 	const k = getLayerCakeContext();
-
-	const canvasCtx = getContext('canvas');
+	const canvas = getCanvasContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -34,25 +32,19 @@
 
 	let featuresToDraw = $derived(features || k.data.features);
 
-	$effect(() => {
-		if (!k.width || !k.height || !canvasCtx.ctx) return;
-
-		const context = canvasCtx.ctx;
-
-		scaleCanvas(context, k.width, k.height);
-		context.clearRect(0, 0, k.width, k.height);
-
+	// Layer Cake runs this on every repaint: resize, new data or a prop change
+	canvas.draw(ctx => {
 		// To scale the circle by size, set width and height to `k.rGet(d.properties)`
 		featuresToDraw.forEach(
 			/** @param {any} d */ d => {
-				context.beginPath();
+				ctx.beginPath();
 				const coordinates = projectionFn(d.geometry.coordinates);
-				context.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
-				context.fillStyle = fill;
-				context.fill();
-				context.lineWidth = strokeWidth;
-				context.strokeStyle = stroke;
-				context.stroke();
+				ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
+				ctx.fillStyle = fill;
+				ctx.fill();
+				ctx.lineWidth = strokeWidth;
+				ctx.strokeStyle = stroke;
+				ctx.stroke();
 			}
 		);
 	});

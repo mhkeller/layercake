@@ -59,6 +59,7 @@ import { createContext, getContext, hasContext } from 'svelte';
  * @property {Object} custom Any extra values passed via the `custom` prop.
  * @property {TData} data The chart data as you passed it in.
  * @property {{top: number, right: number, bottom: number, left: number}} padding The chart padding.
+ * @property {(event: MouseEvent) => [number, number]} pointer Chart-area `[x, y]` for a pointer event, the same on every layer. Measures against the container and subtracts the padding. `[NaN, NaN]` before the chart mounts.
  * @property {TData|Array<any>} flatData The flat version of the data: the `flatData` prop when you set one, otherwise `data` itself.
  * @property {Object.<string, Array<any>>} extents The measured extents keyed by dimension name.
  * @property {Object.<string, any>} config A read-only copy of the accessor, domain and range props the user set.

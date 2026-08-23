@@ -89,6 +89,19 @@ The width of the drawable space for the chart. This is the width of the parent c
 
 The height of the drawable space for the chart. This is the height of the parent container taking into account any padding. It's also on the children snippet, as `k.height`.
 
+### pointer(event: `MouseEvent`)
+
+Chart-area coordinates for a pointer event, as `[x, y]`. Layers cover different boxes – Canvas covers the whole container while Svg and Html cover the chart area – so `offsetX` and friends change meaning depending on where you listen. `k.pointer` measures against the container and subtracts the padding, so it gives the same answer everywhere.
+
+```svelte
+<div
+	onmousemove={e => {
+		const [x, y] = k.pointer(e);
+		const nearestYear = k.xScale.invert(x);
+	}}
+></div>
+```
+
 ### x `Function`
 
 The x accessor. This will always be a function regardless of whether you passed in a string or an array as a prop. If you passed in an array, it will return an array of equal length.

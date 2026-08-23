@@ -32,6 +32,7 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 - Dimensions are defined as data in a registry (`settings/dimensions.js`); prop handling, scale creation, context keys and TypeScript definitions are all generated from it.
 - `getCanvasContext()` returns the typed canvas context: `draw(fn)` to add a layer, `redraw()` to repaint by hand and `ctx` to read the canvas.
 - `<Canvas>` accepts the same `overflow` prop as the other layouts. `overflow="hidden"` clips drawings at the edge of the chart area.
+- `k.pointer(event)` returns chart-area `[x, y]` for a pointer event, the same on every layer. Useful for hit-testing on canvas, where the element covers the whole container.
 
 **Performance**
 

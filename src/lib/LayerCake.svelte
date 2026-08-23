@@ -263,6 +263,22 @@
 		return obj;
 	});
 
+	// Chart-area coordinates for a pointer event, no matter which layer the
+	// listener sits on. Layers cover different boxes: Canvas covers the whole
+	// container while Svg and Html cover the chart area, so offsetX means
+	// something different depending on where you listen. Measuring against the
+	// container and subtracting the padding gives one answer everywhere.
+	/**
+	 * @param {MouseEvent} event
+	 * @returns {[number, number]}
+	 */
+	function pointer(event) {
+		// Nothing to measure against before the container mounts
+		if (!element) return [NaN, NaN];
+		const rect = element.getBoundingClientRect();
+		return [event.clientX - rect.left - padding.left, event.clientY - rect.top - padding.top];
+	}
+
 	// Build the context. Every property is a getter into reactive state so
 	// child components always read the live value as `k.width`, `k.xGet(d)` etc.
 	// The object starts empty and the defineProperties calls below fill in every
@@ -276,6 +292,7 @@
 		containerWidth: { get: () => containerWidth, enumerable: true },
 		containerHeight: { get: () => containerHeight, enumerable: true },
 		element: { get: () => element, enumerable: true },
+		pointer: { value: pointer, enumerable: true },
 		custom: { get: () => custom, enumerable: true },
 		data: { get: () => data, enumerable: true },
 		padding: { get: () => padding, enumerable: true },

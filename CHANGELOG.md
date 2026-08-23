@@ -68,6 +68,7 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 - The zero-width/zero-height container warning now always fires when the container is unsized, not only when a child happens to read a size-dependent value.
 - Axis components fall back gracefully on charts that don't configure the opposite dimension.
 - The declared svelte peer dependency now matches the version the library actually requires.
+- The WebGL layout's `<canvas>` no longer spills past the container by the padding. Its CSS was over-constrained, so the element was container-sized but offset by the top and left padding.
 
 ## Migrating from 10.x
 

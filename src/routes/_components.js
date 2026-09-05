@@ -51,6 +51,11 @@ import AxisXTopHtml from './_components_ssr/AxisXTop.percent-range.html.svelte';
 import AxisYHtml from './_components_ssr/AxisY.percent-range.html.svelte';
 import AxisYRightHtml from './_components_ssr/AxisYRight.percent-range.html.svelte';
 import ScatterHtml from './_components_ssr/Scatter.percent-range.html.svelte';
+import SmallMultipleWrapper from './_components/SmallMultipleWrapper.svelte';
+import SmallMultipleWrapperPercentRange from './_components_ssr/SmallMultipleWrapper.percent-range.svelte';
+import SyncedBrushWrapper from './_components/SyncedBrushWrapper.svelte';
+import SyncedBrushWrapperPercentRange from './_components_ssr/SyncedBrushWrapper.percent-range.svelte';
+import ArrowheadMarker from './_components/ArrowheadMarker.svelte';
 import Key from './_components_ssr/Key.html.svelte';
 import QuadTree from './_components/QuadTree.html.svelte';
 import QuadTreePercentRange from './_components_ssr/QuadTree.percent-range.html.svelte';
@@ -100,7 +105,11 @@ export default [
 			{ slug: 'Scatter.svg.svelte', component: ScatterSvg },
 			{ slug: 'Scatter.webgl.svelte', component: ScatterWebgl },
 			{ slug: 'Scatter.percent-range.html.svelte', component: ScatterHtml },
-			{}
+			{ slug: 'SmallMultipleWrapper.svelte', component: SmallMultipleWrapper },
+			{
+				slug: 'SmallMultipleWrapper.percent-range.svelte',
+				component: SmallMultipleWrapperPercentRange
+			}
 		]
 	},
 	{
@@ -124,7 +133,9 @@ export default [
 			{ slug: 'QuadTree.percent-range.html.svelte', component: QuadTreePercentRange },
 			{ slug: 'Tooltip.html.svelte', component: Tooltip },
 			{ slug: 'SharedTooltip.html.svelte', component: SharedTooltip },
-			{ slug: 'SharedTooltip.percent-range.html.svelte', component: SharedTooltipPercentRange }
+			{ slug: 'SharedTooltip.percent-range.html.svelte', component: SharedTooltipPercentRange },
+			{ slug: 'SyncedBrushWrapper.svelte', component: SyncedBrushWrapper },
+			{ slug: 'SyncedBrushWrapper.percent-range.svelte', component: SyncedBrushWrapperPercentRange }
 		]
 	},
 	{
@@ -133,6 +144,7 @@ export default [
 			{ slug: 'Annotations.html.svelte', component: Annotations },
 			{ slug: 'AnnotationsData.html.svelte', component: AnnotationsData },
 			{ slug: 'Arrows.svelte', component: Arrows },
+			{ slug: 'ArrowheadMarker.svelte', component: ArrowheadMarker },
 			{ slug: 'Key.html.svelte', component: Key },
 			{ slug: 'Labels.html.svelte', component: Labels },
 			{ slug: 'GroupLabels.html.svelte', component: GroupLabels }

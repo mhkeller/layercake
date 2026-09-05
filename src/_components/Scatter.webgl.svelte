@@ -40,20 +40,22 @@
 
 	const glCtx = getContext('gl');
 
+	// The drawing buffer gets one pixel per device pixel, not per CSS pixel, so
+	// the circles come out sharp on high-density screens
+	let pixelRatio = $state(1);
+
 	/**
 	 * @param {WebGLRenderingContext} context
 	 */
 	function resize(context) {
 		const canvas = /** @type {HTMLCanvasElement} */ (context.canvas);
-		// Look up the size the browser is displaying the canvas at.
-		const displayWidth = canvas.clientWidth;
-		const displayHeight = canvas.clientHeight;
+		pixelRatio = window.devicePixelRatio || 1;
+		const width = Math.round(canvas.clientWidth * pixelRatio);
+		const height = Math.round(canvas.clientHeight * pixelRatio);
 
-		// Check whether the canvas needs resizing.
-		if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
-			// Make the canvas the same size
-			canvas.width = displayWidth;
-			canvas.height = displayHeight;
+		if (canvas.width !== width || canvas.height !== height) {
+			canvas.width = width;
+			canvas.height = height;
 		}
 		context.viewport(0, 0, canvas.width, canvas.height);
 	}
@@ -132,19 +134,19 @@
 				}`,
 
 			attributes: {
-				// One [x, y] position for each point
+				// One [x, y] position for each point, in device pixels since that is what the buffer measures in
 				/**
 				 * @param {any} context
-				 * @param {{ points: Array<any>, x: (d: any) => number, y: (d: any) => number, pointWidth: number, strokeSize: number, fillColor?: number[], strokeColor?: number[] }} props
+				 * @param {{ points: Array<any>, x: (d: any) => number, y: (d: any) => number, pointWidth: number, strokeSize: number, pixelRatio: number, fillColor?: number[], strokeColor?: number[] }} props
 				 */
 				position: (context, props) => {
 					return props.points.map(point => {
-						return [props.x(point), props.y(point)];
+						return [props.x(point) * props.pixelRatio, props.y(point) * props.pixelRatio];
 					});
 				},
 				r: (context, props) => {
-					// To size each circle from an r scale, return k.rGet(point) here instead
-					return props.points.map(() => props.pointWidth);
+					// To size each circle from an r scale, use k.rGet(point) in place of pointWidth
+					return props.points.map(() => props.pointWidth * props.pixelRatio);
 				},
 				stroke_size: (context, props) => {
 					return props.points.map(() => props.strokeSize);
@@ -194,6 +196,7 @@
 		drawPoints({
 			pointWidth: r * 2,
 			strokeSize,
+			pixelRatio,
 			points: k.data,
 			x: k.xGet,
 			y: k.yGet,

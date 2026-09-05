@@ -36,7 +36,7 @@ The embedded project in `src/scripts/svelte-app` remains an npm-based template a
 pnpm check
 ```
 
-checks the whole project with `svelte-check`. The library in `src/lib` is clean. The chart components and examples still report errors, so this command isn't a pass/fail gate yet.
+checks the whole project with `svelte-check`. It runs in CI and fails on any error, so keep it clean.
 
 ```sh
 pnpm check:site

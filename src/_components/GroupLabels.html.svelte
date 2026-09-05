@@ -24,7 +24,7 @@
       left:{left(group.values) * 100}%;
     "
 	>
-		{cap(k.c(group))}
+		{cap(k.c?.(group) ?? '')}
 	</div>
 {/each}
 

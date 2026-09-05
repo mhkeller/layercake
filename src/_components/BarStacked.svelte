@@ -23,7 +23,7 @@
 				y={k.yGet(d)}
 				height={k.yScale.bandwidth()}
 				width={columnWidth(d)}
-				fill={k.cGet(series)}
+				fill={k.cGet?.(series) ?? '#ccc'}
 			></rect>
 		{/each}
 	{/each}

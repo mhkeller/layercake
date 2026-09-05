@@ -18,9 +18,14 @@
 	/** @type {Props} */
 	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
-	let columnWidth = $derived(
-		k.x2Scale.bandwidth ? k.x2Scale.bandwidth() : Math.abs(k.x2Range[1] - k.x2Range[0])
-	);
+	// x2 drives this chart but is optional in the types – fall back to a
+	// zero-width column rather than crashing when it's missing
+	let columnWidth = $derived.by(() => {
+		const scale = k.x2Scale;
+		if (scale?.bandwidth) return scale.bandwidth();
+		const range = k.x2Range ?? [0, 0];
+		return Math.abs(range[1] - range[0]);
+	});
 
 	// Columns start at zero and run out to their value, so negative ones hang
 	// below it. Make sure zero is in your yDomain or this lands off the chart.
@@ -30,7 +35,7 @@
 <g class="column-group">
 	{#each k.data as d, i}
 		{@const valueY = k.yGet(d)}
-		{@const xPos = k.xGet(d) + k.x2Get(d)}
+		{@const xPos = k.xGet(d) + (k.x2Get?.(d) ?? 0)}
 		{@const yValue = k.y(d)}
 		<rect
 			class="group-rect"
@@ -41,7 +46,7 @@
 			y={Math.min(zeroY, valueY)}
 			width={columnWidth}
 			height={Math.abs(valueY - zeroY)}
-			fill={fill || k.cGet(d)}
+			fill={fill ?? k.cGet?.(d) ?? '#00bbff'}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>

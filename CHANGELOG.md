@@ -15,7 +15,8 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 - The `width` and `height` props are gone. They only ever set the size the chart drew at before the container was measured, which is the same 100 the component now uses on its own, and the name implied an override that never existed. For a server-side render, set the coordinate system with [`percentRange`](https://layercake.graphics/guide#percentrange) instead. Passing either one now logs `[LayerCake] Unknown prop 'width'. Ignoring...`.
 - The domains passed to the `children` snippet are now read back off the scale after `.nice()` and `[name]Padding` are applied, matching what the context reports. Previously the snippet received the pre-nice domain.
 - Passing an uninstantiated scale factory (`xScale={scaleLinear}` instead of `xScale={scaleLinear()}`) now throws a clear error. It was never documented behavior.
-- A function passed as `[name]Range` receives `({ width, height, scales })` and only re-runs when the values it actually reads change.
+- A function passed as `[name]Range` receives `({ width, height, percentRange, rangeWidth, rangeHeight, scales })` and only re-runs when the values it actually reads change. `scales` holds the computed sibling scales – the dimension's own scale is deliberately absent, since a range helps build that scale and reading it back would be circular.
+- `activeGetters` is no longer on the context. It duplicated the per-dimension accessors – read `k.x`, `k.y` etc. instead.
 - `debug` no longer prints during server-side rendering; it prints in the browser after hydration.
 - Unknown props are reported with a console warning unless `verbose={false}`.
 - A range you customized on a passed-in scale is now preserved instead of being overwritten with the dimension's default – so `zScale={scaleOrdinal(schemeCategory10)}` keeps its colors. Layer Cake still manages the range of pristine scales, and an explicit `[name]Range` prop always wins. Per [#364](https://github.com/mhkeller/layercake/issues/364).
@@ -39,11 +40,27 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 **Types**
 
 - `getLayerCakeContext()` returns a fully typed context: every key autocompletes with hover documentation, and typos like `k.xGett` are compile errors.
-- Component props are fully typed. The per-dimension halves of both typedefs are generated from the registry (`npm run generate:dims`) and enforced by tests, so types, docs and runtime behavior can't drift apart.
+- Component props are fully typed. The per-dimension halves of both typedefs are generated from the registry (`npm run generate:dims`) and enforced by tests, so types, docs and runtime behavior can't drift apart. Prop typos like `xDomian` are compile errors too – the props type no longer carries a catch-all index signature.
+- The primary dimensions (`x`, `y`, `z`, `r`) are typed as always-present – no `|undefined` on `xScale`, `xGet`, `xDomain` or `xRange` – while the secondary dimensions (`x2`, `y2`, `c`, `c2`) keep their optional types so feature-detection like `k.cGet?.(d)` stays expressible. The types describe a chart that uses the dimension: a chart that never sets `y` still holds `undefined` at runtime, which each key's hover doc says outright, and the [troubleshooting guide](https://layercake.graphics/guide#troubleshooting) covers the errors that follow.
+- `k.xGet` is typed as what it is – a getter `(d, i) => value` – instead of borrowing the scale's type.
+- `k.data` and `k.flatData` are generic: `LayerCakeContext<any, MyRow[]>` types your rows, `LayerCakeContext<any, FeatureCollection>` fits a GeoJSON map, and the `any` default stays permissive.
+- The `DataAccessor`, `DimensionDomain` and `DimensionRange` prop types carry real call signatures, so inline lambdas like `x={d => d.value}` get their parameter types.
 
 **Fixes**
 
 - A dimension configured only through its `[name]Scale` prop keeps the scale's preconfigured domain instead of having it overwritten with an empty array.
+- An explicit `[name]Range` prop now also wins on scales with a custom interpolator: `cScale={scaleSequential(interpolateViridis)}` plus `cRange={['white', 'red']}` uses your colors, where the range was previously ignored without a word.
+- Layer Cake recognizes d3's placeholder interpolator by behavior instead of by function name, so sequential and diverging color scales keep working in minified production builds, not just in dev.
+- Diverging scales get a range they can use. A diverging scale reads three range stops – low, middle, high – and returns `undefined` given only two, so `scaleDiverging()` now gets `[0, width/2, width]` by default, and a two-value `[name]Range` prop has its midpoint filled in.
+- A bare `null` dimension prop – say `xScale={cond ? myScale : null}` – now means "unset", the same as `undefined`, instead of activating the dimension and crashing or blanking the chart.
+- A function-form `[name]Domain` always receives a real domain: when nothing was measured, the scale's own domain stands in. Partial domains like `[null, 100]` fill from it too.
+- `[undefined, 10]` and `[]` domains are treated as incomplete and measured from the data, instead of silently producing NaN positions.
+- Ordinal domain measurement passes accessors the row index, matching rendering, so `(d, i) => ...` accessors work on the `c`, `x2` and `y2` dimensions.
+- With `verbose` on, Layer Cake now warns when an accessor measures no usable values (usually a typo'd key) and when a measured extent contains strings (usually unparsed CSV numbers).
+- The "data is not an array" error blames the prop that actually supplied the rows.
+- `debug` prints every configured dimension's scale, including ones set up without an accessor.
+- Pending debounced warnings are dropped when a chart unmounts, so a destroyed chart can't log about its size.
+- `<Svg>` derives `role="img"` when you set `label`, `labelledBy` or `describedBy`, matching how `<Html>` derives `role="figure"`.
 - The zero-width/zero-height container warning now always fires when the container is unsized, not only when a child happens to read a size-dependent value.
 - Axis components fall back gracefully on charts that don't configure the opposite dimension.
 - The declared svelte peer dependency now matches the version the library actually requires.
@@ -56,6 +73,7 @@ A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter objec
 | `$xGet(d)`, `$yScale.ticks()`, `$width`          | `k.xGet(d)`, `k.yScale.ticks()`, `k.width`                         |
 | `<LayerCake let:width>`                          | `{#snippet children(k)}...{/snippet}` or read `k.width` in a child |
 | Color via `z`                                    | Still works, but `c` is now the dedicated color dimension          |
+| `$activeGetters`                                 | Removed – read the accessors directly, e.g. `k.x`, `k.y`           |
 | `getContext('canvas')` store                     | `getContext('canvas').ctx` getter object (same for `'gl'`)         |
 
 # 10.0.3

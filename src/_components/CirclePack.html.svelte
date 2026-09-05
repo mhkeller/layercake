@@ -42,7 +42,7 @@
 		textColor = '#333',
 		textStroke = '#000',
 		textStrokeWidth = 0,
-		sortBy = (a, b) => b.value - a.value,
+		sortBy = (a, b) => (b.value ?? 0) - (a.value ?? 0),
 		spacing = 0
 	} = $props();
 

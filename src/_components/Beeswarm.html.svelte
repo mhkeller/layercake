@@ -75,7 +75,7 @@
 		<div
 			class="bee"
 			style="
-				background:{k.cGet(d.data)};
+				background:{k.cGet?.(d.data) ?? '#ccc'};
 				border-color:{stroke};
 				border-width:{strokeWidth};
 				left:{d.x}px;

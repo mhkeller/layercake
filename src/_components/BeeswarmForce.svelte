@@ -78,7 +78,14 @@
 
 <g class="bee-group">
 	{#each nodes as node}
-		<circle fill={k.cGet(node)} {stroke} stroke-width={strokeWidth} cx={node.x} cy={node.y} {r}>
+		<circle
+			fill={k.cGet?.(node) ?? '#ccc'}
+			{stroke}
+			stroke-width={strokeWidth}
+			cx={node.x}
+			cy={node.y}
+			{r}
+		>
 			{#if getTitle}
 				<title>{getTitle(node)}</title>
 			{/if}

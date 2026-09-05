@@ -36,8 +36,8 @@
 			<div
 				class="chip chip__{shape}"
 				style="background: {shape === `line`
-					? `linear-gradient(-45deg, #ffffff 40%, ${k.cScale(item)} 41%, ${k.cScale(item)} 59%, #ffffff 60%)`
-					: k.cScale(item)};"
+					? `linear-gradient(-45deg, #ffffff 40%, ${k.cScale?.(item) ?? '#ccc'} 41%, ${k.cScale?.(item) ?? '#ccc'} 59%, #ffffff 60%)`
+					: (k.cScale?.(item) ?? '#ccc')};"
 			></div>
 			<div class="name">{displayName(item)}</div>
 		</div>

@@ -20,7 +20,7 @@
 				y={yVals[1]}
 				width={k.xScale.bandwidth()}
 				height={columnHeight}
-				fill={k.cGet(series)}
+				fill={k.cGet?.(series) ?? '#ccc'}
 			></rect>
 		{/each}
 	{/each}

@@ -73,7 +73,7 @@
 <g class="bee-group">
 	{#each circles as d}
 		<circle
-			fill={k.cGet(d.data)}
+			fill={k.cGet?.(d.data) ?? '#ccc'}
 			{stroke}
 			stroke-width={strokeWidth}
 			cx={d.x}

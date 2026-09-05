@@ -23,7 +23,7 @@
 
 <g class="line-group">
 	{#each k.data as group}
-		<path class="path-line" d={path(group.values)} stroke={k.cGet(group)}></path>
+		<path class="path-line" d={path(group.values)} stroke={k.cGet?.(group) ?? '#ccc'}></path>
 	{/each}
 </g>
 

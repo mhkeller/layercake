@@ -85,7 +85,7 @@
 				top: {node.y}px;
 				width: {r * 2}px;
 				height: {r * 2}px;
-				background: {k.cGet(node)};
+				background: {k.cGet?.(node) ?? '#ccc'};
 				border-width: {strokeWidth}px;
 				border-color: {stroke};
 				"

@@ -58,7 +58,7 @@
 	{#each features || k.data.features as feature}
 		<path
 			class="feature-path"
-			fill={fill || k.cGet(feature.properties)}
+			fill={fill ?? k.cGet?.(feature.properties) ?? '#ccc'}
 			{stroke}
 			stroke-width={strokeWidth}
 			d={geoPathFn(feature)}

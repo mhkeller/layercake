@@ -25,14 +25,15 @@
 		const stringDate = date.toISOString().split('T')[0];
 		const days = k.data.filter(d => k.x(d) === stringDate)[0];
 		if (days) {
-			return k.c(days);
+			// The c accessor is unset on charts without a c dimension
+			return k.c?.(days) ?? '#fff';
 		}
 		return 0;
 	});
 
 	let fillColor = $derived(day => {
 		const n = count(day);
-		return n ? k.cScale(n) : '#fff';
+		return n ? (k.cScale?.(n) ?? '#fff') : '#fff';
 	});
 
 	let cellSize = $derived(calcCellSize(k.width, k.height));

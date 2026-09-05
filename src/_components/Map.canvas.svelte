@@ -44,7 +44,8 @@
 				geoPathFn.context(context);
 				geoPathFn(feature);
 
-				context.fillStyle = fill || k.cGet(feature.properties);
+				// Fall back to a neutral fill when the chart has no c dimension
+				context.fillStyle = fill ?? k.cGet?.(feature.properties) ?? '#ccc';
 				context.fill();
 
 				context.lineWidth = strokeWidth;

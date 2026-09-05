@@ -40,7 +40,7 @@
 						top: {scaledYValue + midHeight}%;
 						width: {r * 2}px;
 						height: {r * 2}px;
-						background: {k.cScale(k.config.x[i])};
+						background: {k.cScale?.(k.config.x[i]) ?? '#ccc'};
 					"
 				></div>
 			{/each}

@@ -18,6 +18,6 @@
 
 <g class="area-group">
 	{#each k.data as d}
-		<path class="path-area" d={areaGen(d)} fill={k.cGet(d)}></path>
+		<path class="path-area" d={areaGen(d)} fill={k.cGet?.(d) ?? '#ccc'}></path>
 	{/each}
 </g>

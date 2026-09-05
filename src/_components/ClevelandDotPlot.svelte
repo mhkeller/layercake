@@ -31,7 +31,8 @@
 			></line>
 
 			{#each xVals as circleX, i}
-				<circle cx={circleX} cy={yVal + midHeight} {r} fill={k.cScale(k.config.x[i])}></circle>
+				<circle cx={circleX} cy={yVal + midHeight} {r} fill={k.cScale?.(k.config.x[i]) ?? '#ccc'}
+				></circle>
 			{/each}
 		</g>
 	{/each}

@@ -1,7 +1,8 @@
 import { error, json } from '@sveltejs/kit';
 import { readFileSync, existsSync } from 'fs';
 import { readdirFilterSync } from 'indian-ocean';
-import parseJsdoc from '$lib/helpers/parseJsdoc.js';
+// Lives with the site modules so it doesn't ship in the npm package
+import parseJsdoc from '../../../_modules/parseJsdoc.js';
 
 function cleanMain(str) {
 	const cleaned = str

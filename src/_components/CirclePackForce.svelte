@@ -72,7 +72,7 @@
 	<circle
 		class="node"
 		r={k.rGet(point)}
-		fill={nodeColor || k.cGet(point)}
+		fill={nodeColor ?? k.cGet?.(point) ?? '#00bbff'}
 		stroke={nodeStroke}
 		stroke-width={nodeStrokeWidth}
 		cx={point.x}

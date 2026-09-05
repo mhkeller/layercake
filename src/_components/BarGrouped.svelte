@@ -18,9 +18,14 @@
 	/** @type {Props} */
 	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
-	let barHeight = $derived(
-		k.y2Scale.bandwidth ? k.y2Scale.bandwidth() : Math.abs(k.y2Range[1] - k.y2Range[0])
-	);
+	// y2 drives this chart but is optional in the types – fall back to a
+	// zero-height bar rather than crashing when it's missing
+	let barHeight = $derived.by(() => {
+		const scale = k.y2Scale;
+		if (scale?.bandwidth) return scale.bandwidth();
+		const range = k.y2Range ?? [0, 0];
+		return Math.abs(range[1] - range[0]);
+	});
 
 	// Bars start at zero and run out to their value, so negative ones run the
 	// other way. Make sure zero is in your xDomain or this lands off the chart.
@@ -30,7 +35,7 @@
 <g class="bar-group">
 	{#each k.data as d, i}
 		{@const valueX = k.xGet(d)}
-		{@const yPos = k.yGet(d) + k.y2Get(d)}
+		{@const yPos = k.yGet(d) + (k.y2Get?.(d) ?? 0)}
 		{@const xValue = k.x(d)}
 		<rect
 			class="group-rect"
@@ -41,7 +46,7 @@
 			y={yPos}
 			width={Math.abs(valueX - zeroX)}
 			height={barHeight}
-			fill={fill || k.cGet(d)}
+			fill={fill ?? k.cGet?.(d) ?? '#00bbff'}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>

@@ -3,6 +3,10 @@
 	Generates a hover tooltip positioned at the coordinates of the mouse event passed to the `event` prop, plus a y-`offset`. Whatever you put inside the component becomes the body of the tooltip.
  -->
 <script>
+	import { getLayerCakeContext } from 'layercake';
+
+	const k = getLayerCakeContext();
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {MouseEvent} event - The mouse event that triggered the tooltip.
@@ -12,14 +16,17 @@
 
 	/** @type {Props} */
 	let { event, offset = -35, children } = $props();
+
+	// Where the mouse is in chart coordinates, the same origin every layer draws in
+	let point = $derived(k.pointer(event));
 </script>
 
-{#if event.layerX !== undefined && event.layerY !== undefined}
+{#if !Number.isNaN(point[0]) && !Number.isNaN(point[1])}
 	<div
 		class="tooltip"
 		style="
-      top:{event.layerY + offset}px;
-      left:{event.layerX}px;
+      top:{point[1] + offset}px;
+      left:{point[0]}px;
     "
 	>
 		{@render children?.()}

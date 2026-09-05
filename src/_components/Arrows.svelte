@@ -4,7 +4,8 @@
  -->
 <script>
 	// @ts-nocheck
-	import { getContext, onMount, tick } from 'svelte';
+	import { onMount, tick } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { swoopyArrow, getElPosition, parseCssValue } from '../_modules/arrowUtils.js';
 
 	/**
@@ -27,7 +28,7 @@
 
 	let container = $state();
 
-	const { width, height, xScale, yScale, x, y } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/* --------------------------------------------
 	 * Some lookups to convert between x, y / width, height terminology
@@ -88,15 +89,15 @@
 		 * Otherwise pass it to our xGet and yGet functions
 		 */
 		const targetCoords = [
-			arrow.target.x || $x(arrow.target),
-			arrow.target.y || $y(arrow.target)
+			arrow.target.x || c.x(arrow.target),
+			arrow.target.y || c.y(arrow.target)
 		].map((q, j) => {
 			const val =
 				typeof q === 'string' && q.includes('%')
-					? parseCssValue(q, j, $width, $height)
+					? parseCssValue(q, j, c.width, c.height)
 					: j
-						? $yScale(q)
-						: $xScale(q);
+						? c.yScale(q)
+						: c.xScale(q);
 			return val + (arrow.target[`d${lookups[j].position}`] || 0);
 		});
 

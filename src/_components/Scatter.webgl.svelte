@@ -5,8 +5,9 @@
 <script>
 	import reglWrapper from 'regl';
 	import { getContext, onDestroy } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, yGet, width, height } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -175,7 +176,7 @@
 	}
 
 	$effect(() => {
-		if (!$width || !$height || !$gl) return;
+		if (!c.width || !c.height || !$gl) return;
 
 		ensureRegl($gl);
 		if (!regl || !drawPoints) return;
@@ -191,9 +192,9 @@
 
 		drawPoints({
 			pointWidth: r * 2,
-			points: $data,
-			x: $xGet,
-			y: $yGet,
+			points: c.data,
+			x: c.xGet,
+			y: c.yGet,
 			fillColor: hexToRgbPercent(fill),
 			strokeColor: hexToRgbPercent(stroke)
 		});

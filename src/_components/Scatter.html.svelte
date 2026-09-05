@@ -3,9 +3,9 @@
 	Generates an HTML scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -20,12 +20,12 @@
 </script>
 
 <div class="scatter-group">
-	{#each $data as d}
+	{#each c.data as d}
 		<div
 			class="circle"
 			style="
-				left: {$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}%;
-				top: {$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}%;
+				left: {c.xGet(d) + (c.xScale.bandwidth ? c.xScale.bandwidth() / 2 : 0)}%;
+				top: {c.yGet(d) + (c.yScale.bandwidth ? c.yScale.bandwidth() / 2 : 0)}%;
 				width: {r * 2}px;
 				height: {r * 2}px;
 				background-color: {fill};

@@ -3,9 +3,9 @@
 	Generates an HTML Beeswarm chart.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, zGet, height, config } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -22,7 +22,7 @@
 	function dodge(data, { rds = 1, x = d => d } = {}) {
 		const radius2 = rds ** 2;
 		const circles = data
-			.map(d => ({ x: x(d), [$config.z]: d[$config.z], data: d }))
+			.map(d => ({ x: x(d), [c.config.z]: d[c.config.z], data: d }))
 			.sort((a, b) => a.x - b.x);
 		const epsilon = 1e-3;
 		let head = null,
@@ -67,7 +67,7 @@
 
 		return circles;
 	}
-	let circles = $derived(dodge($data, { rds: r * 2 + spacing + strokeWidth, x: $xGet }));
+	let circles = $derived(dodge(c.data, { rds: r * 2 + spacing + strokeWidth, x: c.xGet }));
 </script>
 
 <div class="bee-group">
@@ -75,11 +75,11 @@
 		<div
 			class="bee"
 			style="
-				background:{$zGet(d)};
+				background:{c.zGet(d)};
 				border-color:{stroke};
 				border-width:{strokeWidth};
 				left:{d.x}px;
-				top:{$height - r - spacing - strokeWidth / 2 - d.y}px;
+				top:{c.height - r - spacing - strokeWidth / 2 - d.y}px;
 				width:{r * 2}px;
 				height:{r * 2}px;
 			"

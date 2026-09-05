@@ -3,9 +3,9 @@
   Generates an SVG column chart.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 
-	const { data, xGet, yGet, x, yRange, xScale, y, height } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -19,29 +19,29 @@
 	let { fill = '#00e047', stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
 	let columnWidth = $derived(d => {
-		const vals = $xGet(d);
+		const vals = c.xGet(d);
 		return Math.abs(vals[1] - vals[0]);
 	});
 
 	let columnHeight = $derived(d => {
-		return $yRange[0] - $yGet(d);
+		return c.yRange[0] - c.yGet(d);
 	});
 </script>
 
 <g class="column-group">
-	{#each $data as d, i}
+	{#each c.data as d, i}
 		{@const colHeight = columnHeight(d)}
-		{@const xGot = $xGet(d)}
+		{@const xGot = c.xGet(d)}
 		{@const xPos = Array.isArray(xGot) ? xGot[0] : xGot}
-		{@const colWidth = $xScale.bandwidth ? $xScale.bandwidth() : columnWidth(d)}
-		{@const yValue = $y(d)}
+		{@const colWidth = c.xScale.bandwidth ? c.xScale.bandwidth() : columnWidth(d)}
+		{@const yValue = c.y(d)}
 		<rect
 			class="group-rect"
 			data-id={i}
-			data-range={$x(d)}
+			data-range={c.x(d)}
 			data-count={yValue}
 			x={xPos}
-			y={$yGet(d)}
+			y={c.yGet(d)}
 			width={colWidth}
 			height={colHeight}
 			{fill}
@@ -49,7 +49,8 @@
 			stroke-width={strokeWidth}
 		/>
 		{#if showLabels && yValue}
-			<text x={xPos + colWidth / 2} y={$height - colHeight - 5} text-anchor="middle">{yValue}</text>
+			<text x={xPos + colWidth / 2} y={c.height - colHeight - 5} text-anchor="middle">{yValue}</text
+			>
 		{/if}
 	{/each}
 </g>

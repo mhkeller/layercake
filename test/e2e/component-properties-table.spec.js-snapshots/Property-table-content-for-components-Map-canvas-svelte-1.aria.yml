@@ -43,7 +43,7 @@
       - cell "None"
       - cell "no"
       - cell "The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set."
-    - row "features (Array<GeoJSON> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
+    - row "features (Array<GeoJSON> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in c.data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in c.data.features if left unset.":
       - cell "features (Array<GeoJSON> | undefined)":
         - strong: features
         - text: ""
@@ -53,9 +53,9 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "A list of GeoJSON features. Use this if you want to draw a subset of the features in $data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in $data.features if left unset.":
-        - text: ""
-        - code: $data
-        - text: ""
-        - code: $data.features
-        - text: ""
+      - cell "A list of GeoJSON features. Use this if you want to draw a subset of the features in c.data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in c.data.features if left unset.":
+        - text: A list of GeoJSON features. Use this if you want to draw a subset of the features in
+        - code: c.data
+        - text: while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in
+        - code: c.data.features
+        - text: if left unset.

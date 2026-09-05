@@ -3,10 +3,10 @@
 	Generates an SVG radar chart.
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { line, curveCardinalClosed } from 'd3-shape';
 
-	const { data, width, height, xGet, config } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -32,7 +32,7 @@
 		circleStrokeWidth = 1
 	} = $props();
 
-	let angleSlice = $derived((Math.PI * 2) / $config.x.length);
+	let angleSlice = $derived((Math.PI * 2) / c.config.x.length);
 
 	let path = $derived(
 		line()
@@ -61,9 +61,9 @@
 	// );
 </script>
 
-<g transform="translate({$width / 2}, {$height / 2})">
-	{#each $data as row}
-		{@const xVals = $xGet(row)}
+<g transform="translate({c.width / 2}, {c.height / 2})">
+	{#each c.data as row}
+		{@const xVals = c.xGet(row)}
 		<!-- Draw a line connecting all the dots -->
 		<path
 			class="path-line"

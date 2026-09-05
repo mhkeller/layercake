@@ -4,9 +4,10 @@
  -->
 <script>
 	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { scaleCanvas } from 'layercake';
 
-	const { data, xGet, yGet, width, height } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	const { ctx } = getContext('canvas');
 
@@ -22,7 +23,7 @@
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
 	$effect(() => {
-		if (!$width || !$height || !$ctx) return;
+		if (!c.width || !c.height || !$ctx) return;
 
 		// Assign to a local variable: setting properties on `$ctx` directly
 		// would re-notify the store and re-trigger this effect
@@ -34,15 +35,15 @@
 		 * put these reset functions in the first layer, not each one
 		 * since they should only run once per update
 		 */
-		scaleCanvas(context, $width, $height);
-		context.clearRect(0, 0, $width, $height);
+		scaleCanvas(context, c.width, c.height);
+		context.clearRect(0, 0, c.width, c.height);
 
 		/**
 		 * Draw our scatterplot
 		 */
-		$data.forEach((/** @type {any} d */ d) => {
+		c.data.forEach((/** @type {any} d */ d) => {
 			context.beginPath();
-			context.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
+			context.arc(c.xGet(d), c.yGet(d), r, 0, 2 * Math.PI, false);
 			context.lineWidth = strokeWidth;
 			context.strokeStyle = stroke;
 			context.stroke();

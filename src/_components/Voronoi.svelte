@@ -3,11 +3,11 @@
 	Generates a Voronoi layer using [d3-delaunay](https://github.com/d3/d3-delaunay).
  -->
 <script>
-	import { getContext } from 'svelte';
+	import { getLayerCakeContext } from 'layercake';
 	import { uniques } from 'layercake';
 	import { Delaunay } from 'd3-delaunay';
 
-	const { data, xGet, yGet, width, height } = getContext('LayerCake');
+	const c = getLayerCakeContext();
 
 	/** @typedef {[number, number] & { data?: any }} Point */
 
@@ -31,9 +31,9 @@
 
 	/** @type {Point[]} */
 	let points = $derived(
-		$data.map(d => {
+		c.data.map(d => {
 			/** @type {Point} */
-			const point = [$xGet(d), $yGet(d)];
+			const point = [c.xGet(d), c.yGet(d)];
 			point.data = d;
 			return point;
 		})
@@ -41,7 +41,7 @@
 
 	let uniquePoints = $derived(uniques(points, d => d.join(), false) ?? []);
 
-	let voronoi = $derived(Delaunay.from(uniquePoints ?? []).voronoi([0, 0, $width, $height]));
+	let voronoi = $derived(Delaunay.from(uniquePoints ?? []).voronoi([0, 0, c.width, c.height]));
 </script>
 
 {#each uniquePoints as point, i}

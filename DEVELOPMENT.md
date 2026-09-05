@@ -38,12 +38,6 @@ pnpm check
 
 checks the whole project with `svelte-check`. It runs in CI and fails on any error, so keep it clean.
 
-```sh
-pnpm check:site
-```
-
-checks the website code only: the routes, the site components in `src/routes/_site-components`, the modules in `src/_modules` and the build scripts. It skips `src/lib`, the chart components and the examples, and it fails on any error, so it can run in CI.
-
 ## Testing
 
 ### Unit Tests

@@ -10,6 +10,7 @@ import AxisXTop from './_components/AxisXTop.svelte';
 import AxisY from './_components/AxisY.svelte';
 import AxisYRight from './_components/AxisYRight.svelte';
 import Bar from './_components/Bar.svelte';
+import BarGrouped from './_components/BarGrouped.svelte';
 import BarStacked from './_components/BarStacked.svelte';
 import Beeswarm from './_components/Beeswarm.svelte';
 import BeeswarmHtml from './_components/Beeswarm.html.svelte';
@@ -22,6 +23,7 @@ import CirclePackForce from './_components/CirclePackForce.svelte';
 import ClevelandDotPlot from './_components/ClevelandDotPlot.svelte';
 import ClevelandDotPlotHtml from './_components/ClevelandDotPlot.html.svelte';
 import Column from './_components/Column.svelte';
+import ColumnGrouped from './_components/ColumnGrouped.svelte';
 import ColumnStacked from './_components/ColumnStacked.svelte';
 import Line from './_components/Line.svelte';
 import LineD3 from './_components/Line-D3.svelte';
@@ -75,6 +77,7 @@ export default [
 			{ slug: 'Area-D3.svelte', component: AreaD3 },
 			{ slug: 'AreaStacked.svelte', component: AreaStacked },
 			{ slug: 'Bar.svelte', component: Bar },
+			{ slug: 'BarGrouped.svelte', component: BarGrouped },
 			{ slug: 'BarStacked.svelte', component: BarStacked },
 			{ slug: 'Beeswarm.svelte', component: Beeswarm },
 			{ slug: 'Beeswarm.html.svelte', component: BeeswarmHtml },
@@ -86,6 +89,7 @@ export default [
 			{ slug: 'ClevelandDotPlot.svelte', component: ClevelandDotPlot },
 			{ slug: 'ClevelandDotPlot.percent-range.html.svelte', component: ClevelandDotPlotHtml },
 			{ slug: 'Column.svelte', component: Column },
+			{ slug: 'ColumnGrouped.svelte', component: ColumnGrouped },
 			{ slug: 'ColumnStacked.svelte', component: ColumnStacked },
 			{ slug: 'Line.svelte', component: Line },
 			{ slug: 'Line-D3.svelte', component: LineD3 },

@@ -6,14 +6,19 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "fill string '#00e047' no The shape's fill color.":
+    - row "fill string '#00e047' no The shape's fill color, used for every column. Set a c scale on <LayerCake> to color each column from its own row of data instead.":
       - cell "fill string":
         - strong: fill
         - code: string
       - cell "'#00e047'":
         - code: "'#00e047'"
       - cell "no"
-      - cell "The shape's fill color."
+      - cell "The shape's fill color, used for every column. Set a c scale on <LayerCake> to color each column from its own row of data instead.":
+        - text: ""
+        - code: c
+        - text: ""
+        - code: <LayerCake>
+        - text: ""
     - row /stroke string '#\d+' no The shape's stroke color\./:
       - cell "stroke string":
         - strong: stroke

@@ -7,7 +7,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -36,34 +36,34 @@
 		tickGutter = 0,
 		dx = 0,
 		dy = 0,
-		units = c.percentRange === true ? '%' : 'px'
+		units = k.percentRange === true ? '%' : 'px'
 	} = $props();
 
 	let tickLen = $derived(tickMarks === true ? (tickMarkLength ?? 6) : 0);
 
-	let isBandwidth = $derived(typeof c.xScale.bandwidth === 'function');
+	let isBandwidth = $derived(typeof k.xScale.bandwidth === 'function');
 
 	/** @type {Array<any>} */
 	let tickVals = $derived(
 		Array.isArray(ticks)
 			? ticks
 			: isBandwidth
-				? c.xScale.domain()
+				? k.xScale.domain()
 				: typeof ticks === 'function'
-					? ticks(c.xScale.ticks())
-					: c.xScale.ticks(ticks)
+					? ticks(k.xScale.ticks())
+					: k.xScale.ticks(ticks)
 	);
 
-	let halfBand = $derived(isBandwidth ? c.xScale.bandwidth() / 2 : 0);
+	let halfBand = $derived(isBandwidth ? k.xScale.bandwidth() / 2 : 0);
 </script>
 
 <div class="axis x-axis" class:snapLabels>
-	{#each tickVals as tick, i (tick)}
-		{@const tickValUnits = c.xScale(tick)}
+	{#if baseline === true}
+		<div class="baseline" style="top:100%; width:100%;"></div>
+	{/if}
 
-		{#if baseline === true}
-			<div class="baseline" style="top:100%; width:100%;"></div>
-		{/if}
+	{#each tickVals as tick, i (tick)}
+		{@const tickValUnits = k.xScale(tick)}
 
 		{#if gridlines === true}
 			<div class="gridline" style:left="{tickValUnits}{units}" style="top:0; bottom:0;"></div>

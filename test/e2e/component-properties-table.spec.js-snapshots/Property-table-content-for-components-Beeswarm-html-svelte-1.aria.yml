@@ -38,10 +38,10 @@
         - code: "1.5"
       - cell "no"
       - cell "Spacing, in pixels, between each circle."
-    - row "getTitle Function None no An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.":
+    - row "getTitle Function None no An accessor function that receives a row of your data and returns the field to display as a hover label. Mostly useful for debugging, needs better styling for production.":
       - cell "getTitle Function":
         - strong: getTitle
         - code: Function
       - cell "None"
       - cell "no"
-      - cell "An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production."
+      - cell "An accessor function that receives a row of your data and returns the field to display as a hover label. Mostly useful for debugging, needs better styling for production."

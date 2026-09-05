@@ -12,10 +12,8 @@
 	import usStates from '../../_data/us-states.topojson.json';
 	import stateData from '../../_data/us-states-data.json';
 
-	const colorKey = 'myValue';
-	/* --------------------------------------------
-	 * Create lookups to more easily join our data
-	 */
+	const cKey = 'myValue';
+	// Create lookups to more easily join our data
 	const joinKey = 'name';
 	const dataLookup = new Map();
 
@@ -27,8 +25,8 @@
 	});
 
 	geojson.features.forEach(d => {
-		// This will overwrite any existing keys on d.properties
-		// so watch out for any name collision
+		// This copies the row's fields onto d.properties. A field with the same
+		// name as a map property silently replaces it.
 		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
 	});
 
@@ -48,9 +46,9 @@
 	<LayerCake
 		padding={{ top: 20 }}
 		data={geojson}
-		z={colorKey}
-		zScale={scaleQuantize()}
-		zRange={colors}
+		c={cKey}
+		cScale={scaleQuantize()}
+		cRange={colors}
 		{flatData}
 	>
 		<Svg>

@@ -8,9 +8,10 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+	// Rows parsed by @rollup/plugin-dsv, which also attaches d3-dsv's `columns`
 	module '*.csv' {
-		const data: { [key: string]: any }[];
-		export default data;
+		const rows: Array<Record<string, any>> & { columns: string[] };
+		export default rows;
 	}
 }
 

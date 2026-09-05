@@ -4,42 +4,38 @@
  -->
 <script>
 	import { getContext } from 'svelte';
-	import { getLayerCakeContext } from 'layercake';
-	import { scaleCanvas } from 'layercake';
+	import { scaleCanvas, getLayerCakeContext } from 'layercake';
 	import { geoPath } from 'd3-geo';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
-	const { ctx } = getContext('canvas');
+	const canvasCtx = getContext('canvas');
 
 	/**
 	 * @typedef {Object} Props
 	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
 	 * @property {string} [stroke='#ccc'] - The shape's stroke color.
 	 * @property {number} [strokeWidth=1] - The shape's stroke width.
-	 * @property {string|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set.
-	 * @property {Array<GeoJSON>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `c.data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `c.data.features` if left unset.
+	 * @property {string|undefined} [fill] - The shape's fill color. By default, the fill will be determined by the c-scale, unless this prop is set.
+	 * @property {Array<GeoJSON>|undefined} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `k.data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `k.data.features` if left unset.
 	 */
 
 	/** @type {Props} */
 	let { projection, stroke = '#ccc', strokeWidth = 1, fill, features } = $props();
 
-	let projectionFn = $derived(projection().fitSize([c.width, c.height], c.data));
+	let projectionFn = $derived(projection().fitSize([k.width, k.height], k.data));
 
 	let geoPathFn = $derived(geoPath(projectionFn));
 
-	let featuresToDraw = $derived(features || c.data.features);
+	let featuresToDraw = $derived(features || k.data.features);
 
 	$effect(() => {
-		if (!c.width || !c.height || !$ctx) return;
+		if (!k.width || !k.height || !canvasCtx.ctx) return;
 
-		// Assign to a local variable: setting properties on `$ctx` directly
-		// would re-notify the store and re-trigger this effect
-		const context = $ctx;
-		const zGetFn = c.zGet;
+		const context = canvasCtx.ctx;
 
-		scaleCanvas(context, c.width, c.height);
-		context.clearRect(0, 0, c.width, c.height);
+		scaleCanvas(context, k.width, k.height);
+		context.clearRect(0, 0, k.width, k.height);
 
 		featuresToDraw.forEach(
 			/** @param {any} feature */ feature => {
@@ -48,7 +44,8 @@
 				geoPathFn.context(context);
 				geoPathFn(feature);
 
-				context.fillStyle = fill || zGetFn(feature.properties);
+				// Fall back to a neutral fill when the chart has no c dimension
+				context.fillStyle = fill ?? k.cGet?.(feature.properties) ?? '#ccc';
 				context.fill();
 
 				context.lineWidth = strokeWidth;

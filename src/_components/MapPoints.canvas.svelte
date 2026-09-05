@@ -4,12 +4,11 @@
  -->
 <script>
 	import { getContext } from 'svelte';
-	import { getLayerCakeContext } from 'layercake';
-	import { scaleCanvas } from 'layercake';
+	import { scaleCanvas, getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
-	const { ctx } = getContext('canvas');
+	const canvasCtx = getContext('canvas');
 
 	/**
 	 * @typedef {Object} Props
@@ -18,7 +17,7 @@
 	 * @property {string} [fill='yellow'] - The point's fill color.
 	 * @property {string} [stroke='#000'] - The point's stroke color.
 	 * @property {number} [strokeWidth=1] - The point's stroke width.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `c.data.features`, assuming this field is a list of GeoJSON features.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `k.data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
 	/** @type {Props} */
@@ -31,21 +30,19 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([c.width, c.height], c.data));
+	let projectionFn = $derived(projection().fitSize([k.width, k.height], k.data));
 
-	let featuresToDraw = $derived(features || c.data.features);
+	let featuresToDraw = $derived(features || k.data.features);
 
 	$effect(() => {
-		if (!c.width || !c.height || !$ctx) return;
+		if (!k.width || !k.height || !canvasCtx.ctx) return;
 
-		// Assign to a local variable: setting properties on `$ctx` directly
-		// would re-notify the store and re-trigger this effect
-		const context = $ctx;
+		const context = canvasCtx.ctx;
 
-		scaleCanvas(context, c.width, c.height);
-		context.clearRect(0, 0, c.width, c.height);
+		scaleCanvas(context, k.width, k.height);
+		context.clearRect(0, 0, k.width, k.height);
 
-		// To scale the circle by size, set width and height to `$rGet(d.properties)`
+		// To scale the circle by size, set width and height to `k.rGet(d.properties)`
 		featuresToDraw.forEach(
 			/** @param {any} d */ d => {
 				context.beginPath();

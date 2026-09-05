@@ -4,7 +4,7 @@ import * as fleece from 'golden-fleece';
 import hljs from 'highlight.js';
 import sanitizeHtml from 'sanitize-html';
 
-import * as marked from 'marked';
+import { Marked } from 'marked';
 import processMarkdown from './processMarkdown.js';
 import slugify from './slugify.js';
 import hljsDefineSvelte from './hljsDefineSvelte.js';
@@ -110,8 +110,8 @@ export default function (returnHtml = true) {
 					const textString = token.text || '';
 					const level = token.depth || 1;
 
-					// Extract only the identifier for slug/anchor (ignore code blocks in heading)
-					// This matches the old behavior: only the identifier (before any <code> or after)
+					// Only the identifier goes into the anchor. Inline code in the heading
+					// is left out of it.
 					let identifier = textString;
 					// Remove any inline code (backticks or <code> tags)
 					identifier = identifier
@@ -227,9 +227,13 @@ export default function (returnHtml = true) {
 				}
 			};
 
-			marked.use({ renderer });
+			// A new marked instance for each file. The renderer reads `group`, which
+			// changes as we walk this file's blocks, so it can't be shared between
+			// files. Calling the global `marked.use()` here would pile a new renderer
+			// on top of the old one every time and eventually crash.
+			const md = new Marked({ renderer });
 
-			let html = marked.marked(content, { async: false });
+			let html = md.parse(content, { async: false });
 
 			/** @type {Record<number, string>} */
 			const hashes = {};
@@ -274,7 +278,8 @@ export default function (returnHtml = true) {
 				);
 			});
 
-			// When extracting sidebar subsections, strip <code>...</code> from the title for anchors, but keep the display text for the heading itself
+			// For the sidebar, the anchor uses the title without any <code> tags.
+			// The heading itself keeps them.
 			/** @type {{ slug: string, title: string }[]} */
 			const subsections = [];
 			const pattern = /<h3 id="(.+?)">(.+?)<\/h3>/g;
@@ -303,7 +308,7 @@ export default function (returnHtml = true) {
 						title = identifierMatch[1];
 					}
 
-					// Check if the original title had function parameters to add (...) notation
+					// If the original title had function parameters, add `(...)` to the name
 					const hasParameters = /\([^)]*[\w:]/.test(originalTitle);
 					if (hasParameters) {
 						title = `${title}(...)`;

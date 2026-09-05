@@ -11,7 +11,7 @@
 	import data from '../../_data/cars-2.csv';
 
 	const xKey = 'Weight_in_lbs';
-	const zKey = 'Origin';
+	const cKey = 'Origin';
 	const titleKey = 'Name';
 
 	const r = 4;
@@ -20,11 +20,11 @@
 	const seriesColors = ['#ccc', '#fc0', '#000'];
 
 	const dataTransformed = data.map(d => {
-		seriesNames.add(d[zKey]);
+		seriesNames.add(d[cKey]);
 		return {
 			[titleKey]: d[titleKey],
 			[xKey]: +d[xKey],
-			[zKey]: d[zKey]
+			[cKey]: d[cKey]
 		};
 	});
 
@@ -35,17 +35,17 @@
 	<LayerCake
 		padding={{ bottom: 15 }}
 		x={xKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zRange={seriesColors}
-		zDomainSort={true}
+		c={cKey}
+		cScale={scaleOrdinal()}
+		cRange={seriesColors}
+		cDomainSort={true}
 		data={dataTransformed}
 	>
-		{#snippet children({ width })}
+		{#snippet children(k)}
 			<Svg>
 				<AxisX baseline format={addCommas} tickMarks />
-				<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
-				<Beeswarm r={width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d.data[titleKey]} />
+				<!-- The Beeswarm component keeps each original row under `data`, so read `titleKey` from there -->
+				<Beeswarm r={k.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
 			</Svg>
 
 			<Html pointerEvents={false}>

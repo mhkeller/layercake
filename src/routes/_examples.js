@@ -4,6 +4,8 @@ import MapSvg from './_examples/MapSvg.svelte';
 import Column from './_examples/Column.svelte';
 import AreaStacked from './_examples/AreaStacked.svelte';
 import ColumnStacked from './_examples/ColumnStacked.svelte';
+import ColumnGrouped from './_examples/ColumnGrouped.svelte';
+import BarGrouped from './_examples/BarGrouped.svelte';
 import MultiLine from './_examples/MultiLine.svelte';
 import MapLayered from './_examples/MapLayered.svelte';
 import Bar from './_examples/Bar.svelte';
@@ -23,6 +25,8 @@ import SyncedBrush from './_examples/SyncedBrush.svelte';
 import Beeswarm from './_examples/Beeswarm.svelte';
 import BeeswarmForce from './_examples/BeeswarmForce.svelte';
 import CirclePackForce from './_examples/CirclePackForce.svelte';
+import BarDiverging from './_examples/BarDiverging.svelte';
+import ColumnDiverging from './_examples/ColumnDiverging.svelte';
 
 export default [
 	{
@@ -56,6 +60,16 @@ export default [
 		component: ColumnStacked
 	},
 	{
+		title: 'Grouped column',
+		slug: 'ColumnGrouped',
+		component: ColumnGrouped
+	},
+	{
+		title: 'Grouped bar',
+		slug: 'BarGrouped',
+		component: BarGrouped
+	},
+	{
 		title: 'Bar',
 		slug: 'Bar',
 		component: Bar
@@ -64,6 +78,16 @@ export default [
 		title: 'Stacked bar',
 		slug: 'BarStacked',
 		component: BarStacked
+	},
+	{
+		title: 'Diverging column',
+		slug: 'ColumnDiverging',
+		component: ColumnDiverging
+	},
+	{
+		title: 'Diverging bar',
+		slug: 'BarDiverging',
+		component: BarDiverging
 	},
 	{
 		title: 'Multiline (html labels + quadtree tooltip)',

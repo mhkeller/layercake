@@ -12,13 +12,11 @@
 	import usStates from '../../_data/states-albers-10m.json';
 	import stateData from '../../_data/us-states-data.json';
 
-	const colorKey = 'myValue';
+	const cKey = 'myValue';
 
-	/* --------------------------------------------
-	 * Create lookups to more easily join our data
-	 * `dataJoinKey` is the name of the field in the data
-	 * `mapJoinKey` is the name of the field in the map file
-	 */
+	// Create lookups to more easily join our data
+	// `dataJoinKey` is the name of the field in the data
+	// `mapJoinKey` is the name of the field in the map file
 	const dataJoinKey = 'name';
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
@@ -44,9 +42,9 @@
 <div class="chart-container">
 	<LayerCake
 		data={geojson}
-		z={d => dataLookup.get(d[mapJoinKey])[colorKey]}
-		zScale={scaleQuantize()}
-		zRange={colors}
+		c={d => dataLookup.get(d[mapJoinKey])[cKey]}
+		cScale={scaleQuantize()}
+		cRange={colors}
 		{flatData}
 	>
 		<Svg>
@@ -66,7 +64,7 @@
 		<Html pointerEvents={false}>
 			{#if tooltipFeature !== null && tooltipEvent !== null}
 				<Tooltip event={tooltipEvent}>
-					<!-- For the tooltip, do another data join because the hover event only has the data from the geography data -->
+					<!-- The hover event only carries the map feature, so look up the matching data row again for the tooltip -->
 					{@const tooltipData = {
 						...tooltipFeature,
 						...dataLookup.get(tooltipFeature[mapJoinKey])

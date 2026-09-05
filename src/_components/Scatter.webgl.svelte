@@ -7,7 +7,7 @@
 	import { getContext, onDestroy } from 'svelte';
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -31,18 +31,18 @@
 		return str.match(/.{1,2}/g)?.map(d => parseInt(d, 16) / 255);
 	}
 
-	const { gl } = getContext('gl');
+	const glCtx = getContext('gl');
 
 	/**
 	 * @param {WebGLRenderingContext} context
 	 */
 	function resize(context) {
 		const canvas = /** @type {HTMLCanvasElement} */ (context.canvas);
-		// Lookup the size the browser is displaying the canvas.
+		// Look up the size the browser is displaying the canvas at.
 		const displayWidth = canvas.clientWidth;
 		const displayHeight = canvas.clientHeight;
 
-		// Check if the canvas is not the same size.
+		// Check whether the canvas needs resizing.
 		if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
 			// Make the canvas the same size
 			canvas.width = displayWidth;
@@ -57,8 +57,9 @@
 	let drawPoints;
 
 	/**
-	 * Create the regl instance and compile the draw command once.
-	 * Everything that changes between frames comes in through props.
+	 * Set up regl and compile the draw command once. Anything that changes
+	 * between frames, like the points and colors, is passed to the draw command
+	 * as props each time it runs.
 	 * @param {WebGLRenderingContext} context
 	 */
 	function ensureRegl(context) {
@@ -125,12 +126,11 @@
 				}`,
 
 			attributes: {
+				// One [x, y] position for each point
 				/**
 				 * @param {any} context
 				 * @param {{ points: Array<any>, x: Function, y: Function, pointWidth?: number, fillColor?: number[], strokeColor?: number[] }} props
 				 */
-				// There will be a position value for each point
-				// we pass in
 				position: (context, props) => {
 					return props.points.map(point => {
 						return [props.x(point), props.y(point)];
@@ -150,15 +150,13 @@
 				fill_color: (context, props) => props.fillColor,
 				// stroke_color: [0.6705882352941176, 0, 0.8392156862745098],
 				stroke_color: (context, props) => props.strokeColor,
-				// FYI: there is a helper method for grabbing
-				// values out of the context as well.
-				// These uniforms are used in our fragment shader to
-				// convert our x / y values to WebGL coordinate space.
+				// The canvas size, so the shaders can convert x / y pixel values to
+				// WebGL coordinates. `regl.context` reads them off regl's own context.
 				stage_width: regl.context('drawingBufferWidth'),
 				stage_height: regl.context('drawingBufferHeight')
 			},
 			count: (context, props) => {
-				// set the count based on the number of points we have
+				// Draw one point per row
 				return props.points.length;
 			},
 			primitive: 'points',
@@ -176,12 +174,12 @@
 	}
 
 	$effect(() => {
-		if (!c.width || !c.height || !$gl) return;
+		if (!k.width || !k.height || !glCtx.gl) return;
 
-		ensureRegl($gl);
+		ensureRegl(glCtx.gl);
 		if (!regl || !drawPoints) return;
 
-		resize($gl);
+		resize(glCtx.gl);
 		// Let regl pick up the new drawing buffer size
 		regl.poll();
 
@@ -192,9 +190,9 @@
 
 		drawPoints({
 			pointWidth: r * 2,
-			points: c.data,
-			x: c.xGet,
-			y: c.yGet,
+			points: k.data,
+			x: k.xGet,
+			y: k.yGet,
 			fillColor: hexToRgbPercent(fill),
 			strokeColor: hexToRgbPercent(stroke)
 		});

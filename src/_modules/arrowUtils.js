@@ -1,13 +1,9 @@
 // Helper functions for creating swoopy arrows
 
 /**
- * parseCssValue
- *
- * Parse various inputs and return then as a number
- * Can be a number, which will return the input value
- * A percentage, which will take the percent of the appropriate dimentions
- * A pixel value, which will parse as a number
- *
+ * Turn a length into a number of pixels. A number is returned as is. `'12px'`
+ * becomes 12. `'50%'` is measured against the chart size. `i` says which side
+ * to measure against: 0 for width and 1 for height, the same order as [x, y].
  * @param {string|number|null|undefined} d
  * @param {number} i
  * @param {number} width
@@ -26,11 +22,9 @@ export function parseCssValue(d, i, width, height) {
 }
 
 /**
- * getElPosition
- *
- * Constract a bounding box relative in our coordinate space
- * that we can attach arrow starting points to
- *
+ * Find where an element sits inside its parent. That's the spot an arrow points
+ * at. getBoundingClientRect measures from the top of the page, so subtract the
+ * parent's position to get coordinates the arrows can use.
  * @param {Element} el
  * @returns {{ top: number, right: number, bottom: number, left: number, width: number, height: number }}
  */
@@ -48,12 +42,7 @@ export function getElPosition(el) {
 	return coords;
 }
 
-/* --------------------------------------------
- * swoopyArrow
- *
- * Adapted from bizweekgraphics/swoopyarrows
- *
- */
+// Draws the curved arrow itself. Adapted from bizweekgraphics/swoopyarrows.
 export function swoopyArrow() {
 	let angle = Math.PI;
 	let clockwise = true;
@@ -80,27 +69,29 @@ export function swoopyArrow() {
 			return [xValue(d), yValue(d)];
 		});
 
-		// get the chord length ("height" {h}) between points
+		// The arrow is a piece of a circle. The next three lines work out which
+		// circle. Start with the straight-line distance between the two points.
+		// The arc bows away from that line.
 		const h = hypotenuse(data[1][0] - data[0][0], data[1][1] - data[0][1]);
 
-		// get the distance at which chord of height h subtends {angle} radians
+		// How far the circle's center sits from that straight line. A wider
+		// `angle` means a flatter arc and a center that sits further back.
 		const d = h / (2 * Math.tan(angle / 2));
 
-		// get the radius {r} of the circumscribed circle
+		// The distance from the center to either endpoint is the circle's radius.
 		const r = hypotenuse(d, h / 2);
 
-		/*
-		SECOND, compose the corresponding SVG arc.
-			read up: http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
-			example: <path d = "M 200,50 a 50,50 0 0,1 100,0"/>
-													M 200,50                          Moves pen to (200,50);
-																	 a                        draws elliptical arc;
-																		 50,50                  following a degenerate ellipse, r1 == r2 == 50;
-																														i.e. a circle of radius 50;
-																					 0                with no x-axis-rotation (irrelevant for circles);
-																						 0,1            with large-axis-flag=0 and sweep-flag=1 (clockwise);
-																								 100,0      to a point +100 in x and +0 in y, i.e. (300,50).
-		*/
+		// Write the arc out as an SVG path. Here is what each part of an example
+		// path `M 200,50 a 50,50 0 0,1 100,0` means:
+		//
+		//   M 200,50   start at (200,50)
+		//   a          draw an arc
+		//     50,50    the two radii. Equal radii make it a circle
+		//     0        the x-axis rotation. It has no effect on a circle
+		//     0,1      large-arc-flag 0 and sweep-flag 1: take the short way, clockwise
+		//     100,0    end 100 to the right and level with the start, at (300,50)
+		//
+		// Full syntax: http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
 		const path =
 			'M ' +
 			data[0][0] +

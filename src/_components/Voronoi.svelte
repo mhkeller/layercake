@@ -3,11 +3,12 @@
 	Generates a Voronoi layer using [d3-delaunay](https://github.com/d3/d3-delaunay).
  -->
 <script>
-	import { getLayerCakeContext } from 'layercake';
-	import { uniques } from 'layercake';
+	import { uniques, getLayerCakeContext } from 'layercake';
 	import { Delaunay } from 'd3-delaunay';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
+
+	/** @typedef {[number, number] & { data?: any }} Point */
 
 	/** @typedef {[number, number] & { data?: any }} Point */
 
@@ -31,9 +32,9 @@
 
 	/** @type {Point[]} */
 	let points = $derived(
-		c.data.map(d => {
+		k.data.map(d => {
 			/** @type {Point} */
-			const point = [c.xGet(d), c.yGet(d)];
+			const point = [k.xGet(d), k.yGet(d)];
 			point.data = d;
 			return point;
 		})
@@ -41,9 +42,14 @@
 
 	let uniquePoints = $derived(uniques(points, d => d.join(), false) ?? []);
 
-	let voronoi = $derived(Delaunay.from(uniquePoints ?? []).voronoi([0, 0, c.width, c.height]));
+	let voronoi = $derived(Delaunay.from(uniquePoints).voronoi([0, 0, k.width, k.height]));
 </script>
 
+<!--
+	These cells are invisible mouse targets, not content, so they are hidden from
+	screen readers. Making each one focusable would give a keyboard user one tab
+	stop per data point with nothing to read at any of them.
+-->
 {#each uniquePoints as point, i}
 	<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 	<path
@@ -51,7 +57,7 @@
 		class="voronoi-cell"
 		d={voronoi.renderCell(i)}
 		onmouseover={e => log(e, point)}
-		role="tooltip"
+		aria-hidden="true"
 	></path>
 {/each}
 
@@ -63,7 +69,7 @@
 		outline: none;
 	}
 
-	/* Useful to testing but you'll want to disable this for production */
+	/* Outlines the cell under the mouse. Handy while testing. Remove it for production. */
 	.voronoi-cell:hover {
 		stroke: #333 !important;
 		stroke-width: 3px;

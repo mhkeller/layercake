@@ -9,12 +9,10 @@
 	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/fruit.csv';
 
-	/* --------------------------------------------
-	 * Set what is our x key to separate it from the other series
-	 */
+	// Name the x field so it can be told apart from the series fields
 	const xKey = 'month';
 	const yKey = 'value';
-	const zKey = 'key';
+	const cKey = 'key';
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ffe4b8', '#ffb3c0', '#ff7ac7', '#ff00cc'];
@@ -25,7 +23,8 @@
 		return {
 			key,
 			values: data.map(d => {
-				// Put this in a conditional so that we don't recast the data on second render
+				// Only parse the date if it's still a string. This can run again on a
+				// rerender. Parsing an already parsed Date returns null.
 				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey];
 				return {
 					key,
@@ -36,8 +35,8 @@
 		};
 	});
 
-	// Make a flat array of the `values` of our nested series
-	// we can pluck the `value` field from each item in the array to measure extents
+	// Flatten the nested series into one list of points. Layer Cake measures
+	// the extents from that.
 	const flatten = data =>
 		data.reduce((memo, group) => {
 			return memo.concat(group.values);
@@ -54,10 +53,10 @@
 		padding={{ top: 20, right: 10 }}
 		x={xKey}
 		y={yKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
-		zRange={seriesColors}
+		c={cKey}
+		cScale={scaleOrdinal()}
+		cDomain={seriesNames}
+		cRange={seriesColors}
 		flatData={flatten(dataLong)}
 		yDomain={[0, null]}
 		data={dataLong}

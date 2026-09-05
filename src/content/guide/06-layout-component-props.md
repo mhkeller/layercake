@@ -38,19 +38,23 @@ The `Canvas` and the `WebGL` components also export a `context` variable that yo
 
 ```svelte
 <script>
-	let svgElement;
-	let canvasElement;
-	let canvasContext;
+	let svgElement = $state();
+	let canvasElement = $state();
+	let canvasContext = $state();
 </script>
 
 <LayerCake ...>
-	<Svg bind:element={svgElement} let:element>
-		{console.log(svgElement === element)}
+	<Svg bind:element={svgElement}>
+		{#snippet children({ element })}
+			{console.log(svgElement === element)}
+		{/snippet}
 	</Svg>
 
-	<Canvas bind:element={canvasElement} bind:context={canvasContext} let:element let:context>
-		{console.log(canvasElement === element)}
-		{console.log(canvasContext === context)}
+	<Canvas bind:element={canvasElement} bind:context={canvasContext}>
+		{#snippet children({ element, context })}
+			{console.log(canvasElement === element)}
+			{console.log(canvasContext === context)}
+		{/snippet}
 	</Canvas>
 </LayerCake>
 ```

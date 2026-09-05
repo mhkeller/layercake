@@ -1,26 +1,22 @@
 <!--
 	@component
-	Generates HTML text labels for a nested data structure. It places the label near the y-value of the highest x-valued data point. This is useful for labeling the final point in a multi-series line chart, for example. It expects your data to be an array of objects where each has `values` field that is an array of data objects. It uses the `z` field accessor to pull the text label.
+	Generates HTML text labels for a nested data structure. It places the label near the y-value of the highest x-valued data point. This is useful for labeling the final point in a multi-series line chart, for example. It expects your data to be an array of objects where each has `values` field that is an array of data objects. It uses the `c` field accessor to pull the text label.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
 	import { max } from 'd3-array';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
-	/* --------------------------------------------
-	 * Title case the first letter
-	 */
+	// Title case the first letter
 	const cap = val => val.replace(/^\w/, d => d.toUpperCase());
 
-	/* --------------------------------------------
-	 * Put the label on the highest value
-	 */
-	let left = $derived(values => c.xScale(max(values, c.x)) / Math.max(...c.xRange));
-	let top = $derived(values => c.yScale(max(values, c.y)) / Math.max(...c.yRange));
+	// Put the label on the highest value
+	let left = $derived(values => k.xScale(max(values, k.x)) / Math.max(...k.xRange));
+	let top = $derived(values => k.yScale(max(values, k.y)) / Math.max(...k.yRange));
 </script>
 
-{#each c.data as group}
+{#each k.data as group}
 	<div
 		class="label"
 		style="
@@ -28,7 +24,7 @@
       left:{left(group.values) * 100}%;
     "
 	>
-		{cap(c.z(group))}
+		{cap(k.c?.(group) ?? '')}
 	</div>
 {/each}
 

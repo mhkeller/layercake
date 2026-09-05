@@ -72,6 +72,9 @@
 			}
 		);
 
+	// Only components in the gallery have a demo we can render on its own.
+	// Helpers like ArrowheadMarker or SmallMultipleWrapper aren't in there, so
+	// this is undefined for them and the demo is skipped.
 	let component = $derived(lookup.get(data.slug));
 
 	/**
@@ -129,27 +132,31 @@
 </script>
 
 <svelte:head>
-	<title>{component.slug} component</title>
+	<title>{data.slug} component</title>
 </svelte:head>
 
 <div class="main">
 	<div class="all-components">
 		<a href="/components">← View all components</a>
 	</div>
-	<h1>{component.slug} component</h1>
+	<h1>{data.slug} component</h1>
 
-	<div class="chart-hero">
-		<component.component />
-	</div>
+	{#if component}
+		<div class="chart-hero">
+			<component.component />
+		</div>
+	{/if}
 
 	<div class="download">
 		<DownloadComponentBtn data={data.content} slug={data.slug} />
 	</div>
 
-	<div class="dek">
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html markdownToHtml(data.content.componentDescription)}
-	</div>
+	{#if data.content.componentDescription}
+		<div class="dek">
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+			{@html markdownToHtml(data.content.componentDescription)}
+		</div>
+	{/if}
 	{#if data.content.hasjsDoctable === true}
 		<div id="params-table">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->

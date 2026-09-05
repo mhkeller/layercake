@@ -1,5 +1,27 @@
 export { default as LayerCake } from './LayerCake.svelte';
-export { getLayerCakeContext } from './context';
+export { getLayerCakeContext, setLayerCakeContext } from './context.js';
+
+/**
+ * The context type, exported so you can name it in your own layer components,
+ * e.g. `@param {import('layercake').LayerCakeContext} k`. The `@template` lines
+ * are repeated here on purpose. A plain re-export would drop them. Then
+ * `LayerCakeContext<{ x: ScaleBand<string> }>` would not compile outside this
+ * package.
+ * @template [S=any]
+ * @template [TData=any]
+ * @typedef {import('./context.js').LayerCakeContext<S, TData>} LayerCakeContext
+ */
+
+/**
+ * The prop and scale types, exported for the same reason. A component that
+ * takes an accessor of its own can say `@type {import('layercake').DataAccessor}`.
+ * `Scale` is the loose d3 scale type the context hands back. See context.js for
+ * why it's loose and how to tighten it.
+ * @typedef {import('./types.js').DataAccessor} DataAccessor
+ * @typedef {import('./types.js').DimensionDomain} DimensionDomain
+ * @typedef {import('./types.js').DimensionRange} DimensionRange
+ * @typedef {import('./context.js').Scale} Scale
+ */
 export { default as Html } from './layouts/Html.svelte';
 export { default as Svg } from './layouts/Svg.svelte';
 export { default as ScaledSvg } from './layouts/ScaledSvg.svelte';

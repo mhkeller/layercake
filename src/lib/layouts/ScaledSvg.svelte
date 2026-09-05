@@ -3,9 +3,9 @@
 	Scaled SVG layout component
  -->
 <script>
-	import { getLayerCakeContext } from 'layercake';
+	import { getLayerCakeContext } from '../context.js';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -48,10 +48,10 @@
 	preserveAspectRatio="none"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={c.padding.top + 'px'}
-	style:left={c.padding.left + 'px'}
-	style:width={`calc(100% - ${c.padding.left + c.padding.right}px)`}
-	style:height={`calc(100% - ${c.padding.top + c.padding.bottom}px)`}
+	style:top={k.padding.top + 'px'}
+	style:left={k.padding.left + 'px'}
+	style:width={`calc(100% - ${k.padding.left + k.padding.right}px)`}
+	style:height={`calc(100% - ${k.padding.top + k.padding.bottom}px)`}
 	style="right:0px; bottom:0px;"
 	style:overflow
 	aria-label={label}

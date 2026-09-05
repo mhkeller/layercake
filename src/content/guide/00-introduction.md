@@ -143,7 +143,7 @@ Within the `LayerCake` component, you'll want to add at least one layout compone
 
 ### Layer components
 
-The only components the Layer Cake module exports are `LayerCake` and those layout components, everything else that actually draws your chart is up to you to create. Inside those layer components you can access the scales and other values derived from your data. You do this with Svelte's [`getContext`](https://svelte.dev/docs/svelte/svelte#getContext) function.
+The only components the Layer Cake module exports are `LayerCake` and those layout components, everything else that actually draws your chart is up to you to create. Inside those layer components you can access the scales and other values derived from your data. You do this with the `getLayerCakeContext` function exported from `layercake`.
 
 Here's an example starting with a similar `App.svelte` file to the example above. We're creating a scatter chart in SVG.
 
@@ -190,19 +190,19 @@ This is what the scatter component looks like:
 ```svelte
 <!-- { filename: './components/Scatter.svelte' } -->
 <script>
-	// Import the getContext function from svelte
-	import { getContext } from 'svelte';
+	// Import the context function from layercake
+	import { getLayerCakeContext } from 'layercake';
 
-	// Access the context using the 'LayerCake' keyword
-	// Grab some helpful functions
-	const { data, x, xScale, y, yScale } = getContext('LayerCake');
+	// Grab the chart context, which holds your data,
+	// accessors, scales and other helpful functions
+	const k = getLayerCakeContext();
 
 	let { fill = '#000', r = 5 } = $props();
 </script>
 
 <g>
-	{#each $data as d}
-		<circle cx={$xScale($x(d))} cy={$yScale($y(d))} {fill} {r} />
+	{#each k.data as d}
+		<circle cx={k.xScale(k.x(d))} cy={k.yScale(k.y(d))} {fill} {r} />
 	{/each}
 </g>
 ```
@@ -211,26 +211,25 @@ This is what the scatter component looks like:
 
 A few notes on this component:
 
-1. Everything that you destructure from `getContext('LayerCake')` is a [Svelte store](https://svelte.dev/docs/svelte/stores) so prefix them with `$` in the template.
+1. Reading values off of the context object – `k.data`, `k.xScale` – is reactive, so your component re-renders when the data or dimensions change. Avoid destructuring the context (`const { data } = getLayerCakeContext();`) outside of a [`$derived`](https://svelte.dev/docs/svelte/$derived) expression, though, since that would capture a one-time snapshot.
 2. This example is a bit verbose because we're calling our accessor functions and then our scale functions. You can combine these two steps with the built-in `xGet` and `yGet` functions. Like so:
 
 ```svelte
 <!-- { filename: './components/Scatter.svelte' } -->
 <script>
-	// Import the getContext function from svelte
-	import { getContext } from 'svelte';
+	// Import the context function from layercake
+	import { getLayerCakeContext } from 'layercake';
 
-	// Access the context using the 'LayerCake' keyword
-	// Grab some helpful functions
-	const { data, xGet, yGet } = getContext('LayerCake');
+	// Grab the chart context
+	const k = getLayerCakeContext();
 
 	// Customizable defaults
 	let { fill = '#000', r = 5 } = $props();
 </script>
 
 <g>
-	{#each $data as d}
-		<circle cx={$xGet(d)} cy={$yGet(d)} {fill} {r} />
+	{#each k.data as d}
+		<circle cx={k.xGet(d)} cy={k.yGet(d)} {fill} {r} />
 	{/each}
 </g>
 ```

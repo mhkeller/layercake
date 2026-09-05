@@ -10,7 +10,7 @@
 	import data from '../../_data/us-senate.csv';
 
 	const xKey = 'date_of_birth';
-	const zKey = 'gender';
+	const cKey = 'gender';
 	const titleKey = 'name';
 
 	const r = 6;
@@ -20,7 +20,7 @@
 	const dataTransformed = data.map(d => {
 		return {
 			[titleKey]: d[titleKey],
-			[zKey]: d[zKey],
+			[cKey]: d[cKey],
 			[xKey]: +d[xKey].split('-')[0]
 		};
 	});
@@ -30,10 +30,10 @@
 	<LayerCake
 		padding={{ bottom: 15 }}
 		x={xKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zRange={seriesColors}
-		zDomainSort={true}
+		c={cKey}
+		cScale={scaleOrdinal()}
+		cRange={seriesColors}
+		cDomainSort={true}
 		data={dataTransformed}
 	>
 		<Svg>

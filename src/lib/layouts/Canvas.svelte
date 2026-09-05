@@ -4,11 +4,10 @@
  -->
 <script>
 	import { onMount, setContext } from 'svelte';
-	import { getLayerCakeContext } from 'layercake';
-	import { writable } from 'svelte/store';
+	import { getLayerCakeContext } from '../context.js';
 	import scaleCanvas from '../lib/scaleCanvas.js';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -36,11 +35,10 @@
 		children
 	} = $props();
 
-	/**
-	 * @type {{ ctx: import('svelte/store').Writable<CanvasRenderingContext2D|null> }}
-	 */
 	const cntxt = {
-		ctx: writable(null)
+		get ctx() {
+			return context;
+		}
 	};
 	setContext('canvas', cntxt);
 
@@ -48,8 +46,7 @@
 		if (element) {
 			context = element.getContext('2d');
 			if (context) {
-				scaleCanvas(context, c.width, c.height);
-				cntxt.ctx.set(context);
+				scaleCanvas(context, k.width, k.height);
 			}
 		}
 	});
@@ -60,10 +57,10 @@
 	class="layercake-layout-canvas"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={c.padding.top + 'px'}
-	style:right={c.padding.right + 'px'}
-	style:bottom={c.padding.bottom + 'px'}
-	style:left={c.padding.left + 'px'}
+	style:top={k.padding.top + 'px'}
+	style:right={k.padding.right + 'px'}
+	style:bottom={k.padding.bottom + 'px'}
+	style:left={k.padding.left + 'px'}
 	style="width:100%;height:100%;position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}

@@ -102,7 +102,7 @@
         - text: ""
         - code: dy
         - text: ""
-    - 'row "units (''px'' | ''%'') c.percentRange === true ? ''%'' : ''px'' no If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
+    - 'row "units (''px'' | ''%'') k.percentRange === true ? ''%'' : ''px'' no If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
       - cell "units ('px' | '%')":
         - strong: units
         - text: ""
@@ -110,8 +110,8 @@
         - text: ""
         - code: "'%'"
         - text: ""
-      - 'cell "c.percentRange === true ? ''%'' : ''px''"':
-        - code: "c.percentRange === true ? '%' : 'px'"
+      - 'cell "k.percentRange === true ? ''%'' : ''px''"':
+        - code: "k.percentRange === true ? '%' : 'px'"
       - cell "no"
       - 'cell "If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
         - text: ""

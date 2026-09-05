@@ -8,7 +8,7 @@
 
 	const xKey = 'category';
 	const rKey = 'value';
-	const zKey = 'category';
+	const cKey = 'category';
 
 	let groupBy = $state('true');
 
@@ -16,12 +16,10 @@
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
 
 	data.forEach(d => {
-		seriesNameSet.add(d[zKey]);
+		seriesNameSet.add(d[cKey]);
 	});
 
-	/* --------------------------------------------
-	 * Convert this to an array so we can use it in our scales
-	 */
+	// Convert this to an array so we can use it in our scales
 	const seriesNames = [...seriesNameSet];
 
 	let manyBodyStrength = 3;
@@ -38,13 +36,13 @@
 		{data}
 		x={xKey}
 		r={rKey}
-		z={zKey}
+		c={cKey}
 		xScale={scaleBand()}
 		xDomain={seriesNames}
 		rRange={[3, 12]}
-		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
-		zRange={seriesColors}
+		cScale={scaleOrdinal()}
+		cDomain={seriesNames}
+		cRange={seriesColors}
 	>
 		<Svg>
 			<ForceLayout {manyBodyStrength} {xStrength} groupBy={JSON.parse(groupBy)} nodeStroke="#000" />

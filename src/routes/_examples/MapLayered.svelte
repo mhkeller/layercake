@@ -15,7 +15,7 @@
 	import stateData from '../../_data/us-states-data.json';
 	import stateLabels from '../../_data/us-states-labels.json';
 
-	const colorKey = 'myValue';
+	const cKey = 'myValue';
 	const labelCoordinatesKey = 'center';
 	const labelNameKey = 'abbr';
 
@@ -24,18 +24,16 @@
 	const geojson = feature(usStates, usStates.objects.collection);
 	const projection = geoAlbersUsa;
 
-	/* --------------------------------------------
-	 * Create lookups to more easily join our data
-	 * `dataJoinKey` is the name of the field in the data
-	 * `mapJoinKey` is the name of the field in the map file
-	 */
+	// Create lookups to more easily join our data
+	// `dataJoinKey` is the name of the field in the data
+	// `mapJoinKey` is the name of the field in the map file
 	const dataJoinKey = 'name';
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
 
 	stateData.forEach(
 		/** @param {any} d */ d => {
-			dataLookup.set(d[dataJoinKey], d[colorKey]);
+			dataLookup.set(d[dataJoinKey], d[cKey]);
 		}
 	);
 
@@ -58,9 +56,9 @@
 <div class="chart-container">
 	<LayerCake
 		data={geojson}
-		z={(/** @type {any} */ d) => dataLookup.get(d[mapJoinKey])}
-		zScale={scaleQuantize()}
-		zRange={colors}
+		c={(/** @type {any} */ d) => dataLookup.get(d[mapJoinKey])}
+		cScale={scaleQuantize()}
+		cRange={colors}
 		{flatData}
 	>
 		<Canvas>

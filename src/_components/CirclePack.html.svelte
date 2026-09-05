@@ -4,13 +4,13 @@
  -->
 <script>
 	import { stratify, pack, hierarchy } from 'd3-hierarchy';
-	import { getLayerCakeContext } from 'layercake';
 	import { format } from 'd3-format';
+	import { getLayerCakeContext } from 'layercake';
 
 	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
 	const commas = format(',');
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/** @typedef {import('d3-hierarchy').HierarchyNode<any>} HierarchyNode */
 
@@ -42,18 +42,14 @@
 		textColor = '#333',
 		textStroke = '#000',
 		textStrokeWidth = 0,
-		sortBy = (a, b) => b.value - a.value,
+		sortBy = (a, b) => (b.value ?? 0) - (a.value ?? 0),
 		spacing = 0
 	} = $props();
 
-	/* --------------------------------------------
-	 * This component will automatically group your data
-	 * into one group if no `parentKey` was passed in.
-	 * Stash c.data here so we can add our own parent
-	 * if there's no `parentKey`
-	 */
+	// If no `parentKey` was passed in, every row gets put under one made-up
+	// parent called 'all'. That parent is added to a copy of the data here.
 	let parent = $derived(parentKey !== undefined ? {} : { [idKey]: 'all' });
-	let dataset = $derived(parentKey !== undefined ? c.data : [...c.data, parent]);
+	let dataset = $derived(parentKey !== undefined ? k.data : [...k.data, parent]);
 
 	let stratifier = $derived(
 		stratify()
@@ -67,7 +63,7 @@
 
 	let descendants = $derived(
 		pack()
-			.size([c.width, c.height])
+			.size([k.width, k.height])
 			.padding(spacing)(
 				hierarchy(stratifier(dataset))
 					.sum(d => {
@@ -126,7 +122,7 @@
 	.circle {
 		transform: translate(-50%, -50%);
 	}
-	/* Hide the root node if we want, useful if we are creating our own root */
+	/* Hide the made-up 'all' root circle when the component created it */
 	.circle-pack[data-has-parent-key='false'] .circle-group[data-id='all'] {
 		display: none;
 	}

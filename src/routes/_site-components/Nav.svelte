@@ -12,9 +12,8 @@
 	let path = $state();
 	// let type;
 
-	// I was getting a weird artifact of a service-worker.js
-	// being requested. it's fixed now but keep this for
-	// good measure
+	// Ignore requests for the service worker file. They aren't a page and
+	// shouldn't update the nav.
 	let isServiceWorker = $derived(page.url.pathname === '/service-worker.js');
 
 	let segment = $state('');
@@ -43,11 +42,9 @@
 	}
 
 	function toggleOpen() {
-		// if the menu is closing, scroll back to the top *after* it
-		// shuts. otherwise, scroll back to the top immediately
-		// (just in case the user reopened before it happened).
-		// The reason we don't just do it when the menu opens is
-		// that the scrollbar visibly flashes
+		// If the menu is closing, scroll to the top after it has shut. Otherwise
+		// scroll right away, in case the user reopened it before that happened.
+		// Scrolling when the menu opens would make the scrollbar visibly flash.
 		if (open) {
 			setTimeout(() => {
 				if (!open) {

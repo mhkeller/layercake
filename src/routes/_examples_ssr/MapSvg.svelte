@@ -12,19 +12,17 @@
 	import usStates from '../../_data/states-albers-10m.json';
 	import stateData from '../../_data/us-states-data.json';
 
-	const colorKey = 'myValue';
+	const cKey = 'myValue';
 
-	/* --------------------------------------------
-	 * Create lookups to more easily join our data
-	 * `dataJoinKey` is the name of the field in the data
-	 * `mapJoinKey` is the name of the field in the map file
-	 */
+	// Create lookups to more easily join our data
+	// `dataJoinKey` is the name of the field in the data
+	// `mapJoinKey` is the name of the field in the map file
 	const dataJoinKey = 'name';
 	const mapJoinKey = 'name';
 	const dataLookup = new Map();
 
 	stateData.forEach(d => {
-		dataLookup.set(d[dataJoinKey], d[colorKey]);
+		dataLookup.set(d[dataJoinKey], d[cKey]);
 	});
 
 	const geojson = feature(usStates, usStates.objects.states);
@@ -42,9 +40,9 @@
 		ssr
 		position="absolute"
 		data={geojson}
-		z={d => dataLookup.get(d[mapJoinKey])}
-		zScale={scaleQuantize()}
-		zRange={colors}
+		c={d => dataLookup.get(d[mapJoinKey])}
+		cScale={scaleQuantize()}
+		cRange={colors}
 		{flatData}
 	>
 		<ScaledSvg fixedAspectRatio={aspectRatio}>

@@ -14,7 +14,7 @@
 
 	const xKey = 'month';
 	const yKey = [0, 1];
-	const zKey = 'key';
+	const cKey = 'key';
 	const xKeyCast = timeParse('%Y-%m-%d');
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
@@ -23,9 +23,7 @@
 	const formatLabelX = timeFormat('%b. %-d');
 	const formatLabelY = d => format(`~s`)(d);
 
-	/* --------------------------------------------
-	 * Cast data
-	 */
+	// Cast data
 	data.forEach(d => {
 		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
 
@@ -42,10 +40,10 @@
 		padding={{ top: 0, right: 0, bottom: 20, left: 17 }}
 		x={d => d.data[xKey]}
 		y={yKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
-		zRange={seriesColors}
+		c={cKey}
+		cScale={scaleOrdinal()}
+		cDomain={seriesNames}
+		cRange={seriesColors}
 		flatData={flatten(stackedData)}
 		data={stackedData}
 	>

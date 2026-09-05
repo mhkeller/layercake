@@ -10,7 +10,7 @@
 
 	const codeExample = `<scr${''}ipt>
 	// The library provides a main wrapper component
-	// and a bunch empty layout components...
+	// and a bunch of empty layout components...
 	import { LayerCake, Svg, Html, Canvas } from 'layercake';
 
 	// ...that you fill with your own chart components,

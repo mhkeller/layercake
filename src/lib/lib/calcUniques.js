@@ -45,7 +45,7 @@ export default function calcUniques(data, fields, sortOptions = {}) {
 		s = keys[i];
 		acc = fields[s];
 		for (j = 0; j < dl; j += 1) {
-			val = acc(data[j]);
+			val = acc(data[j], j);
 			if (Array.isArray(val)) {
 				const vl = val.length;
 				for (k = 0; k < vl; k += 1) {

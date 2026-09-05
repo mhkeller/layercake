@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -15,13 +15,13 @@
 	/** @type {Props} */
 	let { r = 5 } = $props();
 
-	let midHeight = $derived(c.yScale.bandwidth() / 2);
+	let midHeight = $derived(k.yScale.bandwidth() / 2);
 </script>
 
 <g class="dot-plot">
-	{#each c.data as row}
-		{@const yVal = c.yGet(row)}
-		{@const xVals = c.xGet(row)}
+	{#each k.data as row}
+		{@const yVal = k.yGet(row)}
+		{@const xVals = k.xGet(row)}
 		<g class="dot-row">
 			<line
 				x1={Math.min(...xVals)}
@@ -31,7 +31,8 @@
 			></line>
 
 			{#each xVals as circleX, i}
-				<circle cx={circleX} cy={yVal + midHeight} {r} fill={c.zScale(c.config.x[i])}></circle>
+				<circle cx={circleX} cy={yVal + midHeight} {r} fill={k.cScale?.(k.config.x[i]) ?? '#ccc'}
+				></circle>
 			{/each}
 		</g>
 	{/each}

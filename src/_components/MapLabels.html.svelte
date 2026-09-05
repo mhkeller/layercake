@@ -5,31 +5,31 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
 	 * @property {Function} projection - A D3 projection function. Pass this in as an uncalled function, e.g. `projection={geoAlbersUsa}`.
-	 * @property {number|undefined} [fixedAspectRatio] - By default, the map fills to fit the c.width and c.height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
+	 * @property {number|undefined} [fixedAspectRatio] - By default, the map fills to fit the k.width and k.height. If instead you want a fixed-aspect ratio, like for a server-side rendered map, set that here.
 	 * @property {Function} getLabel - An accessor function to get the field to display.
 	 * @property {Function} getCoordinates - An accessor function to get the `[x, y]` coordinate field. Defaults to a GeoJSON feature format.
-	 * @property {Array<Object>|undefined} [features] - A list of labels as GeoJSON features. If unset, the plotted features will default to those in `c.data.features`, assuming this field is a list of GeoJSON features.
+	 * @property {Array<Object>|undefined} [features] - A list of labels as GeoJSON features. If unset, the plotted features will default to those in `k.data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
 	/** @type {Props} */
 	let { projection, fixedAspectRatio, getLabel, getCoordinates, features } = $props();
 
 	let fitSizeRange = $derived(
-		fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [c.width, c.height]
+		fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [k.width, k.height]
 	);
 
-	let projectionFn = $derived(projection().fitSize(fitSizeRange, c.data));
+	let projectionFn = $derived(projection().fitSize(fitSizeRange, k.data));
 
 	let units = $derived(fixedAspectRatio ? '%' : 'px');
 </script>
 
 <div class="map-labels" style:aspect-ratio={fixedAspectRatio ? 1 : null}>
-	{#each features || c.data.features as d}
+	{#each features || k.data.features as d}
 		{@const coords = projectionFn(getCoordinates(d))}
 		<div
 			class="map-label"

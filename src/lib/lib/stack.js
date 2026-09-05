@@ -16,7 +16,7 @@ import { stack as d3Stack } from 'd3-shape';
 	stack(data, ['apples', 'bananas', 'cherries', 'dates'])
 
 	// Output data
-	stackData equals an array of values. The `month` values you can't see because sneakily stashes them as a property on the array, accessible as `d.data`.
+	stackData is an array of values. The `month` values aren't visible here because d3 stashes them as a property on each array, accessible as `d.data`.
   [
 		[ [   0, 320],  [   0,  640], [   0, 1600], [   0, 3840] ], // apples
 		[ [ 320, 800],  [ 640, 1600], [1600, 3040], [3840, 5760] ], // bananas

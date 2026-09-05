@@ -1,6 +1,7 @@
 import { error, json } from '@sveltejs/kit';
 import { readFileSync, existsSync, readdirSync } from 'fs';
-import parseJsdoc from '$lib/helpers/parseJsdoc.js';
+// parseJsdoc lives with the site modules so it doesn't ship in the npm package
+import parseJsdoc from '../../../_modules/parseJsdoc.js';
 
 /**
  * @typedef {{
@@ -49,8 +50,7 @@ function readdirFilterSync(dir) {
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export async function GET({ params }) {
-	// the `slug` parameter is available because
-	// this file is called [slug].json.js
+	// SvelteKit fills in `slug` from the [slug] folder name
 	const { slug } = params;
 
 	const componentPath = `src/_components/${slug}`;
@@ -101,14 +101,14 @@ export async function GET({ params }) {
 		};
 	});
 
-	const componentDescription = fromMain
-		.split('<script>')[0]
-		.replace('<!--', '')
-		.replace('-->', '')
-		.split('@component')[1];
-	// Only read `@property` lines from the `Props` typedef comment block so that
-	// fields of other typedefs (annotation configs, arrow configs etc...) don't
-	// show up as component props
+	// Wrapper components like SmallMultipleWrapper have no @component comment.
+	// They get an empty description.
+	const componentDescription =
+		fromMain.split('<script>')[0].replace('<!--', '').replace('-->', '').split('@component')[1] ||
+		'';
+	// Only read `@property` lines from the `Props` typedef block, so fields of
+	// other typedefs (annotation configs, arrow configs and so on) don't show up
+	// as component props
 	const commentBlocks = fromMain.match(/\/\*\*[^]*?\*\//g) || [];
 	const propsBlock =
 		commentBlocks.find(
@@ -135,8 +135,14 @@ export async function GET({ params }) {
 		.map(match => {
 			const [, jsdocComment] = match;
 			let parsed = parseJsdoc(jsdocComment);
-			if (parsed && parsed['name'] in defaultValues)
-				parsed['defaultValue'] = defaultValues[parsed['name']]?.replace('$bindable()', '');
+			if (parsed) {
+				// Prefer the default written in the code. A prop can have no default in
+				// the destructure and still document one that it applies further down.
+				// In that case keep the default from the JSDoc.
+				const codeDefault = defaultValues[parsed['name']];
+				if (codeDefault !== undefined)
+					parsed['defaultValue'] = codeDefault.replace('$bindable()', '');
+			}
 			return /** @type {JsdocProp | null} */ (parsed);
 		})
 		.filter(

@@ -28,12 +28,10 @@
 
 	let container = $state();
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
-	/* --------------------------------------------
-	 * Some lookups to convert between x, y / width, height terminology
-	 * and CSS names
-	 */
+	// Lookups to convert between the x/y and width/height names used here and
+	// their CSS names
 	const lookups = [
 		{ dimension: 'width', css: 'left', position: 'x' },
 		{ dimension: 'height', css: 'top', position: 'y' }
@@ -41,12 +39,9 @@
 
 	let annotationEls = $state();
 
-	// This searches the DOM for the HTML annotations
-	// in the Annotations.svelte componenent and then
-	// attaches arrows to those divs
-	// Make sure the `.chart-container` and `.layercake-annotation`
-	// selectors match what you have in your project
-	// otherwise it won't find anything
+	// Find the annotation divs that Annotations.html.svelte rendered and attach
+	// an arrow to each one. The `.chart-container` and `.layercake-annotation`
+	// selectors have to match your project, or nothing will be found.
 	onMount(async () => {
 		await tick();
 		annotationEls = Array.from(container.closest(containerClass).querySelectorAll(annotationClass));
@@ -57,10 +52,8 @@
 
 		const el = annotationEls[i];
 
-		/* --------------------------------------------
-		 * Parse our attachment directives to know where to start the arrowhead
-		 * measuring a bounding box based on our annotation el
-		 */
+		// Work out where the arrow starts: the spot on the annotation div named
+		// by `source.anchor`, plus any offset
 		const arrowSource = getElPosition(el);
 		const sourceCoords = arrow.source.anchor.split('-').map((q, j) => {
 			const point =
@@ -78,32 +71,26 @@
 			);
 		});
 
-		/* --------------------------------------------
-		 * Default to clockwise
-		 */
+		// Default to clockwise
 		const clockwise = typeof arrow.clockwise === 'undefined' ? true : arrow.clockwise;
 
-		/* --------------------------------------------
-		 * Parse where we're drawing to
-		 * If we're passing in a percentage as a string then we need to convert it to pixel values
-		 * Otherwise pass it to our xGet and yGet functions
-		 */
+		// Work out where the arrow ends. A percentage string like '50%' is
+		// measured against the chart. Anything else is a data value that goes
+		// through the x and y scales.
 		const targetCoords = [
-			arrow.target.x || c.x(arrow.target),
-			arrow.target.y || c.y(arrow.target)
+			arrow.target.x || k.x(arrow.target),
+			arrow.target.y || k.y(arrow.target)
 		].map((q, j) => {
 			const val =
 				typeof q === 'string' && q.includes('%')
-					? parseCssValue(q, j, c.width, c.height)
+					? parseCssValue(q, j, k.width, k.height)
 					: j
-						? c.yScale(q)
-						: c.xScale(q);
+						? k.yScale(q)
+						: k.xScale(q);
 			return val + (arrow.target[`d${lookups[j].position}`] || 0);
 		});
 
-		/* --------------------------------------------
-		 * Create arrow path
-		 */
+		// Create arrow path
 		return swoopyArrow()
 			.angle(Math.PI / 2)
 			.clockwise(clockwise)

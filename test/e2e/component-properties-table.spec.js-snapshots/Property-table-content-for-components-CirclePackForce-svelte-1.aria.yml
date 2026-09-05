@@ -42,7 +42,7 @@
         - link "the documentation":
           - /url: https://github.com/d3/d3-force#x_strength
         - text: ""
-    - row "nodeColor (string | undefined) None no Set a color manually otherwise it will default to the zScale.":
+    - row "nodeColor (string | undefined) None no Set a color manually otherwise it will default to the cScale.":
       - cell "nodeColor (string | undefined)":
         - strong: nodeColor
         - text: ""
@@ -52,9 +52,9 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "Set a color manually otherwise it will default to the zScale.":
+      - cell "Set a color manually otherwise it will default to the cScale.":
         - text: ""
-        - code: zScale
+        - code: cScale
         - text: ""
     - row "nodeStroke string '#fff' no The circle's stroke color.":
       - cell "nodeStroke string":

@@ -324,20 +324,18 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 <!-- { filename: 'ScatterCanvas.svelte' } -->
 <script>
 	import { getContext } from 'svelte';
-	import { scaleCanvas } from 'layercake';
+	import { getLayerCakeContext, scaleCanvas } from 'layercake';
 
-	const { data, xGet, yGet, width, height } = getContext('LayerCake');
+	const k = getLayerCakeContext();
 
-	const { ctx } = getContext('canvas');
+	const canvasCtx = getContext('canvas');
 
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
 	$effect(() => {
-		if (!$width || !$height || !$ctx) return;
+		if (!k.width || !k.height || !canvasCtx.ctx) return;
 
-		// Assign to a local variable: setting properties on `$ctx` directly
-		// would re-notify the store and re-trigger this effect
-		const context = $ctx;
+		const context = canvasCtx.ctx;
 
 		/**
 		 * If you were to have multiple canvas layers
@@ -345,15 +343,15 @@ Such as in the [Scatter canvas](/example/Scatter) example:
 		 * put these reset functions in the first layer, not each one
 		 * since they should only run once per update
 		 */
-		scaleCanvas(context, $width, $height);
-		context.clearRect(0, 0, $width, $height);
+		scaleCanvas(context, k.width, k.height);
+		context.clearRect(0, 0, k.width, k.height);
 
 		/**
 		 * Draw our scatterplot
 		 */
-		$data.forEach((/** @type {any} d */ d) => {
+		k.data.forEach((/** @type {any} d */ d) => {
 			context.beginPath();
-			context.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
+			context.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
 			context.lineWidth = strokeWidth;
 			context.strokeStyle = stroke;
 			context.stroke();

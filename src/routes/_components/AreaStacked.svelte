@@ -11,7 +11,7 @@
 
 	const xKey = 'month';
 	const yKey = [0, 1];
-	const zKey = 'key';
+	const cKey = 'key';
 
 	const parseDate = timeParse('%Y-%m-%d');
 
@@ -22,9 +22,7 @@
 		d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey];
 	});
 
-	/* --------------------------------------------
-	 * Create a stacked data structure
-	 */
+	// Create a stacked data structure
 	const stackData = stack().keys(seriesNames);
 
 	const series = stackData(data);
@@ -34,10 +32,10 @@
 	<LayerCake
 		x={d => d.data[xKey]}
 		y={yKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
-		zRange={seriesColors}
+		c={cKey}
+		cScale={scaleOrdinal()}
+		cDomain={seriesNames}
+		cRange={seriesColors}
 		flatData={flatten(series)}
 		data={series}
 	>

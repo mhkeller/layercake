@@ -11,17 +11,38 @@ These are the props you can set on the `LayerCake` component itself. You set the
 >
 ```
 
-The component also exports an `element` prop that represents the main wrapper, in case you need to access it for some reason. It also exposes this as a slot prop.
+The component also exports an `element` prop that represents the main wrapper, in case you need to access it for some reason. It's on the context too, so the children snippet can read it as `k.element`.
 
 ```svelte
 <script>
-	let mainElement;
+	let mainElement = $state();
 </script>
 
-<LayerCake bind:element={mainElement} let:element>
-	{console.log(mainElement === element)}
+<LayerCake bind:element={mainElement}>
+	{#snippet children(k)}
+		{console.log(mainElement === k.element)}
+	{/snippet}
 </LayerCake>
 ```
+
+### Prop types
+
+A few shapes repeat across the props below. Every accessor – `x`, `y`, `c` and the rest – takes the same kind of value, and so does every `*Domain` and every `*Range` prop. Layer Cake names those three shapes and exports them, so your own components can reuse them instead of copying a long union off this page.
+
+- `DataAccessor` is `string|Function|number|Array<string|Function|number>|undefined`
+- `DimensionDomain` is `[min: number|null, max: number|null]|Array<string|number>|Function|undefined`
+- `DimensionRange` is `[min: number, max: number]|Function|Array<string|number>|undefined`
+
+```svelte
+<script>
+	/** @type {{ x: import('layercake').DataAccessor }} */
+	let { x } = $props();
+</script>
+```
+
+Two more names come from the context: `LayerCakeContext` for the object you get back from `getLayerCakeContext()`, and `Scale` for the d3 scales hanging off it. See [Typing the context](/guide#typing-the-context).
+
+The headings below spell out the full shape rather than the alias, so you can see what a prop takes without looking anything up.
 
 ### data `Array<Object|Array<any>>|Object`
 
@@ -120,6 +141,54 @@ Same as [x](/guide#x) but for the z dimension.
 
 Same as [x](/guide#x) but for the r dimension.
 
+The `2` suffix marks a dimension's secondary channel: `x2` and `y2` are second scales for their axis and default to nesting inside their parent's bandwidth, while `c2` is a second color-like channel with defaults of its own.
+
+### x2 `string|Function|number|Array<string|Function|number>|undefined`
+
+Same as [x](/guide#x) but for the x2 dimension – a scale nested inside the x scale, useful for [grouped column charts](/example/ColumnGrouped). It defaults to a `scaleBand()` whose domain is computed from your data and whose range is the bandwidth of the x scale, so this is usually all you need:
+
+```svelte
+<LayerCake
+  x="year"
+  xScale={scaleBand()}
+  x2="fruit"
+  y="value"
+>
+```
+
+In a layer component, position a column with `k.xGet(d) + k.x2Get(d)` and size it with `k.x2Scale.bandwidth()`.
+
+You can customize the nested range by setting [x2Range](/guide#x2range) to a function, which receives the computed sibling scales: `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+
+Like every dimension, x2 also accepts `x2Domain`, `x2Scale`, `x2Range` and `x2DomainSort` props.
+
+### y2 `string|Function|number|Array<string|Function|number>|undefined`
+
+Same as [x2](/guide#x2) but nested inside the y scale, useful for grouped bar charts. Accepts `y2Domain`, `y2Scale`, `y2Range` and `y2DomainSort` props.
+
+### c `string|Function|number|Array<string|Function|number>|undefined`
+
+Same as [x](/guide#x) but for the c dimension, a dedicated color scale. It defaults to a `scaleOrdinal()` whose domain is computed from your data and whose range is a ten-color categorical palette (d3's `schemeCategory10`). Supply your own colors via the `cRange` prop:
+
+```svelte
+<LayerCake
+  x="year"
+  y="value"
+  c="fruit"
+  cRange={['#fc0', '#c0f']}
+>
+```
+
+Then color your marks with `k.cGet(d)` in a layer component. Also accepts `cDomain`, `cScale`, `cRange` and `cDomainSort` props.
+
+You can also pass a preconfigured scale instead of setting `cRange` – its range is preserved: `cScale={scaleOrdinal(schemeCategory10)}`.
+
+You can also keep using the [z](/guide#z) dimension for color like in older versions but c is more explicit and frees up z for other encodings.
+
+### c2 `string|Function|number|Array<string|Function|number>|undefined`
+
+Same as [c](/guide#c) but for a second color-like scale, useful for encoding something like opacity alongside color. It defaults to a `scaleLinear()` mapping your data's extent to `[0, 1]`. Accepts `c2Domain`, `c2Scale`, `c2Range` and `c2DomainSort` props.
+
 ### debug `boolean`
 
 If this is `true`, Layer Cake will print to the console a helpful debug message.
@@ -164,7 +233,13 @@ An object that can specify `top`, `right`, `bottom`, or `left` padding in pixels
 
 The D3 scale that should be used for the x-dimension. Pass in an instantiated D3 scale if you want to override the default [`d3.scaleLinear()`](https://github.com/d3/d3-scale#scalelinear) or you want to add extra options.
 
+If the scale you pass in has a customized range – e.g. `zScale={scaleOrdinal(schemeCategory10)}` – Layer Cake preserves it. Otherwise, it manages the range for you, setting it to the pixel dimensions of the chart. Set an explicit [xRange](/guide#xrange) to override a customized range.
+
+There's one range Layer Cake can't recognize as yours: `[0, 1]`. That's what most d3 scales come with out of the box and there's no way to ask a scale whether someone set it deliberately, so a scale arriving with `[0, 1]` is treated as untouched and gets the chart's dimensions instead. If you want a `[0, 1]` coordinate system, say so with the prop – `xRange={[0, 1]}` – which is never ambiguous and always wins.
+
 See the [Column chart](/example/Column) for an example of passing in a `d3.scaleBand()` to override the default.
+
+<!-- generated:Scale -->
 
 ### yScale `d3.scaleLinear()`
 
@@ -176,7 +251,25 @@ Same as [xScale](/guide#xscale) but for the z scale. The default is `d3.scaleLin
 
 ### rScale `d3.scaleSqrt()`
 
-Same as [xScale](/guide#xscale) but for the r scale. The default is [`d3.scaleSqrt()`](https://github.com/d3/d3-scale#scalesqrt).
+Same as [xScale](/guide#xscale) but for the r scale. The default is `d3.scaleSqrt()`.
+
+### x2Scale `d3.scaleBand()`
+
+Same as [xScale](/guide#xscale) but for the x2 scale. The default is `d3.scaleBand()`.
+
+### y2Scale `d3.scaleBand()`
+
+Same as [xScale](/guide#xscale) but for the y2 scale. The default is `d3.scaleBand()`.
+
+### cScale `d3.scaleOrdinal()`
+
+Same as [xScale](/guide#xscale) but for the c scale. The default is `d3.scaleOrdinal()`.
+
+### c2Scale `d3.scaleLinear()`
+
+Same as [xScale](/guide#xscale) but for the c2 scale. The default is `d3.scaleLinear()`.
+
+<!-- /generated:Scale -->
 
 ### xDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
@@ -189,6 +282,18 @@ Set a min or max on the x scale. If you want to inherit the value from the data'
   xDomain={ [0, null] } // Fixes the min but allows the max to be whatever is in the data
 >
 ```
+
+You can also pass a function. It receives the `[min, max]` measured from your data and returns the domain you want. This is how you keep a value on the axis that your data might not reach, such as zero on a bar chart with negative numbers:
+
+```svelte
+<LayerCake
+  // Widens whichever end is missing zero. The same line works whether the
+  // numbers are all positive, all negative or a mix of both.
+  xDomain={ ([min, max]) => [Math.min(0, min), Math.max(0, max)] }
+>
+```
+
+See the [diverging bar](/example/BarDiverging) and [diverging column](/example/ColumnDiverging) examples. What the function returns is still filled in from the data wherever you leave a `null`, so `([min, max]) => [Math.min(0, min), null]` works too.
 
 This value can also be a longer array because sometimes your scales are [piecewise](https://github.com/d3/d3-scale#continuous_domain) or are a list of discrete string values such as in [ordinal scales](https://github.com/d3/d3-scale#ordinal-scales), useful for color series.
 
@@ -210,6 +315,8 @@ If you set a [`scaleBand`](https://github.com/d3/d3-scale#scaleband), [`scalePoi
 >
 ```
 
+<!-- generated:Domain -->
+
 ### yDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
 
 Same as [xDomain](/guide#xdomain) but for the y scale.
@@ -222,11 +329,31 @@ Same as [xDomain](/guide#xdomain) but for the z scale.
 
 Same as [xDomain](/guide#xdomain) but for the r scale.
 
+### x2Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+
+Same as [xDomain](/guide#xdomain) but for the x2 scale.
+
+### y2Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+
+Same as [xDomain](/guide#xdomain) but for the y2 scale.
+
+### cDomain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+
+Same as [xDomain](/guide#xdomain) but for the c scale.
+
+### c2Domain `Array:[min: number|null, max: number|null]|Array<number|string>|Function`
+
+Same as [xDomain](/guide#xdomain) but for the c2 scale.
+
+<!-- /generated:Domain -->
+
 ### xDomainSort `boolean=false`
 
 Taken into account only when the x-scale is ordinal. If `true`, sets whether the calculated unique items come back sorted. It uses [d3.ascending](https://d3js.org/d3-array/sort#ascending) to do the sort calculation.
 
 Set this to `false` if you want the unique items to appear in the order they were found in the data, which is the default.
+
+<!-- generated:DomainSort -->
 
 ### yDomainSort `boolean=false`
 
@@ -240,17 +367,37 @@ Same as [xDomainSort](/guide#xdomainsort) but for the z domain.
 
 Same as [xDomainSort](/guide#xdomainsort) but for the r domain.
 
+### x2DomainSort `boolean=false`
+
+Same as [xDomainSort](/guide#xdomainsort) but for the x2 domain, which controls the order of the groups in a [grouped column chart](/example/ColumnGrouped).
+
+### y2DomainSort `boolean=false`
+
+Same as [xDomainSort](/guide#xdomainsort) but for the y2 domain.
+
+### cDomainSort `boolean=false`
+
+Same as [xDomainSort](/guide#xdomainsort) but for the c domain.
+
+### c2DomainSort `boolean=false`
+
+Same as [xDomainSort](/guide#xdomainsort) but for the c2 domain.
+
+<!-- /generated:DomainSort -->
+
 ### xPadding `Array:[leftPixels: number, rightPixels: number]`
 
 Assign a pixel value to add to the min or max of the x scale. This will increase the scale's domain by the scale unit equivalent of the provided pixels. This is useful for adding extra space to a scatter plot so that your circles don't interfere with your y-axis. It's better than fussing with the range since you don't need to add a magic number to other components, like axes.
 
-It will log out a warning if you try to use it on a scale that has a domain or range that isn't two items, such as with ordinal scales.
+Padding only applies to scales whose domain and range are two numbers. On ordinal and other discrete scales, such as `scaleBand`, the prop is silently ignored.
 
 ```svelte
 <LayerCake
   xPadding= { [10, 10] } // Add ten pixels of data units to both sides of the scale's domain
 >
 ```
+
+<!-- generated:Padding -->
 
 ### yPadding `Array:[leftPixels: number, rightPixels: number]`
 
@@ -264,9 +411,13 @@ Same as [xPadding](/guide#xpadding) but for the z domain.
 
 Same as [xPadding](/guide#xpadding) but for the r domain.
 
+<!-- /generated:Padding -->
+
 ### xNice `boolean=false|number`
 
 Applies D3's [scale.nice()](https://github.com/d3/d3-scale#continuous_nice) to the x domain. This is a separate option instead of being one you can apply to a passed in scale because D3's "nice" transformation only works on existing domains and does not use a state to be able to tell if your existing scale wants to be nice. Can also pass `count` number as argument for greater control.
+
+<!-- generated:Nice -->
 
 ### yNice `boolean=false|number`
 
@@ -276,13 +427,15 @@ Same as [xNice](/guide#xnice) but for the y domain.
 
 Same as [xNice](/guide#xnice) but for the z domain.
 
-### rNice `boolean=false|number`
+### rNice `boolean=false`
 
 Same as [xNice](/guide#xnice) but for the r domain.
 
+<!-- /generated:Nice -->
+
 ### xRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Override the default x range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
+Override the default x range of `[0, width]` by setting it here to an array, or to a function that returns one.
 
 This overrides setting [xReverse](/guide#xreverse) to `true`.
 
@@ -300,23 +453,44 @@ It can also be a function:
 >
 ```
 
+The function is called with the chart's measurements:
+
+- `width` and `height` – the chart size in pixels, with the padding taken off
+- `rangeWidth` and `rangeHeight` – the same size in whatever units the ranges use: `100` when [percentRange](/guide#percentrange) is on, pixels otherwise
+- `percentRange` – whether that mode is on
+- `scales` – the other dimensions' computed scales, e.g. `scales.x`. This dimension's own scale is not there, since its range is one of the things that builds it.
+
+<!-- generated:Range -->
+
 ### yRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the y scale. Override the default y range of `[0, height]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
-
-This overrides setting [yReverse](/guide#yreverse) to `true`.
+Same as [xRange](/guide#xrange) but for the y scale.
 
 ### zRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the z scale. Override the default z range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
-
-This overrides setting [zReverse](/guide#zreverse) to `true`.
+Same as [xRange](/guide#xrange) but for the z scale.
 
 ### rRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the r scale. Override the default r range of `[1, 25]` by setting it here to an array or function with argument `({ width, height})` that returns an array. The r scale defaults to `d3.scaleSqrt` so make sure you don't use a zero in your range.
+Same as [xRange](/guide#xrange) but for the r scale.
 
-This overrides setting [rReverse](/guide#rreverse) to `true`.
+### x2Range `Function|Array:[min: number, max: number]|Array<number|string>`
+
+Same as [xRange](/guide#xrange) but for the x2 scale, which defaults to the bandwidth of the x scale. Pass a function to customize it, e.g. `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+
+### y2Range `Function|Array:[min: number, max: number]|Array<number|string>`
+
+Same as [xRange](/guide#xrange) but for the y2 scale, which defaults to the bandwidth of the y scale. Pass a function to customize it, e.g. `y2Range={({ scales }) => [0, scales.y.bandwidth() / 2]}`.
+
+### cRange `Array<string|number>|Function`
+
+The colors of the c scale, as an array or a function with argument `({ width, height, rangeWidth, rangeHeight, percentRange, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.
+
+### c2Range `Array<string|number>|Function`
+
+The range of the c2 scale, such as a list of opacity values. Defaults to `[0, 1]`.
+
+<!-- /generated:Range -->
 
 ### xReverse `boolean=false`
 
@@ -324,23 +498,21 @@ Reverse the default x range. By default this is `false` and the range is `[0, wi
 
 This is ignored if you set [xRange](/guide#xrange).
 
+<!-- generated:Reverse -->
+
 ### yReverse `boolean=true`
 
-Reverse the default y range. By default this is `true` and the range is `[height, 0]` unless the `yScale` has a `.bandwidth` method (such as `scaleBand` or `scalePoint`) in which case this is `false`.
-
-This is ignored if you set [yRange](/guide#yrange).
+Same as [xReverse](/guide#xreverse) but for the y range, and the default is worked out rather than fixed. It is `true` – making the range `[height, 0]` – unless the `yScale` has a `.bandwidth` method, as `scaleBand` and `scalePoint` do, in which case it is `false` so the values read top-down. Setting the prop yourself overrides that.
 
 ### zReverse `boolean=false`
 
-Reverse the default z range. By default this is `false` and the range is `[0, width]`.
-
-This is ignored if you set [zRange](/guide#zrange).
+Same as [xReverse](/guide#xreverse) but for the z range, which defaults to `[0, width]`.
 
 ### rReverse `boolean=false`
 
-Reverse the default r range. By default this is `false` and the range is `[1, 25]`.
+Same as [xReverse](/guide#xreverse) but for the r range, which defaults to `[1, 25]`.
 
-This is ignored if you set [rRange](/guide#rrange).
+<!-- /generated:Reverse -->
 
 ### flatData `Array`
 
@@ -406,9 +578,13 @@ Use it in conjunction with [`percentRange={true}`](/guide#percentrange) to easil
 
 ### percentRange `boolean=false`
 
-When rendering charts server side, you pretty much always want your scale range to be `[0, 100]` since you won't be able to base the range off of the target container's width. Use this convenience helper to set the ranges for any field that has an accessor to just that.
+When rendering charts server side, you pretty much always want your scale range to be `[0, 100]` since you won't be able to base the range off of the target container's width. Use this convenience helper to set the ranges to just that.
+
+It applies to the four dimensions that measure themselves against the container – [x](/guide#x), [y](/guide#y), [z](/guide#z) and [r](/guide#r). The nested dimensions ([x2](/guide#x2), [y2](/guide#y2)) already measure themselves against their parent, so they follow it into percentages on their own, and the color dimensions ([c](/guide#c), [c2](/guide#c2)) have nothing to do with the container and are left alone.
 
 > The default range for the y-scale will be `[100, 0]` because `yReverse` defaults to `true`. All of the range reverse functions will work as usual with this.
+
+A range you set yourself always wins over this. That means both an explicit [xRange](/guide#xrange) prop and a range you baked into a scale you passed to [xScale](/guide#xscale) – in either case that dimension keeps your range and ignores `percentRange`.
 
 ### position `string='relative'`
 
@@ -431,11 +607,3 @@ Whether to allow pointer events via CSS. Set this to `false` to set `pointer-eve
 ### verbose `boolean=true`
 
 Show warnings in the console, such as when the chart container has a zero or negative width or height. Set this to `false` to silence them.
-
-### width `number`
-
-Override the automated width measurement. If unset, the width is measured from the chart container.
-
-### height `number`
-
-Override the automated height measurement. If unset, the height is measured from the chart container.

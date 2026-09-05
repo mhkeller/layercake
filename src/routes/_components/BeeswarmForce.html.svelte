@@ -8,7 +8,7 @@
 	import data from '../../_data/us-senate.csv';
 
 	const xKey = 'date_of_birth';
-	const zKey = 'gender';
+	const cKey = 'gender';
 	const titleKey = 'name';
 
 	const r = 6;
@@ -17,11 +17,11 @@
 	const seriesColors = ['#fc0', '#000'];
 
 	const dataTransformed = data.map(d => {
-		seriesNames.add(d[zKey]);
+		seriesNames.add(d[cKey]);
 
 		return {
 			[titleKey]: d[titleKey],
-			[zKey]: d[zKey],
+			[cKey]: d[cKey],
 			[xKey]: +d[xKey].split('-')[0]
 		};
 	});
@@ -31,16 +31,16 @@
 	<LayerCake
 		padding={{ left: 10, bottom: 15 }}
 		x={xKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zDomain={Array.from(seriesNames)}
-		zRange={seriesColors}
+		c={cKey}
+		cScale={scaleOrdinal()}
+		cDomain={Array.from(seriesNames)}
+		cRange={seriesColors}
 		data={dataTransformed}
 	>
-		{#snippet children({ width })}
+		{#snippet children(k)}
 			<Html>
 				<BeeswarmHtml
-					r={width < 400 ? r / 1.25 : r}
+					r={k.width < 400 ? r / 1.25 : r}
 					strokeWidth={1}
 					xStrength={0.95}
 					yStrength={0.075}

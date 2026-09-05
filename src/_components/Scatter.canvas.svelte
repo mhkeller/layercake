@@ -4,12 +4,11 @@
  -->
 <script>
 	import { getContext } from 'svelte';
-	import { getLayerCakeContext } from 'layercake';
-	import { scaleCanvas } from 'layercake';
+	import { scaleCanvas, getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
-	const { ctx } = getContext('canvas');
+	const canvasCtx = getContext('canvas');
 
 	/**
 	 * @typedef {Object} Props
@@ -23,27 +22,23 @@
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
 	$effect(() => {
-		if (!c.width || !c.height || !$ctx) return;
+		if (!k.width || !k.height || !canvasCtx.ctx) return;
 
-		// Assign to a local variable: setting properties on `$ctx` directly
-		// would re-notify the store and re-trigger this effect
-		const context = $ctx;
+		const context = canvasCtx.ctx;
 
 		/**
-		 * If you were to have multiple canvas layers
-		 * maybe for some artistic layering purposes
-		 * put these reset functions in the first layer, not each one
-		 * since they should only run once per update
+		 * If you stack several canvas layers, put these two reset calls in the
+		 * first layer only. They should run once per update, not once per layer.
 		 */
-		scaleCanvas(context, c.width, c.height);
-		context.clearRect(0, 0, c.width, c.height);
+		scaleCanvas(context, k.width, k.height);
+		context.clearRect(0, 0, k.width, k.height);
 
 		/**
 		 * Draw our scatterplot
 		 */
-		c.data.forEach((/** @type {any} d */ d) => {
+		k.data.forEach((/** @type {any} d */ d) => {
 			context.beginPath();
-			context.arc(c.xGet(d), c.yGet(d), r, 0, 2 * Math.PI, false);
+			context.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
 			context.lineWidth = strokeWidth;
 			context.strokeStyle = stroke;
 			context.stroke();

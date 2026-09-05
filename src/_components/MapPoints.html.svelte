@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -15,7 +15,7 @@
 	 * @property {string} [stroke='#000'] - The point's stroke color.
 	 * @property {number} [strokeWidth=1] - The point's stroke width, in pixels.
 	 * @property {number} [opacity=1] - The point's opacity.
-	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `c.data.features`, assuming this field is a list of GeoJSON features.
+	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `k.data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
 	/** @type {Props} */
@@ -29,12 +29,12 @@
 		features
 	} = $props();
 
-	let projectionFn = $derived(projection().fitSize([c.width, c.height], c.data));
+	let projectionFn = $derived(projection().fitSize([k.width, k.height], k.data));
 </script>
 
 <div class="points">
-	<!-- To scale the circle by size, set width and height to `$rGet(d.properties)` -->
-	{#each features || c.data.features as d}
+	<!-- To scale the circle by size, set width and height to `k.rGet(d.properties)` -->
+	{#each features || k.data.features as d}
 		<div
 			class="point"
 			style="

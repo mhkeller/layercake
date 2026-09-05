@@ -30,6 +30,10 @@ It's helpful if you're trying to track down why a chart is not displaying correc
 
 If you're using TypeScript, set the `moduleResolution` option in your `tsconfig.json` to `bundler`, [per the SvelteKit docs](https://svelte.dev/docs/kit/packaging#TypeScript).
 
+### "k.yGet is not a function" or "Cannot read properties of undefined"
+
+Every dimension's context values exist only once you configure that dimension on `<LayerCake>`. A component that calls `k.yGet(d)` on a chart with no `y` accessor gets `undefined` and throws – the types describe a chart that uses the dimension, so nothing warns at compile time. The fix is either to set the dimension (`y`, `yScale`, `yDomain` or `yRange`) or, in a component that treats the dimension as optional, to feature-detect the way the built-in components treat color: `k.cGet?.(d) ?? fallback`.
+
 ### The chart is blank
 
 The `<LayerCake>` component expands to fill the size of its parent `<div>` – that's why all of the examples define a `chart-container` element with a specific width and height. If your chart isn't showing up, make sure you have a width and height set on your wrapper div.

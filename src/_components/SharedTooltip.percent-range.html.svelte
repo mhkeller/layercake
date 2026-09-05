@@ -3,23 +3,23 @@
 	Generates a tooltip that works on multiseries datasets, like multiline charts. It creates a tooltip showing the name of the series and the current value. This version uses percentages so you can use it to render server-side. It finds the nearest data point using the [QuadTree.percent-range.html.svelte](https://layercake.graphics/components/QuadTree.percent-range.html.svelte) component.
  -->
 <script>
-	import { getLayerCakeContext } from 'layercake';
 	import { format } from 'd3-format';
+	import { getLayerCakeContext } from 'layercake';
 
 	import QuadTree from './QuadTree.percent-range.html.svelte';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	const commas = format(',');
 	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} [formatTitle=d => d] - A function to format the tooltip title, which is `c.config.x`.
+	 * @property {Function} [formatTitle=d => d] - A function to format the tooltip title, which is `k.config.x`.
 	 * @property {Function} [formatKey = d => titleCase(d)] - A function to format the series name.
 	 * @property {Function} [formatValue = d => (isNaN(+d) ? d : commas(d))] - A function to format the value.
 	 * @property {number} [offset=-20] - A y-offset from the hover point, in pixels.
-	 * @property {Array} [dataset] - The dataset to work off of—defaults to c.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
+	 * @property {Array} [dataset] - The dataset to work off of—defaults to k.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
 	 */
 
 	/** @type {Props} */
@@ -34,13 +34,11 @@
 	const w = 150;
 	const w2 = w / 2;
 
-	/* --------------------------------------------
-	 * Sort the keys by the highest value
-	 */
+	// Sort the keys by the highest value
 	function sortResult(result) {
 		if (Object.keys(result).length === 0) return [];
 		const rows = Object.keys(result)
-			.filter(d => d !== c.config.x)
+			.filter(d => d !== k.config.x)
 			.map(key => {
 				return {
 					key,
@@ -53,20 +51,20 @@
 	}
 </script>
 
-<QuadTree dataset={dataset || c.data} y="x">
+<QuadTree dataset={dataset || k.data} y="x">
 	{#snippet children({ x, y, visible, found, e })}
 		{@const foundSorted = sortResult(found)}
 		{#if visible === true}
-			<div style="left:{(x / 100) * c.width}px;" class="line"></div>
+			<div style="left:{(x / 100) * k.width}px;" class="line"></div>
 			<div
 				class="tooltip"
 				style="
 	        width:{w}px;
 	        display: {visible ? 'block' : 'none'};
-	        top:calc({c.yScale(foundSorted[0].value)}% + {offset}px);
-	        left:{Math.min(Math.max(w2, (x / 100) * c.width), c.width - w2)}px;"
+	        top:calc({k.yScale(foundSorted[0].value)}% + {offset}px);
+	        left:{Math.min(Math.max(w2, (x / 100) * k.width), k.width - w2)}px;"
 			>
-				<div class="title">{formatTitle(found[c.config.x])}</div>
+				<div class="title">{formatTitle(found[k.config.x])}</div>
 				{#each foundSorted as row}
 					<div class="row">
 						<span class="key">{formatKey(row.key)}:</span>

@@ -6,11 +6,16 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "fill string '#00bbff' no The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.":
+    - row "fill string '#00bbff' no The shape's fill color, used for every bar. Set a c scale on <LayerCake> to color each bar from its own row of data instead.":
       - cell "fill string":
         - strong: fill
         - code: string
       - cell "'#00bbff'":
         - code: "'#00bbff'"
       - cell "no"
-      - cell "The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color."
+      - cell "The shape's fill color, used for every bar. Set a c scale on <LayerCake> to color each bar from its own row of data instead.":
+        - text: ""
+        - code: c
+        - text: ""
+        - code: <LayerCake>
+        - text: ""

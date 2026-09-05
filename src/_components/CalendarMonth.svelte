@@ -3,11 +3,11 @@
 	Generates an SVG calendar chart.
  -->
 <script>
-	import { getLayerCakeContext } from 'layercake';
 	import { utcFormat } from 'd3-time-format';
 	import { utcDay } from 'd3-time';
+	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -23,26 +23,27 @@
 
 	let count = $derived(date => {
 		const stringDate = date.toISOString().split('T')[0];
-		const days = c.data.filter(d => c.x(d) === stringDate)[0];
+		const days = k.data.filter(d => k.x(d) === stringDate)[0];
 		if (days) {
-			return c.z(days);
+			// `k.c` is null on a chart with no c dimension, so fall back to white
+			return k.c?.(days) ?? '#fff';
 		}
 		return 0;
 	});
 
 	let fillColor = $derived(day => {
 		const n = count(day);
-		return n ? c.zScale(n) : '#fff';
+		return n ? (k.cScale?.(n) ?? '#fff') : '#fff';
 	});
 
-	let cellSize = $derived(calcCellSize(c.width, c.height));
+	let cellSize = $derived(calcCellSize(k.width, k.height));
 
 	/**
 	 * Calculate what month we're in and generate the full days of that month
 	 */
 	/** @type {Date[]} */
 	let days = $derived.by(() => {
-		const minDate = c.extents.x[0];
+		const minDate = k.extents.x[0];
 		const parts = minDate.split('-').map(d => +d);
 
 		return utcDay.range(

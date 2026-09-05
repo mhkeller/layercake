@@ -4,10 +4,10 @@
  -->
 <script>
 	import { untrack } from 'svelte';
-	import { getLayerCakeContext } from 'layercake';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
+	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -33,19 +33,19 @@
 	let nodes = $state([]);
 
 	let simulation = $derived.by(() => {
-		if (!c.width || !c.height || !c.data.length) return null;
+		if (!k.width || !k.height || !k.data.length) return null;
 
-		const sim = forceSimulation(c.data.map((/** @type {any} */ d) => ({ ...d })))
+		const sim = forceSimulation(k.data.map((/** @type {any} */ d) => ({ ...d })))
 			.force(
 				'x',
 				forceX()
-					.x(d => c.xGet(d))
+					.x(d => k.xGet(d))
 					.strength(xStrength)
 			)
 			.force(
 				'y',
 				forceY()
-					.y(c.height / 2)
+					.y(k.height / 2)
 					.strength(yStrength)
 			)
 			.force('collide', forceCollide(r))
@@ -78,7 +78,14 @@
 
 <g class="bee-group">
 	{#each nodes as node}
-		<circle fill={c.zGet(node)} {stroke} stroke-width={strokeWidth} cx={node.x} cy={node.y} {r}>
+		<circle
+			fill={k.cGet?.(node) ?? '#ccc'}
+			{stroke}
+			stroke-width={strokeWidth}
+			cx={node.x}
+			cy={node.y}
+			{r}
+		>
 			{#if getTitle}
 				<title>{getTitle(node)}</title>
 			{/if}

@@ -8,7 +8,7 @@
 	import data from '../../_data/cars-2.csv';
 
 	const xKey = 'Weight_in_lbs';
-	const zKey = 'Origin';
+	const cKey = 'Origin';
 	const titleKey = 'Name';
 
 	const r = 4;
@@ -17,11 +17,11 @@
 	const seriesColors = ['#ccc', '#fc0', '#000'];
 
 	const dataTransformed = data.map(d => {
-		seriesNames.add(d[zKey]);
+		seriesNames.add(d[cKey]);
 		return {
 			[titleKey]: d[titleKey],
 			[xKey]: +d[xKey],
-			[zKey]: d[zKey]
+			[cKey]: d[cKey]
 		};
 	});
 </script>
@@ -29,16 +29,15 @@
 <div class="chart-container">
 	<LayerCake
 		x={xKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zDomain={[...seriesNames].sort()}
-		zRange={seriesColors}
+		c={cKey}
+		cScale={scaleOrdinal()}
+		cDomain={[...seriesNames].sort()}
+		cRange={seriesColors}
 		data={dataTransformed}
 	>
-		{#snippet children({ width })}
+		{#snippet children(k)}
 			<Svg>
-				<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
-				<Beeswarm r={width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d.data[titleKey]} />
+				<Beeswarm r={k.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
 			</Svg>
 		{/snippet}
 	</LayerCake>

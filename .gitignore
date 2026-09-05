@@ -10,6 +10,7 @@ node_modules
 .vercel
 .output
 stashed
+/.claude
 
 # Playwright
 /test-results/

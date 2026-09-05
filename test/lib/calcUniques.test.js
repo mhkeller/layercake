@@ -528,4 +528,14 @@ describe(name, () => {
 			});
 		});
 	});
+
+	// Measurement passes the row index like calcExtents and the rendering
+	// getter do, so an `(d, i) => ...` accessor measures the values it draws
+	describe('accessor index argument', () => {
+		it('calls accessors with (row, index)', () => {
+			const rows = [{ v: 'a' }, { v: 'b' }, { v: 'c' }];
+			const actual = fn(rows, { x: (d, i) => `${d.v}${i}` });
+			assert.deepStrictEqual(actual, { x: ['a0', 'b1', 'c2'] });
+		});
+	});
 });

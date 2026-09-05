@@ -10,7 +10,7 @@
 
 	const xKey = 'month';
 	const yKey = [0, 1];
-	const zKey = 'key';
+	const cKey = 'key';
 
 	const parseDate = timeParse('%Y-%m-%d');
 
@@ -27,10 +27,10 @@
 		padding={{ top: 10 }}
 		x={xKey}
 		y={yKey}
-		z={zKey}
-		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
-		zRange={seriesColors}
+		c={cKey}
+		cScale={scaleOrdinal()}
+		cDomain={seriesNames}
+		cRange={seriesColors}
 		{data}
 	>
 		<Html>

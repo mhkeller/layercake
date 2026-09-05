@@ -3,9 +3,9 @@
 	HTML layout component
  -->
 <script>
-	import { getLayerCakeContext } from 'layercake';
+	import { getLayerCakeContext } from '../context.js';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -41,10 +41,10 @@
 	class="layercake-layout-html"
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
-	style:top={c.padding.top + 'px'}
-	style:right={c.padding.right + 'px'}
-	style:bottom={c.padding.bottom + 'px'}
-	style:left={c.padding.left + 'px'}
+	style:top={k.padding.top + 'px'}
+	style:right={k.padding.right + 'px'}
+	style:bottom={k.padding.bottom + 'px'}
+	style:left={k.padding.left + 'px'}
 	role={roleVal}
 	aria-label={label}
 	aria-labelledby={labelledBy}

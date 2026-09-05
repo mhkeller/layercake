@@ -1,6 +1,6 @@
 <!--
 	@component
-	Creates a key for ordinal scales on `zScale`.
+	Creates a key for ordinal scales on `cScale`.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -16,7 +16,7 @@
 	/** @type {Props} */
 	let { shape = 'square', align = 'start', lookup, capitalize = true } = $props();
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	function cap(val) {
 		return String(val).replace(/^\w/, d => d.toUpperCase());
@@ -31,13 +31,13 @@
 </script>
 
 <div class="key" style="justify-content: {align === 'end' ? 'flex-end' : align};">
-	{#each c.zDomain as item}
+	{#each k.cDomain as item}
 		<div class="key-item">
 			<div
 				class="chip chip__{shape}"
 				style="background: {shape === `line`
-					? `linear-gradient(-45deg, #ffffff 40%, ${c.zScale(item)} 41%, ${c.zScale(item)} 59%, #ffffff 60%)`
-					: c.zScale(item)};"
+					? `linear-gradient(-45deg, #ffffff 40%, ${k.cScale?.(item) ?? '#ccc'} 41%, ${k.cScale?.(item) ?? '#ccc'} 59%, #ffffff 60%)`
+					: (k.cScale?.(item) ?? '#ccc')};"
 			></div>
 			<div class="name">{displayName(item)}</div>
 		</div>

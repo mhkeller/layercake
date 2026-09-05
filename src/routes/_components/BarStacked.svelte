@@ -10,7 +10,7 @@
 
 	const xKey = [0, 1];
 	const yKey = 'year';
-	const zKey = 'key';
+	const cKey = 'key';
 
 	const seriesNames = Object.keys(data[0]).filter(d => d !== yKey);
 	const seriesColors = ['#00bbff', '#8bcef6', '#c4e2ed', '#f7f6e3'];
@@ -25,12 +25,12 @@
 		padding={{ top: 10 }}
 		x={xKey}
 		y={d => d.data[yKey]}
-		z={zKey}
+		c={cKey}
 		yScale={scaleBand().paddingInner(0.05).round(true)}
 		yDomain={[2016, 2017, 2018, 2019]}
-		zScale={scaleOrdinal()}
-		zDomain={seriesNames}
-		zRange={seriesColors}
+		cScale={scaleOrdinal()}
+		cDomain={seriesNames}
+		cRange={seriesColors}
 		flatData={flatten(series)}
 		data={series}
 	>

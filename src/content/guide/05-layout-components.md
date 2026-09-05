@@ -186,11 +186,11 @@ This component also has a named `defs` [snippet](https://svelte.dev/docs/svelte/
 </style>
 ```
 
-In the component, you access the canvas context with `const { ctx } = getContext('canvas');`. This value is on a different context from the `getContext('LayerCake')` one because you could have multiple canvas layers and there wouldn't be an easy way to grab the right one. This way, the component always has access to just its parent Canvas component.
+In the component, you access the canvas context with `const canvasCtx = getContext('canvas');` and read the 2d context as `canvasCtx.ctx`. This value is on a different context from the LayerCake one because you could have multiple canvas layers and there wouldn't be an easy way to grab the right one. This way, the component always has access to just its parent Canvas component.
 
 > Warning: If you want to draw multiple canvas layers, use one `<Canvas>` tag each. There is a bug in [Svelte's reactivity](https://github.com/mhkeller/layercake/issues/50) that will cause an infinite loop if you add two or more components in a single `<Canvas>` tag.
 
-> Since the `ctx` value is a normal 2d context, the underlying canvas element is accessible under `ctx.canvas`.
+> Since the `canvasCtx.ctx` value is a normal 2d context, the underlying canvas element is accessible under `canvasCtx.ctx.canvas`.
 
 Here's an example showing a scatter plot.
 
@@ -198,11 +198,11 @@ Here's an example showing a scatter plot.
 <!-- { filename: './components/CanvasLayer.svelte' } -->
 <script>
 	import { getContext } from 'svelte';
-	import { scaleCanvas } from 'layercake';
+	import { getLayerCakeContext, scaleCanvas } from 'layercake';
 
-	const { data, xGet, yGet, width, height } = getContext('LayerCake');
+	const k = getLayerCakeContext();
 
-	const { ctx } = getContext('canvas');
+	const canvasCtx = getContext('canvas');
 
 	/**
 	 * @typedef {Object} Props
@@ -216,11 +216,9 @@ Here's an example showing a scatter plot.
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
 	$effect(() => {
-		if (!$width || !$height || !$ctx) return;
+		if (!k.width || !k.height || !canvasCtx.ctx) return;
 
-		// Assign to a local variable: setting properties on `$ctx` directly
-		// would re-notify the store and re-trigger this effect
-		const context = $ctx;
+		const context = canvasCtx.ctx;
 
 		/**
 		 * If you were to have multiple canvas layers
@@ -228,15 +226,15 @@ Here's an example showing a scatter plot.
 		 * put these reset functions in the first layer, not each one
 		 * since they should only run once per update
 		 */
-		scaleCanvas(context, $width, $height);
-		context.clearRect(0, 0, $width, $height);
+		scaleCanvas(context, k.width, k.height);
+		context.clearRect(0, 0, k.width, k.height);
 
 		/**
 		 * Draw our scatterplot
 		 */
-		$data.forEach((/** @type {any} d */ d) => {
+		k.data.forEach((/** @type {any} d */ d) => {
 			context.beginPath();
-			context.arc($xGet(d), $yGet(d), r, 0, 2 * Math.PI, false);
+			context.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
 			context.lineWidth = strokeWidth;
 			context.strokeStyle = stroke;
 			context.stroke();
@@ -275,8 +273,8 @@ Here's an example showing a scatter plot.
 </style>
 ```
 
-In the component, you access the canvas context with `const { gl } = getContext('gl');`. This value is on a different context from the `getContext('LayerCake')` one because you could have multiple WebGL layers and there wouldn't be an easy way to grab the right one.
+In the component, you access the canvas context with `const glCtx = getContext('gl');` and read the WebGL context as `glCtx.gl`. This value is on a different context from the LayerCake one because you could have multiple WebGL layers and there wouldn't be an easy way to grab the right one.
 
-> Since the `gl` value is a normal WebGL context, the underlying canvas element is accessible under `gl.canvas`.
+> Since the `glCtx.gl` value is a normal WebGL context, the underlying canvas element is accessible under `glCtx.gl.canvas`.
 
 See the [WebGL scatter chart](/example/ScatterWebgl) for a working example.

@@ -5,7 +5,7 @@
 <script>
 	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -13,7 +13,7 @@
 	 * @property {number} [strokeWidth=0] - The circle's stroke width in pixels.
 	 * @property {string} [stroke='#fff'] - The circle's stroke color.
 	 * @property {number} [spacing=1.5] - Spacing, in pixels, between each circle.
-	 * @property {Function} [getTitle] - An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.
+	 * @property {Function} [getTitle] - An accessor function that receives a row of your data and returns the field to display as a hover label. Mostly useful for debugging, needs better styling for production.
 	 */
 
 	/** @type {Props} */
@@ -21,14 +21,15 @@
 
 	function dodge(data, { rds = 1, x = d => d } = {}) {
 		const radius2 = rds ** 2;
-		const circles = data
-			.map(d => ({ x: x(d), [c.config.z]: d[c.config.z], data: d }))
-			.sort((a, b) => a.x - b.x);
+		// Each circle keeps its original row on `data`. Read any field you need
+		// from there. Copying fields onto the circle would only work when the
+		// accessor is a string, not a function.
+		const circles = data.map(d => ({ x: x(d), data: d })).sort((a, b) => a.x - b.x);
 		const epsilon = 1e-3;
 		let head = null,
 			tail = null;
 
-		// Returns true if circle ⟨x,y⟩ intersects with any circle in the queue.
+		// Returns true if a circle at (x, y) overlaps any circle in the queue.
 		function intersects(x, y) {
 			let a = head;
 			while (a) {
@@ -42,10 +43,10 @@
 
 		// Place each circle sequentially.
 		for (const b of circles) {
-			// Remove circles from the queue that can’t intersect the new circle b.
+			// Remove circles from the queue that can't overlap the new circle b.
 			while (head && head.x < b.x - radius2) head = head.next;
 
-			// Choose the minimum non-intersecting tangent.
+			// Find the lowest spot where b touches a circle in the queue without overlapping any.
 			if (intersects(b.x, (b.y = 0))) {
 				let a = head;
 				b.y = Infinity;
@@ -67,7 +68,7 @@
 
 		return circles;
 	}
-	let circles = $derived(dodge(c.data, { rds: r * 2 + spacing + strokeWidth, x: c.xGet }));
+	let circles = $derived(dodge(k.data, { rds: r * 2 + spacing + strokeWidth, x: k.xGet }));
 </script>
 
 <div class="bee-group">
@@ -75,17 +76,17 @@
 		<div
 			class="bee"
 			style="
-				background:{c.zGet(d)};
+				background:{k.cGet?.(d.data) ?? '#ccc'};
 				border-color:{stroke};
 				border-width:{strokeWidth};
 				left:{d.x}px;
-				top:{c.height - r - spacing - strokeWidth / 2 - d.y}px;
+				top:{k.height - r - spacing - strokeWidth / 2 - d.y}px;
 				width:{r * 2}px;
 				height:{r * 2}px;
 			"
 		>
 			{#if getTitle}
-				<div class="title">{getTitle(d)}</div>
+				<div class="title">{getTitle(d.data)}</div>
 			{/if}
 		</div>
 	{/each}

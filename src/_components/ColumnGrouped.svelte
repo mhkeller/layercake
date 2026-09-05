@@ -1,0 +1,76 @@
+<!--
+  @component
+  Generates an SVG grouped column chart using the `x2` nested scale for the within-group position and the `c` scale for color.
+ -->
+<script>
+	import { getLayerCakeContext } from 'layercake';
+
+	const k = getLayerCakeContext();
+
+	/**
+	 * @typedef {Object} Props
+	 * @property {string} [fill] - The shape's fill color. By default the color is read from the `c` scale.
+	 * @property {string} [stroke='#000'] - The shape's stroke color.
+	 * @property {number} [strokeWidth=0] - The shape's stroke width.
+	 * @property {boolean} [showLabels=false] - Show the numbers for each column.
+	 */
+
+	/** @type {Props} */
+	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
+
+	// This chart needs the x2 scale. A chart might not set one, so fall back
+	// to a zero-width column instead of crashing.
+	let columnWidth = $derived.by(() => {
+		const scale = k.x2Scale;
+		if (scale?.bandwidth) return scale.bandwidth();
+		const range = k.x2Range ?? [0, 0];
+		return Math.abs(range[1] - range[0]);
+	});
+
+	// Each column starts at zero and runs out to its value, so a negative value
+	// hangs below zero. Keep zero inside your yDomain, or columns will be drawn
+	// outside the chart.
+	let zeroY = $derived(k.yScale(0));
+</script>
+
+<g class="column-group">
+	{#each k.data as d, i}
+		{@const valueY = k.yGet(d)}
+		{@const xPos = k.xGet(d) + (k.x2Get?.(d) ?? 0)}
+		{@const yValue = k.y(d)}
+		<rect
+			class="group-rect"
+			data-id={i}
+			data-range={k.x(d)}
+			data-count={yValue}
+			x={xPos}
+			y={Math.min(zeroY, valueY)}
+			width={columnWidth}
+			height={Math.abs(valueY - zeroY)}
+			fill={fill ?? k.cGet?.(d) ?? '#00bbff'}
+			{stroke}
+			stroke-width={strokeWidth}
+		/>
+		{#if showLabels && yValue}
+			{@const pointsUp = valueY < zeroY}
+			<!--
+				Put the number just past the far end of the column: above a positive
+				column and below a negative one. Switching the text baseline keeps the
+				gap the same at any font size.
+			-->
+			<text
+				x={xPos + columnWidth / 2}
+				y={valueY}
+				dy={pointsUp ? -5 : 5}
+				text-anchor="middle"
+				dominant-baseline={pointsUp ? 'auto' : 'hanging'}>{yValue}</text
+			>
+		{/if}
+	{/each}
+</g>
+
+<style>
+	text {
+		font-size: 12px;
+	}
+</style>

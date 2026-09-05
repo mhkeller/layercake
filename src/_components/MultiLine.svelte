@@ -3,10 +3,10 @@
 	Generates an SVG multi-series line chart. It expects your data to be an array of objects, each with a `values` key that is an array of data objects.
  -->
 <script>
-	import { getLayerCakeContext } from 'layercake';
 	import { line, curveLinear } from 'd3-shape';
+	import { getLayerCakeContext } from 'layercake';
 
-	const c = getLayerCakeContext();
+	const k = getLayerCakeContext();
 
 	/** @typedef {import('d3-shape').CurveFactory} CurveFactory */
 	/**
@@ -17,13 +17,13 @@
 	/** @type {Props} */
 	let { curve = curveLinear } = $props();
 
-	let path = $derived(line().x(c.xGet).y(c.yGet).curve(curve));
+	let path = $derived(line().x(k.xGet).y(k.yGet).curve(curve));
 	// .defined($y)
 </script>
 
 <g class="line-group">
-	{#each c.data as group}
-		<path class="path-line" d={path(group.values)} stroke={c.zGet(group)}></path>
+	{#each k.data as group}
+		<path class="path-line" d={path(group.values)} stroke={k.cGet?.(group) ?? '#ccc'}></path>
 	{/each}
 </g>
 

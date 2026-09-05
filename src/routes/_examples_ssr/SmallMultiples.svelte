@@ -5,9 +5,7 @@
 
 	import pointSeries from '../../_data/pointSeries.js';
 
-	/* --------------------------------------------
-	 * Grab the extents of the full dataset
-	 */
+	// Grab the extents of the full dataset
 	const extentGetters = {
 		x: d => d.x,
 		y: d => d.y
@@ -15,9 +13,7 @@
 
 	const fullExtents = calcExtents(flatten(pointSeries), extentGetters);
 
-	/* --------------------------------------------
-	 * Sort by the last value
-	 */
+	// Sort by the last value
 	pointSeries.sort((a, b) => {
 		return b[b.length - 1].y - a[a.length - 1].y;
 	});

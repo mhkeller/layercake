@@ -6,31 +6,19 @@
 	import examples from '../_examples.js';
 	import examplesSsr from '../_examples_ssr.js';
 
+	/** @type {{ sections: import('../../_modules/getSections.js').GuideSection[] }} */
 	let { sections } = $props();
 
-	// let slug = '';
-	let path = $state();
-	// let type;
-
-	// Ignore requests for the service worker file. They aren't a page and
-	// shouldn't update the nav.
-	let isServiceWorker = $derived(page.url.pathname === '/service-worker.js');
-
+	// The dropdown's value. It is its own state because the <select> binds to
+	// it, so it's synced from the URL after every navigation.
 	let segment = $state('');
-
 	$effect(() => {
-		if (!isServiceWorker) {
-			path = page.url.pathname;
-			// type = path.split('/')[1];
-			segment = `/${path.replace('/', '')}`;
-			// segment = `/${path.replace('/', '').replace(/\$/, '')}`;
-			// slug = path.replace(/\/$/, '').split('/').pop();
-		}
+		segment = page.url.pathname;
 	});
 
-	// let basePath = '/';
 	let open = $state(false);
 
+	/** @type {HTMLElement | undefined} */
 	let nav = $state();
 
 	const slimName = /** @param {string} d */ d => d.split(' (')[0];
@@ -47,11 +35,11 @@
 		// Scrolling when the menu opens would make the scrollbar visibly flash.
 		if (open) {
 			setTimeout(() => {
-				if (!open) {
+				if (!open && nav) {
 					nav.scrollTop = 0;
 				}
 			}, 350);
-		} else {
+		} else if (nav) {
 			nav.scrollTop = 0;
 		}
 		open = !open;

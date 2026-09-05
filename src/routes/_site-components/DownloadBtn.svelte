@@ -5,8 +5,8 @@
 	import downloadBlob from '../../_modules/downloadBlob.js';
 
 	/**
-	 * @typedef {import('../../_modules/constructReplLink.js').CodeFile} CodeFile
-	 * @typedef {import('../../_modules/constructReplLink.js').ExampleContent} ExampleContent
+	 * @typedef {import('../../_modules/getExampleContent.js').CodeFile} CodeFile
+	 * @typedef {import('../../_modules/getExampleContent.js').ExampleContent} ExampleContent
 	 */
 
 	/**
@@ -30,26 +30,19 @@
 		return imports;
 	}
 
-	// svelte-ignore state_referenced_locally
-	const imports = [data.main, ...data.components, ...data.componentComponents]
-		.reduce(
-			(/** @type {string[]} */ store, /** @type {CodeFile} */ val) =>
-				store.concat(getImports(val.contents)),
-			/** @type {string[]} */ ([])
+	// The npm packages the example imports, each listed once. Derived from
+	// `data` so it follows the example when the page is reused for another one
+	// on client-side navigation.
+	let imports = $derived([
+		...new Set(
+			[data.main, ...data.components, ...data.componentComponents].flatMap(
+				/** @param {CodeFile} file */ file => getImports(file.contents)
+			)
 		)
-		.reduce((/** @type {string[]} */ store, /** @type {string} */ val) => {
-			if (!store.includes(val)) {
-				store.push(val);
-				return store;
-			} else {
-				return store;
-			}
-		}, /** @type {string[]} */ ([]));
+	]);
 
 	async function download() {
 		downloading = true;
-
-		// console.log('downloading');
 
 		const cacheBust = new Date().getTime();
 		const files = await (await window.fetch(`/svelte-app.json?${cacheBust}`)).json();
@@ -133,7 +126,6 @@
 			path: `src/routes/+page.svelte`,
 			data: data.main.contents
 		});
-		// console.log('here', files);
 		const filteredFiles = uniques(files.filter(Boolean), 'path', false);
 		downloadBlob(toAuto(filteredFiles), `layercake-${ssr ? 'ssr-' : ''}${slug}.zip`);
 		downloading = false;
@@ -190,25 +182,5 @@
 	.icon:disabled:before {
 		content: 'Please wait...';
 		transform: translate(75%, 0);
-	}
-
-	@keyframes zoom-in {
-		0% {
-			transform: scale(0);
-			opacity: 0;
-		}
-		100% {
-			transform: scale(1);
-			opacity: 1;
-		}
-	}
-
-	@keyframes fade-in {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 0.6;
-		}
 	}
 </style>

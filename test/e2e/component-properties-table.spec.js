@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { readdirSync } from 'fs';
 
 // For each component page it is checked whether the table is matching the stored ARIA snapshot.
-// Compoonent pages with no properties are skipped.
+// Component pages with no properties are skipped.
 
 const componentFilenames = readdirSync('./docs/components').filter(i => i.endsWith('svelte.html'));
 

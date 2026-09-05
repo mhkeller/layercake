@@ -32,7 +32,6 @@
 		onmouseout = () => {}
 	} = $props();
 
-	// Here's how you would do cross-component hovers
 	let fitSizeRange = $derived(
 		fixedAspectRatio ? [100, 100 / fixedAspectRatio] : [k.width, k.height]
 	);
@@ -45,7 +44,8 @@
 		return function handleMousemoveFn(e) {
 			// @ts-ignore
 			raise(this);
-			// When the element gets raised, it flashes 0,0 for a second so skip that
+			// Raising the element moves it in the DOM, which fires one stray event
+			// at 0,0. Skip that one.
 			if (e.layerX !== 0 && e.layerY !== 0) {
 				onmousemove(e, feature.properties);
 			}

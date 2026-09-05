@@ -36,7 +36,7 @@ export default function findScaleName(scale) {
 	}
 
 	/**
-	 * Sequential versus divergin
+	 * Sequential versus diverging
 	 */
 	let modifier = '';
 	if (scale.interpolator) {
@@ -56,7 +56,7 @@ export default function findScaleName(scale) {
 	if (scale.thresholds) {
 		return f('quantize', modifier);
 	}
-	// findScaleType runs the same symlog/log/sqrt/pow probes – one copy
+	// findScaleType already checks for symlog, log, sqrt and pow, so reuse it
 	const type = findScaleType(scale);
 	if (type !== 'other') {
 		return f(type, modifier);

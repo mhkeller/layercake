@@ -85,8 +85,9 @@
 	</LayerCake>
 
 	<!--
-		Add a second cake for the arrows that is rendered once the page is loaded
-		since the arrows are hard to draw within the viewbox
+		A second LayerCake, rendered only in the browser, holds the arrows. The
+		ScaledSvg above stretches to fit its box, which would bend the arrows out
+		of shape.
 	-->
 	<LayerCake
 		position="absolute"

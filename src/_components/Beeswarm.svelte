@@ -21,14 +21,15 @@
 
 	function dodge(data, { rds = 1, x = d => d } = {}) {
 		const radius2 = rds ** 2;
-		// Each circle keeps its row on `data` – read anything you need off that
-		// rather than copying fields up, which only works for string accessors
+		// Each circle keeps its original row on `data`. Read any field you need
+		// from there. Copying fields onto the circle would only work when the
+		// accessor is a string, not a function.
 		const circles = data.map(d => ({ x: x(d), data: d })).sort((a, b) => a.x - b.x);
 		const epsilon = 1e-3;
 		let head = null,
 			tail = null;
 
-		// Returns true if circle ⟨x,y⟩ intersects with any circle in the queue.
+		// Returns true if a circle at (x, y) overlaps any circle in the queue.
 		function intersects(x, y) {
 			let a = head;
 			while (a) {
@@ -42,10 +43,10 @@
 
 		// Place each circle sequentially.
 		for (const b of circles) {
-			// Remove circles from the queue that can’t intersect the new circle b.
+			// Remove circles from the queue that can't overlap the new circle b.
 			while (head && head.x < b.x - radius2) head = head.next;
 
-			// Choose the minimum non-intersecting tangent.
+			// Find the lowest spot where b touches a circle in the queue without overlapping any.
 			if (intersects(b.x, (b.y = 0))) {
 				let a = head;
 				b.y = Infinity;

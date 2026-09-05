@@ -44,11 +44,9 @@
 </script>
 
 <!--
-	These cells are invisible mouse targets, not content, so they stay out of the
-	accessibility tree. Making each one focusable would hand a keyboard user a tab
-	stop per data point with nothing to read at any of them. Keyboard access
-	belongs a level up: give the chart itself one tab stop, move between points
-	with the arrow keys, and announce the current one from an `aria-live` region.
+	These cells are invisible mouse targets, not content, so they are hidden from
+	screen readers. Making each one focusable would give a keyboard user one tab
+	stop per data point with nothing to read at any of them.
 -->
 {#each uniquePoints as point, i}
 	<!-- svelte-ignore a11y_mouse_events_have_key_events -->
@@ -69,7 +67,7 @@
 		outline: none;
 	}
 
-	/* Useful to testing but you'll want to disable this for production */
+	/* Outlines the cell under the mouse. Handy while testing. Remove it for production. */
 	.voronoi-cell:hover {
 		stroke: #333 !important;
 		stroke-width: 3px;

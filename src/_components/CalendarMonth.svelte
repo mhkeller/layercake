@@ -25,7 +25,7 @@
 		const stringDate = date.toISOString().split('T')[0];
 		const days = k.data.filter(d => k.x(d) === stringDate)[0];
 		if (days) {
-			// The c accessor is unset on charts without a c dimension
+			// `k.c` is null on a chart with no c dimension, so fall back to white
 			return k.c?.(days) ?? '#fff';
 		}
 		return 0;

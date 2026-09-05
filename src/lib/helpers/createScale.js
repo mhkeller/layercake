@@ -3,10 +3,10 @@ import hasPristineRange from '../utils/hasPristineRange.js';
 import getDefaultRange from '../settings/getDefaultRange.js';
 
 /**
- * Whether an interpolator is d3's identity placeholder, meaning nobody
- * picked a real one. Recognized by behavior instead of function name – production
- * minifiers rename d3's internal `identity`, so a name check passes in dev
- * builds and fails in prod.
+ * Whether an interpolator is d3's placeholder that returns its input unchanged,
+ * meaning nobody set a real one. We test what it does instead of checking its
+ * name. Minifiers rename d3's internal `identity` function, so a name check
+ * works in dev and breaks in production.
  * @param {any} interpolate The scale's interpolator.
  * @returns {boolean}
  */
@@ -22,18 +22,18 @@ function isIdentityInterpolator(interpolate) {
 /**
  * Add a middle stop to a two-value range when the scale needs three.
  *
- * Diverging scales run low -> middle -> high, so they read three range stops
- * where most scales read two. Hand one a two-stop range and its middle and high
- * ends come out empty, so the scale returns `undefined` for nearly every value.
- * The stop we add sits halfway between the two given ones.
+ * Diverging scales run low -> middle -> high, so they take three range stops
+ * where most scales take two. Given only two stops, the middle and high ends
+ * come out empty and the scale returns `undefined` for nearly every value. The
+ * stop we add sits halfway between the two given ones.
  * @param {any} scale The scale being configured.
  * @param {Array<any>} range The range about to be set on it.
  * @returns {Array<any>} The range, with a middle stop added when the scale needs one.
  */
 function fitRangeToScale(scale, range) {
-	// A piecewise linear scale can hold three stops too, and there a two-stop
-	// range is a fine thing to ask for. Only the diverging family both reports
-	// three stops and interpolates between them, which `.interpolator` marks.
+	// A piecewise linear scale can have three stops too. Setting two on it is
+	// fine. Only diverging scales both report three stops and have an
+	// `.interpolator` method, so that's the check.
 	const wantsThreeStops = typeof scale.interpolator === 'function' && scale.range().length === 3;
 	if (
 		wantsThreeStops &&
@@ -49,8 +49,8 @@ function fitRangeToScale(scale, range) {
 /**
  * Create a fully configured scale for a dimension.
  * @param {Object} config
- * @param {import('../settings/dimensions.js').Dimension} config.dimension The dimension's definition from settings/dimensions.js – its name, default scale and so on.
- * @param {any} config.scale The user-passed `[name]Scale` prop – an instantiated D3 scale – or undefined to use the dimension's default.
+ * @param {import('../settings/dimensions.js').Dimension} config.dimension The dimension's entry in the registry in settings/dimensions.js.
+ * @param {any} config.scale The user-passed `[name]Scale` prop, an instantiated D3 scale. Undefined means use the dimension's default.
  * @param {Array<any>|undefined} config.domain The computed domain, or undefined to keep the scale's own domain.
  * @param {[number, number]|undefined} config.padding The user-passed `[name]Padding` prop.
  * @param {boolean|number} config.nice The resolved `[name]Nice` value.
@@ -74,22 +74,22 @@ export default function createScale({
 			`[LayerCake] The \`${dimension.name}Scale\` prop must be an instantiated scale, e.g. \`scaleLinear()\` rather than \`scaleLinear\`.`
 		);
 	}
-	// Make a copy of the user-provided scale to guard against user mutations.
+	// Copy the user's scale so the domain and range we set here don't change their original.
 	const scale = scaleProp === undefined ? dimension.defaultScale() : scaleProp.copy();
 
 	// Set the domain if we measured one from the data or the user passed one.
-	// If we have neither – say the user only passed a scale that already has
-	// its own domain – keep the domain the scale came with
+	// Otherwise keep the domain the scale came with. That's the case when the
+	// user only passed a scale that already has its own domain.
 	if (domain !== undefined) {
 		scale.domain(domain);
 	}
 
-	// A range can be computed by a function from either of two places: the
-	// `defaultRange` each dimension declares in settings/dimensions.js, or a
-	// `[name]Range` prop the user writes as a function. Both get the object
-	// below, whose properties DimensionRangeContext documents. The dimension's
-	// own entry is left out of `scales`, so a range function can't re-enter the
-	// scale it is helping to build.
+	// A range function comes from one of two places: the `defaultRange` each
+	// dimension declares in settings/dimensions.js, or a `[name]Range` prop the
+	// user passes as a function. Both receive the object below. Its properties
+	// are documented on DimensionRangeContext. This dimension's own scale is left
+	// out of `scales`. Reading it would be circular, because the range is being
+	// computed to build that very scale.
 	/** @type {Object.<string, any>} */
 	const siblingScales = {};
 	for (const key of Object.keys(ctx.scales)) {
@@ -110,9 +110,9 @@ export default function createScale({
 		get percentRange() {
 			return ctx.percentRange;
 		},
-		// The chart's size in the units ranges are measured in – 100 in
-		// percent mode, pixels otherwise. Nested dimensions size themselves off
-		// these, so they never mix percentages and pixels.
+		// The chart's width and height in the same units as the ranges. That's
+		// 100 in percent mode and pixels otherwise. Nested dimensions size
+		// themselves off these, so they never mix percentages with pixels.
 		get rangeWidth() {
 			return ctx.percentRange === true ? 100 : ctx.width;
 		},
@@ -122,28 +122,28 @@ export default function createScale({
 		scales: siblingScales
 	};
 
-	// Don't stomp a range the user baked into their own scale –
-	// `zScale={scaleOrdinal(schemeCategory10)}` would lose its colors. An explicit
-	// `zRange` is the clearer instruction, so that still wins.
+	// Keep a range the user set on their own scale. Without this,
+	// `zScale={scaleOrdinal(schemeCategory10)}` would lose its colors. An
+	// explicit `zRange` prop still overrides it.
 	const keepScaleRange =
 		scaleProp !== undefined && range === undefined && hasPristineRange(scale) === false;
 
-	// `getDefaultRange` hands back the `[name]Range` prop when the user set one,
-	// so this holds whichever range we are about to apply. Null means we apply
-	// none and the scale keeps the range it arrived with.
+	// The range we're about to apply. `getDefaultRange` returns the user's
+	// `[name]Range` prop when there is one and the default otherwise. Null means
+	// apply none and keep the range the scale came with.
 	const rangeToApply = keepScaleRange
 		? null
 		: getDefaultRange(dimension, { reverse, range, ctx: rangeCtx });
 
-	// A scale that makes its own output through an interpolator, like
-	// `scaleSequential`, would be broken by the chart's default range. d3's
-	// identity placeholder means nobody picked an interpolator, so that is the
-	// one interpolator safe to overwrite.
+	// A scale like `scaleSequential` makes its output through an interpolator.
+	// Setting the chart's default range on it would break it. The one exception
+	// is d3's placeholder interpolator. That means nobody set one, so it's safe
+	// to replace.
 	const scaleMakesOwnOutput =
 		typeof scale.interpolator === 'function' && !isIdentityInterpolator(scale.interpolator());
 
-	// An explicit `[name]Range` prop always wins, interpolator or not –
-	// the check above only protects the scale from the chart's *default* range
+	// An explicit `[name]Range` prop is always applied, interpolator or not. The
+	// check above only protects the scale from the chart's default range.
 	if (rangeToApply !== null && (range !== undefined || scaleMakesOwnOutput === false)) {
 		scale.range(fitRangeToScale(scale, rangeToApply));
 	}

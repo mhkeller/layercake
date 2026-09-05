@@ -41,8 +41,8 @@
 
 	const k = getLayerCakeContext();
 
-	// A labelled graphic should announce itself as one – same pattern as
-	// the Html layout's derived 'figure' role
+	// Set `role="img"` when the graphic has a label, so screen readers announce
+	// it as an image. The Html layout does the same with `'figure'`.
 	let roleVal = $derived(role || (label || labelledBy || describedBy ? 'img' : undefined));
 </script>
 

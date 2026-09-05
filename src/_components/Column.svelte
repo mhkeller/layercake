@@ -18,7 +18,7 @@
 	/** @type {Props} */
 	let { fill, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
-	// The `fill` prop wins, then the `c` scale's color, then the fallback
+	// Use the `fill` prop if there is one, then the `c` scale's color, then the default
 	let getFill = $derived(/** @param {any} d */ d => fill ?? k.cGet?.(d) ?? '#00e047');
 
 	let columnWidth = $derived(d => {
@@ -26,8 +26,9 @@
 		return Math.abs(vals[1] - vals[0]);
 	});
 
-	// Columns start at zero and run out to their value, so negative ones hang
-	// below it. Make sure zero is in your yDomain or this lands off the chart.
+	// Each column starts at zero and runs out to its value, so a negative value
+	// hangs below zero. Keep zero inside your yDomain, or columns will be drawn
+	// outside the chart.
 	let zeroY = $derived(k.yScale(0));
 </script>
 
@@ -54,9 +55,9 @@
 		{#if showLabels && yValue}
 			{@const pointsUp = valueY < zeroY}
 			<!--
-				Sit the number just clear of the far end of the column, above it going
-				up and below it going down. Flipping the baseline instead of nudging by
-				a pixel count keeps the gap even at any font size.
+				Put the number just past the far end of the column: above a positive
+				column and below a negative one. Switching the text baseline keeps the
+				gap the same at any font size.
 			-->
 			<text
 				x={xPos + colWidth / 2}

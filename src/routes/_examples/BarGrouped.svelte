@@ -15,13 +15,13 @@
 
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
 
-	// `y2="fruit"` is the whole setup for the within-group position: y2 is a
-	// scaleBand by default, its domain comes from the data, and its range is one
-	// y band tall. Pass `y2Scale` if you want to customize the padding, such as:
+	// `y2="fruit"` is all it takes to position bars within each group. y2 is a
+	// scaleBand by default. Its domain comes from the data and its range is one
+	// y band tall. Pass `y2Scale` to customize the padding, for example:
 	// y2Scale={scaleBand().paddingInner(0.1).round(true)}
 
-	// Alternatively, the same chart works without `y2`
-	// by deriving a scale inside your component:
+	// The same chart also works without `y2` if you build the scale inside
+	// your component:
 	// const y2Scale = $derived(scaleBand().domain(fruits).range([0, k.yScale.bandwidth()]));
 </script>
 

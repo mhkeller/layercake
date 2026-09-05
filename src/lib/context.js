@@ -1,52 +1,52 @@
 import { createContext } from 'svelte';
 
 /**
- * A d3 scale: something you call, carrying whatever methods that particular
- * scale type provides – `.ticks()` on a linear scale, `.bandwidth()` on a band
- * scale. Typing these loosely is deliberate. Layer Cake hands back whichever
- * scale you passed in, so it can't know which methods exist, and a union of
- * every d3 scale would make `k.xScale.ticks()` an error unless you narrowed
- * first. If you do know the scale types in your own component, name them:
+ * A d3 scale: a function you call, with whatever methods that kind of scale
+ * has, like `.ticks()` on a linear scale or `.bandwidth()` on a band scale.
+ * The type is loose on purpose. Layer Cake hands back whichever scale you
+ * passed in, so it can't know which methods exist. A strict union of every
+ * d3 scale would make `k.xScale.ticks()` a type error until you checked which
+ * scale you had. If you know the scale type in your own component, name it:
  * `@type {LayerCakeContext<{ x: import('d3-scale').ScaleBand<string> }>}`.
  * @typedef {{ (value: any): any, [key: string]: any }} Scale
  */
 
 /**
- * The scale for dimension `K` when the caller named it in `S`, otherwise the
- * permissive `Scale` above. This is what lets you opt into strict typing for
- * one dimension without having to name all eight.
+ * The scale type for dimension `K`. If you named it in `S`, you get that type.
+ * Otherwise you get the loose `Scale` above. This lets you type one dimension
+ * strictly without naming all eight.
  *
- * The `0 extends (1 & S)` test looks strange but it is the standard way to ask
- * "is S the `any` type?". Without it, `any extends Record<K, infer T>` infers
- * `T` as `unknown`, so every scale on the default context would come back
- * `unknown` and nothing would type-check at all.
+ * `0 extends (1 & S)` looks odd but it is the standard way to ask "is S the
+ * `any` type?". Without it, `any extends Record<K, infer T>` would make `T`
+ * `unknown`. Then every scale on the default context would be `unknown` and
+ * nothing would type-check.
  * @template S
  * @template {string} K
  * @typedef {0 extends (1 & S) ? Scale : (S extends Record<K, infer T> ? T : Scale)} ScaleFor
  */
 
 /**
- * An accessor once Layer Cake has turned your prop into a function: call it
- * with a row of data and it returns that row's value. The index is only passed
- * to top-level function accessors – the functions inside an array-form
- * accessor are called with the row alone.
+ * Your accessor prop after Layer Cake has turned it into a function. Call it
+ * with a row of data and it returns that row's value. Only a top-level
+ * function accessor gets the row index. Functions inside an array accessor
+ * are called with the row alone.
  * @typedef {(d: any, i?: number) => any} Accessor
  */
 
 /**
- * Runs a datum through a dimension's accessor and its scale, e.g. `k.xGet(d)`.
- * You hand it a row of your data and get back whatever the scale returns – a
- * pixel position, a color. Scale methods like `.ticks()` live on `k.xScale`.
+ * Runs a row of data through a dimension's accessor and then its scale, e.g.
+ * `k.xGet(d)`. You get back whatever the scale returns, like a pixel position
+ * or a color. Scale methods like `.ticks()` live on `k.xScale`.
  * @typedef {(d: any, i?: number) => any} Getter
  */
 
 /**
  * The LayerCake context values: the static values plus every per-dimension
- * key (x, xScale, xGet etc.). Every `@property` line from `x` down to the
- * end of this comment is generated – edit settings/dimensions.js, then run
- * `pnpm generate:dims`. No fence markers by design; see
- * src/scripts/generateDimensionDocs.js.
- * @template [S=any] Optionally name your scale types, e.g. `{ x: ScaleBand<string> }`. Anything you leave out stays permissive.
+ * key (x, xScale, xGet etc.). The `@property` lines from `x` to the end of
+ * this comment are generated. To change them, edit settings/dimensions.js or
+ * the templates in src/scripts/generateDimensionDocs.js, then run
+ * `pnpm generate:dims`.
+ * @template [S=any] Optionally name your scale types, e.g. `{ x: ScaleBand<string> }`. Anything you leave out keeps the loose `Scale` type.
  * @template [TData=any] Optionally name your data's shape, e.g. `LayerCakeContext<any, MyRow[]>` for rows or `LayerCakeContext<any, FeatureCollection>` for a GeoJSON map.
  * @typedef {Object} LayerCakeContext
  * @property {number} width The calculated chart width, i.e. the container width minus padding.
@@ -127,8 +127,8 @@ import { createContext } from 'svelte';
 /**
  * The LayerCake chart context. In a child component, call
  * `const k = getLayerCakeContext()` and read values as `k.width`,
- * `k.xGet(d)` etc. Property reads are reactive – avoid destructuring
- * outside of `$derived`, which would capture a stale snapshot.
+ * `k.xGet(d)` etc. Each read is reactive. Don't destructure it outside of
+ * `$derived`, or you'll get a copy that never updates.
  * @type {[() => LayerCakeContext, (context: LayerCakeContext) => LayerCakeContext]}
  */
 export const [getLayerCakeContext, setLayerCakeContext] = createContext();

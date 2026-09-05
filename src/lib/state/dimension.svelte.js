@@ -10,27 +10,27 @@ import measureExtent from '../helpers/measureExtent.js';
 import extentProblems from '../helpers/extentProblems.js';
 
 /**
- * The reactive chart-level values a dimension reads. Every property is a
- * lazy getter – a scale only depends on the values it actually reads.
+ * The chart-level values a dimension reads. Every property is a getter, so a
+ * scale only reruns when a value it actually read changes.
  * @typedef {Object} DimensionContext
  * @property {number} width The calculated chart width.
  * @property {number} height The calculated chart height.
  * @property {boolean} percentRange Whether supporting scale ranges should be `[0, 100]`.
- * @property {Array<any>} measurableData The rows to measure extents from. Reading it throws a clear TypeError when the data isn't a measurable list.
+ * @property {Array<any>} measurableData The rows to measure from. Reading it throws a TypeError if the data isn't an array.
  * @property {boolean} verbose Whether to print console warnings.
- * @property {Object.<string, Function|undefined>} scales Lazy access to every dimension's computed scale, for nested-scale range functions.
+ * @property {Object.<string, Function|undefined>} scales Every dimension's computed scale, looked up through getters. A nested dimension's range function reads its parent's scale here.
  */
 
 /**
- * Create the reactive state for one dimension. Called for every dimension, not
- * just the ones in use. Unsupported features resolve to inert defaults so their
- * pipeline steps no-op.
+ * Create the reactive state for one dimension. This runs for every dimension,
+ * not just the ones in use. A feature the dimension doesn't support, like
+ * `nice` on `c`, gets a default that does nothing.
  *
- * A dimension is active once the user sets any of its four configurable props –
- * the accessor, domain, scale or range. Inactive dimensions return `undefined`
- * for all computed values.
- * @param {import('../settings/dimensions.js').Dimension} dimension The dimension's definition from settings/dimensions.js – its name, default scale and so on.
- * @param {Object.<string, any>} props The dimension props object. It is Svelte's rest-props proxy, so reading `props.xDomain` here tracks that one prop.
+ * A dimension is active once the user sets any of its accessor, domain, scale
+ * or range props. An inactive dimension returns `undefined` for every computed
+ * value.
+ * @param {import('../settings/dimensions.js').Dimension} dimension The dimension's entry in the registry in settings/dimensions.js.
+ * @param {Object.<string, any>} props The dimension props. Svelte tracks each key on its own, so reading `props.xDomain` here reruns only when `xDomain` changes.
  * @param {DimensionContext} ctx Reactive chart-level values.
  */
 export default function createDimension(dimension, props, ctx) {
@@ -39,10 +39,9 @@ export default function createDimension(dimension, props, ctx) {
 
 	const defaultIsOrdinal = isOrdinalDomain(dimension.defaultScale());
 
-	// Coerces null into undefined, so a prop like
-	// `xScale={cond ? myScale : null}` means "unset". Every check downstream –
-	// activation here, `keepScaleRange` and the default range in createScale.js –
-	// can then test against undefined alone.
+	// `?? undefined` turns a null prop into undefined, so
+	// `xScale={cond ? myScale : null}` means "not set". Every check after this
+	// only has to compare against undefined.
 	const accessorRaw = $derived(props[name] ?? undefined);
 	const accessor = $derived(accessorRaw !== undefined ? makeAccessor(accessorRaw) : null);
 
@@ -61,7 +60,7 @@ export default function createDimension(dimension, props, ctx) {
 	const padding = $derived(
 		features.padding === true ? (props[`${name}Padding`] ?? undefined) : undefined
 	);
-	// DomainSort applies to every dimension, so there is no feature flag to consult
+	// Every dimension supports DomainSort, so there is no feature flag to check
 	const domainSort = $derived(props[`${name}DomainSort`] ?? false);
 	const reverse = $derived.by(() => {
 		if (features.reverse !== true) return false;
@@ -71,29 +70,30 @@ export default function createDimension(dimension, props, ctx) {
 	});
 
 	/**
-	 * Whether this dimension measures unique values rather than a min and max.
-	 * Answered from the props alone, because the extents have to be measured
-	 * before the real scale – which needs a domain – can exist.
+	 * Whether this dimension measures a list of unique values instead of a min
+	 * and max. This is worked out from the props alone. The real scale can't
+	 * exist yet. It needs a domain first, which comes from measuring.
 	 */
 	const isOrdinal = $derived(
 		scaleProp !== undefined ? isOrdinalDomain(scaleProp) : defaultIsOrdinal
 	);
 
-	// The user answered the domain question outright, so there is nothing to measure
+	// The user passed a full domain, so there is nothing to measure
 	const presetDomain = $derived(isCompleteDomain(domainProp) ? domainProp : undefined);
 
-	// Each fires at most once per chart, not once per repaint
+	// Each warning prints once per chart, not on every rerender
 	let warnedEmptyExtent = false;
 	let warnedStringExtent = false;
 
-	// Each dimension measures its own extent. Changing one dimension's
-	// accessor or domain rescans the data for that dimension alone
+	// Each dimension measures its own extent. Changing the x accessor rescans
+	// the data for x only. The other dimensions don't rerun.
 	const measuredExtent = $derived.by(() => {
 		if (accessor === null || presetDomain !== undefined) return undefined;
 		const data = ctx.measurableData;
 		const extent = measureExtent(name, accessor, data, isOrdinal, domainSort === true);
-		// Say something about the two classic silent failures. Only min/max
-		// extents can show them – unique-value measuring has no empty/strings shape.
+		// Warn about the two common mistakes that otherwise fail silently: a
+		// misspelled accessor key and numbers that are still strings. Only a
+		// min/max extent can show them. A list of unique values can't.
 		if (isOrdinal !== true && ctx.verbose === true) {
 			const problem = extentProblems(extent, data.length);
 			if (problem === 'empty' && warnedEmptyExtent === false) {
@@ -112,13 +112,13 @@ export default function createDimension(dimension, props, ctx) {
 		return extent;
 	});
 
-	// What the domain pipeline and the context's `extents` see for this dimension
+	// The extent the domain is built from. Also what `k.extents` reports for this dimension.
 	const extent = $derived(presetDomain !== undefined ? presetDomain : measuredExtent);
 
-	// When nothing was measured – a dimension activated by its scale, domain
-	// or range prop alone – the scale's own current domain stands in. A domain
-	// function then always receives real values, exactly as documented, and a
-	// partial `[null, 100]` fills its null from them.
+	// When there is no accessor, nothing gets measured. That happens when a
+	// dimension is set up with only a scale, domain or range prop. The scale's own
+	// domain is used instead. So a domain function always receives real values,
+	// and a partial domain like `[null, 100]` still gets its null filled in.
 	const fallbackDomain = $derived.by(() => {
 		const scale = scaleProp !== undefined ? scaleProp : dimension.defaultScale();
 		return typeof scale.domain === 'function' ? scale.domain() : undefined;
@@ -145,8 +145,10 @@ export default function createDimension(dimension, props, ctx) {
 
 	const get = $derived(accessor && scale ? createGetter(accessor, scale) : undefined);
 
-	// The domain and range are read back off the scale so that
-	// modifications made on scale creation, such as `.nice()`, are reflected
+	// Read the domain and range back off the finished scale so changes made while
+	// building it, such as `.nice()`, show up. keepIfEqual hands back the previous
+	// array when the values haven't changed, so children that depend on `k.xDomain`
+	// don't rerun on every resize.
 	/** @type {Array<any>|null|undefined} */
 	let lastDomain;
 	const domainOut = $derived.by(() => {

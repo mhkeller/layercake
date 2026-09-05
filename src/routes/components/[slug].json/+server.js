@@ -1,7 +1,7 @@
 import { error, json } from '@sveltejs/kit';
 import { readFileSync, existsSync } from 'fs';
 import { readdirFilterSync } from 'indian-ocean';
-// Lives with the site modules so it doesn't ship in the npm package
+// parseJsdoc lives with the site modules so it doesn't ship in the npm package
 import parseJsdoc from '../../../_modules/parseJsdoc.js';
 
 function cleanMain(str) {
@@ -26,8 +26,7 @@ function getJsPaths(example) {
 }
 
 export async function GET({ params }) {
-	// the `slug` parameter is available because
-	// this file is called [slug].json.js
+	// SvelteKit fills in `slug` from the [slug] folder name
 	const { slug } = params;
 
 	const componentPath = `src/_components/${slug}`;
@@ -76,8 +75,8 @@ export async function GET({ params }) {
 		};
 	});
 
-	// Wrapper components like SmallMultipleWrapper have no @component comment, so there's
-	// nothing to split on and we send back an empty description
+	// Wrapper components like SmallMultipleWrapper have no @component comment.
+	// They get an empty description.
 	const componentDescription =
 		fromMain.split('<script>')[0].replace('<!--', '').replace('-->', '').split('@component')[1] ||
 		'';
@@ -102,9 +101,9 @@ export async function GET({ params }) {
 			const [, jsdocComment] = match;
 			let parsed = parseJsdoc(jsdocComment);
 			if (parsed) {
-				// Prefer the default written in the code, but a prop can be destructured
-				// without one and still document a default it applies further down, so
-				// keep what the JSDoc said in that case
+				// Prefer the default written in the code. A prop can have no default in
+				// the destructure and still document one that it applies further down.
+				// In that case keep the default from the JSDoc.
 				const codeDefault = defaultValues[parsed['name']];
 				if (codeDefault !== undefined)
 					parsed['defaultValue'] = codeDefault.replace('$bindable()', '');

@@ -1,10 +1,10 @@
 /**
- * Diagnose a measured `[min, max]` extent. The two classic silent chart
- * failures both show up here: a typo'd accessor key measures nothing, and CSV
- * numbers still in string form compare alphabetically ('9' > '10').
+ * Check a measured `[min, max]` for the two mistakes that otherwise fail
+ * silently. A misspelled accessor key measures nothing. Numbers still in
+ * string form, as they come out of a CSV, compare alphabetically so '9' > '10'.
  * @param {Array<any>} extent The measured `[min, max]`.
- * @param {number} rowCount How many rows were measured. An empty dataset measures nothing without that being a problem.
- * @returns {'empty'|'strings'|null} The problem, or null when the extent looks healthy.
+ * @param {number} rowCount How many rows were measured. Measuring nothing from zero rows is fine.
+ * @returns {'empty'|'strings'|null} The problem, or null when the extent looks fine.
  */
 export default function extentProblems(extent, rowCount) {
 	if (rowCount > 0 && extent[0] === null && extent[1] === null) {

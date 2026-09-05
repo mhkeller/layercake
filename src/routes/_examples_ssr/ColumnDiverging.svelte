@@ -32,13 +32,13 @@
 		yDomain={([min, max]) => [Math.min(0, min), Math.max(0, max)]}
 	>
 		<!--
-			The columns grow out of zero, so zero has to be on the axis. A function
-			domain gets handed the [min, max] measured from the data and widens
-			whichever end is missing zero. The same line works whether your numbers
-			are all positive, all negative or a mix of both.
+			The columns grow out of zero, so zero has to be inside the domain. This
+			function receives the [min, max] measured from the data and stretches
+			whichever end doesn't reach zero. It works whether your numbers are
+			all positive, all negative or a mix.
 
-			The `c` scale sorts each row into "up" or "down" and hands the Column
-			component a color for it.
+			The `c` scale turns each row's "up" or "down" into a color for the
+			Column component.
 		-->
 		{#snippet children(k)}
 			<Html>
@@ -48,9 +48,9 @@
 			<ScaledSvg>
 				<Column />
 				<!--
-					Columns run up and down from here, so mark it. Reading the ends off
-					the range keeps this in whatever units the chart uses – percentages
-					here, pixels without `percentRange`.
+					Columns run up and down from here, so mark it. Using the ends of the
+					range keeps this in the chart's units: percentages here, or pixels
+					without `percentRange`.
 				-->
 				<line class="zero" x1={k.xRange[0]} x2={k.xRange[1]} y1={k.yScale(0)} y2={k.yScale(0)} />
 			</ScaledSvg>

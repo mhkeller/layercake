@@ -47,8 +47,8 @@ export default function printDebug(obj) {
 		console.log(indent, obj.flatData);
 	}
 	console.log('Scales:');
-	// Print every dimension with a scale, not just the ones with an
-	// accessor – a dimension set up via `yScale`/`yDomain` alone has one too
+	// Print every active dimension, not just the ones with an accessor. A
+	// dimension set up with only `yScale` or `yDomain` has a scale too.
 	obj.activeDimensions.forEach((/** @type {string} */ g) => {
 		printScale(g, obj[`${g}Scale`], obj[g]);
 	});

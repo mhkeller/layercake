@@ -13,7 +13,7 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/fruit.csv';
 
-	// Set what is our x key to separate it from the other series
+	// Name the x field so it can be told apart from the series fields
 	const xKey = 'month';
 	const yKey = 'value';
 	const cKey = 'fruit';
@@ -30,7 +30,8 @@
 		return {
 			[cKey]: key,
 			values: data.map(d => {
-				// Put this in a conditional so that we don't recast the data on second render
+				// Only parse the date if it's still a string. This can run again on a
+				// rerender. Parsing an already parsed Date returns null.
 				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey];
 				return {
 					[yKey]: +d[key],

@@ -32,13 +32,13 @@
 		xDomain={([min, max]) => [Math.min(0, min), Math.max(0, max)]}
 	>
 		<!--
-			The bars grow out of zero, so zero has to be on the axis. A function
-			domain gets handed the [min, max] measured from the data and widens
-			whichever end is missing zero. The same line works whether your numbers
-			are all positive, all negative or a mix of both.
+			The bars grow out of zero, so zero has to be inside the domain. This
+			function receives the [min, max] measured from the data and stretches
+			whichever end doesn't reach zero. It works whether your numbers are
+			all positive, all negative or a mix.
 
-			The `c` scale sorts each row into "up" or "down" and hands the Bar
-			component a color for it.
+			The `c` scale turns each row's "up" or "down" into a color for the Bar
+			component.
 		-->
 		{#snippet children(k)}
 			<Html>
@@ -48,9 +48,9 @@
 			<ScaledSvg>
 				<Bar />
 				<!--
-					Bars run left and right from here, so mark it. Reading the ends off
-					the range keeps this in whatever units the chart uses – percentages
-					here, pixels without `percentRange`.
+					Bars run left and right from here, so mark it. Using the ends of the
+					range keeps this in the chart's units: percentages here, or pixels
+					without `percentRange`.
 				-->
 				<line class="zero" x1={k.xScale(0)} x2={k.xScale(0)} y1={k.yRange[0]} y2={k.yRange[1]} />
 			</ScaledSvg>

@@ -52,8 +52,7 @@ function getComponentPaths(example) {
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export async function GET({ params }) {
-	// the `slug` parameter is available because
-	// this file is called [slug].json.js
+	// SvelteKit fills in `slug` from the [slug] folder name
 	const { slug } = params;
 
 	const examplePath = `src/routes/_examples/${slug}.svelte`;

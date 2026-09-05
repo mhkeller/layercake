@@ -1,7 +1,7 @@
-/** * @param {string} annotation */
+/** @param {string} annotation */
 export default function parseJsdoc(annotation) {
 	// Splits a JSDoc definition into its parts.
-	// @type {boolean} foor - Required variable `foo`.
+	// @type {boolean} foo - Required variable `foo`.
 	// @type {number} [bar=1] - Optional variable `bar` with default value 1.
 	const regex = /@(type|property)\s\{(.+?)\}\s+(\w+|\[.*?\]) - (.+)/;
 

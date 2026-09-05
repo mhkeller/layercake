@@ -18,8 +18,8 @@
 	/** @type {Props} */
 	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
-	// x2 drives this chart but is optional in the types – fall back to a
-	// zero-width column rather than crashing when it's missing
+	// This chart needs the x2 scale. A chart might not set one, so fall back
+	// to a zero-width column instead of crashing.
 	let columnWidth = $derived.by(() => {
 		const scale = k.x2Scale;
 		if (scale?.bandwidth) return scale.bandwidth();
@@ -27,8 +27,9 @@
 		return Math.abs(range[1] - range[0]);
 	});
 
-	// Columns start at zero and run out to their value, so negative ones hang
-	// below it. Make sure zero is in your yDomain or this lands off the chart.
+	// Each column starts at zero and runs out to its value, so a negative value
+	// hangs below zero. Keep zero inside your yDomain, or columns will be drawn
+	// outside the chart.
 	let zeroY = $derived(k.yScale(0));
 </script>
 
@@ -53,9 +54,9 @@
 		{#if showLabels && yValue}
 			{@const pointsUp = valueY < zeroY}
 			<!--
-				Sit the number just clear of the far end of the column, above it going
-				up and below it going down. Flipping the baseline instead of nudging by
-				a pixel count keeps the gap even at any font size.
+				Put the number just past the far end of the column: above a positive
+				column and below a negative one. Switching the text baseline keeps the
+				gap the same at any font size.
 			-->
 			<text
 				x={xPos + columnWidth / 2}

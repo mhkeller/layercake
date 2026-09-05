@@ -23,9 +23,8 @@ export default function slugger(string, maintainCase, store) {
 
 	store[slug] += 1;
 
-	// Not sure why these numbers go really high
-	// so do some weird substractions and things to make
-	// them turn out correctly
+	// The first time a slug appears it is used as is. Repeats get a number
+	// added, so a duplicate heading becomes `slug-1`, then `slug-2`.
 	if (store[slug] > 0) {
 		return `${slug}-${store[slug]}`;
 	}

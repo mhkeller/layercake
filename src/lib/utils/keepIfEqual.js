@@ -1,13 +1,13 @@
 /**
  * Return `prev` when `next` holds the same values in the same order.
- * d3 hands back a fresh array copy on every `.domain()`/`.range()` read, so a
- * rebuilt scale with unchanged values would give `k.xDomain` a new identity on
- * every resize tick and children's `$derived`s could never bail out.
+ * d3 returns a fresh array every time you call `.domain()` or `.range()`. So
+ * every resize would give `k.xDomain` a new array even when the values didn't
+ * change. Anything in a child that depends on it would rerun for nothing.
  *
- * Order matters – `[0, 100]` and `[100, 0]` are different ranges – so this is
- * deliberately not the order-insensitive `arraysEqual`.
- * @param {Array<any>|null|undefined} prev
- * @param {Array<any>|null|undefined} next The fresh read. Non-arrays pass through – getRange reports a scale with no measurable range as `null`.
+ * Order matters here. `[0, 100]` and `[100, 0]` are different ranges, so this
+ * can't use `arraysEqual`, which ignores order.
+ * @param {Array<any>|null|undefined} prev The array from last time.
+ * @param {Array<any>|null|undefined} next The fresh read. Anything that isn't an array is returned as is. getRange returns `null` for a scale with no range.
  * @returns {Array<any>|null|undefined}
  */
 export default function keepIfEqual(prev, next) {

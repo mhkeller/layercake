@@ -1,32 +1,31 @@
 /**
  * Writes the per-dimension documentation from settings/dimensions.js, so
- * adding a dimension or feature flag updates everything downstream. Four
- * files, in two flavors:
+ * adding a dimension or feature flag updates everything that depends on it.
+ * It writes four files, of two kinds:
  *
  * - The `Props` typedef (src/lib/LayerCake.svelte) and the `LayerCakeContext`
- *   typedef (src/lib/context.js) – the published types.
+ *   typedef (src/lib/context.js). These are the published types.
  * - The repeated "Same as xDomain but for the y scale" sections in guides 03
- *   and 04 – the published docs.
+ *   and 04. These are the published docs.
  *
- * Both typedefs stay plain object literals – no cross-module type
- * intersections – because svelte2tsx (which emits LayerCake.svelte.d.ts
- * on `pnpm package`) only resolves local object-literal typedefs.
+ * Both typedefs stay plain object literals with no type intersections from
+ * other modules. svelte2tsx, which emits LayerCake.svelte.d.ts on
+ * `pnpm package`, can only resolve local object-literal typedefs.
  *
  * Usage:
  *   node src/scripts/generateDimensionDocs.js          # update the files
  *   node src/scripts/generateDimensionDocs.js --check  # exit 1 if stale
  *
- * Freshness is also enforced by test/lib/dimensionsRegistry.test.js.
+ * test/lib/dimensionsRegistry.test.js also fails if the files are stale.
  *
- * The two flavors are spliced differently, and the reason is worth knowing.
- * The JSDoc targets have no marker comments fencing them, deliberately:
- * TypeScript ends a `@typedef`'s property list at the first non-`@property`
- * tag, so an inline sentinel would silently drop every following prop from
- * the emitted d.ts. Those generated lines are kept as the tail of each typedef
- * and spliced by property name, with the header prose naming the boundary.
- * Markdown has no such hazard, so the guides do use `<!-- generated:X -->`
- * markers, which keeps the hand-written primary section next to the siblings
- * it explains.
+ * The two kinds are spliced differently. The JSDoc typedefs have no marker
+ * comments around the generated lines. TypeScript stops reading a typedef's
+ * property list at the first tag that isn't `@property`, so a marker tag
+ * would silently drop every prop after it from the emitted d.ts. Instead the
+ * generated lines sit at the end of each typedef and are swapped out by
+ * property name. Markdown has no such problem, so the guides use
+ * `<!-- generated:X -->` markers. That keeps each hand-written primary section
+ * next to the generated siblings it explains.
  */
 import { readFileSync, writeFileSync } from 'fs';
 
@@ -36,33 +35,34 @@ import {
 	FAMILIES_BY_DIMENSION
 } from '../lib/settings/dimensions.js';
 
-// Membership on the per-dimension family lists in settings/dimensions.js is
-// the one
-// way to ask "does x2 have Nice?". Identity-safe – both tables share objects.
+// Ask "does x2 have Nice?" by checking the per-dimension family lists in
+// settings/dimensions.js. `includes` works because both tables share the same
+// family objects.
 function hasFamily(dimension, family) {
 	return FAMILIES_BY_DIMENSION[dimension.name].includes(family);
 }
 
 /*
- * The three shapes every dimension repeats, named once in src/lib/types.js and
- * referenced here so the Props typedef doesn't spell out the same union
- * forty-odd times. LayerCake.svelte pulls the names into scope; the package
- * re-exports them so consumers can write `import('layercake').DataAccessor`.
+ * The three value shapes every dimension prop uses, defined in src/lib/types.js.
+ * The Props typedef uses these names instead of spelling out the same union
+ * about forty times. LayerCake.svelte imports the names and the package exports
+ * them, so users can write `import('layercake').DataAccessor`.
  *
- * The guide headings deliberately keep printing the expanded unions – a reader
- * scanning the props table wants the shape, not a name they'd have to look up.
+ * The guide headings still print the full unions. A reader scanning the props
+ * table wants the shape, not a name they'd have to look up.
  */
 const ACCESSOR_TYPE = 'DataAccessor';
 const DOMAIN_TYPE = 'DimensionDomain';
 const RANGE_TYPE = 'DimensionRange';
 
 /**
- * Per-dimension doc facts that can't be derived from the dimension entries.
- * Every field is optional – dimensions without an entry get the generic
- * template text, so a brand-new dimension needs none of this to ship.
- * exported so test/lib/dimensionsRegistry.test.js can evaluate each
- * `defaultRange` and assert these strings still describe it – a change in
- * settings/dimensions.js can't silently leave stale prose in the published types.
+ * Per-dimension doc facts that can't be worked out from the dimension entries.
+ * Every field is optional. A dimension without an entry gets the generic
+ * template text, so a new dimension needs none of this to ship.
+ *
+ * Exported so test/lib/dimensionsRegistry.test.js can run each `defaultRange`
+ * and check these strings still describe it. That way a change in
+ * settings/dimensions.js can't leave stale text in the published types.
  * Nesting parents live on the dimension entries themselves (`dimension.parent`).
  * @type {Object.<string, {defaultRangeText?: string, reversedRangeText?: string, chartExample?: string, niceType?: string}>}
  */
@@ -101,8 +101,9 @@ function defaultScaleName(dimension) {
 }
 
 function isPrimary(dimension) {
-	// The dimension entry says so outright rather than this being inferred
-	// from an unrelated feature flag, so enabling a feature can't silently re-tier docs
+	// Read `isPrimary` straight off the entry. Working it out from a feature
+	// flag would mean turning on a feature could silently change how a
+	// dimension is documented.
 	return dimension.isPrimary === true;
 }
 
@@ -190,9 +191,9 @@ function reverseProp(dim) {
 
 function domainSortProp(dim) {
 	const n = dim.name;
-	// The ordinal caveat applies to every dimension – sorting only happens
-	// on the unique-values measuring path, so on c2's default linear scale the
-	// prop does nothing
+	// The "only when ordinal" caveat applies to every dimension. Sorting only
+	// happens when measuring unique values, so on c2's default linear scale
+	// the prop does nothing.
 	const desc = isPrimary(dim)
 		? 'Only used when scale is ordinal. Set whether the calculated unique items come back sorted.'
 		: `Only used when the scale is ordinal. Set whether the ${n} scale's calculated unique items come back sorted.`;
@@ -243,7 +244,7 @@ const CONTEXT_FAMILY_ORDER = [
 //
 // So these types describe a chart that uses the dimension. On a chart that
 // skips it the value is missing, which each x/y/z/r description says in words.
-/** Says what a key really holds on a chart. */
+/** The sentence added to each x/y/z/r description saying what the key holds on a chart that never sets that dimension. */
 function unsetNote(dim, value) {
 	return ` On a chart that never sets \`${dim.name}\`, this is \`${value}\` at runtime.`;
 }
@@ -265,8 +266,8 @@ const CONTEXT_TEMPLATES = {
 		type: isPrimary(dim) ? `ScaleFor<S, '${dim.name}'>` : `ScaleFor<S, '${dim.name}'>|undefined`,
 		desc: `The computed ${dim.name} scale.` + (isPrimary(dim) ? unsetNote(dim, 'undefined') : '')
 	}),
-	// A getter takes a row of data, not a domain value, and carries no
-	// scale methods – so it gets its own type instead of the scale's
+	// A getter takes a row of data, not a domain value. It has no scale
+	// methods either. So it gets its own type instead of the scale's.
 	Get: dim => ({
 		type: isPrimary(dim) ? 'Getter' : 'Getter|undefined',
 		desc:
@@ -358,8 +359,8 @@ export function propertyName(line) {
 
 /**
  * Replace the dimension `@property` lines in a source file with the
- * generated set: existing dimension lines are removed and the generated
- * lines are inserted where the first one was (idempotent).
+ * generated set. Existing dimension lines are removed and the generated
+ * lines go where the first one was. Running it again changes nothing.
  * @param {string} source The file contents.
  * @param {Array<string>} generatedLines
  * @returns {string}
@@ -388,18 +389,18 @@ export function spliceDimensionLines(source, generatedLines) {
 /*
  * Guide sections.
  *
- * Guides 03 and 04 document one dimension per family by hand – `xDomain` gets
- * the real explanation – and then repeat it for every sibling ("Same as
- * xDomain but for the y scale"). Those repeats are what we generate, so a new
- * dimension can't ship undocumented.
+ * Guides 03 and 04 explain one dimension per family by hand. `xDomain` gets
+ * the real explanation. Then every sibling repeats it ("Same as xDomain but
+ * for the y scale"). Those repeats are what we generate, so a new dimension
+ * can't ship undocumented.
  *
- * Unlike the JSDoc targets, markdown can carry marker comments safely, so each
- * run of siblings sits between `<!-- generated:Domain -->` and its closing tag.
- * The hand-written primary section stays put, above the markers.
+ * Markdown can hold marker comments safely, so each run of siblings sits
+ * between `<!-- generated:Domain -->` and its closing tag. The hand-written
+ * primary section stays above the markers.
  *
- * `primaryLink` is spelled out per guide rather than derived: the site dedupes
- * heading slugs across guide files, so `xDomain` anchors as `#xdomain` in the
- * props guide but `#xdomain-1` in the context guide.
+ * The links are spelled out per guide instead of computed. The site gives
+ * duplicate headings across guide files a number, so `xDomain` anchors as
+ * `#xdomain` in the props guide but `#xdomain-1` in the context guide.
  */
 
 /** The link label and target for a family's hand-written section, per guide. */
@@ -428,7 +429,7 @@ export const GUIDES = [
 					const custom = (CUSTOM[dim.name] || {}).range;
 					if (custom) return custom;
 					// A nested dimension's range defaults to its parent's bandwidth, so
-					// "same as xRange" would be actively misleading here
+					// "same as xRange" would be wrong here
 					if (dim.parent) {
 						return `Same as [xRange](/guide#xrange) but for the ${dim.name} scale, which defaults to the bandwidth of the ${dim.parent} scale. Pass a function to customize it, e.g. \`${dim.name}Range={({ scales }) => [0, scales.${dim.parent}.bandwidth() / 2]}\`.`;
 					}
@@ -436,8 +437,8 @@ export const GUIDES = [
 				}
 			},
 			Nice: {
-				// Matches the hand-written xNice heading: the default hangs off the
-				// boolean, so it reads `boolean=false|number`, not `boolean|number=false`
+				// Match the hand-written xNice heading. The default belongs to the
+				// boolean, so it reads `boolean=false|number` and not `boolean|number=false`
 				heading: dim =>
 					(FACTS[dim.name] || {}).niceType === 'boolean' ? 'boolean=false' : 'boolean=false|number',
 				body: dim => `Same as [xNice](/guide#xnice) but for the ${dim.name} domain.`
@@ -450,9 +451,9 @@ export const GUIDES = [
 				heading: dim => `boolean=${dim.name === 'y' ? 'true' : 'false'}`,
 				body: dim => {
 					const fact = FACTS[dim.name] || {};
-					// A dimension whose default is computed has an exception a reader has
-					// to know about – y flips to `false` for band scales – so "same as
-					// xReverse" would be actively misleading here
+					// When the default is worked out at runtime there is an exception the
+					// reader needs to know about. y flips to `false` for band scales. So
+					// "same as xReverse" would be wrong here.
 					if (typeof dim.defaultReverse === 'function') {
 						return `Same as [xReverse](/guide#xreverse) but for the ${dim.name} range, and the default is worked out rather than fixed. It is \`true\` – making the range \`${fact.reversedRangeText || 'its reverse'}\` – unless the \`${dim.name}Scale\` has a \`.bandwidth\` method, as \`scaleBand\` and \`scalePoint\` do, in which case it is \`false\` so the values read top-down. Setting the prop yourself overrides that.`;
 					}
@@ -518,8 +519,8 @@ export function generateGuideFamily(template, suffix) {
 
 /**
  * Replace the contents of each `<!-- generated:X -->` region in a markdown
- * file. Missing markers are an error – silently skipping them is how a
- * dimension goes undocumented in the first place.
+ * file. Missing markers are an error. Skipping them quietly is how a
+ * dimension ends up undocumented.
  * @param {string} source
  * @param {Object.<string, {heading: (dim: any) => string, body: (dim: any) => string}>} families
  * @param {string} path Only used for the error message.

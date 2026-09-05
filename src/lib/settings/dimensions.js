@@ -2,15 +2,15 @@
  * What Layer Cake knows about its dimensions, written down as data.
  *
  * Two tables do the work. `DIMENSIONS` lists the eight dimensions and what
- * makes each one different – its default scale, its default range, whether
- * `percentRange` reaches it. `DIMENSION_KEY_FAMILIES` lists the suffixes every
- * dimension repeats, turning `x` into `xDomain`, `xScale`, `xRange` and the
- * rest.
+ * makes each one different: its default scale, its default range and whether
+ * `percentRange` applies to it. `DIMENSION_KEY_FAMILIES` lists the suffixes
+ * every dimension repeats, turning `x` into `xDomain`, `xScale`, `xRange` and
+ * the rest.
  *
- * Everything downstream is built by looping over those two: the component's
- * props, the context keys children read, the published types and the guide's
+ * Everything else is built by looping over those two: the component's props,
+ * the context keys children read, the published types and the guide's
  * per-dimension sections. So adding a dimension means adding an entry here and
- * running `pnpm generate:dims` – there is no second place to update.
+ * running `pnpm generate:dims`. There is no second place to update.
  */
 import { scaleLinear, scaleSqrt, scaleBand, scaleOrdinal } from 'd3-scale';
 
@@ -18,28 +18,28 @@ import hasBandwidth from '../utils/hasBandwidth.js';
 import nestedRange from '../helpers/nestedRange.js';
 
 /**
- * The values available to a dimension's range function – the defaults below and
- * user-passed `[name]Range` functions alike. Built per dimension in
- * createScale.js, and every property is a lazy getter, so a range only depends
- * on the values it actually reads.
+ * The values a range function receives. That's both the defaults below and any
+ * `[name]Range` function the user passes. Built per dimension in
+ * createScale.js. Every property is a getter, so a range only reruns when a
+ * value it actually read changes.
  * @typedef {Object} DimensionRangeContext
  * @property {number} width The calculated chart width, i.e. the container width minus padding.
  * @property {number} height The calculated chart height, i.e. the container height minus padding.
- * @property {boolean} percentRange Whether the container-relative dimensions are measuring in percent rather than pixels.
+ * @property {boolean} percentRange Whether the chart's ranges are in percent instead of pixels.
  * @property {number} rangeWidth The chart's width in the units ranges are measured in: `100` when `percentRange` is on, the pixel `width` otherwise.
  * @property {number} rangeHeight The chart's height in the units ranges are measured in: `100` when `percentRange` is on, the pixel `height` otherwise.
- * @property {Object.<string, any>} scales The computed scales of sibling dimensions, e.g. `scales.x`. The dimension's own scale is deliberately absent – a range helps build that scale, so reading it back would be circular.
+ * @property {Object.<string, any>} scales The other dimensions' computed scales, e.g. `scales.x`. This dimension's own scale isn't here. The range is being computed to build that scale, so reading it would be circular.
  */
 
 /**
  * @typedef {Object} Dimension
  * @property {string} name The dimension's name. Its props are derived from it, e.g. `x` -> `xScale`, `xDomain`...
  * @property {string} [parent] The dimension this one nests inside by default, e.g. `x2` nests in `x`. Read by the doc generator and by the nested default range.
- * @property {boolean} [isPrimary] Whether docs describe this dimension with the full classic x/y/z/r prose rather than the shorter secondary-dimension prose. Also decides which context keys drop their `|undefined` type (see generateDimensionDocs.js).
- * @property {Function} defaultScale An uninstantiated D3 scale factory used when the user doesn't pass a `[name]Scale` prop.
+ * @property {boolean} [isPrimary] Whether this is one of the main x/y/z/r dimensions. The doc generator gives these the full prop descriptions and types their context keys as always present. See generateDimensionDocs.js.
+ * @property {Function} defaultScale The D3 scale function to call when the user doesn't pass a `[name]Scale` prop, e.g. `scaleLinear`.
  * @property {(ctx: DimensionRangeContext) => Array<any>} defaultRange Returns the default range.
- * @property {(ctx: { scale: any }) => boolean} [defaultReverse] Dynamic default for `[name]Reverse`, receiving the user-passed scale prop (or undefined). Only consulted when the feature is enabled and the user didn't set the prop.
- * @property {boolean} canBePercentRange Whether the global `percentRange` prop applies to this dimension, replacing its default range with `[0, 100]`. Only sensible for spatial, container-relative ranges – bandwidth-based (`x2`, `y2`) and color (`c`, `c2`) ranges opt out.
+ * @property {(ctx: { scale: any }) => boolean} [defaultReverse] Works out the default for `[name]Reverse` from the user's scale prop, if any. Only used when the dimension supports reverse and the user didn't set the prop.
+ * @property {boolean} canBePercentRange Whether the `percentRange` prop applies to this dimension and swaps its default range for `[0, 100]`. That only makes sense for ranges measured against the container. `x2` and `y2` measure against a band and `c` and `c2` are colors, so it's off for them.
  * @property {{ nice?: boolean, padding?: boolean, reverse?: boolean }} features Enables the key families that don't apply to every dimension (`Nice`, `Padding`, `Reverse`), keyed by the family's `stateKey`. The accessor, `Domain`, `Scale`, `Range`, `Get` and `DomainSort` apply to every dimension and need no entry.
  */
 
@@ -61,9 +61,9 @@ export const CATEGORICAL_COLORS = Object.freeze([
 ]);
 
 /**
- * Every dimension Layer Cake knows about. All per-dimension
- * behavior differences live here as data – the code paths that consume these
- * entries are identical for every dimension.
+ * Every dimension Layer Cake knows about. Anything that differs between
+ * dimensions lives here as data. The code that reads these entries is the same
+ * for all of them.
  * @type {Array<Dimension>}
  */
 export const DIMENSIONS = [
@@ -80,8 +80,9 @@ export const DIMENSIONS = [
 		isPrimary: true,
 		defaultScale: scaleLinear,
 		defaultRange: ctx => [0, ctx.height],
-		// Unless the user says otherwise, flip the y-range so the axis grows
-		// bottom-up – except for band scales, whose order should read top-down
+		// Unless the user says otherwise, flip the y range so values grow upward
+		// from the bottom. Band scales are the exception. Their categories should
+		// read top to bottom.
 		defaultReverse: ({ scale }) => !hasBandwidth(scale),
 		canBePercentRange: true,
 		features: ALL_FEATURES
@@ -107,8 +108,8 @@ export const DIMENSIONS = [
 		parent: 'x',
 		defaultScale: scaleBand,
 		// One band of the parent scale, or the whole chart when x has no bands to
-		// measure. `rangeWidth` already accounts for percent mode, so the
-		// fallback lands in the same units as every other range on the chart.
+		// measure. `rangeWidth` is already in percent when `percentRange` is on,
+		// so the fallback matches the units of every other range on the chart.
 		defaultRange: ctx => nestedRange(ctx.scales.x, ctx.rangeWidth),
 		canBePercentRange: false,
 		features: {}
@@ -147,15 +148,15 @@ export const DIMENSIONS = [
  */
 
 /**
- * Every key family a dimension can have – one suffix across all dimensions,
- * forming keys such as `xDomain`, `yDomain`, `cDomain`. The Props typedef,
- * context keys, `config` object and unknown-prop warning are all generated
- * from this table.
+ * Every kind of key a dimension can have. Each suffix applies across the
+ * dimensions, forming keys such as `xDomain`, `yDomain` and `cDomain`. The
+ * Props typedef, the context keys, the `config` object and the unknown-prop
+ * warning are all built from this table.
  * @type {Array<DimensionKeyFamily>}
  */
 export const DIMENSION_KEY_FAMILIES = [
-	// `stateKey` is written out per row rather than computed from the
-	// suffix, so this table reads exactly like the state object it maps to
+	// `stateKey` is spelled out on each row so you can match it against
+	// state/dimension.svelte.js by eye
 	{
 		suffix: '',
 		stateKey: 'accessor',
@@ -212,8 +213,7 @@ export const DIMENSION_KEY_FAMILIES = [
 		appliesToAllDimensions: false,
 		addToConfig: false
 	},
-	// DomainSort applies to every dimension, so it lives here rather than
-	// in each entry's `features`
+	// Every dimension supports DomainSort, so it doesn't need a feature flag
 	{
 		suffix: 'DomainSort',
 		stateKey: 'domainSort',
@@ -225,24 +225,23 @@ export const DIMENSION_KEY_FAMILIES = [
 
 /**
  * Whether a dimension supports a key family.
- * @param {Dimension} dimension The dimension's definition – its name, default scale and so on.
+ * @param {Dimension} dimension The dimension's entry in the registry.
  * @param {DimensionKeyFamily} family The key family.
  * @returns {boolean}
  */
 function dimensionHasFamily(dimension, family) {
 	if (family.appliesToAllDimensions === true) return true;
-	// `features` has a fixed set of keys so a typo in an entry above fails to
-	// compile. This
-	// lookup uses the family's stateKey at runtime, so widen the type just for
-	// this read.
+	// `features` has a fixed set of keys so a typo in an entry above is a compile
+	// error. This lookup builds the key at runtime, so loosen the type for this
+	// one read.
 	const features = /** @type {Object.<string, boolean|undefined>} */ (dimension.features);
 	return features[family.stateKey] === true;
 }
 
 /**
- * The key families each dimension supports, keyed by dimension name.
- * Computed once – both tables are static. This map is the one public answer to
- * "does x2 have Nice?" – check membership on it.
+ * The key families each dimension supports, keyed by dimension name. Computed
+ * once, since both tables never change. To ask "does x2 have Nice?", check
+ * whether the family is in `FAMILIES_BY_DIMENSION.x2`.
  * @type {Object.<string, Array<DimensionKeyFamily>>}
  */
 export const FAMILIES_BY_DIMENSION = Object.freeze(
@@ -252,7 +251,7 @@ export const FAMILIES_BY_DIMENSION = Object.freeze(
 );
 
 /**
- * Every prop name these two tables define – drives the unknown-prop warning.
+ * Every prop name these two tables define. The unknown-prop warning checks against this.
  * @type {Set<string>}
  */
 export const VALID_DIMENSION_PROPS = new Set(

@@ -38,9 +38,9 @@
 			lookup.set(d.slug, d);
 		});
 
-	// Only components in the gallery have something we can render on its own. Helpers
-	// like ArrowheadMarker or SmallMultipleWrapper aren't in there, so this is undefined
-	// for them and we skip the demo.
+	// Only components in the gallery have a demo we can render on its own.
+	// Helpers like ArrowheadMarker or SmallMultipleWrapper aren't in there, so
+	// this is undefined for them and the demo is skipped.
 	let component = $derived(lookup.get(data.slug));
 
 	function printTypes(type) {

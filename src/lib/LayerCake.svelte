@@ -19,23 +19,22 @@
 	import warnEmptySize from './helpers/warnEmptySize.js';
 
 	const printDebug_debounced = debounce(printDebug, 200);
-	// Debounced at the call site, like the debug printer above. The wait
-	// covers the first run – `bind:clientWidth` reports a tick later, so warning
-	// eagerly would flag every chart with real padding – and each chart gets its
-	// own timer so two charts can't cancel each other's pending warning.
+	// The size warning waits 200ms before it fires. `bind:clientWidth` reports
+	// the real size a tick after the first render, so warning right away would
+	// flag every chart that has padding. Each chart gets its own timer so two
+	// charts on a page can't cancel each other's warning.
 	const warnEmptySize_debounced = debounce(warnEmptySize, 200);
 
-	// A timer scheduled just before unmount would otherwise still fire and
-	// warn about a chart that no longer exists
+	// Cancel any pending timers so a chart that was just removed doesn't print
+	// a warning after it's gone
 	onDestroy(() => {
 		printDebug_debounced.cancel();
 		warnEmptySize_debounced.cancel();
 	});
 
 	/**
-	 * The shapes the dimension props share, pulled in by name so the typedef
-	 * below can say `DataAccessor` instead of repeating its union eight times.
-	 * See types.js for what each one accepts.
+	 * The three value shapes every dimension prop uses. See types.js for what
+	 * each one accepts.
 	 * @typedef {import('./types.js').DataAccessor} DataAccessor
 	 * @typedef {import('./types.js').DimensionDomain} DimensionDomain
 	 * @typedef {import('./types.js').DimensionRange} DimensionRange
@@ -44,10 +43,10 @@
 
 	/**
 	 * The LayerCake props: the static props plus every per-dimension prop
-	 * family (x, xScale, cRange etc.). Every `@property` line from `[x]` down
-	 * to the end of this comment is generated – edit settings/dimensions.js, then run
-	 * `pnpm generate:dims`. No fence markers by design; see
-	 * src/scripts/generateDimensionDocs.js.
+	 * (x, xScale, cRange etc.). The `@property` lines from `[x]` to the end of
+	 * this comment are generated. To change them, edit settings/dimensions.js or
+	 * the templates in src/scripts/generateDimensionDocs.js, then run
+	 * `pnpm generate:dims`.
 	 * @typedef {Object} Props
 	 * @property {boolean} [ssr] - Whether this chart should be rendered server side.
 	 * @property {boolean} [pointerEvents] - Whether to allow pointer events via CSS. Set this to `false` to set `pointer-events: none;` on all components, disabling all mouse interaction.
@@ -136,30 +135,30 @@
 		debug = false,
 		verbose = true,
 		children,
-		// Everything else is a dimension prop – x, xScale, cRange and so on. Fifty-odd
-		// of them, so we look them up by name. Svelte tracks rest props per property,
-		// so that still updates when one changes.
+		// Everything else is a dimension prop: x, xScale, cRange and so on. There
+		// are about fifty, so we look them up by name instead of listing them.
+		// Svelte still tracks each one on its own, so a change to any of them
+		// updates the chart.
 		...dimProps
 	} = $props();
 
-	// The three places below look props up by a name they build as they go,
-	// `x` plus `Domain`, and TypeScript can't check a name like that against the
-	// `Props` typedef above. Those reads go through this alias. Loosening `Props`
-	// itself would also work, but then a typo in someone's own chart – `xDomian`
-	// – would type-check too.
+	// The three places below build prop names at runtime, like `x` plus
+	// `Domain`. TypeScript can't check a name like that against the `Props`
+	// typedef above, so those reads go through this looser alias. `Props` itself
+	// stays strict so a typo in someone's chart, like `xDomian`, is still a type error.
 	const dimPropsByKey = /** @type {Object.<string, any>} */ (dimProps);
 
 	// Warn on unrecognized dimension props so typos don't get silently ignored
 	const warnedProps = new Set();
 	$effect(() => {
 		if (verbose !== true) return;
-		// `Reflect.ownKeys` reads only the key set off Svelte's rest-props
-		// proxy. `Object.keys` also reads every value through the descriptor trap,
-		// which would rerun this scan on every prop-value change for the life of
-		// the chart. A new key appearing later – a growing spread – still reruns it.
+		// `Reflect.ownKeys` reads only the names of the props, not their values.
+		// `Object.keys` would read every value too. Then this effect would rerun
+		// every time any prop value changed. It still reruns when a new prop
+		// name shows up later.
 		for (const key of Reflect.ownKeys(dimProps)) {
 			if (typeof key !== 'string') continue;
-			// Skip internal keys such as `$$slots`, added for legacy-mode consumers
+			// Skip Svelte's internal keys such as `$$slots`
 			if (key.startsWith('$$')) continue;
 			if (!VALID_DIMENSION_PROPS.has(key) && !warnedProps.has(key)) {
 				warnedProps.add(key);
@@ -168,9 +167,10 @@
 		}
 	});
 
-	// What the user literally passed us. The context reports finished values –
-	// `k.xDomain` is post-`.nice()`, with any nulls filled in from the data – so
-	// this is where you look for the original request.
+	// The accessor, domain and range props exactly as the user passed them.
+	// The context's own values are the finished versions. For example `k.xDomain`
+	// has `.nice()` applied and any nulls filled in from the data. `k.config` is
+	// where you look for what was originally asked for.
 	const config = $derived.by(() => {
 		/** @type {Object.<string, any>} */
 		const obj = {};
@@ -191,19 +191,19 @@
 	const width = $derived(containerWidth - padding.left - padding.right);
 	const height = $derived(containerHeight - padding.top - padding.bottom);
 
-	// An effect, not a derived, because a derived only runs when something reads
-	// it. A chart whose children never touch `width` or `height` would skip the
-	// warning – and that's the broken chart we most want to catch.
+	// This is an effect and not a derived because a derived only runs when
+	// something reads it. A chart whose children never read `width` or `height`
+	// would never warn. That is exactly the broken chart we want to catch.
 	$effect(() => {
 		if (verbose === true) {
 			warnEmptySize_debounced(width, height);
 		}
 	});
 
-	// The data prop that dimensions measure their extents from. Reading this throws the
-	// moment measuring is attempted on something that isn't a list.
-	// Blame the prop that actually supplied the rows – `flatData` when it's
-	// set, `data` otherwise – matching the `flatDataProp || data` fallback above.
+	// The rows each dimension measures its min and max from. Reading this throws
+	// if the rows aren't an array. The error names the prop that supplied the
+	// rows. That is `flatData` when it's set and `data` otherwise, the same
+	// fallback as above.
 	const measurableData = $derived.by(() => {
 		if (!Array.isArray(flatData)) {
 			throw new TypeError(
@@ -213,9 +213,9 @@
 		return flatData;
 	});
 
-	// Create one reactive entry per dimension. `scales` looks entries up lazily
-	// so a nested dimension's default range can read its sibling's finished
-	// scale after every entry exists.
+	// One reactive entry per dimension. `scales` is built before any dimension
+	// exists, so each entry is a getter that looks the dimension up when a range
+	// function asks for it. That's how x2's default range reads the x scale.
 	/** @type {Object.<string, ReturnType<typeof createDimension>>} */
 	const dims = {};
 	/** @type {Object.<string, Function|undefined>} */
@@ -250,9 +250,9 @@
 		dims[dimension.name] = createDimension(dimension, dimPropsByKey, dimensionCtx);
 	}
 
-	// The public `extents` is assembled from the per-dimension measurements
-	// in createDimension, where each dimension only rescans the data for its own
-	// changes.
+	// `k.extents` collects what each dimension measured. Each dimension measures
+	// on its own, so changing the x accessor rescans the data for x only and not
+	// for y, z and the rest.
 	const extents = $derived.by(() => {
 		/** @type {Object.<string, Array<any>>} */
 		const obj = {};
@@ -263,10 +263,10 @@
 		return obj;
 	});
 
-	// Assemble the context. Every property is a getter into reactive state
-	// so child components read live values as `k.width`, `k.xGet(d)` etc.
-	// The cast is up front because the object starts empty and the
-	// defineProperties calls below fill in every key the type promises.
+	// Build the context. Every property is a getter into reactive state so
+	// child components always read the live value as `k.width`, `k.xGet(d)` etc.
+	// The object starts empty and the defineProperties calls below fill in every
+	// key, so the type cast happens here at the start.
 	const context = /** @type {LayerCakeContext} */ (/** @type {unknown} */ ({}));
 	Object.defineProperties(context, {
 		width: { get: () => width, enumerable: true },
@@ -284,23 +284,22 @@
 		config: { get: () => config, enumerable: true }
 	});
 
-	// Every dimension gets keys, even unused ones. This loop runs once at setup
-	// with no second pass. For example, if we didn't add an unpassed prop `c` here,
-	// that would mean `cGet` never exists – even if the user starts passing `c` later.
-	// Unused ones return `undefined`.
+	// Every dimension gets its context keys, even ones the user hasn't set. This
+	// loop runs once at setup and never again. If we skipped `c` because no `c`
+	// prop was passed, `k.cGet` would never exist, even after the user passes
+	// `c` later. Keys for unused dimensions return `undefined`.
 	for (const dimension of DIMENSIONS) {
 		const name = dimension.name;
-		// `dims` is populated by now, so we can hold the object directly rather than
-		// looking it up inside each getter the way `scales` up top has to.
+		// `dims` is filled in by now, so each getter can hold its dimension directly
 		const dim = /** @type {Object.<string, any>} */ (dims[name]);
 		/** @type {PropertyDescriptorMap} */
 		const descriptors = {};
 		for (const family of FAMILIES_BY_DIMENSION[name]) {
 			const stateKey = family.stateKey;
-			// A family whose stateKey doesn't exist on the dimension state
-			// object would otherwise ship a context key that is silently undefined.
-			// The getters exist even while their values are undefined, so
-			// `in` is the right test.
+			// If the registry points at a key the dimension state doesn't have, the
+			// context key would exist but always be undefined, with no error. Fail
+			// loudly instead. `in` is the right check because the state's getters
+			// exist even while their values are undefined.
 			if (!(stateKey in dim)) {
 				throw new Error(
 					`[LayerCake] The '${family.suffix || 'accessor'}' key family points at '${stateKey}', which doesn't exist on the dimension state object. Fix the stateKey in settings/dimensions.js or add the value in state/dimension.svelte.js.`
@@ -329,8 +328,8 @@
 				},
 				activeDimensions: []
 			};
-			// Every active dimension prints, including ones configured via
-			// their scale or domain prop with no accessor
+			// Print every active dimension, including ones set up with only a
+			// scale or domain prop and no accessor
 			for (const dimension of DIMENSIONS) {
 				const dim = dims[dimension.name];
 				if (dim.active !== true) continue;

@@ -9,7 +9,7 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/fruit.csv';
 
-	// Set what is our x key to separate it from the other series
+	// Name the x field so it can be told apart from the series fields
 	const xKey = 'month';
 	const yKey = 'value';
 	const cKey = 'key';
@@ -23,7 +23,8 @@
 		return {
 			key,
 			values: data.map(d => {
-				// Put this in a conditional so that we don't recast the data on second render
+				// Only parse the date if it's still a string. This can run again on a
+				// rerender. Parsing an already parsed Date returns null.
 				d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey];
 				return {
 					key,
@@ -34,8 +35,8 @@
 		};
 	});
 
-	// Make a flat array of the `values` of our nested series
-	// we can pluck the `value` field from each item in the array to measure extents
+	// Flatten the nested series into one list of points. Layer Cake measures
+	// the extents from that.
 	const flatten = data =>
 		data.reduce((memo, group) => {
 			return memo.concat(group.values);

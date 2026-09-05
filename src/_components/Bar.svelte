@@ -15,11 +15,12 @@
 	/** @type {Props} */
 	let { fill } = $props();
 
-	// The `fill` prop wins, then the `c` scale's color, then the fallback
+	// Use the `fill` prop if there is one, then the `c` scale's color, then the default
 	let getFill = $derived(/** @param {any} d */ d => fill ?? k.cGet?.(d) ?? '#00bbff');
 
-	// Bars start at zero and run out to their value, so negative ones run the
-	// other way. Make sure zero is in your xDomain or this lands off the chart.
+	// Each bar starts at zero and runs out to its value, so a negative value
+	// runs the other way. Keep zero inside your xDomain, or bars will be drawn
+	// outside the chart.
 	let zeroX = $derived(k.xScale(0));
 </script>
 

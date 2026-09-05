@@ -1,17 +1,18 @@
 import partialDomain from '../utils/partialDomain.js';
 
 /**
- * Calculate a dimension's domain from its best-known extent and the
- * user-passed `[name]Domain` prop, which can be a partial domain with
- * `null` values to be filled in from the extent or a function that
+ * Work out a dimension's domain from the measured extent and the user's
+ * `[name]Domain` prop. The prop can be a full domain, a partial one with
+ * `null` placeholders that get filled in from the extent, or a function that
  * receives the extent and returns a domain.
- * @param {Array<any>|undefined} extent The best-known domain: the extent measured from the data when one exists, otherwise the scale's own current domain. See the `domain` derived in state/dimension.svelte.js for how the fallback is chosen.
- * @param {any} domain The user-passed `[name]Domain` prop – a partial or complete domain array or a function that receives the extent.
- * @returns {Array<any>|undefined} The domain, or undefined when there is neither an extent nor a user-passed domain, so the scale's own domain is preserved.
+ * @param {Array<any>|undefined} extent The extent measured from the data. When nothing was measured, this is the scale's own domain instead. See `extent` and `fallbackDomain` in state/dimension.svelte.js.
+ * @param {any} domain The user-passed `[name]Domain` prop: a full or partial domain array, or a function that receives the extent.
+ * @returns {Array<any>|undefined} The domain. Undefined when there is neither an extent nor a user domain, which keeps the scale's own domain.
  */
 export default function calcDomain(extent, domain) {
 	if (typeof domain === 'function') {
-		// `extent` is always a real domain here
+		// `extent` is always a real array here, even when nothing was measured.
+		// See `fallbackDomain` in state/dimension.svelte.js.
 		domain = domain(extent);
 	}
 	if (extent === undefined && domain === undefined) {

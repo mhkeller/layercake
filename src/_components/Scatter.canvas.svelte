@@ -27,10 +27,8 @@
 		const context = canvasCtx.ctx;
 
 		/**
-		 * If you were to have multiple canvas layers
-		 * maybe for some artistic layering purposes
-		 * put these reset functions in the first layer, not each one
-		 * since they should only run once per update
+		 * If you stack several canvas layers, put these two reset calls in the
+		 * first layer only. They should run once per update, not once per layer.
 		 */
 		scaleCanvas(context, k.width, k.height);
 		context.clearRect(0, 0, k.width, k.height);

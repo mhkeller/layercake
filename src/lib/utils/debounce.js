@@ -13,8 +13,8 @@ const debounce = (func, timeout = 300) => {
 			func.apply(this, args);
 		}, timeout);
 	};
-	// Without a cancel, a timer scheduled just before a chart unmounts
-	// would still fire and log for a component that no longer exists
+	// `cancel` drops a pending call. A chart calls it when it unmounts so a
+	// timer set just before doesn't fire for a chart that's gone.
 	debounced.cancel = () => clearTimeout(timer);
 	return debounced;
 };

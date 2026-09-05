@@ -15,13 +15,13 @@
 
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
 
-	// `x2="fruit"` is the whole setup for the within-group position: x2 is a
-	// scaleBand by default, its domain comes from the data, and its range is one
-	// x band wide. Pass `x2Scale` if you want to customize the padding, such as:
+	// `x2="fruit"` is all it takes to position columns within each group. x2 is
+	// a scaleBand by default. Its domain comes from the data and its range is
+	// one x band wide. Pass `x2Scale` to customize the padding, for example:
 	// x2Scale={scaleBand().paddingInner(0.1).round(true)}
 
-	// Alternatively, the same chart works without `x2`
-	// by deriving a scale inside your component:
+	// The same chart also works without `x2` if you build the scale inside
+	// your component:
 	// const x2Scale = $derived(scaleBand().domain(fruits).range([0, k.xScale.bandwidth()]));
 </script>
 

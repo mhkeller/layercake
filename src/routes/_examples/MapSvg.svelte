@@ -64,7 +64,7 @@
 		<Html pointerEvents={false}>
 			{#if tooltipFeature !== null && tooltipEvent !== null}
 				<Tooltip event={tooltipEvent}>
-					<!-- For the tooltip, do another data join because the hover event only has the data from the geography data -->
+					<!-- The hover event only carries the map feature, so look up the matching data row again for the tooltip -->
 					{@const tooltipData = {
 						...tooltipFeature,
 						...dataLookup.get(tooltipFeature[mapJoinKey])

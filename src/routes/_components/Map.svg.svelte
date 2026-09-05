@@ -23,8 +23,8 @@
 	});
 
 	geojson.features.forEach(d => {
-		// This will overwrite any existing keys on d.properties
-		// so watch out for any name collision
+		// This copies the row's fields onto d.properties. A field with the same
+		// name as a map property silently replaces it.
 		Object.assign(d.properties, dataLookup.get(d.properties[joinKey]));
 	});
 

@@ -1,3 +1,5 @@
+import { bin as d3Bin } from 'd3-array';
+
 /**
  * Bins and counts your data.
  * A wrapper around [d3-array#bin](https://github.com/d3/d3-array#bin)
@@ -46,25 +48,14 @@
  * @param {number | number[] | ((values: number[]) => number[])} [options.thresholds] - Optional. The thresholds passed to `bin.thresholds()`, otherwise computed automatically.
  * @returns {Array<T[] & { x0: number; x1: number }>} An array of bin arrays, where each bin extends Array<T> and has x0 and x1 properties
  */
-import { bin as d3Bin } from 'd3-array';
-
-/**
- * @template T
- * @param {T[]} data - The data to be binned.
- * @param {string | number | ((d: T) => number) | null} [value] - Optional. An accessor function passed to `bin.value()`. If this is a string or number, it will be transformed into an accessor for that key.
- * @param {object} [options={}] - Options object
- * @param {Array<number>} [options.domain] - Optional. The domain passed to `bin.domain()` – anything two-numbers-like works, including d3's `extent()` output. Pass in your own domain if you'd like, otherwise computed automatically.
- * @param {number | number[] | ((values: number[]) => number[])} [options.thresholds] - Optional. The thresholds passed to `bin.thresholds()`, otherwise computed automatically.
- * @returns {Array<T[] & { x0: number; x1: number }>} An array of bin arrays, where each bin extends Array<T> and has x0 and x1 properties
- */
 export default function bin(data, value, { domain, thresholds } = {}) {
 	if (typeof data !== 'object') {
 		throw new TypeError('The first argument of bin() must be an array or data object');
 	}
 
-	// `any` because d3's chained setters look, to the checker, like they
-	// return the accessor rather than the generator – following that inference
-	// loses `.domain()`/`.thresholds()` after the first chained call
+	// Typed `any` because TypeScript thinks d3's chained setters return the
+	// accessor instead of the bin generator. With that type, `.domain()` and
+	// `.thresholds()` would be errors after the first chained call.
 	/** @type {any} */
 	let hist = d3Bin();
 

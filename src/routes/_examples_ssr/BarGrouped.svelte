@@ -15,9 +15,9 @@
 
 	const seriesColors = ['#f0c', '#0cf', '#fc0'];
 
-	// The y2 range comes from the y scale's bandwidth, so under `percentRange`
-	// the nested offsets land in percent units too, same as everything else
-	// inside the ScaledSvg.
+	// The y2 range is one band of the y scale. With `percentRange` on, that
+	// band is in percent, so the bars inside each group use the same units as
+	// everything else in the ScaledSvg.
 </script>
 
 <div class="chart-container">

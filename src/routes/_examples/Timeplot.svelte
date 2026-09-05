@@ -26,13 +26,14 @@
 		return d;
 	});
 
-	// Generate a range of days in between the min and max
-	// in case we are missing any in our data so we can show empty days for them
+	// Make a list of every day between the min and max, so days missing from
+	// the data still show up as empty
 	const extents = calcExtents(daysTransformed, {
 		x: d => d.timestring
 	});
 
-	// Convert to string even though it is one to make Typescript happy
+	// The value is already a string. Its type is `any` though, so calling
+	// toString() gives TypeScript a string to call split on.
 	const minDate = extents.x[0]
 		.toString()
 		.split('T')[0]

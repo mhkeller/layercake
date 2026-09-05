@@ -18,8 +18,8 @@
 	/** @type {Props} */
 	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
-	// y2 drives this chart but is optional in the types – fall back to a
-	// zero-height bar rather than crashing when it's missing
+	// This chart needs the y2 scale. A chart might not set one, so fall back
+	// to a zero-height bar instead of crashing.
 	let barHeight = $derived.by(() => {
 		const scale = k.y2Scale;
 		if (scale?.bandwidth) return scale.bandwidth();
@@ -27,8 +27,9 @@
 		return Math.abs(range[1] - range[0]);
 	});
 
-	// Bars start at zero and run out to their value, so negative ones run the
-	// other way. Make sure zero is in your xDomain or this lands off the chart.
+	// Each bar starts at zero and runs out to its value, so a negative value
+	// runs the other way. Keep zero inside your xDomain, or bars will be drawn
+	// outside the chart.
 	let zeroX = $derived(k.xScale(0));
 </script>
 
@@ -51,7 +52,7 @@
 			stroke-width={strokeWidth}
 		/>
 		{#if showLabels && xValue}
-			<!-- Sit the number just past the far end of the bar, on whichever side that is -->
+			<!-- Put the number just past the far end of the bar: right of a positive bar and left of a negative one -->
 			<text
 				x={valueX < zeroX ? valueX - 4 : valueX + 4}
 				y={yPos + barHeight / 2}

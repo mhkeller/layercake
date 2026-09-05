@@ -46,10 +46,8 @@
 		spacing = 0
 	} = $props();
 
-	// This component will automatically group your data
-	// into one group if no `parentKey` was passed in.
-	// Stash k.data here so we can add our own parent
-	// if there's no `parentKey`
+	// If no `parentKey` was passed in, every row gets put under one made-up
+	// parent called 'all'. That parent is added to a copy of the data here.
 	let parent = $derived(parentKey !== undefined ? {} : { [idKey]: 'all' });
 	let dataset = $derived(parentKey !== undefined ? k.data : [...k.data, parent]);
 
@@ -124,7 +122,7 @@
 	.circle {
 		transform: translate(-50%, -50%);
 	}
-	/* Hide the root node if we want, useful if we are creating our own root */
+	/* Hide the made-up 'all' root circle when the component created it */
 	.circle-pack[data-has-parent-key='false'] .circle-group[data-id='all'] {
 		display: none;
 	}

@@ -14,7 +14,7 @@
 	// This example loads csv data as json using @rollup/plugin-dsv
 	import data from '../../_data/fruit.csv';
 
-	// Set what is our x key to separate it from the other series
+	// Name the x field so it can be told apart from the series fields
 	const xKey = 'month';
 	const yKey = 'value';
 	const cKey = 'fruit';

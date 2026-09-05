@@ -44,7 +44,7 @@
 		{#snippet children(k)}
 			<Svg>
 				<AxisX baseline format={addCommas} tickMarks />
-				<!-- The Beeswarm component transforms the data and nests our original fields under `data` so access the `titleKey` under that -->
+				<!-- The Beeswarm component keeps each original row under `data`, so read `titleKey` from there -->
 				<Beeswarm r={k.width < 400 ? r / 1.6 : r} spacing={1} getTitle={d => d[titleKey]} />
 			</Svg>
 

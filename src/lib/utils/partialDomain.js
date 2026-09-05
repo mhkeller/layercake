@@ -1,9 +1,8 @@
 /**
-	If we have a domain from settings (the directive), fill in
-	any null or undefined values with ones from our measured extents
-	otherwise, return the measured extent
-	@param {number[]} domain A two-value array of numbers
-	@param {number[]} directive A two-value array of numbers that will have any nulls filled in from the `domain` array
+	Fill in any null or undefined values in the user's domain with the measured
+	extent. If the user didn't pass a domain, return the measured extent.
+	@param {number[]} domain The measured extent, a two-value array of numbers
+	@param {number[]} directive The user's domain. Any nulls in it get filled in from `domain`
 	@returns {number[]} The filled in domain
 */
 export default function partialDomain(domain = [], directive) {

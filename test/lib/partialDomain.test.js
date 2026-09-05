@@ -27,6 +27,20 @@ const tests = [
 			[null, 2]
 		],
 		expected: [0, 2]
+	},
+	{
+		args: [
+			[0, 1],
+			[undefined, 2]
+		],
+		expected: [0, 2]
+	},
+	{
+		args: [
+			[0, 1],
+			[undefined, undefined]
+		],
+		expected: [0, 1]
 	}
 ];
 

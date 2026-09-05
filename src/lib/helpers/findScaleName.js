@@ -1,4 +1,6 @@
 import arraysEqual from '../utils/arraysEqual.js';
+import hasBandwidth from '../utils/hasBandwidth.js';
+import findScaleType from './findScaleType.js';
 import t from '../helpers/toTitleCase.js';
 
 /**
@@ -22,7 +24,7 @@ export default function findScaleName(scale) {
 	 * Ordinal scales
 	 */
 	// scaleBand, scalePoint
-	if (typeof scale.bandwidth === 'function') {
+	if (hasBandwidth(scale)) {
 		if (typeof scale.paddingInner === 'function') {
 			return f('band');
 		}
@@ -54,17 +56,10 @@ export default function findScaleName(scale) {
 	if (scale.thresholds) {
 		return f('quantize', modifier);
 	}
-	if (scale.constant) {
-		return f('symlog', modifier);
-	}
-	if (scale.base) {
-		return f('log', modifier);
-	}
-	if (scale.exponent) {
-		if (scale.exponent() === 0.5) {
-			return f('sqrt', modifier);
-		}
-		return f('pow', modifier);
+	// findScaleType runs the same symlog/log/sqrt/pow probes – one copy
+	const type = findScaleType(scale);
+	if (type !== 'other') {
+		return f(type, modifier);
 	}
 
 	if (arraysEqual(Object.keys(scale), ['domain', 'range', 'invertExtent', 'unknown', 'copy'])) {

@@ -42,7 +42,7 @@
  * @param {T[]} data - The data to be binned.
  * @param {string | number | ((d: T) => number) | null} [value] - Optional. An accessor function passed to `bin.value()`. Defaults to an identity function. If this is a string or number, it will be transformed into an accessor for that key.
  * @param {Object} [options={}] - Options object
- * @param {[number, number]} [options.domain] - Optional. The domain passed to `bin.domain()`. Pass in your own domain if you'd like, otherwise computed automatically.
+ * @param {Array<number>} [options.domain] - Optional. The domain passed to `bin.domain()` – anything two-numbers-like works, including d3's `extent()` output. Pass in your own domain if you'd like, otherwise computed automatically.
  * @param {number | number[] | ((values: number[]) => number[])} [options.thresholds] - Optional. The thresholds passed to `bin.thresholds()`, otherwise computed automatically.
  * @returns {Array<T[] & { x0: number; x1: number }>} An array of bin arrays, where each bin extends Array<T> and has x0 and x1 properties
  */
@@ -53,7 +53,7 @@ import { bin as d3Bin } from 'd3-array';
  * @param {T[]} data - The data to be binned.
  * @param {string | number | ((d: T) => number) | null} [value] - Optional. An accessor function passed to `bin.value()`. If this is a string or number, it will be transformed into an accessor for that key.
  * @param {object} [options={}] - Options object
- * @param {[number, number]} [options.domain] - Optional. The domain passed to `bin.domain()`. Pass in your own domain if you'd like, otherwise computed automatically.
+ * @param {Array<number>} [options.domain] - Optional. The domain passed to `bin.domain()` – anything two-numbers-like works, including d3's `extent()` output. Pass in your own domain if you'd like, otherwise computed automatically.
  * @param {number | number[] | ((values: number[]) => number[])} [options.thresholds] - Optional. The thresholds passed to `bin.thresholds()`, otherwise computed automatically.
  * @returns {Array<T[] & { x0: number; x1: number }>} An array of bin arrays, where each bin extends Array<T> and has x0 and x1 properties
  */
@@ -62,7 +62,10 @@ export default function bin(data, value, { domain, thresholds } = {}) {
 		throw new TypeError('The first argument of bin() must be an array or data object');
 	}
 
-	// @ts-ignore - d3Bin works with any data type when given a value accessor
+	// `any` because d3's chained setters look, to the checker, like they
+	// return the accessor rather than the generator – following that inference
+	// loses `.domain()`/`.thresholds()` after the first chained call
+	/** @type {any} */
 	let hist = d3Bin();
 
 	if (value) {
@@ -71,17 +74,14 @@ export default function bin(data, value, { domain, thresholds } = {}) {
 			typeof value === 'function'
 				? value
 				: /** @param {T} d */ d => /** @type {number} */ (d[/** @type {keyof T} */ (value)]);
-		// @ts-ignore - the accessor function handles the type conversion
 		hist = hist.value(acc);
 	}
 	if (domain) {
 		hist = hist.domain(domain);
 	}
 	if (thresholds) {
-		// @ts-ignore - d3 accepts multiple threshold types
 		hist = hist.thresholds(thresholds);
 	}
 
-	// @ts-ignore - we know the return type based on our wrapper's behavior
 	return hist(data);
 }

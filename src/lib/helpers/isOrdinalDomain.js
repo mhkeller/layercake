@@ -1,4 +1,5 @@
 import arraysEqual from '../utils/arraysEqual.js';
+import hasBandwidth from '../utils/hasBandwidth.js';
 
 /**
   Determine whether a scale has an ordinal domain
@@ -8,8 +9,7 @@ import arraysEqual from '../utils/arraysEqual.js';
  */
 export default function isOrdinalDomain(scale) {
 	// scaleBand, scalePoint
-	// @ts-ignore
-	if (typeof scale.bandwidth === 'function') {
+	if (hasBandwidth(scale)) {
 		return true;
 	}
 	// scaleOrdinal

@@ -1,31 +1,50 @@
+/**
+ * What Layer Cake knows about its dimensions, written down as data.
+ *
+ * Two tables do the work. `DIMENSIONS` lists the eight dimensions and what
+ * makes each one different – its default scale, its default range, whether
+ * `percentRange` reaches it. `DIMENSION_KEY_FAMILIES` lists the suffixes every
+ * dimension repeats, turning `x` into `xDomain`, `xScale`, `xRange` and the
+ * rest.
+ *
+ * Everything downstream is built by looping over those two: the component's
+ * props, the context keys children read, the published types and the guide's
+ * per-dimension sections. So adding a dimension means adding an entry here and
+ * running `pnpm generate:dims` – there is no second place to update.
+ */
 import { scaleLinear, scaleSqrt, scaleBand, scaleOrdinal } from 'd3-scale';
 
 import hasBandwidth from '../utils/hasBandwidth.js';
-import isOrdinalDomain from '../helpers/isOrdinalDomain.js';
 import nestedRange from '../helpers/nestedRange.js';
 
 /**
- * The values available to a dimension's default range function. Every
- * property is a lazy getter – read only what the range needs.
+ * The values available to a dimension's range function – the defaults below and
+ * user-passed `[name]Range` functions alike. Built per dimension in
+ * createScale.js, and every property is a lazy getter, so a range only depends
+ * on the values it actually reads.
  * @typedef {Object} DimensionRangeContext
  * @property {number} width The calculated chart width, i.e. the container width minus padding.
  * @property {number} height The calculated chart height, i.e. the container height minus padding.
  * @property {boolean} percentRange Whether the container-relative dimensions are measuring in percent rather than pixels.
- * @property {Object.<string, any>} scales The computed scales of sibling dimensions, e.g. `scales.x`. Only nested dimensions such as `x2` should reference siblings – a dimension referencing its own scale would create a cycle.
+ * @property {number} rangeWidth The chart's width in the units ranges are measured in: `100` when `percentRange` is on, the pixel `width` otherwise.
+ * @property {number} rangeHeight The chart's height in the units ranges are measured in: `100` when `percentRange` is on, the pixel `height` otherwise.
+ * @property {Object.<string, any>} scales The computed scales of sibling dimensions, e.g. `scales.x`. The dimension's own scale is deliberately absent – a range helps build that scale, so reading it back would be circular.
  */
 
 /**
  * @typedef {Object} Dimension
  * @property {string} name The dimension's name. Its props are derived from it, e.g. `x` -> `xScale`, `xDomain`...
+ * @property {string} [parent] The dimension this one nests inside by default, e.g. `x2` nests in `x`. Read by the doc generator and by the nested default range.
+ * @property {boolean} [isPrimary] Whether docs describe this dimension with the full classic x/y/z/r prose rather than the shorter secondary-dimension prose. Also decides which context keys drop their `|undefined` type (see generateDimensionDocs.js).
  * @property {Function} defaultScale An uninstantiated D3 scale factory used when the user doesn't pass a `[name]Scale` prop.
  * @property {(ctx: DimensionRangeContext) => Array<any>} defaultRange Returns the default range.
  * @property {(ctx: { scale: any }) => boolean} [defaultReverse] Dynamic default for `[name]Reverse`, receiving the user-passed scale prop (or undefined). Only consulted when the feature is enabled and the user didn't set the prop.
  * @property {boolean} canBePercentRange Whether the global `percentRange` prop applies to this dimension, replacing its default range with `[0, 100]`. Only sensible for spatial, container-relative ranges – bandwidth-based (`x2`, `y2`) and color (`c`, `c2`) ranges opt out.
- * @property {{ nice?: boolean, padding?: boolean, reverse?: boolean, domainSort?: boolean }} features Enables the key families that don't apply to every dimension (`Nice`, `Padding`, `Reverse`, `DomainSort`), keyed by the family's `familyStateKey`, e.g. `DomainSort` -> `domainSort`. The accessor, `Domain`, `Scale`, `Range` and `Get` apply to every dimension and need no entry.
+ * @property {{ nice?: boolean, padding?: boolean, reverse?: boolean }} features Enables the key families that don't apply to every dimension (`Nice`, `Padding`, `Reverse`), keyed by the family's `stateKey`. The accessor, `Domain`, `Scale`, `Range`, `Get` and `DomainSort` apply to every dimension and need no entry.
  */
 
 /** The full feature set, shared by x, y, z and r. */
-const ALL_FEATURES = Object.freeze({ nice: true, padding: true, reverse: true, domainSort: true });
+const ALL_FEATURES = Object.freeze({ nice: true, padding: true, reverse: true });
 
 /** The default `c` range: d3's `schemeCategory10`, hardcoded to avoid a d3-scale-chromatic dependency. */
 export const CATEGORICAL_COLORS = Object.freeze([
@@ -42,7 +61,7 @@ export const CATEGORICAL_COLORS = Object.freeze([
 ]);
 
 /**
- * The registry of every dimension LayerCake knows about. All per-dimension
+ * Every dimension Layer Cake knows about. All per-dimension
  * behavior differences live here as data – the code paths that consume these
  * entries are identical for every dimension.
  * @type {Array<Dimension>}
@@ -50,6 +69,7 @@ export const CATEGORICAL_COLORS = Object.freeze([
 export const DIMENSIONS = [
 	{
 		name: 'x',
+		isPrimary: true,
 		defaultScale: scaleLinear,
 		defaultRange: ctx => [0, ctx.width],
 		canBePercentRange: true,
@@ -57,6 +77,7 @@ export const DIMENSIONS = [
 	},
 	{
 		name: 'y',
+		isPrimary: true,
 		defaultScale: scaleLinear,
 		defaultRange: ctx => [0, ctx.height],
 		// Unless the user says otherwise, flip the y-range so the axis grows
@@ -67,6 +88,7 @@ export const DIMENSIONS = [
 	},
 	{
 		name: 'z',
+		isPrimary: true,
 		defaultScale: scaleLinear,
 		defaultRange: ctx => [0, ctx.width],
 		canBePercentRange: true,
@@ -74,6 +96,7 @@ export const DIMENSIONS = [
 	},
 	{
 		name: 'r',
+		isPrimary: true,
 		defaultScale: scaleSqrt,
 		defaultRange: () => [1, 25],
 		canBePercentRange: true,
@@ -81,39 +104,45 @@ export const DIMENSIONS = [
 	},
 	{
 		name: 'x2',
+		parent: 'x',
 		defaultScale: scaleBand,
-		defaultRange: ctx => nestedRange(ctx.scales.x, ctx.percentRange === true ? 100 : ctx.width),
+		// One band of the parent scale, or the whole chart when x has no bands to
+		// measure. `rangeWidth` already accounts for percent mode, so the
+		// fallback lands in the same units as every other range on the chart.
+		defaultRange: ctx => nestedRange(ctx.scales.x, ctx.rangeWidth),
 		canBePercentRange: false,
-		features: { domainSort: true }
+		features: {}
 	},
 	{
 		name: 'y2',
+		parent: 'y',
 		defaultScale: scaleBand,
-		defaultRange: ctx => nestedRange(ctx.scales.y, ctx.percentRange === true ? 100 : ctx.height),
+		defaultRange: ctx => nestedRange(ctx.scales.y, ctx.rangeHeight),
 		canBePercentRange: false,
-		features: { domainSort: true }
+		features: {}
 	},
 	{
 		name: 'c',
 		defaultScale: scaleOrdinal,
 		defaultRange: () => [...CATEGORICAL_COLORS],
 		canBePercentRange: false,
-		features: { domainSort: true }
+		features: {}
 	},
 	{
 		name: 'c2',
 		defaultScale: scaleLinear,
 		defaultRange: () => [0, 1],
 		canBePercentRange: false,
-		features: { domainSort: true }
+		features: {}
 	}
 ];
 
 /**
  * @typedef {Object} DimensionKeyFamily
  * @property {string} suffix Appended to the dimension name to form the prop and context key, e.g. `x` + `Domain` -> `xDomain`. The empty string is the accessor itself.
+ * @property {string} stateKey The key on the dimension state object (see `state/dimension.svelte.js`) holding this family's computed value.
  * @property {boolean} isProp Whether users can pass this family as a component prop. Only `Get` can't be – it is computed, so it exists solely on the context.
- * @property {boolean} appliesToAllDimensions Whether the family applies to every dimension. Families that don't are enabled per dimension in its `features` object, looked up by the family's `familyStateKey`.
+ * @property {boolean} appliesToAllDimensions Whether the family applies to every dimension. Families that don't are enabled per dimension in its `features` object, looked up by the family's `stateKey`.
  * @property {boolean} addToConfig Whether the user-passed prop is also copied onto the context's read-only `config` object.
  */
 
@@ -125,29 +154,74 @@ export const DIMENSIONS = [
  * @type {Array<DimensionKeyFamily>}
  */
 export const DIMENSION_KEY_FAMILIES = [
-	{ suffix: '', isProp: true, appliesToAllDimensions: true, addToConfig: true },
-	{ suffix: 'Domain', isProp: true, appliesToAllDimensions: true, addToConfig: true },
-	{ suffix: 'Scale', isProp: true, appliesToAllDimensions: true, addToConfig: false },
-	{ suffix: 'Range', isProp: true, appliesToAllDimensions: true, addToConfig: true },
-	{ suffix: 'Get', isProp: false, appliesToAllDimensions: true, addToConfig: false },
-	{ suffix: 'Nice', isProp: true, appliesToAllDimensions: false, addToConfig: false },
-	{ suffix: 'Padding', isProp: true, appliesToAllDimensions: false, addToConfig: false },
-	{ suffix: 'Reverse', isProp: true, appliesToAllDimensions: false, addToConfig: false },
-	{ suffix: 'DomainSort', isProp: true, appliesToAllDimensions: false, addToConfig: false }
+	// `stateKey` is written out per row rather than computed from the
+	// suffix, so this table reads exactly like the state object it maps to
+	{
+		suffix: '',
+		stateKey: 'accessor',
+		isProp: true,
+		appliesToAllDimensions: true,
+		addToConfig: true
+	},
+	{
+		suffix: 'Domain',
+		stateKey: 'domain',
+		isProp: true,
+		appliesToAllDimensions: true,
+		addToConfig: true
+	},
+	{
+		suffix: 'Scale',
+		stateKey: 'scale',
+		isProp: true,
+		appliesToAllDimensions: true,
+		addToConfig: false
+	},
+	{
+		suffix: 'Range',
+		stateKey: 'range',
+		isProp: true,
+		appliesToAllDimensions: true,
+		addToConfig: true
+	},
+	{
+		suffix: 'Get',
+		stateKey: 'get',
+		isProp: false,
+		appliesToAllDimensions: true,
+		addToConfig: false
+	},
+	{
+		suffix: 'Nice',
+		stateKey: 'nice',
+		isProp: true,
+		appliesToAllDimensions: false,
+		addToConfig: false
+	},
+	{
+		suffix: 'Padding',
+		stateKey: 'padding',
+		isProp: true,
+		appliesToAllDimensions: false,
+		addToConfig: false
+	},
+	{
+		suffix: 'Reverse',
+		stateKey: 'reverse',
+		isProp: true,
+		appliesToAllDimensions: false,
+		addToConfig: false
+	},
+	// DomainSort applies to every dimension, so it lives here rather than
+	// in each entry's `features`
+	{
+		suffix: 'DomainSort',
+		stateKey: 'domainSort',
+		isProp: true,
+		appliesToAllDimensions: true,
+		addToConfig: false
+	}
 ];
-
-/**
- * The key on the dimension state object (see `state/dimension.svelte.js`)
- * holding a family's computed value: the suffix with its first letter
- * lowercased, e.g. `DomainSort` -> `domainSort`. The accessor family (the
- * empty suffix) is stored as `accessor`.
- * @param {DimensionKeyFamily} family The key family.
- * @returns {string}
- */
-export function familyStateKey(family) {
-	if (family.suffix === '') return 'accessor';
-	return family.suffix[0].toLowerCase() + family.suffix.slice(1);
-}
 
 /**
  * Whether a dimension supports a key family.
@@ -155,17 +229,20 @@ export function familyStateKey(family) {
  * @param {DimensionKeyFamily} family The key family.
  * @returns {boolean}
  */
-export function dimensionHasFamily(dimension, family) {
+function dimensionHasFamily(dimension, family) {
 	if (family.appliesToAllDimensions === true) return true;
-	// `features` has a fixed set of keys so registry typos fail to compile. This
-	// lookup builds the key at runtime, so widen the type just for this read.
+	// `features` has a fixed set of keys so a typo in an entry above fails to
+	// compile. This
+	// lookup uses the family's stateKey at runtime, so widen the type just for
+	// this read.
 	const features = /** @type {Object.<string, boolean|undefined>} */ (dimension.features);
-	return features[familyStateKey(family)] === true;
+	return features[family.stateKey] === true;
 }
 
 /**
  * The key families each dimension supports, keyed by dimension name.
- * Computed once – both tables are static.
+ * Computed once – both tables are static. This map is the one public answer to
+ * "does x2 have Nice?" – check membership on it.
  * @type {Object.<string, Array<DimensionKeyFamily>>}
  */
 export const FAMILIES_BY_DIMENSION = Object.freeze(
@@ -175,16 +252,7 @@ export const FAMILIES_BY_DIMENSION = Object.freeze(
 );
 
 /**
- * Whether each dimension's default scale measures unique values rather than a
- * min and max, keyed by dimension name.
- * @type {Object.<string, boolean>}
- */
-export const DEFAULT_IS_ORDINAL = Object.freeze(
-	Object.fromEntries(DIMENSIONS.map(d => [d.name, isOrdinalDomain(d.defaultScale())]))
-);
-
-/**
- * Every prop name the registry recognizes – drives the unknown-prop warning.
+ * Every prop name these two tables define – drives the unknown-prop warning.
  * @type {Set<string>}
  */
 export const VALID_DIMENSION_PROPS = new Set(

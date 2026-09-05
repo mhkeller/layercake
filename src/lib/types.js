@@ -14,12 +14,14 @@
  * How you point Layer Cake at a field in your data.
  *
  * - a string looks up that key on each row
- * - a function is called with the row and returns the value
- * - a number is used as the value itself, handy for a constant
+ * - a function is called with the row (and, outside of array form, the row's
+ *   index) and returns the value
+ * - a number looks up that index or key on each row, the same as a string –
+ *   write a constant as a function instead, e.g. `r={() => 5}`
  * - an array does any mix of the above and gives you back an array, which is
  *   what stacked and multi-series charts pass
  *
- * @typedef {string|Function|number|Array<string|Function|number>|undefined} DataAccessor
+ * @typedef {string|number|((d: any, i?: number) => any)|Array<string|number|((d: any) => any)>|undefined} DataAccessor
  */
 
 /**
@@ -32,7 +34,7 @@
  * - a function, which receives the measured domain and returns a replacement –
  *   the usual way to sort one
  *
- * @typedef {[min: number|null, max: number|null]|Array<string|number>|Function|undefined} DimensionDomain
+ * @typedef {[min: number|null, max: number|null]|Array<string|number|null>|((domain: Array<any>) => Array<any>)|undefined} DimensionDomain
  */
 
 /**
@@ -40,10 +42,11 @@
  *
  * - `[min, max]` in pixels
  * - a list of discrete outputs, such as the colors of a `cRange`
- * - a function receiving `({ width, height, scales })` that returns either of
- *   those, so a range can be sized off the chart or off a sibling scale
+ * - a function receiving the chart's measurements, which
+ *   [DimensionRangeContext](./settings/dimensions.js) lists, so a range can be
+ *   sized off the chart or off a sibling scale
  *
- * @typedef {[min: number, max: number]|Function|Array<string|number>|undefined} DimensionRange
+ * @typedef {[min: number, max: number]|Array<string|number>|((ctx: import('./settings/dimensions.js').DimensionRangeContext) => Array<any>)|undefined} DimensionRange
  */
 
 export {};

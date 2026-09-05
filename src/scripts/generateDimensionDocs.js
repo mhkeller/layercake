@@ -1,5 +1,5 @@
 /**
- * Writes the per-dimension documentation from the dimension registry, so
+ * Writes the per-dimension documentation from settings/dimensions.js, so
  * adding a dimension or feature flag updates everything downstream. Four
  * files, in two flavors:
  *
@@ -33,8 +33,15 @@ import { readFileSync, writeFileSync } from 'fs';
 import {
 	DIMENSIONS,
 	DIMENSION_KEY_FAMILIES,
-	dimensionHasFamily
+	FAMILIES_BY_DIMENSION
 } from '../lib/settings/dimensions.js';
+
+// Membership on the per-dimension family lists in settings/dimensions.js is
+// the one
+// way to ask "does x2 have Nice?". Identity-safe – both tables share objects.
+function hasFamily(dimension, family) {
+	return FAMILIES_BY_DIMENSION[dimension.name].includes(family);
+}
 
 /*
  * The three shapes every dimension repeats, named once in src/lib/types.js and
@@ -50,18 +57,22 @@ const DOMAIN_TYPE = 'DimensionDomain';
 const RANGE_TYPE = 'DimensionRange';
 
 /**
- * Per-dimension doc facts that can't be derived from the registry's functions.
+ * Per-dimension doc facts that can't be derived from the dimension entries.
  * Every field is optional – dimensions without an entry get the generic
  * template text, so a brand-new dimension needs none of this to ship.
- * @type {Object.<string, {defaultRangeText?: string, reversedRangeText?: string, parent?: string, chartExample?: string, niceType?: string}>}
+ * exported so test/lib/dimensionsRegistry.test.js can evaluate each
+ * `defaultRange` and assert these strings still describe it – a change in
+ * settings/dimensions.js can't silently leave stale prose in the published types.
+ * Nesting parents live on the dimension entries themselves (`dimension.parent`).
+ * @type {Object.<string, {defaultRangeText?: string, reversedRangeText?: string, chartExample?: string, niceType?: string}>}
  */
-const FACTS = {
+export const FACTS = {
 	x: { defaultRangeText: '[0, width]' },
 	y: { defaultRangeText: '[0, height]', reversedRangeText: '[height, 0]' },
 	z: { defaultRangeText: '[0, width]' },
 	r: { defaultRangeText: '[1, 25]', niceType: 'boolean' },
-	x2: { parent: 'x', chartExample: 'grouped column charts' },
-	y2: { parent: 'y', chartExample: 'grouped bar charts' }
+	x2: { chartExample: 'grouped column charts' },
+	y2: { chartExample: 'grouped bar charts' }
 };
 
 /** Prose that is unique to one dimension and not worth templating. */
@@ -70,7 +81,7 @@ const CUSTOM = {
 		accessor:
 			'The c accessor, a dedicated color dimension. Its domain is computed from the data like any other dimension and its range defaults to a ten-color categorical palette – supply your own colors via `cRange`.',
 		range:
-			"The colors of the c scale, as an array or a function with argument `({ width, height, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.",
+			"The colors of the c scale, as an array or a function with argument `({ width, height, rangeWidth, rangeHeight, percentRange, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.",
 		guideRangeType: 'Array<string|number>|Function',
 		contextAccessor: 'The c (color) accessor.'
 	},
@@ -90,8 +101,9 @@ function defaultScaleName(dimension) {
 }
 
 function isPrimary(dimension) {
-	// Primaries support the full feature set; their docs describe the classic x/y/z/r behavior
-	return dimension.features.nice === true;
+	// The dimension entry says so outright rather than this being inferred
+	// from an unrelated feature flag, so enabling a feature can't silently re-tier docs
+	return dimension.isPrimary === true;
 }
 
 // Prop descriptions, one function per family
@@ -102,8 +114,8 @@ function accessorProp(dim) {
 	let desc;
 	if (custom.accessor) {
 		desc = custom.accessor;
-	} else if (fact.parent) {
-		desc = `The ${n} accessor, for a scale nested inside the ${fact.parent} scale, such as in ${fact.chartExample}. By default its range is the bandwidth of the ${fact.parent} scale.`;
+	} else if (dim.parent) {
+		desc = `The ${n} accessor, for a scale nested inside the ${dim.parent} scale, such as in ${fact.chartExample}. By default its range is the bandwidth of the ${dim.parent} scale.`;
 	} else {
 		desc = `The ${n} accessor. The key in each row of data that corresponds to the ${n}-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context.`;
 	}
@@ -147,17 +159,17 @@ function rangeProp(dim) {
 	const fact = FACTS[n] || {};
 	const custom = CUSTOM[n] || {};
 	if (custom.range) return { type: RANGE_TYPE, desc: custom.range };
-	if (fact.parent) {
+	if (dim.parent) {
 		return {
 			type: RANGE_TYPE,
-			desc: `Override the default ${n} range, which is the bandwidth of the ${fact.parent} scale. Functions receive \`({ width, height, scales })\` where \`scales\` holds the computed sibling scales, e.g. \`${n}Range={({ scales }) => [0, scales.${fact.parent}.bandwidth() / 2]}\`.`
+			desc: `Override the default ${n} range, which is the bandwidth of the ${dim.parent} scale. Functions receive \`({ width, height, rangeWidth, rangeHeight, percentRange, scales })\` where \`scales\` holds the computed sibling scales, e.g. \`${n}Range={({ scales }) => [0, scales.${dim.parent}.bandwidth() / 2]}\`.`
 		};
 	}
 	const reverseNote =
 		dim.features.reverse === true ? ` Setting this prop overrides \`${n}Reverse\`.` : '';
 	return {
 		type: RANGE_TYPE,
-		desc: `Override the default ${n} range of \`${fact.defaultRangeText || 'the chart size'}\` by setting an array or function with argument \`({ width, height, scales })\` that returns an array.${reverseNote} This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).`
+		desc: `Override the default ${n} range of \`${fact.defaultRangeText || 'the chart size'}\` by setting an array or function with argument \`({ width, height, rangeWidth, rangeHeight, percentRange, scales })\` that returns an array.${reverseNote} This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).`
 	};
 }
 
@@ -178,9 +190,12 @@ function reverseProp(dim) {
 
 function domainSortProp(dim) {
 	const n = dim.name;
+	// The ordinal caveat applies to every dimension – sorting only happens
+	// on the unique-values measuring path, so on c2's default linear scale the
+	// prop does nothing
 	const desc = isPrimary(dim)
 		? 'Only used when scale is ordinal. Set whether the calculated unique items come back sorted.'
-		: `Set whether the ${n} scale's calculated unique items come back sorted.`;
+		: `Only used when the scale is ordinal. Set whether the ${n} scale's calculated unique items come back sorted.`;
 	return { type: 'boolean', desc };
 }
 
@@ -219,39 +234,56 @@ const CONTEXT_FAMILY_ORDER = [
 	'DomainSort'
 ];
 
-// Context descriptions, one function per family
+// Context descriptions, one function per family.
+//
+// x, y, z and r are typed as always there. A component reading `k.xScale` is an
+// x component, so warning that it might be missing is only noise. x2, y2, c and
+// c2 stay optional. Components really do ask whether those are set up, the way
+// `k.cGet?.(d)` colors a mark only when there is a c scale to color it with.
+//
+// So these types describe a chart that uses the dimension. On a chart that
+// skips it the value is missing, which each x/y/z/r description says in words.
+/** Says what a key really holds on a chart. */
+function unsetNote(dim, value) {
+	return ` On a chart that never sets \`${dim.name}\`, this is \`${value}\` at runtime.`;
+}
 /** @type {Object.<string, (dim: any) => {type: string, desc: string}>} */
 const CONTEXT_TEMPLATES = {
-	'': dim => ({
-		type: 'Function|null',
-		desc:
+	'': dim => {
+		const desc =
 			(CUSTOM[dim.name] || {}).contextAccessor ||
-			(FACTS[dim.name]?.parent
-				? `The ${dim.name} accessor, for a scale nested inside the ${FACTS[dim.name].parent} scale such as in ${FACTS[dim.name].chartExample}.`
-				: `The ${dim.name} accessor.`)
-	}),
-	// Scales and getters are typed `Scale` rather than `Function|undefined`. Two
-	// reasons: `Function` has no properties, so `k.xScale.ticks()` wouldn't
-	// type-check, and the `|undefined` forced a guard at every call even though a
-	// component reading its own dimension can only run if that dimension is set.
-	// Domain and Range keep their `|undefined` – those are what one dimension
-	// reads off another, where absence is real. See context.js.
+			(dim.parent
+				? `The ${dim.name} accessor, for a scale nested inside the ${dim.parent} scale such as in ${FACTS[dim.name].chartExample}.`
+				: `The ${dim.name} accessor.`);
+		return isPrimary(dim)
+			? { type: 'Accessor', desc: desc + unsetNote(dim, 'null') }
+			: { type: 'Accessor|null', desc };
+	},
+	// Scales are typed `Scale` rather than `Function` because `Function` has no
+	// properties, so `k.xScale.ticks()` wouldn't type-check. See context.js.
 	Scale: dim => ({
-		type: `ScaleFor<S, '${dim.name}'>`,
-		desc: `The computed ${dim.name} scale.`
+		type: isPrimary(dim) ? `ScaleFor<S, '${dim.name}'>` : `ScaleFor<S, '${dim.name}'>|undefined`,
+		desc: `The computed ${dim.name} scale.` + (isPrimary(dim) ? unsetNote(dim, 'undefined') : '')
 	}),
+	// A getter takes a row of data, not a domain value, and carries no
+	// scale methods – so it gets its own type instead of the scale's
 	Get: dim => ({
-		type: `ScaleFor<S, '${dim.name}'>`,
-		desc: `Runs a datum through the ${dim.name} accessor and scale.`
+		type: isPrimary(dim) ? 'Getter' : 'Getter|undefined',
+		desc:
+			`Runs a datum through the ${dim.name} accessor and scale.` +
+			(isPrimary(dim) ? unsetNote(dim, 'undefined') : '')
 	}),
 	Domain: dim => ({
-		type: 'Array<any>|undefined',
+		type: isPrimary(dim) ? 'Array<any>' : 'Array<any>|undefined',
 		desc:
-			dim.features.nice === true
+			(isPrimary(dim)
 				? `The ${dim.name} scale's domain, which may have been modified by \`.nice()\`.`
-				: `The ${dim.name} scale's domain.`
+				: `The ${dim.name} scale's domain.`) + (isPrimary(dim) ? unsetNote(dim, 'undefined') : '')
 	}),
-	Range: dim => ({ type: 'Array<any>|undefined', desc: `The ${dim.name} scale's range.` }),
+	Range: dim => ({
+		type: isPrimary(dim) ? 'Array<any>' : 'Array<any>|undefined',
+		desc: `The ${dim.name} scale's range.` + (isPrimary(dim) ? unsetNote(dim, 'undefined') : '')
+	}),
 	Nice: dim => ({
 		type: (FACTS[dim.name] || {}).niceType || 'boolean|number',
 		desc: `Whether \`.nice()\` was applied to the ${dim.name} domain.`
@@ -287,7 +319,7 @@ export function generatePropLines(prefix) {
 	for (const suffix of PROP_FAMILY_ORDER) {
 		const family = familiesBySuffix[suffix];
 		for (const dimension of DIMENSIONS) {
-			if (family.isProp !== true || !dimensionHasFamily(dimension, family)) continue;
+			if (family.isProp !== true || !hasFamily(dimension, family)) continue;
 			const { type, desc } = PROP_TEMPLATES[suffix](dimension);
 			lines.push(`${prefix}@property {${type}} [${dimension.name}${suffix}] - ${desc}`);
 		}
@@ -305,7 +337,7 @@ export function generateContextLines(prefix) {
 	for (const dimension of DIMENSIONS) {
 		for (const suffix of CONTEXT_FAMILY_ORDER) {
 			const family = familiesBySuffix[suffix];
-			if (!dimensionHasFamily(dimension, family)) continue;
+			if (!hasFamily(dimension, family)) continue;
 			const { type, desc } = CONTEXT_TEMPLATES[suffix](dimension);
 			lines.push(`${prefix}@property {${type}} ${dimension.name}${suffix} ${desc}`);
 		}
@@ -395,11 +427,10 @@ export const GUIDES = [
 				body: dim => {
 					const custom = (CUSTOM[dim.name] || {}).range;
 					if (custom) return custom;
-					const fact = FACTS[dim.name] || {};
 					// A nested dimension's range defaults to its parent's bandwidth, so
 					// "same as xRange" would be actively misleading here
-					if (fact.parent) {
-						return `Same as [xRange](/guide#xrange) but for the ${dim.name} scale, which defaults to the bandwidth of the ${fact.parent} scale. Pass a function to customize it – it receives \`({ width, height, scales })\`, e.g. \`${dim.name}Range={({ scales }) => [0, scales.${fact.parent}.bandwidth() / 2]}\`.`;
+					if (dim.parent) {
+						return `Same as [xRange](/guide#xrange) but for the ${dim.name} scale, which defaults to the bandwidth of the ${dim.parent} scale. Pass a function to customize it, e.g. \`${dim.name}Range={({ scales }) => [0, scales.${dim.parent}.bandwidth() / 2]}\`.`;
 					}
 					return `Same as [xRange](/guide#xrange) but for the ${dim.name} scale.`;
 				}
@@ -475,7 +506,7 @@ export function generateGuideFamily(template, suffix) {
 	const family = familiesBySuffix[suffix];
 	const blocks = [];
 	for (const dimension of DIMENSIONS) {
-		if (dimension.name === 'x' || !dimensionHasFamily(dimension, family)) continue;
+		if (dimension.name === 'x' || !hasFamily(dimension, family)) continue;
 		const name = `${dimension.name}${suffix}`;
 		const heading = template.heading(dimension);
 		// The Get family renders its args inside the heading rather than after it

@@ -47,7 +47,9 @@ export default function printDebug(obj) {
 		console.log(indent, obj.flatData);
 	}
 	console.log('Scales:');
-	Object.keys(obj.activeGetters).forEach(g => {
+	// Print every dimension with a scale, not just the ones with an
+	// accessor – a dimension set up via `yScale`/`yDomain` alone has one too
+	obj.activeDimensions.forEach((/** @type {string} */ g) => {
 		printScale(g, obj[`${g}Scale`], obj[g]);
 	});
 	console.log('/************ End LayerCake Debug ***************/\n');
@@ -65,12 +67,14 @@ function printObject(obj) {
 /**
  * @param {string} s The dimension name, e.g. `'x'`.
  * @param {any} scale The dimension's computed scale.
- * @param {Function} acc The dimension's accessor.
+ * @param {Function|null|undefined} acc The dimension's accessor prop, unset when the dimension was configured by scale or domain alone.
  */
 function printScale(s, scale, acc) {
 	const scaleName = findScaleName(scale);
 	console.log(`${indent}${s}:`);
-	console.log(`${indent}${indent}Accessor: "${acc.toString()}"`);
+	// An accessor-less dimension prints "none" instead of crashing on .toString()
+	const accessorText = acc === null || acc === undefined ? 'none' : `"${acc.toString()}"`;
+	console.log(`${indent}${indent}Accessor: ${accessorText}`);
 	console.log(`${indent}${indent}Type: ${scaleName}`);
 	printValues(scale, 'domain');
 	printValues(scale, 'range', ' ');

@@ -3,26 +3,34 @@
 	Layer Cake component
  -->
 <script>
+	import { onDestroy } from 'svelte';
 	import { setLayerCakeContext } from './context.js';
 	import createDimension from './state/dimension.svelte.js';
 	import {
 		DIMENSIONS,
 		DIMENSION_KEY_FAMILIES,
 		FAMILIES_BY_DIMENSION,
-		VALID_DIMENSION_PROPS,
-		familyStateKey
+		VALID_DIMENSION_PROPS
 	} from './settings/dimensions.js';
 
-	import filterObject from './utils/filterObject.js';
 	import debounce from './utils/debounce.js';
-	import isCompleteDomain from './utils/isCompleteDomain.js';
 
-	import calcScaleExtents from './helpers/calcScaleExtents.js';
 	import printDebug from './helpers/printDebug.js';
-	import createEmptySizeWarner from './helpers/createEmptySizeWarner.js';
+	import warnEmptySize from './helpers/warnEmptySize.js';
 
 	const printDebug_debounced = debounce(printDebug, 200);
-	const warnEmptySize = createEmptySizeWarner();
+	// Debounced at the call site, like the debug printer above. The wait
+	// covers the first run – `bind:clientWidth` reports a tick later, so warning
+	// eagerly would flag every chart with real padding – and each chart gets its
+	// own timer so two charts can't cancel each other's pending warning.
+	const warnEmptySize_debounced = debounce(warnEmptySize, 200);
+
+	// A timer scheduled just before unmount would otherwise still fire and
+	// warn about a chart that no longer exists
+	onDestroy(() => {
+		printDebug_debounced.cancel();
+		warnEmptySize_debounced.cancel();
+	});
 
 	/**
 	 * The shapes the dimension props share, pulled in by name so the typedef
@@ -31,12 +39,13 @@
 	 * @typedef {import('./types.js').DataAccessor} DataAccessor
 	 * @typedef {import('./types.js').DimensionDomain} DimensionDomain
 	 * @typedef {import('./types.js').DimensionRange} DimensionRange
+	 * @typedef {import('./context.js').LayerCakeContext} LayerCakeContext
 	 */
 
 	/**
 	 * The LayerCake props: the static props plus every per-dimension prop
 	 * family (x, xScale, cRange etc.). Every `@property` line from `[x]` down
-	 * to the end of this comment is generated – edit the registry, then run
+	 * to the end of this comment is generated – edit settings/dimensions.js, then run
 	 * `pnpm generate:dims`. No fence markers by design; see
 	 * src/scripts/generateDimensionDocs.js.
 	 * @typedef {Object} Props
@@ -53,7 +62,7 @@
 	 * @property {Object} [custom] - Any extra configuration values you want available on the LayerCake context. This could be useful for color lookups or additional constants.
 	 * @property {boolean} [debug] - Enable debug printing to the console. Useful to inspect your scales and dimensions.
 	 * @property {boolean} [verbose] - Show warnings in the console.
-	 * @property {import('svelte').Snippet<[any]>} [children]
+	 * @property {import('svelte').Snippet<[LayerCakeContext]>} [children]
 	 * @property {DataAccessor} [x] - The x accessor. The key in each row of data that corresponds to the x-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context.
 	 * @property {DataAccessor} [y] - The y accessor. The key in each row of data that corresponds to the y-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context.
 	 * @property {DataAccessor} [z] - The z accessor. The key in each row of data that corresponds to the z-field. This can be a string, an accessor function, a number or an array of any combination of those types. This property gets converted to a function when you access it through the context.
@@ -86,13 +95,13 @@
 	 * @property {Function} [y2Scale] - The D3 scale that should be used for the y2-dimension. Defaults to a `scaleBand()`. A range you customized on the scale you pass in is preserved – set `y2Range` to override it.
 	 * @property {Function} [cScale] - The D3 scale that should be used for the c-dimension. Defaults to a `scaleOrdinal()`. A range you customized on the scale you pass in is preserved – set `cRange` to override it.
 	 * @property {Function} [c2Scale] - The D3 scale that should be used for the c2-dimension. Defaults to a `scaleLinear()`. A range you customized on the scale you pass in is preserved – set `c2Range` to override it.
-	 * @property {DimensionRange} [xRange] - Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height, scales })` that returns an array. Setting this prop overrides `xReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
-	 * @property {DimensionRange} [yRange] - Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height, scales })` that returns an array. Setting this prop overrides `yReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
-	 * @property {DimensionRange} [zRange] - Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height, scales })` that returns an array. Setting this prop overrides `zReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
-	 * @property {DimensionRange} [rRange] - Override the default r range of `[1, 25]` by setting an array or function with argument `({ width, height, scales })` that returns an array. Setting this prop overrides `rReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
-	 * @property {DimensionRange} [x2Range] - Override the default x2 range, which is the bandwidth of the x scale. Functions receive `({ width, height, scales })` where `scales` holds the computed sibling scales, e.g. `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
-	 * @property {DimensionRange} [y2Range] - Override the default y2 range, which is the bandwidth of the y scale. Functions receive `({ width, height, scales })` where `scales` holds the computed sibling scales, e.g. `y2Range={({ scales }) => [0, scales.y.bandwidth() / 2]}`.
-	 * @property {DimensionRange} [cRange] - The colors of the c scale, as an array or a function with argument `({ width, height, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.
+	 * @property {DimensionRange} [xRange] - Override the default x range of `[0, width]` by setting an array or function with argument `({ width, height, rangeWidth, rangeHeight, percentRange, scales })` that returns an array. Setting this prop overrides `xReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
+	 * @property {DimensionRange} [yRange] - Override the default y range of `[0, height]` by setting an array or function with argument `({ width, height, rangeWidth, rangeHeight, percentRange, scales })` that returns an array. Setting this prop overrides `yReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
+	 * @property {DimensionRange} [zRange] - Override the default z range of `[0, width]` by setting an array or function with argument `({ width, height, rangeWidth, rangeHeight, percentRange, scales })` that returns an array. Setting this prop overrides `zReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
+	 * @property {DimensionRange} [rRange] - Override the default r range of `[1, 25]` by setting an array or function with argument `({ width, height, rangeWidth, rangeHeight, percentRange, scales })` that returns an array. Setting this prop overrides `rReverse`. This can also be a list of numbers or strings for scales with discrete ranges like [scaleThreshold](https://github.com/d3/d3-scale#threshold-scales) or [scaleQuantize](https://github.com/d3/d3-scale#quantize-scales).
+	 * @property {DimensionRange} [x2Range] - Override the default x2 range, which is the bandwidth of the x scale. Functions receive `({ width, height, rangeWidth, rangeHeight, percentRange, scales })` where `scales` holds the computed sibling scales, e.g. `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+	 * @property {DimensionRange} [y2Range] - Override the default y2 range, which is the bandwidth of the y scale. Functions receive `({ width, height, rangeWidth, rangeHeight, percentRange, scales })` where `scales` holds the computed sibling scales, e.g. `y2Range={({ scales }) => [0, scales.y.bandwidth() / 2]}`.
+	 * @property {DimensionRange} [cRange] - The colors of the c scale, as an array or a function with argument `({ width, height, rangeWidth, rangeHeight, percentRange, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.
 	 * @property {DimensionRange} [c2Range] - The range of the c2 scale, such as a list of opacity values. Defaults to `[0, 1]`.
 	 * @property {boolean} [xReverse] - Reverse the default x range. By default this is `false` and the range is `[0, width]`. Ignored if you set the `xRange` prop.
 	 * @property {boolean|undefined} [yReverse] - Reverse the default y range. By default this is set dynamically and will be `true` – setting the range to `[height, 0]` – unless the `yScale` has a `.bandwidth` method. Dynamic behavior is overridden if the user sets the prop. Ignored if you set the `yRange` prop.
@@ -102,13 +111,13 @@
 	 * @property {boolean} [yDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
 	 * @property {boolean} [zDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
 	 * @property {boolean} [rDomainSort] - Only used when scale is ordinal. Set whether the calculated unique items come back sorted.
-	 * @property {boolean} [x2DomainSort] - Set whether the x2 scale's calculated unique items come back sorted.
-	 * @property {boolean} [y2DomainSort] - Set whether the y2 scale's calculated unique items come back sorted.
-	 * @property {boolean} [cDomainSort] - Set whether the c scale's calculated unique items come back sorted.
-	 * @property {boolean} [c2DomainSort] - Set whether the c2 scale's calculated unique items come back sorted.
+	 * @property {boolean} [x2DomainSort] - Only used when the scale is ordinal. Set whether the x2 scale's calculated unique items come back sorted.
+	 * @property {boolean} [y2DomainSort] - Only used when the scale is ordinal. Set whether the y2 scale's calculated unique items come back sorted.
+	 * @property {boolean} [cDomainSort] - Only used when the scale is ordinal. Set whether the c scale's calculated unique items come back sorted.
+	 * @property {boolean} [c2DomainSort] - Only used when the scale is ordinal. Set whether the c2 scale's calculated unique items come back sorted.
 	 */
 
-	/** @type {Props & Object.<string, any>} */
+	/** @type {Props} */
 	let {
 		ssr = false,
 		pointerEvents = true,
@@ -133,11 +142,23 @@
 		...dimProps
 	} = $props();
 
+	// The three places below look props up by a name they build as they go,
+	// `x` plus `Domain`, and TypeScript can't check a name like that against the
+	// `Props` typedef above. Those reads go through this alias. Loosening `Props`
+	// itself would also work, but then a typo in someone's own chart – `xDomian`
+	// – would type-check too.
+	const dimPropsByKey = /** @type {Object.<string, any>} */ (dimProps);
+
 	// Warn on unrecognized dimension props so typos don't get silently ignored
 	const warnedProps = new Set();
 	$effect(() => {
 		if (verbose !== true) return;
-		for (const key of Object.keys(dimProps)) {
+		// `Reflect.ownKeys` reads only the key set off Svelte's rest-props
+		// proxy. `Object.keys` also reads every value through the descriptor trap,
+		// which would rerun this scan on every prop-value change for the life of
+		// the chart. A new key appearing later – a growing spread – still reruns it.
+		for (const key of Reflect.ownKeys(dimProps)) {
+			if (typeof key !== 'string') continue;
 			// Skip internal keys such as `$$slots`, added for legacy-mode consumers
 			if (key.startsWith('$$')) continue;
 			if (!VALID_DIMENSION_PROPS.has(key) && !warnedProps.has(key)) {
@@ -157,7 +178,7 @@
 			for (const family of DIMENSION_KEY_FAMILIES) {
 				if (family.addToConfig !== true) continue;
 				const key = `${dimension.name}${family.suffix}`;
-				if (dimProps[key] !== undefined) obj[key] = dimProps[key];
+				if (dimPropsByKey[key] !== undefined) obj[key] = dimPropsByKey[key];
 			}
 		}
 		return Object.freeze(obj);
@@ -175,16 +196,26 @@
 	// warning – and that's the broken chart we most want to catch.
 	$effect(() => {
 		if (verbose === true) {
-			warnEmptySize(width, height);
+			warnEmptySize_debounced(width, height);
 		}
 	});
 
-	// Create one reactive key for each possible dimension.
-	//
-	// `dims` is populated further down, after `extents` exists, but we create it
-	// here because `extents` reads it. Keep that order – moving `extents` below
-	// `dimensionCtx` breaks SSR via a Svelte codegen bug:
-	// https://github.com/sveltejs/svelte/issues/18607
+	// The data prop that dimensions measure their extents from. Reading this throws the
+	// moment measuring is attempted on something that isn't a list.
+	// Blame the prop that actually supplied the rows – `flatData` when it's
+	// set, `data` otherwise – matching the `flatDataProp || data` fallback above.
+	const measurableData = $derived.by(() => {
+		if (!Array.isArray(flatData)) {
+			throw new TypeError(
+				`[LayerCake] Can't measure the extents of your data because ${flatDataProp ? '`flatData`' : '`data`'} is not an array. Pass a flat array of rows to the \`flatData\` prop. More info: https://layercake.graphics/guide/#flatdata`
+			);
+		}
+		return flatData;
+	});
+
+	// Create one reactive entry per dimension. `scales` looks entries up lazily
+	// so a nested dimension's default range can read its sibling's finished
+	// scale after every entry exists.
 	/** @type {Object.<string, ReturnType<typeof createDimension>>} */
 	const dims = {};
 	/** @type {Object.<string, Function|undefined>} */
@@ -196,60 +227,6 @@
 		});
 	}
 
-	// `dims` is still empty on the line above. Fine – a `$derived.by` body doesn't
-	// run where it's written, it runs when something reads it, and by then the
-	// loop below has filled `dims` in.
-	const activeGetters = $derived.by(() => {
-		/** @type {Object.<string, Function>} */
-		const obj = {};
-		for (const dimension of DIMENSIONS) {
-			const accessor = dims[dimension.name].accessor;
-			if (accessor) {
-				obj[dimension.name] = accessor;
-			}
-		}
-		return obj;
-	});
-
-	// Calculate extents by taking the [min, max] of the data
-	// and filling that in with anything set by the user
-	// Note that this is different from an "extent" passed
-	// in as a domain prop, which can be a partial domain (has nulls or is a function)
-	const extents = $derived.by(() => {
-		/** @type {Object.<string, Array<any>>} */
-		const presetExtents = {};
-		for (const dimension of DIMENSIONS) {
-			// Skip any extents that the user already set a min and max for
-			const domainProp = dimProps[`${dimension.name}Domain`];
-			if (isCompleteDomain(domainProp)) {
-				presetExtents[dimension.name] = domainProp;
-			}
-		}
-
-		const gettersToMeasure = filterObject(activeGetters, presetExtents);
-		const names = Object.keys(gettersToMeasure);
-
-		if (names.length > 0) {
-			// Only read this info for the dimensions we're measuring. Reading a
-			// value inside a derived subscribes to it, so touching an unused
-			// dimension's props here would make changing them – say a `cScale` we
-			// never measure – re-run this whole calculation.
-			const dimensionInfo = Object.fromEntries(
-				names.map(k => [k, { isOrdinal: dims[k].isOrdinal, sort: dims[k].domainSort }])
-			);
-			// Only rows have to be indexable – they can be objects or arrays – but
-			// we can't measure anything unless the collection itself is a list
-			if (!Array.isArray(flatData)) {
-				throw new TypeError(
-					`[LayerCake] Can't measure the extents of your data because ${flatDataProp === undefined ? '`data` is not an array' : '`flatData` is not an array'}. Pass a flat array of rows to the \`flatData\` prop. More info: https://layercake.graphics/guide/#flatdata`
-				);
-			}
-			const calculatedExtents = calcScaleExtents(flatData, gettersToMeasure, dimensionInfo);
-			return { ...calculatedExtents, ...presetExtents };
-		}
-		return presetExtents;
-	});
-
 	const dimensionCtx = {
 		get width() {
 			return width;
@@ -260,22 +237,38 @@
 		get percentRange() {
 			return percentRange;
 		},
-		get extents() {
-			return extents;
+		get measurableData() {
+			return measurableData;
+		},
+		get verbose() {
+			return verbose === true;
 		},
 		scales
 	};
 
-	// Actually create the reactive dimensions object.
 	for (const dimension of DIMENSIONS) {
-		dims[dimension.name] = createDimension(dimension, () => dimProps, dimensionCtx);
+		dims[dimension.name] = createDimension(dimension, dimPropsByKey, dimensionCtx);
 	}
+
+	// The public `extents` is assembled from the per-dimension measurements
+	// in createDimension, where each dimension only rescans the data for its own
+	// changes.
+	const extents = $derived.by(() => {
+		/** @type {Object.<string, Array<any>>} */
+		const obj = {};
+		for (const dimension of DIMENSIONS) {
+			const extent = dims[dimension.name].extent;
+			if (extent !== undefined) obj[dimension.name] = extent;
+		}
+		return obj;
+	});
 
 	// Assemble the context. Every property is a getter into reactive state
 	// so child components read live values as `k.width`, `k.xGet(d)` etc.
-	const context = {};
+	// The cast is up front because the object starts empty and the
+	// defineProperties calls below fill in every key the type promises.
+	const context = /** @type {LayerCakeContext} */ (/** @type {unknown} */ ({}));
 	Object.defineProperties(context, {
-		activeGetters: { get: () => activeGetters, enumerable: true },
 		width: { get: () => width, enumerable: true },
 		height: { get: () => height, enumerable: true },
 		percentRange: { get: () => percentRange, enumerable: true },
@@ -303,13 +296,22 @@
 		/** @type {PropertyDescriptorMap} */
 		const descriptors = {};
 		for (const family of FAMILIES_BY_DIMENSION[name]) {
-			const stateKey = familyStateKey(family);
+			const stateKey = family.stateKey;
+			// A family whose stateKey doesn't exist on the dimension state
+			// object would otherwise ship a context key that is silently undefined.
+			// The getters exist even while their values are undefined, so
+			// `in` is the right test.
+			if (!(stateKey in dim)) {
+				throw new Error(
+					`[LayerCake] The '${family.suffix || 'accessor'}' key family points at '${stateKey}', which doesn't exist on the dimension state object. Fix the stateKey in settings/dimensions.js or add the value in state/dimension.svelte.js.`
+				);
+			}
 			descriptors[`${name}${family.suffix}`] = { get: () => dim[stateKey], enumerable: true };
 		}
 		Object.defineProperties(context, descriptors);
 	}
 
-	setLayerCakeContext(/** @type {import('./context.js').LayerCakeContext} */ (context));
+	setLayerCakeContext(context);
 
 	$effect(() => {
 		if (debug === true) {
@@ -325,11 +327,16 @@
 					width,
 					height
 				},
-				activeGetters
+				activeDimensions: []
 			};
-			for (const name of Object.keys(activeGetters)) {
-				debugInfo[name] = dimProps[name];
-				debugInfo[`${name}Scale`] = dims[name].scale;
+			// Every active dimension prints, including ones configured via
+			// their scale or domain prop with no accessor
+			for (const dimension of DIMENSIONS) {
+				const dim = dims[dimension.name];
+				if (dim.active !== true) continue;
+				debugInfo.activeDimensions.push(dimension.name);
+				debugInfo[dimension.name] = dimPropsByKey[dimension.name];
+				debugInfo[`${dimension.name}Scale`] = dim.scale;
 			}
 			// Call this as a debounce so that it doesn't get called multiple times as these vars get filled in
 			printDebug_debounced(debugInfo);

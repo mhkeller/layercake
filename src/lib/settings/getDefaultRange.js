@@ -5,8 +5,8 @@
  * @param {import('./dimensions.js').Dimension} dimension The dimension's definition from settings/dimensions.js – its name, default scale and so on.
  * @param {Object} config
  * @param {boolean} [config.reverse] Whether to reverse the default range. Has no effect when the user supplies a range.
- * @param {Array<any>|Function|undefined|null} [config.range] The user-passed `[name]Range` prop – an array or a function receiving `({ width, height, scales })`.
- * @param {import('../state/dimension.svelte.js').DimensionContext} config.ctx Reactive chart-level values.
+ * @param {Array<any>|Function|undefined} [config.range] The user-passed `[name]Range` prop – an array or a function receiving `({ width, height, scales })`. A null prop was already folded into undefined in state/dimension.svelte.js.
+ * @param {import('./dimensions.js').DimensionRangeContext} config.ctx The narrowed chart values range functions may read. Built in createScale.js.
  * @returns {Array<any>} The range for the scale.
  */
 export default function getDefaultRange(dimension, { reverse = false, range, ctx }) {

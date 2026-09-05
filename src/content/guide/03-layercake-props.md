@@ -141,6 +141,8 @@ Same as [x](/guide#x) but for the z dimension.
 
 Same as [x](/guide#x) but for the r dimension.
 
+The `2` suffix marks a dimension's secondary channel: `x2` and `y2` are second scales for their axis and default to nesting inside their parent's bandwidth, while `c2` is a second color-like channel with defaults of its own.
+
 ### x2 `string|Function|number|Array<string|Function|number>|undefined`
 
 Same as [x](/guide#x) but for the x2 dimension – a scale nested inside the x scale, useful for [grouped column charts](/example/ColumnGrouped). It defaults to a `scaleBand()` whose domain is computed from your data and whose range is the bandwidth of the x scale, so this is usually all you need:
@@ -387,7 +389,7 @@ Same as [xDomainSort](/guide#xdomainsort) but for the c2 domain.
 
 Assign a pixel value to add to the min or max of the x scale. This will increase the scale's domain by the scale unit equivalent of the provided pixels. This is useful for adding extra space to a scatter plot so that your circles don't interfere with your y-axis. It's better than fussing with the range since you don't need to add a magic number to other components, like axes.
 
-It will log out a warning if you try to use it on a scale that has a domain or range that isn't two items, such as with ordinal scales.
+Padding only applies to scales whose domain and range are two numbers. On ordinal and other discrete scales, such as `scaleBand`, the prop is silently ignored.
 
 ```svelte
 <LayerCake
@@ -433,7 +435,7 @@ Same as [xNice](/guide#xnice) but for the r domain.
 
 ### xRange `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Override the default x range of `[0, width]` by setting it here to an array or function with argument `({ width, height})` that returns an array.
+Override the default x range of `[0, width]` by setting it here to an array, or to a function that returns one.
 
 This overrides setting [xReverse](/guide#xreverse) to `true`.
 
@@ -451,6 +453,13 @@ It can also be a function:
 >
 ```
 
+The function is called with the chart's measurements:
+
+- `width` and `height` – the chart size in pixels, with the padding taken off
+- `rangeWidth` and `rangeHeight` – the same size in whatever units the ranges use: `100` when [percentRange](/guide#percentrange) is on, pixels otherwise
+- `percentRange` – whether that mode is on
+- `scales` – the other dimensions' computed scales, e.g. `scales.x`. This dimension's own scale is not there, since its range is one of the things that builds it.
+
 <!-- generated:Range -->
 
 ### yRange `Function|Array:[min: number, max: number]|Array<number|string>`
@@ -467,15 +476,15 @@ Same as [xRange](/guide#xrange) but for the r scale.
 
 ### x2Range `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the x2 scale, which defaults to the bandwidth of the x scale. Pass a function to customize it – it receives `({ width, height, scales })`, e.g. `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
+Same as [xRange](/guide#xrange) but for the x2 scale, which defaults to the bandwidth of the x scale. Pass a function to customize it, e.g. `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
 
 ### y2Range `Function|Array:[min: number, max: number]|Array<number|string>`
 
-Same as [xRange](/guide#xrange) but for the y2 scale, which defaults to the bandwidth of the y scale. Pass a function to customize it – it receives `({ width, height, scales })`, e.g. `y2Range={({ scales }) => [0, scales.y.bandwidth() / 2]}`.
+Same as [xRange](/guide#xrange) but for the y2 scale, which defaults to the bandwidth of the y scale. Pass a function to customize it, e.g. `y2Range={({ scales }) => [0, scales.y.bandwidth() / 2]}`.
 
 ### cRange `Array<string|number>|Function`
 
-The colors of the c scale, as an array or a function with argument `({ width, height, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.
+The colors of the c scale, as an array or a function with argument `({ width, height, rangeWidth, rangeHeight, percentRange, scales })`. Defaults to a ten-color categorical palette (d3's `schemeCategory10`), recycled past ten categories.
 
 ### c2Range `Array<string|number>|Function`
 

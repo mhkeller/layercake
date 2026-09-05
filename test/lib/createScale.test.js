@@ -1,6 +1,6 @@
 /* globals describe it */
 import * as assert from 'assert';
-import { scaleLinear, scaleBand, scaleOrdinal, scaleSequential } from 'd3-scale';
+import { scaleLinear, scaleBand, scaleOrdinal, scaleSequential, scaleDiverging } from 'd3-scale';
 
 import createScale from '../../src/lib/helpers/createScale.js';
 import { DIMENSIONS } from '../../src/lib/settings/dimensions.js';
@@ -27,7 +27,10 @@ const schemeCategory10 = [
 ];
 
 function ctx(overrides = {}) {
-	return { width: w, height: h, percentRange: false, scales: {}, ...overrides };
+	const base = { width: w, height: h, percentRange: false, scales: {}, ...overrides };
+	base.rangeWidth = base.percentRange === true ? 100 : base.width;
+	base.rangeHeight = base.percentRange === true ? 100 : base.height;
+	return base;
 }
 
 function run(opts) {
@@ -166,6 +169,76 @@ describe('createScale', () => {
 		it('with the default identity interpolator gets the default range', () => {
 			const scale = run({ dimension: dims.x, scale: scaleSequential(), domain: [0, 10] });
 			assert.strictEqual(scale(10), w);
+		});
+
+		it('an identity-behaving interpolator under any name gets the default range', () => {
+			const scale = run({ dimension: dims.x, scale: scaleSequential(x => x), domain: [0, 10] });
+			assert.strictEqual(scale(10), w);
+		});
+
+		it('an explicit range prop wins over a custom interpolator', () => {
+			const scale = run({
+				dimension: dims.c,
+				scale: scaleSequential(t => `rgb(${Math.round(t * 255)},0,0)`),
+				domain: [0, 10],
+				range: [0, 100]
+			});
+			assert.strictEqual(scale(10), 100);
+		});
+	});
+
+	describe('diverging scales', () => {
+		it('a pristine diverging scale gets a three-stop default range', () => {
+			const scale = run({ dimension: dims.x, scale: scaleDiverging(), domain: [-10, 0, 10] });
+			assert.strictEqual(scale(-10), 0);
+			assert.strictEqual(scale(0), w / 2);
+			assert.strictEqual(scale(10), w);
+		});
+
+		it('keeps a custom diverging interpolator instead of taking the default range', () => {
+			const scale = run({
+				dimension: dims.x,
+				scale: scaleDiverging(t => `c${t}`),
+				domain: [-10, 0, 10]
+			});
+			assert.strictEqual(scale(10), 'c1');
+		});
+
+		// A two-stop range leaves a diverging scale returning undefined for
+		// nearly every value, so the midpoint gets filled in wherever the two
+		// stops came from
+		it('fills in the midpoint of a two-value range prop', () => {
+			const scale = run({
+				dimension: dims.x,
+				scale: scaleDiverging(),
+				domain: [-10, 0, 10],
+				range: [0, 500]
+			});
+			assert.deepStrictEqual(scale.range(), [0, 250, 500]);
+			assert.strictEqual(scale(0), 250);
+			assert.strictEqual(scale(10), 500);
+		});
+
+		it('leaves a three-value range prop alone', () => {
+			const scale = run({
+				dimension: dims.x,
+				scale: scaleDiverging(),
+				domain: [-10, 0, 10],
+				range: [0, 100, 500]
+			});
+			assert.deepStrictEqual(scale.range(), [0, 100, 500]);
+		});
+
+		// Piecewise linear scales also hold three range stops, but there a
+		// two-stop range is a valid thing to ask for
+		it('leaves a two-value range on a piecewise linear scale alone', () => {
+			const scale = run({
+				dimension: dims.x,
+				scale: scaleLinear().domain([0, 5, 10]).range([0, 50, 100]),
+				domain: [0, 5, 10],
+				range: [0, 500]
+			});
+			assert.deepStrictEqual(scale.range(), [0, 500]);
 		});
 	});
 

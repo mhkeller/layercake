@@ -4,11 +4,12 @@ export { getLayerCakeContext, setLayerCakeContext } from './context.js';
 /**
  * Re-exported so consumers can name the context type when they write their own
  * layer components, e.g. `@param {import('layercake').LayerCakeContext} c`. The
- * `@template` line has to be repeated here – a bare re-export would drop the
- * parameter and `LayerCakeContext<{ x: ScaleBand<string> }>` would stop
+ * `@template` lines have to be repeated here – a bare re-export would drop the
+ * parameters and `LayerCakeContext<{ x: ScaleBand<string> }>` would stop
  * compiling for anyone outside this package.
  * @template [S=any]
- * @typedef {import('./context.js').LayerCakeContext<S>} LayerCakeContext
+ * @template [TData=any]
+ * @typedef {import('./context.js').LayerCakeContext<S, TData>} LayerCakeContext
  */
 
 /**

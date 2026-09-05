@@ -34,7 +34,10 @@ const w = 900;
 const h = 500;
 
 function ctx(overrides = {}) {
-	return { width: w, height: h, percentRange: false, scales: {}, ...overrides };
+	const base = { width: w, height: h, percentRange: false, scales: {}, ...overrides };
+	base.rangeWidth = base.percentRange === true ? 100 : base.width;
+	base.rangeHeight = base.percentRange === true ? 100 : base.height;
+	return base;
 }
 
 const tests = [

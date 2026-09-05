@@ -5,6 +5,7 @@
 <script>
 	import { getLayerCakeContext, getCanvasContext } from 'layercake';
 
+	/** @type {import('layercake').LayerCakeContext<any, { features: Array<any> }>} */
 	const k = getLayerCakeContext();
 	const canvas = getCanvasContext();
 
@@ -14,7 +15,8 @@
 	 * @property {number} [r=3.5] - The point's radius.
 	 * @property {string} [fill='yellow'] - The point's fill color.
 	 * @property {string} [stroke='#000'] - The point's stroke color.
-	 * @property {number} [strokeWidth=1] - The point's stroke width.
+	 * @property {number} [strokeWidth=1] - The point's stroke width in pixels.
+	 * @property {number} [opacity=1] - The point's opacity.
 	 * @property {Array<Object>|undefined} [features] - A list of GeoJSON features to plot. If unset, the plotted features will default to those in `k.data.features`, assuming this field is a list of GeoJSON features.
 	 */
 
@@ -25,6 +27,7 @@
 		fill = 'yellow',
 		stroke = '#000',
 		strokeWidth = 1,
+		opacity = 1,
 		features
 	} = $props();
 
@@ -34,18 +37,20 @@
 
 	// Layer Cake runs this on every repaint: resize, new data or a prop change
 	canvas.draw(ctx => {
-		// To scale the circle by size, set width and height to `k.rGet(d.properties)`
-		featuresToDraw.forEach(
-			/** @param {any} d */ d => {
-				ctx.beginPath();
-				const coordinates = projectionFn(d.geometry.coordinates);
-				ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
-				ctx.fillStyle = fill;
-				ctx.fill();
-				ctx.lineWidth = strokeWidth;
-				ctx.strokeStyle = stroke;
-				ctx.stroke();
-			}
-		);
+		// Save and restore so the opacity doesn't leak into other layers on this canvas
+		ctx.save();
+		ctx.globalAlpha = opacity;
+		featuresToDraw.forEach(d => {
+			ctx.beginPath();
+			const coordinates = projectionFn(d.geometry.coordinates);
+			// To size each circle from an r scale, use k.rGet(d.properties) as the radius
+			ctx.arc(coordinates[0], coordinates[1], r, 0, 2 * Math.PI, false);
+			ctx.fillStyle = fill;
+			ctx.fill();
+			ctx.lineWidth = strokeWidth;
+			ctx.strokeStyle = stroke;
+			ctx.stroke();
+		});
+		ctx.restore();
 	});
 </script>

@@ -13,18 +13,22 @@
 	const yKey = 'year';
 	const y2Key = 'fruit';
 
-	const seriesColors = ['#f0c', '#0cf', '#fc0'];
+	const seriesColors = ['#ff00cc', '#00ccff', '#ffcc00'];
 
-	// The y2 range is one band of the y scale. With `percentRange` on, that
-	// band is in percent, so the bars inside each group use the same units as
-	// everything else in the ScaledSvg.
+	// With `percentRange` on, the y2 band is measured in percent, so the bars inside
+	// each group share the ScaledSvg's units.
+	// `y2="fruit"` is all it takes to position bars within each group. y2 is a
+	// scaleBand by default. Its domain comes from the data and its range is one
+	// y band tall. Pass `y2Scale` to customize the padding, for example
+	// `y2Scale={scaleBand().paddingInner(0.1)}`. You could also skip `y2` and
+	// build that band scale inside your own component.
 </script>
 
 <div class="chart-container">
 	<LayerCake
 		ssr
 		percentRange
-		padding={{ top: 0, right: 20, bottom: 20, left: 35 }}
+		padding={{ bottom: 20, left: 35 }}
 		x={xKey}
 		y={yKey}
 		y2={y2Key}
@@ -35,8 +39,8 @@
 		{data}
 	>
 		<Html>
-			<AxisX gridlines baseline snapLabels />
-			<AxisY gridlines={false} tickMarks />
+			<AxisX tickMarks showBaseline snapLabels gridlines={false} />
+			<AxisY tickMarks gridlines={false} />
 		</Html>
 		<ScaledSvg>
 			<BarGrouped />
@@ -45,12 +49,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

@@ -1,6 +1,6 @@
 <!--
-  @component
-  Generates an SVG grouped bar chart using the `y2` nested scale for the within-group position and the `c` scale for color.
+	@component
+	Generates an SVG grouped bar chart using the `y2` nested scale for the within-group position and the `c` scale for color.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -16,7 +16,13 @@
 	 */
 
 	/** @type {Props} */
-	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
+	let { fill, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
+
+	// Use the `fill` prop if there is one, then the `c` scale's color, then the default
+	/** @param {any} d */
+	function getFill(d) {
+		return fill ?? k.cGet?.(d) ?? '#00bbff';
+	}
 
 	// This chart needs the y2 scale. A chart might not set one, so fall back
 	// to a zero-height bar instead of crashing.
@@ -47,11 +53,11 @@
 			y={yPos}
 			width={Math.abs(valueX - zeroX)}
 			height={barHeight}
-			fill={fill ?? k.cGet?.(d) ?? '#00bbff'}
+			fill={getFill(d)}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>
-		{#if showLabels && xValue}
+		{#if showLabels && xValue != null}
 			<!-- Put the number just past the far end of the bar: right of a positive bar and left of a negative one -->
 			<text
 				x={valueX < zeroX ? valueX - 4 : valueX + 4}

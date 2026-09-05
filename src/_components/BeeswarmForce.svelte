@@ -1,9 +1,8 @@
 <!--
 	@component
-	Generates an SVG Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
+	Generates an SVG beeswarm chart, using a [d3-force simulation](https://github.com/d3/d3-force) to spread the circles apart.
  -->
 <script>
-	import { untrack } from 'svelte';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 	import { getLayerCakeContext } from 'layercake';
 
@@ -11,12 +10,12 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {number} [r=4] - The circle radius size in pixels.
+	 * @property {number} [r=4] - The circle radius in pixels.
 	 * @property {number} [strokeWidth=1] - The circle's stroke width in pixels.
 	 * @property {string} [stroke='#fff'] - The circle's stroke color.
-	 * @property {number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength).
-	 * @property {number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`. See [the documentation](https://github.com/d3/d3-force#y_strength).
-	 * @property {Function} [getTitle] - An accessor function to get the field on the data element to display as a hover label using a `<title>` tag.
+	 * @property {number} [xStrength=0.95] - How hard each circle is pulled toward its x value. See [forceX.strength](https://github.com/d3/d3-force#x_strength).
+	 * @property {number} [yStrength=0.075] - How hard each circle is pulled toward the vertical middle of the chart. See [forceY.strength](https://github.com/d3/d3-force#y_strength).
+	 * @property {(d: any) => string} [getTitle] - Returns hover text for a row, shown in a `<title>` tag.
 	 */
 
 	/** @type {Props} */
@@ -29,19 +28,14 @@
 		getTitle
 	} = $props();
 
-	/** @type {any[]} */
-	let nodes = $state([]);
+	// Run the simulation to the end up front so the circles come out settled.
+	// The simulation mutates its nodes, so it gets copies of the rows.
+	/** @type {Array<any>} */
+	let nodes = $derived.by(() => {
+		if (!k.width || !k.height || !k.data.length) return [];
 
-	let simulation = $derived.by(() => {
-		if (!k.width || !k.height || !k.data.length) return null;
-
-		const sim = forceSimulation(k.data.map((/** @type {any} */ d) => ({ ...d })))
-			.force(
-				'x',
-				forceX()
-					.x(d => k.xGet(d))
-					.strength(xStrength)
-			)
+		const simulation = forceSimulation(k.data.map(d => ({ ...d })))
+			.force('x', forceX().x(k.xGet).strength(xStrength))
 			.force(
 				'y',
 				forceY()
@@ -51,28 +45,15 @@
 			.force('collide', forceCollide(r))
 			.stop();
 
-		return sim;
-	});
-
-	$effect(() => {
-		if (!simulation) {
-			nodes = [];
-			return;
+		// Tick as many times as the simulation would on its own before it cools off
+		const iterations = Math.ceil(
+			Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())
+		);
+		for (let i = 0; i < iterations; i += 1) {
+			simulation.tick();
 		}
 
-		untrack(() => {
-			// Run the simulation for a fixed number of iterations
-			const maxIterations = Math.ceil(
-				Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())
-			);
-
-			for (let i = 0; i < maxIterations; ++i) {
-				simulation.tick();
-			}
-
-			// Update nodes state to trigger reactivity
-			nodes = [...simulation.nodes()];
-		});
+		return simulation.nodes();
 	});
 </script>
 

@@ -6,28 +6,25 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "labels Array<Object> None yes An array of objects that contain a field containing text label and data fields.":
+    - row "labels Array<Object> None yes The items to label. Each one is run through the chart's x and y accessors for its position.":
       - cell "labels Array<Object>":
         - strong: labels
         - code: Array<Object>
       - cell "None"
       - cell "yes"
-      - cell "An array of objects that contain a field containing text label and data fields."
-    - row "getLabelName Function None yes An accessor function to return the label field on your objects in the labels array.":
-      - cell "getLabelName Function":
-        - strong: getLabelName
-        - code: Function
+      - cell "The items to label. Each one is run through the chart's x and y accessors for its position."
+    - 'row "getLabel (d: any) => string None yes Returns the label text for an item."':
+      - 'cell "getLabel (d: any) => string"':
+        - strong: getLabel
+        - code: "(d: any) => string"
       - cell "None"
       - cell "yes"
-      - cell "An accessor function to return the label field on your objects in the labels array.":
-        - text: ""
-        - code: labels
-        - text: ""
-    - row "formatLabelName Function d => d no An optional formatting function.":
-      - cell "formatLabelName Function":
-        - strong: formatLabelName
-        - code: Function
+      - cell "Returns the label text for an item."
+    - 'row "format (d: any) => string d => d no Formats the label text."':
+      - 'cell "format (d: any) => string"':
+        - strong: format
+        - code: "(d: any) => string"
       - cell "d => d":
         - code: d => d
       - cell "no"
-      - cell "An optional formatting function."
+      - cell "Formats the label text."

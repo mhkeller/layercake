@@ -1,0 +1,3 @@
+A column chart with negative and positive values. The `yDomain` function stretches the measured domain so it always includes zero, and a `c` scale colors each column by whether its value is up or down.
+
+This is the server-side rendered version. `ssr` and `percentRange` on `<LayerCake>` put the scales in percentages, so the chart renders before the browser measures it. The axes are HTML components and the marks sit in a `<ScaledSvg>` that stretches to fit its box. The client-side version also adds `yPadding` and a label on each column. Both are set in pixels, which a percent-range chart can't use, so they are left out here.

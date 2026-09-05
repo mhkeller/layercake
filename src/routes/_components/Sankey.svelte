@@ -9,18 +9,13 @@
 <div class="chart-container">
 	<LayerCake padding={{ top: 10 }} {data}>
 		<Svg>
-			<Sankey colorNodes={() => '#00bbff'} colorLinks={() => '#00bbff35'} />
+			<Sankey getNodeFill={() => '#00bbff'} getLinkStroke={() => '#00bbff35'} />
 		</Svg>
 	</LayerCake>
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

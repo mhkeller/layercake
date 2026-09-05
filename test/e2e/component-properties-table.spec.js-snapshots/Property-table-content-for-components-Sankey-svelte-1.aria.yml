@@ -6,55 +6,53 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "colorLinks Function () => 'rgba(0, 0, 0, .2)' no A function to return a color for the links.":
-      - cell "colorLinks Function":
-        - strong: colorLinks
-        - code: Function
+    - 'row "getLinkStroke (d: any) => string () => ''rgba(0, 0, 0, .2)'' no Returns the stroke color for a link."':
+      - 'cell "getLinkStroke (d: any) => string"':
+        - strong: getLinkStroke
+        - code: "(d: any) => string"
       - cell "() => 'rgba(0, 0, 0, .2)'":
         - code: () => 'rgba(0, 0, 0, .2)'
       - cell "no"
-      - cell "A function to return a color for the links."
-    - row /colorNodes Function \(\) => '#\d+' no A function to return a color for each node\./:
-      - cell "colorNodes Function":
-        - strong: colorNodes
-        - code: Function
+      - cell "Returns the stroke color for a link."
+    - 'row /getNodeFill \(d: any\) => string \(\) => ''#\d+'' no Returns the fill color for a node\./':
+      - 'cell "getNodeFill (d: any) => string"':
+        - strong: getNodeFill
+        - code: "(d: any) => string"
       - cell /\(\) => '#\d+'/:
         - code: /\(\) => '#\d+'/
       - cell "no"
-      - cell "A function to return a color for each node."
-    - row /colorText Function \(\) => '#\d+' no A function to return a color for each text label\./:
-      - cell "colorText Function":
-        - strong: colorText
-        - code: Function
+      - cell "Returns the fill color for a node."
+    - 'row /getTextFill \(d: any\) => string \(\) => ''#\d+'' no Returns the fill color for a node''s label\./':
+      - 'cell "getTextFill (d: any) => string"':
+        - strong: getTextFill
+        - code: "(d: any) => string"
       - cell /\(\) => '#\d+'/:
         - code: /\(\) => '#\d+'/
       - cell "no"
-      - cell "A function to return a color for each text label."
-    - row "nodeWidth number 5 no The width of each node, in pixels, passed to sankey.nodeWidth.":
+      - cell "Returns the fill color for a node's label."
+    - row "nodeWidth number 5 no The width of each node in pixels, passed to sankey.nodeWidth.":
       - cell "nodeWidth number":
         - strong: nodeWidth
         - code: number
       - cell "5":
         - code: "5"
       - cell "no"
-      - cell "The width of each node, in pixels, passed to sankey.nodeWidth.":
+      - cell "The width of each node in pixels, passed to sankey.nodeWidth.":
         - text: ""
         - link "sankey.nodeWidth":
           - /url: https://github.com/d3/d3-sankey#sankey_nodeWidth
-          - code: sankey.nodeWidth
         - text: ""
-    - row /nodePadding number \d+ no The padding between nodes, passed to sankey\.nodePadding\./:
+    - row /nodePadding number \d+ no The gap between nodes in pixels, passed to sankey\.nodePadding\./:
       - cell "nodePadding number":
         - strong: nodePadding
         - code: number
       - cell /\d+/:
         - code: /\d+/
       - cell "no"
-      - cell "The padding between nodes, passed to sankey.nodePadding.":
+      - cell "The gap between nodes in pixels, passed to sankey.nodePadding.":
         - text: ""
         - link "sankey.nodePadding":
           - /url: https://github.com/d3/d3-sankey#sankey_nodePadding
-          - code: sankey.nodePadding
         - text: ""
     - row "linkSort (LinkSortFunction | undefined) undefined no How to sort the links, passed to sankey.linkSort.":
       - cell "linkSort (LinkSortFunction | undefined)":
@@ -71,34 +69,32 @@
         - text: ""
         - link "sankey.linkSort":
           - /url: https://github.com/d3/d3-sankey#sankey_linkSort
-          - code: sankey.linkSort
         - text: ""
-    - 'row "nodeId ((d: SankeyNodeMinimal) => number | string) d => d.id no The ID field accessor, passed to sankey.nodeId."':
-      - 'cell "nodeId ((d: SankeyNodeMinimal) => number | string)"':
+    - 'row "nodeId ((d: any) => number | string) d => d.id no Returns a node''s id, passed to sankey.nodeId."':
+      - 'cell "nodeId ((d: any) => number | string)"':
         - strong: nodeId
         - text: ""
-        - code: "(d: SankeyNodeMinimal) => number"
+        - code: "(d: any) => number"
         - text: ""
         - code: string
         - text: ""
       - cell "d => d.id":
         - code: d => d.id
       - cell "no"
-      - cell "The ID field accessor, passed to sankey.nodeId.":
+      - cell "Returns a node's id, passed to sankey.nodeId.":
         - text: ""
         - link "sankey.nodeId":
           - /url: https://github.com/d3/d3-sankey#sankey_nodeId
-          - code: sankey.nodeId
         - text: ""
-    - row "nodeAlign SankeyAlignment Sankey.sankeyLeft no An alignment function to position the Sankey blocks. See the d3-sankey documentation for more.":
+    - row "nodeAlign SankeyAlignment Sankey.sankeyLeft no Where the nodes line up, passed to sankey.nodeAlign.":
       - cell "nodeAlign SankeyAlignment":
         - strong: nodeAlign
         - code: SankeyAlignment
       - cell "Sankey.sankeyLeft":
         - code: Sankey.sankeyLeft
       - cell "no"
-      - cell "An alignment function to position the Sankey blocks. See the d3-sankey documentation for more.":
+      - cell "Where the nodes line up, passed to sankey.nodeAlign.":
         - text: ""
-        - link "d3-sankey documentation":
+        - link "sankey.nodeAlign":
           - /url: https://github.com/d3/d3-sankey#alignments
         - text: ""

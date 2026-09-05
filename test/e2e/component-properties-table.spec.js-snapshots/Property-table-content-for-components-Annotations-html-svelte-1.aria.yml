@@ -6,13 +6,15 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "annotations Array<Annotation> None yes A list of annotation objects. It expects values of top, right, bottom and left whose values are CSS values like '10px' or '5%' that will be used to absolutely position the text div.":
+    - row "annotations Array<Annotation> None yes The annotations to draw. Each has text plus any of top, right, bottom and left as CSS values like '10px' or '5%'.":
       - cell "annotations Array<Annotation>":
         - strong: annotations
         - code: Array<Annotation>
       - cell "None"
       - cell "yes"
-      - cell "A list of annotation objects. It expects values of top, right, bottom and left whose values are CSS values like '10px' or '5%' that will be used to absolutely position the text div.":
+      - cell "The annotations to draw. Each has text plus any of top, right, bottom and left as CSS values like '10px' or '5%'.":
+        - text: ""
+        - code: text
         - text: ""
         - code: top
         - text: ""
@@ -26,11 +28,11 @@
         - text: ""
         - code: "'5%'"
         - text: ""
-    - 'row "getText Function /** @param {Annotation} d */ d => d.text no An accessor function to get the field to display."':
-      - cell "getText Function":
-        - strong: getText
-        - code: Function
-      - 'cell "/** @param {Annotation} d */ d => d.text"':
-        - code: "/** @param {Annotation} d */ d => d.text"
+    - 'row "getLabel (d: Annotation) => string d => d.text no Returns the text for an annotation."':
+      - 'cell "getLabel (d: Annotation) => string"':
+        - strong: getLabel
+        - code: "(d: Annotation) => string"
+      - cell "d => d.text":
+        - code: d => d.text
       - cell "no"
-      - cell "An accessor function to get the field to display."
+      - cell "Returns the text for an annotation."

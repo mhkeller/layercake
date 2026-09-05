@@ -50,7 +50,7 @@ jobs:
       - name: Get changed files
         id: changed_files
         run: |
-          files=$(git status --porcelain | awk '{print $2}' | grep '\.png$' || true)
+          files=$(git status --porcelain | awk '{print $2}' | grep -E '\.(png|aria\.yml)$' || true)
           echo "files<<EOF" >> $GITHUB_OUTPUT
           echo "$files" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -58,6 +58,6 @@ jobs:
       - name: Commit and push changes
         if: steps.changed_files.outputs.files != ''
         run: |
-          git add -A test/e2e/**/*.png
+          git add -A 'test/e2e/**/*.png' 'test/e2e/**/*.aria.yml'
           git commit -m "Update Playwright snapshots"
           git push origin ${{ github.ref_name }}

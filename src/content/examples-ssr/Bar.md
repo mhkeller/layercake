@@ -1,1 +1,3 @@
 Since we want an ordinal y-axis and Layer Cake defaults to a linear scale, pass in a custom scale to `yScale` with a few formatting options. Set the x-scale to always start at `0` so you don't show misleading differences between groups.
+
+This is the server-side rendered version. `ssr` and `percentRange` on `<LayerCake>` put the scales in percentages, so the chart renders before the browser measures it. The axes are HTML components and the marks sit in a `<ScaledSvg>` that stretches to fit its box.

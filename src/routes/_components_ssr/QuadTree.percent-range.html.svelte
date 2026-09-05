@@ -1,10 +1,10 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import ScatterHtml from '../../_components/Scatter.html.svelte';
+	import ScatterHtml from '../../_components/Scatter.percent-range.html.svelte';
 	import QuadTreePercentRange from '../../_components/QuadTree.percent-range.html.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
@@ -40,12 +40,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		position: relative;
 		width: 100%;

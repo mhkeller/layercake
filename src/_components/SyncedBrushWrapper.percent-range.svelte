@@ -1,3 +1,7 @@
+<!--
+	@component
+	Draws a server-side rendered line chart with a brush under it. Drag on the brush to zoom the chart above to that slice of the rows. Bind `min` and `max` to keep several of these in step, as the [SSR synced brush example](https://layercake.graphics/example-ssr/SyncedBrush) does.
+ -->
 <script>
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
@@ -9,12 +13,12 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {any} [min]
-	 * @property {any} [max]
-	 * @property {string} [xKey]
-	 * @property {string} [yKey]
-	 * @property {any} [data]
-	 * @property {string} [stroke]
+	 * @property {number|null} [min=null] - Where the brush starts, as a share of the rows from 0 to 1. Bind to it to sync charts.
+	 * @property {number|null} [max=null] - Where the brush ends, as a share of the rows from 0 to 1. Bind to it to sync charts.
+	 * @property {string} [xKey='x'] - The field holding each row's x value.
+	 * @property {string} [yKey='y'] - The field holding each row's y value.
+	 * @property {Array<Object>} [data=[]] - The rows to draw.
+	 * @property {string} [stroke='#00e047'] - The line's stroke color. The area under it is the same color at low opacity.
 	 */
 
 	/** @type {Props} */
@@ -27,10 +31,11 @@
 		stroke = '#00e047'
 	} = $props();
 
+	// The slice of rows inside the brush, with at least two so the line still draws when the brush is very narrow
 	let brushedData = $derived.by(() => {
 		const start = Math.max(0, Math.floor((min ?? 0) * data.length));
 		const end = Math.min(data.length, Math.ceil((max ?? 1) * data.length));
-		let brushed = data.slice(start, end);
+		const brushed = data.slice(start, end);
 		if (brushed.length < 2 && data.length >= 2) {
 			return data.slice(start, start + 2);
 		}
@@ -50,6 +55,7 @@
 			data={brushedData}
 		>
 			<Html>
+				<!-- Whole-number ticks only, and every other one when there are too many -->
 				<AxisX
 					ticks={ticks => {
 						const filtered = ticks.filter(t => t % 1 === 0);
@@ -82,16 +88,11 @@
 </div>
 
 <style>
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-wrapper {
 		width: 48%;
 		height: 40%;
 	}
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
 	.chart-container {
 		width: 100%;
 		height: 80%;

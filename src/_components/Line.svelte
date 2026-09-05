@@ -9,7 +9,7 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {string} [stroke='#ab00d6'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
+	 * @property {string} [stroke='#ab00d6'] - The line's stroke color.
 	 */
 
 	/** @type {Props} */
@@ -32,6 +32,6 @@
 		fill: none;
 		stroke-linejoin: round;
 		stroke-linecap: round;
-		stroke-width: 2;
+		stroke-width: 2px;
 	}
 </style>

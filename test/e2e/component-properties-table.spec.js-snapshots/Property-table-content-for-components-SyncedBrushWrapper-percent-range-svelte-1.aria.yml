@@ -1,0 +1,64 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
+  - rowgroup:
+    - row "min (number | null) $bindable(null) no Where the brush starts, as a share of the rows from 0 to 1. Bind to it to sync charts.":
+      - cell "min (number | null)":
+        - strong: min
+        - text: ""
+        - code: number
+        - text: ""
+        - code: "null"
+        - text: ""
+      - cell "$bindable(null)":
+        - code: $bindable(null)
+      - cell "no"
+      - cell "Where the brush starts, as a share of the rows from 0 to 1. Bind to it to sync charts."
+    - row "max (number | null) $bindable(null) no Where the brush ends, as a share of the rows from 0 to 1. Bind to it to sync charts.":
+      - cell "max (number | null)":
+        - strong: max
+        - text: ""
+        - code: number
+        - text: ""
+        - code: "null"
+        - text: ""
+      - cell "$bindable(null)":
+        - code: $bindable(null)
+      - cell "no"
+      - cell "Where the brush ends, as a share of the rows from 0 to 1. Bind to it to sync charts."
+    - row "xKey string 'x' no The field holding each row's x value.":
+      - cell "xKey string":
+        - strong: xKey
+        - code: string
+      - cell "'x'":
+        - code: "'x'"
+      - cell "no"
+      - cell "The field holding each row's x value."
+    - row "yKey string 'y' no The field holding each row's y value.":
+      - cell "yKey string":
+        - strong: yKey
+        - code: string
+      - cell "'y'":
+        - code: "'y'"
+      - cell "no"
+      - cell "The field holding each row's y value."
+    - row "data Array<Object> [] no The rows to draw.":
+      - cell "data Array<Object>":
+        - strong: data
+        - code: Array<Object>
+      - cell "[]":
+        - code: "[]"
+      - cell "no"
+      - cell "The rows to draw."
+    - row "stroke string '#00e047' no The line's stroke color. The area under it is the same color at low opacity.":
+      - cell "stroke string":
+        - strong: stroke
+        - code: string
+      - cell "'#00e047'":
+        - code: "'#00e047'"
+      - cell "no"
+      - cell "The line's stroke color. The area under it is the same color at low opacity."

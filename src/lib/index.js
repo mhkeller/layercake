@@ -8,7 +8,7 @@ export { getLayerCakeContext, setLayerCakeContext, getCanvasContext } from './co
  * `LayerCakeContext<{ x: ScaleBand<string> }>` would not compile outside this
  * package.
  * @template [S=any]
- * @template [TData=any]
+ * @template [TData=Array<any>]
  * @typedef {import('./context.js').LayerCakeContext<S, TData>} LayerCakeContext
  */
 

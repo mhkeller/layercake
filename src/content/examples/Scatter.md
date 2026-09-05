@@ -1,0 +1,1 @@
+A scatter plot with three layers: SVG axes, canvas circles and a second SVG layer with smaller circles on top. A [Voronoi](/components/Voronoi.svelte) layer over everything reports the nearest point on hover. Open the console and move the mouse to see it.

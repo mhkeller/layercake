@@ -7,22 +7,21 @@
 	import AxisY from '../../_components/AxisY.svelte';
 	import Brush from '../../_components/Brush.html.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/points.csv';
 
+	/** @type {[number|null, number|null]} */
 	let brushExtents = $state([null, null]);
 
 	const xKey = 'myX';
 	const yKey = 'myY';
 
+	// The rows inside the brush, with at least two so the line still draws when the brush is very narrow
 	let brushedData = $derived.by(() => {
-		let selection = data.slice(
-			(brushExtents[0] || 0) * data.length,
-			(brushExtents[1] || 1) * data.length
-		);
-		if (selection.length < 2 && brushExtents[0] !== null) {
-			selection = data.slice(brushExtents[0] * data.length, brushExtents[0] * data.length + 2);
-		}
+		const start = (brushExtents[0] ?? 0) * data.length;
+		const end = (brushExtents[1] ?? 1) * data.length;
+		const selection = data.slice(start, end);
+		if (selection.length < 2) return data.slice(start, start + 2);
 		return selection;
 	});
 </script>
@@ -65,12 +64,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.brushed-chart-container {
 		width: 100%;
 		height: 80%;

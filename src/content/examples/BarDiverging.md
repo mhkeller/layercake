@@ -1,0 +1,1 @@
+A bar chart with negative and positive values. The `xDomain` function stretches the measured domain so it always includes zero, and a `c` scale colors each bar by whether its value is up or down. The `children` snippet receives the chart context, so the zero line can be drawn with the x scale.

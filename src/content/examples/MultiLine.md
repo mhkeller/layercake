@@ -23,7 +23,7 @@ A multiline example with a quadtree tooltip. This is an interesting example beca
 
    We need to first turn this into...
 
-2. ...a "long" format, where each type of fruit is grouped into its own array and each datapoint is a row. The column name becomes a property on the group whose name we define with the `zKey` variable.
+2. ...a "long" format, where each type of fruit is grouped into its own array and each datapoint is a row. The column name becomes a property on the group whose name we define with the `cKey` variable.
 
    ```
    [
@@ -65,4 +65,4 @@ A multiline example with a quadtree tooltip. This is an interesting example beca
      ...
    ```
 
-We're using Layer Cake's [groupLonger transform function](/guide#grouplonger) to do steps one and two. See the [server-side rendered example](/example-ssr/MultiLine) for a regular JavaScript transform.
+Layer Cake's [groupLonger transform function](/guide#grouplonger) does steps one and two.

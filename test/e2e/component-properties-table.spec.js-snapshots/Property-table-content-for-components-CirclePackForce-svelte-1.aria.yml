@@ -6,45 +6,33 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "manyBodyStrength number 5 no The value passed into the .strength method on forceManyBody, which is used as the 'charge' property on the simulation. See the documentation for more.":
+    - row "manyBodyStrength number 5 no How strongly circles push each other apart. A negative value pulls them together. See forceManyBody.strength.":
       - cell "manyBodyStrength number":
         - strong: manyBodyStrength
         - code: number
       - cell "5":
         - code: "5"
       - cell "no"
-      - cell "The value passed into the .strength method on forceManyBody, which is used as the 'charge' property on the simulation. See the documentation for more.":
+      - cell "How strongly circles push each other apart. A negative value pulls them together. See forceManyBody.strength.":
         - text: ""
-        - code: .strength
-        - text: ""
-        - code: forceManyBody
-        - text: ""
-        - code: "'charge'"
-        - text: ""
-        - link "the documentation":
+        - link "forceManyBody.strength":
           - /url: https://github.com/d3/d3-force#manyBody_strength
         - text: ""
-    - row "xStrength number 0.1 no The value passed into the .strength method on forceX, which is used as the 'x' property on the simulation. See the documentation for more.":
+    - row "xStrength number 0.1 no How hard each circle is pulled toward its x position. See forceX.strength.":
       - cell "xStrength number":
         - strong: xStrength
         - code: number
       - cell "0.1":
         - code: "0.1"
       - cell "no"
-      - cell "The value passed into the .strength method on forceX, which is used as the 'x' property on the simulation. See the documentation for more.":
+      - cell "How hard each circle is pulled toward its x position. See forceX.strength.":
         - text: ""
-        - code: .strength
-        - text: ""
-        - code: forceX
-        - text: ""
-        - code: "'x'"
-        - text: ""
-        - link "the documentation":
+        - link "forceX.strength":
           - /url: https://github.com/d3/d3-force#x_strength
         - text: ""
-    - row "nodeColor (string | undefined) None no Set a color manually otherwise it will default to the cScale.":
-      - cell "nodeColor (string | undefined)":
-        - strong: nodeColor
+    - row "fill (string | undefined) None no The circle's fill color. Defaults to the c scale's color.":
+      - cell "fill (string | undefined)":
+        - strong: fill
         - text: ""
         - code: string
         - text: ""
@@ -52,34 +40,34 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "Set a color manually otherwise it will default to the cScale.":
+      - cell "The circle's fill color. Defaults to the c scale's color.":
         - text: ""
-        - code: cScale
+        - code: c
         - text: ""
-    - row "nodeStroke string '#fff' no The circle's stroke color.":
-      - cell "nodeStroke string":
-        - strong: nodeStroke
+    - row "stroke string '#fff' no The circle's stroke color.":
+      - cell "stroke string":
+        - strong: stroke
         - code: string
       - cell "'#fff'":
         - code: "'#fff'"
       - cell "no"
       - cell "The circle's stroke color."
-    - row "nodeStrokeWidth number 1 no The circle's stroke width, in pixels.":
-      - cell "nodeStrokeWidth number":
-        - strong: nodeStrokeWidth
+    - row "strokeWidth number 1 no The circle's stroke width in pixels.":
+      - cell "strokeWidth number":
+        - strong: strokeWidth
         - code: number
       - cell "1":
         - code: "1"
       - cell "no"
-      - cell "The circle's stroke width, in pixels."
-    - row "groupBy boolean true no Group the nodes by the return value of the x-scale. If false, align all the nodes to the canvas center.":
-      - cell "groupBy boolean":
-        - strong: groupBy
+      - cell "The circle's stroke width in pixels."
+    - row "groupByX boolean true no Pull each circle toward its x position. If false, pull them all toward the chart's centre.":
+      - cell "groupByX boolean":
+        - strong: groupByX
         - code: boolean
       - cell "true":
         - code: "true"
       - cell "no"
-      - cell "Group the nodes by the return value of the x-scale. If false, align all the nodes to the canvas center.":
+      - cell "Pull each circle toward its x position. If false, pull them all toward the chart's centre.":
         - text: ""
         - code: "false"
         - text: ""

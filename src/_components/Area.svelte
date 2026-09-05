@@ -9,7 +9,7 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {string} [fill='#ab00d610'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color.
+	 * @property {string} [fill='#ab00d610'] - The shape's fill color.
 	 */
 
 	/** @type {Props} */
@@ -18,13 +18,14 @@
 	let path = $derived(
 		'M' +
 			k.data
-				.map((/** @type {object} */ d) => {
+				.map(d => {
 					return k.xGet(d) + ',' + k.yGet(d);
 				})
 				.join('L')
 	);
 
-	/**	@type {string} **/
+	// Close the line along the bottom of the chart to make the area
+	/** @type {string} */
 	let area = $derived.by(() => {
 		const yRange = k.yScale.range();
 		return (

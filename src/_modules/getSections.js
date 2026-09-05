@@ -1,17 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import * as fleece from 'golden-fleece';
-import hljs from 'highlight.js';
 import sanitizeHtml from 'sanitize-html';
 
 import { Marked } from 'marked';
+import hljs from './hljs.js';
 import processMarkdown from './processMarkdown.js';
 import slugify from './slugify.js';
-import hljsDefineSvelte from './hljsDefineSvelte.js';
-
-hljs.registerLanguage('svelte', hljsDefineSvelte);
-
-hljsDefineSvelte(hljs);
 
 /** @type {Record<string, string>} */
 const escaped = {
@@ -33,10 +28,11 @@ function unescape(str) {
 	return String(str).replace(/&.+?;/g, match => unescaped[match] || match);
 }
 
-const blockTypes =
-	'blockquote html heading hr list listitem paragraph table tablerow tablecell'.split(' ');
-
 /**
+ * Read the options comment on the first line of a code block. For html and
+ * svelte blocks that's `<!-- { filename: 'App.svelte' } -->`. For js and json
+ * blocks it's a block comment with the same object inside. `hidden: true`
+ * leaves the block out of the page.
  * @param {string} line
  * @param {string} lang
  */
@@ -60,21 +56,7 @@ function extractMeta(line, lang) {
 	}
 }
 
-// https://github.com/darkskyapp/string-hash/blob/master/index.js
-/** @param {string} str */
-function getHash(str) {
-	let hash = 5381;
-	let i = str.length;
-
-	while (i--) hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
-	return (hash >>> 0).toString(36);
-}
-
-const demos = new Map();
-
 /**
- * @typedef {{ meta: Record<string, any>, lang: string, source: string }} CodeBlock
- * @typedef {{ id: number, blocks: CodeBlock[] }} CodeGroup
  * @typedef {{ slug: string, title: string }} GuideSubsection
  * @typedef {{
  *   html: string | null,
@@ -96,12 +78,6 @@ export default function (returnHtml = true) {
 			const markdown = fs.readFileSync(`src/content/guide/${file}`, 'utf-8').replace(/\t/g, '  ');
 
 			const { content, metadata } = processMarkdown(markdown);
-
-			/** @type {CodeGroup[]} */
-			const groups = [];
-			/** @type {CodeGroup | null} */
-			let group = null;
-			let uid = 1;
 
 			/** @type {import('marked').RendererObject} */
 			const renderer = {
@@ -145,138 +121,41 @@ export default function (returnHtml = true) {
 				},
 
 				code(token) {
-					// In marked v16, the code renderer receives a single token object
-					let actualSource = token.text || token.raw || '';
-					const actualLang = token.lang || 'text';
+					let source = token.text || token.raw || '';
+					const lang = token.lang || 'text';
 
-					if (!actualSource) {
+					if (!source) {
 						return '';
 					}
 
-					const lines = actualSource.split('\n');
-
-					const meta = extractMeta(lines[0].trim(), actualLang);
+					const lines = source.split('\n');
+					const meta = extractMeta(lines[0].trim(), lang);
 
 					let prefix = '';
 					let className = 'code-block';
 
-					if (actualLang === 'html' && !group) {
-						// if (!meta || meta.repl !== false) {
-						// 	prefix = `<a class='open-in-repl' href='repl?demo=@@${uid}'>REPL</a>`;
-						// }
-
-						group = { id: uid++, blocks: [] };
-						groups.push(group);
-					}
-
 					if (meta) {
-						actualSource = lines.slice(1).join('\n');
-						const filename = meta.filename || (actualLang === 'html' && 'App.html');
+						source = lines.slice(1).join('\n');
+						// Show the file name above the block. Bare html blocks are App.html.
+						const filename = meta.filename || (lang === 'html' && 'App.html');
 						if (filename) {
-							prefix = `<span class='filename'>${prefix} ${filename}</span>`;
+							prefix = `<span class='filename'> ${filename}</span>`;
 							className += ' named';
 						}
+						if (meta.hidden) return '';
 					}
-					if (group)
-						group.blocks.push({ meta: meta || {}, lang: actualLang, source: actualSource });
 
-					if (meta && meta.hidden) return '';
-
-					const highlighted = hljs.highlight(actualSource, {
-						language: actualLang || 'text'
-					}).value;
+					const highlighted = hljs.highlight(source, { language: lang }).value;
 					return `<div class='${className}'>${prefix}<pre><code>${highlighted}</code></pre></div>`;
-				},
-
-				// Reset group for block-level elements
-				blockquote() {
-					group = null;
-					return false;
-				},
-				html() {
-					group = null;
-					return false;
-				},
-				hr() {
-					group = null;
-					return false;
-				},
-				list() {
-					group = null;
-					return false;
-				},
-				listitem() {
-					group = null;
-					return false;
-				},
-				paragraph() {
-					group = null;
-					return false;
-				},
-				table() {
-					group = null;
-					return false;
-				},
-				tablerow() {
-					group = null;
-					return false;
-				},
-				tablecell() {
-					group = null;
-					return false;
 				}
 			};
 
-			// A new marked instance for each file. The renderer reads `group`, which
-			// changes as we walk this file's blocks, so it can't be shared between
-			// files. Calling the global `marked.use()` here would pile a new renderer
-			// on top of the old one every time and eventually crash.
+			// A new marked instance for each file. Calling the global `marked.use()`
+			// here would pile a new renderer on top of the old one every time and
+			// eventually crash.
 			const md = new Marked({ renderer });
 
 			let html = md.parse(content, { async: false });
-
-			/** @type {Record<number, string>} */
-			const hashes = {};
-
-			groups.forEach(group => {
-				const main = group.blocks[0];
-				if (main.meta.repl === false) return;
-
-				const hash = getHash(
-					group.blocks.map(/** @param {CodeBlock} block */ block => block.source).join('')
-				);
-				hashes[group.id] = hash;
-
-				const json5 = group.blocks.find(
-					/** @param {CodeBlock} block */ block => block.lang === 'json'
-				);
-
-				const title = main.meta.title;
-				// if (!title) console.error(`Missing title for demo in ${file}`);
-
-				demos.set(
-					hash,
-					JSON.stringify({
-						title: title || 'Example from guide',
-						components: group.blocks
-							.filter(
-								/** @param {CodeBlock} block */ block =>
-									block.lang === 'html' || block.lang === 'js'
-							)
-							.map(
-								/** @param {CodeBlock} block */ block => {
-									const [name, type] = (block.meta.filename || '').split('.');
-									return {
-										name: name || 'App',
-										type: type || 'html',
-										source: block.source
-									};
-								}
-							),
-						json5: json5 && json5.source
-					})
-				);
-			});
 
 			// For the sidebar, the anchor uses the title without any <code> tags.
 			// The heading itself keeps them.
@@ -333,8 +212,7 @@ export default function (returnHtml = true) {
 			}
 
 			return {
-				html:
-					returnHtml === true ? html.replace(/@@(\d+)/g, (m, id) => hashes[Number(id)] || m) : null,
+				html: returnHtml === true ? html : null,
 				metadata,
 				subsections,
 				slug: file.replace(/^\d+-/, '').replace(/\.md$/, ''),

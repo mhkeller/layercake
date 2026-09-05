@@ -6,33 +6,37 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "annotations Array<Annotation> None yes A list of annotation objects.":
+    - row "annotations Array<Annotation> None yes The annotations to draw.":
       - cell "annotations Array<Annotation>":
         - strong: annotations
         - code: Array<Annotation>
       - cell "None"
       - cell "yes"
-      - cell "A list of annotation objects."
-    - row "getText Function d => d.text no An accessor function to get the field to display.":
-      - cell "getText Function":
-        - strong: getText
-        - code: Function
+      - cell "The annotations to draw."
+    - 'row "getLabel (d: Annotation) => string d => d.text no Returns the text for an annotation."':
+      - 'cell "getLabel (d: Annotation) => string"':
+        - strong: getLabel
+        - code: "(d: Annotation) => string"
       - cell "d => d.text":
         - code: d => d.text
       - cell "no"
-      - cell "An accessor function to get the field to display."
-    - row "pr boolean k.percentRange no If true will set the top and left CSS positions to percentages instead of pixels.":
-      - cell "pr boolean":
-        - strong: pr
-        - code: boolean
-      - cell "k.percentRange":
-        - code: k.percentRange
+      - cell "Returns the text for an annotation."
+    - 'row "units (''px'' | ''%'') k.percentRange === true ? ''%'' : ''px'' no Position with pixels or percentages. Defaults to ''%'' when percentRange={true}, otherwise ''px''."':
+      - cell "units ('px' | '%')":
+        - strong: units
+        - text: ""
+        - code: "'px'"
+        - text: ""
+        - code: "'%'"
+        - text: ""
+      - 'cell "k.percentRange === true ? ''%'' : ''px''"':
+        - code: "k.percentRange === true ? '%' : 'px'"
       - cell "no"
-      - cell "If true will set the top and left CSS positions to percentages instead of pixels.":
+      - 'cell "Position with pixels or percentages. Defaults to ''%'' when percentRange={true}, otherwise ''px''."':
         - text: ""
-        - code: "true"
+        - code: "'%'"
         - text: ""
-        - code: top
+        - code: "percentRange={true}"
         - text: ""
-        - code: left
+        - code: "'px'"
         - text: ""

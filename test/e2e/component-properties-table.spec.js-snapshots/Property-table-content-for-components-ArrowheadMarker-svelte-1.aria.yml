@@ -1,0 +1,24 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
+  - rowgroup:
+    - row /fill string '#\d+' no The arrowhead's fill color\./:
+      - cell "fill string":
+        - strong: fill
+        - code: string
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "The arrowhead's fill color."
+    - row /stroke string '#\d+' no The arrowhead's stroke color\./:
+      - cell "stroke string":
+        - strong: stroke
+        - code: string
+      - cell /'#\d+'/:
+        - code: /'#\d+'/
+      - cell "no"
+      - cell "The arrowhead's stroke color."

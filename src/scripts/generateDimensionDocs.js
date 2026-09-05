@@ -35,9 +35,18 @@ import {
 	FAMILIES_BY_DIMENSION
 } from '../lib/settings/dimensions.js';
 
+/**
+ * @typedef {import('../lib/settings/dimensions.js').Dimension} Dimension
+ * @typedef {import('../lib/settings/dimensions.js').DimensionKeyFamily} DimensionKeyFamily
+ */
+
 // Ask "does x2 have Nice?" by checking the per-dimension family lists in
 // settings/dimensions.js. `includes` works because both tables share the same
 // family objects.
+/**
+ * @param {Dimension} dimension
+ * @param {DimensionKeyFamily} family
+ */
 function hasFamily(dimension, family) {
 	return FAMILIES_BY_DIMENSION[dimension.name].includes(family);
 }
@@ -75,7 +84,10 @@ export const FACTS = {
 	y2: { chartExample: 'grouped bar charts' }
 };
 
-/** Prose that is unique to one dimension and not worth templating. */
+/**
+ * Prose that is unique to one dimension and not worth templating.
+ * @type {Object.<string, {accessor?: string, range?: string, guideRangeType?: string, contextAccessor?: string}>}
+ */
 const CUSTOM = {
 	c: {
 		accessor:
@@ -94,12 +106,16 @@ const CUSTOM = {
 	}
 };
 
-/** The scale factory's exported name, e.g. the d3 `band` factory -> `scaleBand()`. */
+/**
+ * The scale factory's exported name, e.g. the d3 `band` factory -> `scaleBand()`.
+ * @param {Dimension} dimension
+ */
 function defaultScaleName(dimension) {
 	const fnName = dimension.defaultScale.name || 'scale';
 	return `scale${fnName[0].toUpperCase()}${fnName.slice(1)}()`;
 }
 
+/** @param {Dimension} dimension */
 function isPrimary(dimension) {
 	// Read `isPrimary` straight off the entry. Working it out from a feature
 	// flag would mean turning on a feature could silently change how a
@@ -108,6 +124,7 @@ function isPrimary(dimension) {
 }
 
 // Prop descriptions, one function per family
+/** @param {Dimension} dim */
 function accessorProp(dim) {
 	const n = dim.name;
 	const fact = FACTS[n] || {};
@@ -123,6 +140,7 @@ function accessorProp(dim) {
 	return { type: ACCESSOR_TYPE, desc };
 }
 
+/** @param {Dimension} dim */
 function domainProp(dim) {
 	const n = dim.name;
 	const desc = isPrimary(dim)
@@ -131,6 +149,7 @@ function domainProp(dim) {
 	return { type: DOMAIN_TYPE, desc };
 }
 
+/** @param {Dimension} dim */
 function niceProp(dim) {
 	const fact = FACTS[dim.name] || {};
 	return {
@@ -146,6 +165,7 @@ function paddingProp() {
 	};
 }
 
+/** @param {Dimension} dim */
 function scaleProp(dim) {
 	const n = dim.name;
 	const preserveNote = ` A range you customized on the scale you pass in is preserved – set \`${n}Range\` to override it.`;
@@ -155,6 +175,7 @@ function scaleProp(dim) {
 	return { type: 'Function', desc };
 }
 
+/** @param {Dimension} dim */
 function rangeProp(dim) {
 	const n = dim.name;
 	const fact = FACTS[n] || {};
@@ -174,6 +195,7 @@ function rangeProp(dim) {
 	};
 }
 
+/** @param {Dimension} dim */
 function reverseProp(dim) {
 	const n = dim.name;
 	const fact = FACTS[n] || {};
@@ -189,6 +211,7 @@ function reverseProp(dim) {
 	};
 }
 
+/** @param {Dimension} dim */
 function domainSortProp(dim) {
 	const n = dim.name;
 	// The "only when ordinal" caveat applies to every dimension. Sorting only
@@ -200,7 +223,7 @@ function domainSortProp(dim) {
 	return { type: 'boolean', desc };
 }
 
-/** @type {Object.<string, (dim: any) => {type: string, desc: string}>} */
+/** @type {Object.<string, (dim: Dimension) => {type: string, desc: string}>} */
 const PROP_TEMPLATES = {
 	'': accessorProp,
 	Domain: domainProp,
@@ -244,11 +267,15 @@ const CONTEXT_FAMILY_ORDER = [
 //
 // So these types describe a chart that uses the dimension. On a chart that
 // skips it the value is missing, which each x/y/z/r description says in words.
-/** The sentence added to each x/y/z/r description saying what the key holds on a chart that never sets that dimension. */
+/**
+ * The sentence added to each x/y/z/r description saying what the key holds on a chart that never sets that dimension.
+ * @param {Dimension} dim
+ * @param {string} value
+ */
 function unsetNote(dim, value) {
 	return ` On a chart that never sets \`${dim.name}\`, this is \`${value}\` at runtime.`;
 }
-/** @type {Object.<string, (dim: any) => {type: string, desc: string}>} */
+/** @type {Object.<string, (dim: Dimension) => {type: string, desc: string}>} */
 const CONTEXT_TEMPLATES = {
 	'': dim => {
 		const desc =
@@ -407,7 +434,7 @@ export function spliceDimensionLines(source, generatedLines) {
 const PROPS_GUIDE = 'src/content/guide/03-layercake-props.md';
 const CONTEXT_GUIDE = 'src/content/guide/04-computed-context-values.md';
 
-/** @type {Array<{path: string, families: Object.<string, {heading: (dim: any) => string, body: (dim: any) => string}>}>} */
+/** @type {Array<{path: string, families: Object.<string, {heading: (dim: Dimension) => string, body: (dim: Dimension) => string}>}>} */
 export const GUIDES = [
 	{
 		path: PROPS_GUIDE,
@@ -499,7 +526,7 @@ export const GUIDES = [
 /**
  * The markdown for one family's sibling sections, i.e. every dimension that
  * supports the family except the hand-written primary, `x`.
- * @param {{heading: (dim: any) => string, body: (dim: any) => string}} template
+ * @param {{heading: (dim: Dimension) => string, body: (dim: Dimension) => string}} template
  * @param {string} suffix
  * @returns {string}
  */
@@ -522,7 +549,7 @@ export function generateGuideFamily(template, suffix) {
  * file. Missing markers are an error. Skipping them quietly is how a
  * dimension ends up undocumented.
  * @param {string} source
- * @param {Object.<string, {heading: (dim: any) => string, body: (dim: any) => string}>} families
+ * @param {Object.<string, {heading: (dim: Dimension) => string, body: (dim: Dimension) => string}>} families
  * @param {string} path Only used for the error message.
  * @returns {string}
  */
@@ -562,9 +589,10 @@ if (isCli) {
 	for (const target of TARGETS) {
 		const current = readFileSync(target.path, 'utf-8');
 		// JSDoc targets splice by property name; markdown targets by marker comment
-		const next = target.splice
-			? target.splice(current)
-			: spliceDimensionLines(current, target.generate());
+		const next =
+			'splice' in target
+				? target.splice(current)
+				: spliceDimensionLines(current, target.generate());
 		if (next === current) {
 			console.log(`[generateDimensionDocs] ${target.path} is up to date.`);
 		} else if (check) {

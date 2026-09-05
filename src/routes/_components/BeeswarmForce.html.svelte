@@ -4,7 +4,7 @@
 
 	import BeeswarmHtml from '../../_components/BeeswarmForce.html.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/us-senate.csv';
 
 	const xKey = 'date_of_birth';
@@ -14,7 +14,7 @@
 	const r = 6;
 
 	const seriesNames = new Set();
-	const seriesColors = ['#fc0', '#000'];
+	const seriesColors = ['#ffcc00', '#000'];
 
 	const dataTransformed = data.map(d => {
 		seriesNames.add(d[cKey]);
@@ -52,12 +52,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

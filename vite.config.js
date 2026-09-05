@@ -1,6 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import dsv from '@rollup/plugin-dsv';
-import path from 'path';
 
 /**
  * Convert numerical values from a CSV file with `plugin-dsv`
@@ -33,12 +32,7 @@ const config = {
 				});
 			}
 		})
-	],
-	resolve: {
-		alias: {
-			layercake: path.resolve('src/lib')
-		}
-	}
+	]
 };
 
 export default config;

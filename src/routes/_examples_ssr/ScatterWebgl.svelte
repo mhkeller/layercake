@@ -1,28 +1,27 @@
 <script>
 	import { LayerCake, WebGL, Html } from 'layercake';
 
-	import ScatterWebGL from '../../_components/Scatter.webgl.svelte';
+	import ScatterWebgl from '../../_components/Scatter.webgl.svelte';
 	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
 	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
-	import QuadTree from '../../_components/QuadTree.html.svelte';
+	import QuadTree from '../../_components/QuadTree.percent-range.html.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';
 
 	const r = 3;
-	const xyPadding = 6;
-	const padding = { top: 5, right: 5, bottom: 20, left: 25 };
+	// In percent units, so smaller than the client-side version's 6 pixels
+	const xyPadding = 2;
 </script>
 
 <div class="chart-container">
 	<LayerCake
-		position="absolute"
 		ssr
 		percentRange
-		{padding}
+		padding={{ top: 5, right: 5, bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
 		xPadding={[xyPadding, xyPadding]}
@@ -31,21 +30,11 @@
 	>
 		<Html>
 			<AxisX />
-			<AxisY tickMarks={false} />
+			<AxisY tickMarks={false} ticks={5} />
 		</Html>
-	</LayerCake>
 
-	<LayerCake
-		position="absolute"
-		{padding}
-		x={xKey}
-		y={yKey}
-		xPadding={[xyPadding, xyPadding]}
-		yPadding={[xyPadding, xyPadding]}
-		{data}
-	>
 		<WebGL>
-			<ScatterWebGL {r} />
+			<ScatterWebgl {r} />
 		</WebGL>
 
 		<Html>
@@ -53,7 +42,7 @@
 				{#snippet children({ x, y, visible })}
 					<div
 						class="circle"
-						style="top:{y}px;left:{x}px;display: {visible ? 'block' : 'none'};"
+						style="top:{y}%;left:{x}%;display: {visible ? 'block' : 'none'};"
 					></div>
 				{/snippet}
 			</QuadTree>
@@ -62,18 +51,11 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
-		position: relative;
 		width: 100%;
-		height: 400px;
+		height: 250px;
 	}
-
 	.circle {
 		position: absolute;
 		border-radius: 50%;

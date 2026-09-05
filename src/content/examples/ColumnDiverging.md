@@ -1,0 +1,1 @@
+A column chart with negative and positive values. The `yDomain` function stretches the measured domain so it always includes zero, `yPadding` leaves room for the labels, and a `c` scale colors each column by whether its value is up or down. The `children` snippet receives the chart context, so the zero line can be drawn with the y scale.

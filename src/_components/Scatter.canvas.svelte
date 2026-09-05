@@ -3,12 +3,10 @@
 	Generates a canvas scatter plot.
  -->
 <script>
-	import { getContext } from 'svelte';
-	import { scaleCanvas, getLayerCakeContext } from 'layercake';
+	import { getLayerCakeContext, getCanvasContext } from 'layercake';
 
 	const k = getLayerCakeContext();
-
-	const canvasCtx = getContext('canvas');
+	const canvas = getCanvasContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -21,29 +19,16 @@
 	/** @type {Props} */
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
-	$effect(() => {
-		if (!k.width || !k.height || !canvasCtx.ctx) return;
-
-		const context = canvasCtx.ctx;
-
-		/**
-		 * If you stack several canvas layers, put these two reset calls in the
-		 * first layer only. They should run once per update, not once per layer.
-		 */
-		scaleCanvas(context, k.width, k.height);
-		context.clearRect(0, 0, k.width, k.height);
-
-		/**
-		 * Draw our scatterplot
-		 */
+	// Layer Cake runs this on every repaint: resize, new data or a prop change
+	canvas.draw(ctx => {
 		k.data.forEach((/** @type {any} d */ d) => {
-			context.beginPath();
-			context.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
-			context.lineWidth = strokeWidth;
-			context.strokeStyle = stroke;
-			context.stroke();
-			context.fillStyle = fill;
-			context.fill();
+			ctx.beginPath();
+			ctx.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
+			ctx.lineWidth = strokeWidth;
+			ctx.strokeStyle = stroke;
+			ctx.stroke();
+			ctx.fillStyle = fill;
+			ctx.fill();
 		});
 	});
 </script>

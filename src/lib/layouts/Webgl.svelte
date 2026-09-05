@@ -66,10 +66,10 @@
 	style:z-index={zIndex}
 	style:pointer-events={pointerEvents === false ? 'none' : null}
 	style:top={k.padding.top + 'px'}
-	style:right={k.padding.right + 'px'}
-	style:bottom={k.padding.bottom + 'px'}
 	style:left={k.padding.left + 'px'}
-	style="width:100%;height:100%;position:absolute;"
+	style:width={`calc(100% - ${k.padding.left + k.padding.right}px)`}
+	style:height={`calc(100% - ${k.padding.top + k.padding.bottom}px)`}
+	style="position:absolute;"
 	aria-label={label}
 	aria-labelledby={labelledBy}
 	aria-describedby={describedBy}

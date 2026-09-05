@@ -6,7 +6,7 @@ Layer Cake comes with layout components that provide HTML, Svg, ScaledSvg, Canva
 
 You must wrap your chart components in these layout components for them to appear properly scaled. For Html and Svg components, they create a `<div>` and `<svg>`, respectively.
 
-The Canvas and WebGL layout components also create rendering contexts that are made available to your layer components on their own Svelte contexts, under the `'canvas'` and `'gl'` keys, respectively. See the [Canvas](/guide#canvas) and [WebGL](/guide#webgl) sections below for details.
+The Canvas and WebGL layout components also create rendering contexts that are made available to your layer components on their own Svelte contexts, under the `'canvas'` and `'gl'` keys, respectively – `getCanvasContext()` returns the canvas one. See the [Canvas](/guide#canvas) and [WebGL](/guide#webgl) sections below for details.
 
 Each of these components also takes props. See the next section [Layout component props](/guide#layout-component-props) for more info.
 
@@ -186,23 +186,17 @@ This component also has a named `defs` [snippet](https://svelte.dev/docs/svelte/
 </style>
 ```
 
-In the component, you access the canvas context with `const canvasCtx = getContext('canvas');` and read the 2d context as `canvasCtx.ctx`. This value is on a different context from the LayerCake one because you could have multiple canvas layers and there wouldn't be an easy way to grab the right one. This way, the component always has access to just its parent Canvas component.
+The `<canvas>` element covers the whole chart container, padding included. Layer Cake moves its origin to the top-left of the chart area, so you draw in the same coordinates as an Svg or Html child: `k.xGet(d)` lands in the same spot on every layout. Anything you draw past the edges shows up in the padding, the way it does on the other layouts. Pass `overflow="hidden"` to clip at the chart area instead.
 
-> Warning: If you want to draw multiple canvas layers, use one `<Canvas>` tag each. There is a bug in [Svelte's reactivity](https://github.com/mhkeller/layercake/issues/50) that will cause an infinite loop if you add two or more components in a single `<Canvas>` tag.
-
-> Since the `canvasCtx.ctx` value is a normal 2d context, the underlying canvas element is accessible under `canvasCtx.ctx.canvas`.
-
-Here's an example showing a scatter plot.
+Components draw by handing Layer Cake a function. Get the canvas context with `getCanvasContext()` and call `canvas.draw(ctx => { ... })`. Here's a scatter plot:
 
 ```svelte
 <!-- { filename: './components/CanvasLayer.svelte' } -->
 <script>
-	import { getContext } from 'svelte';
-	import { getLayerCakeContext, scaleCanvas } from 'layercake';
+	import { getLayerCakeContext, getCanvasContext } from 'layercake';
 
 	const k = getLayerCakeContext();
-
-	const canvasCtx = getContext('canvas');
+	const canvas = getCanvasContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -215,35 +209,34 @@ Here's an example showing a scatter plot.
 	/** @type {Props} */
 	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
 
-	$effect(() => {
-		if (!k.width || !k.height || !canvasCtx.ctx) return;
-
-		const context = canvasCtx.ctx;
-
-		/**
-		 * If you were to have multiple canvas layers
-		 * maybe for some artistic layering purposes
-		 * put these reset functions in the first layer, not each one
-		 * since they should only run once per update
-		 */
-		scaleCanvas(context, k.width, k.height);
-		context.clearRect(0, 0, k.width, k.height);
-
-		/**
-		 * Draw our scatterplot
-		 */
+	canvas.draw(ctx => {
 		k.data.forEach((/** @type {any} d */ d) => {
-			context.beginPath();
-			context.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
-			context.lineWidth = strokeWidth;
-			context.strokeStyle = stroke;
-			context.stroke();
-			context.fillStyle = fill;
-			context.fill();
+			ctx.beginPath();
+			ctx.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
+			ctx.lineWidth = strokeWidth;
+			ctx.strokeStyle = stroke;
+			ctx.stroke();
+			ctx.fillStyle = fill;
+			ctx.fill();
 		});
 	});
 </script>
 ```
+
+Call `draw` once while your component is setting up. Layer Cake runs your function every time the chart repaints: on resize, new data or a prop change. Before each repaint it scales the canvas for the screen, clears it and moves the origin, so your function only draws. Everything the function reads (props, `$state`, `k.*`) is tracked, so changing any of it repaints. The function runs inside an effect: it can read reactive values but should not write them.
+
+Several components can draw on one `<Canvas>`. They paint in the order they called `draw`, so the first component ends up at the bottom. A component that is removed and added back by an `{#if}` goes to the top of the stack. Each component's layer is removed when the component is destroyed. `draw` also returns a function that removes it sooner.
+
+```svelte
+<Canvas>
+	<Background />
+	<Points />
+</Canvas>
+```
+
+`canvas.ctx` is the canvas's 2d context (`null` until the canvas mounts) for reading – the pixel under the pointer, `canvas.ctx.canvas.toDataURL()` – rather than drawing. If your draw function reads something Svelte can't see change, like an array you mutate in place or an image that just finished loading, call `canvas.redraw()` from wherever that change happens. That runs the whole paint again, the same as after a resize: the canvas is cleared and every draw function is called, not just yours.
+
+The canvas context is separate from the LayerCake one because you could have multiple canvas layers and there wouldn't be an easy way to grab the right one. This way, the component always has access to just its parent Canvas component.
 
 ### WebGL
 

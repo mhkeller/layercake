@@ -316,50 +316,15 @@ This is useful for hovering over SVG maps so that the hovered-over feature is no
 
 ### scaleCanvas(ctx: `CanvasRenderingContext2D`, width: `number`, height: `number`)
 
-Scale your canvas size to retina screens. This function will modify the canvas, if necessary, and return an object with the new `width` and `height` as properties.
+Size a canvas for retina screens. It sets the drawing buffer to `width` by `height` times the device pixel ratio, the element's CSS size to `width` by `height` and the context's transform to match. It returns an object with the buffer's `width` and `height`. Called again with the same size it only resets the transform, so it's cheap to call before every draw.
 
-Such as in the [Scatter canvas](/example/Scatter) example:
+The [Canvas layout component](/guide#canvas) calls this for you before every repaint, so components that draw through `canvas.draw` don't need it. It's exported for canvases you manage yourself:
 
-```svelte
-<!-- { filename: 'ScatterCanvas.svelte' } -->
-<script>
-	import { getContext } from 'svelte';
-	import { getLayerCakeContext, scaleCanvas } from 'layercake';
+```js
+import { scaleCanvas } from 'layercake';
 
-	const k = getLayerCakeContext();
-
-	const canvasCtx = getContext('canvas');
-
-	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
-
-	$effect(() => {
-		if (!k.width || !k.height || !canvasCtx.ctx) return;
-
-		const context = canvasCtx.ctx;
-
-		/**
-		 * If you were to have multiple canvas layers
-		 * maybe for some artistic layering purposes
-		 * put these reset functions in the first layer, not each one
-		 * since they should only run once per update
-		 */
-		scaleCanvas(context, k.width, k.height);
-		context.clearRect(0, 0, k.width, k.height);
-
-		/**
-		 * Draw our scatterplot
-		 */
-		k.data.forEach((/** @type {any} d */ d) => {
-			context.beginPath();
-			context.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
-			context.lineWidth = strokeWidth;
-			context.strokeStyle = stroke;
-			context.stroke();
-			context.fillStyle = fill;
-			context.fill();
-		});
-	});
-</script>
+const ctx = myCanvas.getContext('2d');
+scaleCanvas(ctx, 600, 400);
 ```
 
 ### stack(data: `Array|Object`[, keys: `string[]`, { value: `string|Function`, order: `Array|Function`, offset: `Array|Function` }])

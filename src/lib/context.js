@@ -1,4 +1,4 @@
-import { createContext } from 'svelte';
+import { createContext, getContext, hasContext } from 'svelte';
 
 /**
  * A d3 scale: a function you call, with whatever methods that kind of scale
@@ -59,6 +59,7 @@ import { createContext } from 'svelte';
  * @property {Object} custom Any extra values passed via the `custom` prop.
  * @property {TData} data The chart data as you passed it in.
  * @property {{top: number, right: number, bottom: number, left: number}} padding The chart padding.
+ * @property {(event: MouseEvent) => [number, number]} pointer Chart-area `[x, y]` for a pointer event, the same on every layer. Measures against the container and subtracts the padding. `[NaN, NaN]` before the chart mounts.
  * @property {TData|Array<any>} flatData The flat version of the data: the `flatData` prop when you set one, otherwise `data` itself.
  * @property {Object.<string, Array<any>>} extents The measured extents keyed by dimension name.
  * @property {Object.<string, any>} config A read-only copy of the accessor, domain and range props the user set.
@@ -132,3 +133,32 @@ import { createContext } from 'svelte';
  * @type {[() => LayerCakeContext, (context: LayerCakeContext) => LayerCakeContext]}
  */
 export const [getLayerCakeContext, setLayerCakeContext] = createContext();
+
+/**
+ * A function that draws one layer on a `<Canvas>`. The context it gets is
+ * already scaled for the screen and its origin sits at the top-left of the
+ * chart area, the same origin Svg and Html children use, so it draws in chart
+ * coordinates. Anything past the edges lands in the padding.
+ * @typedef {(ctx: CanvasRenderingContext2D) => void} CanvasDrawFn
+ */
+
+/**
+ * What `<Canvas>` hands its children. Get it with `getCanvasContext()`.
+ * @typedef {Object} CanvasContext
+ * @property {CanvasRenderingContext2D|null} ctx The 2d context for reading the canvas directly: a pixel under the pointer, `ctx.canvas.toDataURL()` and the like. `null` until the canvas mounts. Drawing goes through `draw`.
+ * @property {(fn: CanvasDrawFn) => () => void} draw Gives Layer Cake a function that draws one layer. It runs on every repaint in the order components called `draw`. The function is dropped when the component is destroyed. Returns a function that drops it sooner. Call it at the top level of your component during setup.
+ * @property {() => void} redraw Run the whole paint again, the same as after a resize: the canvas is cleared and every draw function on it is called, yours included. It happens at the end of the current tick. Several calls in one tick become one repaint. Only needed when a draw function reads something Svelte can't see change, such as an array you mutate in place or an image that finishes loading later. Props, `$state` and `k.*` values repaint on their own.
+ */
+
+/**
+ * The context of the nearest parent `<Canvas>` layout.
+ * @returns {CanvasContext}
+ */
+export function getCanvasContext() {
+	if (!hasContext('canvas')) {
+		throw new Error(
+			'[LayerCake] getCanvasContext() only works in a component inside a <Canvas> layout'
+		);
+	}
+	return getContext('canvas');
+}

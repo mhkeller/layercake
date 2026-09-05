@@ -3,13 +3,11 @@
 	Generates a canvas map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
  -->
 <script>
-	import { getContext } from 'svelte';
-	import { scaleCanvas, getLayerCakeContext } from 'layercake';
+	import { getLayerCakeContext, getCanvasContext } from 'layercake';
 	import { geoPath } from 'd3-geo';
 
 	const k = getLayerCakeContext();
-
-	const canvasCtx = getContext('canvas');
+	const canvas = getCanvasContext();
 
 	/**
 	 * @typedef {Object} Props
@@ -29,28 +27,22 @@
 
 	let featuresToDraw = $derived(features || k.data.features);
 
-	$effect(() => {
-		if (!k.width || !k.height || !canvasCtx.ctx) return;
-
-		const context = canvasCtx.ctx;
-
-		scaleCanvas(context, k.width, k.height);
-		context.clearRect(0, 0, k.width, k.height);
-
+	// Layer Cake runs this on every repaint: resize, new data or a prop change
+	canvas.draw(ctx => {
 		featuresToDraw.forEach(
 			/** @param {any} feature */ feature => {
-				context.beginPath();
+				ctx.beginPath();
 				// Set the context here since setting it in `geoPath` is a circular reference
-				geoPathFn.context(context);
+				geoPathFn.context(ctx);
 				geoPathFn(feature);
 
 				// Fall back to a neutral fill when the chart has no c dimension
-				context.fillStyle = fill ?? k.cGet?.(feature.properties) ?? '#ccc';
-				context.fill();
+				ctx.fillStyle = fill ?? k.cGet?.(feature.properties) ?? '#ccc';
+				ctx.fill();
 
-				context.lineWidth = strokeWidth;
-				context.strokeStyle = stroke;
-				context.stroke();
+				ctx.lineWidth = strokeWidth;
+				ctx.strokeStyle = stroke;
+				ctx.stroke();
 			}
 		);
 	});

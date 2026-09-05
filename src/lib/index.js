@@ -1,5 +1,5 @@
 export { default as LayerCake } from './LayerCake.svelte';
-export { getLayerCakeContext, setLayerCakeContext } from './context.js';
+export { getLayerCakeContext, setLayerCakeContext, getCanvasContext } from './context.js';
 
 /**
  * The context type, exported so you can name it in your own layer components,
@@ -21,6 +21,13 @@ export { getLayerCakeContext, setLayerCakeContext } from './context.js';
  * @typedef {import('./types.js').DimensionDomain} DimensionDomain
  * @typedef {import('./types.js').DimensionRange} DimensionRange
  * @typedef {import('./context.js').Scale} Scale
+ */
+
+/**
+ * The canvas context and the draw function it takes, for typing your own
+ * canvas layers: `@type {import('layercake').CanvasDrawFn}`.
+ * @typedef {import('./context.js').CanvasContext} CanvasContext
+ * @typedef {import('./context.js').CanvasDrawFn} CanvasDrawFn
  */
 export { default as Html } from './layouts/Html.svelte';
 export { default as Svg } from './layouts/Svg.svelte';

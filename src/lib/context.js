@@ -125,8 +125,12 @@ import { createContext, getContext, hasContext } from 'svelte';
  * @property {boolean} c2DomainSort Whether the c2 domain's calculated unique values are sorted.
  */
 
-/** @type {[() => LayerCakeContext, (context: LayerCakeContext) => LayerCakeContext]} */
-const [getContextUntyped, setLayerCakeContext] = createContext();
+// The tuple createContext returns has grown a third element in newer Svelte
+// versions, so type the two pieces used here rather than the tuple itself.
+const [getContextUntyped, setContextUntyped] = createContext();
+
+/** @type {(context: LayerCakeContext) => LayerCakeContext} */
+const setLayerCakeContext = setContextUntyped;
 
 /**
  * The LayerCake chart context. In a child component, call

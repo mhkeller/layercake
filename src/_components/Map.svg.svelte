@@ -45,12 +45,9 @@
 	function handleMousemove(feature) {
 		/** @this {Element} @param {MouseEvent} e */
 		return function handleMousemoveFn(e) {
+			// Move the hovered shape to the end of its group so its stroke draws over its neighbours
 			raise(this);
-			// Raising the element moves it in the DOM, which fires one stray event
-			// at 0,0. Skip that one.
-			if (e.layerX !== 0 && e.layerY !== 0) {
-				onmousemove(e, feature.properties);
-			}
+			onmousemove(e, feature.properties);
 		};
 	}
 </script>

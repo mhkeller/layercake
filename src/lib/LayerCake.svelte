@@ -146,8 +146,7 @@
 	// `Domain`. TypeScript can't check a name like that against the `Props`
 	// typedef above, so those reads go through this looser alias. `Props` itself
 	// stays strict so a typo in someone's chart, like `xDomian`, is still a type error.
-	// svelte-ignore state_referenced_locally
-	const dimPropsByKey = /** @type {Object.<string, any>} */ (dimProps);
+	let dimPropsByKey = $derived(/** @type {Object.<string, any>} */ (dimProps));
 
 	// Warn on unrecognized dimension props so typos don't get silently ignored
 	const warnedProps = new Set();
@@ -248,6 +247,8 @@
 	};
 
 	for (const dimension of DIMENSIONS) {
+		// The factory reads the props it needs lazily through this object, so the reference is meant to be captured once
+		// svelte-ignore state_referenced_locally
 		dims[dimension.name] = createDimension(dimension, dimPropsByKey, dimensionCtx);
 	}
 

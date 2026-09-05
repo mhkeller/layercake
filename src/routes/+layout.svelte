@@ -7,7 +7,9 @@
 	let { data, children } = $props();
 </script>
 
-<Nav sections={data.sections} />
+<!-- When a page throws while rendering, SvelteKit shows +error.svelte inside this
+     layout with no data. The nav still renders then, just without the guide list. -->
+<Nav sections={data?.sections ?? []} />
 <main>
 	{@render children?.()}
 </main>

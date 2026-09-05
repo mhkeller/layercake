@@ -25,6 +25,13 @@ function cleanContents(str) {
 	return str.replace(/\t/g, '  ').trim();
 }
 
+// The paths the extractors return start with `./../` or `../`, relative to the
+// example file. The site shows them as `./…` and reads them from `src/`.
+/** @param {string} d */
+const toTitle = d => d.replace(/^(\.\/)?\.\.\//, './');
+/** @param {string} d */
+const toDiskPath = d => d.replace(/^(\.\/)?\.\.\//, 'src/');
+
 /** @param {string} example */
 function getJsonPaths(example) {
 	const match = example.match(/\.\/.+\.json/gm);
@@ -108,8 +115,8 @@ export default function getExampleContent(slug, { examplesDir, contentDir }) {
 	const modules = getJsPaths(example).map(
 		/** @param {string} d */ d => {
 			return {
-				title: d.replace('../', ''),
-				contents: cleanContents(readFileSync(d.replace('../', 'src/'), 'utf-8'))
+				title: toTitle(d),
+				contents: cleanContents(readFileSync(toDiskPath(d), 'utf-8'))
 			};
 		}
 	);
@@ -117,8 +124,8 @@ export default function getExampleContent(slug, { examplesDir, contentDir }) {
 	const jsons = getJsonPaths(example).map(
 		/** @param {string} d */ d => {
 			return {
-				title: d.replace('../', ''),
-				contents: cleanContents(readFileSync(d.replace('../', 'src/'), 'utf-8'))
+				title: toTitle(d),
+				contents: cleanContents(readFileSync(toDiskPath(d), 'utf-8'))
 			};
 		}
 	);
@@ -126,8 +133,8 @@ export default function getExampleContent(slug, { examplesDir, contentDir }) {
 	const csvs = getCsvPaths(example).map(
 		/** @param {string} d */ d => {
 			return {
-				title: d.replace('../', ''),
-				contents: cleanContents(readFileSync(d.replace('../', 'src/'), 'utf-8'))
+				title: toTitle(d),
+				contents: cleanContents(readFileSync(toDiskPath(d), 'utf-8'))
 			};
 		}
 	);
@@ -141,8 +148,8 @@ export default function getExampleContent(slug, { examplesDir, contentDir }) {
 			: componentModulesMatches.map(
 					/** @param {string} d */ d => {
 						return {
-							title: d.replace('../', './'),
-							contents: cleanContents(readFileSync(d.replace('../', 'src/'), 'utf-8'))
+							title: toTitle(d),
+							contents: cleanContents(readFileSync(toDiskPath(d), 'utf-8'))
 						};
 					}
 				);

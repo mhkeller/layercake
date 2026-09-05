@@ -78,8 +78,9 @@ export default function getComponentContent(slug) {
 	const modules = getJsPaths(component).map(
 		/** @param {string} d */ d => {
 			return {
-				slug: d.replace('../', ''),
-				contents: cleanContents(readFileSync(d.replace('./', 'src/'), 'utf-8'))
+				// The path is `./_modules/…` relative to the component, and sits under `src/` on disk
+				slug: d,
+				contents: cleanContents(readFileSync(d.replace(/^\.\//, 'src/'), 'utf-8'))
 			};
 		}
 	);

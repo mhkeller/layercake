@@ -1,6 +1,6 @@
 <!--
 	@component
-	Adds an HTML brush for picking a range from 0 to 1 by dragging. Bind `min` and `max` to read the range elsewhere. See the [brush example](https://layercake.graphics/example/Brush).
+	Adds an HTML brush for picking a range from 0 to 1. Drag on the track to draw one, or focus a handle and use the arrow keys. Bind `min` and `max` to read the range elsewhere. See the [brush example](https://layercake.graphics/example/Brush).
  -->
 <script>
 	import { clamp } from 'yootils';
@@ -114,36 +114,99 @@
 		max = p < start.min ? start.min : p;
 	});
 
-	let left = $derived(min !== null ? 100 * min : null);
-	let right = $derived(max !== null ? 100 * (1 - max) : null);
+	// Arrow keys nudge by a hundredth, or a tenth with shift. Home and End go to
+	// the edges. Escape clears the range. With no range yet, the handles sit at
+	// the edges, so the first key press draws one.
+	/** @param {KeyboardEvent} e @param {'min'|'max'|'both'} part Which part of the range the key moves. */
+	function handleKeydown(e, part) {
+		const step = e.shiftKey ? 0.1 : 0.01;
+		const start = { min: min ?? 0, max: max ?? 1 };
+		let delta;
+		if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') delta = -step;
+		else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') delta = step;
+		else if (e.key === 'Home') delta = -1;
+		else if (e.key === 'End') delta = 1;
+		else if (e.key === 'Escape') {
+			clear();
+			return;
+		} else return;
+		e.preventDefault();
+
+		if (part === 'both') {
+			const d = clamp(delta, -start.min, 1 - start.max);
+			min = start.min + d;
+			max = start.max + d;
+		} else if (part === 'min') {
+			const p = clamp(start.min + delta, 0, 1);
+			min = Math.min(p, start.max);
+			max = Math.max(p, start.max);
+		} else {
+			const p = clamp(start.max + delta, 0, 1);
+			min = Math.min(p, start.min);
+			max = Math.max(p, start.min);
+		}
+	}
+
+	let left = $derived(100 * (min ?? 0));
+	let right = $derived(100 * (1 - (max ?? 1)));
+
+	/** @param {number} value */
+	const percent = value => `${Math.round(value * 100)}%`;
 </script>
 
-<!-- The brush is mouse and touch only. There is no keyboard path yet. -->
+<!-- The track itself is mouse and touch only. Keyboard users work the range and its two handles, which are sliders. -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div bind:this={brush} class="brush-outer" onmousedown={reset} ontouchstart={reset}>
-	{#if min !== null}
+	{#if min !== null && max !== null}
 		<div
 			class="brush-inner"
+			role="slider"
+			tabindex="0"
+			aria-label="Selected range"
+			aria-valuemin="0"
+			aria-valuemax="100"
+			aria-valuenow={Math.round(min * 100)}
+			aria-valuetext="{percent(min)} to {percent(max)}"
 			draggable="false"
 			onmousedown={move}
 			ontouchstart={move}
+			onkeydown={e => handleKeydown(e, 'both')}
 			style="left: {left}%; right: {right}%"
 		></div>
-		<div
-			class="brush-handle"
-			draggable="false"
-			onmousedown={adjustMin}
-			ontouchstart={adjustMin}
-			style="left: {left}%"
-		></div>
-		<div
-			class="brush-handle"
-			draggable="false"
-			onmousedown={adjustMax}
-			ontouchstart={adjustMax}
-			style="right: {right}%"
-		></div>
 	{/if}
+	<!-- The handles stay in the DOM with no range so they can be focused, but the mouse then goes to the track -->
+	<div
+		class="brush-handle"
+		class:idle={min === null}
+		role="slider"
+		tabindex="0"
+		aria-label="Start of range"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow={Math.round((min ?? 0) * 100)}
+		aria-valuetext={percent(min ?? 0)}
+		draggable="false"
+		onmousedown={adjustMin}
+		ontouchstart={adjustMin}
+		onkeydown={e => handleKeydown(e, 'min')}
+		style="left: {left}%"
+	></div>
+	<div
+		class="brush-handle"
+		class:idle={max === null}
+		role="slider"
+		tabindex="0"
+		aria-label="End of range"
+		aria-valuemin="0"
+		aria-valuemax="100"
+		aria-valuenow={Math.round((max ?? 1) * 100)}
+		aria-valuetext={percent(max ?? 1)}
+		draggable="false"
+		onmousedown={adjustMax}
+		ontouchstart={adjustMax}
+		onkeydown={e => handleKeydown(e, 'max')}
+		style="right: {right}%"
+	></div>
 </div>
 
 <style>
@@ -166,6 +229,9 @@
 		width: 0;
 		height: 100%;
 		cursor: ew-resize;
+	}
+	.brush-handle.idle {
+		pointer-events: none;
 	}
 
 	.brush-handle::before {

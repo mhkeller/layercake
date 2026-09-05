@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates HTML text labels for a nested data structure. It places the label near the y-value of the highest x-valued data point. This is useful for labeling the final point in a multi-series line chart, for example. It expects your data to be an array of objects where each has `values` field that is an array of data objects. It uses the `c` field accessor to pull the text label.
+	Generates one HTML text label per group of a nested dataset. Each label sits at the group's largest x and largest y value, which on a multi-series line chart is just past the end of the line. The data must be an array of groups, each with a `values` array of rows. The label text comes from the `c` accessor.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -8,23 +8,29 @@
 
 	const k = getLayerCakeContext();
 
-	// Title case the first letter
-	const cap = val => val.replace(/^\w/, d => d.toUpperCase());
+	/** @param {string} val */
+	const capitalizeFirst = val => val.replace(/^\w/, d => d.toUpperCase());
 
-	// Put the label on the highest value
-	let left = $derived(values => k.xScale(max(values, k.x)) / Math.max(...k.xRange));
-	let top = $derived(values => k.yScale(max(values, k.y)) / Math.max(...k.yRange));
+	// The group's largest x and y values, as a share of the chart
+	/** @param {Array<any>} values */
+	function leftPercent(values) {
+		return (k.xScale(max(values, k.x)) / Math.max(...k.xRange)) * 100;
+	}
+	/** @param {Array<any>} values */
+	function topPercent(values) {
+		return (k.yScale(max(values, k.y)) / Math.max(...k.yRange)) * 100;
+	}
 </script>
 
 {#each k.data as group}
 	<div
 		class="label"
 		style="
-      top:{top(group.values) * 100}%;
-      left:{left(group.values) * 100}%;
+      top:{topPercent(group.values)}%;
+      left:{leftPercent(group.values)}%;
     "
 	>
-		{cap(k.c?.(group) ?? '')}
+		{capitalizeFirst(k.c?.(group) ?? '')}
 	</div>
 {/each}
 

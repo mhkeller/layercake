@@ -6,12 +6,11 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "fill string undefined no The shape's fill color. By default the color is read from the c scale.":
+    - row "fill string None no The shape's fill color. By default the color is read from the c scale.":
       - cell "fill string":
         - strong: fill
         - code: string
-      - cell "undefined":
-        - code: undefined
+      - cell "None"
       - cell "no"
       - cell "The shape's fill color. By default the color is read from the c scale.":
         - text: ""

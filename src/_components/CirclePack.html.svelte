@@ -7,27 +7,28 @@
 	import { format } from 'd3-format';
 	import { getLayerCakeContext } from 'layercake';
 
-	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
-	const commas = format(',');
-
 	const k = getLayerCakeContext();
+
+	/** @param {string} d */
+	const capitalizeFirst = d => d.replace(/^\w/, w => w.toUpperCase());
+	const commas = format(',');
 
 	/** @typedef {import('d3-hierarchy').HierarchyNode<any>} HierarchyNode */
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {string} [idKey='id'] - The key on each object where the id value lives.
-	 * @property {string} [parentKey] - Set this if you want to define one parent circle. This will give you a [nested](https://layercake.graphics/example/CirclePackNested) graphic versus a [grouping of circles](https://layercake.graphics/example/CirclePack).
-	 * @property {string} [valueKey='value'] - The key on each object where the data value lives.
-	 * @property {Function} [labelVisibilityThreshold=r => r> 25] - By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior.
+	 * @property {string} [idKey='id'] - The field holding each row's id.
+	 * @property {string} [parentKey] - The field holding each row's parent id. Set it for a [nested](https://layercake.graphics/example/CirclePackNested) chart. Leave it unset to pack every row into one circle, as in the [grouping example](https://layercake.graphics/example/CirclePack).
+	 * @property {string} [valueKey='value'] - The field holding each row's value, which sets its circle's area.
+	 * @property {(r: number) => boolean} [isLabelVisible=r => r > 25] - Whether a circle of radius `r` shows its label inside it. Smaller circles show the label on hover instead.
 	 * @property {string} [fill='#fff'] - The circle's fill color.
 	 * @property {string} [stroke='#999'] - The circle's stroke color.
 	 * @property {number} [strokeWidth=1] - The circle's stroke width, in pixels.
-	 * @property {string} [textColor='#333'] - The label text color.
+	 * @property {string} [textFill='#333'] - The label text color.
 	 * @property {string} [textStroke='#000'] - The label text's stroke color.
 	 * @property {number} [textStrokeWidth=0] - The label text's stroke width, in pixels.
-	 * @property {(a: HierarchyNode, b: HierarchyNode) => number} [sortBy=(a, b) => b.value - a.value] - The order in which circle's are drawn. Sorting on the `depth` key is also a popular choice.
-	 * @property {number} [spacing=0] - Whitespace padding between each circle, in pixels.
+	 * @property {(a: HierarchyNode, b: HierarchyNode) => number} [sortBy=(a, b) => (b.value ?? 0) - (a.value ?? 0)] - The order circles are drawn in, as a comparator on hierarchy nodes. Sorting on `depth` is another common choice.
+	 * @property {number} [spacing=0] - Whitespace between circles in pixels.
 	 */
 
 	/** @type {Props} */
@@ -35,11 +36,11 @@
 		idKey = 'id',
 		parentKey,
 		valueKey = 'value',
-		labelVisibilityThreshold = r => r > 25,
+		isLabelVisible = r => r > 25,
 		fill = '#fff',
 		stroke = '#999',
 		strokeWidth = 1,
-		textColor = '#333',
+		textFill = '#333',
 		textStroke = '#000',
 		textStrokeWidth = 0,
 		sortBy = (a, b) => (b.value ?? 0) - (a.value ?? 0),
@@ -77,7 +78,7 @@
 
 <div class="circle-pack" data-has-parent-key={parentKey !== undefined}>
 	{#each descendants as d}
-		<div class="circle-group" data-id={d.data.id} data-visible={labelVisibilityThreshold(d.r)}>
+		<div class="circle-group" data-id={d.data.id} data-visible={isLabelVisible(d.r)}>
 			<div
 				class="circle"
 				style:left="{d.x}px"
@@ -90,17 +91,17 @@
 			<div
 				class="text-group"
 				style="
-						color:{textColor};
+						color:{textFill};
 						text-shadow:
 							-{textStrokeWidth}px -{textStrokeWidth}px 0 {textStroke},
 							{textStrokeWidth}px -{textStrokeWidth}px 0 {textStroke},
 							-{textStrokeWidth}px {textStrokeWidth}px 0 {textStroke},
 							{textStrokeWidth}px {textStrokeWidth}px 0 {textStroke};
 						left:{d.x}px;
-						top:{d.y - (labelVisibilityThreshold(d.r) ? 0 : d.r + 4)}px;
+						top:{d.y - (isLabelVisible(d.r) ? 0 : d.r + 4)}px;
 					"
 			>
-				<div class="text">{titleCase(d.data.id)}</div>
+				<div class="text">{capitalizeFirst(d.data.id)}</div>
 				{#if d.data.data[valueKey]}
 					<div class="text value">{commas(d.data.data[valueKey])}</div>
 				{/if}
@@ -126,9 +127,6 @@
 	.circle-pack[data-has-parent-key='false'] .circle-group[data-id='all'] {
 		display: none;
 	}
-	/* .circle-group:hover {
-    z-index: 9999;
-  } */
 	.circle-group[data-visible='false'] .text-group {
 		display: none;
 		padding: 4px 7px;
@@ -140,7 +138,6 @@
 	.circle-group[data-visible='false']:hover .text-group {
 		z-index: 999;
 		display: block !important;
-		/* On hover, set the text color to black and eliminate the shadow */
 		text-shadow: none !important;
 		color: #000 !important;
 	}
@@ -161,7 +158,6 @@
 	.text {
 		width: 100%;
 		font-size: 11px;
-		/* text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; */
 	}
 	.text.value {
 		font-size: 11px;

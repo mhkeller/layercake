@@ -1,3 +1,1 @@
-A Beeswarm chart using a statically generated D3 force layout with a technique from <a href="https://twitter.com/anmccartney" target="_blank" rel="noreferrer">@anmccartney</a>. For a non-force layout Beeswarm <a href="/example/Beeswarm" target="_blank" rel="noreferrer">see this example</a>. For another way of doing a D3 force layout, see the <a href="/example/CirclePackForce" target="_blank" rel="noreferrer">Circle Pack Force example</a>.
-
-This chart is an example of using the snipppet argument `width` to set a dynamic circle radius based on the chart's width.
+A beeswarm chart laid out by a [d3-force](https://github.com/d3/d3-force) simulation that runs to completion before the circles are drawn. For a beeswarm without a force layout, [see this example](/example/Beeswarm). For another force layout, see the [circle pack force example](/example/CirclePackForce).

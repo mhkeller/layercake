@@ -6,7 +6,7 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "min (number | null) None yes The brush's min value. Useful to bind to.":
+    - row "min (number | null) $bindable(null) no Where the brush starts, from 0 to 1. Bind to it.":
       - cell "min (number | null)":
         - strong: min
         - text: ""
@@ -14,10 +14,11 @@
         - text: ""
         - code: "null"
         - text: ""
-      - cell "None"
-      - cell "yes"
-      - cell "The brush's min value. Useful to bind to."
-    - row "max (number | null) None yes The brush's max value. Useful to bind to.":
+      - cell "$bindable(null)":
+        - code: $bindable(null)
+      - cell "no"
+      - cell "Where the brush starts, from 0 to 1. Bind to it."
+    - row "max (number | null) $bindable(null) no Where the brush ends, from 0 to 1. Bind to it.":
       - cell "max (number | null)":
         - strong: max
         - text: ""
@@ -25,6 +26,7 @@
         - text: ""
         - code: "null"
         - text: ""
-      - cell "None"
-      - cell "yes"
-      - cell "The brush's max value. Useful to bind to."
+      - cell "$bindable(null)":
+        - code: $bindable(null)
+      - cell "no"
+      - cell "Where the brush ends, from 0 to 1. Bind to it."

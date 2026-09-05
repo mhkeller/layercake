@@ -2,30 +2,30 @@
 	import { LayerCake, Svg } from 'layercake';
 	import { scaleOrdinal, scaleBand } from 'd3-scale';
 
-	import ForceLayout from '../../_components/CirclePackForce.svelte';
+	import CirclePackForce from '../../_components/CirclePackForce.svelte';
 
+	// Rows of { category, value }
 	import data from '../../_data/dots.json';
 
 	const xKey = 'category';
 	const rKey = 'value';
 	const cKey = 'category';
 
-	let groupBy = $state('true');
+	let groupByX = $state(true);
 
-	const seriesColors = ['#f0c', '#0cf', '#fc0'];
+	const seriesColors = ['#ff00cc', '#00ccff', '#ffcc00'];
 
-	let manyBodyStrength = 3;
-	let xStrength = 0.1;
+	const manyBodyStrength = 3;
+	const xStrength = 0.1;
 </script>
 
 <div class="input-container">
-	<label><input type="radio" bind:group={groupBy} value="true" />Group by category</label>
-	<label><input type="radio" bind:group={groupBy} value="false" />Clump together</label>
+	<label><input type="radio" bind:group={groupByX} value={true} />Group by category</label>
+	<label><input type="radio" bind:group={groupByX} value={false} />Clump together</label>
 </div>
 
 <div class="chart-container">
 	<LayerCake
-		{data}
 		x={xKey}
 		r={rKey}
 		c={cKey}
@@ -33,20 +33,16 @@
 		rRange={[3, 12]}
 		cScale={scaleOrdinal()}
 		cRange={seriesColors}
+		{data}
 	>
 		<Svg>
-			<ForceLayout {manyBodyStrength} {xStrength} groupBy={JSON.parse(groupBy)} nodeStroke="#000" />
+			<CirclePackForce {manyBodyStrength} {xStrength} {groupByX} stroke="#000" />
 		</Svg>
 	</LayerCake>
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

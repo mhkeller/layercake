@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an HTML scatter plot. This component can also work if the x- or y-scale is ordinal, i.e. it has a `.bandwidth` method. See the [timeplot chart](https://layercake.graphics/example/Timeplot) for an example.
+	Generates an HTML scatter plot. Positions are percentages, so use it with `percentRange={true}`, which also makes it work in server-side rendered charts. If the x or y scale is a band scale, each circle sits in the middle of its band.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';

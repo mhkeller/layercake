@@ -1,9 +1,9 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
+	import AxisYRight from '../../_components/AxisYRight.percent-range.html.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
@@ -11,19 +11,15 @@
 
 	let tickMarks = $state(false);
 	let snapBaselineLabel = $state(false);
-	let gridlines = $state(true);
+	/** @type {'even'|'above'} */
 	let labelPosition = $state('above');
+	let gridlines = $state(true);
 	let tickMarkLength = $state(undefined);
-	let tickGutter = $state(0);
+	let tickGutter = $state(5);
 	let dx = $state(0);
 	let dy = $state(-3);
 
-	const padding = { bottom: 15, left: 10 };
-
-	// let alternate = false;
-	// setInterval(() => {
-	// 	alternate = !alternate;
-	// }, 500);
+	const padding = { bottom: 15, right: 25 };
 </script>
 
 <div class="component-container">
@@ -71,47 +67,21 @@
 	</div>
 
 	<div class="chart-container">
-		<div class="mini-container">
-			<LayerCake ssr percentRange position="absolute" {padding} x={xKey} y={d => d[yKey]} {data}>
-				<Html>
-					<AxisY
-						{tickMarks}
-						{snapBaselineLabel}
-						{labelPosition}
-						{gridlines}
-						{tickMarkLength}
-						{tickGutter}
-						{dx}
-						{dy}
-						ticks={4}
-					/>
-				</Html>
-			</LayerCake>
-		</div>
-
-		<!-- <div class="mini-container" style:display={alternate === false ? 'block' : 'none'}>
-			<LayerCake
-				position='absolute'
-				{padding}
-				x={xKey}
-				y={d => d[yKey]}
-				{data}
-			>
-				<Html>
-					<AxisY
-						{tickMarks}
-						{snapBaselineLabel}
-						{labelPosition}
-						{gridlines}
-						{tickMarkLength}
-						{tickGutter}
-						{dx}
-						{dy}
-						ticks={4}
+		<LayerCake ssr percentRange position="absolute" {padding} x={xKey} y={d => d[yKey]} {data}>
+			<Html>
+				<AxisYRight
+					{tickMarks}
+					{snapBaselineLabel}
+					{labelPosition}
+					{gridlines}
+					{tickMarkLength}
+					{tickGutter}
+					{dx}
+					{dy}
+					ticks={4}
 				/>
-				</Html>
-			</LayerCake>
-		</div> -->
+			</Html>
+		</LayerCake>
 	</div>
 </div>
 
@@ -122,12 +92,7 @@
 		gap: 10px;
 		height: 100%;
 	}
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		flex: 1;
 		position: relative;

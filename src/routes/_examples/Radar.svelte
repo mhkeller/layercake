@@ -4,18 +4,17 @@
 	import Radar from '../../_components/Radar.svelte';
 	import AxisRadial from '../../_components/AxisRadial.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/radarScores.csv';
 
-	const seriesKey = 'name';
+	// One axis per pitch type. Each row's five scores become one polygon.
 	const xKey = ['fastball', 'change', 'slider', 'cutter', 'curve'];
-
-	const seriesNames = Object.keys(data[0]).filter(d => d !== seriesKey);
 </script>
 
 <div class="chart-container">
+	<!-- The x scale maps a score to a radius, so its range runs from the centre out to half the chart height -->
 	<LayerCake
-		padding={{ top: 30, right: 0, bottom: 7, left: 0 }}
+		padding={{ top: 30, bottom: 7 }}
 		x={xKey}
 		xDomain={[0, 10]}
 		xRange={({ height }) => [0, height / 2]}
@@ -29,12 +28,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

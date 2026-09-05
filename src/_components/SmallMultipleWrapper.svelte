@@ -1,3 +1,7 @@
+<!--
+	@component
+	Draws one small multiple: a line chart whose domains ease between its own extents and the shared extents of the whole set. Used by the [small multiples example](https://layercake.graphics/example/SmallMultiples).
+ -->
 <script>
 	import { LayerCake, Svg, calcExtents } from 'layercake';
 	import { Tween } from 'svelte/motion';
@@ -5,6 +9,15 @@
 
 	import Line from './Line.svelte';
 
+	/**
+	 * @typedef {Object} Props
+	 * @property {Array<Object>} data - The rows for this one chart.
+	 * @property {Record<string, [any, any]>} fullExtents - The x and y extents across every chart, as `calcExtents` returns them. Used when `scale` is 'shared'.
+	 * @property {'shared'|'individual'} scale - Whether the domains come from every chart or from this chart's own rows.
+	 * @property {Record<string, (d: any) => any>} extentGetters - The x and y accessors, e.g. `{ x: d => d.x, y: d => d.y }`.
+	 */
+
+	/** @type {Props} */
 	let { data, fullExtents, scale, extentGetters } = $props();
 
 	const tweenOptions = {
@@ -12,17 +25,11 @@
 		easing: eases.cubicInOut
 	};
 
-	const extents = calcExtents(data, extentGetters);
+	let extents = $derived(calcExtents(data, extentGetters));
 
-	const xDomain = new Tween(scale === 'shared' ? fullExtents.x : extents.x, tweenOptions);
-	const yDomain = new Tween(scale === 'shared' ? fullExtents.y : extents.y, tweenOptions);
-
-	$effect(() => {
-		xDomain.target = scale === 'shared' ? fullExtents.x : extents.x;
-	});
-	$effect(() => {
-		yDomain.target = scale === 'shared' ? fullExtents.y : extents.y;
-	});
+	// Each domain eases to its new target whenever `scale` flips or the rows change
+	const xDomain = Tween.of(() => (scale === 'shared' ? fullExtents.x : extents.x), tweenOptions);
+	const yDomain = Tween.of(() => (scale === 'shared' ? fullExtents.y : extents.y), tweenOptions);
 </script>
 
 <LayerCake
@@ -34,6 +41,6 @@
 	yDomain={yDomain.current}
 >
 	<Svg>
-		<Line stroke={'#000'} />
+		<Line stroke="#000" />
 	</Svg>
 </LayerCake>

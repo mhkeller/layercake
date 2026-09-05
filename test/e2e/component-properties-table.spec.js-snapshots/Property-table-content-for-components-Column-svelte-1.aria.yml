@@ -35,11 +35,11 @@
         - code: "0"
       - cell "no"
       - cell "The shape's stroke width."
-    - row "showLabels boolean false no Show the numbers for each column":
+    - row "showLabels boolean false no Show the numbers for each column.":
       - cell "showLabels boolean":
         - strong: showLabels
         - code: boolean
       - cell "false":
         - code: "false"
       - cell "no"
-      - cell "Show the numbers for each column"
+      - cell "Show the numbers for each column."

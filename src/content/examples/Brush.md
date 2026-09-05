@@ -1,0 +1,1 @@
+A line chart with a brush under it. The `Brush.html.svelte` component reports a `min` and `max` from 0 to 1 through bindable props, and the top chart shows only that slice of the rows. Drag on the bottom chart to try it.

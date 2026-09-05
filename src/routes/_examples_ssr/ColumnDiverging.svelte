@@ -6,52 +6,47 @@
 	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
 	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/yearChanges.csv';
 
 	const xKey = 'year';
 	const yKey = 'change';
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">
+	<!--
+		The columns grow out of zero, so zero has to be inside the domain. The
+		`yDomain` function receives the [min, max] measured from the data and
+		stretches whichever end doesn't reach zero. It works whether the numbers
+		are all positive, all negative or a mix.
+
+		The `c` scale turns each row's "up" or "down" into a color for the
+		Column component.
+
+		The client-side version also adds `yPadding` and column labels. Both are
+		in pixels, which a percent-range chart can't use, so they are left out here.
+	-->
 	<LayerCake
 		ssr
 		percentRange
-		padding={{ top: 10, right: 0, bottom: 20, left: 25 }}
+		padding={{ top: 10, bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
-		xScale={scaleBand().paddingInner(0.05).round(true)}
+		xScale={scaleBand().paddingInner(0.05)}
+		yDomain={([min, max]) => [Math.min(0, min), Math.max(0, max)]}
 		c={d => (d[yKey] < 0 ? 'down' : 'up')}
 		cDomain={['up', 'down']}
-		cRange={['#00e047', '#f0c']}
+		cRange={['#00e047', '#ff00cc']}
 		{data}
-		yDomain={([min, max]) => [Math.min(0, min), Math.max(0, max)]}
 	>
-		<!--
-			The columns grow out of zero, so zero has to be inside the domain. This
-			function receives the [min, max] measured from the data and stretches
-			whichever end doesn't reach zero. It works whether your numbers are
-			all positive, all negative or a mix.
-
-			The `c` scale turns each row's "up" or "down" into a color for the
-			Column component.
-		-->
 		{#snippet children(k)}
 			<Html>
-				<AxisX gridlines={false} snapLabels />
-				<AxisY ticks={4} />
+				<AxisX gridlines={false} tickMarks snapLabels />
+				<AxisY />
 			</Html>
 			<ScaledSvg>
 				<Column />
-				<!--
-					Columns run up and down from here, so mark it. Using the ends of the
-					range keeps this in the chart's units: percentages here, or pixels
-					without `percentRange`.
-				-->
+				<!-- Columns run up and down from here, so mark it -->
 				<line class="zero" x1={k.xRange[0]} x2={k.xRange[1]} y1={k.yScale(0)} y2={k.yScale(0)} />
 			</ScaledSvg>
 		{/snippet}
@@ -59,12 +54,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

@@ -9,7 +9,7 @@
 	import Arrows from '../../_components/Arrows.svelte';
 	import ArrowheadMarker from '../../_components/ArrowheadMarker.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/groups.csv';
 
 	const xKey = 'year';
@@ -20,21 +20,21 @@
 			text: 'Example text...',
 			[xKey]: 1980,
 			[yKey]: 14,
-			dx: 15, // Optional pixel values
+			dx: 15, // Nudge the text, in pixels
 			dy: -5,
 			arrows: [
 				{
-					clockwise: false, // true or false, defaults to true
+					clockwise: false, // Which way the arrow bows, true by default
 					source: {
-						anchor: 'left-bottom', // can be `{left, middle, right},{top-middle-bottom}`
+						anchor: 'left-bottom', // A spot on the text box: left, middle or right, then top, middle or bottom
 						dx: -2,
 						dy: -7
 					},
 					target: {
-						// These can be expressed in our data units if passed under the data keys
+						// A target under the data keys goes through the x and y scales
 						[xKey]: 1980,
 						[yKey]: 4.5,
-						// Optional adjustments
+						// Nudge the arrow tip, in pixels
 						dx: 2,
 						dy: 5
 					}
@@ -46,7 +46,7 @@
 						dx: 5
 					},
 					target: {
-						// Or if they are percentage strings they can be passed directly
+						// Percentage strings are measured against the chart instead
 						x: '68%',
 						y: '48%'
 					}
@@ -58,7 +58,7 @@
 
 <div class="chart-container">
 	<LayerCake
-		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
+		padding={{ bottom: 20, left: 20 }}
 		x={xKey}
 		y={yKey}
 		xScale={scaleBand().paddingInner(0.02).round(true)}
@@ -87,12 +87,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

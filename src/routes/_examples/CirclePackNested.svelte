@@ -3,7 +3,7 @@
 
 	import CirclePack from '../../_components/CirclePack.html.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/familyTree.csv';
 
 	const idKey = 'name';
@@ -11,14 +11,15 @@
 </script>
 
 <div class="chart-container">
-	<LayerCake padding={{ top: 0, bottom: 20, left: 30 }} {data}>
+	<LayerCake padding={{ bottom: 20, left: 30 }} {data}>
 		<Html>
+			<!-- Draw the deepest circles last so they sit on top, and show labels only on hover -->
 			<CirclePack
 				{idKey}
 				{parentKey}
 				spacing={5}
 				sortBy={(a, b) => b.depth - a.depth}
-				labelVisibilityThreshold={r => false}
+				isLabelVisible={() => false}
 				stroke="#00bbff"
 			/>
 		</Html>
@@ -26,12 +27,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

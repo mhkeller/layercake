@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates a canvas scatter plot.
+	Generates a canvas scatter plot. If the x or y scale is a band scale, each circle sits in the middle of its band.
  -->
 <script>
 	import { getLayerCakeContext, getCanvasContext } from 'layercake';
@@ -21,14 +21,17 @@
 
 	// Layer Cake runs this on every repaint: resize, new data or a prop change
 	canvas.draw(ctx => {
-		k.data.forEach((/** @type {any} d */ d) => {
+		k.data.forEach(d => {
+			const cx = k.xGet(d) + (k.xScale.bandwidth ? k.xScale.bandwidth() / 2 : 0);
+			const cy = k.yGet(d) + (k.yScale.bandwidth ? k.yScale.bandwidth() / 2 : 0);
 			ctx.beginPath();
-			ctx.arc(k.xGet(d), k.yGet(d), r, 0, 2 * Math.PI, false);
+			ctx.arc(cx, cy, r, 0, 2 * Math.PI, false);
+			// Fill first, then stroke on top, the same as an SVG circle
+			ctx.fillStyle = fill;
+			ctx.fill();
 			ctx.lineWidth = strokeWidth;
 			ctx.strokeStyle = stroke;
 			ctx.stroke();
-			ctx.fillStyle = fill;
-			ctx.fill();
 		});
 	});
 </script>

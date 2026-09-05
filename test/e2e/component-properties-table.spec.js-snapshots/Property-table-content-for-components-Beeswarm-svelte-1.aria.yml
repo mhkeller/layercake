@@ -6,14 +6,14 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "r number 3 no The circle radius size in pixels.":
+    - row "r number 3 no The circle radius in pixels.":
       - cell "r number":
         - strong: r
         - code: number
       - cell "3":
         - code: "3"
       - cell "no"
-      - cell "The circle radius size in pixels."
+      - cell "The circle radius in pixels."
     - row "strokeWidth number 0 no The circle's stroke width in pixels.":
       - cell "strokeWidth number":
         - strong: strokeWidth
@@ -30,21 +30,21 @@
         - code: "'#fff'"
       - cell "no"
       - cell "The circle's stroke color."
-    - row "spacing number 1.5 no Whitespace padding between each circle, in pixels":
+    - row "spacing number 1.5 no Whitespace between circles in pixels.":
       - cell "spacing number":
         - strong: spacing
         - code: number
       - cell "1.5":
         - code: "1.5"
       - cell "no"
-      - cell "Whitespace padding between each circle, in pixels"
-    - row "getTitle Function None no An accessor function that receives a row of your data and returns the field to display as a hover label using a <title> tag.":
-      - cell "getTitle Function":
+      - cell "Whitespace between circles in pixels."
+    - 'row "getTitle (d: any) => string None no Returns hover text for a row, shown in a <title> tag."':
+      - 'cell "getTitle (d: any) => string"':
         - strong: getTitle
-        - code: Function
+        - code: "(d: any) => string"
       - cell "None"
       - cell "no"
-      - cell "An accessor function that receives a row of your data and returns the field to display as a hover label using a <title> tag.":
+      - cell "Returns hover text for a row, shown in a <title> tag.":
         - text: ""
         - code: <title>
         - text: ""

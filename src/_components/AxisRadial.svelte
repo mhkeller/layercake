@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG radial scale, useful for radar charts.
+	Generates SVG axis lines and labels around a circle, for radar charts. The keys of the x accessor become the labels.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -16,10 +16,11 @@
 	/** @type {Props} */
 	let { lineLengthFactor = 1.1, labelPlacementFactor = 1.25 } = $props();
 
-	let max = $derived(k.xScale(Math.max(...k.extents.x)));
+	// The largest x value, scaled, is the outer circle's radius
+	let outerRadius = $derived(k.xScale(Math.max(...k.extents.x)));
 
-	let lineLength = $derived(max * lineLengthFactor);
-	let labelPlacement = $derived(max * labelPlacementFactor);
+	let lineLength = $derived(outerRadius * lineLengthFactor);
+	let labelPlacement = $derived(outerRadius * labelPlacementFactor);
 
 	let angleSlice = $derived((Math.PI * 2) / k.config.x.length);
 
@@ -36,9 +37,16 @@
 </script>
 
 <g transform="translate({k.width / 2}, {k.height / 2})">
-	<circle cx="0" cy="0" r={max} stroke="#ccc" stroke-width="1" fill="#CDCDCD" fill-opacity="0.1"
+	<circle
+		cx="0"
+		cy="0"
+		r={outerRadius}
+		stroke="#ccc"
+		stroke-width="1"
+		fill="#CDCDCD"
+		fill-opacity="0.1"
 	></circle>
-	<circle cx="0" cy="0" r={max / 2} stroke="#ccc" stroke-width="1" fill="none"></circle>
+	<circle cx="0" cy="0" r={outerRadius / 2} stroke="#ccc" stroke-width="1" fill="none"></circle>
 
 	{#each k.config.x as label, i}
 		{@const thisAngleSlice = angleSlice * i - Math.PI / 2}

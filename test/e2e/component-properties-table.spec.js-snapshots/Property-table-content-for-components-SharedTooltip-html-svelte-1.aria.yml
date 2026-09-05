@@ -6,33 +6,30 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "formatTitle Function d => d no A function to format the tooltip title, which is k.config.x.":
-      - cell "formatTitle Function":
+    - 'row "formatTitle (d: any) => string d => d no Formats the tooltip title, the hovered row''s x value."':
+      - 'cell "formatTitle (d: any) => string"':
         - strong: formatTitle
-        - code: Function
+        - code: "(d: any) => string"
       - cell "d => d":
         - code: d => d
       - cell "no"
-      - cell "A function to format the tooltip title, which is k.config.x.":
-        - text: ""
-        - code: k.config.x
-        - text: ""
-    - 'row "formatValue Function d => (isNaN(+d) ? d : commas(d)) no A function to format the value."':
-      - cell "formatValue Function":
+      - cell "Formats the tooltip title, the hovered row's x value."
+    - 'row "formatValue (d: any) => string d => (isNaN(+d) ? d : commas(d)) no Formats a series value."':
+      - 'cell "formatValue (d: any) => string"':
         - strong: formatValue
-        - code: Function
+        - code: "(d: any) => string"
       - 'cell "d => (isNaN(+d) ? d : commas(d))"':
         - code: "d => (isNaN(+d) ? d : commas(d))"
       - cell "no"
-      - cell "A function to format the value."
-    - row "formatKey Function d => titleCase(d) no A function to format the series name.":
-      - cell "formatKey Function":
+      - cell "Formats a series value."
+    - 'row "formatKey (d: any) => string d => capitalizeFirst(d) no Formats a series name."':
+      - 'cell "formatKey (d: any) => string"':
         - strong: formatKey
-        - code: Function
-      - cell "d => titleCase(d)":
-        - code: d => titleCase(d)
+        - code: "(d: any) => string"
+      - cell "d => capitalizeFirst(d)":
+        - code: d => capitalizeFirst(d)
       - cell "no"
-      - cell "A function to format the series name."
+      - cell "Formats a series name."
     - row /offset number -\d+ no A y-offset from the hover point, in pixels\./:
       - cell "offset number":
         - strong: offset
@@ -41,7 +38,7 @@
         - code: /-\d+/
       - cell "no"
       - cell "A y-offset from the hover point, in pixels."
-    - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to k.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
+    - row "dataset (Array<Object> | undefined) None no Rows to search, defaulting to k.data. Pass your own list when the chart data is nested or reshaped.":
       - cell "dataset (Array<Object> | undefined)":
         - strong: dataset
         - text: ""
@@ -51,4 +48,7 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "The dataset to work off of—defaults to k.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format."
+      - cell "Rows to search, defaulting to k.data. Pass your own list when the chart data is nested or reshaped.":
+        - text: ""
+        - code: k.data
+        - text: ""

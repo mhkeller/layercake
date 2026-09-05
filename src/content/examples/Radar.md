@@ -1,0 +1,1 @@
+A radar chart. The x accessor is a list of five keys, one per axis, so each row becomes one polygon. The x scale maps a score to a radius by setting its range to run from the centre out to half the chart height, and the `AxisRadial` component draws the spokes and labels.

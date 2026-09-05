@@ -11,30 +11,32 @@
 	const k = getLayerCakeContext();
 
 	const commas = format(',');
-	const titleCase = d => d.replace(/^\w/, w => w.toUpperCase());
+	/** @param {string} d */
+	const capitalizeFirst = d => d.replace(/^\w/, w => w.toUpperCase());
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Function} [formatTitle=d => d] - A function to format the tooltip title, which is `k.config.x`.
-	 * @property {Function} [formatValue=d => (isNaN(+d) ? d : commas(d))] - A function to format the value.
-	 * @property {Function} [formatKey=d => titleCase(d)] - A function to format the series name.
+	 * @property {(d: any) => string} [formatTitle=d => d] - Formats the tooltip title, the hovered row's x value.
+	 * @property {(d: any) => string} [formatValue=d => (isNaN(+d) ? d : commas(d))] - Formats a series value.
+	 * @property {(d: any) => string} [formatKey=d => capitalizeFirst(d)] - Formats a series name.
 	 * @property {number} [offset=-20] - A y-offset from the hover point, in pixels.
-	 * @property {Array<Object>|undefined} [dataset] - The dataset to work off of—defaults to k.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.
+	 * @property {Array<Object>|undefined} [dataset] - Rows to search, defaulting to `k.data`. Pass your own list when the chart data is nested or reshaped.
 	 */
 
 	/** @type {Props} */
 	let {
 		formatTitle = d => d,
 		formatValue = d => (isNaN(+d) ? d : commas(d)),
-		formatKey = d => titleCase(d),
+		formatKey = d => capitalizeFirst(d),
 		offset = -20,
 		dataset
 	} = $props();
 
-	const w = 150;
-	const w2 = w / 2;
+	const tooltipWidth = 150;
+	const halfTooltipWidth = tooltipWidth / 2;
 
-	// Sort the keys by the highest value
+	// Sort the series by value, highest first, leaving out the x field
+	/** @param {Record<string, any>} result */
 	function sortResult(result) {
 		if (Object.keys(result).length === 0) return [];
 		const rows = Object.keys(result)
@@ -52,17 +54,16 @@
 </script>
 
 <QuadTree dataset={dataset || k.data} y="x">
-	{#snippet children({ x, y, visible, found, e })}
+	{#snippet children({ x, visible, found })}
 		{@const foundSorted = sortResult(found)}
 		{#if visible === true}
 			<div style="left:{x}px;" class="line"></div>
 			<div
 				class="tooltip"
 				style="
-	        width:{w}px;
-	        display: {visible ? 'block' : 'none'};
+	        width:{tooltipWidth}px;
 	        top:{k.yScale(foundSorted[0].value) + offset}px;
-	        left:{Math.min(Math.max(w2, x), k.width - w2)}px;"
+	        left:{Math.min(Math.max(halfTooltipWidth, x), k.width - halfTooltipWidth)}px;"
 			>
 				<div class="title">{formatTitle(found[k.config.x])}</div>
 				{#each foundSorted as row}
@@ -86,7 +87,6 @@
 		transform: translate(-50%, -100%);
 		padding: 5px;
 		z-index: 15;
-		pointer-events: none;
 	}
 	.line {
 		position: absolute;

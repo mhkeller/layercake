@@ -11,14 +11,13 @@
 	/** @typedef {import('d3-shape').CurveFactory} CurveFactory */
 	/**
 	 * @typedef {Object} Props
-	 * @property {CurveFactory} [curve] - An optional D3 interpolation function. See [d3-shape](https://github.com/d3/d3-shape#curves) for options. Pass this function in uncalled, i.e. without the open-close parentheses.
+	 * @property {CurveFactory} [curve=curveLinear] - A D3 curve factory such as `curveCardinal`, passed uncalled. See [d3-shape](https://github.com/d3/d3-shape#curves) for the options.
 	 */
 
 	/** @type {Props} */
 	let { curve = curveLinear } = $props();
 
 	let path = $derived(line().x(k.xGet).y(k.yGet).curve(curve));
-	// .defined($y)
 </script>
 
 <g class="line-group">

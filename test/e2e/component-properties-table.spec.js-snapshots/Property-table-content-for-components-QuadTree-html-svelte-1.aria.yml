@@ -6,23 +6,36 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "x string 'x' no The dimension to search across when moving the mouse left and right.":
-      - cell "x string":
+    - row "x ('x' | 'y') 'x' no The dimension a left-right mouse move searches. Set x and y to the same dimension to search one only.":
+      - cell "x ('x' | 'y')":
         - strong: x
-        - code: string
+        - text: ""
+        - code: "'x'"
+        - text: ""
+        - code: "'y'"
+        - text: ""
       - cell "'x'":
         - code: "'x'"
       - cell "no"
-      - cell "The dimension to search across when moving the mouse left and right."
-    - row "y string 'y' no The dimension to search across when moving the mouse up and down.":
-      - cell "y string":
+      - cell "The dimension a left-right mouse move searches. Set x and y to the same dimension to search one only.":
+        - text: ""
+        - code: x
+        - text: ""
+        - code: "y"
+        - text: ""
+    - row "y ('x' | 'y') 'y' no The dimension an up-down mouse move searches.":
+      - cell "y ('x' | 'y')":
         - strong: "y"
-        - code: string
+        - text: ""
+        - code: "'x'"
+        - text: ""
+        - code: "'y'"
+        - text: ""
       - cell "'y'":
         - code: "'y'"
       - cell "no"
-      - cell "The dimension to search across when moving the mouse up and down."
-    - row "searchRadius (number | undefined) None no The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
+      - cell "The dimension an up-down mouse move searches."
+    - row "searchRadius (number | undefined) None no How many pixels around the mouse to search. Unlimited by default. Passed to quadtree.find.":
       - cell "searchRadius (number | undefined)":
         - strong: searchRadius
         - text: ""
@@ -32,15 +45,12 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "The number of pixels to search around the mouse's location. This is the third argument passed to quadtree.find and by default a value of undefined means an unlimited range.":
+      - cell "How many pixels around the mouse to search. Unlimited by default. Passed to quadtree.find.":
         - text: ""
         - link "quadtree.find":
           - /url: https://github.com/d3/d3-quadtree#quadtree_find
-          - code: quadtree.find
         - text: ""
-        - code: undefined
-        - text: ""
-    - row "dataset (Array<Object> | undefined) None no The dataset to work off of—defaults to k.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format.":
+    - row "dataset (Array<Object> | undefined) None no Rows to search, defaulting to k.data. Pass your own list when the chart data is nested or reshaped.":
       - cell "dataset (Array<Object> | undefined)":
         - strong: dataset
         - text: ""
@@ -50,4 +60,17 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "The dataset to work off of—defaults to k.data if left unset. You can pass something custom in here in case you don't want to use the main data or it's in a strange format."
+      - cell "Rows to search, defaulting to k.data. Pass your own list when the chart data is nested or reshaped.":
+        - text: ""
+        - code: k.data
+        - text: ""
+    - row "children import('svelte').Snippet<[Nearest]> None no Renders with the nearest point. See the Nearest typedef above for what it gets.":
+      - cell "children import('svelte').Snippet<[Nearest]>":
+        - strong: children
+        - code: import('svelte').Snippet<[Nearest]>
+      - cell "None"
+      - cell "no"
+      - cell "Renders with the nearest point. See the Nearest typedef above for what it gets.":
+        - text: ""
+        - code: Nearest
+        - text: ""

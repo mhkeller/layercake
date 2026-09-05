@@ -5,11 +5,13 @@
 
 	import MapLabels from '../../_components/MapLabels.svg.svelte';
 
-	// This example loads json data as json using @rollup/plugin-json
+	// The JSON file is imported as data
 	import usStates from '../../_data/us-states.topojson.json';
 	import usStateLabels from '../../_data/us-states-labels.json';
 
-	const geojson = feature(usStates, usStates.objects.collection);
+	const geojson = /** @type {import('geojson').FeatureCollection<any, Record<string, any>>} */ (
+		feature(usStates, usStates.objects.collection)
+	);
 	const projection = geoAlbersUsa;
 
 	const hideList = ['CT', 'DC', 'DE', 'MA', 'MD', 'NH', 'NJ', 'RI', 'WV'];
@@ -29,12 +31,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

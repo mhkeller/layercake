@@ -1,5 +1,3 @@
-Since we want an ordinal x-axis and Layer Cake defaults to a linear scale, pass in a custom scale to `xScale` with a few formatting options. Set the y-scale to always start at `0` so you don't show misleading differences between groups.
+Since we want an ordinal x-axis and Layer Cake defaults to a linear scale, pass in a custom scale to `xScale` with a few formatting options. Set the y-scale to always start at `0` so you don't show misleading differences between groups. The annotation and its arrows come from one config object, drawn by the `AnnotationsData` and `Arrows` components.
 
-Since it's tricky to server-side render circles in SVG, this example uses a second `<LayerCake>` component for the arrow, which renders client-side and uses the `position='absolute'` prop to make sure the two cakes are super-imposed on one another.
-
-For the annotation arrowhead, note that you may need to provide an [explicit link to your SVG marker id](https://github.com/sveltejs/svelte/issues/3450), such as in `./_components/Arrows.svelte` using `window.location.href`.
+This is the server-side rendered version. `ssr` and `percentRange` on `<LayerCake>` put the scales in percentages, so the chart renders before the browser measures it. The axes are HTML components and the marks sit in a `<ScaledSvg>` that stretches to fit its box. The arrows are the exception: a ScaledSvg would bend them out of shape, so they get a second `<LayerCake>` with the same scales that renders only in the browser. Both cakes use `position="absolute"` to sit on top of each other.

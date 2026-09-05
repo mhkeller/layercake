@@ -6,14 +6,14 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "tickMarks boolean false no Show a vertical mark for each tick.":
+    - row "tickMarks boolean false no Show a vertical mark at each tick.":
       - cell "tickMarks boolean":
         - strong: tickMarks
         - code: boolean
       - cell "false":
         - code: "false"
       - cell "no"
-      - cell "Show a vertical mark for each tick."
+      - cell "Show a vertical mark at each tick."
     - row "gridlines boolean true no Show gridlines extending into the chart area.":
       - cell "gridlines boolean":
         - strong: gridlines
@@ -30,14 +30,14 @@
         - code: "6"
       - cell "no"
       - cell "The length of the tick mark."
-    - row "baseline boolean false no Show a solid line at the bottom.":
-      - cell "baseline boolean":
-        - strong: baseline
+    - row "showBaseline boolean false no Show a solid line along the bottom of the chart.":
+      - cell "showBaseline boolean":
+        - strong: showBaseline
         - code: boolean
       - cell "false":
         - code: "false"
       - cell "no"
-      - cell "Show a solid line at the bottom."
+      - cell "Show a solid line along the bottom of the chart."
     - row "snapLabels boolean false no Instead of centering the text labels on the first and the last items, align them to the edges of the chart.":
       - cell "snapLabels boolean":
         - strong: snapLabels
@@ -46,23 +46,23 @@
         - code: "false"
       - cell "no"
       - cell "Instead of centering the text labels on the first and the last items, align them to the edges of the chart."
-    - 'row "format (d: any) => string d => d no A function that passes the current tick value and expects a nicely formatted value in return."':
+    - 'row "format (d: any) => string d => d no Formats a tick value for display."':
       - 'cell "format (d: any) => string"':
         - strong: format
         - code: "(d: any) => string"
       - cell "d => d":
         - code: d => d
       - cell "no"
-      - cell "A function that passes the current tick value and expects a nicely formatted value in return."
-    - row "ticks (number | Array<any> | Function) undefined no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.":
-      - cell "ticks (number | Array<any> | Function)":
+      - cell "Formats a tick value for display."
+    - 'row "ticks (number | Array<any> | ((ticks: Array<any>) => Array<any>)) undefined no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it''s a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function."':
+      - 'cell "ticks (number | Array<any> | ((ticks: Array<any>) => Array<any>))"':
         - strong: ticks
         - text: ""
         - code: number
         - text: ""
         - code: Array<any>
         - text: ""
-        - code: Function
+        - code: "((ticks: Array<any>) => Array<any>)"
         - text: ""
       - cell "undefined":
         - code: undefined
@@ -72,37 +72,31 @@
         - link "d3Scale.ticks":
           - /url: https://github.com/d3/d3-scale
         - text: function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.
-    - row "tickGutter number 0 no The amount of whitespace between the start of the tick and the chart drawing area (the yRange min).":
+    - row "tickGutter number 0 no The gap in pixels between the bottom of the chart area and the start of the tick.":
       - cell "tickGutter number":
         - strong: tickGutter
         - code: number
       - cell "0":
         - code: "0"
       - cell "no"
-      - cell "The amount of whitespace between the start of the tick and the chart drawing area (the yRange min)."
-    - row "dx number 0 no Any optional value passed to the dx attribute on the text label.":
+      - cell "The gap in pixels between the bottom of the chart area and the start of the tick."
+    - row "dx number 0 no Horizontal offset of the label in pixels.":
       - cell "dx number":
         - strong: dx
         - code: number
       - cell "0":
         - code: "0"
       - cell "no"
-      - cell "Any optional value passed to the dx attribute on the text label.":
-        - text: ""
-        - code: dx
-        - text: ""
-    - row "dy number 0 no Any optional value passed to the dy attribute on the text label.":
+      - cell "Horizontal offset of the label in pixels."
+    - row "dy number 0 no Vertical offset of the label in pixels.":
       - cell "dy number":
         - strong: dy
         - code: number
       - cell "0":
         - code: "0"
       - cell "no"
-      - cell "Any optional value passed to the dy attribute on the text label.":
-        - text: ""
-        - code: dy
-        - text: ""
-    - 'row "units (''px'' | ''%'') k.percentRange === true ? ''%'' : ''px'' no If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
+      - cell "Vertical offset of the label in pixels."
+    - 'row "units (''px'' | ''%'') k.percentRange === true ? ''%'' : ''px'' no Position with pixels or percentages. Defaults to ''%'' when percentRange={true}, otherwise ''px''."':
       - cell "units ('px' | '%')":
         - strong: units
         - text: ""
@@ -113,14 +107,11 @@
       - 'cell "k.percentRange === true ? ''%'' : ''px''"':
         - code: "k.percentRange === true ? '%' : 'px'"
       - cell "no"
-      - 'cell "If percentRange={true} it defaults to ''%'', otherwise, the default is ''px''. Options: ''%'' or ''px''"':
+      - 'cell "Position with pixels or percentages. Defaults to ''%'' when percentRange={true}, otherwise ''px''."':
+        - text: ""
+        - code: "'%'"
         - text: ""
         - code: "percentRange={true}"
         - text: ""
-        - code: "'%'"
-        - text: ""
         - code: "'px'"
         - text: ""
-        - code: "'%'"
-        - text: ""
-        - code: "'px'"

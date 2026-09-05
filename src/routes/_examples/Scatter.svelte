@@ -7,18 +7,19 @@
 	import AxisX from '../../_components/AxisX.svelte';
 	import AxisY from '../../_components/AxisY.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';
 
 	const r = 3;
-	const padding = 10;
-	const color = '#fff';
+	const scalePadding = 10;
 
-	function logEvent(d) {
-		console.log('dispatched event', d, d.detail);
+	// The Voronoi layer reports the point under the mouse. Its row is on `point.data`.
+	/** @param {MouseEvent} e @param {any} point */
+	function logPoint(e, point) {
+		console.log(point.data);
 	}
 </script>
 
@@ -27,8 +28,8 @@
 		padding={{ top: 10, right: 5, bottom: 20, left: 25 }}
 		x={xKey}
 		y={yKey}
-		xPadding={[padding, padding]}
-		yPadding={[padding, padding]}
+		xPadding={[scalePadding, scalePadding]}
+		yPadding={[scalePadding, scalePadding]}
 		{data}
 	>
 		<Svg>
@@ -37,23 +38,18 @@
 		</Svg>
 
 		<Canvas>
-			<ScatterCanvas r={r * 1.5} fill="#0cf" />
+			<ScatterCanvas r={r * 1.5} fill="#00ccff" />
 		</Canvas>
 
 		<Svg>
-			<ScatterSvg {r} fill={color} />
-			<Voronoi stroke="#333" onmouseover={logEvent} />
+			<ScatterSvg {r} fill="#fff" />
+			<Voronoi stroke="#333" onmouseover={logPoint} />
 		</Svg>
 	</LayerCake>
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

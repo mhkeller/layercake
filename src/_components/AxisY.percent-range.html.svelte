@@ -1,8 +1,8 @@
 <!--
 	@component
-	Generates an HTML y-axis. This component is also configured to detect if your y-scale is an ordinal scale. If so, it will place the tickMarks in the middle of the bandwidth.
+	Generates an HTML y-axis along the left edge of the chart, for server-side rendered charts. If the y scale is a band scale, each tick sits in the middle of its band.
 
-	Although this is marked as a percent-range component, you can also use it with a normal scale with no configuration needed. By default, if you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts. Set the `units` prop to either `'%'` or `'px'` to override the default behavior.
+	Positions are percentages when `percentRange={true}` and pixels otherwise, so this also works in a client-side chart with no setup. Set the `units` prop to `'%'` or `'px'` to override that.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -11,18 +11,18 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {boolean} [tickMarks=false] - Show marks next to the tick label.
-	 * @property {string} [labelPosition='even'] - Whether the label sits even with its value ('even') or sits on top ('above') the tick mark. Default is 'even'.
+	 * @property {boolean} [tickMarks=false] - Show a horizontal mark at each tick.
+	 * @property {'even'|'above'} [labelPosition='even'] - Whether the label sits level with its tick ('even') or above it ('above').
 	 * @property {boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
 	 * @property {boolean} [gridlines=true] - Show gridlines extending into the chart area.
-	 * @property {number} [tickMarkLength] - The length of the tick mark. If not set, becomes the length of the widest tick.
-	 * @property {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return.
-	 * @property {number|Array<any>|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
-	 * @property {number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the xRange min).
-	 * @property {number} [dx=0] - Any optional value passed to the `dx` attribute on the text label.
-	 * @property {number} [dy=-3] - Any optional value passed to the `dy` attribute on the text label.
+	 * @property {number} [tickMarkLength] - Length of the tick mark in pixels. Defaults to the width of the widest label when `labelPosition` is 'above', otherwise 6.
+	 * @property {(d: any) => string} [format=d => d] - Formats a tick value for display.
+	 * @property {number|Array<any>|((ticks: Array<any>) => Array<any>)} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
+	 * @property {number} [tickGutter=0] - The gap in pixels between the left edge of the chart area and the tick.
+	 * @property {number} [dx=0] - Horizontal offset of the label in pixels.
+	 * @property {number} [dy=-3] - Vertical offset of the label in pixels.
 	 * @property {number} [charPixelWidth=7.25] - Used to calculate the widest label length to offset labels. Adjust if the automatic tick length doesn't look right because you have a bigger font (or just set `tickMarkLength` to a pixel value).
-	 * @property {'px'|'%'} [units] - If `percentRange={true}` it defaults to `'%'`, otherwise, the default is `'px'`. Options: `'%'` or `'px'`
+	 * @property {'px'|'%'} [units] - Position with pixels or percentages. Defaults to `'%'` when `percentRange={true}`, otherwise `'px'`.
 	 */
 
 	/** @type {Props} */
@@ -114,7 +114,6 @@
 	.tick,
 	.tick-mark,
 	.gridline,
-	.baseline,
 	.text {
 		position: absolute;
 	}
@@ -132,10 +131,6 @@
 	}
 	.tick-mark {
 		border-top: 1px solid #aaa;
-	}
-
-	.baseline.gridline {
-		border-top-style: solid;
 	}
 
 	.tick .text {

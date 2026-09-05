@@ -6,38 +6,53 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "shape string 'square' no The shape for each item. Can be 'circle', 'line', or 'square';":
-      - cell "shape string":
+    - row "shape ('circle' | 'line' | 'square') 'square' no The shape of each chip.":
+      - cell "shape ('circle' | 'line' | 'square')":
         - strong: shape
-        - code: string
+        - text: ""
+        - code: "'circle'"
+        - text: ""
+        - code: "'line'"
+        - text: ""
+        - code: "'square'"
+        - text: ""
       - cell "'square'":
         - code: "'square'"
       - cell "no"
-      - cell "The shape for each item. Can be 'circle', 'line', or 'square';"
-    - row "align string 'start' no Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'.":
-      - cell "align string":
+      - cell "The shape of each chip."
+    - row "align ('start' | 'center' | 'end') 'start' no Where the key sits in its box, as flexbox justify-content.":
+      - cell "align ('start' | 'center' | 'end')":
         - strong: align
-        - code: string
+        - text: ""
+        - code: "'start'"
+        - text: ""
+        - code: "'center'"
+        - text: ""
+        - code: "'end'"
+        - text: ""
       - cell "'start'":
         - code: "'start'"
       - cell "no"
-      - cell "Sets the CSS flexbox justify-content setting for the box as a whole. Can be 'start', 'center' or 'end'."
-    - row "lookup (Function | Object) None no Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value.":
-      - cell "lookup (Function | Object)":
+      - cell "Where the key sits in its box, as flexbox justify-content.":
+        - text: ""
+        - code: justify-content
+        - text: ""
+    - 'row "lookup (((d: any) => string) | Record<string, string>) None no Either a function that formats a value, or an object mapping values to labels. A value missing from the object is shown as is."':
+      - 'cell "lookup (((d: any) => string) | Record<string, string>)"':
         - strong: lookup
         - text: ""
-        - code: Function
+        - code: "((d: any) => string)"
         - text: ""
-        - code: Object
+        - code: Record<string, string>
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "Either a function that takes the value and returns a formatted string, or an object of values. If a given value is not present in a lookup object, it returns the original value."
-    - row "capitalize boolean true no Capitalize the first character.":
+      - cell "Either a function that formats a value, or an object mapping values to labels. A value missing from the object is shown as is."
+    - row "capitalize boolean true no Capitalize the first character of each label.":
       - cell "capitalize boolean":
         - strong: capitalize
         - code: boolean
       - cell "true":
         - code: "true"
       - cell "no"
-      - cell "Capitalize the first character."
+      - cell "Capitalize the first character of each label."

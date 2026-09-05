@@ -7,7 +7,7 @@
 	 * @typedef {Object} Props
 	 * @property {MouseEvent} event - The mouse event that triggered the tooltip.
 	 * @property {number} [offset=-35] - A y-offset from the hover point, in pixels.
-	 * @property {import('svelte').Snippet} [children]
+	 * @property {import('svelte').Snippet} [children] - The tooltip body.
 	 */
 
 	/** @type {Props} */

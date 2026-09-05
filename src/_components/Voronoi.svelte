@@ -3,7 +3,7 @@
 	Generates a Voronoi layer using [d3-delaunay](https://github.com/d3/d3-delaunay).
  -->
 <script>
-	import { uniques, getLayerCakeContext } from 'layercake';
+	import { getLayerCakeContext } from 'layercake';
 	import { Delaunay } from 'd3-delaunay';
 
 	const k = getLayerCakeContext();
@@ -12,8 +12,8 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {string|undefined} [stroke] - An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
-	 * @property {(event: MouseEvent, point: Array<number>) => void} [onmouseover] - A function that gets called on mouseover events. The first argument is the event, and the second is the point data.
+	 * @property {string|undefined} [stroke] - A stroke color for the cells, handy for seeing where they are.
+	 * @property {(event: MouseEvent, point: Array<number>) => void} [onmouseover] - Called when the mouse enters a cell with the event and the cell's `[x, y]` point. The point's row is on `point.data`.
 	 */
 
 	/** @type {Props} */
@@ -23,8 +23,7 @@
 	 * @param {MouseEvent} e
 	 * @param {Point} point
 	 */
-	function log(e, point) {
-		console.log(point, point.data);
+	function handleMouseover(e, point) {
 		onmouseover(e, point);
 	}
 
@@ -38,7 +37,16 @@
 		})
 	);
 
-	let uniquePoints = $derived(uniques(points, d => d.join(), false) ?? []);
+	// Two rows at the same spot would make a zero-area cell, so keep the first point per spot
+	let uniquePoints = $derived.by(() => {
+		const seen = new Set();
+		return points.filter(point => {
+			const key = point.join();
+			if (seen.has(key)) return false;
+			seen.add(key);
+			return true;
+		});
+	});
 
 	// The cells need a chart with room to draw in. While a page is being taken
 	// down the container measures zero for a moment, and d3-delaunay rejects a
@@ -51,9 +59,8 @@
 </script>
 
 <!--
-	These cells are invisible mouse targets, not content, so they are hidden from
-	screen readers. Making each one focusable would give a keyboard user one tab
-	stop per data point with nothing to read at any of them.
+	The cells are invisible hit areas, not content, so they are hidden from screen
+	readers. Focusable cells would give keyboard users one stop per point with nothing to read.
 -->
 {#if voronoi}
 	{#each uniquePoints as point, i}
@@ -62,7 +69,7 @@
 			style="stroke: {stroke}"
 			class="voronoi-cell"
 			d={voronoi.renderCell(i)}
-			onmouseover={e => log(e, point)}
+			onmouseover={e => handleMouseover(e, point)}
 			aria-hidden="true"
 		></path>
 	{/each}
@@ -74,11 +81,5 @@
 		stroke: none;
 		pointer-events: all;
 		outline: none;
-	}
-
-	/* Outlines the cell under the mouse. Handy while testing. Remove it for production. */
-	.voronoi-cell:hover {
-		stroke: #333 !important;
-		stroke-width: 3px;
 	}
 </style>

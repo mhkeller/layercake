@@ -6,22 +6,26 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "tickMarks boolean false no Show marks next to the tick label.":
+    - row "tickMarks boolean false no Show a horizontal mark at each tick.":
       - cell "tickMarks boolean":
         - strong: tickMarks
         - code: boolean
       - cell "false":
         - code: "false"
       - cell "no"
-      - cell "Show marks next to the tick label."
-    - row "labelPosition string 'above' no Whether the label sits even with its value ('even') or sits on top ('above') the tick mark.":
-      - cell "labelPosition string":
+      - cell "Show a horizontal mark at each tick."
+    - row "labelPosition ('even' | 'above') 'even' no Whether the label sits level with its tick ('even') or above it ('above').":
+      - cell "labelPosition ('even' | 'above')":
         - strong: labelPosition
-        - code: string
-      - cell "'above'":
+        - text: ""
+        - code: "'even'"
+        - text: ""
         - code: "'above'"
+        - text: ""
+      - cell "'even'":
+        - code: "'even'"
       - cell "no"
-      - cell "Whether the label sits even with its value ('even') or sits on top ('above') the tick mark."
+      - cell "Whether the label sits level with its tick ('even') or above it ('above')."
     - row "snapBaselineLabel boolean false no When labelPosition='even', adjust the lowest label so that it sits above the tick mark.":
       - cell "snapBaselineLabel boolean":
         - strong: snapBaselineLabel
@@ -38,31 +42,34 @@
         - code: "true"
       - cell "no"
       - cell "Show gridlines extending into the chart area."
-    - row "tickMarkLength number undefined no The length of the tick mark. If not set, becomes the length of the widest tick.":
+    - row "tickMarkLength number undefined no Length of the tick mark in pixels. Defaults to the width of the widest label when labelPosition is 'above', otherwise 6.":
       - cell "tickMarkLength number":
         - strong: tickMarkLength
         - code: number
       - cell "undefined":
         - code: undefined
       - cell "no"
-      - cell "The length of the tick mark. If not set, becomes the length of the widest tick."
-    - 'row "format (d: any) => string d => d no A function that passes the current tick value and expects a nicely formatted value in return."':
+      - cell "Length of the tick mark in pixels. Defaults to the width of the widest label when labelPosition is 'above', otherwise 6.":
+        - text: ""
+        - code: labelPosition
+        - text: ""
+    - 'row "format (d: any) => string d => d no Formats a tick value for display."':
       - 'cell "format (d: any) => string"':
         - strong: format
         - code: "(d: any) => string"
       - cell "d => d":
         - code: d => d
       - cell "no"
-      - cell "A function that passes the current tick value and expects a nicely formatted value in return."
-    - row "ticks (number | Array<any> | Function) 4 no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.":
-      - cell "ticks (number | Array<any> | Function)":
+      - cell "Formats a tick value for display."
+    - 'row "ticks (number | Array<any> | ((ticks: Array<any>) => Array<any>)) 4 no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it''s a function, passes along the default tick values and expects an array of tick values in return."':
+      - 'cell "ticks (number | Array<any> | ((ticks: Array<any>) => Array<any>))"':
         - strong: ticks
         - text: ""
         - code: number
         - text: ""
         - code: Array<any>
         - text: ""
-        - code: Function
+        - code: "((ticks: Array<any>) => Array<any>)"
         - text: ""
       - cell "4":
         - code: "4"
@@ -72,36 +79,30 @@
         - link "d3Scale.ticks":
           - /url: https://github.com/d3/d3-scale
         - text: function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
-    - row "tickGutter number 5 no The amount of whitespace between the start of the tick and the chart drawing area (the xRange min).":
+    - row "tickGutter number 5 no The gap in pixels between the right edge of the chart area and the tick. Defaults to 5 so labels clear the edge.":
       - cell "tickGutter number":
         - strong: tickGutter
         - code: number
       - cell "5":
         - code: "5"
       - cell "no"
-      - cell "The amount of whitespace between the start of the tick and the chart drawing area (the xRange min)."
-    - row "dx number 0 no Any optional value passed to the dx attribute on the text label.":
+      - cell "The gap in pixels between the right edge of the chart area and the tick. Defaults to 5 so labels clear the edge."
+    - row "dx number 0 no Horizontal offset of the label in pixels.":
       - cell "dx number":
         - strong: dx
         - code: number
       - cell "0":
         - code: "0"
       - cell "no"
-      - cell "Any optional value passed to the dx attribute on the text label.":
-        - text: ""
-        - code: dx
-        - text: ""
-    - row "dy number 0 no Any optional value passed to the dy attribute on the text label.":
+      - cell "Horizontal offset of the label in pixels."
+    - row "dy number 0 no Vertical offset of the label in pixels.":
       - cell "dy number":
         - strong: dy
         - code: number
       - cell "0":
         - code: "0"
       - cell "no"
-      - cell "Any optional value passed to the dy attribute on the text label.":
-        - text: ""
-        - code: dy
-        - text: ""
+      - cell "Vertical offset of the label in pixels."
     - row /charPixelWidth number \d+\.\d+ no Used to calculate the widest label length to offset labels\. Adjust if the automatic tick length doesn't look right because you have a bigger font \(or just set tickMarkLength to a pixel value\)\./:
       - cell "charPixelWidth number":
         - strong: charPixelWidth

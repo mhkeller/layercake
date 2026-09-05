@@ -3,21 +3,22 @@
 
 	import SmallMultipleWrapper from '../../_components/SmallMultipleWrapper.svelte';
 
-	import dataSeries from '../../_data/pointSeries.js';
+	// A list of series, each a list of { x, y } points
+	import pointSeries from '../../_data/pointSeries.js';
 
-	// Grab the extents of the full dataset
+	/** @type {Record<string, (d: any) => any>} */
 	const extentGetters = {
 		x: d => d.x,
 		y: d => d.y
 	};
 
-	const fullExtents = calcExtents(flatten(dataSeries), extentGetters);
+	// The extents across every series, for the shared scale option
+	const fullExtents = calcExtents(flatten(pointSeries), extentGetters);
 
-	// Sort by the last value
-	dataSeries.sort((a, b) => {
-		return b[b.length - 1].y - a[a.length - 1].y;
-	});
+	// Order the charts by each series' last value, on a copy so the import stays as it is
+	const sortedSeries = [...pointSeries].sort((a, b) => b[b.length - 1].y - a[a.length - 1].y);
 
+	/** @type {'shared'|'individual'} */
 	let scale = $state('individual');
 </script>
 
@@ -27,7 +28,7 @@
 </div>
 
 <div class="group-container">
-	{#each dataSeries as data}
+	{#each sortedSeries as data}
 		<div class="small-multiple-container">
 			<SmallMultipleWrapper {data} {fullExtents} {scale} {extentGetters} />
 		</div>
@@ -48,12 +49,7 @@
 	input {
 		margin-right: 7px;
 	}
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.small-multiple-container {
 		position: relative;
 		display: inline-block;

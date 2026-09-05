@@ -4,74 +4,65 @@
 	import { geoAlbersUsa } from 'd3-geo';
 	import { scaleQuantize } from 'd3-scale';
 
-	// For a map example with a tooltip, check out https://layercake.graphics/example/MapSvg
-
 	import MapSvg from '../../_components/Map.svg.svelte';
 	import MapCanvas from '../../_components/Map.canvas.svelte';
 	import MapPointsCanvas from '../../_components/MapPoints.canvas.svelte';
 	import MapLabels from '../../_components/MapLabels.html.svelte';
 
-	// This example loads json data as json using @rollup/plugin-json
+	// The JSON file is imported as data
 	import usStates from '../../_data/us-states.topojson.json';
 	import stateData from '../../_data/us-states-data.json';
 	import stateLabels from '../../_data/us-states-labels.json';
 
 	const cKey = 'myValue';
-
-	const geojson = feature(usStates, usStates.objects.collection);
-	const aspectRatio = 2.63;
-	const projection = geoAlbersUsa;
-
-	// Create lookups to more easily join our data
-	// `dataJoinKey` is the name of the field in the data
-	// `mapJoinKey` is the name of the field in the map file
-	const dataJoinKey = 'name';
-	const mapJoinKey = 'name';
-	const dataLookup = new Map();
-
 	const labelCoordinatesKey = 'center';
 	const labelNameKey = 'abbr';
 
-	stateData.forEach(d => {
-		dataLookup.set(d[dataJoinKey], d[cKey]);
-	});
+	// The map file is topojson, so unpack it into GeoJSON features
+	const geojson = /** @type {import('geojson').FeatureCollection<any, Record<string, any>>} */ (
+		feature(usStates, usStates.objects.collection)
+	);
+	const projection = geoAlbersUsa;
 
-	// Exclude some for space reasons
+	// Join the data rows to the map features by name
+	const dataJoinKey = 'name';
+	const mapJoinKey = 'name';
+	const dataLookup = new Map(stateData.map(d => [d[dataJoinKey], d[cKey]]));
+
+	// The states too small to carry a label get a dot instead
 	const labelsToExclude = ['VT', 'MD', 'NJ', 'RI', 'DC', 'DE', 'WV', 'MA', 'CT', 'NH'];
-	const labelsToDisplay = stateLabels.filter(d => {
-		return !labelsToExclude.includes(d[labelNameKey]);
-	});
+	const labelsToDisplay = stateLabels.filter(d => !labelsToExclude.includes(d[labelNameKey]));
 
-	// The states too small to carry a label get a dot instead. MapPoints wants
-	// GeoJSON-shaped features, so wrap each label's coordinates that way.
+	// MapPoints wants GeoJSON-shaped features, so wrap each dot's coordinates that way
 	const dotFeatures = stateLabels
-		.filter(/** @param {any} d */ d => labelsToExclude.includes(d[labelNameKey]))
-		.map(/** @param {any} d */ d => ({ geometry: { coordinates: d[labelCoordinatesKey] } }));
+		.filter(d => labelsToExclude.includes(d[labelNameKey]))
+		.map(d => ({ geometry: { coordinates: d[labelCoordinatesKey] } }));
 
-	// Create a flat array of objects that LayerCake can use to measure
-	// extents for the color scale
+	// A flat list of the feature properties, so LayerCake can measure the color scale's extent
 	const flatData = geojson.features.map(d => d.properties);
 	const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
+
+	// The server can't measure the container, so the map gets a fixed aspect ratio instead
+	const aspectRatio = 2.63;
 </script>
 
 <div class="map-container" style="aspect-ratio:{aspectRatio};">
-	<LayerCake position="absolute" data={geojson} {flatData}>
-		<!-- Two components on one canvas: the layout paints them in order, dots on top -->
-		<Canvas>
-			<MapCanvas {projection} fill="#fff" />
-			<MapPointsCanvas {projection} features={dotFeatures} r={2.5} fill="#333" stroke="#fff" />
-		</Canvas>
-	</LayerCake>
-
 	<LayerCake
-		position="absolute"
 		ssr
+		position="absolute"
 		data={geojson}
 		c={d => dataLookup.get(d[mapJoinKey])}
 		cScale={scaleQuantize()}
 		cRange={colors}
 		{flatData}
 	>
+		<!-- Two components on one canvas: the layout paints them in order, dots on top -->
+		<Canvas>
+			<MapCanvas {projection} fill="#fff" />
+			<MapPointsCanvas {projection} features={dotFeatures} r={2.5} fill="#333" stroke="#fff" />
+		</Canvas>
+
+		<!-- The canvas only draws in the browser. The states and labels below render on the server too. -->
 		<ScaledSvg fixedAspectRatio={aspectRatio}>
 			<MapSvg
 				fixedAspectRatio={aspectRatio}
@@ -79,7 +70,8 @@
 				features={geojson.features.slice(40, 50)}
 			/>
 		</ScaledSvg>
-		<Html>
+
+		<Html pointerEvents={false}>
 			<MapLabels
 				fixedAspectRatio={aspectRatio}
 				{projection}
@@ -92,13 +84,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-		The height is being set inline with a CSS `aspect-ratio` property.
-	*/
+	/* Give the wrapper a width. Its height comes from the aspect ratio set inline. */
 	.map-container {
 		position: relative;
 		width: 100%;

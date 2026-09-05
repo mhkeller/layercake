@@ -1,7 +1,6 @@
 <script>
 	import { LayerCake, Svg, bin, takeEvery } from 'layercake';
 
-	import { extent } from 'd3-array';
 	import { scaleBand } from 'd3-scale';
 	import { format } from 'd3-format';
 
@@ -15,12 +14,14 @@
 
 	const f = format('.2f');
 
+	// Each bin has x0 and x1 edges, so the x accessor is both and each column spans them
 	const xKey = ['x0', 'x1'];
 	const yKey = 'length';
 
 	let binCount = $state(40);
 
-	const domain = extent(data);
+	/** @type {[number, number]} */
+	const domain = [Math.min(...data), Math.max(...data)];
 
 	let thresholds = $derived(calcThresholds(domain, binCount));
 	let slimThresholds = $derived(takeEvery(thresholds, 5));
@@ -53,7 +54,7 @@
 		data={binnedData}
 	>
 		<Svg>
-			<AxisX gridlines={false} baseline ticks={slimThresholds} format={d => String(+f(d))} />
+			<AxisX gridlines={false} showBaseline ticks={slimThresholds} format={d => String(+f(d))} />
 			<AxisY gridlines={false} ticks={3} />
 			<Column fill="#fff" stroke="#000" strokeWidth={1} />
 		</Svg>
@@ -61,12 +62,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

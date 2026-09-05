@@ -43,11 +43,11 @@
       - cell "None"
       - cell "no"
       - cell "The shape's fill color. By default, the fill will be determined by the c-scale, unless this prop is set."
-    - row "features (Array<GeoJSON> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in k.data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in k.data.features if left unset.":
-      - cell "features (Array<GeoJSON> | undefined)":
+    - row "features (Array<Object> | undefined) None no A list of GeoJSON features. Use this if you want to draw a subset of the features in k.data while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in k.data.features if left unset.":
+      - cell "features (Array<Object> | undefined)":
         - strong: features
         - text: ""
-        - code: Array<GeoJSON>
+        - code: Array<Object>
         - text: ""
         - code: undefined
         - text: ""

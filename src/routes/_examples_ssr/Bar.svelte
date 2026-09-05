@@ -6,25 +6,27 @@
 	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
 	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/groups.csv';
+
+	const xKey = 'value';
+	const yKey = 'year';
 </script>
 
 <div class="chart-container">
 	<LayerCake
 		ssr
 		percentRange
-		padding={{ top: 0, right: 20, bottom: 20, left: 35 }}
-		x="value"
-		y="year"
-		yScale={scaleBand().paddingInner(0.05).round(true)}
-		yDomain={[1979, 1980, 1981, 1982, 1983]}
+		padding={{ bottom: 20, left: 35 }}
+		x={xKey}
+		y={yKey}
+		yScale={scaleBand().paddingInner(0.05)}
 		xDomain={[0, null]}
 		{data}
 	>
 		<Html>
-			<AxisX gridlines baseline snapLabels />
-			<AxisY gridlines={false} tickMarks />
+			<AxisX tickMarks showBaseline snapLabels />
+			<AxisY tickMarks gridlines={false} />
 		</Html>
 		<ScaledSvg>
 			<Bar />
@@ -33,12 +35,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

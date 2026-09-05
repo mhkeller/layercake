@@ -1,29 +1,25 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
+	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';
 
 	let tickMarks = $state(false);
-	let snapLabels = $state(false);
-	let baseline = $state(true);
+	let snapBaselineLabel = $state(false);
 	let gridlines = $state(true);
-	let tickMarkLength = $state(6);
+	/** @type {'even'|'above'} */
+	let labelPosition = $state('above');
+	let tickMarkLength = $state(undefined);
 	let tickGutter = $state(0);
 	let dx = $state(0);
-	let dy = $state(1);
+	let dy = $state(-3);
 
-	const padding = { top: 10, bottom: 20 };
-
-	// let alternate = false;
-	// setInterval(() => {
-	// 	alternate = !alternate;
-	// }, 500);
+	const padding = { bottom: 15, left: 10 };
 </script>
 
 <div class="component-container">
@@ -36,24 +32,30 @@
 			<input type="checkbox" bind:checked={gridlines} /> gridlines
 		</label>
 
-		<label>
-			<input type="checkbox" bind:checked={baseline} /> baseline
+		<label class="number">
+			labelPosition
+			<select bind:value={labelPosition}>
+				<option value="above">above</option>
+				<option value="even">even</option>
+			</select>
 		</label>
 
-		<label>
-			<input type="checkbox" bind:checked={snapLabels} /> snapLabels
+		<label class:disabled={labelPosition === 'above'}>
+			<input
+				type="checkbox"
+				bind:checked={snapBaselineLabel}
+				disabled={labelPosition === 'above'}
+			/> <span class:disabled={labelPosition === 'above'}>snapBaselineLabel</span>
 		</label>
 
 		<label class="number" class:disabled={!tickMarks}>
 			<span class:disabled={!tickMarks}>tickMarkLength</span>
 			<input type="number" bind:value={tickMarkLength} disabled={!tickMarks} />
 		</label>
-
 		<label class="number">
 			tickGutter
 			<input type="number" bind:value={tickGutter} />
 		</label>
-
 		<label class="number">
 			dx
 			<input type="number" bind:value={dx} />
@@ -65,55 +67,21 @@
 	</div>
 
 	<div class="chart-container">
-		<div class="mini-container">
-			<LayerCake
-				position="absolute"
-				ssr
-				percentRange
-				{padding}
-				x={xKey}
-				y={d => d[yKey]}
-				yDomain={[0, null]}
-				{data}
-			>
-				<Html>
-					<AxisX
-						{baseline}
-						{tickMarks}
-						{gridlines}
-						{snapLabels}
-						{tickMarkLength}
-						{tickGutter}
-						{dx}
-						{dy}
-					/>
-				</Html>
-			</LayerCake>
-		</div>
-
-		<!-- <div class="mini-container"  style:display={alternate === false ? 'block' : 'none'}>
-			<LayerCake
-				position='absolute'
-				{padding}
-				x={xKey}
-				y={d => d[yKey]}
-				yDomain={[0, null]}
-				{data}
-			>
-				<Html>
-					<AxisX
-						{baseline}
-						{tickMarks}
-						{gridlines}
-						{snapLabels}
-						{tickMarkLength}
-						{tickGutter}
-						{dx}
-						{dy}
-					/>
-				</Html>
-			</LayerCake>
-		</div> -->
+		<LayerCake ssr percentRange position="absolute" {padding} x={xKey} y={d => d[yKey]} {data}>
+			<Html>
+				<AxisY
+					{tickMarks}
+					{snapBaselineLabel}
+					{labelPosition}
+					{gridlines}
+					{tickMarkLength}
+					{tickGutter}
+					{dx}
+					{dy}
+					ticks={4}
+				/>
+			</Html>
+		</LayerCake>
 	</div>
 </div>
 
@@ -124,12 +92,7 @@
 		gap: 10px;
 		height: 100%;
 	}
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		flex: 1;
 		position: relative;

@@ -6,6 +6,7 @@
 	import { geoPath } from 'd3-geo';
 	import { raise, getLayerCakeContext } from 'layercake';
 
+	/** @type {import('layercake').LayerCakeContext<any, { features: Array<any> }>} */
 	const k = getLayerCakeContext();
 
 	/**
@@ -40,9 +41,10 @@
 
 	let geoPathFn = $derived(geoPath(projectionFn));
 
+	/** @param {any} feature */
 	function handleMousemove(feature) {
+		/** @this {Element} @param {MouseEvent} e */
 		return function handleMousemoveFn(e) {
-			// @ts-ignore
 			raise(this);
 			// Raising the element moves it in the DOM, which fires one stray event
 			// at 0,0. Skip that one.
@@ -53,8 +55,9 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y_mouse_events_have_key_events -->
-<g class="map-group" {onmouseout} role="tooltip">
+<!-- Hovering a feature reports its properties to the parent. There is no keyboard path yet. -->
+<!-- svelte-ignore a11y_mouse_events_have_key_events, a11y_no_static_element_interactions -->
+<g class="map-group" {onmouseout}>
 	{#each features || k.data.features as feature}
 		<path
 			class="feature-path"
@@ -64,27 +67,16 @@
 			d={geoPathFn(feature)}
 			onmouseover={e => onmousemove(e, feature.properties)}
 			onmousemove={handleMousemove(feature)}
-			role="tooltip"
 		></path>
 	{/each}
 </g>
 
 <style>
-	/* .feature-path {
-		stroke: #333;
-		stroke-width: 0.5px;
-	} */
 	.feature-path:hover {
 		stroke: #000;
 		stroke-width: 2px;
 	}
-	/**
-	 * Disable the outline on feature click.
-	 * Depending on map functionality and accessiblity issues,
-	 * you may not want this rule. Read more:
-	 * https://developer.mozilla.org/en-US/docs/Web/CSS/:focus
-	 * https://github.com/mhkeller/layercake/issues/63
-	 */
+	/* Clicking a feature would otherwise draw a focus ring around it */
 	.feature-path:focus {
 		outline: none;
 	}

@@ -6,7 +6,7 @@
 	import AxisX from '../../_components/AxisX.svelte';
 	import AxisY from '../../_components/AxisY.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/groups.csv';
 
 	const xKey = 'value';
@@ -23,7 +23,7 @@
 		{data}
 	>
 		<Svg>
-			<AxisX tickMarks baseline snapLabels />
+			<AxisX tickMarks showBaseline snapLabels />
 			<AxisY tickMarks gridlines={false} />
 			<Bar />
 		</Svg>
@@ -31,12 +31,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

@@ -6,13 +6,14 @@
 	import AxisX from '../../_components/AxisX.svelte';
 	import AxisY from '../../_components/AxisY.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/fruitOrdinal.csv';
 
 	const yKey = 'year';
+	// Every column but the year is a dot, so the x accessor is the list of those columns
 	const xKey = Object.keys(data[0]).filter(d => d !== yKey);
 
-	const seriesColors = ['#f0c', '#00bbff', '#00e047', '#ff7a33'];
+	const seriesColors = ['#ff00cc', '#00bbff', '#00e047', '#ff7a33'];
 </script>
 
 <div class="chart-container">
@@ -38,12 +39,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

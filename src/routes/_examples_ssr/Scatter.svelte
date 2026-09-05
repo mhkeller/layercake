@@ -1,7 +1,7 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import Scatter from '../../_components/Scatter.html.svelte';
+	import Scatter from '../../_components/Scatter.percent-range.html.svelte';
 	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
 	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 

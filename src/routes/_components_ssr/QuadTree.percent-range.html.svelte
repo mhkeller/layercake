@@ -1,7 +1,7 @@
 <script>
 	import { LayerCake, Html } from 'layercake';
 
-	import ScatterHtml from '../../_components/Scatter.html.svelte';
+	import ScatterHtml from '../../_components/Scatter.percent-range.html.svelte';
 	import QuadTreePercentRange from '../../_components/QuadTree.percent-range.html.svelte';
 
 	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js

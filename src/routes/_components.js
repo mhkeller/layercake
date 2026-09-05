@@ -50,7 +50,7 @@ import AxisXHtml from './_components_ssr/AxisX.percent-range.html.svelte';
 import AxisXTopHtml from './_components_ssr/AxisXTop.percent-range.html.svelte';
 import AxisYHtml from './_components_ssr/AxisY.percent-range.html.svelte';
 import AxisYRightHtml from './_components_ssr/AxisYRight.percent-range.html.svelte';
-import ScatterHtml from './_components_ssr/Scatter.html.svelte';
+import ScatterHtml from './_components_ssr/Scatter.percent-range.html.svelte';
 import Key from './_components_ssr/Key.html.svelte';
 import QuadTree from './_components/QuadTree.html.svelte';
 import QuadTreePercentRange from './_components_ssr/QuadTree.percent-range.html.svelte';
@@ -99,7 +99,8 @@ export default [
 			{ slug: 'Scatter.canvas.svelte', component: ScatterCanvas },
 			{ slug: 'Scatter.svg.svelte', component: ScatterSvg },
 			{ slug: 'Scatter.webgl.svelte', component: ScatterWebgl },
-			{ slug: 'Scatter.html.svelte', component: ScatterHtml }
+			{ slug: 'Scatter.percent-range.html.svelte', component: ScatterHtml },
+			{}
 		]
 	},
 	{

@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an HTML scatter plot. Positions are percentages, so use it with `percentRange={true}`, which also makes it work in server-side rendered charts. If the x or y scale is a band scale, each circle sits in the middle of its band.
+	Generates an HTML scatter plot for `percentRange={true}` charts, which also makes it work in server-side rendered charts. If the x or y scale is a band scale, each circle sits in the middle of its band.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';

@@ -23,6 +23,12 @@
 		"checkJs": true,
 		"strict": true
 	},
-	"include": ["./src/**/*.d.ts", "./src/**/*.js", "./src/**/*.ts", "./src/**/*.svelte"],
-	"exclude": ["./src/_data/*", "./src/scripts/**/*"]
+	"include": [
+		"./src/**/*.d.ts",
+		"./src/**/*.js",
+		"./src/**/*.ts",
+		"./src/**/*.svelte",
+		"./scripts/**/*.js"
+	],
+	"exclude": ["./src/_data/*", "./src/scripts/svelte-app/**"]
 }

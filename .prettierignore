@@ -6,3 +6,4 @@ docs
 README.md
 static/**/*
 test/e2e/**/*.yml
+src/scripts/svelte-app

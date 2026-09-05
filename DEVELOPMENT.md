@@ -14,11 +14,11 @@ The Layer Cake library doesn't include chart components, instead example compone
 
 The example components are in `src/_components`.
 
-Their basic structure and properties are demonstrated on their respective pages in `src/routes/_components` and `src/routes/components_ssr`.
+Their basic structure and properties are demonstrated on their respective pages in `src/routes/_components` and `src/routes/_components_ssr`.
 
 Further examples using combinations of the components are in `src/routes/_examples` and `src/routes/_examples_ssr`.
 
-The actual loading of these pages happens in `src/routes/components`, `src/routes/examples` and `src/routes/examples-ssr` where the Markdown descriptions from `src/content` and code files are combined.
+The actual loading of these pages happens in `src/routes/components`, `src/routes/example` and `src/routes/example-ssr` where the Markdown descriptions from `src/content` and code files are combined.
 
 ## Setup
 
@@ -29,6 +29,20 @@ pnpm install
 ```
 
 The embedded project in `src/scripts/svelte-app` remains an npm-based template and is not part of a pnpm workspace.
+
+## Type checking
+
+```sh
+pnpm check
+```
+
+checks the whole project with `svelte-check`. The library in `src/lib` is clean. The chart components and examples still report errors, so this command isn't a pass/fail gate yet.
+
+```sh
+pnpm check:site
+```
+
+checks the website code only: the routes, the site components in `src/routes/_site-components`, the modules in `src/_modules` and the build scripts. It skips `src/lib`, the chart components and the examples, and it fails on any error, so it can run in CI.
 
 ## Testing
 

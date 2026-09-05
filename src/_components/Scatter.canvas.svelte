@@ -13,11 +13,11 @@
 	 * @property {number} [r=5] - The circle's radius.
 	 * @property {string} [fill='#0cf'] - The circle's fill color.
 	 * @property {string} [stroke='#000'] - The circle's stroke color.
-	 * @property {number} [strokeWidth=1] - The circle's stroke width.
+	 * @property {number} [strokeWidth=0] - The circle's stroke width in pixels.
 	 */
 
 	/** @type {Props} */
-	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
+	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 0 } = $props();
 
 	// Layer Cake runs this on every repaint: resize, new data or a prop change
 	canvas.draw(ctx => {
@@ -29,9 +29,12 @@
 			// Fill first, then stroke on top, the same as an SVG circle
 			ctx.fillStyle = fill;
 			ctx.fill();
-			ctx.lineWidth = strokeWidth;
-			ctx.strokeStyle = stroke;
-			ctx.stroke();
+			// A lineWidth of 0 is ignored by canvas, so skip the stroke instead
+			if (strokeWidth > 0) {
+				ctx.lineWidth = strokeWidth;
+				ctx.strokeStyle = stroke;
+				ctx.stroke();
+			}
 		});
 	});
 </script>

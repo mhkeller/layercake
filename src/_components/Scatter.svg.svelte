@@ -12,7 +12,7 @@
 	 * @property {number} [r=5] - The circle's radius.
 	 * @property {string} [fill='#0cf'] - The circle's fill color.
 	 * @property {string} [stroke='#000'] - The circle's stroke color.
-	 * @property {number} [strokeWidth=0] - The circle's stroke width.
+	 * @property {number} [strokeWidth=0] - The circle's stroke width in pixels.
 	 */
 
 	/** @type {Props} */

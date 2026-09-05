@@ -30,11 +30,11 @@
         - code: /'#\d+'/
       - cell "no"
       - cell "The circle's stroke color."
-    - row "strokeWidth number 1 no The circle's stroke width.":
+    - row "strokeWidth number 0 no The circle's stroke width in pixels.":
       - cell "strokeWidth number":
         - strong: strokeWidth
         - code: number
-      - cell "1":
-        - code: "1"
+      - cell "0":
+        - code: "0"
       - cell "no"
-      - cell "The circle's stroke width."
+      - cell "The circle's stroke width in pixels."

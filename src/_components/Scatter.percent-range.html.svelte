@@ -12,11 +12,11 @@
 	 * @property {number} [r=5] - The circle's radius.
 	 * @property {string} [fill='#0cf'] - The circle's fill color.
 	 * @property {string} [stroke='#000'] - The circle's stroke color.
-	 * @property {number} [strokeWidth=1] - The circle's stroke width.
+	 * @property {number} [strokeWidth=0] - The circle's stroke width in pixels.
 	 */
 
 	/** @type {Props} */
-	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 1 } = $props();
+	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 0 } = $props();
 </script>
 
 <div class="scatter-group">

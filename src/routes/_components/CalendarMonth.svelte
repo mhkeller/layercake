@@ -1,7 +1,7 @@
 <script>
 	import { LayerCake, Svg } from 'layercake';
 	import { group } from 'd3-array';
-	import { scaleQuantize } from 'd3-scale';
+	import { scaleBand, scaleQuantize } from 'd3-scale';
 
 	import CalendarMonth from '../../_components/CalendarMonth.svelte';
 
@@ -50,6 +50,7 @@
 		<LayerCake
 			padding={{ right: 20 }}
 			x="date"
+			xScale={scaleBand()}
 			c={d => d.rows.length}
 			cScale={scaleQuantize()}
 			cRange={seriesColors}

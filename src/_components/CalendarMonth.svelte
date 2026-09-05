@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG calendar for one month, one square per day, colored by the `c` scale. The x accessor must give each row a `YYYY-MM-DD` date string.
+	Generates an SVG calendar for one month, one square per day, colored by the `c` scale. The x accessor must give each row a `YYYY-MM-DD` date string, and the x scale should be a `scaleBand()` since the dates are categories, not numbers.
  -->
 <script>
 	import { utcFormat } from 'd3-time-format';
@@ -38,10 +38,13 @@
 
 	let cellSize = $derived(calcCellSize(k.width, k.height));
 
-	// Every day of the month that the first x value falls in
+	// Every day of the month that the earliest x value falls in. The extent is a
+	// min and max on a linear scale and a list of values on a band scale, so
+	// sort either way.
 	/** @type {Date[]} */
 	let days = $derived.by(() => {
-		const [year, month] = String(k.extents.x[0]).split('-').map(Number);
+		const earliest = [...k.extents.x].map(String).sort()[0];
+		const [year, month] = earliest.split('-').map(Number);
 		return utcDay.range(new Date(Date.UTC(year, month - 1, 1)), new Date(Date.UTC(year, month, 1)));
 	});
 

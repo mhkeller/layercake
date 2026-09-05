@@ -10,8 +10,6 @@
 
 	/** @typedef {[number, number] & { data?: any }} Point */
 
-	/** @typedef {[number, number] & { data?: any }} Point */
-
 	/**
 	 * @typedef {Object} Props
 	 * @property {string|undefined} [stroke] - An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.
@@ -42,7 +40,14 @@
 
 	let uniquePoints = $derived(uniques(points, d => d.join(), false) ?? []);
 
-	let voronoi = $derived(Delaunay.from(uniquePoints).voronoi([0, 0, k.width, k.height]));
+	// The cells need a chart with room to draw in. While a page is being taken
+	// down the container measures zero for a moment, and d3-delaunay rejects a
+	// zero-size bounding box, so there are no cells until the chart has a size.
+	let voronoi = $derived(
+		k.width > 0 && k.height > 0
+			? Delaunay.from(uniquePoints).voronoi([0, 0, k.width, k.height])
+			: null
+	);
 </script>
 
 <!--
@@ -50,16 +55,18 @@
 	screen readers. Making each one focusable would give a keyboard user one tab
 	stop per data point with nothing to read at any of them.
 -->
-{#each uniquePoints as point, i}
-	<!-- svelte-ignore a11y_mouse_events_have_key_events -->
-	<path
-		style="stroke: {stroke}"
-		class="voronoi-cell"
-		d={voronoi.renderCell(i)}
-		onmouseover={e => log(e, point)}
-		aria-hidden="true"
-	></path>
-{/each}
+{#if voronoi}
+	{#each uniquePoints as point, i}
+		<!-- svelte-ignore a11y_mouse_events_have_key_events -->
+		<path
+			style="stroke: {stroke}"
+			class="voronoi-cell"
+			d={voronoi.renderCell(i)}
+			onmouseover={e => log(e, point)}
+			aria-hidden="true"
+		></path>
+	{/each}
+{/if}
 
 <style>
 	.voronoi-cell {

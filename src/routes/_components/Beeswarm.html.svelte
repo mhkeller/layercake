@@ -4,7 +4,7 @@
 
 	import BeeswarmHtml from '../../_components/Beeswarm.html.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/cars-2.csv';
 
 	const xKey = 'Weight_in_lbs';

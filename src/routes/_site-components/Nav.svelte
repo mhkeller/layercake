@@ -33,7 +33,7 @@
 
 	let nav = $state();
 
-	const slimName = d => d.split(' (')[0];
+	const slimName = /** @param {string} d */ d => d.split(' (')[0];
 
 	/** @this {HTMLSelectElement} */
 	function loadPage() {

@@ -3,7 +3,7 @@
 
 	import ScatterWebGL from '../../_components/Scatter.webgl.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
@@ -11,10 +11,6 @@
 
 	const r = 3;
 	const padding = 6;
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 </script>
 
 <div class="chart-container">

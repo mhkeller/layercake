@@ -10,6 +10,8 @@
 
 	/** @typedef {[number, number] & { data?: any }} Point */
 
+	/** @typedef {[number, number] & { data?: any }} Point */
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {string|undefined} [stroke] - An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.

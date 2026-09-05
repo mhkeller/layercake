@@ -1,8 +1,15 @@
 // Helper functions for creating swoopy arrows
 
-// Turn a length into a number of pixels. A number is returned as is. `'12px'`
-// becomes 12. `'50%'` is measured against the chart size. `i` says which side
-// to measure against: 0 for width and 1 for height, the same order as [x, y].
+/**
+ * Turn a length into a number of pixels. A number is returned as is. `'12px'`
+ * becomes 12. `'50%'` is measured against the chart size. `i` says which side
+ * to measure against: 0 for width and 1 for height, the same order as [x, y].
+ * @param {string|number|null|undefined} d
+ * @param {number} i
+ * @param {number} width
+ * @param {number} height
+ * @returns {number}
+ */
 export function parseCssValue(d, i, width, height) {
 	if (!d) return 0;
 	if (typeof d === 'number') {
@@ -14,12 +21,16 @@ export function parseCssValue(d, i, width, height) {
 	return +d.replace('px', '');
 }
 
-// Find where an element sits inside its parent. That's the spot an arrow points
-// at. getBoundingClientRect measures from the top of the page, so subtract the
-// parent's position to get coordinates the arrows can use.
+/**
+ * Find where an element sits inside its parent. That's the spot an arrow points
+ * at. getBoundingClientRect measures from the top of the page, so subtract the
+ * parent's position to get coordinates the arrows can use.
+ * @param {Element} el
+ * @returns {{ top: number, right: number, bottom: number, left: number, width: number, height: number }}
+ */
 export function getElPosition(el) {
 	const annotationBbox = el.getBoundingClientRect();
-	const parentBbox = el.parentNode.getBoundingClientRect();
+	const parentBbox = (el.parentElement ?? el).getBoundingClientRect();
 	const coords = {
 		top: annotationBbox.top - parentBbox.top,
 		right: annotationBbox.right - parentBbox.left,
@@ -35,13 +46,24 @@ export function getElPosition(el) {
 export function swoopyArrow() {
 	let angle = Math.PI;
 	let clockwise = true;
+	/** @type {(d: any) => number} */
 	let xValue = d => d[0];
+	/** @type {(d: any) => number} */
 	let yValue = d => d[1];
 
+	/**
+	 * @param {number} a
+	 * @param {number} b
+	 * @returns {number}
+	 */
 	function hypotenuse(a, b) {
 		return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
 	}
 
+	/**
+	 * @param {any[]} data
+	 * @returns {string}
+	 */
 	function render(data) {
 		data = data.map(d => {
 			return [xValue(d), yValue(d)];
@@ -89,27 +111,31 @@ export function swoopyArrow() {
 		return path;
 	}
 
+	/** @param {number} [_] */
 	render.angle = function renderAngle(_) {
 		if (!arguments.length) return angle;
-		angle = Math.min(Math.max(_, 1e-6), Math.PI - 1e-6);
+		angle = Math.min(Math.max(/** @type {number} */ (_), 1e-6), Math.PI - 1e-6);
 		return render;
 	};
 
+	/** @param {boolean} [_] */
 	render.clockwise = function renderClockwise(_) {
 		if (!arguments.length) return clockwise;
 		clockwise = !!_;
 		return render;
 	};
 
+	/** @param {(d: any) => number} [_] */
 	render.x = function renderX(_) {
 		if (!arguments.length) return xValue;
-		xValue = _;
+		xValue = /** @type {(d: any) => number} */ (_);
 		return render;
 	};
 
+	/** @param {(d: any) => number} [_] */
 	render.y = function renderY(_) {
 		if (!arguments.length) return yValue;
-		yValue = _;
+		yValue = /** @type {(d: any) => number} */ (_);
 		return render;
 	};
 

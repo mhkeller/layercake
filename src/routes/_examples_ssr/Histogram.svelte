@@ -49,7 +49,7 @@
 		data={hist(data)}
 	>
 		<Html>
-			<AxisX gridlines={false} baseline ticks={slimSteps} format={d => +f(d)} />
+			<AxisX gridlines={false} baseline ticks={slimSteps} format={d => String(+f(d))} />
 			<AxisY gridlines={false} ticks={3} />
 		</Html>
 		<ScaledSvg>

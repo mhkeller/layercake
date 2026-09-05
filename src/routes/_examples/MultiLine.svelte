@@ -11,7 +11,7 @@
 	import Labels from '../../_components/GroupLabels.html.svelte';
 	import SharedTooltip from '../../_components/SharedTooltip.html.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/fruit.csv';
 
 	// Name the x field so it can be told apart from the series fields
@@ -27,10 +27,6 @@
 	// Cast values
 	data.forEach(d => {
 		d[xKey] = typeof d[xKey] === 'string' ? xKeyCast(d[xKey]) : d[xKey];
-
-		seriesNames.forEach(name => {
-			d[name] = +d[name];
-		});
 	});
 
 	const formatLabelX = timeFormat('%b. %e');

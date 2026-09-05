@@ -5,33 +5,46 @@
 	import downloadBlob from '../../_modules/downloadBlob.js';
 
 	/**
+	 * @typedef {import('../../_modules/constructReplLink.js').CodeFile} CodeFile
+	 * @typedef {import('../../_modules/constructReplLink.js').ExampleContent} ExampleContent
+	 */
+
+	/**
 	 * @typedef {Object} Props
-	 * @property {any} [data]
-	 * @property {any} slug
+	 * @property {ExampleContent} [data]
+	 * @property {string} slug
 	 * @property {boolean} [ssr]
 	 */
 
 	/** @type {Props} */
-	let { data = {}, slug, ssr = false } = $props();
+	let { data = /** @type {ExampleContent} */ ({}), slug, ssr = false } = $props();
 
 	let downloading = $state(false);
 
+	/** @param {string} [file] */
 	function getImports(file = '') {
 		const match = file.match(/from\s'(.+)'?/gm) || [];
-		const imports = match.map(d => d.replace(/(from |'|"|;)/g, '')).filter(d => !d.startsWith('.'));
+		const imports = match
+			.map(/** @param {string} d */ d => d.replace(/(from |'|"|;)/g, ''))
+			.filter(/** @param {string} d */ d => !d.startsWith('.'));
 		return imports;
 	}
 
+	// svelte-ignore state_referenced_locally
 	const imports = [data.main, ...data.components, ...data.componentComponents]
-		.reduce((store, val) => store.concat(getImports(val.contents)), [])
-		.reduce((store, val) => {
+		.reduce(
+			(/** @type {string[]} */ store, /** @type {CodeFile} */ val) =>
+				store.concat(getImports(val.contents)),
+			/** @type {string[]} */ ([])
+		)
+		.reduce((/** @type {string[]} */ store, /** @type {string} */ val) => {
 			if (!store.includes(val)) {
 				store.push(val);
 				return store;
 			} else {
 				return store;
 			}
-		}, []);
+		}, /** @type {string[]} */ ([]));
 
 	async function download() {
 		downloading = true;
@@ -40,62 +53,81 @@
 
 		const cacheBust = new Date().getTime();
 		const files = await (await window.fetch(`/svelte-app.json?${cacheBust}`)).json();
+		/** @type {Record<string, string>} */
 		const depsLookup = await (await window.fetch(`/deps.json?${cacheBust}`)).json();
 		if (imports.length > 0) {
-			const idx = files.findIndex(({ path }) => path === 'package.json');
+			const idx = files.findIndex(
+				/** @param {{ path: string }} file */ ({ path }) => path === 'package.json'
+			);
 			const pkg = JSON.parse(files[idx].data);
+			/** @type {Record<string, string>} */
 			const deps = {};
+			/** @type {Record<string, string>} */
 			const devDeps = {};
-			imports.forEach(mod => {
-				if (mod === 'svelte') {
-					return;
-				} else {
-					deps[mod] = depsLookup[mod];
+			imports.forEach(
+				/** @param {string} mod */ mod => {
+					if (mod === 'svelte') {
+						return;
+					} else {
+						deps[mod] = depsLookup[mod];
+					}
+					if (!depsLookup[mod]) {
+						window.alert(`Missing dependency, add "${mod}" to this repo's package.json`);
+					}
 				}
-				if (!depsLookup[mod]) {
-					window.alert(`Missing dependency, add "${mod}" to this repo's package.json`);
-				}
-			});
+			);
 			Object.assign(pkg.dependencies, deps);
 			Object.assign(pkg.devDependencies, devDeps);
 			files[idx].data = JSON.stringify(pkg, null, '  ');
 		}
 
 		files.push(
-			...data.components.map(component => ({
-				path: `src/routes/${component.title.replace('./', '')}`,
-				data: component.contents
-			}))
+			...data.components.map(
+				/** @param {CodeFile} component */ component => ({
+					path: `src/routes/${component.title.replace('./', '')}`,
+					data: component.contents
+				})
+			)
 		);
 		files.push(
-			...data.modules.map(mod => ({
-				path: `src/routes/${mod.title.replace('./', '')}`,
-				data: mod.contents
-			}))
+			...data.modules.map(
+				/** @param {CodeFile} mod */ mod => ({
+					path: `src/routes/${mod.title.replace('./', '')}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push(
-			...data.componentModules.map(mod => ({
-				path: `src/routes/${mod.title.replace('../', '')}`,
-				data: mod.contents
-			}))
+			...data.componentModules.map(
+				/** @param {CodeFile} mod */ mod => ({
+					path: `src/routes/${mod.title.replace('../', '')}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push(
-			...data.componentComponents.map(mod => ({
-				path: `src/routes/${mod.title}`,
-				data: mod.contents
-			}))
+			...data.componentComponents.map(
+				/** @param {CodeFile} mod */ mod => ({
+					path: `src/routes/${mod.title}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push(
-			...data.csvs.map(mod => ({
-				path: `src/routes/${mod.title.replace('../', '')}`,
-				data: mod.contents
-			}))
+			...data.csvs.map(
+				/** @param {CodeFile} mod */ mod => ({
+					path: `src/routes/${mod.title.replace('../', '')}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push(
-			...data.jsons.map(mod => ({
-				path: `src/routes/${mod.title.replace('../', '')}`,
-				data: mod.contents
-			}))
+			...data.jsons.map(
+				/** @param {CodeFile} mod */ mod => ({
+					path: `src/routes/${mod.title.replace('../', '')}`,
+					data: mod.contents
+				})
+			)
 		);
 		files.push({
 			path: `src/routes/+page.svelte`,

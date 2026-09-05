@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates a hover tooltip positioned at the mouse event you pass in. Put whatever you want inside it. The parent component has the hovered data, so it decides what to show.
+	Generates a hover tooltip positioned at the coordinates of the mouse event passed to the `event` prop, plus a y-`offset`. Whatever you put inside the component becomes the body of the tooltip.
  -->
 <script>
 	/**

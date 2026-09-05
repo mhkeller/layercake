@@ -5,15 +5,11 @@
 	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
 	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
 
-	// This example loads csv data as json using @rollup/plugin-dsv
+	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
 	import data from '../../_data/points.csv';
 
 	const xKey = 'myX';
 	const yKey = 'myY';
-
-	data.forEach(d => {
-		d[yKey] = +d[yKey];
-	});
 
 	const r = 4.5;
 	const padding = 2.5;

@@ -1,7 +1,7 @@
 Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.graphics/main/static/layercake-logo-500x400.png" width="115" align="right" alt="layercake-logo">](https://mhkeller.github.io/layercake)
 ===
 
-> a framework for mostly-reusable graphics with [svelte](https://github.com/sveltejs/svelte)
+> a headless visualization framework for mostly-reusable graphics with [svelte](https://github.com/sveltejs/svelte)
 
 [![Tests badges](https://github.com/mhkeller/layercake/actions/workflows/node.js.yml/badge.svg)](https://github.com/mhkeller/layercake/actions/workflows/node.js.yml) [![npm version](https://img.shields.io/npm/v/layercake.svg)](https://npmjs.org/package/layercake) [![npm](https://img.shields.io/npm/dm/layercake.svg)](https://www.npmjs.com/package/layercake)
 
@@ -13,7 +13,8 @@ Layer Cake  [<img src="https://raw.githubusercontent.com/mhkeller/layercake.grap
 
 ## Svelte versions
 
-Works with Svelte 3 through 5. Note the library itself does not use runes but it is compatible with Svelte 5. This will change in [future versions](https://github.com/mhkeller/layercake/issues/156).
+Works with version 5, see this [issue](https://github.com/mhkeller/layercake/issues/156).
+Users needing Svelte 3 or Svelte 4 support should use version 8.4.4.
 
 All of the examples use Rune syntax but the Svelte 3 and Svelte 4 versions are still available at the [documentation archive](https://mhkeller.github.io/layercake-prerunes).
 

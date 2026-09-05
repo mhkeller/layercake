@@ -47,7 +47,7 @@ import { createContext, getContext, hasContext } from 'svelte';
  * the templates in src/scripts/generateDimensionDocs.js, then run
  * `pnpm generate:dims`.
  * @template [S=any] Optionally name your scale types, e.g. `{ x: ScaleBand<string> }`. Anything you leave out keeps the loose `Scale` type.
- * @template [TData=any] Optionally name your data's shape, e.g. `LayerCakeContext<any, MyRow[]>` for rows or `LayerCakeContext<any, FeatureCollection>` for a GeoJSON map.
+ * @template [TData=Array<any>] Optionally name your data's shape. The default is an array of anything, which is what most charts pass. Name the shape when your data is an object, e.g. `LayerCakeContext<any, { features: Array<any> }>` for a GeoJSON map, or when you want typed rows, e.g. `LayerCakeContext<any, MyRow[]>`.
  * @typedef {Object} LayerCakeContext
  * @property {number} width The calculated chart width, i.e. the container width minus padding.
  * @property {number} height The calculated chart height, i.e. the container height minus padding.
@@ -125,14 +125,33 @@ import { createContext, getContext, hasContext } from 'svelte';
  * @property {boolean} c2DomainSort Whether the c2 domain's calculated unique values are sorted.
  */
 
+// The tuple createContext returns has grown a third element in newer Svelte
+// versions, so type the two pieces used here rather than the tuple itself.
+const [getContextUntyped, setContextUntyped] = createContext();
+
+/** @type {(context: LayerCakeContext) => LayerCakeContext} */
+const setLayerCakeContext = setContextUntyped;
+
 /**
  * The LayerCake chart context. In a child component, call
  * `const k = getLayerCakeContext()` and read values as `k.width`,
  * `k.xGet(d)` etc. Each read is reactive. Don't destructure it outside of
  * `$derived`, or you'll get a copy that never updates.
- * @type {[() => LayerCakeContext, (context: LayerCakeContext) => LayerCakeContext]}
+ *
+ * `k.data` is typed as an array by default. If you pass object data, put a
+ * JSDoc type on the variable and the type parameters flow through, e.g.
+ * `@type {import('layercake').LayerCakeContext<any, { features: Array<any> }>}`.
+ * The cast below goes through `unknown` because the per-dimension `ScaleFor`
+ * types are conditional and don't compare across different `S`.
+ * @template [S=any]
+ * @template [TData=Array<any>]
+ * @returns {LayerCakeContext<S, TData>}
  */
-export const [getLayerCakeContext, setLayerCakeContext] = createContext();
+export function getLayerCakeContext() {
+	return /** @type {LayerCakeContext<S, TData>} */ (/** @type {unknown} */ (getContextUntyped()));
+}
+
+export { setLayerCakeContext };
 
 /**
  * A function that draws one layer on a `<Canvas>`. The context it gets is

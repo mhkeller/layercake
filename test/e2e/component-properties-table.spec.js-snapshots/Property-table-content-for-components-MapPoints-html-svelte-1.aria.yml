@@ -40,14 +40,14 @@
         - code: /'#\d+'/
       - cell "no"
       - cell "The point's stroke color."
-    - row "strokeWidth number 1 no The point's stroke width, in pixels.":
+    - row "strokeWidth number 1 no The point's stroke width in pixels.":
       - cell "strokeWidth number":
         - strong: strokeWidth
         - code: number
       - cell "1":
         - code: "1"
       - cell "no"
-      - cell "The point's stroke width, in pixels."
+      - cell "The point's stroke width in pixels."
     - row "opacity number 1 no The point's opacity.":
       - cell "opacity number":
         - strong: opacity

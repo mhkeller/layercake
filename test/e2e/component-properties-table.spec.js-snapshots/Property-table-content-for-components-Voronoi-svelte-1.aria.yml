@@ -6,7 +6,7 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "stroke (string | undefined) None no An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly.":
+    - row "stroke (string | undefined) None no A stroke color for the cells, handy for seeing where they are.":
       - cell "stroke (string | undefined)":
         - strong: stroke
         - text: ""
@@ -16,12 +16,17 @@
         - text: ""
       - cell "None"
       - cell "no"
-      - cell "An optional stroke color, which is likely only useful for testing to make sure the shapes drew correctly."
-    - 'row "onmouseover (event: MouseEvent, point: Array<number>) => void () => {} no A function that gets called on mouseover events. The first argument is the event, and the second is the point data."':
+      - cell "A stroke color for the cells, handy for seeing where they are."
+    - 'row "onmouseover (event: MouseEvent, point: Array<number>) => void () => {} no Called when the mouse enters a cell with the event and the cell''s [x, y] point. The point''s row is on point.data."':
       - 'cell "onmouseover (event: MouseEvent, point: Array<number>) => void"':
         - strong: onmouseover
         - code: "(event: MouseEvent, point: Array<number>) => void"
       - 'cell "() => {}"':
         - code: "() => {}"
       - cell "no"
-      - cell "A function that gets called on mouseover events. The first argument is the event, and the second is the point data."
+      - cell "Called when the mouse enters a cell with the event and the cell's [x, y] point. The point's row is on point.data.":
+        - text: ""
+        - code: "[x, y]"
+        - text: ""
+        - code: point.data
+        - text: ""

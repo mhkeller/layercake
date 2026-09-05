@@ -6,20 +6,20 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "r number 4 no The circle radius size in pixels.":
+    - row "r number 4 no The circle radius in pixels.":
       - cell "r number":
         - strong: r
         - code: number
       - cell "4":
         - code: "4"
       - cell "no"
-      - cell "The circle radius size in pixels."
-    - row "strokeWidth number 0.5 no The circle's stroke width in pixels.":
+      - cell "The circle radius in pixels."
+    - row "strokeWidth number 1 no The circle's stroke width in pixels.":
       - cell "strokeWidth number":
         - strong: strokeWidth
         - code: number
-      - cell "0.5":
-        - code: "0.5"
+      - cell "1":
+        - code: "1"
       - cell "no"
       - cell "The circle's stroke width in pixels."
     - row "stroke string '#fff' no The circle's stroke color.":
@@ -30,46 +30,37 @@
         - code: "'#fff'"
       - cell "no"
       - cell "The circle's stroke color."
-    - row /xStrength number \d+\.\d+ no The value passed into the \.strength method on forceX, which is used as the 'x' property on the simulation\. See the documentation for more\./:
+    - row /xStrength number \d+\.\d+ no How hard each circle is pulled toward its x value\. See forceX\.strength\./:
       - cell "xStrength number":
         - strong: xStrength
         - code: number
       - cell /\d+\.\d+/:
         - code: /\d+\.\d+/
       - cell "no"
-      - cell "The value passed into the .strength method on forceX, which is used as the 'x' property on the simulation. See the documentation for more.":
+      - cell "How hard each circle is pulled toward its x value. See forceX.strength.":
         - text: ""
-        - code: .strength
-        - text: ""
-        - code: forceX
-        - text: ""
-        - code: "'x'"
-        - text: ""
-        - link "the documentation":
+        - link "forceX.strength":
           - /url: https://github.com/d3/d3-force#x_strength
         - text: ""
-    - row /yStrength number \d+\.\d+ no The value passed into the \.strength method on forceY, which is used as the 'y' property on the simulation\. See the documentation for more\./:
+    - row /yStrength number \d+\.\d+ no How hard each circle is pulled toward the vertical middle of the chart\. See forceY\.strength\./:
       - cell "yStrength number":
         - strong: yStrength
         - code: number
       - cell /\d+\.\d+/:
         - code: /\d+\.\d+/
       - cell "no"
-      - cell "The value passed into the .strength method on forceY, which is used as the 'y' property on the simulation. See the documentation for more.":
+      - cell "How hard each circle is pulled toward the vertical middle of the chart. See forceY.strength.":
         - text: ""
-        - code: .strength
-        - text: ""
-        - code: forceY
-        - text: ""
-        - code: "'y'"
-        - text: ""
-        - link "the documentation":
+        - link "forceY.strength":
           - /url: https://github.com/d3/d3-force#y_strength
         - text: ""
-    - row "getTitle Function None no An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production.":
-      - cell "getTitle Function":
+    - 'row "getTitle (d: any) => string None no Returns hover text for a row, shown in a .title div on hover."':
+      - 'cell "getTitle (d: any) => string"':
         - strong: getTitle
-        - code: Function
+        - code: "(d: any) => string"
       - cell "None"
       - cell "no"
-      - cell "An accessor function to get the field on the data element to display as a hover label. Mostly useful for debugging, needs better styling for production."
+      - cell "Returns hover text for a row, shown in a .title div on hover.":
+        - text: ""
+        - code: .title
+        - text: ""

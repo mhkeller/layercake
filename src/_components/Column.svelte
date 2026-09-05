@@ -1,6 +1,6 @@
 <!--
-  @component
-  Generates an SVG column chart.
+	@component
+	Generates an SVG column chart.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -12,19 +12,24 @@
 	 * @property {string} [fill='#00e047'] - The shape's fill color, used for every column. Set a `c` scale on `<LayerCake>` to color each column from its own row of data instead.
 	 * @property {string} [stroke='#000'] - The shape's stroke color.
 	 * @property {number} [strokeWidth=0] - The shape's stroke width.
-	 * @property {boolean} [showLabels=false] - Show the numbers for each column
+	 * @property {boolean} [showLabels=false] - Show the numbers for each column.
 	 */
 
 	/** @type {Props} */
 	let { fill, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
 
 	// Use the `fill` prop if there is one, then the `c` scale's color, then the default
-	let getFill = $derived(/** @param {any} d */ d => fill ?? k.cGet?.(d) ?? '#00e047');
+	/** @param {any} d */
+	function getFill(d) {
+		return fill ?? k.cGet?.(d) ?? '#00e047';
+	}
 
-	let columnWidth = $derived(d => {
+	// A histogram passes a [start, end] pair through the x accessor, so the column spans the two
+	/** @param {any} d */
+	function columnWidth(d) {
 		const vals = k.xGet(d);
 		return Math.abs(vals[1] - vals[0]);
-	});
+	}
 
 	// Each column starts at zero and runs out to its value, so a negative value
 	// hangs below zero. Keep zero inside your yDomain, or columns will be drawn
@@ -52,7 +57,7 @@
 			{stroke}
 			stroke-width={strokeWidth}
 		/>
-		{#if showLabels && yValue}
+		{#if showLabels && yValue != null}
 			{@const pointsUp = valueY < zeroY}
 			<!--
 				Put the number just past the far end of the column: above a positive

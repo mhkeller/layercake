@@ -23,7 +23,7 @@ A multiline example with a quadtree tooltip. This is an interesting example beca
 
    We need to first turn this into...
 
-2. ...a "long" format, where each type of fruit is grouped into its own array and each datapoint is a row. The column name becomes a property on the group whose name we define with the `zKey` variable.
+2. ...a "long" format, where each type of fruit is grouped into its own array and each datapoint is a row. The column name becomes a property on the group whose name we define with the `cKey` variable.
 
    ```
    [
@@ -64,4 +64,7 @@ A multiline example with a quadtree tooltip. This is an interesting example beca
      { value: 1920, month: 2015-03-31T22:00:00.000Z, fruit: 'bananas' },
      ...
    ```
-   We're using a regular JavaScript transform to do steps one and two. See the [client-side rendered example](https://layercake.graphics/example/MultiLine) for how to do this with Layer Cake's [groupLonger transform function](https://layercake.graphics/guide#grouplonger).
+
+Layer Cake's [groupLonger transform function](/guide#grouplonger) does steps one and two.
+
+This is the server-side rendered version. `ssr` and `percentRange` on `<LayerCake>` put the scales in percentages, so the chart renders before the browser measures it. The axes are HTML components and the marks sit in a `<ScaledSvg>` that stretches to fit its box.

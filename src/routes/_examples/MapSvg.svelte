@@ -8,31 +8,30 @@
 	import MapSvg from '../../_components/Map.svg.svelte';
 	import Tooltip from '../../_components/Tooltip.html.svelte';
 
-	// This example loads json data as json using @rollup/plugin-json
+	// The JSON file is imported as data
 	import usStates from '../../_data/states-albers-10m.json';
 	import stateData from '../../_data/us-states-data.json';
 
 	const cKey = 'myValue';
 
-	// Create lookups to more easily join our data
-	// `dataJoinKey` is the name of the field in the data
-	// `mapJoinKey` is the name of the field in the map file
-	const dataJoinKey = 'name';
-	const mapJoinKey = 'name';
-	const dataLookup = new Map();
-
-	const geojson = feature(usStates, usStates.objects.states);
+	// The map file is topojson, so unpack it into GeoJSON features. The shapes are
+	// already projected, which is why the projection below is the identity.
+	const geojson = /** @type {import('geojson').FeatureCollection<any, Record<string, any>>} */ (
+		feature(usStates, usStates.objects.states)
+	);
 	const projection = geoIdentity;
 
-	stateData.forEach(d => {
-		dataLookup.set(d[dataJoinKey], d);
-	});
+	// Join the data rows to the map features by name
+	const dataJoinKey = 'name';
+	const mapJoinKey = 'name';
+	const dataLookup = new Map(stateData.map(d => [d[dataJoinKey], d]));
 
+	/** @type {MouseEvent|null} */
 	let tooltipEvent = $state(null);
+	/** @type {Record<string, any>|null} */
 	let tooltipFeature = $state(null);
 
-	// Create a flat array of objects that LayerCake can use to measure
-	// extents for the color scale
+	// A flat list of the feature properties, so LayerCake can measure the color scale's extent
 	const flatData = geojson.features.map(d => d.properties);
 	const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
 
@@ -42,7 +41,7 @@
 <div class="chart-container">
 	<LayerCake
 		data={geojson}
-		c={d => dataLookup.get(d[mapJoinKey])[cKey]}
+		c={d => dataLookup.get(d[mapJoinKey])?.[cKey]}
 		cScale={scaleQuantize()}
 		cRange={colors}
 		{flatData}
@@ -83,12 +82,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

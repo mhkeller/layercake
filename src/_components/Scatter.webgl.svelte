@@ -13,11 +13,18 @@
 	 * @typedef {Object} Props
 	 * @property {number} [r=5] - The circle's radius.
 	 * @property {string} [fill='#0cf'] - The circle's fill color.
-	 * @property {string} [stroke='#000'] - Not yet implemented
+	 * @property {string} [stroke='#000'] - The circle's stroke color.
+	 * @property {number} [strokeWidth=0] - The circle's stroke width in pixels.
 	 */
 
 	/** @type {Props} */
-	let { r = 5, fill = '#0cf', stroke = '#000' } = $props();
+	let { r = 5, fill = '#0cf', stroke = '#000', strokeWidth = 0 } = $props();
+
+	// The shader wants the stroke as a share of the squared radius, not in pixels
+	let strokeSize = $derived.by(() => {
+		const inner = Math.max(0, 1 - strokeWidth / r);
+		return 1 - inner * inner;
+	});
 
 	/**
 	 * @param {string} hex
@@ -33,20 +40,22 @@
 
 	const glCtx = getContext('gl');
 
+	// The drawing buffer gets one pixel per device pixel, not per CSS pixel, so
+	// the circles come out sharp on high-density screens
+	let pixelRatio = $state(1);
+
 	/**
 	 * @param {WebGLRenderingContext} context
 	 */
 	function resize(context) {
 		const canvas = /** @type {HTMLCanvasElement} */ (context.canvas);
-		// Look up the size the browser is displaying the canvas at.
-		const displayWidth = canvas.clientWidth;
-		const displayHeight = canvas.clientHeight;
+		pixelRatio = window.devicePixelRatio || 1;
+		const width = Math.round(canvas.clientWidth * pixelRatio);
+		const height = Math.round(canvas.clientHeight * pixelRatio);
 
-		// Check whether the canvas needs resizing.
-		if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
-			// Make the canvas the same size
-			canvas.width = displayWidth;
-			canvas.height = displayHeight;
+		if (canvas.width !== width || canvas.height !== height) {
+			canvas.width = width;
+			canvas.height = height;
 		}
 		context.viewport(0, 0, canvas.width, canvas.height);
 	}
@@ -92,7 +101,6 @@
 					float outer_edge_center = 1.0 - s_s;
 					float stroke = 1.0 - smoothstep(outer_edge_center - delta, outer_edge_center + delta, dist);
 
-					// gl_FragColor = vec4(fill_color,1.0) * alpha;
 					gl_FragColor = vec4( mix(stroke_color, fill_color, stroke), 1.0 ) * alpha;
 					gl_FragColor.rgb *= gl_FragColor.a;
 				}`,
@@ -126,29 +134,26 @@
 				}`,
 
 			attributes: {
-				// One [x, y] position for each point
+				// One [x, y] position for each point, in device pixels since that is what the buffer measures in
 				/**
 				 * @param {any} context
-				 * @param {{ points: Array<any>, x: Function, y: Function, pointWidth?: number, fillColor?: number[], strokeColor?: number[] }} props
+				 * @param {{ points: Array<any>, x: (d: any) => number, y: (d: any) => number, pointWidth: number, strokeSize: number, pixelRatio: number, fillColor?: number[], strokeColor?: number[] }} props
 				 */
 				position: (context, props) => {
 					return props.points.map(point => {
-						return [props.x(point), props.y(point)];
+						return [props.x(point) * props.pixelRatio, props.y(point) * props.pixelRatio];
 					});
 				},
 				r: (context, props) => {
-					// const m = window.devicePixelRatio > 1 ? 4.0 : 2.0
-					// If using an r-scale, set width here
-					return props.points.map(p => props.pointWidth);
+					// To size each circle from an r scale, use k.rGet(point) in place of pointWidth
+					return props.points.map(() => props.pointWidth * props.pixelRatio);
 				},
 				stroke_size: (context, props) => {
-					// If using an r-scale, set that here
-					return props.points.map(p => 0);
+					return props.points.map(() => props.strokeSize);
 				}
 			},
 			uniforms: {
 				fill_color: (context, props) => props.fillColor,
-				// stroke_color: [0.6705882352941176, 0, 0.8392156862745098],
 				stroke_color: (context, props) => props.strokeColor,
 				// The canvas size, so the shaders can convert x / y pixel values to
 				// WebGL coordinates. `regl.context` reads them off regl's own context.
@@ -190,6 +195,8 @@
 
 		drawPoints({
 			pointWidth: r * 2,
+			strokeSize,
+			pixelRatio,
 			points: k.data,
 			x: k.xGet,
 			y: k.yGet,

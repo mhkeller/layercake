@@ -61,9 +61,9 @@
 	<meta name="twitter:title" content="Layer Cake — Guide" />
 </svelte:head>
 
-<sidebar>
+<aside>
 	<GuideContents sections={data.sections} bind:activeGuideSection />
-</sidebar>
+</aside>
 
 <div id="container" class="content" bind:this={container}>
 	<section id="toc">
@@ -86,7 +86,7 @@
 				{section.metadata.title}
 				<small
 					><a
-						href="https://github.com/mhkeller/layercake/edit/master/src/content/guide/{section.file}"
+						href="https://github.com/mhkeller/layercake/edit/main/src/content/guide/{section.file}"
 						target="_blank"
 						rel="noreferrer">edit this section</a
 					></small
@@ -99,7 +99,7 @@
 </div>
 
 <style>
-	sidebar {
+	aside {
 		position: fixed;
 		background-color: #fff;
 		top: 61px;
@@ -351,7 +351,7 @@
 	}
 
 	@media (min-width: 768px) {
-		sidebar {
+		aside {
 			display: block;
 		}
 

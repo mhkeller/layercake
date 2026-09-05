@@ -6,11 +6,11 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "r number 5 no The circle radius.":
+    - row "r number 5 no The circle radius in pixels.":
       - cell "r number":
         - strong: r
         - code: number
       - cell "5":
         - code: "5"
       - cell "no"
-      - cell "The circle radius."
+      - cell "The circle radius in pixels."

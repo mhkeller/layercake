@@ -7,7 +7,7 @@
 	returns an object like this:
 	`{ x: [0, 10], y: [-10, 10] }`
 	@param {Array<object>} data A flat array of objects.
-	@param {Record<string, Function>} fields An object containing field names as keys and accessor functions as values. If an accessor function returns an array of values, each value will also be evaluated.
+	@param {Record<string, (d: any, i?: number) => any>} fields An object containing field names as keys and accessor functions as values. If an accessor function returns an array of values, each value will also be evaluated.
 	@returns {Record<string, [any, any]>} An object with the same structure as `fields` but instead of an accessor, each key contains an array of a min and a max.
 */
 export default function calcExtents(data, fields) {

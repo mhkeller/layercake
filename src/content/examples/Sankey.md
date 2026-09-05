@@ -1,0 +1,1 @@
+A Sankey diagram using [d3-sankey](https://github.com/d3/d3-sankey). The data is an object with `nodes` and `links` arrays, which is what the layout takes. The component exposes the layout's options as props, along with accessor functions for the colors.

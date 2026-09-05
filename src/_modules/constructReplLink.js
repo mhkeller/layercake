@@ -1,19 +1,9 @@
 import { csvParse } from 'd3-dsv';
+import sveltePkg from 'svelte/package.json';
 
 import { compress_and_encode_text } from './createReplHash.js';
 
-/**
- * @typedef {{ title: string, contents: string }} CodeFile
- * @typedef {{
- *   main: CodeFile,
- *   components: CodeFile[],
- *   componentModules: CodeFile[],
- *   modules: CodeFile[],
- *   componentComponents: CodeFile[],
- *   jsons: CodeFile[],
- *   csvs: CodeFile[]
- * }} ExampleContent
- */
+/** @typedef {import('./getExampleContent.js').ExampleContent} ExampleContent */
 
 /**
  * @param {string} pageName
@@ -47,7 +37,8 @@ export default async function constructReplLink(pageName, content) {
 	};
 
 	const encoded = await compress_and_encode_text(JSON.stringify(json));
-	return `https://svelte.dev/playground/hello-world?version=5.35.7#${encoded}`;
+	// Open the Playground on the same Svelte version the examples here run on
+	return `https://svelte.dev/playground/hello-world?version=${sveltePkg.version}#${encoded}`;
 }
 
 /**

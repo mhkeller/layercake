@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG force simulation using [d3-force](https://github.com/d3/d3-force). The values here are defaults which you will likely have to customize because every force simulation is different. This technique comes from @plmrry.
+	Generates SVG circles laid out by a [d3-force](https://github.com/d3/d3-force) simulation, sized by the `r` scale and pulled toward their x position. The default strengths are a starting point. Every simulation needs its own tuning.
  -->
 <script>
 	import { forceSimulation, forceX, forceManyBody, forceCollide, forceCenter } from 'd3-force';
@@ -10,44 +10,49 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {number} [manyBodyStrength=5] - The value passed into the `.strength` method on `forceManyBody`, which is used as the `'charge'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#manyBody_strength) for more.
-	 * @property {number} [xStrength=0.1] - The value passed into the `.strength` method on `forceX`, which is used as the `'x'` property on the simulation. See [the documentation](https://github.com/d3/d3-force#x_strength) for more.
-	 * @property {string|undefined} [nodeColor] - Set a color manually otherwise it will default to the `cScale`.
-	 * @property {string} [nodeStroke='#fff'] - The circle's stroke color.
-	 * @property {number} [nodeStrokeWidth=1] - The circle's stroke width, in pixels.
-	 * @property {boolean} [groupBy=true] - Group the nodes by the return value of the x-scale. If `false`, align all the nodes to the canvas center.
+	 * @property {number} [manyBodyStrength=5] - How strongly circles push each other apart. A negative value pulls them together. See [forceManyBody.strength](https://github.com/d3/d3-force#manyBody_strength).
+	 * @property {number} [xStrength=0.1] - How hard each circle is pulled toward its x position. See [forceX.strength](https://github.com/d3/d3-force#x_strength).
+	 * @property {string|undefined} [fill] - The circle's fill color. Defaults to the `c` scale's color.
+	 * @property {string} [stroke='#fff'] - The circle's stroke color.
+	 * @property {number} [strokeWidth=1] - The circle's stroke width in pixels.
+	 * @property {boolean} [groupByX=true] - Pull each circle toward its x position. If `false`, pull them all toward the chart's centre.
 	 */
 
 	/** @type {Props} */
 	let {
 		manyBodyStrength = 5,
 		xStrength = 0.1,
-		nodeColor,
-		nodeStroke = '#fff',
-		nodeStrokeWidth = 1,
-		groupBy = true
+		fill,
+		stroke = '#fff',
+		strokeWidth = 1,
+		groupByX = true
 	} = $props();
 
-	// Make a copy because the simulation will alter the objects
-	const initialNodes = k.data.map(d => ({ ...d }));
-
-	const simulation = forceSimulation(initialNodes);
-
+	/** @type {Array<any>} */
 	let nodes = $state([]);
 
-	simulation.on('tick', () => {
+	// One simulation for the life of the component. Every tick copies its positions out.
+	const simulation = forceSimulation().on('tick', () => {
 		nodes = simulation.nodes();
 	});
 
-	// When variables change, set forces and restart the simulation
+	// Rerun whenever the rows, the chart size or a prop changes. New rows get fresh
+	// copies, since the simulation writes x and y onto them. Anything else keeps the
+	// current positions and only swaps the forces, so the circles drift rather than jump.
+	/** @type {Array<any>|undefined} */
+	let currentRows;
 	$effect(() => {
+		if (k.data !== currentRows) {
+			currentRows = k.data;
+			simulation.nodes(k.data.map(d => ({ ...d })));
+		}
 		simulation
 			.force(
 				'x',
 				forceX()
 					.x(
 						/** @param {any} d */ d => {
-							return groupBy === true ? k.xGet(d) + k.xScale.bandwidth() / 2 : k.width / 2;
+							return groupByX === true ? k.xGet(d) + k.xScale.bandwidth() / 2 : k.width / 2;
 						}
 					)
 					.strength(xStrength)
@@ -58,26 +63,27 @@
 				'collision',
 				forceCollide().radius(
 					/** @param {any} d */ d => {
-						return k.rGet(d) + nodeStrokeWidth / 2; // Divide this by two because an svg stroke is drawn halfway out
+						// Half the stroke sits outside the circle, so add half of it to the radius
+						return (k.rGet?.(d) ?? 5) + strokeWidth / 2;
 					}
 				)
 			)
-			.force('center', forceCenter(k.width / 2, k.height / 2))
 			.alpha(1)
 			.restart();
+
+		// Stop ticking when the component goes away
+		return () => simulation.stop();
 	});
 </script>
 
 {#each nodes as point}
 	<circle
 		class="node"
-		r={k.rGet(point)}
-		fill={nodeColor ?? k.cGet?.(point) ?? '#00bbff'}
-		stroke={nodeStroke}
-		stroke-width={nodeStrokeWidth}
+		r={k.rGet?.(point) ?? 5}
+		fill={fill ?? k.cGet?.(point) ?? '#00bbff'}
+		{stroke}
+		stroke-width={strokeWidth}
 		cx={point.x}
 		cy={point.y}
-	>
-		<!-- <title>{point[$custom.title]}</title> -->
-	</circle>
+	></circle>
 {/each}

@@ -5,7 +5,7 @@ import calcExtents from '../lib/calcExtents.js';
  * Measure one dimension's extent from the data: the unique values when the
  * dimension is ordinal, a `[min, max]` otherwise.
  * @param {string} name The dimension name, e.g. `'x'`.
- * @param {Function} accessor The dimension's accessor.
+ * @param {(d: any, i?: number) => any} accessor The dimension's accessor.
  * @param {Array<any>} data The rows to measure.
  * @param {boolean} isOrdinal Whether the dimension measures unique values rather than a min and max.
  * @param {boolean} sort Whether measured unique values come back sorted. Ignored for non-ordinal dimensions.

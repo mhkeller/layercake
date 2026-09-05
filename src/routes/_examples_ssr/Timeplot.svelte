@@ -1,58 +1,32 @@
 <script>
 	import { LayerCake, Html, calcExtents } from 'layercake';
-	import { timeDay } from 'd3-time';
+	import { utcDay } from 'd3-time';
 	import { scaleBand, scaleTime } from 'd3-scale';
 
+	import Scatter from '../../_components/Scatter.percent-range.html.svelte';
 	import AxisX from '../../_components/AxisX.percent-range.html.svelte';
 	import AxisY from '../../_components/AxisY.percent-range.html.svelte';
-	import Scatter from '../../_components/Scatter.html.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import data from '../../_data/days.csv';
 
 	const xKey = 'seconds';
 	const yKey = 'day';
 
 	const r = 4;
-	const padding = 2;
 
-	const daysTransformed = data.map(d => {
-		const parts = d.timestring.split('T');
-		const time = parts[1]
-			.replace('Z', '')
-			.split(':')
-			.map(q => +q);
-		d[xKey] = time[0] * 60 * 60 + time[1] * 60 + time[2];
-		d[yKey] = parts[0];
-		return d;
+	// Split each timestring into its day and its seconds since midnight
+	const rows = data.map(d => {
+		const [day, time] = String(d.timestring).split('T');
+		const [hours, minutes, seconds] = time.replace('Z', '').split(':').map(Number);
+		return { ...d, [yKey]: day, [xKey]: hours * 60 * 60 + minutes * 60 + seconds };
 	});
 
-	// Make a list of every day between the min and max, so days missing from
-	// the data still show up as empty
-	const extents = calcExtents(daysTransformed, {
-		x: d => d.timestring
-	});
-
-	// The value is already a string. Its type is `any` though, so calling
-	// toString() gives TypeScript a string to call split on.
-	const minDate = extents.x[0]
-		.toString()
-		.split('T')[0]
-		.split('-')
-		.map(d => +d);
-	const maxDate = extents.x[1]
-		.toString()
-		.split('T')[0]
-		.split('-')
-		.map(d => +d);
-
-	const allDays = timeDay
-		.range(
-			new Date(Date.UTC(minDate[0], minDate[1] - 1, minDate[2])),
-			new Date(Date.UTC(maxDate[0], maxDate[1] - 1, maxDate[2] + 1))
-		)
-		.map(d => d.toISOString().split('T')[0])
-		.sort();
+	// Every day from the first to the last, so days with no rows still get a row on the chart
+	const [firstDay, lastDay] = calcExtents(rows, { day: d => d[yKey] }).day;
+	const allDays = utcDay
+		.range(new Date(firstDay), utcDay.offset(new Date(lastDay), 1))
+		.map(d => d.toISOString().split('T')[0]);
 </script>
 
 <div class="chart-container">
@@ -65,9 +39,8 @@
 		xDomain={[0, 24 * 60 * 60]}
 		yDomain={allDays}
 		xScale={scaleTime()}
-		yScale={scaleBand().paddingInner(0.05).round(true)}
-		xPadding={[padding, padding]}
-		data={daysTransformed}
+		yScale={scaleBand().paddingInner(0.05)}
+		data={rows}
 	>
 		<Html>
 			<AxisX
@@ -81,12 +54,7 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;

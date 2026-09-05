@@ -1,11 +1,11 @@
 <script>
 	import { LayerCake, ScaledSvg } from 'layercake';
-	import { nest } from 'd3-collection';
-	import { scaleQuantize } from 'd3-scale';
+	import { group } from 'd3-array';
+	import { scaleBand, scaleQuantize } from 'd3-scale';
 
 	import CalendarMonth from '../../_components/CalendarMonth.svelte';
 
-	// This example loads csv data as json and converts numeric columns to numbers using @rollup/plugin-dsv. See vite.config.js for details
+	// The CSV rows are parsed, and their numbers typed, by @rollup/plugin-dsv. See vite.config.js
 	import dates from '../../_data/dates.csv';
 
 	const monthNames = [
@@ -23,56 +23,51 @@
 		'December'
 	];
 
-	const datesTransformed = dates.map(row => {
-		row.date = new Date(row.timestring);
-		return row;
-	});
-
 	const gutter = 10;
 	const seriesColors = ['#fff5cc', '#ffeba9', '#ffe182', '#ffd754', '#ffcc00'];
 
-	// Group by month then by date
-	const byMonthByDate = nest()
-		.key(d => d.date.getUTCMonth())
-		.key(d => d.timestring.split('T')[0])
-		.entries(datesTransformed);
+	/** @param {{ timestring: string }} d */
+	const monthOf = d => new Date(d.timestring).getUTCMonth();
+	/** @param {{ timestring: string }} d */
+	const dayOf = d => d.timestring.split('T')[0];
 
-	const sortedData = byMonthByDate.sort((a, b) => a.key - b.key);
+	// Group the rows by month, then by day. Each month becomes one chart and
+	// each day one row of it, colored by how many rows fell on that day.
+	const byMonth = group(dates, monthOf, dayOf);
+	const months = Array.from(byMonth, ([month, byDay]) => ({
+		month,
+		days: Array.from(byDay, ([date, rows]) => ({ date, rows }))
+	})).sort((a, b) => a.month - b.month);
 </script>
 
-{#each sortedData as month, i}
+{#each months as { month, days }, i}
 	<div
 		class="chart-container"
-		style="width:calc({100 / sortedData.length}% - {gutter}px);{i === 0
+		style="width:calc({100 / months.length}% - {gutter}px);{i === 0
 			? `margin-right:${gutter * 2}px`
 			: ''}"
-		data-month={monthNames[+month.key]}
+		data-month={monthNames[month]}
 	>
 		<LayerCake
 			ssr
 			percentRange
 			padding={{ top: 1, right: 1, bottom: 1, left: 1 }}
-			x="key"
-			c={d => d.values.length}
+			x="date"
+			xScale={scaleBand()}
+			c={d => d.rows.length}
 			cScale={scaleQuantize()}
 			cRange={seriesColors}
-			data={month.values}
+			data={days}
 		>
 			<ScaledSvg>
-				<CalendarMonth calcCellSize={() => 100 / 7} />
+				<CalendarMonth />
 			</ScaledSvg>
 		</LayerCake>
 	</div>
 {/each}
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-		The width is being set inline-below.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. The width is set inline below. */
 	.chart-container {
 		--margin-top: 25px;
 		display: inline-block;

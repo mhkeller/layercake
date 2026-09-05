@@ -1,6 +1,6 @@
 <!--
-  @component
-  Generates an SVG grouped column chart using the `x2` nested scale for the within-group position and the `c` scale for color.
+	@component
+	Generates an SVG grouped column chart using the `x2` nested scale for the within-group position and the `c` scale for color.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -16,7 +16,13 @@
 	 */
 
 	/** @type {Props} */
-	let { fill = undefined, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
+	let { fill, stroke = '#000', strokeWidth = 0, showLabels = false } = $props();
+
+	// Use the `fill` prop if there is one, then the `c` scale's color, then the default
+	/** @param {any} d */
+	function getFill(d) {
+		return fill ?? k.cGet?.(d) ?? '#00e047';
+	}
 
 	// This chart needs the x2 scale. A chart might not set one, so fall back
 	// to a zero-width column instead of crashing.
@@ -47,11 +53,11 @@
 			y={Math.min(zeroY, valueY)}
 			width={columnWidth}
 			height={Math.abs(valueY - zeroY)}
-			fill={fill ?? k.cGet?.(d) ?? '#00bbff'}
+			fill={getFill(d)}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>
-		{#if showLabels && yValue}
+		{#if showLabels && yValue != null}
 			{@const pointsUp = valueY < zeroY}
 			<!--
 				Put the number just past the far end of the column: above a positive

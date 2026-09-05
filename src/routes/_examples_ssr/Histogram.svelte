@@ -1,6 +1,6 @@
 <script>
-	import { LayerCake, ScaledSvg, Html, takeEvery } from 'layercake';
-	import { extent, bin } from 'd3-array';
+	import { LayerCake, ScaledSvg, Html, bin, takeEvery } from 'layercake';
+
 	import { scaleBand } from 'd3-scale';
 	import { format } from 'd3-format';
 
@@ -14,17 +14,24 @@
 
 	const f = format('.2f');
 
-	let binCount = $state(40);
-
+	// Each bin has x0 and x1 edges, so the x accessor is both and each column spans them
 	const xKey = ['x0', 'x1'];
 	const yKey = 'length';
 
-	const domain = extent(data);
+	let binCount = $state(40);
 
-	let steps = $derived(calcThresholds(domain, binCount));
-	let hist = $derived(bin().domain(domain).thresholds(steps));
+	/** @type {[number, number]} */
+	const domain = [Math.min(...data), Math.max(...data)];
 
-	let slimSteps = $derived(takeEvery(steps, 7));
+	let thresholds = $derived(calcThresholds(domain, binCount));
+	let slimThresholds = $derived(takeEvery(thresholds, 5));
+
+	let binnedData = $derived(
+		bin(data, d => d, {
+			domain,
+			thresholds
+		})
+	);
 </script>
 
 <div class="input-container" style="position: absolute;right:10px;z-index: 9;">
@@ -40,16 +47,16 @@
 	<LayerCake
 		ssr
 		percentRange
-		padding={{ top: 20, right: 5, bottom: 20, left: 31 }}
+		padding={{ top: 20, right: 5, bottom: 20, left: 30 }}
 		x={xKey}
 		y={yKey}
-		xDomain={steps}
+		xDomain={thresholds}
 		xScale={scaleBand().paddingInner(0)}
 		yDomain={[0, null]}
-		data={hist(data)}
+		data={binnedData}
 	>
 		<Html>
-			<AxisX gridlines={false} baseline ticks={slimSteps} format={d => String(+f(d))} />
+			<AxisX gridlines={false} showBaseline ticks={slimThresholds} format={d => String(+f(d))} />
 			<AxisY gridlines={false} ticks={3} />
 		</Html>
 		<ScaledSvg>
@@ -59,17 +66,11 @@
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-	*/
+	/* Give the wrapper a width and height. LayerCake fills it. */
 	.chart-container {
 		width: 100%;
 		height: 250px;
 	}
-
 	input {
 		height: auto;
 	}

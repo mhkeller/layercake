@@ -1,22 +1,15 @@
 <script>
 	import MarkdownIt from 'markdown-it';
-	import hljs from 'highlight.js';
 
 	import CopyBtn from '../../_site-components/CopyBtn.svelte';
 	import DownloadBtn from '../../_site-components/DownloadBtn.svelte';
-	import hljsDefineSvelte from '../../../_modules/hljsDefineSvelte.js';
+	import hljs from '../../../_modules/hljs.js';
 	import cleanTitle from '../../../_modules/cleanTitle.js';
 	import constructReplLink from '../../../_modules/constructReplLink.js';
 
-	hljs.registerLanguage('svelte', hljsDefineSvelte);
-	hljsDefineSvelte(hljs);
-
 	import examples from '../../_examples_ssr.js';
 
-	const md = new MarkdownIt({
-		html: true,
-		linkify: true
-	});
+	const md = new MarkdownIt({ html: true, linkify: true });
 
 	/** @type {import('./$types').PageProps} */
 	let { data } = $props();
@@ -170,19 +163,6 @@
 		margin-top: 35px;
 	}
 
-	.dek {
-		width: calc(100% - 80px);
-	}
-
-	.dek :global(p a) {
-		color: #ff3e00;
-		text-decoration: none;
-	}
-
-	.dek :global(p a:hover) {
-		text-decoration: underline;
-	}
-
 	.dek :global(pre code) {
 		display: block;
 	}
@@ -194,7 +174,6 @@
 	}
 
 	pre {
-		margin-top: 7px 0 0 0;
 		padding-left: 14px;
 		overflow-x: auto;
 	}

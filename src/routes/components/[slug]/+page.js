@@ -1,16 +1,18 @@
 import { error } from '@sveltejs/kit';
 
+/** @typedef {import('../../../_modules/getComponentContent.js').ComponentContent} ComponentContent */
+
 export async function load({ fetch, params }) {
 	// SvelteKit fills in `slug` from the [slug] folder name
 	const { slug } = params;
 	const url = `${slug}.json`;
 	const res = await fetch(url);
-	const content = await res.json();
+	const body = await res.json();
 
 	if (res.status === 200) {
 		return {
 			slug,
-			content,
+			content: /** @type {ComponentContent} */ (body),
 			active: slug
 		};
 	}
@@ -20,6 +22,6 @@ export async function load({ fetch, params }) {
 	// so report a 500.
 	error(
 		res.status >= 400 && res.status <= 599 ? res.status : 500,
-		`Could not load ${url}: ${content.message}`
+		`Could not load ${url}: ${body.message}`
 	);
 }

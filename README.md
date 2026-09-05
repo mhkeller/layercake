@@ -64,11 +64,11 @@ npm install --save layercake
     <Svg>
       <AxisX/>
       <AxisY/>
-      <Line color='#f0c'/>
+      <Line stroke='#f0c'/>
     </Svg>
 
     <Canvas>
-      <Scatter color='#0fc'/>
+      <Scatter fill='#0fc'/>
     </Canvas>
 
     <Html>

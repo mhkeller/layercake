@@ -1,6 +1,6 @@
 <!--
 	@component
-	Adds HTML text labels based on a given list.
+	Adds HTML text labels at the x and y position of each item in a list.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -9,13 +9,13 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {Array<Object>} labels - An array of objects that contain a field containing text label and data fields.
-	 * @property {Function} getLabelName - An accessor function to return the label field on your objects in the `labels` array.
-	 * @property {Function} [formatLabelName] - An optional formatting function.
+	 * @property {Array<Object>} labels - The items to label. Each one is run through the chart's x and y accessors for its position.
+	 * @property {(d: any) => string} getLabel - Returns the label text for an item.
+	 * @property {(d: any) => string} [format=d => d] - Formats the label text.
 	 */
 
 	/** @type {Props} */
-	let { labels, getLabelName, formatLabelName = d => d } = $props();
+	let { labels, getLabel, format = d => d } = $props();
 </script>
 
 {#each labels as d}
@@ -26,7 +26,7 @@
       left:{k.xGet(d)}px;
     "
 	>
-		{formatLabelName(getLabelName(d))}
+		{format(getLabel(d))}
 	</div>
 {/each}
 

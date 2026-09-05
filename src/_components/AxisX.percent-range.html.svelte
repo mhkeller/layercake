@@ -1,8 +1,8 @@
 <!--
 	@component
-	Generates an HTML x-axis, useful for server-side rendered charts. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
+	Generates an HTML x-axis along the bottom of the chart, for server-side rendered charts. If the x scale is a band scale, each tick sits in the middle of its band.
 
-	Although this is marked as a percent-range component, you can also use it with a normal scale with no configuration needed. By default, if you have `percentRange={true}` it will use percentages, otherwise it will use pixels. This makes this component compatible with server-side and client-side rendered charts. Set the `units` prop to either `'%'` or `'px'` to override the default behavior.
+	Positions are percentages when `percentRange={true}` and pixels otherwise, so this also works in a client-side chart with no setup. Set the `units` prop to `'%'` or `'px'` to override that.
  -->
 <script>
 	import { getLayerCakeContext } from 'layercake';
@@ -11,17 +11,17 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {boolean} [tickMarks=false] - Show a vertical mark for each tick.
+	 * @property {boolean} [tickMarks=false] - Show a vertical mark at each tick.
 	 * @property {boolean} [gridlines=true] - Show gridlines extending into the chart area.
 	 * @property {number} [tickMarkLength=6] - The length of the tick mark.
-	 * @property {boolean} [baseline=false] - Show a solid line at the bottom.
+	 * @property {boolean} [showBaseline=false] - Show a solid line along the bottom of the chart.
 	 * @property {boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart.
-	 * @property {(d: any) => string} [format=d => d] - A function that passes the current tick value and expects a nicely formatted value in return.
-	 * @property {number|Array<any>|Function} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.
-	 * @property {number} [tickGutter=0] - The amount of whitespace between the start of the tick and the chart drawing area (the yRange min).
-	 * @property {number} [dx=0] - Any optional value passed to the `dx` attribute on the text label.
-	 * @property {number} [dy=0] - Any optional value passed to the `dy` attribute on the text label.
-	 * @property {'px'|'%'} [units] - If `percentRange={true}` it defaults to `'%'`, otherwise, the default is `'px'`. Options: `'%'` or `'px'`
+	 * @property {(d: any) => string} [format=d => d] - Formats a tick value for display.
+	 * @property {number|Array<any>|((ticks: Array<any>) => Array<any>)} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.
+	 * @property {number} [tickGutter=0] - The gap in pixels between the bottom of the chart area and the start of the tick.
+	 * @property {number} [dx=0] - Horizontal offset of the label in pixels.
+	 * @property {number} [dy=0] - Vertical offset of the label in pixels.
+	 * @property {'px'|'%'} [units] - Position with pixels or percentages. Defaults to `'%'` when `percentRange={true}`, otherwise `'px'`.
 	 */
 
 	/** @type {Props} */
@@ -29,7 +29,7 @@
 		tickMarks = false,
 		gridlines = true,
 		tickMarkLength = 6,
-		baseline = false,
+		showBaseline = false,
 		snapLabels = false,
 		format = d => d,
 		ticks = undefined,
@@ -58,7 +58,7 @@
 </script>
 
 <div class="axis x-axis" class:snapLabels>
-	{#if baseline === true}
+	{#if showBaseline === true}
 		<div class="baseline" style="top:100%; width:100%;"></div>
 	{/if}
 
@@ -66,7 +66,11 @@
 		{@const tickValUnits = k.xScale(tick)}
 
 		{#if gridlines === true}
-			<div class="gridline" style:left="{tickValUnits}{units}" style="top:0; bottom:0;"></div>
+			<div
+				class="gridline"
+				style:left="{tickValUnits + halfBand}{units}"
+				style="top:0; bottom:0;"
+			></div>
 		{/if}
 		{#if tickMarks === true}
 			<div
@@ -125,7 +129,7 @@
 		white-space: nowrap;
 		transform: translateX(-50%);
 	}
-	/* This looks a little better at 40 percent than 50 */
+	/* Snapped end labels sit 40% inside their edge instead of centered on it */
 	.axis.snapLabels .tick:last-child {
 		transform: translateX(-40%);
 	}

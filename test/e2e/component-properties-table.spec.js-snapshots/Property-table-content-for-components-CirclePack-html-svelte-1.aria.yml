@@ -6,44 +6,47 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - row "idKey string 'id' no The key on each object where the id value lives.":
+    - row "idKey string 'id' no The field holding each row's id.":
       - cell "idKey string":
         - strong: idKey
         - code: string
       - cell "'id'":
         - code: "'id'"
       - cell "no"
-      - cell "The key on each object where the id value lives."
-    - row "parentKey string None no Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
+      - cell "The field holding each row's id."
+    - row "parentKey string None no The field holding each row's parent id. Set it for a nested chart. Leave it unset to pack every row into one circle, as in the grouping example.":
       - cell "parentKey string":
         - strong: parentKey
         - code: string
       - cell "None"
       - cell "no"
-      - cell "Set this if you want to define one parent circle. This will give you a nested graphic versus a grouping of circles.":
+      - cell "The field holding each row's parent id. Set it for a nested chart. Leave it unset to pack every row into one circle, as in the grouping example.":
         - text: ""
         - link "nested":
           - /url: https://layercake.graphics/example/CirclePackNested
         - text: ""
-        - link "grouping of circles":
+        - link "grouping example":
           - /url: https://layercake.graphics/example/CirclePack
         - text: ""
-    - row "valueKey string 'value' no The key on each object where the data value lives.":
+    - row "valueKey string 'value' no The field holding each row's value, which sets its circle's area.":
       - cell "valueKey string":
         - strong: valueKey
         - code: string
       - cell "'value'":
         - code: "'value'"
       - cell "no"
-      - cell "The key on each object where the data value lives."
-    - row /labelVisibilityThreshold Function r => r > \d+ no By default, only show the text inside a circle if its radius exceeds a certain size\. Provide your own function for different behavior\./:
-      - cell "labelVisibilityThreshold Function":
-        - strong: labelVisibilityThreshold
-        - code: Function
+      - cell "The field holding each row's value, which sets its circle's area."
+    - 'row /isLabelVisible \(r: number\) => boolean r => r > \d+ no Whether a circle of radius r shows its label inside it\. Smaller circles show the label on hover instead\./':
+      - 'cell "isLabelVisible (r: number) => boolean"':
+        - strong: isLabelVisible
+        - code: "(r: number) => boolean"
       - cell /r => r > \d+/:
         - code: /r => r > \d+/
       - cell "no"
-      - cell "By default, only show the text inside a circle if its radius exceeds a certain size. Provide your own function for different behavior."
+      - cell "Whether a circle of radius r shows its label inside it. Smaller circles show the label on hover instead.":
+        - text: ""
+        - code: r
+        - text: ""
     - row "fill string '#fff' no The circle's fill color.":
       - cell "fill string":
         - strong: fill
@@ -68,9 +71,9 @@
         - code: "1"
       - cell "no"
       - cell "The circle's stroke width, in pixels."
-    - row /textColor string '#\d+' no The label text color\./:
-      - cell "textColor string":
-        - strong: textColor
+    - row /textFill string '#\d+' no The label text color\./:
+      - cell "textFill string":
+        - strong: textFill
         - code: string
       - cell /'#\d+'/:
         - code: /'#\d+'/
@@ -92,22 +95,22 @@
         - code: "0"
       - cell "no"
       - cell "The label text's stroke width, in pixels."
-    - 'row "sortBy (a: HierarchyNode, b: HierarchyNode) => number (a, b) => (b.value ?? 0) - (a.value ?? 0) no The order in which circle''s are drawn. Sorting on the depth key is also a popular choice."':
+    - 'row "sortBy (a: HierarchyNode, b: HierarchyNode) => number (a, b) => (b.value ?? 0) - (a.value ?? 0) no The order circles are drawn in, as a comparator on hierarchy nodes. Sorting on depth is another common choice."':
       - 'cell "sortBy (a: HierarchyNode, b: HierarchyNode) => number"':
         - strong: sortBy
         - code: "(a: HierarchyNode, b: HierarchyNode) => number"
       - cell "(a, b) => (b.value ?? 0) - (a.value ?? 0)":
         - code: (a, b) => (b.value ?? 0) - (a.value ?? 0)
       - cell "no"
-      - cell "The order in which circle's are drawn. Sorting on the depth key is also a popular choice.":
+      - cell "The order circles are drawn in, as a comparator on hierarchy nodes. Sorting on depth is another common choice.":
         - text: ""
         - code: depth
         - text: ""
-    - row "spacing number 0 no Whitespace padding between each circle, in pixels.":
+    - row "spacing number 0 no Whitespace between circles in pixels.":
       - cell "spacing number":
         - strong: spacing
         - code: number
       - cell "0":
         - code: "0"
       - cell "no"
-      - cell "Whitespace padding between each circle, in pixels."
+      - cell "Whitespace between circles in pixels."

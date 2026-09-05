@@ -1,0 +1,1 @@
+A scatter plot drawn with WebGL, with SVG axes and a [QuadTree](/components/QuadTree.html.svelte) layer that marks the nearest point on hover. The WebGL component uses [regl](https://github.com/regl-project/regl) and draws every point in one call, so it suits large datasets.

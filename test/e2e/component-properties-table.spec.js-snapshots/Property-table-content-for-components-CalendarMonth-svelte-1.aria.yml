@@ -6,11 +6,11 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - 'row "calcCellSize (w: number, h: number) => number (w, h) => Math.min(w / 7, h / 5) no A function given the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom."':
+    - 'row "calcCellSize (w: number, h: number) => number (w, h) => Math.min(w / 7, h / 5) no Returns the size of each day''s square, given the chart width and height. The default fits seven columns across and five rows down."':
       - 'cell "calcCellSize (w: number, h: number) => number"':
         - strong: calcCellSize
         - code: "(w: number, h: number) => number"
       - cell "(w, h) => Math.min(w / 7, h / 5)":
         - code: (w, h) => Math.min(w / 7, h / 5)
       - cell "no"
-      - cell "A function given the canvas width and height as arguments and expects a return number that will be used as the width and height for each cell. The default will choose a size that fits seven cells across and five rows top to bottom."
+      - cell "Returns the size of each day's square, given the chart width and height. The default fits seven columns across and five rows down."

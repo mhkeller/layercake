@@ -1,0 +1,48 @@
+- table:
+  - rowgroup:
+    - row "Param Default Required Description":
+      - columnheader "Param"
+      - columnheader "Default"
+      - columnheader "Required"
+      - columnheader "Description"
+  - rowgroup:
+    - row "data Array<Object> None yes The rows for this one chart.":
+      - cell "data Array<Object>":
+        - strong: data
+        - code: Array<Object>
+      - cell "None"
+      - cell "yes"
+      - cell "The rows for this one chart."
+    - row "fullExtents Record<string, [any, any]> None yes The x and y extents across every chart, as calcExtents returns them. Used when scale is 'shared'.":
+      - cell "fullExtents Record<string, [any, any]>":
+        - strong: fullExtents
+        - code: Record<string, [any, any]>
+      - cell "None"
+      - cell "yes"
+      - cell "The x and y extents across every chart, as calcExtents returns them. Used when scale is 'shared'.":
+        - text: ""
+        - code: calcExtents
+        - text: ""
+        - code: scale
+        - text: ""
+    - row "scale ('shared' | 'individual') None yes Whether the domains come from every chart or from this chart's own rows.":
+      - cell "scale ('shared' | 'individual')":
+        - strong: scale
+        - text: ""
+        - code: "'shared'"
+        - text: ""
+        - code: "'individual'"
+        - text: ""
+      - cell "None"
+      - cell "yes"
+      - cell "Whether the domains come from every chart or from this chart's own rows."
+    - 'row "extentGetters Record<string, (d: any) => any> None yes The x and y accessors, e.g. { x: d => d.x, y: d => d.y }."':
+      - 'cell "extentGetters Record<string, (d: any) => any>"':
+        - strong: extentGetters
+        - code: "Record<string, (d: any) => any>"
+      - cell "None"
+      - cell "yes"
+      - 'cell "The x and y accessors, e.g. { x: d => d.x, y: d => d.y }."':
+        - text: ""
+        - code: "{ x: d => d.x, y: d => d.y }"
+        - text: ""

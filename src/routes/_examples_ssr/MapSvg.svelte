@@ -1,64 +1,94 @@
 <script>
-	import { LayerCake, ScaledSvg } from 'layercake';
+	import { LayerCake, ScaledSvg, Html } from 'layercake';
 	import { feature } from 'topojson-client';
 	import { geoIdentity } from 'd3-geo';
 	import { scaleQuantize } from 'd3-scale';
-
-	// For a map example with a tooltip, check out https://layercake.graphics/example/MapSvg
+	import { format } from 'd3-format';
 
 	import MapSvg from '../../_components/Map.svg.svelte';
+	import Tooltip from '../../_components/Tooltip.html.svelte';
 
-	// This example loads json data as json using @rollup/plugin-json
+	// The JSON file is imported as data
 	import usStates from '../../_data/states-albers-10m.json';
 	import stateData from '../../_data/us-states-data.json';
 
 	const cKey = 'myValue';
 
-	// Create lookups to more easily join our data
-	// `dataJoinKey` is the name of the field in the data
-	// `mapJoinKey` is the name of the field in the map file
-	const dataJoinKey = 'name';
-	const mapJoinKey = 'name';
-	const dataLookup = new Map();
-
-	stateData.forEach(d => {
-		dataLookup.set(d[dataJoinKey], d[cKey]);
-	});
-
-	const geojson = feature(usStates, usStates.objects.states);
-	const aspectRatio = 2.63;
+	// The map file is topojson, so unpack it into GeoJSON features. The shapes are
+	// already projected, which is why the projection below is the identity.
+	const geojson = /** @type {import('geojson').FeatureCollection<any, Record<string, any>>} */ (
+		feature(usStates, usStates.objects.states)
+	);
 	const projection = geoIdentity;
 
-	// Create a flat array of objects that LayerCake can use to measure
-	// extents for the color scale
+	// Join the data rows to the map features by name
+	const dataJoinKey = 'name';
+	const mapJoinKey = 'name';
+	const dataLookup = new Map(stateData.map(d => [d[dataJoinKey], d]));
+
+	/** @type {MouseEvent|null} */
+	let tooltipEvent = $state(null);
+	/** @type {Record<string, any>|null} */
+	let tooltipFeature = $state(null);
+
+	// A flat list of the feature properties, so LayerCake can measure the color scale's extent
 	const flatData = geojson.features.map(d => d.properties);
 	const colors = ['#ffdecc', '#ffc09c', '#ffa06b', '#ff7a33'];
+
+	const addCommas = format(',');
+
+	// The server can't measure the container, so the map gets a fixed aspect ratio instead
+	const aspectRatio = 2.63;
 </script>
 
-<div class="map-container" style="padding-bottom:{100 / aspectRatio}%">
+<div class="map-container" style="aspect-ratio:{aspectRatio};">
 	<LayerCake
 		ssr
 		position="absolute"
 		data={geojson}
-		c={d => dataLookup.get(d[mapJoinKey])}
+		c={d => dataLookup.get(d[mapJoinKey])?.[cKey]}
 		cScale={scaleQuantize()}
 		cRange={colors}
 		{flatData}
 	>
 		<ScaledSvg fixedAspectRatio={aspectRatio}>
-			<MapSvg fixedAspectRatio={aspectRatio} {projection} />
+			<MapSvg
+				fixedAspectRatio={aspectRatio}
+				{projection}
+				onmousemove={(event, feature) => {
+					tooltipFeature = feature;
+					tooltipEvent = event;
+				}}
+				onmouseout={() => {
+					tooltipFeature = null;
+					tooltipEvent = null;
+				}}
+			/>
 		</ScaledSvg>
+
+		<Html pointerEvents={false}>
+			{#if tooltipFeature !== null && tooltipEvent !== null}
+				<Tooltip event={tooltipEvent}>
+					<!-- The hover event only carries the map feature, so look up the matching data row again for the tooltip -->
+					{@const tooltipData = {
+						...tooltipFeature,
+						...dataLookup.get(tooltipFeature[mapJoinKey])
+					}}
+					{#each Object.entries(tooltipData) as [key, value]}
+						{@const keyCapitalized = key.replace(/^\w/, d => d.toUpperCase())}
+						<div class="row">
+							<span>{keyCapitalized}:</span>
+							{typeof value === 'number' ? addCommas(value) : value}
+						</div>
+					{/each}
+				</Tooltip>
+			{/if}
+		</Html>
 	</LayerCake>
 </div>
 
 <style>
-	/*
-		The wrapper div needs to have an explicit width and height in CSS.
-		It can also be a flexbox child or CSS grid element.
-		The point being it needs dimensions since the <LayerCake> element will
-		expand to fill it.
-		The height is being set inline with `padding-bottom` using the aspect ratio trick below.
-	*/
+	/* Give the wrapper a width. Its height comes from the aspect ratio set inline. */
 	.map-container {
 		position: relative;
 		width: 100%;

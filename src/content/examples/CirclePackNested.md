@@ -1,0 +1,1 @@
+A nested circle pack using [d3-hierarchy](https://github.com/d3/d3-hierarchy). Each row names its parent, so the `parentKey` prop builds the hierarchy. Circles are drawn deepest last and labels appear on hover. Compare the [flat version](/example/CirclePack).

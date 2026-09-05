@@ -1,6 +1,6 @@
 <!--
 	@component
-	Generates an SVG `<marker>` containing a triangle that makes a nice arrowhead. Add it via the snippet called "defs" on the SVG layout component.
+	Generates an SVG `<marker>` with a triangle for an arrowhead. Add it through the `defs` snippet of the `<Svg>` layout, then point a path's `marker-end` at `url(#arrowhead)`.
  -->
 <script>
 	/**

@@ -6,7 +6,10 @@ import { readdirSync } from 'fs';
 const __dirname = import.meta.dirname;
 const options = {
 	stylePath: path.join(__dirname, 'screenshot.css'),
-	threshold: 0.1
+	threshold: 0.1,
+	// A handful of antialiased pixels move between runs even with the blur in
+	// screenshot.css. Anything real changes far more than this.
+	maxDiffPixels: 10
 };
 
 test(`Snapshot for landing page galleries`, async ({ page }) => {

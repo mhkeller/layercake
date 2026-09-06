@@ -28,7 +28,7 @@ The root Layer Cake project uses pnpm. Install the dependencies with
 pnpm install
 ```
 
-The embedded project in `src/scripts/svelte-app` remains an npm-based template and is not part of a pnpm workspace.
+The zip that the Download button on the example pages offers starts from the [starter template](https://github.com/mhkeller/layercake-template). The `/svelte-app.json` and `/deps.json` endpoints download the template's main branch when the site is built and are prerendered into `docs/`, so nothing from the template is checked in here.
 
 ## Type checking
 

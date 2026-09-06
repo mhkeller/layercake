@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { existsSync, statSync } from 'fs';
+import { readFileSync } from 'fs';
 
 const groups = ['example', 'example-ssr'];
 
@@ -32,12 +32,25 @@ test(`Download zip file`, async ({ page }) => {
 	await page.getByRole('button', { name: 'Download' }).click();
 	const download = await downloadPromise;
 
-	const suggestedFileName = download.suggestedFilename();
-	const filePath = 'test/tmp/download/' + suggestedFileName;
+	const filePath = 'test/tmp/download/' + download.suggestedFilename();
 	await download.saveAs(filePath);
-	expect(existsSync(filePath)).toBeTruthy();
 
-	// check that the zip file size is not zero
-	const fileStats = statSync(filePath);
-	expect(fileStats.size).toBeGreaterThan(65 * 1024);
+	// The zip holds the starter template plus the example's own files. do-not-zip
+	// stores files without compression, so names and contents can be read
+	// straight out of the archive.
+	const zip = readFileSync(filePath);
+	for (const name of [
+		'package.json',
+		'static/favicon.png',
+		'src/routes/+page.svelte',
+		'src/routes/_components/Bar.svelte',
+		'src/routes/_data/groups.csv'
+	]) {
+		expect(zip.includes(name), `${name} is in the zip`).toBe(true);
+	}
+	// The example page is in there as written, and the favicon is still a PNG
+	expect(zip.includes(`import Bar from './_components/Bar.svelte'`)).toBe(true);
+	expect(zip.includes(Buffer.from([0x89, 0x50, 0x4e, 0x47]))).toBe(true);
+	// The template's package.json pins layercake
+	expect(zip.includes('"layercake": "')).toBe(true);
 });

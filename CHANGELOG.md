@@ -2,7 +2,7 @@
 
 # 11.0.0
 
-> DRAFT – date TBD
+> 2026-09-05
 
 A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter object, and dimensions are defined as data in a registry that drives props, scales, context keys and types. See the [migration notes](#migrating-from-10x) below.
 

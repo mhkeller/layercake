@@ -18,3 +18,4 @@ stashed
 /blob-report/
 /playwright/.cache/
 /test/tmp/**/*/
+/notes/*

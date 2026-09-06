@@ -178,6 +178,9 @@
 				href="https://mhkeller.github.io/layercake-prerunes/components"
 				target="_blank"
 				rel="noreferrer">documentation archive</a
+			>. Looking for the version 10 components that used the store API? They're at the
+			<a href="https://mhkeller.github.io/layercake-v10/components" target="_blank" rel="noreferrer"
+				>v10 documentation archive</a
 			>.
 		</p>
 	</div>

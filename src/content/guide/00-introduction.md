@@ -18,6 +18,8 @@ Layer Cake is more about having a system to organize your own custom components 
 
 > Layer Cake uses D3 scales. See more in the [xScale](/guide#xscale), [yScale](/guide#yscale), [zScale](/guide#zscale) and [rScale](/guide#rscale) sections of the [Layer Cake Props API](/guide#layercake-props).
 
+> Looking for the version 10 examples that used the store API? They're at the [v10 documentation archive](https://mhkeller.github.io/layercake-v10).
+
 ### Key Concepts
 
 1. Layer components exist inside your own project. Layer Cake doesn't have any built-in concept of what a bar chart or column chart is, for example. It is a tool to give you scales and empty containers to draw on.

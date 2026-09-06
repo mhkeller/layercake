@@ -14,7 +14,10 @@ const config = {
 		},
 
 		prerender: {
-			handleHttpError: 'warn'
+			handleHttpError: 'warn',
+			// The Download button fetches these two on click, so the crawler never
+			// sees a link to them
+			entries: ['*', '/svelte-app.json', '/deps.json']
 		}
 	}
 };

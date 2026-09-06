@@ -7,6 +7,7 @@
 	/**
 	 * @typedef {import('../../_modules/getExampleContent.js').CodeFile} CodeFile
 	 * @typedef {import('../../_modules/getExampleContent.js').ExampleContent} ExampleContent
+	 * @typedef {import('../../_modules/getTemplateFiles.js').TemplateFile} TemplateFile
 	 */
 
 	/**
@@ -45,14 +46,25 @@
 		downloading = true;
 
 		const cacheBust = new Date().getTime();
-		const files = await (await window.fetch(`/svelte-app.json?${cacheBust}`)).json();
+		/** @type {TemplateFile[]} */
+		const templateFiles = await (await window.fetch(`/svelte-app.json?${cacheBust}`)).json();
 		/** @type {Record<string, string>} */
 		const depsLookup = await (await window.fetch(`/deps.json?${cacheBust}`)).json();
+
+		// Start the zip from the template. Binary files such as the favicon arrive
+		// base64-encoded and go into the zip as bytes.
+		/** @type {{ path: string, data: string | number[] }[]} */
+		const files = templateFiles.map(file => ({
+			path: file.path,
+			data:
+				file.encoding === 'base64'
+					? Array.from(atob(file.data), char => char.charCodeAt(0))
+					: file.data
+		}));
+
 		if (imports.length > 0) {
-			const idx = files.findIndex(
-				/** @param {{ path: string }} file */ ({ path }) => path === 'package.json'
-			);
-			const pkg = JSON.parse(files[idx].data);
+			const idx = files.findIndex(({ path }) => path === 'package.json');
+			const pkg = JSON.parse(/** @type {string} */ (files[idx].data));
 			/** @type {Record<string, string>} */
 			const deps = {};
 			/** @type {Record<string, string>} */
@@ -74,54 +86,24 @@
 			files[idx].data = JSON.stringify(pkg, null, '  ');
 		}
 
-		files.push(
-			...data.components.map(
-				/** @param {CodeFile} component */ component => ({
-					path: `src/routes/${component.title.replace('./', '')}`,
-					data: component.contents
-				})
-			)
-		);
-		files.push(
-			...data.modules.map(
-				/** @param {CodeFile} mod */ mod => ({
-					path: `src/routes/${mod.title.replace('./', '')}`,
-					data: mod.contents
-				})
-			)
-		);
-		files.push(
-			...data.componentModules.map(
-				/** @param {CodeFile} mod */ mod => ({
-					path: `src/routes/${mod.title.replace('../', '')}`,
-					data: mod.contents
-				})
-			)
-		);
-		files.push(
-			...data.componentComponents.map(
-				/** @param {CodeFile} mod */ mod => ({
-					path: `src/routes/${mod.title}`,
-					data: mod.contents
-				})
-			)
-		);
-		files.push(
-			...data.csvs.map(
-				/** @param {CodeFile} mod */ mod => ({
-					path: `src/routes/${mod.title.replace('../', '')}`,
-					data: mod.contents
-				})
-			)
-		);
-		files.push(
-			...data.jsons.map(
-				/** @param {CodeFile} mod */ mod => ({
-					path: `src/routes/${mod.title.replace('../', '')}`,
-					data: mod.contents
-				})
-			)
-		);
+		// The example's files go under src/routes, at the paths its imports use
+		for (const group of [
+			data.components,
+			data.componentComponents,
+			data.modules,
+			data.componentModules,
+			data.csvs,
+			data.jsons
+		]) {
+			files.push(
+				...group.map(
+					/** @param {CodeFile} file */ file => ({
+						path: `src/routes/${file.title.replace(/^(\.\.?\/)+/, '')}`,
+						data: file.contents
+					})
+				)
+			);
+		}
 		files.push({
 			path: `src/routes/+page.svelte`,
 			data: data.main.contents

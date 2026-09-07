@@ -4,83 +4,91 @@
 
 > 2026-09-05
 
-A full Svelte 5 rewrite. Stores are gone: the context is a reactive getter object, and dimensions are defined as data in a registry that drives props, scales, context keys and types. See the [migration notes](#migrating-from-10x) below.
+A full Svelte 5 rewrite. Stores are gone — the context is a plain object of reactive values — and dimensions are now defined as data in one registry that drives the props, the scales, the context keys and the types. That registry made room for four new dimensions: `x2` and `y2` for grouped charts, `c` and `c2` for color. `<Canvas>` was rebuilt so several components can share one canvas.
+
+Start with the [migration notes](#migrating-from-10x) at the bottom. Landed in [PR#331](https://github.com/mhkeller/layercake/pull/331), [PR#428](https://github.com/mhkeller/layercake/pull/428), [PR#429](https://github.com/mhkeller/layercake/pull/429) and [PR#430](https://github.com/mhkeller/layercake/pull/430).
 
 **Breaking changes**
 
-- The context is accessed with `getLayerCakeContext()` instead of `getContext('LayerCake')`, and its values are plain reactive values, not stores: `$xGet(d)` becomes `k.xGet(d)` after `const k = getLayerCakeContext()`. Property reads are reactive – destructuring outside of `$derived` captures a stale snapshot. The variable name is up to you. The docs and examples call it `k`.
-- Requires `svelte@5.40` or newer (the library uses `createContext`).
-- `k.data` is typed as `Array<any>` by default, so callbacks like `k.data.map(d => …)` type-check without a cast. If you pass object data, such as a GeoJSON `FeatureCollection`, name its shape where you get the context: `/** @type {import('layercake').LayerCakeContext<any, { features: Array<any> }>} */ const k = getLayerCakeContext();`. This only affects type checking.
-- The `children` snippet receives the context object as its single argument. Svelte 4 `let:` directives no longer apply.
-- Scales are only created for dimensions you configure (via the accessor, `[name]Domain`, `[name]Scale` or `[name]Range` prop). Unconfigured dimensions return `undefined` from the context, where previous versions always created default `x`/`y`/`z`/`r` scales. Components that read another dimension's values should guard, e.g. `k.yRange ? Math.max(...k.yRange) : k.height`.
-- The `width` and `height` props are gone. They only ever set the size the chart drew at before the container was measured, which is the same 100 the component now uses on its own, and the name implied an override that never existed. For a server-side render, set the coordinate system with [`percentRange`](https://layercake.graphics/guide#percentrange) instead. Passing either one now logs `[LayerCake] Unknown prop 'width'. Ignoring...`.
-- The domains passed to the `children` snippet are now read back off the scale after `.nice()` and `[name]Padding` are applied, matching what the context reports. Previously the snippet received the pre-nice domain.
-- Passing an uninstantiated scale factory (`xScale={scaleLinear}` instead of `xScale={scaleLinear()}`) now throws a clear error. It was never documented behavior.
-- A function passed as `[name]Range` receives `({ width, height, percentRange, rangeWidth, rangeHeight, scales })` and only re-runs when the values it actually reads change. `scales` holds the computed sibling scales – the dimension's own scale is deliberately absent, since a range helps build that scale and reading it back would be circular.
-- `activeGetters` is no longer on the context. It duplicated the per-dimension accessors – read `k.x`, `k.y` etc. instead.
-- `debug` no longer prints during server-side rendering; it prints in the browser after hydration.
-- Unknown props are reported with a console warning unless `verbose={false}`.
-- A range you customized on a passed-in scale is now preserved instead of being overwritten with the dimension's default – so `zScale={scaleOrdinal(schemeCategory10)}` keeps its colors. Layer Cake still manages the range of pristine scales, and an explicit `[name]Range` prop always wins. Per [#364](https://github.com/mhkeller/layercake/issues/364).
-- `<Canvas>` now owns the canvas. It fills the whole chart container. Before every repaint it scales the canvas for the screen, clears it and moves the origin to the top-left of the chart area. Components draw by calling `getCanvasContext().draw(ctx => { ... })` once while they set up. Several can share one `<Canvas>`. Drawings can run into the padding like Svg and Html children do. To migrate, move your drawing into a `draw` function and delete the `scaleCanvas`, `clearRect` and `$effect` around it. Pointer coordinates read off the `<canvas>` element (`offsetX`, `getBoundingClientRect()`) are now relative to the container, so subtract `k.padding.left`/`top` if you hit-test that way. See the [Canvas guide](https://layercake.graphics/guide#canvas).
+
+- Requires `svelte@5.40` or newer — the library uses `createContext`, which landed in that version. Upgrade Svelte first; nothing else here works until you do.
+- Get the context with `getLayerCakeContext()` instead of `getContext('LayerCake')`, and read plain values instead of stores: `$xGet(d)` becomes `k.xGet(d)` after `const k = getLayerCakeContext()`. The docs and examples call it `k` like "cake" but you can call it whatever you want.
+- Don't destructure the context object. `const { xGet } = getLayerCakeContext()` will likely work sometimes but it won't be reactive. Destructure only inside `$derived`. This is the mistake the mechanical translation of 10.x code produces, so check every component you convert.
+- Scale dimensions you don't set are now `undefined`. Before, each of the x / y / z / r dimensions was built. Some components will now need to guard against those undefined values. If you copied the axis components from the docs site, for example, they need those guards. A 10.x `AxisX` calls `Math.max(...k.yRange)` and now throws on a chart that only sets `x`. The copies on layercake.graphics are already fixed — re-copy them or add the guard yourself.
+- `<Canvas>` layout components now owns the canvas and solves an infinite loop issue. The new pattern is much simpler and no longer requires users to scale their own canvas. See the [Canvas guide](https://layercake.graphics/guide#canvas).
+- The `<canvas>` element now covers the whole container instead of sitting a padding's width down and to the right, so drawings can run into the padding. The WebGL layout got the same fix — its canvas was container-sized but offset, so it spilled past the bottom-right edge. If you offset your drawing to compensate, remove that offset. Pointer coordinates read off the element (`offsetX`, `getBoundingClientRect()`) are now relative to the container: use `k.pointer(event)`, or subtract `k.padding.left`/`top` yourself.
+- The `width` and `height` props are gone — delete them. In the browser they never did anything; the container's measured size replaced them immediately. They only mattered in a server-side render, where they set the size the chart drew at. Without them an SSR chart draws at 100×100, so rename them to `containerWidth` and `containerHeight` to keep the old output, or switch the chart to [`percentRange`](https://layercake.graphics/guide#percentrange) and draw into `<ScaledSvg>` or percentage-based HTML.
+- A range you set on a scale you pass in is kept instead of being overwritten with the dimension's default, so `zScale={scaleOrdinal(schemeCategory10)}` keeps its colors. An explicit `[name]Range` prop still wins. Two things to check when you upgrade. A scale carrying any other baked-in range, say `.range([10, 500])`, used to lose it and now keeps it. On tricky scenario is if you want your scale to have a range of `[0, 1]`. Layer Cake can't recognize that as yours, because it's what most d3 scales ship with; a scale arriving with `[0, 1]` still gets the chart's dimensions. Use `xRange={[0, 1]}` to set it explicitly instead of on the scale object. Per [#364](https://github.com/mhkeller/layercake/issues/364).
+- Check any `[name]Range` function you already have. It now receives one object, `({ width, height, percentRange, rangeWidth, rangeHeight, scales })`, and  will re-run only when values it reads change, so a callback that does not take `width` won't trigger on every resize versus one that does. `scales` holds the computed sibling scales.
+- Passing an uninstantiated scale factory (`xScale={scaleLinear}` instead of `xScale={scaleLinear()}`) now throws with a clear message. In 10.x it silently worked when the factory happened to be that dimension's own default — `xScale={scaleLinear}`, `rScale={scaleSqrt}` — and threw an unhelpful `TypeError` otherwise. Add the `()`, or just delete the prop, since those cases were only re-stating the default.
+- The domains passed to the `children` snippet are read back off the scale after `.nice()` and `[name]Padding` are applied, matching what the context reports. Nothing to change unless you compared the snippet's domain against your raw data — those numbers now line up with `k.xDomain`.
+- `activeGetters` is removed from the context. It held the same functions as `k.x`, `k.y` and the rest, so read those. If you used its keys to see which dimensions were configured, test `k.x !== null`, or read `k.config`, which only has a key for a prop you actually passed.
+- The four secondary dimensions take an accessor plus `Domain`, `Scale`, `Range` and `DomainSort` and nothing else. `cNice`, `x2Padding` and `y2Reverse` don't exist — they warn as unknown props and do nothing.
+- Svelte 4 `let:` directives no longer apply. Rarely used feature.
 
 **New features**
 
-- Two nested dimensions, `x2` and `y2`, for grouped column and bar charts. They default to a `scaleBand()` whose range is the parent scale's bandwidth, so a grouped column chart is just `x="year" xScale={scaleBand()} x2="fruit" y="value"`. See the new [ColumnGrouped example](https://layercake.graphics/example/ColumnGrouped).
-- Two color dimensions, `c` and `c2` (e.g. for opacity). Their domains are computed from your data like any other dimension. `c` defaults to an ordinal scale with a ten-color categorical palette (d3's `schemeCategory10`, no new dependency) and `c2` to a linear scale with a `[0, 1]` range – override with `cRange`/`c2Range`, or pass a preconfigured scale like `cScale={scaleOrdinal(schemeCategory10)}`, whose customized range is preserved. Per [#364](https://github.com/mhkeller/layercake/issues/364).
-- `[name]Range` functions receive the computed sibling scales, e.g. `x2Range={({ scales }) => [0, scales.x.bandwidth() / 2]}`.
-- New `x2DomainSort`, `y2DomainSort`, `cDomainSort` and `c2DomainSort` props.
+- Two nested dimensions, `x2` and `y2`, for grouped column and bar charts. They default to a `scaleBand()` sized to one band of the parent scale. See the new [ColumnGrouped example](https://layercake.graphics/example/ColumnGrouped).
+- Two color dimensions, `c` and `c2` (e.g. for opacity), with domains computed from your data like any other dimension. `c` defaults to an ordinal scale with d3's ten-color `schemeCategory10`; `c2` defaults to a linear scale with a `[0, 1]` range. Override with `cRange`/`c2Range`, or pass a configured scale — the range-preservation rule above applies. Per [#364](https://github.com/mhkeller/layercake/issues/364).
+- New `x2DomainSort`, `y2DomainSort`, `cDomainSort` and `c2DomainSort` props, matching the four that x, y, z and r already had.
+- `getCanvasContext()` returns the typed canvas context: `draw(fn)` adds a layer and returns a function that removes it, `redraw()` repaints by hand, and `ctx` reads the canvas.
+- `<Canvas>` takes the `overflow` prop that `<Html>`, `<Svg>` and `<ScaledSvg>` already had. `overflow="hidden"` clips drawings at the edge of the chart area.
+- `k.pointer(event)` returns the pointer's `[x, y]` in pixels from the top-left of the chart area, the same on every layer. Useful for hit-testing on canvas, where the element covers the whole container. It returns `[NaN, NaN]` until the chart mounts, and it stays in pixels on a `percentRange` chart.
+- `<Svg>` takes a `role` prop, matching `<Html>`. Leave it off and the derived default applies.
 - The context exposes `element`, the `.layercake-container` div.
-- Dimensions are defined as data in a registry (`settings/dimensions.js`); prop handling, scale creation, context keys and TypeScript definitions are all generated from it.
-- `getCanvasContext()` returns the typed canvas context: `draw(fn)` to add a layer, `redraw()` to repaint by hand and `ctx` to read the canvas.
-- `<Canvas>` accepts the same `overflow` prop as the other layouts. `overflow="hidden"` clips drawings at the edge of the chart area.
-- `k.pointer(event)` returns chart-area `[x, y]` for a pointer event, the same on every layer. Useful for hit-testing on canvas, where the element covers the whole container.
+- `setLayerCakeContext(context)` is exported alongside `getLayerCakeContext()`, for standing a chart context up by hand in a test harness or a wrapper component.
+- A misspelled prop logs `[LayerCake] Unknown prop 'xDomian'. Ignoring...`. Set `verbose={false}` to quiet it. Like `debug`, the check runs in the browser, so a server-only render doesn't log.
+- `debug` prints in the browser after hydration rather than during a server-side render. If you were reading debug output from your server logs, look in the browser console instead. It now prints every configured dimension's scale, including ones set up without an accessor.
 
 **Performance**
 
-- Scales, domains and getters are only computed for dimensions you actually configure. Previous versions always built all four.
-- The reactive graph is pull-based and fine-grained. Scales only depend on the values their range reads, so color and ordinal scales no longer rebuild on every resize tick, and a `percentRange` chart doesn't rebuild any scales while resizing.
-- Extents only depend on the dimensions that contribute data, so changing a prop of an unused dimension no longer rescans your data.
-- Child components read one shared context object through getters instead of subscribing to ~50 derived stores each.
+- A scale is rebuilt on resize only when its range reads `width` or `height`, so a range that ignores the container is built once and left alone: the `c` and `c2` colors, `r`'s default `[1, 25]`, and any fixed range you set yourself. Turn on `percentRange` and no scale rebuilds while resizing at all.
+- Scales, domains and getters are computed only for the dimensions you configure. Previous versions always built four.
+- Each dimension measures its own extent, so changing a prop of one dimension no longer rescans your data for the others.
+- Child components read one shared context object through getters, with no store subscriptions to set up and tear down.
 
 **Types**
 
-- `getLayerCakeContext()` returns a fully typed context: every key autocompletes with hover documentation, and typos like `k.xGett` are compile errors.
-- Component props are fully typed. The per-dimension halves of both typedefs are generated from the registry (`npm run generate:dims`) and enforced by tests, so types, docs and runtime behavior can't drift apart. Prop typos like `xDomian` are compile errors too – the props type no longer carries a catch-all index signature.
-- The primary dimensions (`x`, `y`, `z`, `r`) are typed as always-present – no `|undefined` on `xScale`, `xGet`, `xDomain` or `xRange` – while the secondary dimensions (`x2`, `y2`, `c`, `c2`) keep their optional types so feature-detection like `k.cGet?.(d)` stays expressible. The types describe a chart that uses the dimension: a chart that never sets `y` still holds `undefined` at runtime, which each key's hover doc says outright, and the [troubleshooting guide](https://layercake.graphics/guide#troubleshooting) covers the errors that follow.
-- `k.xGet` is typed as what it is – a getter `(d, i) => value` – instead of borrowing the scale's type.
-- `k.data` and `k.flatData` are generic: `LayerCakeContext<any, MyRow[]>` types your rows, `LayerCakeContext<any, FeatureCollection>` fits a GeoJSON map, and the `any` default stays permissive.
-- The `DataAccessor`, `DimensionDomain` and `DimensionRange` prop types carry real call signatures, so inline lambdas like `x={d => d.value}` get their parameter types.
+- `getLayerCakeContext()` returns a typed context: every key autocompletes with hover documentation, and a typo like `k.xGett` is a compile error. The d3 scales themselves stay loosely typed on purpose — you can call them and reach any method, but nothing is checked. Name them when you want them checked: `LayerCakeContext<{ x: ScaleBand<string> }>` makes `k.xScale.bandwidth()` check, and anything you leave out stays loose.
+- `k.data` is generic: `LayerCakeContext<any, MyRow[]>` types your rows and `LayerCakeContext<any, FeatureCollection>` fits a GeoJSON map. It defaults to `Array<any>`, so array rows need no setup and callbacks like `k.data.map(d => …)` type-check without a cast. Object data has to be named or `k.data.features` is a compile error — put the type on the variable where you get the context. `k.flatData` stays loose, since a `flatData` prop often holds a different shape than `data`; its rows come back as `any`.
+- Component props are fully typed, so a prop typo like `xDomian` is a compile error. The per-dimension halves of the props and context typedefs are generated from the registry (`pnpm generate:dims`) and checked by tests, so the generated types, the generated guide sections and runtime behavior can't drift apart.
+- `x`, `y`, `z` and `r` are typed as always present — no `|undefined` on `xScale`, `xGet`, `xDomain` or `xRange` — while `x2`, `y2`, `c` and `c2` stay optional, so feature detection like `k.cGet?.(d)` still type-checks. A chart that never sets `y` still holds `undefined` at runtime; each key's hover doc says so, and the [troubleshooting guide](https://layercake.graphics/guide#troubleshooting) covers the errors that follow.
+- `k.xGet` is typed as a call signature, `(d, i) => value`, so it type-checks without a cast. Scale methods like `.ticks()` live on `k.xScale`.
+- `DataAccessor`, `DimensionDomain` and `DimensionRange` carry real call signatures instead of a bare `Function`, so inline lambdas stop tripping "implicitly has an 'any' type" in a strict project. `*Range` lambdas get a checked argument — `xRange={({ widht }) => …}` is a compile error — while an accessor's row stays `any`.
+- `Scale`, `CanvasContext` and `CanvasDrawFn` are exported too, so a canvas layer can type its own draw function.
 
 **Fixes**
 
+- A bare `scaleSequential()` or `scaleDiverging()` gets the chart's range in production builds, not just in dev. Layer Cake recognizes d3's placeholder interpolator by testing what it does rather than by its function name, which minifiers rename. If your colors looked right in dev and wrong in a built site, that's this — nothing to change on your side.
+- An explicit `[name]Range` prop now wins on scales with a custom interpolator: `cScale={scaleSequential(interpolateViridis)}` plus `cRange={['white', 'red']}` uses your colors, where the range was previously dropped without a word. If you baked colors into an interpolator to work around that, you can pass the range instead.
+- Diverging scales get a range they can use. A diverging scale reads three range stops — low, middle, high — and returns `undefined` given only two, so `scaleDiverging()` now gets `[0, width/2, width]` by default and a two-**number** `[name]Range` has its midpoint filled in. Color stops can't be interpolated, so pass all three yourself: `cRange={['blue', 'white', 'red']}`.
 - A dimension configured only through its `[name]Scale` prop keeps the scale's preconfigured domain instead of having it overwritten with an empty array.
-- An explicit `[name]Range` prop now also wins on scales with a custom interpolator: `cScale={scaleSequential(interpolateViridis)}` plus `cRange={['white', 'red']}` uses your colors, where the range was previously ignored without a word.
-- Layer Cake recognizes d3's placeholder interpolator by behavior instead of by function name, so sequential and diverging color scales keep working in minified production builds, not just in dev.
-- Diverging scales get a range they can use. A diverging scale reads three range stops – low, middle, high – and returns `undefined` given only two, so `scaleDiverging()` now gets `[0, width/2, width]` by default, and a two-value `[name]Range` prop has its midpoint filled in.
-- A bare `null` dimension prop – say `xScale={cond ? myScale : null}` – now means "unset", the same as `undefined`, instead of activating the dimension and crashing or blanking the chart.
-- A function-form `[name]Domain` always receives a real domain: when nothing was measured, the scale's own domain stands in. Partial domains like `[null, 100]` fill from it too.
-- `[undefined, 10]` and `[]` domains are treated as incomplete and measured from the data, instead of silently producing NaN positions.
-- Ordinal domain measurement passes accessors the row index, matching rendering, so `(d, i) => ...` accessors work on the `c`, `x2` and `y2` dimensions.
-- With `verbose` on, Layer Cake now warns when an accessor measures no usable values (usually a typo'd key) and when a measured extent contains strings (usually unparsed CSV numbers).
-- The "data is not an array" error blames the prop that actually supplied the rows.
-- `debug` prints every configured dimension's scale, including ones set up without an accessor.
-- Pending debounced warnings are dropped when a chart unmounts, so a destroyed chart can't log about its size.
-- `<Svg>` derives `role="img"` when you set `label`, `labelledBy` or `describedBy`, matching how `<Html>` derives `role="figure"`.
-- The zero-width/zero-height container warning now always fires when the container is unsized, not only when a child happens to read a size-dependent value.
-- Axis components fall back gracefully on charts that don't configure the opposite dimension.
-- The declared svelte peer dependency now matches the version the library actually requires.
-- The WebGL layout's `<canvas>` no longer spills past the container by the padding. Its CSS was over-constrained, so the element was container-sized but offset by the top and left padding.
+- A function-form `[name]Domain` on a dimension with no accessor receives the scale's own domain instead of `undefined`, and partial domains like `[null, 100]` or `[undefined, 100]` fill in from it too. When there is an accessor that finds no values, the function still gets the empty extent — `[null, null]`, or `[]` on an ordinal scale — so handle that case.
+- `[undefined, 10]` domains are treated as incomplete and measured from the data instead of silently producing NaN positions. An empty `[]` domain is still passed to the scale as-is and blanks the chart, so pass `undefined`, not `[]`, when you have no domain to set.
+- A `null` dimension prop means "unset", the same as `undefined`, so `xScale={cond ? myScale : null}` works without a `|| undefined` guard. In 10.x a null `[name]Scale` threw a `TypeError`.
+- Ordinal domain measurement passes accessors the row index, matching rendering. Any dimension on a band, point or ordinal scale gets this, so `x={(d, i) => …}` now works with `xScale={scaleBand()}` — as do `c`, `x2` and `y2`, which use those scales by default.
+- `k.yReverse` and the other `*Reverse` keys report the value the chart used rather than the raw prop, so `k.yReverse` is `true` on a default y scale instead of `undefined`.
+- Two silent accessor mistakes now warn with `verbose` on: an accessor that measures nothing (usually a typo'd key) and an extent made of strings (usually unparsed CSV numbers — convert them with `+value` or d3's `autoType`). Both read a min/max extent, so they skip ordinal dimensions like `c`, `x2`, `y2` and anything on a band or point scale. Check those domains by hand.
+- The "data is not an array" error names the prop that actually supplied the rows.
+- The zero-width/zero-height container warning fires once instead of repeating, and a chart that unmounts before the timer fires no longer logs about its size at all.
+- `<Svg>` derives `role="img"` when you set `label`, `labelledBy` or `describedBy`, matching how `<Html>` derives `role="figure"`. `<ScaledSvg>` doesn't do either — a labelled `<ScaledSvg>` still ships with no role, and it has no `role` prop to set one with.
 
 ## Migrating from 10.x
 
-| 10.x                                                                                     | 11.0                                                                                     |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `const { data, xGet } = getContext('LayerCake')`                                         | `const k = getLayerCakeContext()`                                                        |
-| `$xGet(d)`, `$yScale.ticks()`, `$width`                                                  | `k.xGet(d)`, `k.yScale.ticks()`, `k.width`                                               |
-| `<LayerCake let:width>`                                                                  | `{#snippet children(k)}...{/snippet}` or read `k.width` in a child                       |
-| Color via `z`                                                                            | Still works, but `c` is now the dedicated color dimension                                |
-| `$ctx` from `getContext('canvas')`, then `scaleCanvas` + `clearRect` + draw in an effect | `getCanvasContext().draw(ctx => { ...draw... })` – no scaling, clearing or effect needed |
-| `getContext('gl')` store                                                                 | `getContext('gl').gl` getter object                                                      |
+| 10.x                                                                                     | 11.0                                                                                                               |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| any `svelte@5`                                                                           | `svelte@5.40` or newer                                                                                             |
+| `const { data, xGet } = getContext('LayerCake')`                                         | `const k = getLayerCakeContext()` — keep the object, don't destructure it                                          |
+| `$xGet(d)`, `$yScale.ticks()`, `$width`                                                  | `k.xGet(d)`, `k.yScale.ticks()`, `k.width`                                                                         |
+| `<LayerCake let:width>`                                                                  | `{#snippet children(k)}...{/snippet}` or read `k.width` in a child                                                 |
+| `<LayerCake width={500} height={400}>`                                                   | Gone — the container is measured. Use `containerWidth`/`containerHeight`, or `percentRange` for SSR                |
+| `$yScale` existed on every chart                                                         | `k.yScale` is `undefined` unless the chart sets `y`, `yScale`, `yDomain` or `yRange` — guard your reads            |
+| `$activeGetters`                                                                         | Read `k.x`, `k.y` etc. `k.x` is `null` when unset                                                                  |
+| Color via `z`                                                                            | Still works, but `c` is now the dedicated color dimension                                                          |
+| `$ctx` from `getContext('canvas')`, then `scaleCanvas` + `clearRect` + draw in an effect | `getCanvasContext().draw(ctx => { ...draw... })`, called once during setup — calling it inside an `$effect` throws |
+| `const { gl } = getContext('gl')`, then `$gl`                                            | `const glCtx = getContext('gl')`, then `glCtx.gl` — no `$`, and the key is still the string `'gl'`                 |
+
+Version 10's examples and docs are archived at [mhkeller.github.io/layercake-v10](https://mhkeller.github.io/layercake-v10).
 
 # 10.0.3
 

@@ -1,4 +1,3 @@
-import { json } from '@sveltejs/kit';
 import getSections from '../../../_modules/getSections.js';
 
 /** @type {ReturnType<typeof getSections> | undefined} */
@@ -9,5 +8,5 @@ export async function GET() {
 		sections = getSections(false);
 	}
 
-	return json(sections);
+	return Response.json(sections);
 }

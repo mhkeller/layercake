@@ -1,26 +1,15 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json",
+	"extends": "$app/tsconfig",
 	"compilerOptions": {
-		"moduleResolution": "bundler",
+		// Mirrors the `layercake` alias in vite.config.js so the site type-checks
+		"paths": {
+			"layercake": ["./src/lib/index.js"],
+			"layercake/*": ["./src/lib/*"]
+		},
 		"module": "es2022",
 		"lib": ["es2021", "DOM"],
 		"target": "es2021",
-		/**
-			svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
-			to enforce using \`import type\` instead of \`import\` for Types.
-			*/
-		"isolatedModules": true,
-		"resolveJsonModule": true,
-		/**
-			To have warnings/errors of the Svelte compiler at the correct position,
-			enable source maps by default.
-			*/
 		"sourceMap": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"allowJs": true,
-		"checkJs": true,
 		"strict": true
 	},
 	"include": ["./src/**/*.d.ts", "./src/**/*.js", "./src/**/*.ts", "./src/**/*.svelte"],

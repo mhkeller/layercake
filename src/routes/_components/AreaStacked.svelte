@@ -18,14 +18,13 @@
 	const seriesNames = Object.keys(data[0]).filter(d => d !== xKey);
 	const seriesColors = ['#ff00cc', '#ff7ac7', '#ffb3c0', '#ffe4b8'];
 
-	data.forEach(d => {
-		d[xKey] = typeof d[xKey] === 'string' ? parseDate(d[xKey]) : d[xKey];
-	});
+	// Turn the date strings into Date objects, on copies so the imported rows stay as they are
+	const rows = data.map(d => ({ ...d, [xKey]: parseDate(d[xKey]) }));
 
 	// Create a stacked data structure
 	const stackData = stack().keys(seriesNames);
 
-	const series = stackData(data);
+	const series = stackData(rows);
 </script>
 
 <div class="chart-container">

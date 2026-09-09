@@ -6,11 +6,14 @@
       - columnheader "Required"
       - columnheader "Description"
   - rowgroup:
-    - 'row "calcCellSize (w: number, h: number) => number (w, h) => Math.min(w / 7, h / 5) no Returns the size of each day''s square, given the chart width and height. The default fits seven columns across and five rows down."':
+    - 'row "calcCellSize (w: number, h: number) => number (w, h) => Math.min(w / 7, h / rows) no Returns the size of each day''s square. It''s called with the chart''s width and height, which are always pixels. Inside a <ScaledSvg> ignore both and return a size in viewBox units. The default fits seven columns across and one row for every week the month spans."':
       - 'cell "calcCellSize (w: number, h: number) => number"':
         - strong: calcCellSize
         - code: "(w: number, h: number) => number"
-      - cell "(w, h) => Math.min(w / 7, h / 5)":
-        - code: (w, h) => Math.min(w / 7, h / 5)
+      - cell "(w, h) => Math.min(w / 7, h / rows)":
+        - code: (w, h) => Math.min(w / 7, h / rows)
       - cell "no"
-      - cell "Returns the size of each day's square, given the chart width and height. The default fits seven columns across and five rows down."
+      - cell "Returns the size of each day's square. It's called with the chart's width and height, which are always pixels. Inside a <ScaledSvg> ignore both and return a size in viewBox units. The default fits seven columns across and one row for every week the month spans.":
+        - text: Returns the size of each day's square. It's called with the chart's width and height, which are always pixels. Inside a
+        - code: <ScaledSvg>
+        - text: ignore both and return a size in viewBox units. The default fits seven columns across and one row for every week the month spans.

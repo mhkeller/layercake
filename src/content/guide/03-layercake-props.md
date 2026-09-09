@@ -586,6 +586,8 @@ It applies to the four dimensions that measure themselves against the container 
 
 A range you set yourself always wins over this. That means both an explicit [xRange](/guide#xrange) prop and a range you baked into a scale you passed to [xScale](/guide#xscale) – in either case that dimension keeps your range and ignores `percentRange`.
 
+It changes the ranges and nothing else. [width](/guide#width) and [height](/guide#height) stay in pixels, since they're the measured size of a real div.
+
 ### position `string='relative'`
 
 Determine the positioning of the wrapper div. Set this to `'absolute'` when you want to stack two `<LayerCake>` components on top of one another, such as when you have one that is server-side rendered and one client side like in the [Annotated column](/example-ssr/Column) example.

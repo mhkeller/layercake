@@ -60,7 +60,8 @@
 			data={days}
 		>
 			<ScaledSvg>
-				<CalendarMonth />
+				<!-- ScaledSvg draws in a 0-100 viewBox, so size the squares in those units, not pixels -->
+				<CalendarMonth calcCellSize={() => 100 / 7} />
 			</ScaledSvg>
 		</LayerCake>
 	</div>

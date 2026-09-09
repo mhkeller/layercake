@@ -1,6 +1,8 @@
 <!--
 	@component
 	Generates an SVG calendar for one month, one square per day, colored by the `c` scale. The x accessor must give each row a `YYYY-MM-DD` date string, and the x scale should be a `scaleBand()` since the dates are categories, not numbers.
+
+	The squares are sized from the chart's width and height, which are pixels. Inside a `<ScaledSvg>` the drawing happens in a 0-100 viewBox instead, so pass `calcCellSize` and return a size in those units, e.g. `calcCellSize={() => 100 / 7}` to fit seven columns across.
  -->
 <script>
 	import { utcFormat } from 'd3-time-format';
@@ -11,11 +13,11 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {(w: number, h: number) => number} [calcCellSize] - Returns the size of each day's square, given the chart width and height. The default fits seven columns across and five rows down.
+	 * @property {(w: number, h: number) => number} [calcCellSize] - Returns the size of each day's square. It's called with the chart's width and height, which are always pixels. Inside a `<ScaledSvg>` ignore both and return a size in viewBox units. The default fits seven columns across and one row for every week the month spans.
 	 */
 
 	/** @type {Props} */
-	let { calcCellSize = (w, h) => Math.min(w / 7, h / 5) } = $props();
+	let { calcCellSize = (w, h) => Math.min(w / 7, h / rows) } = $props();
 
 	const getDate = utcFormat('%Y-%m-%d');
 	const getDayOfWeek = utcFormat('%w');
@@ -36,8 +38,6 @@
 		return value === undefined ? '#fff' : (k.cScale?.(value) ?? '#fff');
 	}
 
-	let cellSize = $derived(calcCellSize(k.width, k.height));
-
 	// Every day of the month that the earliest x value falls in. The extent is a
 	// min and max on a linear scale and a list of values on a band scale, so
 	// sort either way.
@@ -47,6 +47,13 @@
 		const [year, month] = earliest.split('-').map(Number);
 		return utcDay.range(new Date(Date.UTC(year, month - 1, 1)), new Date(Date.UTC(year, month, 1)));
 	});
+
+	// The week rows this month covers, counting the part-weeks at either end.
+	// Most months take five, some take six.
+	let rows = $derived(Math.ceil((+getDayOfWeek(days[0]) + days.length) / 7));
+
+	// Pixels, unless the caller's calcCellSize returns some other unit
+	let cellSize = $derived(calcCellSize(k.width, k.height));
 
 	// Columns are days of the week, rows are weeks counted from the month's first day
 	/** @param {Date} day */

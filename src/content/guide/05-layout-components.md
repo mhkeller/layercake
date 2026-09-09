@@ -123,6 +123,8 @@ It's often used in conjunction with props `ssr={true}` and `percentRange={true}`
 
 > When setting a boolean prop to `true`, you can omit the `={true}` portion and only include the prop name, e.g. `<LayerCake ssr percentRange ...>`.
 
+Everything inside a `ScaledSvg` draws in the viewBox's units – `0` to `100` across by default – not in pixels. Components that take their geometry from the scales, like `xGet`, `yGet` or `xScale.bandwidth()`, need nothing extra, since [percentRange](/guide#percentrange) already put the ranges in those units. A component that sizes something itself from [width](/guide#width) or [height](/guide#height) does need something extra, though, because those two are always pixels. It can read a scale's range, the way the [diverging column example](/example-ssr/ColumnDiverging) spans the chart with `k.xRange`, or take the size as a prop, the way the [server-side Calendar](/example-ssr/Calendar) passes `calcCellSize={() => 100 / 7}` and the [server-side map](/example-ssr/MapSvg) passes `fixedAspectRatio`.
+
 The ScaledSvg component has two custom props: `fixedAspectRatio` and `viewBox`. See the [Layout component props](/guide#layout-component-props) section for more information.
 
 ```svelte

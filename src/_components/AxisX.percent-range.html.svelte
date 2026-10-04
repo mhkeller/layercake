@@ -56,7 +56,9 @@
 
 	let halfBand = $derived(isBandwidth ? k.xScale.bandwidth() / 2 : 0);
 
-	let isTime = $derived(k.xScale.domain()[0] instanceof Date);
+	let isTime = $derived(
+		k.xScale.domain()[0] instanceof Date && typeof k.xScale.tickFormat === 'function'
+	);
 
 	/** @type {(d: any) => string} */
 	let formatTick = $derived(

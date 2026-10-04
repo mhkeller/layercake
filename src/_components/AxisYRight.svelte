@@ -56,7 +56,9 @@
 					: k.yScale.ticks(ticks)
 	);
 
-	let isTime = $derived(k.yScale.domain()[0] instanceof Date);
+	let isTime = $derived(
+		k.yScale.domain()[0] instanceof Date && typeof k.yScale.tickFormat === 'function'
+	);
 
 	/** @type {(d: any) => string} */
 	let formatTick = $derived(

@@ -46,14 +46,13 @@
         - code: "false"
       - cell "no"
       - cell "Instead of centering the text labels on the first and the last items, align them to the edges of the chart."
-    - 'row "format (d: any) => string d => d no Formats a tick value for display."':
+    - 'row "format (d: any) => string None no Formats a tick value for display. Defaults to the scale''s tickFormat for time scales, otherwise d => d."':
       - 'cell "format (d: any) => string"':
         - strong: format
         - code: "(d: any) => string"
-      - cell "d => d":
-        - code: d => d
+      - cell "None"
       - cell "no"
-      - cell "Formats a tick value for display."
+      - cell "Formats a tick value for display. Defaults to the scale's tickFormat for time scales, otherwise d => d."
     - 'row "ticks (number | Array<any> | ((ticks: Array<any>) => Array<any>)) undefined no If this is a number, it passes that along to the d3Scale.ticks function. If this is an array, hardcodes the ticks to those values. If it''s a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function."':
       - 'cell "ticks (number | Array<any> | ((ticks: Array<any>) => Array<any>))"':
         - strong: ticks

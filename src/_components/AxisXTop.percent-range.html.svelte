@@ -16,7 +16,7 @@
 	 * @property {number} [tickMarkLength=6] - The length of the tick mark.
 	 * @property {boolean} [showBaseline=false] - Show a solid line along the top of the chart.
 	 * @property {boolean} [snapLabels=false] - Instead of centering the text labels on the first and the last items, align them to the edges of the chart.
-	 * @property {(d: any) => string} [format=d => d] - Formats a tick value for display.
+	 * @property {(d: any) => string} [format] - Formats a tick value for display. Defaults to the scale's tickFormat for time scales, otherwise d => d.
 	 * @property {number|Array<any>|((ticks: Array<any>) => Array<any>)} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.
 	 * @property {number} [tickGutter=0] - The gap in pixels between the top of the chart area and the start of the tick.
 	 * @property {number} [dx=0] - Horizontal offset of the label in pixels.
@@ -31,7 +31,7 @@
 		tickMarkLength = 6,
 		showBaseline = false,
 		snapLabels = false,
-		format = d => d,
+		format,
 		ticks = undefined,
 		tickGutter = 0,
 		dx = 0,
@@ -55,6 +55,13 @@
 	);
 
 	let halfBand = $derived(isBandwidth ? k.xScale.bandwidth() / 2 : 0);
+
+	let isTime = $derived(k.xScale.domain()[0] instanceof Date);
+
+	/** @type {(d: any) => string} */
+	let formatTick = $derived(
+		format ?? (isTime ? k.xScale.tickFormat(typeof ticks === 'number' ? ticks : undefined) : d => d)
+	);
 </script>
 
 <div class="axis x-axis" class:snapLabels>
@@ -90,7 +97,7 @@
 				style:top={-tickLen + 2 + 'px'}
 				style:transform={`translate(calc(-50% + ${dx}px), calc(-100% + ${dy}px))`}
 			>
-				{format(tick)}
+				{formatTick(tick)}
 			</div>
 		</div>
 	{/each}

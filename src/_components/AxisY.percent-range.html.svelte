@@ -16,7 +16,7 @@
 	 * @property {boolean} [snapBaselineLabel=false] - When labelPosition='even', adjust the lowest label so that it sits above the tick mark.
 	 * @property {boolean} [gridlines=true] - Show gridlines extending into the chart area.
 	 * @property {number} [tickMarkLength] - Length of the tick mark in pixels. Defaults to the width of the widest label when `labelPosition` is 'above', otherwise 6.
-	 * @property {(d: any) => string} [format=d => d] - Formats a tick value for display.
+	 * @property {(d: any) => string} [format] - Formats a tick value for display. Defaults to the scale's tickFormat for time scales, otherwise d => d.
 	 * @property {number|Array<any>|((ticks: Array<any>) => Array<any>)} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
 	 * @property {number} [tickGutter=0] - The gap in pixels between the left edge of the chart area and the tick.
 	 * @property {number} [dx=0] - Horizontal offset of the label in pixels.
@@ -32,7 +32,7 @@
 		snapBaselineLabel = false,
 		gridlines = true,
 		tickMarkLength = undefined,
-		format = d => d,
+		format,
 		ticks = 4,
 		tickGutter = 0,
 		dx = 0,
@@ -59,10 +59,20 @@
 					? ticks(k.yScale.ticks())
 					: k.yScale.ticks(ticks)
 	);
+
+	let isTime = $derived(
+		k.yScale.domain()[0] instanceof Date && typeof k.yScale.tickFormat === 'function'
+	);
+
+	/** @type {(d: any) => string} */
+	let formatTick = $derived(
+		format ?? (isTime ? k.yScale.tickFormat(typeof ticks === 'number' ? ticks : undefined) : d => d)
+	);
+
 	let widestTickLen = $derived(
 		Math.max(
 			10,
-			Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0)))
+			Math.max(...tickVals.map(d => formatTick(d).toString().split('').reduce(calcStringLength, 0)))
 		)
 	);
 	let tickLen = $derived(
@@ -103,7 +113,7 @@
 						? -3
 						: 4)}px))"
 			>
-				{format(tick)}
+				{formatTick(tick)}
 			</div>
 		</div>
 	{/each}
